@@ -1,0 +1,841 @@
+2022-09-09 17:15:34 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:17:27 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:19:09 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:19:18 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:19:22 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:20:51 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:22:39 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:22:42 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:25:21 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:26:37 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:26:55 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'test'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'test\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'test'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:27:47 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:29:49 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:30:56 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:31:03 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:32:51 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:34:08 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:34:10 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:34:11 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:34:14 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:34:15 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-09 17:35:02 error: [Cake\Database\Exception\MissingConnectionException] Connection to Mysql could not be established: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 133
+Exception Attributes: array (
+  'driver' => 'Mysql',
+  'reason' => 'SQLSTATE[HY000] [1045] Access denied for user \'root\'@\'localhost\' (using password: YES)',
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: YES) in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php on line 125
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:125
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver.php:131
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:164
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/SchemaDialect.php:51
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Driver/Mysql.php:216
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:53
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:417
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:65
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Utility/TableScanner.php:82
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/AllCommand.php:88
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+2022-09-24 17:07:19 error: [Cake\Database\Exception\DatabaseException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jbm_vms.rfq_inqueries' doesn't exist in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php on line 160
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/ORM/Table.php:513
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'jbm_vms.rfq_inqueries' doesn't exist in /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:328
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Connection.php:331
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:158
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/ORM/Table.php:513
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
+
