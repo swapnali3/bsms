@@ -35,6 +35,7 @@ class RfqDetail extends Entity
      */
     protected $_accessible = [
         'buyer_seller_user_id' => true,
+        'rfq_no' => true,
         'product_id' => true,
         'status' => true,
         'added_date' => true,
