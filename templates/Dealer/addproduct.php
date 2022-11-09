@@ -6,7 +6,7 @@
                 <div class="sidebar">
                     <div class="sidebar-widgets-wrap">
                         <div class="widget widget_links clearfix">
-                            <h4>Categories</h4>
+                            <h4>Top Categories</h4>
                             <ul>
                                 <li><a href="#">Junction Box</a></li>
                                 <li><a href="#">Bezel</a></li>
@@ -28,6 +28,7 @@
             <div class="col-lg-10">
                 <h3>Request for Quotation</h3>
                 <?= $this->Flash->render('auth') ?>
+                <?= $this->Flash->render() ?>
                 <?= $this->Form->create(null, array('type' => 'file')) ?>
                 <div class="card">
                     <div class="card-body" id="mulform">
@@ -65,18 +66,18 @@
                     </div>
                     <div class="card-footer">
                         <button label="Login" class="button button-rounded button-reveal button-large button-red text-end bin"
-                            type="button" onclick="deleteform()" style="float:right;display:none;">
+                            type="button" onclick="deleteform()" style="display:none;">
                             <i class="icon-line2-trash"></i>
                             <span>DELETE</span>
                         </button>
                         <button label="Login" class="button button-rounded button-reveal button-large button-purple"
-                            type="button" onclick="addform()" style="float:right;">
+                            type="button" onclick="addform()">
                             <i class="icon-line-plus"></i>
                             <span>ADD</span>
                         </button>
                         <button label="Login"
                             class="button button-rounded button-reveal button-large button-yellow button-light text-end"
-                            type="submit">
+                            type="submit" style="float:right;">
                             <i class="icon-line-save"></i>
                             <span>SAVE RFQ</span>
                         </button>
@@ -113,7 +114,116 @@
                             </div>
                             <div class="col-4">
                                 <label for="`+ id + `-product">Product :</label>
-                                <input list="`+ id + `-products" name="` + id + `[product]" aria-required="true" required="required" id="` + id + `-product" class="form-control product" data-id="` + id + `"><datalist id="` + id + `-products"></datalist>
+                                <select name="`+ id + `[product_id]" required="required" class="form-control product" data-id="`+ id + `" id="`+ id + `-product-id">
+                                <option value="">Select</option>
+                                <option value="1196">ABS</option>
+                                <option value="1197">ADVERSETISEMENT HOLDER</option>
+                                <option value="1198">ALTERNATOR</option>
+                                <option value="1199">DROP ARM</option>
+                                <option value="1200">ANCHORAGE</option>
+                                <option value="1201">ALUMINIUM &amp; ITS RELATED PARTS</option>
+                                <option value="1202">AIR CLEANER</option>
+                                <option value="1203">AIR TANK</option>
+                                <option value="1204">AXLE (FR RR)</option>
+                                <option value="1205">HV BATTERY PACK</option>
+                                <option value="1206">BUS BAR</option>
+                                <option value="1207">BLOCK</option>
+                                <option value="1208">AIR BELLOW</option>
+                                <option value="1209">BUZZER</option>
+                                <option value="1210">BEARING</option>
+                                <option value="1211">BALL JOINTS</option>
+                                <option value="1212">BRACKET</option>
+                                <option value="1213">BELT</option>
+                                <option value="1214">BEAM</option>
+                                <option value="1215">RUBBER BEADINGS</option>
+                                <option value="1216">BOX</option>
+                                <option value="1217">AIR DRYER</option>
+                                <option value="1218">BRUSH</option>
+                                <option value="1219">BACKREST</option>
+                                <option value="1220">HOOD</option>
+                                <option value="1221">BUMPER (FR, RR)</option>
+                                <option value="1222">BEZEL</option>
+                                <option value="1223">JUNCTION BOX</option>
+                                <option value="1224">ADHESIVE</option>
+                                <option value="1225">CIRCUIT DIAGRAM</option>
+                                <option value="1226">TRACTION CONTAINER</option>
+                                <option value="1227">COVER, MOUNTING ABS VALVES COVER</option>
+                                <option value="1228">USB CHARGER</option>
+                                <option value="1229">CLUTCH PLATE</option>
+                                <option value="1230">COIL IGNITION</option>
+                                <option value="1231">CLAMPS</option>
+                                <option value="1232">COMPRESSOR</option>
+                                <option value="1233">CONNECTORS</option>
+                                <option value="1234">CONTROLLER</option>
+                                <option value="1235">COUPLING</option>
+                                <option value="1236">CYLINDER</option>
+                                <option value="1237">COLLARS</option>
+                                <option value="1238">DRIVER CURTAIN</option>
+                                <option value="1239">Cooling System</option>
+                                <option value="1240">CASTING</option>
+                                <option value="1241">DASHBOARD</option>
+                                <option value="1242">DIMISTER</option>
+                                <option value="1243">DOME</option>
+                                <option value="1244">Floor Drainage</option>
+                                <option value="1245">PIN (HORN PIN)</option>
+                                <option value="1246">DOOR</option>
+                                <option value="1247">DIP STICK</option>
+                                <option value="1248">DISPLAY UNIT</option>
+                                <option value="1249">ELECTRICAL BASE</option>
+                                <option value="1250">ELECTROSTATIC DISCHARGE GASKET</option>
+                                <option value="1251">ELECTRICAL ANTENNA</option>
+                                <option value="1252">ENGINE</option>
+                                <option value="1253">ELECTRICAL MDVR</option>
+                                <option value="1254">EXTRUDED SECTIONS</option>
+                                <option value="1255">INLET &amp; EXHAUST MANIFOLD</option>
+                                <option value="1256">FITTINGS</option>
+                                <option value="1257">FACIA</option>
+                                <option value="1258">FIRE DETECTION SYSTEM</option>
+                                <option value="1259">FRAME</option>
+                                <option value="1260">FIXTURE</option>
+                                <option value="1261">FLANGE</option>
+                                <option value="1262">CHASSIS FRAME ASSY</option>
+                                <option value="1263">FAN (EE)</option>
+                                <option value="1264">FRP</option>
+                                <option value="1265">FUEL SYSTEM</option>
+                                <option value="1266">FOOTSTEP</option>
+                                <option value="1267">FUSE</option>
+                                <option value="1268">FORGING</option>
+                                <option value="1269">BOLT - ON ASSEMBLY</option>
+                                <option value="1270">GEAR BOX - TRANSMISSION</option>
+                                <option value="1271">GANCIO</option>
+                                <option value="1272">GRID - TRAY</option>
+                                <option value="1273">MESH</option>
+                                <option value="1274">GUSSET</option>
+                                <option value="1275">GLASS - SIDE GLASS, FR WINDSCREEN, RR WINDSCREEN</option>
+                                <option value="1276">HOMOLOGATION CERTIFICATE</option>
+                                <option value="1277">HANDHOLD</option>
+                                <option value="1278">HINGE</option>
+                                <option value="1279">HARDDISK</option>
+                                <option value="1281">HPL</option>
+                                <option value="1282">ELECTRICAL HORN</option>
+                                <option value="1283">HOUSING</option>
+                                <option value="1284">HATCH</option>
+                                <option value="1285">HUB</option>
+                                <option value="1286">HVAC</option>
+                                <option value="1287">HARDWARE</option>
+                                <option value="1288">HYDRAULIC SYSTEM</option>
+                                <option value="1289">INSTRUMENT CLUSTER</option>
+                                <option value="1290">INSULATION</option>
+                                <option value="1291">INVERTER</option>
+                                <option value="1292">JACK</option>
+                                <option value="1293">KINGPIN</option>
+                                <option value="1294">KIT</option>
+                                <option value="1295">LAMP ASSY</option>
+                                <option value="1296">LID</option>
+                                <option value="1297">LATCHES</option>
+                                <option value="1298">LINNER</option>
+                                <option value="1299">LAMP</option>
+                                <option value="1300">VALIDATOR MACHINE</option>
+                                <option value="1301">MACHINED COMPO</option>
+                                <option value="1302">MEDICAL KIT</option>
+                                <option value="1303">MUDGUARD</option>
+                            </select>
                             </div>
                             <div class="col-4" id="`+ id + `-others" style="display: none;"></div>
                             <div class="col-4">
