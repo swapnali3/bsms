@@ -35,7 +35,7 @@
                             <?php foreach ($rfqDetails as $rfqDetail): ?>
                             <tr>
                                 <td>
-                                    <?= h($rfqDetail['id']) ?>
+                                    <?= h($username .'-'. str_pad($rfqDetail['rfq_no'], 5, 0, STR_PAD_LEFT)) ?>
                                 </td>
                                 <td>
                                     <?= h($rfqDetail['added_date']) ?>

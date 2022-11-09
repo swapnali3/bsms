@@ -105,8 +105,9 @@ class DealerController extends AppController
         //$this->loadModel('RfqDetails');
         //$this->loadModel('RfqInquiries');
 
-        $rfqDetails = $conn->execute("select rfq_details.id, rfq_details.added_date, rfq_inquiries.reach, rfq_inquiries.respond
+        $rfqDetails = $conn->execute("select rfq_details.id,rfq_details.rfq_no, products.name as category, rfq_details.added_date, rfq_inquiries.reach, rfq_inquiries.respond
  from rfq_details 
+ join products on (products.id = rfq_details.product_id)
  left join (select rfq_id, count(seller_id) reach, count(inquiry) respond FROM rfq_inquiries group by rfq_inquiries.rfq_id) rfq_inquiries on (rfq_inquiries.rfq_id = rfq_details.id)
  where rfq_details.buyer_seller_user_id=" .$session->read('user.id'));
 

@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="col-8">
                                         :
-                                        <?=$val['id']?>
+                                        <?=$val['rfq_no']?>
                                     </div>
                                     <div class="col-4">
                                         Category
