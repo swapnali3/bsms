@@ -64,8 +64,8 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button label="Login" class="button button-rounded button-reveal button-large button-red text-end"
-                            type="button" onclick="deleteform()" style="float:right;">
+                        <button label="Login" class="button button-rounded button-reveal button-large button-red text-end bin"
+                            type="button" onclick="deleteform()" style="float:right;display:none;">
                             <i class="icon-line2-trash"></i>
                             <span>DELETE</span>
                         </button>
@@ -96,12 +96,14 @@
         addrow(id);
         form_ID.push(id);
         category_datalist(id);
+        if (form_ID.length > 1){$(".bin").show();}
     }
 
     function deleteform(){
         var id = form_ID[form_ID.length - 1];
         form_ID.pop(id);
         $("#RFQ" + id).remove();
+        if (form_ID.length < 2){$(".bin").hide();}
     }
 
     function addrow(id) {
