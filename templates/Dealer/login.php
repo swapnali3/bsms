@@ -5,23 +5,38 @@
 ?>
 <div class="row">
     <div class="col-2">
+        <div class="row">
 
+        </div>
     </div>
-    <div class="col-8" id="slider" style='background-image: url("<?= $this->Url->build(' /') ?>img/bg2.jpg");background-size:cover;background-repeat: no-repeat;height:30vh'>
-        <div class="row mt-5 pt-5">
-            <div class="col-3"></div>
+    <div class="col-8" id="slider"
+        style='background-image: url("<?= $this->Url->build('/') ?>/img/bg2.jpg");background-size:cover;background-repeat: no-repeat;height:30vh'>
+        <div class="row ">
+            <div class="col-8 pt-3">
+                <h1 class="mb-1">Find The Right
+                    <br><span style="color: lightcoral;">Dealers</span> Around You
+                </h1>
+            </div>
+            <div class="col-4"></div>
             <div class="col-2">
                 <select name="" id="" class="form-control" style="width: 100%;
-        height: 56px;
+        height: 48px;
         padding: 0px 40px 0px 15px;
         border: 1px solid #D4E7FE;
         border-radius: 5px;
         color: #002678;
-        font-weight: 500;outline: none;margin: 0;
+        font-weight: 500;
+        outline: none;
+        margin: 4px 0px 0px 0px;
         font-family: inherit;
         font-size: inherit;
-        line-height: inherit;box-sizing: border-box;    outline-offset: 0px;     text-rendering: auto;  letter-spacing: normal;
-        word-spacing: normal; text-transform: none;
+        line-height: inherit;
+        box-sizing: border-box;
+        outline-offset: 0px;
+        text-rendering: auto;
+        letter-spacing: normal;
+        word-spacing: normal;
+        text-transform: none;
         text-indent: 0px;
         text-shadow: none;
         display: inline-block;
@@ -34,41 +49,28 @@
                     <option value="">Seller</option>
                 </select>
             </div>
-            <div class="col-3">
+            <div class="col-4">
                 <input type="text" class="global" name="common_search" id="search-blk"
                     placeholder="What are you looking for?" style="width: 100%;
-        height: 56px;
-        padding: 0px 40px 0px 15px;
-        border: 1px solid #D4E7FE;
-        border-radius: 5px;
-        color: #002678;
-        font-weight: 500;outline: none;margin: 0;
-        font-family: inherit;
-        font-size: inherit;
-        line-height: inherit;box-sizing: border-box;    outline-offset: 0px;     text-rendering: auto;  letter-spacing: normal;
-        word-spacing: normal; text-transform: none;
-        text-indent: 0px;
-        text-shadow: none;
-        display: inline-block;
-        text-align: start;
-        appearance: auto;
-        -webkit-rtl-ordering: logical;
-        cursor: text;
-        background-color: field;">
+                    height: 48px;               padding: 0px 40px 0px 15px;             border: 1px solid #D4E7FE;
+                    border-radius: 5px;         color: #002678;                       font-weight: 500;
+                    outline: none;              margin: 4px 0px 0px 0px;                font-family: inherit;
+                    font-size: inherit;         line-height: inherit;                   box-sizing: border-box;
+                    outline-offset: 0px;        text-rendering: auto;                   letter-spacing: normal;
+                    word-spacing: normal;       text-transform: none;                   text-indent: 0px;
+                    text-shadow: none;          display: inline-block;                  text-align: start;
+                    appearance: auto;           -webkit-rtl-ordering: logical;          cursor: text;
+                    background-color: field;">
             </div>
             <div class="col-3">
-                <a href="#"
-                    class="button button-rounded button-reveal button-large button-yellow button-light text-end">
+                <a href="#" class="button button-rounded button-reveal button-large button-dirtygreen text-end">
                     <i class="icon-search"></i><span>Search</span>
                 </a>
             </div>
-        </div>  
+        </div>
     </div>
-    <div class="col-2">
-
-    </div>
+    <div class="col-2"></div>
 </div>
-
 <br>
 <section>
     <div class="container clearfix">

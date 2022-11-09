@@ -97,12 +97,12 @@ body #side-panel.dark {
 
 .dark #header,
 #header.dark {
-	background-color: #333;
-	border-bottom-color: rgba(255,255,255,0.05);
+	background-color: #ffa51da3;;
+	border-bottom-color: #ffa51d;
 }
 
 .dark #header-wrap {
-	background-color: #333;
+	background-color: #ff9900d9;
 }
 
 @media (min-width: 992px) {
@@ -225,7 +225,7 @@ body #side-panel.dark {
 
 .dark .menu-item:hover > .menu-link,
 .dark .menu-item.current > .menu-link {
-	color: #1ABC9C;
+	color: #004b88;
 }
 
 @media (max-width: 991.98px) {

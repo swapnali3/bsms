@@ -17,7 +17,7 @@
 		rel="stylesheet" type="text/css" />
 	<?= $this->Html->css(['cake', 'bootstrap', 'style', 'dark', 'font-icons', 'animate', 'magnific-popup', 'custom', 'settings', 'layers', 'navigation', 'custom']) ?>
 	<script>
-		var baseUrl = '<?= $this->Url->build(' / ') ?>';
+		var baseUrl = '<?= $this->Url->build('/') ?>';
 	</script>
 	<?= $this->fetch('meta') ?>
 	<?= $this->fetch('css') ?>
@@ -27,7 +27,6 @@
 
 <body class="stretched">
 	<div id="wrapper" class="clearfix">
-
 		<header id="header" class="full-header dark">
 			<div id="header-wrap">
 				<div class="container">
@@ -35,10 +34,10 @@
 
 						<div id="logo">
 							<a href="<?= $this->Url->build('/') ?>" class="standard-logo"
-								data-dark-logo="<?= $this->Url->build('/') ?>/img/logo_white.png"><img
+								data-dark-logo="<?= $this->Url->build('/') ?>img/logo_white.png"><img
 									src="<?= $this->Url->build('/') ?>img/logo.png" alt="ftspl"
 									style="max-height:9vh;"></a>
-							<a href="index.html" class="retina-logo" data-dark-logo="img/logo_white.png"><img
+							<a href="index.html" class="retina-logo" data-dark-logo="<?= $this->Url->build('/') ?>img/logo_white.png"><img
 									src="<?= $this->Url->build('/') ?>img/logo.png" alt="ftspl"
 									style="max-height:9vh;"></a>
 						</div>
@@ -71,10 +70,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="header-wrap-clone"></div>
 		</header>
-
-		<!-- <div class="modal-on-load" data-target="#myModal1"></div> -->
 
 		<!-- Login -->
 		<div class="modal1 mfp-hide" id="myModal1">
@@ -85,8 +81,7 @@
 				<div class="card">
 					<div class="card-body">
 						<div class="row">
-							<div class="col-12">
-							</div>
+							<div class="col-12"></div>
 							<div class="col-6">
 								<?= $this->Form->control('username', [
 														'label' => 'USERNAME',
@@ -249,120 +244,48 @@
 			</div>
 		</div>
 
-		<?= $this->fetch('content') ?>
-
+        <?= $this->fetch('content') ?>
+        
 		<!-- Footer		============================================= -->
 		<footer id="footer" class="dark">
 			<div class="container">
 				<div class="footer-widgets-wrap p-3">
 					<div class="row col-mb-50">
-						<div class="col-lg-8">
+						<div class="col-lg-12">
 							<div class="row col-mb-50">
-								<div class="col-md-4" style="align-self: center;">
-									<div class="widget clearfix">
-										<img src="<?= $this->Url->build('/') ?>img/logo_white.png" alt="Image"
-											class="footer-logo">
-										<abbr title="Phone Number"><strong>Phone:</strong></abbr> (+91) 083693
-										90146<br>
-										<abbr title="Email Address"><strong>Email:</strong></abbr>
-										support@fts-pl.com
-									</div>
-								</div>
 								<div class="col-md-4">
-									<h3 class="mb-1">KNOWLEDGE BASE</h3>
+									<h5 class="mb-1">KNOWLEDGE BASE</h5>
 									<div class="widget widget_links clearfix mt-2">
 										<ul>
 											<li>&nbsp;How Test Quality </li>
 											<li>&nbsp;How To Produce Quality </li>
-											<li>&nbsp;Today's Rate </li>
-											<li>&nbsp;Month Wise Rates </li>
+											<li>&nbsp;Today's Rate</li>
+											<li>&nbsp;Month Wise Rates</li>
 										</ul>
 									</div>
 								</div>
 								<div class="col-md-4">
-									<h3 class="mb-1">KNOWLEDGE BASE</h3>
+									<h5 class="mb-1">&nbsp;</h5>
 									<div class="widget widget_links clearfix mt-2">
 										<ul>
-											<li>&nbsp;News Event </li>
-											<li>&nbsp;Knowledge Base </li>
-											<li>&nbsp;Articles On Latest Trend </li>
-											<li>&nbsp;How It Works </li>
+											<li>&nbsp; Home</li>
+											<li>&nbsp; About Us</li>
+											<li>&nbsp; Contact Us</li>
+											<li>&nbsp; Enquiry</li>
 										</ul>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="col-lg-4">
-							<div class="row col-mb-50">
-								<div class="col-md-4 col-lg-12">
-									<div class="widget clearfix" style="margin-bottom: -20px;">
-										<div class="row">
-											<div class="col-lg-6 bottommargin-sm">
-												<div class="counter counter-small"><span data-from="50" data-to="1506"
-														data-refresh-interval="80" data-speed="3000"
-														data-comma="true"></span></div>
-												<h5 class="mb-0">Total Buyers</h5>
-											</div>
-											<div class="col-lg-6 bottommargin-sm">
-												<div class="counter counter-small"><span data-from="100" data-to="184"
-														data-refresh-interval="50" data-speed="2000"
-														data-comma="true"></span></div>
-												<h5 class="mb-0">Sellers</h5>
-											</div>
-											<div class="col-lg-12 bottommargin-sm">
-												<address>
-													<strong>Address:</strong><br>
-													401, Meet Galaxy,Trimurti Lane
-													<br>Behind Tip Top Plaza,
-													<br>Teen Hath Naka, Thane,
-													<br>Maharashtra - 400604
-												</address>
-											</div>
-										</div>
+								<div class="col-md-4">
+									<h5 class="mb-1">&nbsp;</h5>
+									<div class="widget widget_links clearfix mt-2">
+										<ul>
+											<li>&nbsp; Regional Buyers</li>
+											<li>&nbsp; Regional Sellers</li>
+											<li>&nbsp; Dealers</li>
+											<li>&nbsp; Booming Products</li>
+										</ul>
 									</div>
 								</div>
-								<!-- <div class="col-md-5 col-lg-12">
-                                    <div class="widget subscribe-widget clearfix">
-                                        <h5><strong>Subscribe</strong> to Our Newsletter to get Important News, Amazing
-                                            Offers &amp; Inside Scoops:</h5>
-                                        <div class="widget-subscribe-form-result"></div>
-                                        <form id="widget-subscribe-form" action="include/subscribe.php" method="post"
-                                            class="mb-0">
-                                            <div class="input-group mx-auto">
-                                                <div class="input-group-text"><i class="icon-email2"></i></div>
-                                                <input type="email" id="widget-subscribe-form-email"
-                                                    name="widget-subscribe-form-email"
-                                                    class="form-control required email" placeholder="Enter your Email">
-                                                <button class="btn btn-success" type="submit">Subscribe</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div> -->
-								<!-- <div class="col-md-3 col-lg-12">
-									<div class="widget clearfix" style="margin-bottom: -20px;">
-										<div class="row">
-											<div class="col-6 col-md-12 col-lg-6 clearfix bottommargin-sm">
-												<a href="#" class="social-icon si-dark si-colored si-facebook mb-0"
-													style="margin-right: 10px;">
-													<i class="icon-facebook"></i>
-													<i class="icon-facebook"></i>
-												</a>
-												<a href="#"><small style="display: block; margin-top: 3px;"><strong>Like
-															us</strong><br>on Facebook</small></a>
-											</div>
-											<div class="col-6 col-md-12 col-lg-6 clearfix">
-												<a href="#" class="social-icon si-dark si-colored si-rss mb-0"
-													style="margin-right: 10px;">
-													<i class="icon-rss"></i>
-													<i class="icon-rss"></i>
-												</a>
-												<a href="#"><small
-														style="display: block; margin-top: 3px;"><strong>Subscribe</strong><br>to
-														RSS Feeds</small></a>
-											</div>
-										</div>
-									</div>
-								</div> -->
 							</div>
 						</div>
 					</div>
