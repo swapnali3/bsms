@@ -128,7 +128,7 @@ class DealerController extends AppController
         $this->loadModel('RfqInquiries');
 
         $rfqDetails = $this->RfqDetails->get($id, [
-            'contain' => ['Products', 'ProductSubCategories', 'Uoms'],
+            'contain' => ['Products', 'Uoms'],
         ]);
         $attrParams = json_decode($rfqDetails->uploaded_files, true);
 
@@ -174,47 +174,59 @@ class DealerController extends AppController
         $this->set(compact('products', 'uoms'));
 
         if ($this->request->is('post')) {
-            $this->loadModel("RfqDetails");
-            $RfqDetail = $this->RfqDetails->newEmptyEntity();
-            $request = $this->request->getData();
-
-            $productImages = $this->request->getData("files");
-            
-            $uploads["files"] = array();
-            
-            // file uploaded
-            foreach($productImages as $productImage) {
-                $fileName = time().'_'.$productImage->getClientFilename();
-                $fileType = $productImage->getClientMediaType();
-
-                if ($fileType == "application/pdf" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
-                    $imagePath = WWW_ROOT . "uploads/" . $fileName;
-                    $productImage->moveTo($imagePath);
-                    $uploads["files"][] = "uploads/" . $fileName;
-                }
-            }
-
-            //echo '<pre>';print_r($data); print_r($request); exit;
-
             $session = $this->getRequest()->getSession();
             $userId = $session->read('user.id');
-            $data = array();
-            $data['buyer_seller_user_id'] = $userId;
-            $data['product_id'] = $request['product_id'];
-            $data['product_sub_category_id'] = $request['product_sub_category_id'];
-            $data['part_name'] = $request['part_name'];
-            $data['qty'] = $request['qty'];
-            $data['uom_code'] = $request['uom_code'];
-            $data['remarks'] = $request['remarks'];
-            $data['make'] = $request['make'];
-            $data['added_date'] = date('Y-m-d H:i:s');
-            $data['uploaded_files'] = json_encode($uploads["files"]);
-
-            //print_r($data); exit;
-            $RfqDetail = $this->RfqDetails->patchEntity($RfqDetail, $data);
-
+            $this->loadModel("RfqDetails");
             
-            if($this->RfqDetails->save($RfqDetail)) {
+            //$RfqDetail = $this->RfqDetails->newEmptyEntity();
+            $request = $this->request->getData();
+            $data = array();
+
+            $conn = ConnectionManager::get('default');
+            $maxrfq = $conn->execute("SELECT MAX(rfq_no) maxrfq FROM rfq_details RD WHERE RD.buyer_seller_user_id=$userId");
+
+            foreach ($maxrfq as $maxid) {
+                $maxRfqId = $maxid['maxrfq'] + 1; 
+            }   
+
+            //echo $maxRfqId;
+            //echo '<pre>'; print_r($request); exit;
+
+
+            foreach ($request as $key => $row) {
+                $record = array();
+                $productImages = $row["files"];
+                $uploads["files"] = array();
+                // file uploaded
+                foreach($productImages as $productImage) {
+                    $fileName = time().'_'.$productImage->getClientFilename();
+                    $fileType = $productImage->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
+                        $imagePath = WWW_ROOT . "uploads/" . $fileName;
+                        $productImage->moveTo($imagePath);
+                        $uploads["files"][] = "uploads/" . $fileName;
+                    }
+                }
+
+                $record['buyer_seller_user_id'] = $userId;
+                $record['rfq_no'] = $maxRfqId;
+                $record['product_id'] = $row['product_id'];
+                $record['product_sub_category_id'] = $row['product_sub_category_id'];
+                $record['part_name'] = $row['part_name'];
+                $record['qty'] = $row['qty'];
+                $record['uom_code'] = $row['uom_code'];
+                $record['remarks'] = $row['remarks'];
+                $record['make'] = $row['make'];
+                $record['added_date'] = date('Y-m-d H:i:s');
+                $record['uploaded_files'] = json_encode($uploads["files"]);
+
+                $data[] = $record;
+
+            }
+
+            $RfqDetail = $this->RfqDetails->newEntities($data);
+            if($this->RfqDetails->saveMany($RfqDetail)) {
                 $this->Flash->success(__('The product has been saved.'));
 
                 return $this->redirect(['action' => 'dashboard']);
