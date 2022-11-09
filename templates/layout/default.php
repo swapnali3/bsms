@@ -243,7 +243,7 @@
 				</form>
 			</div>
 		</div>
-
+		<?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
         
 		<!-- Footer		============================================= -->

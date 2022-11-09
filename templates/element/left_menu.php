@@ -1,4 +1,4 @@
-<li class="menu-item"><a class="menu-link" href="#"><div>Welcome, <?= $username ?></div></a></li>
+<li class="menu-item"><a class="menu-link" ><div>Welcome, <?= $username ?></div></a></li>
 <li class="menu-item"><a class="menu-link" href="<?= $this->Url->build('/') ?>dealer/dashboard/">
         <div>Dashboard</div>
     </a>

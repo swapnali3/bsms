@@ -28,7 +28,6 @@
             <div class="col-lg-10">
                 <h3>Request for Quotation</h3>
                 <?= $this->Flash->render('auth') ?>
-                <?= $this->Flash->render() ?>
                 <?= $this->Form->create(null, array('type' => 'file')) ?>
                 <div class="card">
                     <div class="card-body" id="mulform">
