@@ -15,7 +15,7 @@
 	<link
 		href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&display=swap"
 		rel="stylesheet" type="text/css" />
-	<?= $this->Html->css(['cake', 'bootstrap', 'style', 'dark', 'font-icons', 'animate', 'magnific-popup', 'custom', 'settings', 'layers', 'navigation', 'custom']) ?>
+	<?= $this->Html->css(['cake', 'bootstrap', 'style', 'dark', 'font-icons', 'animate', 'magnific-popup', 'components/bs-select.css', 'custom', 'settings', 'layers', 'navigation', 'custom']) ?>
 	<script>
 		var baseUrl = '<?= $this->Url->build('/') ?>';
 	</script>
@@ -347,7 +347,7 @@
 		</footer>
 	</div>
 	<div id="gotoTop" class="icon-angle-up"></div>
-	<?= $this->Html->script(['plugins.min', 'functions', 'jquery.themepunch.tools.min', 'jquery.themepunch.revolution.min', 'extensions/revolution.extension.video.min', 'extensions/revolution.extension.slideanims.min', 'extensions/revolution.extension.actions.min', 'extensions/revolution.extension.layeranimation.min', 'extensions/revolution.extension.kenburn.min', 'extensions/revolution.extension.navigation.min', 'extensions/revolution.extension.migration.min', 'extensions/revolution.extension.parallax.min', 'common', 'custom']) ?>
+	<?= $this->Html->script(['plugins.min', 'components/bs-select.js', 'components/selectsplitter.js', 'functions', 'jquery.themepunch.tools.min', 'jquery.themepunch.revolution.min', 'extensions/revolution.extension.video.min', 'extensions/revolution.extension.slideanims.min', 'extensions/revolution.extension.actions.min', 'extensions/revolution.extension.layeranimation.min', 'extensions/revolution.extension.kenburn.min', 'extensions/revolution.extension.navigation.min', 'extensions/revolution.extension.migration.min', 'extensions/revolution.extension.parallax.min', 'common', 'custom']) ?>
 	<script>
 		window.onload = function login() {
 			$("#id_login").addClass('modal-on-load');
@@ -355,6 +355,7 @@
 		$(document).on("click", ".login", function () {
 			$("#id_login").trigger("click");
 		});
+		$('.selectsplitter').selectsplitter();
 	</script>
 </body>
 

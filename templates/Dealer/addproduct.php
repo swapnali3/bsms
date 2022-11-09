@@ -33,15 +33,10 @@
                     <div class="card-body" id="mulform">
                         <div class="row" id="RFQ0">
                             <div class="col-12">
-                                <h5><b>RFQ. 1
-                                        <hr>
-                                    </b></h5>
+                                <h5><b>PRODUCT 1 <div style="outline-style: solid;"></div></b></h5>
                             </div>
                             <div class="col-4">
-                                <label for="product">Product :</label>
-                                <input list="0-products" name="0[product]" aria-required="true" required="required"
-                                    id="product" class="form-control product" data-id="0">
-                                <datalist id="0-products"></datalist>
+                            <?= $this->Form->control('0.product_id', array('required' => true, 'type' => 'select','options' => $products,'empty' => 'Select',  'class' => 'form-control product', 'label' => 'Category', 'data-id' => '0')); ?>
                             </div>
                             <div class="col-4" id="0-others" style="display: none;"></div>
                             <div class="col-4">
@@ -69,10 +64,15 @@
                         </div>
                     </div>
                     <div class="card-footer">
+                        <button label="Login" class="button button-rounded button-reveal button-large button-red text-end"
+                            type="button" onclick="deleteform()" style="float:right;">
+                            <i class="icon-line2-trash"></i>
+                            <span>DELETE</span>
+                        </button>
                         <button label="Login" class="button button-rounded button-reveal button-large button-purple"
-                            type="button" onclick="addform()">
+                            type="button" onclick="addform()" style="float:right;">
                             <i class="icon-line-plus"></i>
-                            <span>ADD Form</span>
+                            <span>ADD</span>
                         </button>
                         <button label="Login"
                             class="button button-rounded button-reveal button-large button-yellow button-light text-end"
@@ -98,10 +98,16 @@
         category_datalist(id);
     }
 
+    function deleteform(){
+        var id = form_ID[form_ID.length - 1];
+        form_ID.pop(id);
+        $("#RFQ" + id).remove();
+    }
+
     function addrow(id) {
-        $("#mulform").append(`<div class="row" id="RFQ` + (id + 1) + `">
+        $("#mulform").append(`<div class="row" id="RFQ` + (id) + `">
                             <div class="col-12">
-                                <h5><b><br>RFQ. `+ (id + 1) + `<hr></b></h5>
+                            <br><h5><b>PRODUCT `+ (id + 1) + ` <div style="outline-style: solid;"></div></b></h5>
                             </div>
                             <div class="col-4">
                                 <label for="`+ id + `-product">Product :</label>
@@ -127,14 +133,13 @@
     };
 
     function category_datalist(id) {
-        for (var item in category) { $("#" + id + "-products").append(`<option value="` + category[item] + `"></option>`); }
+        $("#" + id + "-product-id").append(`<option value="0">Others</option>`);
     }
-
     category_datalist(0)
     $(document).on("change", ".product", function () {
         var value = $(this).val();
         var id = $(this).data('id');
-        if (value == "Others") {
+        if (value == "0") {
             $("#" + id + "-others").prepend(`<div class="input text required"><label for="` + id + `-other">Name Category</label><input type="text" name="` + id + `[other]" required="required" options="" empty="Select" id="other_id" class="form-control" aria-required="true"></div>`).show();
         } else { $("$" + id + "-other").empty().show(); }
     });
