@@ -3,7 +3,7 @@
  * @var \App\View\AppView $this
  */
 ?>
-<div class="row">
+<div class="row mt-3">
     <div class="col-2">
         <div class="row">
 
@@ -79,12 +79,12 @@
                 <div class="owl-item" style="max-width:90px;">
                     <div class="portfolio-item">
                         <div class="portfolio-image">
-                            <a href="#">
+                            <a >
                                 <img src="<?= $this->Url->build('/') ?>img/cat/electrical.png" alt="Open Imagination">
                             </a>
                         </div>
                         <div class="portfolio-desc">
-                            <h3><a href="#">Electrical</a></h3>
+                            <h3><a >Electrical</a></h3>
                             <!-- <span><a href="#">Hard Disk</a></span> -->
                         </div>
                     </div>
@@ -94,12 +94,12 @@
                 <div class="owl-item" style="max-width:90px;">
                     <div class="portfolio-item">
                         <div class="portfolio-image">
-                            <a href="#">
+                            <a >
                                 <img src="<?= $this->Url->build('/') ?>img/cat/devices.png" alt="Open Imagination">
                             </a>
                         </div>
                         <div class="portfolio-desc">
-                            <h3><a href="#">Electronics</a></h3>
+                            <h3><a >Electronics</a></h3>
                             <!-- <span><a href="#">Hard Disk</a></span> -->
                         </div>
                     </div>
@@ -109,12 +109,12 @@
                 <div class="owl-item" style="max-width:90px;">
                     <div class="portfolio-item">
                         <div class="portfolio-image">
-                            <a href="#">
+                            <a >
                                 <img src="<?= $this->Url->build('/') ?>img/cat/drug.png" alt="Open Imagination">
                             </a>
                         </div>
                         <div class="portfolio-desc">
-                            <h3><a href="#">Pharmacy</a></h3>
+                            <h3><a >Pharmacy</a></h3>
                             <!-- <span><a href="#">Hard Disk</a></span> -->
                         </div>
                     </div>
@@ -124,12 +124,12 @@
                 <div class="owl-item" style="max-width:90px;">
                     <div class="portfolio-item">
                         <div class="portfolio-image">
-                            <a href="#">
+                            <a >
                                 <img src="<?= $this->Url->build('/') ?>img/cat/engineering.png" alt="Open Imagination">
                             </a>
                         </div>
                         <div class="portfolio-desc">
-                            <h3><a href="#">Civil</a></h3>
+                            <h3><a >Civil</a></h3>
                             <!-- <span><a href="#">Hard Disk</a></span> -->
                         </div>
                     </div>
@@ -139,12 +139,12 @@
                 <div class="owl-item" style="max-width:90px;">
                     <div class="portfolio-item">
                         <div class="portfolio-image">
-                            <a href="#">
+                            <a >
                                 <img src="<?= $this->Url->build('/') ?>img/cat/metal.png" alt="Open Imagination">
                             </a>
                         </div>
                         <div class="portfolio-desc">
-                            <h3><a href="#">Metal</a></h3>
+                            <h3><a >Metal</a></h3>
                             <!-- <span><a href="#">Hard Disk</a></span> -->
                         </div>
                     </div>
@@ -154,12 +154,12 @@
                 <div class="owl-item" style="max-width:90px;">
                     <div class="portfolio-item">
                         <div class="portfolio-image">
-                            <a href="#">
+                            <a >
                                 <img src="<?= $this->Url->build('/') ?>img/cat/nut.png" alt="Open Imagination">
                             </a>
                         </div>
                         <div class="portfolio-desc">
-                            <h3><a href="#">Nut</a></h3>
+                            <h3><a >Nut</a></h3>
                             <!-- <span><a href="#">Hard Disk</a></span> -->
                         </div>
                     </div>

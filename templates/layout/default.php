@@ -33,11 +33,11 @@
 					<div class="header-row">
 
 						<div id="logo">
-							<a href="<?= $this->Url->build('/') ?>" class="standard-logo"
+							<a href="<?= $this->Url->build('/') ?>dealer/dashboard/" class="standard-logo"
 								data-dark-logo="<?= $this->Url->build('/') ?>img/logo_white.png"><img
 									src="<?= $this->Url->build('/') ?>img/logo.png" alt="ftspl"
 									style="max-height:9vh;"></a>
-							<a href="index.html" class="retina-logo" data-dark-logo="<?= $this->Url->build('/') ?>img/logo_white.png"><img
+							<a href="<?= $this->Url->build('/') ?>dealer/dashboard/" class="retina-logo" data-dark-logo="<?= $this->Url->build('/') ?>img/logo_white.png"><img
 									src="<?= $this->Url->build('/') ?>img/logo.png" alt="ftspl"
 									style="max-height:9vh;"></a>
 						</div>
