@@ -117,7 +117,7 @@
 		<div class="modal2 mfp-hide" id="myModal2">
 			<div class="block mx-auto" style="background-color: #FFF; max-width: 75vw; padding: 25px;">
 				<?= $this->Flash->render('auth') ?>
-				<form method="post" accept-charset="utf-8" action="/bsms/dealer/registration">
+				<form method="post" accept-charset="utf-8" action="<?= $this->Url->build('/') ?>dealer/registration">
 					<h2 class="m-0 p-0">Signup</h2>
 					<div class="card">
 						<div class="card-body">

@@ -1,4 +1,9 @@
-<?php ?>
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\BuyerSellerUser $buyerSellerUser
+ */
+?>
 <section id="content">
     <div class="container clearfix">
         <div class="row my-3">
@@ -20,10 +25,10 @@
                     </div>
                 </div>
                 <br>
-                    <a href="/bsms/dealer/addproduct/buyer">
-                        <img class="login" src="/bsms/img/button/1.png" style="width: 15vw;"></a>
-                    <a href="/bsms/dealer/addproduct/seller">
-                        <img class="login" src="/bsms/img/button/5.png" style="width: 15vw;"></a>
+                    <a href="<?= $this->Url->build('/') ?>dealer/addproduct/buyer">
+                        <img class="login" src="<?= $this->Url->build('/') ?>img/button/1.png" style="width: 15vw;"></a>
+                    <a href="<?= $this->Url->build('/') ?>dealer/addproduct/seller">
+                        <img class="login" src="<?= $this->Url->build('/') ?>img/button/5.png" style="width: 15vw;"></a>
             </div>
             <div class="col-lg-10">
                 <h3>Request for Quotation</h3>
@@ -52,14 +57,14 @@
                                 <?= $this->Form->control('0.uom_code', array('required' => true, 'class' => 'form-control','type' => 'select','options' => $uoms,'empty' => 'Select', 'id' => 'uom', 'label' =>'UOM')); ?>
                             </div>
                             <div class="col-4">
-                                <?= $this->Form->control('0.make', ['required' => true, 'class' => 'form-control','maxlength' => 100]); ?>
+                                <?= $this->Form->control('0.make', ['required' => true, 'maxlength' => 100, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-4">
-                                <?= $this->Form->control('0.remarks', ['type' => 'textarea', 'class' => 'form-control','required' => true, 'escape' => false, 'rows' => '1', 'cols' => '5', 'maxlength' => 200]); ?>
+                                <?= $this->Form->control('0.remarks', ['type' => 'textarea', 'required' => true, 'escape' => false, 'rows' => '1', 'cols' => '5', 'maxlength' => 200, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-4">
                                 <label>Attachment</label>
-                                <?= $this->Form->control('0.files[]', ['type' => 'file', 'class' => 'form-control','multiple' => 'multiple', 'label' => false]); ?>
+                                <?= $this->Form->control('0.files[]', ['type' => 'file', 'multiple' => 'multiple', 'label' => false, 'class' => 'form-control']); ?>
                             </div>
                         </div>
                     </div>

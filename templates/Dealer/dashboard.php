@@ -48,7 +48,7 @@
                                 </td>
                                 <td>0</td>
                                 <td>
-                                    <a href="/bsms/dealer/view/<?= h($rfqDetail['id']) ?>">
+                                    <a href="<?= $this->Url->build('/') ?>dealer/view/<?= h($rfqDetail['id']) ?>">
                                         <i class="icon-line2-eye"></i>
                                     </a>
                                 </td>
