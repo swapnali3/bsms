@@ -20,7 +20,7 @@
             <table>
                 <tr>
                     <th><?= __('Buyer Seller User') ?></th>
-                    <td><?= $rfqDetail->has('buyer_seller_user') ? $this->Html->link($rfqDetail->buyer_seller_user->id, ['controller' => 'BuyerSellerUsers', 'action' => 'view', $rfqDetail->buyer_seller_user->id]) : '' ?></td>
+                    <td><?= $rfqDetail->has('buyer_seller_user') ? $this->Html->link($rfqDetail->buyer_seller_user->company_name, ['controller' => 'BuyerSellerUsers', 'action' => 'view', $rfqDetail->buyer_seller_user->id]) : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Product') ?></th>

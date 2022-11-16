@@ -59,7 +59,7 @@ class AppController extends Controller
         //echo '<pre>'; print_r($session); exit;
         
         
-        if(!$session->read('user.id') && !(
+        if(!$session->check('user.id') && !(
             $this->request->getParam('action') == 'login' ||
         $this->request->getParam('action') == 'registration')) {
 

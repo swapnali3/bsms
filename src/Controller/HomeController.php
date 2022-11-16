@@ -40,6 +40,7 @@ class HomeController extends AppController
             
             $total = count($searchData);
             $this->set('total', $total);
+            $this->set('q', $request['q']);
             $this->set('type', $request['type']);
 
         } else {

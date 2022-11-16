@@ -125,6 +125,10 @@ class DealerController extends AppController
     public function view($id = null)
     {
 
+        $session = $this->getRequest()->getSession();
+        if(!$session->check('user.id')) {
+            return $this->redirect(array('action' => 'login'));
+        }
         $this->loadModel('RfqDetails');
         $this->loadModel('RfqInquiries');
 
@@ -166,6 +170,11 @@ class DealerController extends AppController
     }
 
     public function addproduct($type) {
+
+        $session = $this->getRequest()->getSession();
+        if(!$session->check('user.id')) {
+            return $this->redirect(array('action' => 'login'));
+        }
 
         $this->loadModel("Products");
         $this->loadModel("Uoms");
@@ -238,6 +247,10 @@ class DealerController extends AppController
     }
 
     public function productlist() {
+        $session = $this->getRequest()->getSession();
+        if(!$session->check('user.id')) {
+            return $this->redirect(array('action' => 'login'));
+        }
         $this->loadModel('RfqDetails');
         $session = $this->getRequest()->getSession();
         //print_r($session->read()); exit;
@@ -267,6 +280,10 @@ class DealerController extends AppController
 
     public function inquiry($id=null) {
         $session = $this->getRequest()->getSession();
+        if(!$session->check('user.id')) {
+            return $this->redirect(array('action' => 'login'));
+        }
+        $session = $this->getRequest()->getSession();
         $userType = $session->read('user.user_type');
         if($userType == 'seller') {
             if($this->request->is('post')) {
@@ -293,10 +310,16 @@ class DealerController extends AppController
     }
 
     public function search(){
+
+        $session = $this->getRequest()->getSession();
+        if(!$session->check('user.id')) {
+            return $this->redirect(array('action' => 'login'));
+        }
+
         $request = $this->request->getData();  
         $total = 0;
         $searchData = array();
-        
+
         if ($this->request->is('post') && strlen($request['q']) ) { 
             $conn = ConnectionManager::get('default');
             $searchData = $conn->execute("select U.*, P.name product_name
