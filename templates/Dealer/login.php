@@ -9,17 +9,19 @@
 
         </div>
     </div>
+    
     <div class="col-8" id="slider"
         style='background-image: url("<?= $this->Url->build('/') ?>/img/bg2.jpg");background-size:cover;background-repeat: no-repeat;height:30vh'>
+        <?= $this->Form->create(null, ['url' => ['controller' => 'home','action' => 'search']]) ?>
         <div class="row ">
             <div class="col-8 pt-3">
                 <h1 class="mb-1">Find The Right
-                    <br><span style="color: lightcoral;">Dealers</span> Around You
+                    <br><span style="color: lightcoral;">Supplier</span> Around You
                 </h1>
             </div>
             <div class="col-4"></div>
             <div class="col-2">
-                <select name="" id="" class="form-control" style="width: 100%;
+                <select name="type" id="" class="form-control" style="width: 100%;
         height: 48px;
         padding: 0px 40px 0px 15px;
         border: 1px solid #D4E7FE;
@@ -50,7 +52,7 @@
                 </select>
             </div>
             <div class="col-4">
-                <input type="text" class="global" name="common_search" id="search-blk"
+                <input type="text" class="global" name="q" id="search-blk"
                     placeholder="What are you looking for?" style="width: 100%;
                     height: 48px;               padding: 0px 40px 0px 15px;             border: 1px solid #D4E7FE;
                     border-radius: 5px;         color: #002678;                       font-weight: 500;
@@ -63,14 +65,16 @@
                     background-color: field;">
             </div>
             <div class="col-3">
-                <a href="#" class="button button-rounded button-reveal button-large button-dirtygreen text-end">
-                    <i class="icon-search"></i><span>Search</span>
-                </a>
+            <button label="Search" class="button button-rounded button-reveal button-large button-dirtygreen text-end" type="submit">
+                <i class="icon-search"></i><span>Search</span>
+            </button>
             </div>
         </div>
+</form>
     </div>
     <div class="col-2"></div>
 </div>
+
 <br>
 <section>
     <div class="container clearfix">

@@ -14,6 +14,8 @@
                         <img class="login" src="<?= $this->Url->build('/') ?>img/button/1.png" style="width: 15vw;"></a>
                     <a href="<?= $this->Url->build('/') ?>dealer/addproduct/seller">
                         <img class="login" src="<?= $this->Url->build('/') ?>img/button/5.png" style="width: 15vw;"></a>
+                        <a class="menu-link" href="<?= $this->Url->build('/') ?>dealer/search/">
+                            <div><i class="icon-wpforms"></i>Search Suppliers</div></a>
                 </div>
             </div>
         </div>

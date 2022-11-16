@@ -292,6 +292,29 @@ class DealerController extends AppController
         $this->set('userType', $userType);
     }
 
+    public function search(){
+        $request = $this->request->getData();  
+        $total = 0;
+        $searchData = array();
+        
+        if ($this->request->is('post') && strlen($request['q']) ) { 
+            $conn = ConnectionManager::get('default');
+            $searchData = $conn->execute("select U.*, P.name product_name
+            from buyer_seller_users U
+            INNER join products P on (P.id in (U.product_deals))
+            where U.user_type = 'seller'
+            and P.name like '%$request[q]%'"
+            );
+            
+            $total = count($searchData);
+        }
+
+        $this->set('total', $total);
+        $this->set('q', $request['q']);
+        $this->set('data', $searchData);
+        $this->set('type', $request['type']);
+
+    }
     
 
 }

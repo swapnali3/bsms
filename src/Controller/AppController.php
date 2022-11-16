@@ -58,9 +58,14 @@ class AppController extends Controller
         
         //echo '<pre>'; print_r($session); exit;
         
-        if(!$session->read('user.id') && !($this->request->getParam('action') == 'login' ||
+        
+        if(!$session->read('user.id') && !(
+            $this->request->getParam('action') == 'login' ||
         $this->request->getParam('action') == 'registration')) {
-            $this->redirect(array('controller' => 'dealer', 'action' => 'login'));
+
+            if(!$this->request->getParam('controller') == 'home') {
+                $this->redirect(array('controller' => 'dealer', 'action' => 'login'));
+            }
         } else {
             $this->set('logged_in', $session->read('user.id'));
             $this->set('username', $session->read('user.username'));

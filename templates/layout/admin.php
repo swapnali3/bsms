@@ -69,8 +69,7 @@ $time = date('his');
             <li><?= $this->Html->link(__('Users'), ['controller' => 'adminusers', 'action' => 'index'], ['class' => 'top-nav-item']) ?></li> 
             <li><?= $this->Html->link(__('Vendor'), ['controller' => 'buyersellerusers', 'action' => 'index'], ['class' => 'top-nav-item']) ?></li> 
             <li><?= $this->Html->link(__('Product'), ['controller' => 'products', 'action' => 'index'], ['class' => 'top-nav-item']) ?></li> 
-            <li><?= $this->Html->link(__('Sub-Category'), ['controller' => 'productsubcategories', 'action' => 'index'], ['class' => 'top-nav-item']) ?></li> 
-            <li><?= $this->Html->link(__('Prodcut Attributes'), ['controller' => 'productattributes', 'action' => 'index'], ['class' => 'top-nav-item']) ?></li> 
+            <li><?= $this->Html->link(__('RFQs'), ['controller' => 'rfqdetails', 'action' => 'index'], ['class' => 'top-nav-item']) ?></li> 
 
             
             <li><?= $this->Html->link('Logout', ['controller' => 'admin', 'action' => 'logout']) ?> </li>

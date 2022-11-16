@@ -53,11 +53,7 @@ class RfqDetailsTable extends Table
             'foreignKey' => 'product_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('ProductSubCategories', [
-            'foreignKey' => 'product_sub_category_id',
-            'joinType' => 'INNER',
-        ]);
-
+        
         $this->belongsTo('Uoms', [
             'foreignKey' => 'uom_code',
             'joinType' => 'INNER',
@@ -74,8 +70,7 @@ class RfqDetailsTable extends Table
     {
         $validator
             ->integer('buyer_seller_user_id')
-            ->requirePresence('buyer_seller_user_id', 'create')
-            ->notEmptyString('buyer_seller_user_id');
+            ->requirePresence('buyer_seller_user_id', 'create');
 
         $validator
             ->integer('product_id')
