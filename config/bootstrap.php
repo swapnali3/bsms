@@ -221,3 +221,6 @@ TypeFactory::map('time', StringType::class);
 //Inflector::rules('plural', ['/^(inflect)or$/i' => '\1ables']);
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
+
+//Status code 
+Configure::write('StatusCode', [0 => 'new',1 => 'approved',2 => 'rejected',3 => 'deleted']);

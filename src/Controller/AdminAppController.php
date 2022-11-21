@@ -18,6 +18,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
+use Cake\Core\Configure;
 
 /**
  * Application Controller
@@ -65,6 +66,7 @@ class AdminAppController extends Controller
         } else {
             $this->set('logged_in', $session->read('adminuser.id'));
         }
+        $this->set('statusCode', Configure::read('StatusCode'));
     }
 
     public function beforeFilter(EventInterface $event) {

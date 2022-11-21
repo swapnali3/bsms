@@ -26,7 +26,9 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($rfqDetails as $rfqDetail): ?>
+                <?php foreach ($rfqDetails as $rfqDetail): 
+                    $rfqDetail->status = ($rfqDetail->status) ?  $rfqDetail->status : 0;
+                    ?>
                 <tr>
                     
                     <td><?= $rfqDetail->has('buyer_seller_user') ? $this->Html->link($rfqDetail->buyer_seller_user->company_name, ['controller' => 'BuyerSellerUsers', 'action' => 'view', $rfqDetail->buyer_seller_user->id]) : '' ?></td>
@@ -38,7 +40,7 @@
                     <td><?= $rfqDetail->has('uom') ? $this->Html->link($rfqDetail->uom->description, ['controller' => 'Uoms', 'action' => 'view', $rfqDetail->uom->id]) : '' ?></td>
                     <td><?= h($rfqDetail->remarks) ?></td>
                     <td><?= h($rfqDetail->make) ?></td>
-                    <td><?= h($rfqDetail->status) ?></td>
+                    <td><?= h(ucfirst($statusCode[$rfqDetail->status])) ?></td>
                     <td><?= h($rfqDetail->added_date) ?></td>
                     
                     <td class="actions">
