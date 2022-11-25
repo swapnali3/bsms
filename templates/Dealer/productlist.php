@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="col-8">
                                         :
-                                        <?=$val['product_sub_category']->name?>
+                                        <?=$val['product_sub_category']?>
                                     </div>
                                     <div class="col-4">
                                         Part Name

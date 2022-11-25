@@ -45,7 +45,7 @@
                     
                     <td class="actions">
                         
-                        <?php if($rfqDetail->status) : ?>
+                        <?php if($rfqDetail->status == 1) : ?>
                             <?= $this->Html->link(__('Reject'), ['action' => 'apprej', $rfqDetail->id, 'rej']) ?>
                         <?php else : ?>
                             <?= $this->Html->link(__('Approve'), ['action' => 'apprej', $rfqDetail->id, 'app']) ?>

@@ -259,11 +259,12 @@ class DealerController extends AppController
 
         $rfqDetails = array();
         if($userType == 'seller') {
-            $rfqDetails = $this->RfqDetails->find()->where()->contain(['Products' => function ($q) use ($productDeals)  {
+            $rfqDetails = $this->RfqDetails->find()->where(['RfqDetails.status' => 1])->contain(['Products' => function ($q) use ($productDeals)  {
                 return $q->where(['Products.id in ' => $productDeals]);
 
-            }, 'ProductSubCategories', 'Uoms'])->toList();
+            }, 'Uoms'])->toList();
 
+            //echo '<pre>';print_r($rfqDetails); exit;
             foreach ($rfqDetails as &$rfqDetail) {
                 $files = json_decode($rfqDetail['uploaded_files'], true);
                 foreach($files as $file) {

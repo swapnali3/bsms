@@ -118,4 +118,28 @@ class RfqDetailsController extends AdminAppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function apprej($id = null, $action = null)
+    {   
+        $this->loadModel("RfqDetails");
+        $rfqDetail = $this->RfqDetails->get($id);
+        if($action == 'app') {
+            $rfqDetail->status = 1;
+        } else if($action == 'rej') {
+            $rfqDetail->status = 2;
+        }
+        
+        if ($this->RfqDetails->save($rfqDetail)) {
+            
+            if($action == 'app') {
+                $this->Flash->success(__('The RFQ successfully approved'));
+            } else if($action == 'rej') {
+                $this->Flash->success(__('The RFQ successfully Rejected'));
+            }
+        } else {
+            $this->Flash->error(__('The rfq detail could not be updated. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
 }
