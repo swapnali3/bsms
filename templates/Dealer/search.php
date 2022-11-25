@@ -59,7 +59,7 @@
         
             <?php if (isset($q) && strlen($q)) :?>
             <div class="col-8" id="slider">
-                <p style="font-size:25px;">We have found <strong style="color:#ff9900d9;"><?= $total ?></strong> no. of supplier for your product (<span style="color:#ff9900d9;"><?= $q ?></span>). </p>
+                <p style="font-size:25px;">We have found <strong style="color:#ff9900d9;"><?= $total ?></strong> no. of supplier for your product - <span style="color:#ff9900d9;"><?= $q ?></span>. </p>
             </div>
             <?php endif; ?>
 
