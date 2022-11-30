@@ -14,10 +14,10 @@ class DealerController extends AppController
 
     public function login() {
         $this->loadModel('BuyerSellerUsers');
-
         $this->loadModel('Products');
+
         $products = $this->Products->find('list')->toArray();
-        $this->set(compact('buyerSellerUser', 'products'));
+        $this->set(compact('products'));
         $session = $this->getRequest()->getSession();
         if($session->read('user.id')) {
             $this->redirect(array('action' => 'dashboard'));
@@ -169,7 +169,7 @@ class DealerController extends AppController
         $this->set(compact('rfqDetails', 'attrParams', 'userType', 'results'));
     }
 
-    public function addproduct($type) {
+    public function addproduct($type, $sellerId) {
 
         $session = $this->getRequest()->getSession();
         if(!$session->check('user.id')) {
@@ -178,8 +178,34 @@ class DealerController extends AppController
 
         $this->loadModel("Products");
         $this->loadModel("Uoms");
+
         $products = $this->Products->find('list')->toArray();
         $uoms = $this->Uoms->find('list')->toArray();
+        
+
+
+        if(isset($sellerId) && !empty($sellerId)) {
+            $this->loadModel('BuyerSellerUsers');
+
+            $sellerProducts = $this->BuyerSellerUsers->find()
+            ->select(['product_deals'])
+            ->where(['id' => $sellerId])
+                ->limit(1);
+
+                $sellerProducts = $sellerProducts->toArray();
+                $sellerProducts = explode(',', $sellerProducts[0]->product_deals);
+
+                $tempProducts = array();
+                foreach($products as $k => $v) {
+                    if(in_array($k, $sellerProducts)) {
+                        $tempProducts[$k] = $v;
+                    }
+                }
+                $products = $tempProducts;
+            
+        }
+
+        $this->set('seller_id', $sellerId);
 
         $this->set(compact('products', 'uoms'));
 
@@ -201,6 +227,7 @@ class DealerController extends AppController
 
             //echo $maxRfqId;
             //echo '<pre>'; print_r($request); exit;
+
 
 
             foreach ($request as $key => $row) {
@@ -237,8 +264,15 @@ class DealerController extends AppController
 
             $RfqDetail = $this->RfqDetails->newEntities($data);
             if($this->RfqDetails->saveMany($RfqDetail)) {
-                $this->Flash->success(__('The product has been saved.'));
 
+                $this->loadModel('RfqForSellers');
+                $rfqSellers = array();
+                $rfqSellers['rfq_no']  = $maxRfqId;
+                $rfqSellers['seller_id']  = $request['seller_id'];
+                $rfqSeller = $this->RfqForSellers->newEmptyEntity();
+                $rfqSeller = $this->RfqForSellers->patchEntity($rfqSeller, $rfqSellers);
+                $this->RfqForSellers->save($rfqSeller);
+                $this->Flash->success(__('The product has been saved.'));
                 return $this->redirect(['action' => 'dashboard']);
             }
        
@@ -252,14 +286,15 @@ class DealerController extends AppController
             return $this->redirect(array('action' => 'login'));
         }
         $this->loadModel('RfqDetails');
-        $session = $this->getRequest()->getSession();
-        //print_r($session->read()); exit;
+        $this->loadModel('RfqForSellers');
+
+        
         $userType = $session->read('user.user_type');
         $productDeals = $session->read('user.details.product_deals');
 
         $rfqDetails = array();
         if($userType == 'seller') {
-            $rfqDetails = $this->RfqDetails->find()->where(['RfqDetails.status' => 1])->contain(['Products' => function ($q) use ($productDeals)  {
+            $rfqDetails = $this->RfqDetails->find()->where(['RfqDetails.status' => 1, 'RfqDetails.rfq_no NOT IN (select rfq_no from rfq_for_sellers where seller_id !='  .$session->read("user.id").')' ])->contain(['Products' => function ($q) use ($productDeals)  {
                 return $q->where(['Products.id in ' => $productDeals]);
 
             }, 'Uoms'])->toList();
@@ -337,6 +372,35 @@ class DealerController extends AppController
         $this->set('q', $request['q']);
         $this->set('data', $searchData);
         $this->set('type', $request['type']);
+
+    }
+
+
+    public function regionalsearch(){
+
+        $session = $this->getRequest()->getSession();
+        if(!$session->check('user.id')) {
+            return $this->redirect(array('action' => 'login'));
+        }
+
+        $request = $this->request->getData();  
+        $total = 0;
+        $searchData = array();
+
+        
+        $userDetails = $session->read('user.details');
+        $conn = ConnectionManager::get('default');
+        $searchData = $conn->execute("select U.*, P.name product_name
+        from buyer_seller_users U
+        INNER join products P on (P.id in (U.product_deals))
+        where U.user_type = 'seller'
+        and U.cities = '$userDetails->cities'"
+        );
+        
+        $total = count($searchData);
+
+        $this->set('total', $total);
+        $this->set('data', $searchData);
 
     }
     

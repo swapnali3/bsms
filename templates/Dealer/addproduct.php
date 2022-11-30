@@ -29,11 +29,14 @@
                         <img class="login" src="<?= $this->Url->build('/') ?>img/button/1.png" style="width: 15vw;"></a>
                     <a href="<?= $this->Url->build('/') ?>dealer/addproduct/seller">
                         <img class="login" src="<?= $this->Url->build('/') ?>img/button/5.png" style="width: 15vw;"></a>
+                        <a class="menu-link" href="<?= $this->Url->build('/') ?>dealer/regionalsearch/">
+                            <div><i class="icon-wpforms"></i>Regional Suppliers</div></a>
             </div>
             <div class="col-lg-10">
                 <h3>Request for Quotation</h3>
                 <?= $this->Flash->render('auth') ?>
                 <?= $this->Form->create(null, array('type' => 'file')) ?>
+                <?= $this->Form->control('seller_id', array( 'type' => 'hidden', 'value' => $seller_id)); ?>
                 <div class="card">
                     <div class="card-body" id="mulform">
                         <div class="row" id="RFQ0">

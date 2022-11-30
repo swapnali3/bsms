@@ -839,3 +839,30 @@ Stack Trace:
 - /Users/deepaksingh/source_code/htdocs/jbm-bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
 - /Users/deepaksingh/source_code/htdocs/jbm-bsms/bin/cake.php:12
 
+2022-11-29 14:51:27 error: [Cake\Database\Exception\DatabaseException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_bsms.rfqforsellers' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php on line 160
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:513
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_bsms.rfqforsellers' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:328
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:331
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:158
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:513
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+

@@ -280,7 +280,7 @@
 									<div class="widget widget_links clearfix mt-2">
 										<ul>
 											<li>&nbsp; Regional Buyers</li>
-											<li>&nbsp; Regional Sellers</li>
+											<li>&nbsp; <a href="<?= $this->Url->build('/') ?>dealer/regionalsearch" class="login">Regional Sellers</a></li>
 											<li>&nbsp; Dealers</li>
 											<li>&nbsp; Booming Products</li>
 										</ul>

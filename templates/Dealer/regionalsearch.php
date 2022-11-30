@@ -16,7 +16,7 @@
                         <img class="login" src="<?= $this->Url->build('/') ?>img/button/5.png" style="width: 15vw;"></a>
                         <a class="menu-link" href="<?= $this->Url->build('/') ?>dealer/search/">
                             <div><i class="icon-wpforms"></i>Search Suppliers</div></a>
-                        <a class="menu-link" href="<?= $this->Url->build('/') ?>dealer/regionalsearch/">
+                            <a class="menu-link" href="<?= $this->Url->build('/') ?>dealer/regionalsearch/">
                             <div><i class="icon-wpforms"></i>Regional Suppliers</div></a>
                 </div>
             </div>
@@ -26,35 +26,14 @@
                 <div class="card-body">
                     
                 <div class="col-8" id="slider">
-        <?= $this->Form->create(null, ['url' => ['controller' => 'dealer','action' => 'search']]) ?>
+        
         <div class="row ">
             <div class="col-12 pt-4">
-                <h1 class="mb-1">Find The Right
-                    <span style="color: lightcoral;">Supplier</span> Around You
-                </h1>
+                <h1 class="mb-1">Regional Supplier</h1>
             </div>
             <div class="col-4"></div>
             
-            <div class="col-4">
-                <input type="text" class="global" value="<?= $q?>" name="q" id="search-blk"
-                    placeholder="Search product ?" style="width: 100%;
-                    height: 48px;               padding: 0px 0px 0px 15px;             border: 1px solid #D4E7FE;
-                    border-radius: 5px;         color: #002678;                       font-weight: 500;
-                    outline: none;              margin: 4px 0px 0px 0px;                font-family: inherit;
-                    font-size: inherit;         line-height: inherit;                   box-sizing: border-box;
-                    outline-offset: 0px;        text-rendering: auto;                   letter-spacing: normal;
-                    word-spacing: normal;       text-transform: none;                   text-indent: 0px;
-                    text-shadow: none;          display: inline-block;                  text-align: start;
-                    appearance: auto;           -webkit-rtl-ordering: logical;          cursor: text;
-                    background-color: field;">
-            </div>
-            <div class="col-3">
-            <button label="Search" class="button button-rounded button-reveal button-large button-dirtygreen text-end" type="submit">
-                <i class="icon-search"></i><span>Search</span>
-            </button>
-            </div>
         </div>
-        </form>
         </div>      
             </div>
         </div>
