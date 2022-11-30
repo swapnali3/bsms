@@ -169,7 +169,7 @@ class DealerController extends AppController
         $this->set(compact('rfqDetails', 'attrParams', 'userType', 'results'));
     }
 
-    public function addproduct($type, $sellerId) {
+    public function addproduct($type, $sellerId = '') {
 
         $session = $this->getRequest()->getSession();
         if(!$session->check('user.id')) {
@@ -229,6 +229,9 @@ class DealerController extends AppController
             //echo '<pre>'; print_r($request); exit;
 
 
+            if(empty($request['seller_id'])) {
+                unset($request['seller_id']);
+            }
 
             foreach ($request as $key => $row) {
                 $record = array();
