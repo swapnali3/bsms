@@ -50,7 +50,7 @@
                         <?php else : ?>
                             <?= $this->Html->link(__('Approve'), ['action' => 'apprej', $rfqDetail->id, 'app']) ?>
                         <?php endif; ?>
-                        
+                        <?= $this->Html->link(__('Copy'), ['action' => 'copy', $rfqDetail->id]) ?>
                         <?= $this->Html->link(__('View'), ['action' => 'view', $rfqDetail->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $rfqDetail->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $rfqDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rfqDetail->id)]) ?>
