@@ -29,14 +29,24 @@ class HomeController extends AppController
     public function search()
     {
         $request = $this->request->getData();  
+
+        //print_r($request); exit;
         if ($this->request->is('post')) { 
             $conn = ConnectionManager::get('default');
-            $searchData = $conn->execute("select U.*, P.name product_name
-            from buyer_seller_users U
-            INNER join products P on (P.id in (U.product_deals))
-            where U.user_type = 'seller'
-            and P.name like '%$request[q]%'"
-            );
+
+            if(isset($request['type']) && $request['type'] == 'seller') {
+                $searchData = $conn->execute("select U.*, P.name product_name
+                from buyer_seller_users U
+                INNER join products P on (P.id in (U.product_deals))
+                where U.user_type = 'seller'
+                and U.company_name like '%$request[q]%'");
+            } else {
+                $searchData = $conn->execute("select U.*, P.name product_name
+                from buyer_seller_users U
+                INNER join products P on (P.id in (U.product_deals))
+                where U.user_type = 'seller'
+                and P.name like '%$request[q]%'");
+            }
             
             $total = count($searchData);
             $this->set('total', $total);

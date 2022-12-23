@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 
-namespace App\Controller;
-use App\Controller\AdminAppController;
+namespace App\Controller\Admin;
+use App\Controller\Admin\AdminAppController;
 
 /**
  * AdminUsers Controller
@@ -18,7 +18,7 @@ class AdminUsersController extends AdminAppController
         
         $session = $this->getRequest()->getSession();
         if($session->read('adminuser.id')) {
-            $this->redirect(array('controller' => 'admin', 'action' => 'index'));
+            $this->redirect(array('controller' => 'adminusers', 'action' => 'index'));
         }
 
         if($this->request->is('post')) {
@@ -36,7 +36,8 @@ class AdminUsersController extends AdminAppController
                     $session->write('adminuser.username', $result[0]->username);
                     $session->write('adminuser.id', $result[0]->id);
                     $session->write('adminuser.role', $result[0]->role);
-                    $this->redirect(array('controller' => 'admin', 'action' => 'index'));
+                    $this->redirect(array('controller' => 'dashboard', 'action' => 'index'));
+                    //$this->redirect(array('controller' => 'admin', 'action' => 'index'));
                 } else {
                     $this->Flash->error("Invalid Login details");
                 }

@@ -50,8 +50,8 @@
         -webkit-rtl-ordering: logical;
         cursor: text;
         background-color: field;">
-                    <option value="buyer">Buyer</option>
-                    <option value="seller">Seller</option>
+                    <option value="category">Category</option>
+                    <option value="seller">Supplier</option>
                 </select>
             </div>
             <div class="col-4">

@@ -24,42 +24,48 @@
         <div class="col-9 p-0">
             <div class="card">
                 <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>RFQ No.</th>
-                                <th>Date Raised</th>
-                                <th>Suppliers Reached</th>
-                                <th>Suppliers Responded </th>
-                                <th>Queries pending</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($rfqDetails as $rfqDetail): ?>
-                            <tr>
-                                <td>
-                                    <?= h($username .'-'. str_pad($rfqDetail['rfq_no'], 5, 0, STR_PAD_LEFT)) ?>
-                                </td>
-                                <td>
-                                    <?= h($rfqDetail['added_date']) ?>
-                                </td>
-                                <td>
-                                    <?= ($rfqDetail['reach']) ? h($rfqDetail['reach']) : 0 ?>
-                                </td>
-                                <td>
-                                    <?= ($rfqDetail['respond']) ? h($rfqDetail['respond']) : 0 ?>
-                                </td>
-                                <td>0</td>
-                                <td>
-                                    <a href="<?= $this->Url->build('/') ?>dealer/view/<?= h($rfqDetail['id']) ?>">
-                                        <i class="icon-line2-eye"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th><?= h('Rfq No.') ?></th>
+                    <th><?= h('Category') ?></th>
+                    <th><?= h('Date Raised') ?></th>
+                    <th><?= h('Supplier Reached') ?></th>
+                    <th><?= h('Suppliers Responded') ?></th>
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($rfqDetails as $rfqDetail):?>
+                <tr>
+                    
+                    <td><?= str_pad($rfqDetail->rfq_no, 5, 0, STR_PAD_LEFT) ?></td>
+                    <td><?= $rfqDetail->has('product') ? h($rfqDetail->product->name) : '' ?></td>
+                    <td><?= h($rfqDetail->added_date) ?></td>
+                    <td><?= $rfqDetail->RfqInquiries['reach'] ? h($rfqDetail->RfqInquiries['reach']) : 0 ?></td>
+                    <td><?= $rfqDetail->RfqInquiries['respond'] ? h($rfqDetail->RfqInquiries['respond']) : 0 ?></td>
+                    
+                    
+                    
+                    <td class="actions">
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $rfqDetail->id]) ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <div class="paginator">
+        <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>
+        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+    </div>
                     <br>
                     <?php if (count($rfqsummary) > 0) : ?>
                     <table class="table">

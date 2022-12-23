@@ -60,7 +60,7 @@ $time = date('his');
                 <span class="icon-bar"></span>
             </button>
              <?php endif; ?>
-            <a class="navbar-brand" href="">SMS - Admin</a>
+            <a class="navbar-brand" href="javascript:void(0);">SMS - Admin</a>
         </div>
         <?php if($logged_in) :?>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -72,7 +72,7 @@ $time = date('his');
             <li><?= $this->Html->link(__('RFQs'), ['controller' => 'rfqdetails', 'action' => 'index'], ['class' => 'top-nav-item']) ?></li> 
 
             
-            <li><?= $this->Html->link('Logout', ['controller' => 'admin', 'action' => 'logout']) ?> </li>
+            <li><?= $this->Html->link('Logout', ['controller' => 'adminusers', 'action' => 'logout']) ?> </li>
              
             </ul>
         </div>

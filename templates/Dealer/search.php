@@ -36,6 +36,37 @@
             <div class="col-4"></div>
             
             <div class="col-4">
+                <select name="type" id="" class="form-control" style="width: 100%;
+        height: 48px;
+        padding: 0px 40px 0px 15px;
+        border: 1px solid #D4E7FE;
+        border-radius: 5px;
+        color: #002678;
+        font-weight: 500;
+        outline: none;
+        margin: 4px 0px 0px 0px;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        box-sizing: border-box;
+        outline-offset: 0px;
+        text-rendering: auto;
+        letter-spacing: normal;
+        word-spacing: normal;
+        text-transform: none;
+        text-indent: 0px;
+        text-shadow: none;
+        display: inline-block;
+        text-align: start;
+        appearance: auto;
+        -webkit-rtl-ordering: logical;
+        cursor: text;
+        background-color: field;">
+                    <option value="category">Category</option>
+                    <option value="seller">Supplier</option>
+                </select>
+            </div>
+            <div class="col-4">
                 <input type="text" class="global" value="<?= $q?>" name="q" id="search-blk"
                     placeholder="Search product ?" style="width: 100%;
                     height: 48px;               padding: 0px 0px 0px 15px;             border: 1px solid #D4E7FE;

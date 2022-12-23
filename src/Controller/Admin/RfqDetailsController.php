@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 use Cake\Datasource\ConnectionManager;
 
 /**
@@ -142,35 +142,5 @@ class RfqDetailsController extends AdminAppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-    public function copy($id = null)
-    {
-        $this->loadModel("RfqDetails");
-        $rfqDetailExisting = $this->RfqDetails->get($id)->toArray();
-
-        unset($rfqDetailExisting['id']);
-        unset($rfqDetailExisting['added_date']);
-        unset($rfqDetailExisting['updated_date']);
-
-        
-        $conn = ConnectionManager::get('default');
-        $maxrfq = $conn->execute("SELECT MAX(rfq_no) maxrfq FROM rfq_details RD WHERE RD.buyer_seller_user_id=".$rfqDetailExisting['buyer_seller_user_id']);
-
-        foreach ($maxrfq as $maxid) {
-            $maxRfqId = $maxid['maxrfq'] + 1; 
-        }
-
-        $rfqDetailExisting['rfq_no'] = $maxRfqId;
-
-        $rfqDetail = $this->RfqDetails->newEmptyEntity();
-        
-        $rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $rfqDetailExisting);
-        if ($this->RfqDetails->save($rfqDetail)) {
-            $this->Flash->success(__('The rfq successfully copied - RFQ NO:-' .$maxRfqId));
-
-            return $this->redirect(['action' => 'index']);
-        }
-        $this->Flash->error(__('The rfq detail could not be saved. Please, try again.'));
     }
 }

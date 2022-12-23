@@ -102,15 +102,27 @@ class DealerController extends AppController
         }
 
         $conn = ConnectionManager::get('default');
-        //$this->loadModel('RfqDetails');
-        //$this->loadModel('RfqInquiries');
+        $this->loadModel('RfqDetails');
+        $this->loadModel('RfqInquiries');
+        $this->loadModel('Products');
 
-        $rfqDetails = $conn->execute("select rfq_details.id,rfq_details.rfq_no, products.name as category, rfq_details.added_date, rfq_inquiries.reach, rfq_inquiries.respond
+        /*$rfqDetails = $conn->execute("select rfq_details.id,rfq_details.rfq_no, products.name as category, rfq_details.added_date, rfq_inquiries.reach, rfq_inquiries.respond
  from rfq_details 
  join products on (products.id = rfq_details.product_id)
  left join (select rfq_id, count(seller_id) reach, count(inquiry) respond FROM rfq_inquiries group by rfq_inquiries.rfq_id) rfq_inquiries on (rfq_inquiries.rfq_id = rfq_details.id)
  where rfq_details.buyer_seller_user_id=" .$session->read('user.id'));
+*/
+ $query = $this->RfqDetails->find()
+            ->select(['RfqDetails.id','RfqDetails.rfq_no','Products.name','RfqDetails.added_date', 'RfqInquiries.reach', 'RfqInquiries.respond'])
+            ->contain(['Products'])
+            ->leftJoin(
+                ['RfqInquiries' => '(select rfq_id, count(seller_id) reach, count(inquiry) respond FROM rfq_inquiries group by rfq_inquiries.rfq_id)'],
+                ['RfqInquiries.rfq_id = RfqDetails.id'])
+            ->where(['RfqDetails.buyer_seller_user_id' => $session->read('user.id')]);
 
+    $rfqDetails = $this->paginate($query);
+
+    //print_r($query); exit;
         $rfqsummary = $conn->execute("SELECT rfq_id, U.company_name, rate, created_date FROM rfq_inquiries RI join buyer_seller_users U on (U.id = RI.seller_id) WHERE rate = ( SELECT MIN( RI2.rate ) FROM rfq_inquiries RI2 WHERE RI.rfq_id = RI2.rfq_id ) ORDER BY rfq_id");
  
  
@@ -242,7 +254,7 @@ class DealerController extends AppController
                     $fileName = time().'_'.$productImage->getClientFilename();
                     $fileType = $productImage->getClientMediaType();
 
-                    if ($fileType == "application/pdf" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
                         $imagePath = WWW_ROOT . "uploads/" . $fileName;
                         $productImage->moveTo($imagePath);
                         $uploads["files"][] = "uploads/" . $fileName;
@@ -281,6 +293,35 @@ class DealerController extends AppController
        
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
         }
+    }
+
+    public function copy($id = null)
+    {
+        $this->loadModel("RfqDetails");
+        $rfqDetailExisting = $this->RfqDetails->get($id)->toArray();
+
+        unset($rfqDetailExisting['id']);
+        unset($rfqDetailExisting['added_date']);
+        unset($rfqDetailExisting['updated_date']);
+        
+        $conn = ConnectionManager::get('default');
+        $maxrfq = $conn->execute("SELECT MAX(rfq_no) maxrfq FROM rfq_details RD WHERE RD.buyer_seller_user_id=".$rfqDetailExisting['buyer_seller_user_id']);
+
+        foreach ($maxrfq as $maxid) {
+            $maxRfqId = $maxid['maxrfq'] + 1; 
+        }
+
+        $rfqDetailExisting['rfq_no'] = $maxRfqId;
+
+        $rfqDetail = $this->RfqDetails->newEmptyEntity();
+        
+        $rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $rfqDetailExisting);
+        if ($this->RfqDetails->save($rfqDetail)) {
+            $this->Flash->success(__('The rfq successfully copied - RFQ NO:-' .$maxRfqId));
+
+            return $this->redirect(['action' => 'dashboard']);
+        }
+        $this->Flash->error(__('The rfq detail could not be saved. Please, try again.'));
     }
 
     public function productlist() {
@@ -361,12 +402,19 @@ class DealerController extends AppController
 
         if ($this->request->is('post') && strlen($request['q']) ) { 
             $conn = ConnectionManager::get('default');
-            $searchData = $conn->execute("select U.*, P.name product_name
-            from buyer_seller_users U
-            INNER join products P on (P.id in (U.product_deals))
-            where U.user_type = 'seller'
-            and P.name like '%$request[q]%'"
-            );
+            if(isset($request['type']) && $request['type'] == 'seller') {
+                $searchData = $conn->execute("select U.*, P.name product_name
+                from buyer_seller_users U
+                INNER join products P on (P.id in (U.product_deals))
+                where U.user_type = 'seller'
+                and U.company_name like '%$request[q]%'");
+            } else {
+                $searchData = $conn->execute("select U.*, P.name product_name
+                from buyer_seller_users U
+                INNER join products P on (P.id in (U.product_deals))
+                where U.user_type = 'seller'
+                and P.name like '%$request[q]%'");
+            }
             
             $total = count($searchData);
         }

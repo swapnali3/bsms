@@ -14,7 +14,7 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
@@ -62,7 +62,7 @@ class AdminAppController extends Controller
         //echo '<pre>'; print_r($session); exit;
         
         if(!$session->read('adminuser.id') && $this->request->getParam('action') != 'login') {
-            $this->redirect(array('controller' => 'admin', 'action' => 'login'));
+            $this->redirect(array('controller' => 'adminusers', 'action' => 'login'));
         } else {
             $this->set('logged_in', $session->read('adminuser.id'));
         }
