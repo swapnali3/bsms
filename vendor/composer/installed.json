@@ -1,6 +1,47 @@
 {
     "packages": [
         {
+            "name": "arodu/cakelte",
+            "version": "v1.1.0",
+            "version_normalized": "1.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/arodu/cakelte.git",
+                "reference": "5c7f9384b79cba68387765c9e27fdbcff6d89492"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/arodu/cakelte/zipball/5c7f9384b79cba68387765c9e27fdbcff6d89492",
+                "reference": "5c7f9384b79cba68387765c9e27fdbcff6d89492",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^4.0",
+                "friendsofcake/bootstrap-ui": "^3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0"
+            },
+            "time": "2022-10-23T20:24:08+00:00",
+            "type": "cakephp-plugin",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "CakeLte\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "CakeLTE: AdminLTE plugin for CakePHP 4.x",
+            "support": {
+                "issues": "https://github.com/arodu/cakelte/issues",
+                "source": "https://github.com/arodu/cakelte/tree/v1.1.0"
+            },
+            "install-path": "../arodu/cakelte"
+        },
+        {
             "name": "brick/varexporter",
             "version": "0.3.7",
             "version_normalized": "0.3.7.0",
@@ -1387,6 +1428,65 @@
                 }
             ],
             "install-path": "../doctrine/instantiator"
+        },
+        {
+            "name": "friendsofcake/bootstrap-ui",
+            "version": "3.1.2",
+            "version_normalized": "3.1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FriendsOfCake/bootstrap-ui.git",
+                "reference": "8fca5c21105899698f29ec1dd00689e05b4822be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FriendsOfCake/bootstrap-ui/zipball/8fca5c21105899698f29ec1dd00689e05b4822be",
+                "reference": "8fca5c21105899698f29ec1dd00689e05b4822be",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "^4.0"
+            },
+            "require-dev": {
+                "cakephp/bake": "^2.1",
+                "cakephp/cakephp-codesniffer": "^4.1",
+                "phpunit/phpunit": "^8.5 || ^9.3"
+            },
+            "time": "2022-02-23T13:02:28+00:00",
+            "type": "cakephp-plugin",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "BootstrapUI\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jad Bitar",
+                    "homepage": "http://jadb.io",
+                    "role": "Author"
+                },
+                {
+                    "name": "Others",
+                    "homepage": "https://github.com/friendsofcake/bootstrap-ui/graphs/contributors"
+                }
+            ],
+            "description": "Bootstrap front-end framework support for CakePHP",
+            "homepage": "http://github.com/friendsofcake/bootstrap-ui",
+            "keywords": [
+                "bootstrap",
+                "cakephp",
+                "front-end"
+            ],
+            "support": {
+                "issues": "http://github.com/friendsofcake/bootstrap-ui/issues",
+                "source": "http://github.com/friendsofcake/bootstrap-ui"
+            },
+            "install-path": "../friendsofcake/bootstrap-ui"
         },
         {
             "name": "jasny/twig-extensions",

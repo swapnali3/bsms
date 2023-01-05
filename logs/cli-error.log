@@ -866,3 +866,90 @@ Stack Trace:
 - /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
 - /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
 
+2023-01-02 08:04:59 error: [Cake\Database\Exception\DatabaseException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_bsms.admin_schema_groups' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php on line 160
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:513
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_bsms.admin_schema_groups' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:328
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:331
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:158
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:513
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-03 15:34:58 error: [Cake\Database\Exception\DatabaseException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[command]' at line 1 in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php on line 160
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:513
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '[command]' at line 1 in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:328
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:331
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:158
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:513
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-03 15:36:45 error: [Cake\Database\Exception\DatabaseException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_bsms.login' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php on line 160
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:513
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_bsms.login' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:328
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:331
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:158
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:513
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+

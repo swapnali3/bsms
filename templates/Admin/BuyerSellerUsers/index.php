@@ -8,7 +8,7 @@
     <?= $this->Html->link(__('New Buyer Seller User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Buyer Seller Users') ?></h3>
     <div class="table-responsive">
-        <table>
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('user_type') ?></th>

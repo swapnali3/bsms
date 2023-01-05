@@ -14,6 +14,7 @@ use App\Controller\Admin\AdminAppController;
 class AdminUsersController extends AdminAppController
 {
     public function login() {
+        $this->viewBuilder()->setLayout('admin/login');  //admin is our new layout name
         $this->loadModel("AdminUsers");
         
         $session = $this->getRequest()->getSession();
@@ -22,7 +23,6 @@ class AdminUsersController extends AdminAppController
         }
 
         if($this->request->is('post')) {
-            print_r($this->request->getData());
             $result = $this->AdminUsers->find()
             ->select(['id', 'username', 'role'])
             ->where(['username' => $this->request->getData('username'),
@@ -37,7 +37,6 @@ class AdminUsersController extends AdminAppController
                     $session->write('adminuser.id', $result[0]->id);
                     $session->write('adminuser.role', $result[0]->role);
                     $this->redirect(array('controller' => 'dashboard', 'action' => 'index'));
-                    //$this->redirect(array('controller' => 'admin', 'action' => 'index'));
                 } else {
                     $this->Flash->error("Invalid Login details");
                 }

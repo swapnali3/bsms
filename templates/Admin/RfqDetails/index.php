@@ -8,7 +8,7 @@
     <!-- <?= $this->Html->link(__('New Rfq Detail'), ['action' => 'add'], ['class' => 'button float-right']) ?> -->
     <h3><?= __('Rfq Details') ?></h3>
     <div class="table-responsive">
-        <table>
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     

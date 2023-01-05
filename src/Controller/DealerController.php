@@ -324,6 +324,49 @@ class DealerController extends AppController
         $this->Flash->error(__('The rfq detail could not be saved. Please, try again.'));
     }
 
+    public function copyPreview($id = null)
+    {
+        $this->loadModel("RfqDetails");
+        $rfqDetail = $this->RfqDetails->get($id, [
+            'contain' => [],
+        ]);
+        
+        $products = $this->RfqDetails->Products->find('list')->all();
+        $uoms = $this->RfqDetails->Uoms->find('list')->all();
+        $this->set(compact('rfqDetail', 'products', 'uoms'));
+        $this->set('reference_rfq_id', $id);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $session = $this->getRequest()->getSession();
+            $userId = $session->read('user.id');
+            $request = $this->request->getData();
+            $request['uploaded_files'] = $rfqDetail->uploaded_files;
+            $request['added_date'] = date('Y-m-d H:i:s');
+
+            //echo '<pre>' ; print_r($request); exit;
+            
+            $conn = ConnectionManager::get('default');
+            $maxrfq = $conn->execute("SELECT MAX(rfq_no) maxrfq FROM rfq_details RD WHERE RD.buyer_seller_user_id=$userId");
+
+            foreach ($maxrfq as $maxid) {
+                $maxRfqId = $maxid['maxrfq'] + 1; 
+            }   
+
+            $request['rfq_no'] = $maxRfqId;
+
+            $rfqDetail = $this->RfqDetails->newEmptyEntity();
+        
+        $rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $request);
+        if ($this->RfqDetails->save($rfqDetail)) {
+            $this->Flash->success(__('The rfq successfully copied - RFQ NO:-' .$maxRfqId));
+
+            return $this->redirect(['action' => 'dashboard']);
+        }
+        $this->Flash->error(__('The rfq detail could not be saved. Please, try again.'));
+
+        }
+    }
+
     public function productlist() {
         $session = $this->getRequest()->getSession();
         if(!$session->check('user.id')) {

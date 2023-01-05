@@ -18,7 +18,7 @@
                                 <td>
                                     <?= h($rfqDetails->id) ?>
                                     <span style="margin-left:20px;">
-                                    <?= $this->Html->link(__('Copy'), ['action' => 'copy', $rfqDetails->id]) ?>
+                                    <?= $this->Html->link(__('Copy'), ['action' => 'copy-preview', $rfqDetails->id]) ?>
                                     <span>
                                 </td>
                             </tr>

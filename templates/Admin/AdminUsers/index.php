@@ -8,7 +8,7 @@
     <?= $this->Html->link(__('New Admin User'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Admin Users') ?></h3>
     <div class="table-responsive">
-        <table>
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>

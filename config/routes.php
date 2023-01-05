@@ -68,6 +68,32 @@ return static function (RouteBuilder $routes) {
             $builder->fallbacks();
         });
 
+
+        $builder->prefix('vendor', function (RouteBuilder $builder) {
+            // All routes here will be prefixed with `/admin`, and
+            // have the `'prefix' => 'Admin'` route element added that
+            // will be required when generating URLs for these routes
+            
+            //$builder->connect('/', ['controller' => 'adminusers', 'action' => 'index']);
+            $builder->connect(':controller/:action', ['controller' => ':controller', 'action' => 'index']);
+            #$builder->connect('/:action', ['controller' => 'adminusers', 'action' => ':action']);
+            
+            $builder->fallbacks();
+        });
+
+
+        $builder->prefix('api', function (RouteBuilder $builder) {
+            // All routes here will be prefixed with `/admin`, and
+            // have the `'prefix' => 'Admin'` route element added that
+            // will be required when generating URLs for these routes
+            
+            $builder->connect('/', ['controller' => 'api']);
+            //$builder->connect('/admin/:controller/:action', ['controller' => ':controller', 'action' => 'index']);
+            $builder->connect('/:action', ['controller' => 'api', 'action' => ':action']);
+            
+            $builder->fallbacks();
+        });
+
         #$builder->connect('/admin', ['controller' => 'adminusers', 'action' => 'index']);
         #$builder->connect('/admin/:controller/:action', ['controller' => ':controller', 'action' => 'index']);
         #$builder->connect('/admin/:action', ['controller' => 'adminusers', 'action' => ':action']);

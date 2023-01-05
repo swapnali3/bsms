@@ -71,7 +71,7 @@ class AdminAppController extends Controller
 
     public function beforeFilter(EventInterface $event) {
         parent::beforeFilter($event);
-        $this->viewBuilder()->setLayout('admin');  //admin is our new layout name
+        $this->viewBuilder()->setLayout('admin/admin');  //admin is our new layout name
     }
 
 }
