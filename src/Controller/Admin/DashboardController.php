@@ -32,6 +32,10 @@ use Cake\View\Exception\MissingTemplateException;
 class DashboardController extends AdminAppController
 {
     public function index() {
+        
+    }
+
+    public function oldindex() {
 
         $this->loadModel('RfqDetails');
         $this->loadModel('RfqInquiries');

@@ -5,6 +5,12 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 use App\Controller\Admin\AdminAppController;
 
+use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
+use Cake\Mailer\TransportFactory;
+use Cake\Routing\Router;
+
+
 /**
  * AdminUsers Controller
  *
@@ -18,7 +24,7 @@ class AdminUsersController extends AdminAppController
         $this->loadModel("AdminUsers");
         
         $session = $this->getRequest()->getSession();
-        if($session->read('adminuser.id')) {
+        if($session->read('id')) {
             $this->redirect(array('controller' => 'adminusers', 'action' => 'index'));
         }
 
@@ -40,7 +46,6 @@ class AdminUsersController extends AdminAppController
                 } else {
                     $this->Flash->error("Invalid Login details");
                 }
-                
         }
     }
 
@@ -56,10 +61,22 @@ class AdminUsersController extends AdminAppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index()
+    public function index($type = null)
     {
-        $this->loadModel("AdminUsers");
-        $adminUsers = $this->paginate($this->AdminUsers);
+
+        $this->set('user_type',$type);
+        $sapUser = 0;
+        if($type == "sap") {
+            $this->set('title','SAP Users');
+            $sapUser = 1;
+        } else if($type == "portal") {
+            $this->set('title','Portal Users');
+        }
+
+        $this->loadModel("Users");
+        $this->paginate = ['contain' => ['Groups'], 'conditions' => ['sap_user' => $sapUser]];
+        $adminUsers = $this->paginate($this->Users);
+        //echo '<pre>'; print_r($adminUsers); exit();
 
         $this->set(compact('adminUsers'));
     }
@@ -73,8 +90,8 @@ class AdminUsersController extends AdminAppController
      */
     public function view($id = null)
     {
-        $this->loadModel("AdminUsers");
-        $adminUser = $this->AdminUsers->get($id, [
+        $this->loadModel("Users");
+        $adminUser = $this->Users->get($id, [
             'contain' => [],
         ]);
 
@@ -88,12 +105,26 @@ class AdminUsersController extends AdminAppController
      */
     public function add()
     {
-        $this->loadModel("AdminUsers");
-        $adminUser = $this->AdminUsers->newEmptyEntity();
+        $this->loadModel("Users");
+        $adminUser = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $adminUser = $this->AdminUsers->patchEntity($adminUser, $this->request->getData());
-            if ($this->AdminUsers->save($adminUser)) {
-                $this->Flash->success(__('The admin user has been saved.'));
+            $data = $this->request->getData();
+            $data['group_id'] = 2;
+            $data['password'] = $data['mobile'];
+            $adminUser = $this->Users->patchEntity($adminUser, $data);
+            if ($this->Users->save($adminUser)) {
+                $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                $mailer = new Mailer('default');
+                $mailer
+                    ->setTransport('smtp')
+                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    ->setTo($data['username'])
+                    ->setEmailFormat('html')
+                    ->setSubject('Vendor Portal - Account created')
+                    ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
+                    '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
+
+                $this->Flash->success(__('The User has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }

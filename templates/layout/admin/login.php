@@ -27,6 +27,7 @@
     <?= $this->Html->css('CakeLte.style') ?>
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
+    <?= $this->Html->script(['jquery']) ?>
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">

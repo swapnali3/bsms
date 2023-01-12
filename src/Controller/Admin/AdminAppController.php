@@ -49,6 +49,8 @@ class AdminAppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+        $this->loadComponent('Sms');
+        $this->set('title', 'Vendor Portal');
         
 
         /*
@@ -61,10 +63,10 @@ class AdminAppController extends Controller
         
         //echo '<pre>'; print_r($session); exit;
         
-        if(!$session->read('adminuser.id') && $this->request->getParam('action') != 'login') {
-            $this->redirect(array('controller' => 'adminusers', 'action' => 'login'));
+        if(!$session->read('id') && $this->request->getParam('action') != 'login') {
+            $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
         } else {
-            $this->set('logged_in', $session->read('adminuser.id'));
+            $this->set('logged_in', $session->read('id'));
         }
         $this->set('statusCode', Configure::read('StatusCode'));
     }

@@ -17,6 +17,9 @@ declare(strict_types=1);
 namespace App\Controller\Vendor;
 
 use Cake\Controller\Controller;
+use Cake\Event\EventInterface;
+use Cake\Core\Configure;
+
 
 /**
  * Application Controller
@@ -70,5 +73,10 @@ class AppController extends Controller
             $this->set('logged_in', $session->read('user.id'));
             $this->set('username', $session->read('user.username'));
         }
+    }
+
+    public function beforeFilter(EventInterface $event) {
+        parent::beforeFilter($event);
+        $this->viewBuilder()->setLayout('vendor_default');  //admin is our new layout name
     }
 }

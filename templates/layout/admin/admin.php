@@ -13,7 +13,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $this->fetch('title') . ' | ' . strip_tags($this->CakeLte->getConfig('app-name')) ?></title>
+    <?php $this->assign('title', $title); ?>
+    <title><?= $this->fetch('title') ?></title>
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
@@ -90,6 +91,10 @@
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
     <!-- AdminLTE App -->
     <?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
+
+    <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?>
+    <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
+
 
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>

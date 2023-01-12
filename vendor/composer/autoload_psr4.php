@@ -68,4 +68,5 @@ return array(
     'Bake\\' => array($vendorDir . '/cakephp/bake/src'),
     'App\\Test\\' => array($baseDir . '/tests'),
     'App\\' => array($baseDir . '/src'),
+    'Acl\\' => array($vendorDir . '/cakephp/acl/src'),
 );

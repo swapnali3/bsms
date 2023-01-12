@@ -953,3 +953,452 @@ Stack Trace:
 - /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
 - /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
 
+2023-01-05 11:09:37 error: [Error] Class 'App\Controller\Admin\AppController' not found in /Users/deepaksingh/source_code/htdocs/bsms/src/Controller/Admin/RfqInquiriesController.php on line 12
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/composer/ClassLoader.php:571
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/composer/ClassLoader.php:428
+- [internal]:??
+- [internal]:??
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:324
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:228
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:176
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:161
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclExtrasShell.php:88
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 11:19:42 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:20:03 warning: DbAcl::allow() - Invalid node
+Trace:
+Acl\Model\Table\PermissionsTable::allow() /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php, line 175
+Acl\Adapter\DbAcl::allow() /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php, line 97
+Acl\Adapter\DbAcl::deny() /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php, line 111
+Acl\Controller\Component\AclComponent::deny() /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php, line 150
+Acl\Shell\AclShell::deny() /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php, line 281
+Cake\Console\Shell::runCommand() /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php, line 500
+Cake\Console\CommandRunner::runShell() /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php, line 352
+Cake\Console\CommandRunner::run() /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php, line 169
+[main] /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php, line 12
+
+2023-01-05 13:42:31 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:42:46 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:43:48 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:150
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:281
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:44:30 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:44:56 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:44:59 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:46:32 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:46:45 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:47:21 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:47:34 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:48:36 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:48:40 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:49:49 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:53:13 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 13:58:32 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:00:08 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:00:24 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:01:35 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:01:42 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:06:00 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:07:10 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:07:21 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:07:40 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:08:45 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:10:03 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:12:09 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:12:52 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:15:13 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:15:19 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:15:45 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:17:44 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:23:20 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:28:32 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-01-05 14:33:53 error: [Cake\Core\Exception\CakeException] AclNode::node() - Couldn't find %s node identified by "%s" in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/AclNodesTable.php on line 188
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:227
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Model/Table/PermissionsTable.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Adapter/DbAcl.php:97
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Controller/Component/AclComponent.php:136
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclShell.php:265
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+

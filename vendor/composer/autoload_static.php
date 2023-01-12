@@ -138,6 +138,7 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
         array (
             'App\\Test\\' => 9,
             'App\\' => 4,
+            'Acl\\' => 4,
         ),
     );
 
@@ -391,6 +392,10 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
+        ),
+        'Acl\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cakephp/acl/src',
         ),
     );
 

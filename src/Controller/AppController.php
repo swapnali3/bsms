@@ -47,19 +47,20 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
-
+        $this->loadComponent('Sms');
+        
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
 
-        $session = $this->getRequest()->getSession();
+        //$session = $this->getRequest()->getSession();
         
         //echo '<pre>'; print_r($session); exit;
         
         
-        if(!$session->check('user.id') && !(
+       /* if(!$session->check('user.id') && !(
             $this->request->getParam('action') == 'login' ||
         $this->request->getParam('action') == 'registration')) {
 
@@ -69,6 +70,6 @@ class AppController extends Controller
         } else {
             $this->set('logged_in', $session->read('user.id'));
             $this->set('username', $session->read('user.username'));
-        }
+        } */
     }
 }
