@@ -3,32 +3,33 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp $vendorTemp
  */
+
+
+ switch($vendorTemp->status) {
+    case 0 : $status = 'Sent to Vendor'; break;
+    case 1 : $status = 'Pending for approval'; break;
+    case 2 : $status = 'approved'; break;
+}
+
 ?>
+
+
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Vendor Temp'), ['action' => 'edit', $vendorTemp->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Vendor Temp'), ['action' => 'delete', $vendorTemp->id], ['confirm' => __('Are you sure you want to delete # {0}?', $vendorTemp->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Vendor Temps'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Vendor Temp'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
     <div class="column-responsive column-80">
         <div class="vendorTemps view content">
             <h3><?= h($vendorTemp->name) ?></h3>
             <table>
                 <tr>
                     <th><?= __('Purchasing Organization') ?></th>
-                    <td><?= $vendorTemp->has('purchasing_organization') ? $this->Html->link($vendorTemp->purchasing_organization->name, ['controller' => 'PurchasingOrganizations', 'action' => 'view', $vendorTemp->purchasing_organization->id]) : '' ?></td>
+                    <td><?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Account Group') ?></th>
-                    <td><?= $vendorTemp->has('account_group') ? $this->Html->link($vendorTemp->account_group->name, ['controller' => 'AccountGroups', 'action' => 'view', $vendorTemp->account_group->id]) : '' ?></td>
+                    <td><?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Schema Group') ?></th>
-                    <td><?= $vendorTemp->has('schema_group') ? $this->Html->link($vendorTemp->schema_group->name, ['controller' => 'SchemaGroups', 'action' => 'view', $vendorTemp->schema_group->id]) : '' ?></td>
+                    <td><?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Name') ?></th>
@@ -52,7 +53,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Email Id') ?></th>
-                    <td><?= h($vendorTemp->email_id) ?></td>
+                    <td><?= h($vendorTemp->email) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Country') ?></th>
@@ -76,7 +77,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Contact Email Id') ?></th>
-                    <td><?= h($vendorTemp->contact_email_id) ?></td>
+                    <td><?= h($vendorTemp->contact_email) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Contact Mobile') ?></th>
@@ -91,18 +92,6 @@
                     <td><?= h($vendorTemp->tan_no) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($vendorTemp->id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Buyer Id') ?></th>
-                    <td><?= $this->Number->format($vendorTemp->buyer_id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Valid Date') ?></th>
-                    <td><?= h($vendorTemp->valid_date) ?></td>
-                </tr>
-                <tr>
                     <th><?= __('Added Date') ?></th>
                     <td><?= h($vendorTemp->added_date) ?></td>
                 </tr>
@@ -112,7 +101,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Status') ?></th>
-                    <td><?= $vendorTemp->status ? __('Yes') : __('No'); ?></td>
+                    <td><?= $status ?></td>
                 </tr>
             </table>
             <div class="text">

@@ -7,29 +7,40 @@
 
   <!-- Main content -->
   <section class="content">
+      <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>1</h3>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <!-- Default box -->
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Subscriptions</h3>
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                  <i class="fas fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                  <i class="fas fa-times"></i>
-                </button>
+                <p>Purchase Orders</p>
               </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+
+              <?= $this->Html->link(__('More info &nbsp;<i class="fas fa-arrow-circle-right"></i>'), ['controller' => 'purchaseorders', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?>
+
             </div>
-            <div class="card-body">
-              Start Date: 01/01/2023 
-            </div>
+            
           </div>
-          <!-- /.card -->
-        </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>1</h3>
+
+                <p>Vendor Pending for Details</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+
+              <?= $this->Html->link(__('More info &nbsp;<i class="fas fa-arrow-circle-right"></i>'), ['controller' => 'vendortemps', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?>
+
+            </div>
       </div>
-    </div>
   </section>

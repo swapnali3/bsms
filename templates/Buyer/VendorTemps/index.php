@@ -4,35 +4,39 @@
  * @var \App\Model\Entity\VendorTemp[]|\Cake\Collection\CollectionInterface $vendorTemps
  */
 ?>
-<div class="vendorTemps index content">
-    <?= $this->Html->link(__('New Vendor'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Vendors') ?></h3>
+<div class="vendorTemps index content card">
+    
+
+    <div class="card-header">
+        <h3 class="card-title">Vendor List</h3>
+        <?= $this->Html->link(__('New Vendor'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    </div>
+              
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-hover table-striped" id="example1">
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('purchasing_organization_id') ?></th>
-                    <th><?= $this->Paginator->sort('account_group_id') ?></th>
-                    <th><?= $this->Paginator->sort('schema_group_id') ?></th>
-                    <th><?= $this->Paginator->sort('name') ?></th>
-                    <th><?= $this->Paginator->sort('address') ?></th>
-                    <th><?= $this->Paginator->sort('city') ?></th>
-                    <th><?= $this->Paginator->sort('pincode') ?></th>
-                    <th><?= $this->Paginator->sort('mobile') ?></th>
-                    <th><?= $this->Paginator->sort('email') ?></th>
-                    <th><?= $this->Paginator->sort('country') ?></th>
-                    <th><?= $this->Paginator->sort('order_currency') ?></th>
-                    <th><?= $this->Paginator->sort('gst_no') ?></th>
-                    <th><?= $this->Paginator->sort('pan_no') ?></th>
-                    <th><?= $this->Paginator->sort('contact_person') ?></th>
-                    <th><?= $this->Paginator->sort('contact_email') ?></th>
-                    <th><?= $this->Paginator->sort('contact_mobile') ?></th>
-                    <th><?= $this->Paginator->sort('cin_no') ?></th>
-                    <th><?= $this->Paginator->sort('tan_no') ?></th>
-                    <th><?= $this->Paginator->sort('status') ?></th>
-                    <th><?= $this->Paginator->sort('added_date') ?></th>
-                    <th><?= $this->Paginator->sort('updated_date') ?></th>
+                    <th><?= h('Purchasing Organization') ?></th>
+                    <th><?= h('Account Group') ?></th>
+                    <th><?= h('Schema Group') ?></th>
+                    <th><?= h('Name') ?></th>
+                    <th><?= h('Address') ?></th>
+                    <th><?= h('City') ?></th>
+                    <th><?= h('Pincode') ?></th>
+                    <th><?= h('Mobile') ?></th>
+                    <th><?= h('Email') ?></th>
+                    <th><?= h('Country') ?></th>
+                    <th><?= h('Order Currency') ?></th>
+                    <th><?= h('GST No.') ?></th>
+                    <th><?= h('PAN No.') ?></th>
+                    <th><?= h('Contact Person') ?></th>
+                    <th><?= h('Contact Email') ?></th>
+                    <th><?= h('Contact Mobile') ?></th>
+                    <th><?= h('CIN No.') ?></th>
+                    <th><?= h('TAN No.') ?></th>
+                    <th><?= h('Status') ?></th>
+                    <th><?= h('Added Date') ?></th>
+                    <th><?= h('Updated Date') ?></th>
                     <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -46,10 +50,9 @@
                     }
                     ?>
                 <tr>
-                    <td><?= $this->Number->format($vendorTemp->id) ?></td>
-                    <td><?= $vendorTemp->has('purchasing_organization') ? $this->Html->link($vendorTemp->purchasing_organization->name, ['controller' => 'PurchasingOrganizations', 'action' => 'view', $vendorTemp->purchasing_organization->id]) : '' ?></td>
-                    <td><?= $vendorTemp->has('account_group') ? $this->Html->link($vendorTemp->account_group->name, ['controller' => 'AccountGroups', 'action' => 'view', $vendorTemp->account_group->id]) : '' ?></td>
-                    <td><?= $vendorTemp->has('schema_group') ? $this->Html->link($vendorTemp->schema_group->name, ['controller' => 'SchemaGroups', 'action' => 'view', $vendorTemp->schema_group->id]) : '' ?></td>
+                    <td><?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?></td>
+                    <td><?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?></td>
+                    <td><?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?></td>
                     <td><?= h($vendorTemp->name) ?></td>
                     <td><?= h($vendorTemp->address) ?></td>
                     <td><?= h($vendorTemp->city) ?></td>
@@ -79,7 +82,7 @@
             </tbody>
         </table>
     </div>
-    <div class="paginator">
+    <!-- <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
             <?= $this->Paginator->prev('< ' . __('previous')) ?>
@@ -88,5 +91,24 @@
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
+    </div> -->
 </div>
+
+
+<script>
+    $(document).ready(function() { 
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+     });
+</script>

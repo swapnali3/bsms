@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller\Admin;
+namespace App\Controller\Buyer;
 
 use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
@@ -15,7 +15,7 @@ use Cake\Http\Client;
  * @property \App\Model\Table\VendorTempsTable $VendorTemps
  * @method \App\Model\Entity\VendorTemp[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class VendorTempsController extends AdminAppController
+class VendorTempsController extends BuyerAppController
 {
     /**
      * Index method
@@ -61,7 +61,7 @@ class VendorTempsController extends AdminAppController
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $data['buyer_id'] = $this->getRequest()->getSession()->read('adminuser.id');
+            $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
             $data['valid_date'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +1 day'));;
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
             //echo '<pre>'; print_r($data); exit;
@@ -184,6 +184,36 @@ class VendorTempsController extends AdminAppController
             );
 
             if($action == 'app') {
+
+                $this->loadModel("Users");
+                $adminUser = $this->Users->newEmptyEntity();
+                
+                $data = array();
+                $data['first_name'] = $vendor->name;
+                $data['last_name'] = $vendor->name;
+                $data['username'] = $vendor->email;
+                $data['mobile'] = $vendor->mobile;
+                $data['password'] = $vendor->mobile;
+                $data['group_id'] = 3;
+                
+                $adminUser = $this->Users->patchEntity($adminUser, $data);
+
+                //echo '<pre>';print_r($adminUser); exit;
+                if ($this->Users->save($adminUser)) {
+                    /*$link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                    $mailer = new Mailer('default');
+                    $mailer
+                        ->setTransport('smtp')
+                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                        ->setTo($data['username'])
+                        ->setEmailFormat('html')
+                        ->setSubject('Vendor Portal - Account created')
+                        ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
+                        '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>'); */
+                    
+                }
+                    
+
                 $this->Flash->success(__('The Vendor successfully approved and sent to SAP system'));
             }
         } else {
