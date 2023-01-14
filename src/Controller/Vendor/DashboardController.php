@@ -29,7 +29,7 @@ use Cake\View\Exception\MissingTemplateException;
  *
  * @link https://book.cakephp.org/4/en/controllers/pages-controller.html
  */
-class DashboardController extends AppController
+class DashboardController extends VendorAppController
 {
     public function index() {
 

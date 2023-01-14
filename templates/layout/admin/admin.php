@@ -41,8 +41,8 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
-            <a href="<?= $this->Url->build('/admin/dashboard') ?>" class="brand-link">
-                <?= $this->Html->image('logo.png') ?>
+            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="background-color:#ffffff;">
+                <?= $this->Html->image('logo.png', ['width' => '150']) ?>
             </a>
             <!-- Sidebar -->
             <div class="sidebar">

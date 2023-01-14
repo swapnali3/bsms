@@ -19,6 +19,7 @@ namespace App\Controller\Vendor;
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
 use Cake\Core\Configure;
+use Cake\Http\Exception;
 
 
 /**
@@ -29,7 +30,7 @@ use Cake\Core\Configure;
  *
  * @link https://book.cakephp.org/4/en/controllers.html#the-app-controller
  */
-class AppController extends Controller
+class VendorAppController extends Controller
 {
     /**
      * Initialization hook method.
@@ -50,6 +51,7 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+        $this->set('title', 'Vendor Portal');
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
@@ -77,6 +79,7 @@ class AppController extends Controller
 
     public function beforeFilter(EventInterface $event) {
         parent::beforeFilter($event);
-        $this->viewBuilder()->setLayout('vendor_default');  //admin is our new layout name
+        //$this->viewBuilder()->setLayout('vendor_default');  //admin is our new layout name
+        $this->viewBuilder()->setLayout('vendor/admin');  //admin is our new layout name
     }
 }

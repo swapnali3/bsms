@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller\Buyer;
+namespace App\Controller\Vendor;
 
 /**
  * PoHeaders Controller
@@ -9,9 +9,9 @@ namespace App\Controller\Buyer;
  * @property \App\Model\Table\PoHeadersTable $PoHeaders
  * @method \App\Model\Entity\PoHeader[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class PurchaseOrdersController extends BuyerAppController
+class PurchaseOrdersController extends VendorAppController
 {
-    var $uses = array('PoHeaders');
+    var $uses = array('PoHeaders', 'DeliveryDetails');
     /**
      * Index method
      *
@@ -38,6 +38,8 @@ class PurchaseOrdersController extends BuyerAppController
         $poHeader = $this->PoHeaders->get($id, [
             'contain' => ['PoFooters'=>'DeliveryDetails'],
         ]);
+
+        //echo '<pre>'; print_r($poHeader); exit;
 
         $this->set(compact('poHeader'));
     }
@@ -95,6 +97,7 @@ class PurchaseOrdersController extends BuyerAppController
      */
     public function delete($id = null)
     {
+
         $this->request->allowMethod(['post', 'delete']);
         $poHeader = $this->PoHeaders->get($id);
         if ($this->PoHeaders->delete($poHeader)) {
@@ -105,4 +108,31 @@ class PurchaseOrdersController extends BuyerAppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+
+    public function adddelivery()
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+        $this->loadModel("DeliveryDetails");
+        echo '<pre>'; print_r($this->request->getData()); exit;
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            try{
+                $DeliveryDetail = $this->DeliveryDetails->newEmptyEntity();
+                $DeliveryDetail = $this->DeliveryDetails->patchEntity($DeliveryDetail, $this->request->getData());
+                if ($this->DeliveryDetails->save($DeliveryDetail)) {
+                    $response['status'] = 'success';
+                    $response['message'] = 'Record save successfully';
+                }
+            } catch (\Exception $e) {
+                $response['status'] = 'fail';
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+        echo json_encode($response);
+    }
+
 }

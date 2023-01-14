@@ -8,14 +8,35 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 
+use Cake\Event\EventInterface;
+
 /**
  * VendorTemps Controller
  *
  * @property \App\Model\Table\VendorTempsTable $VendorTemps
  * @method \App\Model\Entity\VendorTemp[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class OnboardingController extends AppController
+class OnboardingController extends VendorAppController
 {
+    
+    public function initialize(): void
+    {
+        parent::initialize();
+
+        date_default_timezone_set('Asia/Kolkata'); 
+        
+        $this->loadComponent('RequestHandler', [
+            'enableBeforeRedirect' => false,
+        ]);
+        $this->loadComponent('Flash');
+        $this->set('title', 'Vendor Portal');
+    }
+
+    public function beforeFilter(EventInterface $event) {
+        parent::beforeFilter($event);
+        $this->viewBuilder()->setLayout('vendor_default');  //admin is our new layout name
+    }
+
     public function verify($request = null)
     {
         if($request == null) {

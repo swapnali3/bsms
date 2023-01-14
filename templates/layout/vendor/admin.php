@@ -28,6 +28,7 @@
   <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>
   <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>
 
+  <?= $this->Html->css('CakeLte./AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>
 
   <!-- Ionicons -->
   <?= $this->Html->css('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') ?>
@@ -35,6 +36,8 @@
     <!-- Theme style -->
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
     <?= $this->Html->css('CakeLte.style') ?>
+
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/toastr/toastr.min.css') ?>
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
 
@@ -44,6 +47,10 @@
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
     <!-- AdminLTE App -->
     <?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
+
+    <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
+    <?= $this->Html->script("CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.js") ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
 
 </head>
 
@@ -63,7 +70,7 @@
             </a>
             <!-- Sidebar -->
             <div class="sidebar">
-                <?= $this->element('sidebar/buyer/main') ?>
+                <?= $this->element('sidebar/vendor/main') ?>
             </div>
             <!-- /.sidebar -->
         </aside>
@@ -115,6 +122,7 @@
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
+
 
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>

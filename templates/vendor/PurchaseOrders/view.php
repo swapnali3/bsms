@@ -74,7 +74,7 @@
                             
                             <td class="actions">
                             <?= $this->Html->link(__('View'), "#", ['class' => 'dispatch_item', 'data-toggle'=> "modal", 'data-target' => "#item_$poFooters->item" ,'header-id']) ?>
-                                
+                                <?= $this->Html->link(__('Dispatch'), "#", ['class' => 'dispatch_item', 'data-toggle'=> "modal", 'data-target' => "#exampleModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

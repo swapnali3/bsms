@@ -47,6 +47,10 @@ class PoFootersTable extends Table
             'foreignKey' => 'po_header_id',
             'joinType' => 'INNER',
         ]);
+
+        $this->hasMany('DeliveryDetails', [
+            'foreignKey' => 'po_footer_id',
+        ]);
     }
 
     /**

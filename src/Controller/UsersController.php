@@ -126,6 +126,8 @@ class UsersController extends AppController
                         $session->write('role', $result[0]->group_id);
                         if($result[0]->group_id == 1) {
                             $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
+                        }  else if($result[0]->group_id == 2) {
+                            $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
                         } else if($result[0]->group_id == 3) {
                             $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
                         }
