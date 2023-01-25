@@ -13,10 +13,10 @@
     </p>
   </a>
   <ul class="nav nav-treeview">
-    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>SAP Users</p>'), ['controller' => 'adminusers', 'action' => 'index', 'sap'], ['class' => 'nav-link', 'escape' => false]) ?></li>
-    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Portal Users</p>'), ['controller' => 'adminusers', 'action' => 'index', 'portal'], ['class' => 'nav-link', 'escape' => false]) ?></li>
-    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Role</p>'), ['controller' => 'adminusers', 'action' => 'index', 'portal'], ['class' => 'nav-link', 'escape' => false]) ?></li>
-    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Profile</p>'), ['controller' => 'adminusers', 'action' => 'index', 'portal'], ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>SAP Users</p>'), ['controller' => 'admin-users', 'action' => 'index', 'sap'], ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Portal Users</p>'), ['controller' => 'admin-users', 'action' => 'index', 'portal'], ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Role</p>'), '#', ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Profile</p>'), '#', ['class' => 'nav-link', 'escape' => false]) ?></li>
   </ul>
 </li>
 
@@ -39,12 +39,12 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Dashboard<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?></li>
-    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Users<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'adminusers', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?></li>
-    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Vendor<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'buyersellerusers', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?></li>
-    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Vendor<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'vendortemps', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Users<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'admin-users', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Vendor<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'buyer-seller-users', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Vendor<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'vendor-temps', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?></li>
     <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Product<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'products', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?></li> 
-    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>RFQs<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'rfqdetails', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?></li> 
-    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>New Vendor<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'vendortemps', 'action' => 'add'], ['class' => 'nav-link', 'escape' => false]) ?></li> 
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>RFQs<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'rfq-details', 'action' => 'index'], ['class' => 'nav-link', 'escape' => false]) ?></li> 
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>New Vendor<i class="right fas fa-angle-left"></i></p>'), ['controller' => 'vendor-temps', 'action' => 'add'], ['class' => 'nav-link', 'escape' => false]) ?></li> 
     <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Logout<i class="right fas fa-angle-left"></i></p>'), ['prefix' => false, 'controller' => 'users', 'action' => 'logout'], ['class' => 'nav-link', 'escape' => false]) ?></li>
   </ul>
 </li> -->

@@ -16,7 +16,7 @@
                     <th><?= __('Created By') ?></th>
                     <th><?= __('Pay Terms') ?></th>
                     <th><?= __('Currency') ?></th>
-                    <th><?= __('Release Status') ?></th>
+                    <!-- <th><?= __('Release Status') ?></th> -->
                     <th><?= __('Exchange Rate') ?></th>
                     <th><?= __('Created On') ?></th>
                     <th><?= __('Added Date') ?></th>
@@ -28,7 +28,7 @@
                     <td><?= h($poHeader->created_by) ?></td>
                     <td><?= h($poHeader->pay_terms) ?></td>
                     <td><?= h($poHeader->currency) ?></td>
-                    <td><?= h($poHeader->release_status) ?></td>
+                    <!-- <td><?= h($poHeader->release_status) ?></td> -->
                     <td><?= $this->Number->format($poHeader->exchange_rate) ?></td>
                     <td><?= h($poHeader->created_on) ?></td>
                     <td><?= h($poHeader->added_date) ?></td>
@@ -41,8 +41,8 @@
                 <table class="table table-bordered table-hover" id="example1">
                 <thead>
                         <tr>
+                            <th>&nbsp;</th>
                             <th><?= __('Item') ?></th>
-                            <th><?= __('Deleted Indication') ?></th>
                             <th><?= __('Material') ?></th>
                             <th><?= __('Short Text') ?></th>
                             <th><?= __('Po Qty') ?></th>
@@ -53,14 +53,16 @@
                             <th><?= __('Price Unit') ?></th>
                             <th><?= __('Net Value') ?></th>
                             <th><?= __('Gross Value') ?></th>
+                            <th><?= __('Supplier Part Code') ?></th>
+                            <th><?= __('Stock') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
                         </tr>
                 </thead>
                 <tbody>
                         <?php foreach ($poHeader->po_footers as $poFooters) : ?>
                         <tr>
+                            <td class="details-control" data-id="<?=$poFooters->id?>"><img src="http://i.imgur.com/SD7Dz.png" alt="+"></td>
                             <td><?= h($poFooters->item) ?></td>
-                            <td><?= h($poFooters->deleted_indication) ?></td>
                             <td><?= h($poFooters->material) ?></td>
                             <td><?= h($poFooters->short_text) ?></td>
                             <td><?= h($poFooters->po_qty) ?></td>
@@ -71,10 +73,13 @@
                             <td><?= h($poFooters->price_unit) ?></td>
                             <td><?= h($poFooters->net_value) ?></td>
                             <td><?= h($poFooters->gross_value) ?></td>
+                            <td><?= h($poFooters->part_code) ?></td>
+                            <td><?= h($poFooters->stock) ?></td>
                             
                             <td class="actions">
-                            <?= $this->Html->link(__('View'), "#", ['class' => 'dispatch_item', 'data-toggle'=> "modal", 'data-target' => "#item_$poFooters->item" ,'header-id']) ?>
-                                <?= $this->Html->link(__('Dispatch'), "#", ['class' => 'dispatch_item', 'data-toggle'=> "modal", 'data-target' => "#exampleModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id]) ?>
+                                <?= $this->Html->link(__('View'), "#", ['class' => 'dispatch_item', 'data-toggle'=> "modal", 'data-target' => "#item_$poFooters->item" ,'header-id']) ?>
+                                <!-- <?= $this->Html->link(__('Dispatch'), "#", ['class' => 'dispatch_item', 'data-toggle'=> "modal", 'data-target' => "#exampleModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id]) ?> -->
+                                <?= $this->Html->link(__('Stock'), "#", ['class' => 'stock_item', 'data-toggle'=> "modal", 'data-target' => "#updateStockModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id, 'part-code' => $poFooters->part_code,]) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -96,8 +101,6 @@
   <div class="modal-dialog modal-xl" role="document">
 
     <div class="modal-content">
-    
-    <?= $this->Form->create(null, ['id' => 'quickForm',  'url' => ['controller' => 'purchaseorders', 'action' => 'adddelivery']]) ?>
       <div class="modal-header">
         <h5 class="modal-title">Delivery Details :: <?= h($poHeader->po_no .' - '. $poFooters->item) ?></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -151,7 +154,7 @@
 
     <div class="modal-content">
     
-    <?= $this->Form->create(null, ['id' => 'quickForm',  'url' => ['controller' => 'purchaseorders', 'action' => 'adddelivery']]) ?>
+    <?= $this->Form->create(null, ['id' => 'quickForm',  'url' => ['controller' => 'purchase-orders', 'action' => 'adddelivery']]) ?>
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Delivery Details</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -185,6 +188,38 @@
   </div>
 </div>
 
+<!-- Modal stock -->
+<div class="modal fade" id="updateStockModal" tabindex="-1" role="dialog" aria-labelledby="updateStockModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+    
+    <?= $this->Form->create(null, ['id' => 'stockForm',  'url' => ['controller' => 'po-footers', 'action' => 'edit']]) ?>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Stock</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?php
+            echo $this->Form->control('po_header_id', ['id' => 'po_header_stock_id', 'type' => 'hidden', 'class' => 'form-control rounded-0','div' => 'form-group']);  
+            echo $this->Form->control('po_footer_id', ['id' => 'po_footer_stock_id', 'type' => 'hidden', 'class' => 'form-control rounded-0','div' => 'form-group']);  
+            echo $this->Form->control('part_code', ['id' => 'part_code', 'class' => 'form-control rounded-0','div' => 'form-group']);  
+            echo $this->Form->control('stock', ['type' => 'number','class' => 'form-control rounded-0','div' => 'form-group']);
+        ?>
+      </div>
+      <div id="error_msg"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+                        </form>
+    </div>
+  </div>
+</div>
+
+
 <script>
     $(document).ready(function() { 
 
@@ -195,15 +230,20 @@
       timer: 3000
     });
     
-        $("#example1").DataTable({
+        var table = $("#example1").DataTable({
             "paging": true,
-            "responsive": true, "lengthChange": false, "autoWidth": false, "searching" :true,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            "responsive": false, "lengthChange": false, "autoWidth": false, "searching" :true,
+        });
 
         $(".dispatch_item").click( function () {
             $("#po_header_id").val($(this).attr('header-id'));
             $("#po_footer_id").val($(this).attr('footer-id'));
+        });
+
+        $(".stock_item").click( function () {
+            $("#po_header_stock_id").val($(this).attr('header-id'));
+            $("#po_footer_stock_id").val($(this).attr('footer-id'));
+            $("#part_code").val($(this).attr('part-code'));
         });
 
         $('#exampleModal').on('hidden.bs.modal', function (e) {
@@ -211,7 +251,7 @@
         });
 
 
-        $.validator.setDefaults({
+        /*$.validator.setDefaults({
             submitHandler: function () {
               var formdatas = new FormData($('#quickForm')[0]);
                 $.ajax({
@@ -239,55 +279,193 @@
                     });
                     return false; 
             }
-        });
-  $('#quickForm').validate({
-    rules: {
-      challan_no: {
-        required: true
-      },
-      qty: {
-        required: true,
-        number: true
-      },
-      eway_bill_no: {
-        required: true,
-      },
-      einvoice_no: {
-        required: true,
-      },
-    },
-    messages: {
-        challan_no: {
-        required: "Please enter a email address",
-      },
-      qty: {
-        required: "Please provide a password",
-        number: "Please enter number only"
-      },
-      eway_bill_no: {
-        required: "Please enter a email address",
-      },
-      einvoice_no: {
-        required: "Please enter a email address",
-      },
-    },
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.form-group').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    }
-  });
+        }); */
+          $('#quickForm').validate({
+            rules: {
+              challan_no: {
+                required: true
+              },
+              qty: {
+                required: true,
+                number: true
+              },
+              eway_bill_no: {
+                required: true,
+              },
+              einvoice_no: {
+                required: true,
+              },
+            },
+            messages: {
+                challan_no: {
+                required: "Please enter a email address",
+              },
+              qty: {
+                required: "Please provide a password",
+                number: "Please enter number only"
+              },
+              eway_bill_no: {
+                required: "Please enter a email address",
+              },
+              einvoice_no: {
+                required: "Please enter a email address",
+              },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+              error.addClass('invalid-feedback');
+              element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+              $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+              $(element).removeClass('is-invalid');
+            },
+            submitHandler: function () {
+              var formdatas = new FormData($('#quickForm')[0]);
+                $.ajax({
+                        type: "POST",
+                        url: "<?php echo \Cake\Routing\Router::url(array('controller' => 
+'/purchase-orders', 'action' => 'adddelivery')); ?>",
+                        data: $("#quickForm").serialize(),
+                        dataType:'json',
+                        success: function (response) {
+                            console.log(response);
+                            if(response.status == 'success') {
+                                $('#exampleModal').modal('toggle');
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: response.message
+                                });
+                                location.reload(true);
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: response.message
+                                });
+                            }
+                            
+                        }
+                    });
+                    return false; 
+            }
+
+          });
+
+
+
+          $('#stockForm').validate({
+            rules: {
+              part_code: {
+                required: true
+              },
+              stock: {
+                required: true,
+                number: true
+              },
+            },
+            messages: {
+              part_code: {
+                required: "Please enter part code ",
+              },
+              stock: {
+                required: "Please provide a stock",
+                number: "Please enter number only"
+              },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+              error.addClass('invalid-feedback');
+              element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+              $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+              $(element).removeClass('is-invalid');
+            },
+            submitHandler: function () {
+              var formdatas = new FormData($('#stockForm')[0]);
+                $.ajax({
+                        type: "POST",
+                        url: "<?php echo \Cake\Routing\Router::url(array( 'controller' => 
+'/po-footers', 'action' => 'update')); ?>/"+$("#po_footer_stock_id").val(),
+                        data: $("#stockForm").serialize(),
+                        dataType:'json',
+                        success: function (response) {
+                            console.log(response);
+                            if(response.status == 'success') {
+                                $('#updateStockModal').modal('toggle');
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: response.message
+                                });
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: response.message
+                                });
+                            }
+                            
+                        }
+                    });
+                    return false; 
+            }
+
+          });
 
 
   
+      $('#example1 tbody').on('click', 'td.details-control', function () {
+        if($('img', this).attr('alt') == '+') {
+          $('img', this).attr({'alt': "-", 'src':"http://i.imgur.com/d4ICC.png"});
+        } else {
+          $('img', this).attr({'alt': "+", 'src':"http://i.imgur.com/SD7Dz.png"});
+        }
+        
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+    
+        if ( row.child.isShown() ) {
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            row.child( format($(this).attr('data-id')) ).show();
+            tr.addClass('shown');
+        }
+      } );
 
-     });
+
+      function format ( rowData ) {
+    var div = $('<div/>')
+        .addClass( 'loading' )
+        .text( 'Loading...' );
+ 
+    $.ajax( {
+      type: "GET",
+        //url: '../getDeliveryDetails/' + rowData,
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => 
+'/purchase-orders', 'action' => 'get-schedules')); ?>/" + rowData,
+        dataType: 'json',
+        success: function ( response ) {
+          if(response.status == 'success') {
+            div
+                .html( response.html )
+                .removeClass( 'loading' );
+          } else {
+            div
+                .html( response.message )
+                .removeClass( 'loading' );
+          } 
+        }
+    } );
+ 
+    return div;
+}
+
+  });
 
 
 </script>

@@ -50,7 +50,7 @@ class AdminAppController extends Controller
         ]);
         $this->loadComponent('Flash');
         $this->loadComponent('Sms');
-        $this->set('title', 'Vendor Portal');
+        $this->set('title', 'VeKPro');
         
 
         /*
@@ -60,6 +60,13 @@ class AdminAppController extends Controller
         //$this->loadComponent('FormProtection');
 
         $session = $this->getRequest()->getSession();
+
+        $full_name = $session->read('full_name');
+        $role = $session->read('role');
+        $group_name = $session->read('group_name');
+
+        $this->set(compact('full_name', 'role', 'group_name'));
+        
         
         //echo '<pre>'; print_r($session); exit;
         
@@ -69,6 +76,12 @@ class AdminAppController extends Controller
             $this->set('logged_in', $session->read('id'));
         }
         $this->set('statusCode', Configure::read('StatusCode'));
+
+        if($session->read('role') != 1) {
+            $this->Flash->error("You are not authrized");
+            $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+        }
+        
     }
 
     public function beforeFilter(EventInterface $event) {

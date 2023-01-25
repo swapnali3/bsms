@@ -63,7 +63,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $groups = $this->Users->Groups->find('list', ['limit' => 200])->all();
+        $groups = $this->Users->UserGroups->find('list', ['limit' => 200])->all();
         $this->set(compact('user', 'groups'));
     }
 
@@ -90,16 +90,41 @@ class UsersController extends AppController
     public function login() {
         $this->viewBuilder()->setLayout('admin/login'); 
         $this->loadModel("Users");
+        $this->loadModel("VendorTemps");
+
+        $session = $this->getRequest()->getSession();
+        
+        if($session->check('id')) {
+            $role = $session->read('role');
+            if($role == 1) {
+                $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
+            }  else if($role == 2) {
+                $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
+            }else if($role == 3) {
+                $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
+            }
+        }
+             
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             if($this->request->getData('logged_by') == 'email') {
 
-                $result = $this->Users->find()->where(['username' => $this->request->getData('username')])->limit(1)->toArray();    
-                //print_r($this->request->getData());print_r($result); exit;
+                $result = $this->Users->find()
+                ->select($this->Users)
+                ->select(['group_name' => 'UserGroups.name'])
+                ->leftjoin(
+                    ['UserGroups' => 'user_groups'],
+                    ['UserGroups.id = Users.group_id'])
+                    
+                ->where(['username' => $this->request->getData('username')])->limit(1)->toArray();    
+
+                //echo '<pre>'; print_r($this->request->getData());print_r($result); exit;
                 if($result) {
                     if(password_verify($this->request->getData('password'), $result[0]->password )){
                         $session = $this->getRequest()->getSession();
                         $session->write('username', $result[0]->username);
+                        $session->write('group_name', $result[0]->group_name);
+                        $session->write('full_name', $result[0]->first_name . ' ' . $result[0]->last_name);
                         $session->write('id', $result[0]->id);
                         $session->write('role', $result[0]->group_id);
                         if($result[0]->group_id == 1) {
@@ -107,6 +132,8 @@ class UsersController extends AppController
                         }  else if($result[0]->group_id == 2) {
                             $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
                         }else if($result[0]->group_id == 3) {
+                            $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();    
+                            $session->write('vendor_code', $result[0]->sap_vendor_code);
                             $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
                         }
                     } else {
@@ -116,12 +143,20 @@ class UsersController extends AppController
                     $this->Flash->error("Invalid username");
                 }
             } else {
-                $result = $this->Users->find()->where(['mobile' => $this->request->getData('mobile')])->limit(1)->toArray();    
+                $result = $this->Users->find()
+                ->select($this->Users)
+                ->select(['group_name' => 'UserGroups.name'])
+                ->leftjoin(
+                    ['UserGroups' => 'user_groups'],
+                    ['UserGroups.id = Users.group_id'])
+                    ->where(['mobile' => $this->request->getData('mobile')])->limit(1)->toArray();    
                 //print_r($result); exit;
                 if($result) {
                     if($this->request->getData('otp') == $result[0]->otp){
                         $session = $this->getRequest()->getSession();
                         $session->write('username', $result[0]->username);
+                        $session->write('group_name', $result[0]->group_name);
+                        $session->write('full_name', $result[0]->first_name . ' ' . $result[0]->last_name);
                         $session->write('id', $result[0]->id);
                         $session->write('role', $result[0]->group_id);
                         if($result[0]->group_id == 1) {
@@ -129,6 +164,10 @@ class UsersController extends AppController
                         }  else if($result[0]->group_id == 2) {
                             $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
                         } else if($result[0]->group_id == 3) {
+
+                            $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();    
+                            $session->write('vendor_code', $result[0]->sap_vendor_code);
+
                             $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
                         }
                     } else {

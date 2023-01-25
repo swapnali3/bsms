@@ -1,8 +1,4 @@
 <?php use Cake\Core\Configure; ?>
 
-<!-- To the right -->
-<div class="float-right d-none d-sm-inline">
-  <strong>CakePHP</strong> <?php echo Configure::version() ?>
-</div>
 <!-- Default to the left -->
-<strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+<strong>Copyright &copy; <?php echo date("Y"); ?> <a href="https://fts-pl.com" target="_blank">F.T. Solutions Pvt. Ltd.</a></strong> All rights reserved.

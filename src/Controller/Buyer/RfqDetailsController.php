@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller\Admin;
+namespace App\Controller\Buyer;
 use Cake\Datasource\ConnectionManager;
 
 /**
@@ -10,7 +10,7 @@ use Cake\Datasource\ConnectionManager;
  * @property \App\Model\Table\RfqDetailsTable $RfqDetails
  * @method \App\Model\Entity\RfqDetail[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class RfqDetailsController extends AdminAppController
+class RfqDetailsController extends BuyerAppController
 {
     /**
      * Index method
@@ -22,7 +22,7 @@ class RfqDetailsController extends AdminAppController
     {
         $this->loadModel("RfqDetails");
         $this->paginate = [
-            'contain' => ['BuyerSellerUsers', 'Products', 'Uoms'],
+            'contain' => ['Products', 'Uoms'],
         ];
         $rfqDetails = $this->paginate($this->RfqDetails);
 
@@ -39,11 +39,29 @@ class RfqDetailsController extends AdminAppController
     public function view($id = null)
     {
         $this->loadModel("RfqDetails");
+        $this->loadModel("RfqInquiries");
+        $this->loadModel("VendorTemps");
+        $this->loadModel("Users");
         $rfqDetail = $this->RfqDetails->get($id, [
-            'contain' => ['BuyerSellerUsers', 'Products', 'Uoms'],
+            'contain' => [ 'Products', 'Uoms'],
         ]);
 
-        $this->set(compact('rfqDetail'));
+        $results = $this->RfqInquiries->find()
+        ->select($this->RfqInquiries)
+        ->select(['company_name' => 'VendorTemps.name'])
+        ->leftJoin(
+            ['Users' => 'users'],
+            ['Users.id = RfqInquiries.seller_id'])
+        ->leftJoin(
+            ['VendorTemps' => 'vendor_temps'],
+            ['VendorTemps.email = Users.username'])
+        
+        ->where(['rfq_id' => $id])  
+        ->toArray();
+
+        //echo '<pre>'; print_r($results); exit;
+
+        $this->set(compact('rfqDetail', 'results'));
     }
 
     /**
@@ -53,22 +71,38 @@ class RfqDetailsController extends AdminAppController
      */
     public function add()
     {
+        $this->loadModel("Products");
+        $this->loadModel("Uoms");
         $this->loadModel("RfqDetails");
         $rfqDetail = $this->RfqDetails->newEmptyEntity();
         if ($this->request->is('post')) {
-            $rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $this->request->getData());
+            $session = $this->getRequest()->getSession();
+            $userId = $session->read('id');
+            $data = $this->request->getData();
+
+            $conn = ConnectionManager::get('default');
+            $maxrfq = $conn->execute("SELECT MAX(rfq_no) maxrfq FROM rfq_details RD");
+
+            foreach ($maxrfq as $maxid) {
+                $maxRfqId = $maxid['maxrfq'] + 1; 
+            }   
+
+            $data['rfq_no'] = $maxRfqId;
+            $data['buyer_seller_user_id'] = $userId;
+            $rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $data);
+            //echo '<pre>'; print_r($rfqDetail); exit;
             if ($this->RfqDetails->save($rfqDetail)) {
-                $this->Flash->success(__('The rfq detail has been saved.'));
+                $this->Flash->success(__('The RFQ has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The rfq detail could not be saved. Please, try again.'));
+            $this->Flash->error(__('The RFQ  could not be saved. Please, try again.'));
         }
-        $buyerSellerUsers = $this->RfqDetails->BuyerSellerUsers->find('list', ['limit' => 200])->all();
+        
         $products = $this->RfqDetails->Products->find('list', ['limit' => 200])->all();
-        $productSubCategories = $this->RfqDetails->ProductSubCategories->find('list', ['limit' => 200])->all();
+        //$productSubCategories = $this->RfqDetails->ProductSubCategories->find('list', ['limit' => 200])->all();
         $uoms = $this->RfqDetails->Uoms->find('list', ['limit' => 200])->all();
-        $this->set(compact('rfqDetail', 'buyerSellerUsers', 'products', 'productSubCategories', 'uoms'));
+        $this->set(compact('rfqDetail', 'products', 'uoms'));
     }
 
     /**

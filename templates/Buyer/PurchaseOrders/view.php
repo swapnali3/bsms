@@ -8,7 +8,7 @@
     <div class="column-responsive column-80">
         <div class="poHeaders view content" >
             <h3><?= h($poHeader->po_no) ?></h3>
-            <table class="table table-bordered">
+            <table class="table table-bordered" >
                 <tr>
                     <th><?= __('Vendor Code') ?></th>
                     <th><?= __('Po No') ?></th>
@@ -38,11 +38,11 @@
             <h4><?= __('PO Item List') ?></h4>
                 <?php if (!empty($poHeader->po_footers)) : ?>
                 <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="example1">
+                <table class="table table-bordered" id="example1">
                 <thead>
                         <tr>
+                            <th width="5%"></th>
                             <th><?= __('Item') ?></th>
-                            <th><?= __('Deleted Indication') ?></th>
                             <th><?= __('Material') ?></th>
                             <th><?= __('Short Text') ?></th>
                             <th><?= __('Po Qty') ?></th>
@@ -59,8 +59,8 @@
                 <tbody>
                         <?php foreach ($poHeader->po_footers as $poFooters) : ?>
                         <tr>
+                            <td class= "details-control" footer-id="<?=$poFooters->id?>"><img src="http://i.imgur.com/SD7Dz.png" alt="+"></td>
                             <td><?= h($poFooters->item) ?></td>
-                            <td><?= h($poFooters->deleted_indication) ?></td>
                             <td><?= h($poFooters->material) ?></td>
                             <td><?= h($poFooters->short_text) ?></td>
                             <td><?= h($poFooters->po_qty) ?></td>
@@ -73,8 +73,8 @@
                             <td><?= h($poFooters->gross_value) ?></td>
                             
                             <td class="actions">
+                            <?= $this->Html->link(__('Schedule'), "#", ['class' => 'schedule_item', 'data-toggle'=> "modal", 'data-target' => "#scheduleModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id, 'item-no' => $poFooters->item]) ?>
                             <?= $this->Html->link(__('View'), "#", ['class' => 'dispatch_item', 'data-toggle'=> "modal", 'data-target' => "#item_$poFooters->item" ,'header-id']) ?>
-                                
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -97,7 +97,6 @@
 
     <div class="modal-content">
     
-    <?= $this->Form->create(null, ['id' => 'quickForm',  'url' => ['controller' => 'purchaseorders', 'action' => 'adddelivery']]) ?>
       <div class="modal-header">
         <h5 class="modal-title">Delivery Details :: <?= h($poHeader->po_no .' - '. $poFooters->item) ?></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -145,35 +144,28 @@
 </div>
 <?php endforeach; ?>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal stock -->
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
 
     <div class="modal-content">
     
-    <?= $this->Form->create(null, ['id' => 'quickForm',  'url' => ['controller' => 'purchaseorders', 'action' => 'adddelivery']]) ?>
+    <?= $this->Form->create(null, ['id' => 'scheduleForm',  'url' => ['controller' => 'po-footers', 'action' => 'create-schedule']]) ?>
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delivery Details</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Create Schedule</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <?php
-                    echo $this->Form->control('po_header_id', ['id' => 'po_header_id', 'type' => 'hidden', 'class' => 'form-control rounded-0','div' => 'form-group']);  
-                    echo $this->Form->control('po_footer_id', ['id' => 'po_footer_id', 'type' => 'hidden', 'class' => 'form-control rounded-0','div' => 'form-group']);  
-                    echo $this->Form->control('challan_no', ['class' => 'form-control rounded-0','div' => 'form-group']);  
-                    echo $this->Form->control('qty', ['class' => 'form-control rounded-0','div' => 'form-group']);
-                    echo $this->Form->control('eway_bill_no', ['class' => 'form-control rounded-0','div' => 'form-group']);
-                    echo $this->Form->control('einvoice_no', ['class' => 'form-control rounded-0','div' => 'form-group']);
-                ?>
-
-
-                  <div class="custom-file form-group rounded-0" style="margin-top:20px;">
-                    <input type="file" name="challan_document" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
-                  </div>
-
+      <div>PO : <?=$poHeader->po_no ?></div>
+      <div id="item_title"></div>
+        <?php
+            echo $this->Form->control('po_header_id', ['id' => 'po_header_id', 'type' => 'hidden', 'class' => 'form-control rounded-0','div' => 'form-group']);  
+            echo $this->Form->control('po_footer_id', ['id' => 'po_footer_id', 'type' => 'hidden', 'class' => 'form-control rounded-0','div' => 'form-group']);  
+            echo $this->Form->control('actual_qty', ['id' => 'actual_qty', 'type' => 'number', 'class' => 'form-control rounded-0','div' => 'form-group']);  
+            echo $this->Form->control('delivery_date', ['type' => 'date','class' => 'form-control rounded-0','div' => 'form-group']);
+        ?>
       </div>
       <div id="error_msg"></div>
       <div class="modal-footer">
@@ -185,6 +177,28 @@
   </div>
 </div>
 
+
+<div class="container" style="display:none;">   
+		<table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered table-hover table-striped" id="example2">
+		<thead>
+        <tr>
+            <th>L3Type</th>
+            <th>L3Variation</th>
+        </tr>
+		</thead>
+		<tbody>
+        <tr>
+            <td>A</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>B</td>
+            <td>4</td>
+        </tr>
+		</tbody>
+		</table> 
+        </div>
+
 <script>
     $(document).ready(function() { 
 
@@ -195,35 +209,30 @@
       timer: 3000
     });
     
-        $("#example1").DataTable({
-            "paging": true,
-            "responsive": true, "lengthChange": false, "autoWidth": false, "searching" :true,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
-        $(".dispatch_item").click( function () {
+        $(".schedule_item").click( function () {
             $("#po_header_id").val($(this).attr('header-id'));
             $("#po_footer_id").val($(this).attr('footer-id'));
+            $("#item_title").html('Item : ' + $(this).attr('item-no'));
         });
 
-        $('#exampleModal').on('hidden.bs.modal', function (e) {
-          $('#exampleModal form')[0].reset();
+        $('#scheduleModal').on('hidden.bs.modal', function (e) {
+          $('#scheduleModal form')[0].reset();
         });
 
 
         $.validator.setDefaults({
             submitHandler: function () {
-              var formdatas = new FormData($('#quickForm')[0]);
+              var formdatas = new FormData($('#scheduleForm')[0]);
                 $.ajax({
                         type: "POST",
                         url: "<?php echo \Cake\Routing\Router::url(array('controller' => 
-'purchaseorders', 'action' => 'adddelivery')); ?>",
-                        data: $("#quickForm").serialize(),
+'purchase-orders', 'action' => 'create-schedule')); ?>",
+                        data: $("#scheduleForm").serialize(),
                         dataType:'json',
                         success: function (response) {
                             console.log(response);
                             if(response.status == 'success') {
-                                $('#exampleModal').modal('toggle');
+                                $('#scheduleModal').modal('toggle');
                                 Toast.fire({
                                     icon: 'success',
                                     title: response.message
@@ -240,36 +249,24 @@
                     return false; 
             }
         });
-  $('#quickForm').validate({
+  $('#scheduleForm').validate({
     rules: {
-      challan_no: {
-        required: true
-      },
-      qty: {
+      actual_qty: {
         required: true,
         number: true
       },
-      eway_bill_no: {
+      delivery_date: {
         required: true,
-      },
-      einvoice_no: {
-        required: true,
-      },
+      }
     },
     messages: {
-        challan_no: {
-        required: "Please enter a email address",
-      },
       qty: {
-        required: "Please provide a password",
+        required: "Please provide a qty",
         number: "Please enter number only"
       },
-      eway_bill_no: {
-        required: "Please enter a email address",
-      },
-      einvoice_no: {
-        required: "Please enter a email address",
-      },
+      delivery_date: {
+        required: "Please select date",
+      }
     },
     errorElement: 'span',
     errorPlacement: function (error, element) {
@@ -285,9 +282,62 @@
   });
 
 
-  
+  var table = $("#example1").DataTable({
+            "paging": true,
+            "responsive": false, "lengthChange": false, "autoWidth": false, "searching" :true,
+        });
 
-     });
+
+        $('#example1 tbody').on('click', 'td.details-control', function () {
+        if($('img', this).attr('alt') == '+') {
+          $('img', this).attr({'alt': "-", 'src':"http://i.imgur.com/d4ICC.png"});
+        } else {
+          $('img', this).attr({'alt': "+", 'src':"http://i.imgur.com/SD7Dz.png"});
+        }
+        
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+    
+        if ( row.child.isShown() ) {
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            row.child( format($(this).attr('footer-id')) ).show();
+            tr.addClass('shown');
+        }
+      } );
+
+
+      function format ( rowData ) {
+    var div = $('<div/>')
+        .addClass( 'loading' )
+        .text( 'Loading...' );
+ 
+    $.ajax( {
+      type: "GET",
+        //url: '../getDeliveryDetails/' + rowData,
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => 
+'/purchase-orders', 'action' => 'get-schedules')); ?>/" + rowData,
+        dataType: 'json',
+        success: function ( response ) {
+          if(response.status == 'success') {
+            div
+                .html( response.html )
+                .removeClass( 'loading' );
+          } else {
+            div
+                .html( response.message )
+                .removeClass( 'loading' );
+          } 
+        }
+    } );
+ 
+    return div;
+}
+
+
+});
 
 
 </script>

@@ -13,7 +13,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $this->fetch('title') . ' | ' . strip_tags($this->CakeLte->getConfig('app-name')) ?></title>
+    <title><?= $this->fetch('title')?></title>
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
@@ -31,9 +31,12 @@
 </head>
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="login-logo">
-            <?=$this->Html->image('logo.png') ?>
-            <br /> Vendor Portal
+        <div class="login-logo ">
+            <!-- <br /> <span style="font-size:22px;"><b>eProcurement System</b></span> -->
+            <span style="font-size:30px;"><b><span style="color:#FF0000;">V</span>e<span style="color:#298A08;">K</span><span style="color:#DF01A5;">P</span>ro</b></span>
+            <div style="font-size:15px;"><strong><i>Vendor Customer procurement</i></strong></div>
+
+            <span style="font-size:12px;"><b>Powered by</b></span> <a href="#" class="brand-link" ><?= $this->Html->image('logo.png', ['width' => '130']) ?></a>
         </div>
         <!-- /.login-logo -->
         <?= $this->Flash->render() ?>

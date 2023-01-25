@@ -50,7 +50,8 @@ class BuyerAppController extends Controller
         ]);
         $this->loadComponent('Flash');
         $this->loadComponent('Sms');
-        $this->set('title', 'Vendor Portal');
+        
+        $this->set('title', 'VeKPro');
         
 
         /*
@@ -60,20 +61,35 @@ class BuyerAppController extends Controller
         //$this->loadComponent('FormProtection');
 
         $session = $this->getRequest()->getSession();
+
+        $full_name = $session->read('full_name');
+        $role = $session->read('role');
+        $group_name = $session->read('group_name');
+
+        $this->set(compact('full_name', 'role', 'group_name'));
+
+        if($session->check('id') && $session->read('role') != 2) {
+             $this->Flash->error("You are not authrized");
+             $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+         } else if(!$session->check('id')) {
+             $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+         }else {
+             $this->set('logged_in', $session->read('id'));
+             $this->set('username', $session->read('username'));
+         }
+
         
-        //echo '<pre>'; print_r($session); exit;
-        
-        if(!$session->read('id') && $this->request->getParam('action') != 'login') {
-            $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
-        } else {
-            $this->set('logged_in', $session->read('id'));
-        }
         $this->set('statusCode', Configure::read('StatusCode'));
+
     }
 
     public function beforeFilter(EventInterface $event) {
         parent::beforeFilter($event);
         $this->viewBuilder()->setLayout('buyer/admin');  //admin is our new layout name
+
+        $this->set('controller', $this->request->getParam('controller'));
+        $this->set('action', $this->request->getParam('action'));
+        
     }
 
 }

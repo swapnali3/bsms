@@ -120,7 +120,7 @@
 
         $("#getotp").click(function(){
           var request = $.ajax({
-            url: "get-otp",
+            url: "users/get-otp",
             method: "POST",
             headers : {'X-CSRF-Token': $('[name="_csrfToken"]').val()},
             data: { mobile : $("#mobile").val() },

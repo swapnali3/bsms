@@ -105,4 +105,86 @@ class PurchaseOrdersController extends BuyerAppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function createSchedule()
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+        $this->loadModel("PoItemSchedules");
+        //echo '<pre>'; print_r($this->request->getData()); exit;
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            try{
+                $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
+                $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $this->request->getData());
+                //echo '<pre>'; print_r($PoItemSchedule); exit();
+                if ($this->PoItemSchedules->save($PoItemSchedule)) {
+                    $response['status'] = 'success';
+                    $response['message'] = 'Record save successfully';
+                }
+            } catch (\Exception $e) {
+                $response['status'] = 'fail';
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+        echo json_encode($response);
+    }
+
+    public function getSchedules($id = null)
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+        $this->loadModel("PoItemSchedules");
+        $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id]]);
+
+        $html = '';
+
+        if($data->count() > 0) {
+            $html .= '<table class="table table-bordered table-hover" id="example2">
+            <thead>
+                    <tr>
+                        <th>Actual Qty</th>
+                        <th>Received Qty</th>
+                        <th>Delivery Date</th>
+                        <th class="actions">Actions</th>
+                    </tr>
+            </thead>
+            <tbody>';
+            $totalQty = 0;
+            foreach($data as $row) {
+                
+                $html .= "<tr>
+                            <td>$row->actual_qty</td>
+                            <td>$row->received_qty</td>
+                            <td>$row->delivery_date</td>
+                            <td class=\"actions\">
+                                &nbsp;
+                            </td>
+                        </tr>";
+            
+            }
+
+            $html .= "</tbody>
+            </table>";
+
+            $response['status'] = 'success';
+            $response['message'] = 'success';
+            $response['html'] = $html;
+
+        } else {
+            $response['status'] = 'fail';
+            $response['message'] = 'No schedule data';
+        }
+        
+
+        //echo '<pre>'; print_r($data); exit;
+        
+
+        echo json_encode($response);
+    }
+
 }

@@ -55,5 +55,7 @@ class PoFooter extends Entity
         'added_date' => true,
         'updated_date' => true,
         'po_header' => true,
+        'part_code' => true,
+        'stock' => true,
     ];
 }

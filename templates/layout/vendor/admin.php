@@ -68,8 +68,18 @@
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="background-color:#ffffff;">
                 <?= $this->Html->image('logo.png', ['width' => '150']) ?>
             </a>
+            
             <!-- Sidebar -->
             <div class="sidebar">
+
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="info">
+                    <a href="#" class="d-block">Welcome, <?=$full_name?> </a>
+                    <div style="color:#fff;text-align:center;"><?=$group_name?></div>
+                </div>
+            </div>
+
                 <?= $this->element('sidebar/vendor/main') ?>
             </div>
             <!-- /.sidebar -->

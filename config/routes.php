@@ -52,9 +52,8 @@ return static function (RouteBuilder $routes) {
          * to use (in this case, templates/Pages/home.php)...
          */
 
-        $builder->connect('/', ['controller' => 'home', 'action' => 'index']);
+        $builder->connect('/', ['controller' => 'users', 'action' => 'login']);
 
-        $builder->connect('/dealer', ['controller' => 'dealer', 'action' => 'index']);
 
         $builder->prefix('admin', function (RouteBuilder $builder) {
             // All routes here will be prefixed with `/admin`, and

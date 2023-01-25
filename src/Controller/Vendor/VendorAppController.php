@@ -51,7 +51,9 @@ class VendorAppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
-        $this->set('title', 'Vendor Portal');
+        $this->loadComponent('Sms');
+        
+        $this->set('title', 'VeKPro');
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
@@ -60,26 +62,34 @@ class VendorAppController extends Controller
         //$this->loadComponent('FormProtection');
 
         $session = $this->getRequest()->getSession();
+        $full_name = $session->read('full_name');
+        $role = $session->read('role');
+        $group_name = $session->read('group_name');
+
+        $this->set(compact('full_name', 'role', 'group_name'));
         
         //echo '<pre>'; print_r($session); exit;
         
-        
-        if(!$session->check('user.id') && !(
-            $this->request->getParam('action') == 'login' ||
-        $this->request->getParam('action') == 'registration')) {
-
-            if(!$this->request->getParam('controller') == 'home') {
-                $this->redirect(array('controller' => 'dealer', 'action' => 'login'));
-            }
-        } else {
-            $this->set('logged_in', $session->read('user.id'));
-            $this->set('username', $session->read('user.username'));
+        if(($this->request->getParam('action') == 'verify' || $this->request->getParam('action') == 'create')) {
+           // $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+        } else if($session->check('id') && $session->read('role') != 3) {
+            $this->Flash->error("You are not authrized");
+            $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+        } else if(!$session->check('id')) {
+            $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+        }else {
+            $this->set('logged_in', $session->read('id'));
+            $this->set('username', $session->read('username'));
         }
+
+        
     }
 
     public function beforeFilter(EventInterface $event) {
         parent::beforeFilter($event);
         //$this->viewBuilder()->setLayout('vendor_default');  //admin is our new layout name
         $this->viewBuilder()->setLayout('vendor/admin');  //admin is our new layout name
+        $this->set('controller', $this->request->getParam('controller'));
+        $this->set('action', $this->request->getParam('action'));
     }
 }

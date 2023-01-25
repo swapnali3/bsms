@@ -48,7 +48,7 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Groups', [
+        $this->belongsTo('UserGroups', [
             'foreignKey' => 'group_id',
             'joinType' => 'INNER',
         ]);
@@ -111,7 +111,7 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['username']), ['errorField' => 'username']);
-        $rules->add($rules->existsIn('group_id', 'Groups'), ['errorField' => 'group_id']);
+        $rules->add($rules->existsIn('group_id', 'UserGroups'), ['errorField' => 'group_id']);
 
         return $rules;
     }
@@ -125,7 +125,7 @@ class UsersTable extends Table
     }
 
     public function bindNode($user) {
-		return ['model' => 'Group', 'foreign_key' => $user->group_id];
+		return ['model' => 'UserGroup', 'foreign_key' => $user->group_id];
 	}
 
 }

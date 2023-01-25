@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
 /**
  * RfqDetails Model
  *
- * @property \App\Model\Table\BuyerSellerUsersTable&\Cake\ORM\Association\BelongsTo $BuyerSellerUsers
+ 
  * @property \App\Model\Table\ProductsTable&\Cake\ORM\Association\BelongsTo $Products
  * @property \App\Model\Table\ProductSubCategoriesTable&\Cake\ORM\Association\BelongsTo $ProductSubCategories
  *
@@ -45,10 +45,7 @@ class RfqDetailsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('BuyerSellerUsers', [
-            'foreignKey' => 'buyer_seller_user_id',
-            'joinType' => 'INNER',
-        ]);
+        
         $this->belongsTo('Products', [
             'foreignKey' => 'product_id',
             'joinType' => 'INNER',
@@ -68,9 +65,6 @@ class RfqDetailsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
-            ->integer('buyer_seller_user_id')
-            ->requirePresence('buyer_seller_user_id', 'create');
 
         $validator
             ->integer('product_id')
@@ -91,9 +85,8 @@ class RfqDetailsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        //$rules->add($rules->existsIn('buyer_seller_user_id', 'BuyerSellerUsers'), ['errorField' => 'buyer_seller_user_id']);
         //$rules->add($rules->existsIn('product_id', 'Products'), ['errorField' => 'product_id']);
-        //$rules->add($rules->existsIn('product_sub_category_id', 'ProductSubCategories'), ['errorField' => 'product_sub_category_id']);
+     
 
         return $rules;
     }

@@ -67,7 +67,7 @@ class VendorTempsController extends BuyerAppController
             //echo '<pre>'; print_r($data); exit;
             if ($this->VendorTemps->save($vendorTemp)) {
                 $quryString = $data['email'].'||'.$vendorTemp->id;
-                $link = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                $link = Router::url(['controller' => '../vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
 
                 $mailer = new Mailer('default');
                 $mailer
@@ -89,6 +89,17 @@ class VendorTempsController extends BuyerAppController
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups'));
+    }
+
+
+    public function sapAdd()
+    {
+        $this->loadModel("VendorTemps");
+        $vendorTemp = $this->VendorTemps->newEmptyEntity();
+        if ($this->request->is('post')) {
+            exit;
+            
+        }
     }
 
     /**
@@ -200,7 +211,7 @@ class VendorTempsController extends BuyerAppController
 
                 //echo '<pre>';print_r($adminUser); exit;
                 if ($this->Users->save($adminUser)) {
-                    /*$link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                    $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
@@ -209,7 +220,7 @@ class VendorTempsController extends BuyerAppController
                         ->setEmailFormat('html')
                         ->setSubject('Vendor Portal - Account created')
                         ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
-                        '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>'); */
+                        '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
                     
                 }
                     

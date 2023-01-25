@@ -84,7 +84,9 @@ class OnboardingController extends VendorAppController
             $data['otp'] =$otp;
             $data['expire_date'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +5 minutes'));
 
-            /*$VendorTempOtp = $this->VendorTempOtps->newEmptyEntity();
+            $t = $this->Sms->sendOTP($vendorTemp->mobile, 'Onboarding OTP :: '. $otp);
+
+            $VendorTempOtp = $this->VendorTempOtps->newEmptyEntity();
             $vendorOtp = $this->VendorTempOtps->patchEntity($VendorTempOtp, $data);
             if ($this->VendorTempOtps->save($vendorOtp)) {
                 $mailer = new Mailer('default');
@@ -95,7 +97,7 @@ class OnboardingController extends VendorAppController
                         ->setEmailFormat('html')
                         ->setSubject('Verify New Account otp')
                         ->deliver('Hi '.$vendorTemp->name.'<br/>OTP : ' . $otp);
-            } */
+            }
         }
 
         //print_r($vendorTemp);
@@ -179,9 +181,9 @@ class OnboardingController extends VendorAppController
             //echo '<pre>'; print_r($data); exit;
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
             if ($this->VendorTemps->save($vendorTemp)) {
-                $this->Flash->success(__('The vendor temp has been saved.'));
+                $this->Flash->success(__('The request sent for approval.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['prefix' => false, 'controller' => 'users','action' => 'login']);
             }
             $this->Flash->error(__('The vendor temp could not be saved. Please, try again.'));
         }

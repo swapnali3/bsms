@@ -32,6 +32,50 @@ use Cake\View\Exception\MissingTemplateException;
 class DashboardController extends BuyerAppController
 {
     public function index() {
+
+        $session = $this->getRequest()->getSession();
+        $this->loadModel('PoHeaders');
+        $this->loadModel('VendorTemps');
+        $this->loadModel('DeliveryDetails');
+
+        $this->loadModel('RfqDetails');
+        $this->loadModel('RfqInquiries');
+        $this->loadModel('Products');
+
+
+        $query = $this->RfqDetails->find()
+            ->select(['RfqDetails.id','RfqDetails.rfq_no','Products.name','RfqDetails.added_date', 'RfqInquiries.reach', 'RfqInquiries.respond'])
+            ->contain(['Products'])
+            ->leftJoin(
+                ['RfqInquiries' => '(select rfq_id, count(seller_id) reach, count(inquiry) respond FROM rfq_inquiries group by rfq_inquiries.rfq_id)'],
+                ['RfqInquiries.rfq_id = RfqDetails.id'])
+            ->where(['RfqDetails.buyer_seller_user_id' => $session->read('id')]);
+
+    $rfqDetails = $this->paginate($query);
+
+    //print_r($query); exit;
+        //$rfqsummary = $conn->execute("SELECT rfq_id, U.company_name, rate, created_date FROM rfq_inquiries RI join buyer_seller_users U on (U.id = RI.seller_id) WHERE rate = ( SELECT MIN( RI2.rate ) FROM rfq_inquiries RI2 WHERE RI.rfq_id = RI2.rfq_id ) ORDER BY rfq_id");
+ 
+ 
+
+    // Getting paginated result based on page #
+    
+    $this->set('rfqDetails', $rfqDetails);
+    //$this->set('rfqsummary', $rfqsummary);
+
+        $query = $this->PoHeaders->find();
+        $query->innerJoin(
+            ['VendorTemps' => 'vendor_temps'],
+            ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code', 'VendorTemps.buyer_id = '.$session->read('id')]);
+        $totalPos = $query->count();
+
+        //echo '<pre>'; print_r($query); exit;
+
+        $totalIntransit = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();
+        $totalVendorTemps = $this->VendorTemps->find('all', array('conditions'=>array('status'=>0)))->count();
+        $totalRfqDetails = $this->RfqDetails->find('all', array('conditions'=>array('status'=>1, 'buyer_seller_user_id' =>$session->read('id') )))->count();
+
+        $this->set(compact('totalPos','totalIntransit','totalVendorTemps', 'totalRfqDetails'));
         
     }
 

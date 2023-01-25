@@ -35,7 +35,11 @@ class DashboardController extends VendorAppController
 
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
-        
+
+        $this->loadModel('RfqDetails');
+        $this->loadModel('RfqInquiries');
+        $this->loadModel('Products');
+
 
         $query = $this->PoHeaders->find();
         $query->leftJoin(
@@ -44,6 +48,34 @@ class DashboardController extends VendorAppController
 
         $po_list = $this->paginate($query);
         $this->set('po_list', $po_list);
+
+        $rfqDetails = $this->RfqDetails->find('all', ['condtions' => ['status' => 0]])->contain(['Products','Uoms'])->order(['RfqDetails.added_date' => 'desc']);
+        $this->set('rfqDetails', $rfqDetails);
+    }
+
+    public function rfqView($id = null)
+    {
+        $session = $this->getRequest()->getSession();
+        $this->loadModel('RfqDetails');
+        $this->loadModel('RfqInquiries');
+
+        $rfqDetails = $this->RfqDetails->get($id, [
+            'contain' => ['Products', 'Uoms'],
+        ]);
+        //$attrParams = json_decode($rfqDetails->uploaded_files, true);
+
+        
+        $userType = 'seller';
+        if($userType == 'seller') {
+            $RfqInquiry = $this->RfqInquiries->newEmptyEntity();
+            $data = array();
+            $data['rfq_id'] = $id;
+            $data['seller_id'] = $session->read('id');
+            $RfqInquiry = $this->RfqInquiries->patchEntity($RfqInquiry, $data);
+            $results = $this->RfqInquiries->save($RfqInquiry);
+        }   
+
+        $this->set(compact('rfqDetails', 'userType', 'results'));
     }
 
     public function getlist() {

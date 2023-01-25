@@ -4,39 +4,23 @@
  * @var \App\Model\Entity\RfqDetail $rfqDetail
  */
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Rfq Detail'), ['action' => 'edit', $rfqDetail->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Rfq Detail'), ['action' => 'delete', $rfqDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rfqDetail->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Rfq Details'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Rfq Detail'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
+<div class="row card">
     <div class="column-responsive column-80">
         <div class="rfqDetails view content">
-            <h3><?= h($rfqDetail->id) ?></h3>
+            <h3>RFQ NO. : <?= str_pad($rfqDetail->rfq_no, 5, 0, STR_PAD_LEFT) ?></h3>
             <table>
                 <tr>
-                    <th><?= __('Buyer Seller User') ?></th>
-                    <td><?= $rfqDetail->has('buyer_seller_user') ? $this->Html->link($rfqDetail->buyer_seller_user->company_name, ['controller' => 'BuyerSellerUsers', 'action' => 'view', $rfqDetail->buyer_seller_user->id]) : '' ?></td>
-                </tr>
-                <tr>
                     <th><?= __('Product') ?></th>
-                    <td><?= $rfqDetail->has('product') ? $this->Html->link($rfqDetail->product->name, ['controller' => 'Products', 'action' => 'view', $rfqDetail->product->id]) : '' ?></td>
+                    <td><?= $rfqDetail->has('product') ? $rfqDetail->product->name : '' ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('Product Sub Category') ?></th>
-                    <td><?= $rfqDetail->has('product_sub_category') ? $this->Html->link($rfqDetail->product_sub_category->name, ['controller' => 'ProductSubCategories', 'action' => 'view', $rfqDetail->product_sub_category->id]) : '' ?></td>
-                </tr>
+                
                 <tr>
                     <th><?= __('Part Name') ?></th>
                     <td><?= h($rfqDetail->part_name) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Uom') ?></th>
-                    <td><?= $rfqDetail->has('uom') ? $this->Html->link($rfqDetail->uom->description, ['controller' => 'Uoms', 'action' => 'view', $rfqDetail->uom->id]) : '' ?></td>
+                    <td><?= $rfqDetail->has('uom') ? $rfqDetail->uom->description : '' ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Remarks') ?></th>
@@ -50,14 +34,7 @@
                     <th><?= __('Uploaded Files') ?></th>
                     <td><?= h($rfqDetail->uploaded_files) ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($rfqDetail->id) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Rfq No') ?></th>
-                    <td><?= $this->Number->format($rfqDetail->rfq_no) ?></td>
-                </tr>
+                
                 <tr>
                     <th><?= __('Qty') ?></th>
                     <td><?= $this->Number->format($rfqDetail->qty) ?></td>
@@ -72,9 +49,50 @@
                 </tr>
                 <tr>
                     <th><?= __('Status') ?></th>
-                    <td><?= $rfqDetail->status ? __('Yes') : __('No'); ?></td>
+                    <td><?= $rfqDetail->status ? __('Approved') : __('New'); ?></td>
                 </tr>
             </table>
         </div>
     </div>
 </div>
+
+<div class=" card">
+<div class="card-body">
+<table class="table table-bordered table-hover" id="example1">
+        <tr>
+            <th>Company</th>
+            <th>Quantity</th>
+            <th>Rate</th>
+            <th>Delivery Date</th>
+            <th>respond Date</th>
+        </tr>
+        <?php foreach($results as $key => $val) : ?>
+        <tr>
+            <td>
+                <?=$val['company_name'] ?>
+            </td>
+            <td>
+                <?=$val['qty'] ?>
+            </td>
+            <td>
+                <?=$val['rate'] ?>
+            </td>
+            <td>
+                <?=$val['delivery_date'] ?>
+            </td>
+            <td>
+                <?=$val['created_date'] ?>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+
+    </table>
+        </div>
+</div>
+
+<script>
+    $(document).ready(function() { 
+        var table = $("#example1").DataTable();
+    });
+    
+</script>
