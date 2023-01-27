@@ -5,8 +5,11 @@
  */
 ?>
 <div class="deliveryDetails index content card">
-    <h3><?= __('Delivery Details') ?></h3>
-        <table class="table table-bordered table-hover" id="example1">
+    <div class="card-header">
+        <h1 style="color:tomato;"><b><?= __('DELIVERY DETAIL') ?></b></h1>
+    </div>
+    <div class="card-body table-responsive">
+        <table class="table table-hover" id="example1">
             <thead>
                 <tr>
                     <th>Purchase Order</th>

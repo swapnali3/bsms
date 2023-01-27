@@ -32,7 +32,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <?=$this->Html->image('logo.png') ?>
+            <?=$this->Html->image('ft_rect_logo.png') ?>
             <br /> Vendor Portal
         </div>
         <!-- /.login-logo -->

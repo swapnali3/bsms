@@ -6,7 +6,7 @@
 ?>
 <div class="settings index content">
     <?= $this->Html->link(__('New Setting'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Settings') ?></h3>
+    <h3><?= __('Setting') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>

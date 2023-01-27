@@ -66,7 +66,7 @@
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="background-color:#ffffff;">
-                <?= $this->Html->image('logo.png', ['width' => '150']) ?>
+                <?= $this->Html->image('ft_rect_logo.png', ['width' => '150']) ?>
             </a>
             
             <!-- Sidebar -->
@@ -74,9 +74,10 @@
 
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="info">
-                    <a href="#" class="d-block">Welcome, <?=$full_name?> </a>
-                    <div style="color:#fff;text-align:center;"><?=$group_name?></div>
+                <div class="text-light">
+                Welcome,
+                        <?=$full_name?> (
+                        <?=$group_name?> )
                 </div>
             </div>
 
@@ -88,11 +89,12 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
+            <!-- <div class="content-header"> -->
+                <!-- <div class="container-fluid"> -->
                     <?= $this->element('content/header') ?>
-                </div><!-- /.container-fluid -->
-            </div>
+                <!-- </div> -->
+                <!-- /.container-fluid -->
+            <!-- </div> -->
 
             <!-- Main content -->
             <div class="content">

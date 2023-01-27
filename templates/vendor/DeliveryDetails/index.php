@@ -5,8 +5,15 @@
  */
 ?>
 <div class="deliveryDetails index content card">
-    <h3><?= __('Delivery Details') ?></h3>
-        <table class="table table-bordered table-hover" id="example1">
+    <div class="card-header">
+        <h1 style="color: tomato;">
+            <b>
+                <?= __('DELIVERY DETAIL') ?>
+            </b>
+        </h1>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover" id="example1">
             <thead>
                 <tr>
                     <th>Purchase Order</th>
@@ -23,29 +30,48 @@
             <tbody>
                 <?php foreach ($deliveryDetails as $deliveryDetail): ?>
                 <tr>
-                    <td><?= $deliveryDetail->has('po_header') ? $deliveryDetail->po_header->po_no : '' ?></td>
-                    <td><?= $deliveryDetail->has('po_footer') ? $deliveryDetail->po_footer->item : '' ?></td>
-                    <td><?= h($deliveryDetail->challan_no) ?></td>
-                    <td><?= $this->Number->format($deliveryDetail->qty) ?></td>
-                    <td><?= h($deliveryDetail->eway_bill_no) ?></td>
-                    <td><?= h($deliveryDetail->einvoice_no) ?></td>
-                    <td><span class="badge bg-warning"><?= h($deliveryDetail->status ? '' : 'Intransit') ?></span></td>
-                    <td><?= h($deliveryDetail->added_date) ?></td>
-                    <td><?= h($deliveryDetail->updated_date) ?></td>
+                    <td>
+                        <?= $deliveryDetail->has('po_header') ? $deliveryDetail->po_header->po_no : '' ?>
+                    </td>
+                    <td>
+                        <?= $deliveryDetail->has('po_footer') ? $deliveryDetail->po_footer->item : '' ?>
+                    </td>
+                    <td>
+                        <?= h($deliveryDetail->challan_no) ?>
+                    </td>
+                    <td>
+                        <?= $this->Number->format($deliveryDetail->qty) ?>
+                    </td>
+                    <td>
+                        <?= h($deliveryDetail->eway_bill_no) ?>
+                    </td>
+                    <td>
+                        <?= h($deliveryDetail->einvoice_no) ?>
+                    </td>
+                    <td><span class="badge bg-warning">
+                            <?= h($deliveryDetail->status ? '' : 'Intransit') ?>
+                        </span></td>
+                    <td>
+                        <?= h($deliveryDetail->added_date) ?>
+                    </td>
+                    <td>
+                        <?= h($deliveryDetail->updated_date) ?>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-    
+</div>
+
 </div>
 
 <script>
-    $(document).ready(function() { 
+    $(document).ready(function () {
         var table = $("#example1").DataTable({
             "paging": true,
-            "responsive": false, "lengthChange": false, "autoWidth": false, "searching" :true,
+            "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
         });
     });
-    
+
 </script>

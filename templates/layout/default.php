@@ -34,12 +34,13 @@
 
 						<div id="logo">
 							<a href="<?= $this->Url->build('/') ?>dealer/dashboard/" class="standard-logo"
-								data-dark-logo="<?= $this->Url->build('/') ?>img/logo_white.png"><img
-									src="<?= $this->Url->build('/') ?>img/logo.png" alt="ftspl"
-									style="max-height:9vh;"></a>
-							<a href="<?= $this->Url->build('/') ?>dealer/dashboard/" class="retina-logo" data-dark-logo="<?= $this->Url->build('/') ?>img/logo_white.png"><img
-									src="<?= $this->Url->build('/') ?>img/logo.png" alt="ftspl"
-									style="max-height:9vh;"></a>
+								data-dark-logo="<?= $this->Url->build('/') ?>img/logo_white.png" style="text-align-last:center;">
+								<img src="<?= $this->Url->build('/') ?>img/ft_rect_logo.png" alt="ftspl" style="max-height:9vh;">
+							</a>
+							<a href="<?= $this->Url->build('/') ?>dealer/dashboard/" class="retina-logo"
+								data-dark-logo="<?= $this->Url->build('/') ?>img/logo_white.png" style="text-align-last:center;">
+								<img src="<?= $this->Url->build('/') ?>img/ft_rect_logo.png" alt="ftspl" style="max-height:9vh;">
+							</a>
 						</div>
 
 
@@ -118,13 +119,13 @@
 			<div class="block mx-auto" style="background-color: #FFF; max-width: 75vw; padding: 25px;">
 				<?= $this->Flash->render('auth') ?>
 				<?= $this->Form->create(null, ['url' => ['controller' => 'dealer','action' => 'registration'], 'type' => 'file']) ?>
-					<h2 class="m-0 p-0">Signup</h2>
-					<div class="card">
-						<div class="card-body">
-							<div class="row">
-								<?php $option = array('' => 'Type', 'buyer' => 'Buyer', 'seller' => 'Seller'); ?>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('user_type', [
+				<h2 class="m-0 p-0">Signup</h2>
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<?php $option = array('' => 'Type', 'buyer' => 'Buyer', 'seller' => 'Seller'); ?>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('user_type', [
                                                 'type' => 'select',
                                                 'options' => $option,
                                                 'empty' => 'Select',
@@ -132,79 +133,79 @@
                                                 'label' => 'User Type',
                                                 'class' => 'form-control',
                                             ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('username', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('username', [
                                                 'label' => 'Username',
                                                 'type' => 'text',
                                                 'class' => 'form-control',
                                             ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('password', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('password', [
                                                 'label' => 'New Password',
                                                 'type' => 'password',
                                                 'class' => 'form-control',
                                             ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('re_password', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('re_password', [
                                                 'label' => 'Confirm Password',
                                                 'type' => 'password',
                                                 'class' => 'form-control',
                                             ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('company_name', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('company_name', [
                                                 'label' => 'Company',
                                                 'type' => 'text',
                                                 'class' => 'form-control',
                                             ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('address', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('address', [
                                                     'label' => 'text',
                                                     'type' => 'text',
                                                     'class' => 'form-control',
                                                 ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('cities', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('cities', [
                                                     'label' => 'Cities',
                                                     'type' => 'text',
                                                     'class' => 'form-control',
                                                 ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('email', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('email', [
                                                     'label' => 'Email',
                                                     'type' => 'email',
                                                     'class' => 'form-control',
                                                 ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('contact', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('contact', [
                                                     'label' => 'Contact',
                                                     'type' => 'tel',
                                                     'class' => 'form-control',
                                                 ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('alt_contact', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('alt_contact', [
                                                     'label' => 'Alt. Contact',
                                                     'type' => 'tel',
                                                     'class' => 'form-control',
                                                 ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('business_type', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('business_type', [
                                                     'label' => 'Business',
                                                     'type' => 'text',
                                                     'class' => 'form-control',
                                                 ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('product_deals', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('product_deals', [
                                                     'type' => 'select',
                                                     'options' => $products,
                                                     'empty' => 'Select',
@@ -212,40 +213,40 @@
                                                     'label' => 'Product Deals',
                                                     'class' => 'form-control',
                                                 ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('TIN', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('TIN', [
                                                     'label' => 'TIN',
                                                     'type' => 'text',
                                                     'class' => 'form-control',
                                                 ]) ?>
-								</div>
-								<div class="col-3 mt-3">
-									<?= $this->Form->control('GST', [
+							</div>
+							<div class="col-3 mt-3">
+								<?= $this->Form->control('GST', [
                                                     'label' => 'GST',
                                                     'type' => 'text',
                                                     'class' => 'form-control',
                                                 ]) ?>
-								</div>
-								<div class="col-3 mt-3 pt-4">
-									<a href="#"
-										class="button button-rounded button-reveal button-large button-teal text-start w-100 mfp-close"
-										style="position: inherit;"><i class="icon-angle-left"></i><span>Back</span></a>
-								</div>
-								<div class="col-3 mt-3 pt-4">
-									<button label="Signup"
-										class="button button-rounded button-reveal button-large button-yellow button-light text-end w-100"
-										type="submit"><i class="icon-line-arrow-right"></i><span>Signup</span></button>
-								</div>
+							</div>
+							<div class="col-3 mt-3 pt-4">
+								<a href="#"
+									class="button button-rounded button-reveal button-large button-teal text-start w-100 mfp-close"
+									style="position: inherit;"><i class="icon-angle-left"></i><span>Back</span></a>
+							</div>
+							<div class="col-3 mt-3 pt-4">
+								<button label="Signup"
+									class="button button-rounded button-reveal button-large button-yellow button-light text-end w-100"
+									type="submit"><i class="icon-line-arrow-right"></i><span>Signup</span></button>
 							</div>
 						</div>
 					</div>
+				</div>
 				</form>
 			</div>
 		</div>
 		<?= $this->Flash->render() ?>
-        <?= $this->fetch('content') ?>
-        
+		<?= $this->fetch('content') ?>
+
 		<!-- Footer		============================================= -->
 		<footer id="footer" class="dark">
 			<div class="container">
@@ -280,7 +281,8 @@
 									<div class="widget widget_links clearfix mt-2">
 										<ul>
 											<li>&nbsp; Regional Buyers</li>
-											<li>&nbsp; <a href="<?= $this->Url->build('/') ?>dealer/regionalsearch" class="login">Regional Sellers</a></li>
+											<li>&nbsp; <a href="<?= $this->Url->build('/') ?>dealer/regionalsearch"
+													class="login">Regional Sellers</a></li>
 											<li>&nbsp; Dealers</li>
 											<li>&nbsp; Booming Products</li>
 										</ul>

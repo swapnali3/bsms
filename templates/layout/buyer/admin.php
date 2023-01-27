@@ -14,23 +14,26 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->assign('title', $title); ?>
-    <title><?= $this->fetch('title') ?></title>
+    <title>
+        <?= $this->fetch('title') ?>
+    </title>
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 
     <?= $this->Html->css('CakeLte./AdminLTE//plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>
-  <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>
-  <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>
 
 
-  <!-- Ionicons -->
-  <?= $this->Html->css('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') ?>
+    <!-- Ionicons -->
+    <?= $this->Html->css('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') ?>
 
     <!-- Theme style -->
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
@@ -47,7 +50,7 @@
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
     <!-- AdminLTE App -->
     <?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
-    
+
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.js") ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
@@ -65,19 +68,21 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
-            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="background-color:#ffffff;">
-                <?= $this->Html->image('logo.png', ['width' => '150']) ?>
+            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
+                style="background-color:#ffffff; text-align-last:center;">
+                <?= $this->Html->image('ft_rect_logo.png', ['width' => '150']) ?>
             </a>
             <!-- Sidebar -->
             <div class="sidebar">
 
-            <!-- Sidebar user panel (optional) -->
-            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                <div class="info">
-                    <a href="#" class="d-block">Welcome, <?=$full_name?> </a>
-                    <div style="color:#fff;text-align:center;"><?=$group_name?></div>
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="text-align-last: center;">
+                    <div class="text-light">
+                        Welcome,
+                        <?=$full_name?> (
+                        <?=$group_name?> )
+                    </div>
                 </div>
-            </div>
 
                 <?= $this->element('sidebar/buyer/main') ?>
             </div>
@@ -87,11 +92,12 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
+            <!-- <div class="content-header"> -->
+                <!-- <div class="container-fluid"> -->
                     <?= $this->element('content/header') ?>
-                </div><!-- /.container-fluid -->
-            </div>
+                <!-- </div> -->
+                <!-- /.container-fluid -->
+            <!-- </div> -->
 
             <!-- Main content -->
             <div class="content">
@@ -118,7 +124,7 @@
     </div>
     <!-- ./wrapper -->
 
-    
+
 
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?>
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
@@ -126,11 +132,11 @@
 
     <!-- DataTables  & Plugins -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
-<?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>
-<?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>
-<?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
-<?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
-<?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
 
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>

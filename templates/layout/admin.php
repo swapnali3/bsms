@@ -47,11 +47,12 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
+            <!-- <div class="content-header">
                 <div class="container-fluid">
                     <?= $this->element('content/header') ?>
-                </div><!-- /.container-fluid -->
-            </div>
+                </div> -->
+                <!-- /.container-fluid -->
+            <!-- </div> -->
 
             <!-- Main content -->
             <div class="content">

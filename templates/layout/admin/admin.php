@@ -41,8 +41,8 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
-            <a href="<?= $this->Url->build('dashboard') ?>" class="brand-link" style="background-color:#ffffff;">
-                <?= $this->Html->image('logo.png', ['width' => '150']) ?>
+            <a href="<?= $this->Url->build('dashboard') ?>" class="brand-link" style="background-color:#ffffff;text-align-last:center;">
+                <?= $this->Html->image('ft_rect_logo.png', ['width' => '150']) ?>
             </a>
             <!-- Sidebar -->
             <div class="sidebar">
@@ -62,11 +62,12 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
+            <!-- <div class="content-header"> -->
+                <!-- <div class="container-fluid"> -->
                     <?= $this->element('content/header') ?>
-                </div><!-- /.container-fluid -->
-            </div>
+                <!-- </div> -->
+                <!-- /.container-fluid -->
+            <!-- </div> -->
 
             <!-- Main content -->
             <div class="content">
