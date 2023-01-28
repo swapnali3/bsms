@@ -70,7 +70,7 @@
             <!-- Brand Logo -->
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
                 style="background-color:#ffffff; text-align-last:center;">
-                <?= $this->Html->image('ft_rect_logo.png', ['width' => '150']) ?>
+                <?= $this->Html->image('ft_rect_logo.png', ['width' => '175', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
             </a>
             <!-- Sidebar -->
             <div class="sidebar">

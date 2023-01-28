@@ -6,7 +6,7 @@
 ?>
 <div class="deliveryDetails index content card">
     <div class="card-header">
-        <h1 style="color: tomato;">
+        <h1 style="color: navy;">
             <b>
                 <?= __('DELIVERY DETAIL') ?>
             </b>

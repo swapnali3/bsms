@@ -6,7 +6,7 @@
 ?>
 <div class="poHeaders index content card">
     <div class="card-header">
-        <h1 style="color:tomato">
+        <h1 style="color:navy">
             <b>
                 <?= __('PURCHASE ORDER LISTS') ?>
             </b>

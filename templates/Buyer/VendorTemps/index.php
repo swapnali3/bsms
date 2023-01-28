@@ -8,12 +8,12 @@
     <div class="card-header">
         <div class="row">
             <div class="col-sm-12 col-lg-10">
-                <h1 style="color:tomato;"><b>VENDOR LIST</b></h1>
+                <h1 style="color:navy;"><b>VENDOR LIST</b></h1>
             </div>
             <div class="col-sm-12 col-lg-2 pt-3">
                 <h4><b>
                         <?= $this->Html->link(__('NEW VENDOR '), ['action' => 'add']) ?><i
-                            class="fa fa-chevron-circle-right nav-icon" style="color: tomato;"></i>
+                            class="fa fa-chevron-circle-right nav-icon" style="color: navy;"></i>
                     </b></h4>
             </div>
         </div>
@@ -118,9 +118,19 @@
                         </td>
                         <td class="actions">
                             <?php if($vendorTemp->status == 1) : ?>
-                            <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app']) ?>
+                            <div class="btn-group">
+                                <?php endif; ?>
+                                <a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">View</a>
+                                <?php if($vendorTemp->status == 1) : ?>
+                                <button type="button" class="btn btn-default dropdown-toggle dropdown-icon"
+                                    data-toggle="dropdown">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu" role="menu">
+                                    <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app']) ?>
+                                </div>
+                            </div>
                             <?php endif; ?>
-                            <?= $this->Html->link(__('View'), ['action' => 'view', $vendorTemp->id]) ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>

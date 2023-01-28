@@ -1,145 +1,208 @@
-<?php
-/**
- * @var \App\View\AppView $this
- */
-?>
+<!DOCTYPE html>
+<html lang="en">
 
-<div class="login-box">
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+<head>
+  <style type="text/css">
+    .anticon {
+      display: inline-block;
+      color: inherit;
+      font-style: normal;
+      line-height: 0;
+      text-align: center;
+      text-transform: none;
+      vertical-align: -0.125em;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-      <div class="mb-3">
-        <button type="button" class="btn btn-primary " id="mobile_btn"><i class="fas fa-mobile"></i>Login with Mobile</button>
-        <button type="button" class="btn btn-info" id="email_btn"><i class="fas fa-envelope"></i>Login with Email</button>
+    .anticon>* {
+      line-height: 1;
+    }
+
+    .anticon svg {
+      display: inline-block;
+    }
+
+    .anticon::before {
+      display: none;
+    }
+
+    .anticon .anticon-icon {
+      display: block;
+    }
+
+    .anticon[tabindex] {
+      cursor: pointer;
+    }
+
+    .anticon-spin::before,
+    .anticon-spin {
+      display: inline-block;
+      -webkit-animation: loadingCircle 1s infinite linear;
+      animation: loadingCircle 1s infinite linear;
+    }
+
+    @-webkit-keyframes loadingCircle {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes loadingCircle {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <meta charset="utf-8">
+  <link rel="icon" href="./favicon.ico">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="description"
+    content="Sign up now! Unlock the best platform to discover freight rates, execute your shipments &amp; track containers">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="<?= $this->Url->build('/') ?>css/all.min.css">
+  <link href="<?= $this->Url->build('/') ?>css/5.7cec8de0.chunk.css" rel="stylesheet">
+  <link href="<?= $this->Url->build('/') ?>css/main.26d266c0.chunk.css" rel="stylesheet">
+  <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/0.5bbd83f8.chunk.js"></script>
+  <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/1.a9e5058d.chunk.js"></script>
+  <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/6.3128c4ca.chunk.js"></script>
+  <link rel="stylesheet" type="text/css" href="<?= $this->Url->build('/') ?>css/13.656858bb.chunk.css">
+  <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/13.b8dbb772.chunk.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <div class="App">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+      <div class="navbar-container">
+        <nav><img src="<?= $this->Url->build('/') ?>img/ftspl.png" style="width:150px;height:auto ;"></nav>
       </div>
-
-      <?= $this->Flash->render('auth') ?>
-      
-      <div id="email_login">
-        <?= $this->Form->create() ?>
-        <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" name="username" placeholder="username">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <!-- /.col -->
-          <div class="col-4">
-          <?= $this->Form->button(__('Sign In'), ['class' => 'btn btn-primary btn-block']); ?>
-          </div>
-          <!-- /.col -->
-        </div>
-        <?= $this->Form->end() ?>
-      </div>
-        
-
-        <div class="row" id="mobile_login" style="display:none;">
-        <?= $this->Form->create() ?>
-            <div class="input-group mb-3">
-            <input type="text"  name="code" value="+91" maxlength="3" readonly style="width:50px;"> 
-            <input type="tel" class="form-control" name="mobile" id="mobile" placeholder="Mobile" maxlength="10" pattern="[0-9]{10}">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-mobile"></span>
+      <div class="v2container">
+        <div class="ant-row">
+          <div
+            class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
+            <div class="others">
+              <p class="others__text1">Connect with Sellers <br>In Real-Time Using A Single Dashboard</p>
+              <p class="others__text2">Get an automated, comprehensive view of your request in a single pane across
+                all the contracted sellers</p>
+              <div class="others__benifits">
+                <div class="others__benifits__box"><img class="others__benifits__box--image"
+                    src="<?= $this->Url->build('/') ?>img/logo_s.png">
+                  <div class="others__benifits__box--name">Drives down searchs to best sellers by</div>
+                  <div class="others__benifits__box--percentage">90<span
+                      class="others__benifits__box--percentage--sign">%</span></div>
+                </div>
+                <div class="others__benifits__box"><img class="others__benifits__box--image"
+                    src="<?= $this->Url->build('/') ?>img/logo_s.png">
+                  <div class="others__benifits__box--name"> Reduce seller verification by</div>
+                  <div class="others__benifits__box--percentage">10<span
+                      class="others__benifits__box--percentage--sign">%</span></div>
+                </div>
+                <div class="others__benifits__box"><img class="others__benifits__box--image"
+                    src="<?= $this->Url->build('/') ?>img/logo_s.png  ">
+                  <div class="others__benifits__box--name">Deliver connecctivity with customer experience </div>
+                  <div class="others__benifits__box--percentage">64<span
+                      class="others__benifits__box--percentage--sign">%</span></div>
                 </div>
               </div>
+              <div class="others__bottomBar"></div>
             </div>
-            <span style="text-color:red;" id="otp_error"></span>
-            <div class="row">
-          <!-- /.col -->
-          <div class="col-4">
-          <?= $this->Form->button(__('Get OTP'), ['type' => 'button', 'class' => 'btn btn-primary btn-block', 'id' => 'getotp']); ?>
+            <div class="faq">
+              <h4 class="faq__header">FAQs</h4>
+              <div>
+                <p><i class="fa fa-plus faq__plus" aria-hidden="true"></i><span class="faq__question">I am already
+                    working with CHAs and freight forwarders directly. Why should I use Vekpro?</span>
+                <p class="faq__answer" style="display: none;">ftspl unifies information about your shipments served by multiple carriers and
+                  forwarders into a single window, giving you a holistic picture of your shipments instantly.</p>
+                </p>
+                <p class="faq__dottedline"></p>
+              </div>
+              <div>
+                <p><i class="fa fa-plus faq__plus" aria-hidden="true"></i><span class="faq__question">What happens if I
+                    reach my container limit?</span></p>
+                <p class="faq__dottedline"></p>
+              </div>
+              <div>
+                <p><i class="fa fa-plus faq__plus" aria-hidden="true"></i><span class="faq__question">What is your
+                    cancellation policy?</span></p>
+                <p class="faq__dottedline"></p>
+              </div>
+              <div></div>
+            </div>
           </div>
-          <!-- /.col -->
+          <div class="ant-col content-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
+            <div class="ant-card signupcard ant-card-bordered">
+              <div class="ant-card-body">
+                <?= $this->Flash->render('auth') ?>
+                <?= $this->Form->create() ?>
+                <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
+                <div class="signupform signupform__signin">
+                  <p class="signupform__signin--signinText"><img src="<?= $this->Url->build('/') ?>img/logo_s.png"
+                      width="150px"></p>
+                  <div class="select-button login-page .form">
+                    <div class="buyer-btn custom-control custom-radio" style="
+                      margin-right: 31px">
+                      <input type="radio" id="buyer" class="custom-control-input" name="a" checked="" value="">
+                      <label class="custom-control-label" for="buyer"><span>Login with mobile</span></label>
+                    </div>
+                    <div class="approver-btn custom-control custom-radio ">
+                      <input type="radio" class="custom-control-input" id="buyer" name="a" value="">
+                      <label class="custom-control-label" for="approver"><span>Login with Email</span></label>
+                    </div>
+                  </div>
+                  </span>
+                  </button>
+                  <br>
+
+                  <div style="width: 100%;">
+                    <div class="material-textfield">
+                      <div
+                        class="ant-select material-select   ant-select-auto-complete ant-select-single ant-select-show-search">
+                        <div class="ant-select-selector"><span class="ant-select-selection-search"><input
+                              autocomplete="off" type="search" class="ant-select-selection-search-input" role="combobox"
+                              aria-haspopup="listbox" aria-owns="rc_select_0_list" aria-autocomplete="list"
+                              aria-controls="rc_select_0_list" aria-activedescendant="rc_select_0_list_0" value=""
+                              id="rc_select_0"></span></div>
+                      </div><label class="material-label" style="left: 0px;">Workspace url</label>
+                      <p class="material-rightLabel">.fts-pl.com</p>
+                    </div>
+                  </div>
+                  <div style="width: 100%;">
+                    <div class="material-textfield"><input class="material-input " placeholder="Enter Username/Email"
+                        type="text" name="username" value=""><label class="material-label"
+                        style="left: 0px;">Username/Email</label></div>
+                  </div>
+                  <div style="width: 100%;">
+                    <div class="material-textfield signin-textfield"><input class="material-input "
+                        placeholder="Enter Password" type="password" name="password" value=""><label
+                        class="material-label" style="left: 0px;">Password</label>
+                      <p class="material-rightLabel"><i class="fa fa-eye-slash" aria-hidden="true"
+                          style="cursor: pointer;"></i></p>
+                      <p class="material-rightBottomLabel material-rightBottomLabel__danger">Forgot Password ?</p>
+                    </div>
+                  </div><button type="submit" class="ant-btn btn btn__get-started-btn"><span>SUBMIT</span></button>
+                  <p class="signupform__signin--dontHaveAccount">Don’t have an account?<a
+                      style="cursor: pointer;">Create An Account</a></p>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <?= $this->Form->end() ?>
-          </div>
-
-
-          <div class="row" id="mobile_login_otp" style="display:none;">
-        <?= $this->Form->create() ?>
-        <?= $this->Form->control('mobile', ['type' => 'hidden', 'id' => 'user_mobile']); ?>
-        <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'mobile', 'id' => 'loginby']); ?>
-            <div class="input-group mb-3">
-            <input type="tel" class="form-control" name="otp" id="otp" placeholder="OTP" maxlength="6" pattern="[0-9]{6}">
-            <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-password"></span>
-            </div>
-          </div>
-            </div>
-            <span style="text-color:red;" id="otp_error"></span>
-            <div class="row">
-          <!-- /.col -->
-          <div class="col-4">
-          <?= $this->Form->button(__('Sign in'), ['class' => 'btn btn-primary btn-block']); ?>
-          </div>
-          <!-- /.col -->
-        </div>
-        <?= $this->Form->end() ?>
-          </div>
-
-      <!-- <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
-      </p> -->
+      </div>
     </div>
-    <!-- /.login-card-body -->
   </div>
-</div>
-<!-- /.login-box -->
+  </div>
 
-<script>
-    $(document).ready(function(){
-        $("#mobile_btn").click(function(){
-            $('#email_login').hide();
-            $('#mobile_login').show();
-            $("#mobile_login_otp").hide();
-            $('#loginby').val('mobile');
-            
-        });
-        $("#email_btn").click(function(){
-            $('#email_login').show();
-            $('#mobile_login').hide();
-            $("#mobile_login_otp").hide();
-            $('#loginby').val('email');
-        });
+  <script src="<?= $this->Url->build('/') ?>js/5.b662bfe1.chunk.js"></script>
+  <script src="<?= $this->Url->build('/') ?>js/main.d308f349.chunk.js"></script>
+</body>
 
-        $("#getotp").click(function(){
-          var request = $.ajax({
-            url: "users/get-otp",
-            method: "POST",
-            headers : {'X-CSRF-Token': $('[name="_csrfToken"]').val()},
-            data: { mobile : $("#mobile").val() },
-            dataType: "json"
-          });
-          
-          request.done(function( response ) {
-            if(response.status == 'success') {
-                $("#mobile_login_otp").show();
-                $("#mobile_login").hide();
-                $("#user_mobile").val($("#mobile").val());
-            } else {
-                $("#otp_error").html(response.message);
-            }
-          });
-          
-          request.fail(function( jqXHR, textStatus ) {
-              console.log( "Request failed: " + textStatus );
-          });
-        });
-    });
-</script>
+</html>

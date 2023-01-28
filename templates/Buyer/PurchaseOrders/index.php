@@ -6,7 +6,7 @@
 ?>
 <div class="poHeaders index content card">
     <div class="card-header">
-        <h1 style="color:tomato">
+        <h1 style="color:navy">
             <b>
                 <?= __('PURCHASE ORDER LISTS') ?>
             </b>
@@ -92,7 +92,7 @@
                             <?= h($poHeader->updated_date) ?>
                         </td>
                         <td class="actions">
-                            <?= $this->Html->link(__('View'), ['action' => 'view', $poHeader->id]) ?>
+                            <a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= h($vendorTemp->id) ?>">View</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

@@ -3246,7 +3246,7 @@ window.tinymce.Resource.add("tinymce.plugins.emoticons", {
     fitzpatrick_scale: false,
     category: "food_and_drink"
   },
-  tomato: {
+  navy: {
     keywords: [ "fruit", "vegetable", "nature", "food" ],
     "char": "\ud83c\udf45",
     fitzpatrick_scale: false,

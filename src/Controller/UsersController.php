@@ -88,7 +88,7 @@ class UsersController extends AppController
     }
 
     public function login() {
-        $this->viewBuilder()->setLayout('admin/login'); 
+        //$this->viewBuilder()->setLayout('admin/login'); 
         $this->loadModel("Users");
         $this->loadModel("VendorTemps");
 

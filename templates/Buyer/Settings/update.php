@@ -11,7 +11,7 @@
             <div class="card-header">
                 <div class="settings form content">
                     <legend>
-                        <h1 style="color:tomato;"><b><?= __('SETTING') ?></b></h1>
+                        <h1 style="color:navy;"><b><?= __('SETTING') ?></b></h1>
                     </legend>
                 </div>
             </div>

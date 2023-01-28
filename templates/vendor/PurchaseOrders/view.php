@@ -8,7 +8,7 @@
     <div class="column-responsive column-80">
         <div class="poHeaders view content" >
             <h3><?= h($poHeader->po_no) ?></h3>
-            <table class="table table-bordered">
+            <table class="table">
                 <tr>
                     <th><?= __('Vendor Code') ?></th>
                     <th><?= __('Po No') ?></th>
@@ -38,7 +38,7 @@
             <h4><?= __('PO Item List') ?></h4>
                 <?php if (!empty($poHeader->po_footers)) : ?>
                 <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="example1">
+                <table class="table table-hover" id="example1">
                 <thead>
                         <tr>
                             <th>&nbsp;</th>
@@ -102,13 +102,13 @@
 
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Delivery Details :: <?= h($poHeader->po_no .' - '. $poFooters->item) ?></h5>
+        <h5 class="modal-title">Delivery Details : <?= h($poHeader->po_no .' - '. $poFooters->item) ?></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-            <table class="table table-bordered table-hover" id="example1">
+            <table class="table table-hover" id="example1">
                 <thead>
                         <tr>
                             <th><?= __('Item') ?></th>
