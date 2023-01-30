@@ -26,13 +26,3 @@
   </li>
 </ul>
 
-<script>
-  $(document).on("click", ".ftimage", function () {
-    if ($(".ft_rect_logo").data('image') == 1) {
-      $(".ft_rect_logo").attr('src', '<?= $this->Url->build(' / ') ?>img/icon.png').attr('width', '50px').data('image', '2');
-    }
-    else {
-      $(".ft_rect_logo").attr('src', '<?= $this->Url->build(' / ') ?>img/ft_rect_logo.png').attr('width', '175px').data('image', '1');
-    }
-  });
-</script>
