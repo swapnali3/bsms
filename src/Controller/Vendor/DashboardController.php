@@ -33,6 +33,7 @@ class DashboardController extends VendorAppController
 {
     public function index() {
 
+        $session = $this->getRequest()->getSession();
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
 
@@ -40,17 +41,33 @@ class DashboardController extends VendorAppController
         $this->loadModel('RfqInquiries');
         $this->loadModel('Products');
 
+        $this->loadModel('PoHeaders');
+        $this->loadModel('DeliveryDetails');
 
-        $query = $this->PoHeaders->find();
+        /*$query = $this->PoHeaders->find();
         $query->leftJoin(
                 ['VendorTemps' => 'vendor_temps'],
                 ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code']);
 
         $po_list = $this->paginate($query);
         $this->set('po_list', $po_list);
+        */
 
         $rfqDetails = $this->RfqDetails->find('all', ['condtions' => ['status' => 0]])->contain(['Products','Uoms'])->order(['RfqDetails.added_date' => 'desc']);
         $this->set('rfqDetails', $rfqDetails);
+
+        $query = $this->PoHeaders->find();
+        $query->innerJoin(
+            ['VendorTemps' => 'vendor_temps'],
+            ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code'])
+            ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code')]);
+        $totalPos = $query->count();
+
+        $totalIntransit = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();
+        $totalRfqDetails = $this->RfqDetails->find('all', array('conditions'=>array('status'=>1)))->count();
+
+        $this->set(compact('totalPos','totalIntransit', 'totalRfqDetails'));
+
     }
 
     public function rfqView($id = null)

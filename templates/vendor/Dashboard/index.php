@@ -10,12 +10,12 @@
   <div class="container-fluid">
     <div id="content">
       <main class="row">
-        <ul class="box-info col-8">
+        <ul class="box-info col-12">
           <li>
             <i class='bx bxs-calendar-check'></i>
             <span class="text">
               <h3>
-                <?= $this->Html->link(__('1'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?>
+                <?= $this->Html->link(__($totalPos), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?>
               </h3>
               <p>Purchase Orders</p>
             </span>
@@ -24,11 +24,20 @@
             <i class='bx bxs-group'></i>
             <span class="text">
               <h3>
-                <?= $this->Html->link(__('1'), '#', ['class' => 'small-box-footer', 'escape' => false]) ?>
+                <?= $this->Html->link(__($totalRfqDetails), '#', ['class' => 'small-box-footer', 'escape' => false]) ?>
               </h3>
               <p>Total RFQ</p>
             </span>
           </li>
+
+          <li>
+            <i class='bx bxs-dollar-circle' ></i>
+            <span class="text">
+              <h3><?= $totalIntransit ?></h3>
+              <p><?= $this->Html->link(__('Intransit'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?></p>
+            </span>
+          </li>
+
           <li>
             <i class='bx bxs-dollar-circle'></i>
             <span class="text">
