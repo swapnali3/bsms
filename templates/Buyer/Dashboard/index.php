@@ -31,6 +31,15 @@
               <p><?= $this->Html->link(__('Vendor Intransit'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?></p>
             </span>
           </li>
+
+          <li>
+            <i class='bx bxs-dollar-circle' ></i>
+            <span class="text">
+              <h3><?= $totalRfqDetails ?></h3>
+              <p><?= $this->Html->link(__('More info &nbsp;<i class="fas fa-arrow-circle-right"></i>'), ['controller' => 'rfq-details', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?></p>
+            </span>
+          </li>
+
         </ul>
       </main>
     </section>
@@ -106,10 +115,10 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div> 
 
     <div class="row">
-      <div class="col-lg-3 col-6" style="display:none;">
+      <div class="col-lg-3 col-6">
         <div class="small-box bg-success">
           <div class="inner">
             <h3>
@@ -125,7 +134,8 @@
           <?= $this->Html->link(__('More info &nbsp;<i class="fas fa-arrow-circle-right"></i>'), ['controller' => 'rfq-details', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?>
         </div>
       </div>
-      <div class="col-9 p-0" style="display:none;">
+      -->
+      <div class="col-12 p-2">
         <div class="card">
           <div class="card-body">
             <table class="table table-bordered table-hover" id="example1">

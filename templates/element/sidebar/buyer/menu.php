@@ -45,9 +45,9 @@
 
 
 
-<!-- <li class="nav-item menu-open">
+<li class="nav-item menu-open">
 <?= $this->Html->link(__('<i class="far fa-question-circle  nav-icon"></i><p>RFQs</p>'), ['controller' => 'rfq-details', 'action' => 'index'], ['class' => "nav-link $rfqactive", 'escape' => false]) ?>
-</li> -->
+</li>
 
 <li class="nav-item menu-open">
   <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link $polickActive", 'escape' => false]) ?>

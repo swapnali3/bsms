@@ -20,7 +20,7 @@
               <p>Purchase Orders</p>
             </span>
           </li>
-          <li style="display: none;">
+          <li>
             <i class='bx bxs-group'></i>
             <span class="text">
               <h3>
@@ -42,7 +42,7 @@
       </main>
     </div>
 
-    <div class="container-fluid" style="display:none;">
+    <div class="container-fluid">
       <div class="row my-3">
         <div class="col-12">
           <h2>RFQ List</h2>
