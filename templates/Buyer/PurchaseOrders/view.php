@@ -170,8 +170,15 @@
                 </td>
 
                 <td class="actions">
-                  <?= $this->Html->link(__('Schedule'), "#", ['class' => 'schedule_item', 'data-toggle'=> "modal", 'data-target' => "#scheduleModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id, 'item-no' => $poFooters->item]) ?>
-                  <?= $this->Html->link(__('View'), "#", ['class' => 'dispatch_item', 'data-toggle'=> "modal", 'data-target' => "#item_$poFooters->item" ,'header-id']) ?>
+                  <div class="btn-group">
+                    <?= $this->Html->link(__('Schedule'), "#", ['class' => 'schedule_item btn btn-default', 'data-toggle'=> "modal", 'data-target' => "#scheduleModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id, 'item-no' => $poFooters->item]) ?>
+                    <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                      <?= $this->Html->link(__('View'), "#", ['class' => 'dispatch_item dropdown-item', 'data-toggle'=> "modal", 'data-target' => "#item_$poFooters->item" ,'header-id']) ?>
+                    </div>
+                  </div>
                 </td>
               </tr>
               <?php endforeach; ?>
@@ -264,8 +271,10 @@
         </table>
       </div>
       <div class="modal-footer">
-        <b>Actual Qty :</b><?php echo $actualQty ?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-        <b>Delivered Qty :</b><?php echo $totalQty ?>
+        <b>Actual Qty :</b>
+        <?php echo $actualQty ?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <b>Delivered Qty :</b>
+        <?php echo $totalQty ?>
       </div>
     </div>
   </div>
@@ -356,112 +365,112 @@
         $.ajax({
           type: "POST",
           url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'create-schedule')); ?> ",
-    data: $("#scheduleForm").serialize(),
-      dataType: 'json',
-        success: function (response) {
-          console.log(response);
-          if (response.status == 'success') {
-            $('#scheduleModal').modal('toggle');
-            Toast.fire({
-              icon: 'success',
-              title: response.message
-            });
-          } else {
-            Toast.fire({
-              icon: 'error',
-              title: response.message
-            });
-          }
-
-        }
-  });
-  return false; 
+          data: $("#scheduleForm").serialize(),
+          dataType: 'json',
+          success: function (response) {
+            console.log(response);
+            if (response.status == 'success') {
+              $('#scheduleModal').modal('toggle');
+              Toast.fire({
+                icon: 'success',
+                title: response.message
+              });
+            } else {
+              Toast.fire({
+                icon: 'error',
+                title: response.message
+              });
             }
+
+          }
         });
-  $('#scheduleForm').validate({
-    rules: {
-      actual_qty: {
-        required: true,
-        number: true
-      },
-      delivery_date: {
-        required: true,
+        return false;
       }
-    },
-    messages: {
-      qty: {
-        required: "Please provide a qty",
-        number: "Please enter number only"
-      },
-      delivery_date: {
-        required: "Please select date",
-      }
-    },
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.form-group').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    }
-  });
-
-
-  var table = $("#example1").DataTable({
-    "paging": true,
-    "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
-  });
-
-
-  $('#example1 tbody').on('click', 'td.details-control', function () {
-    if ($('img', this).attr('alt') == '+') {
-      $('img', this).attr({ 'alt': "-", 'src': "http://i.imgur.com/d4ICC.png" });
-    } else {
-      $('img', this).attr({ 'alt': "+", 'src': "http://i.imgur.com/SD7Dz.png" });
-    }
-
-    var tr = $(this).closest('tr');
-    var row = table.row(tr);
-
-    if (row.child.isShown()) {
-      row.child.hide();
-      tr.removeClass('shown');
-    }
-    else {
-      row.child(format($(this).attr('footer-id'))).show();
-      tr.addClass('shown');
-    }
-  });
-
-
-  function format(rowData) {
-    var div = $('<div/>')
-      .addClass('loading')
-      .text('Loading...');
-
-    $.ajax({
-      type: "GET",
-      //url: '../getDeliveryDetails/' + rowData,
-      url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-schedules')); ?> /" + rowData,
-    dataType: 'json',
-      success: function (response) {
-        if (response.status == 'success') {
-          div
-            .html(response.html)
-            .removeClass('loading');
-        } else {
-          div
-            .html(response.message)
-            .removeClass('loading');
+    });
+    $('#scheduleForm').validate({
+      rules: {
+        actual_qty: {
+          required: true,
+          number: true
+        },
+        delivery_date: {
+          required: true,
         }
+      },
+      messages: {
+        qty: {
+          required: "Please provide a qty",
+          number: "Please enter number only"
+        },
+        delivery_date: {
+          required: "Please select date",
+        }
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass('is-invalid');
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass('is-invalid');
       }
-  } );
+    });
 
-  return div;
-}
-});
+
+    var table = $("#example1").DataTable({
+      "paging": true,
+      "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
+    });
+
+
+    $('#example1 tbody').on('click', 'td.details-control', function () {
+      if ($('img', this).attr('alt') == '+') {
+        $('img', this).attr({ 'alt': "-", 'src': "http://i.imgur.com/d4ICC.png" });
+      } else {
+        $('img', this).attr({ 'alt': "+", 'src': "http://i.imgur.com/SD7Dz.png" });
+      }
+
+      var tr = $(this).closest('tr');
+      var row = table.row(tr);
+
+      if (row.child.isShown()) {
+        row.child.hide();
+        tr.removeClass('shown');
+      }
+      else {
+        row.child(format($(this).attr('footer-id'))).show();
+        tr.addClass('shown');
+      }
+    });
+
+
+    function format(rowData) {
+      var div = $('<div/>')
+        .addClass('loading')
+        .text('Loading...');
+
+      $.ajax({
+        type: "GET",
+        //url: '../getDeliveryDetails/' + rowData,
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-schedules')); ?> /" + rowData,
+        dataType: 'json',
+        success: function (response) {
+          if (response.status == 'success') {
+            div
+              .html(response.html)
+              .removeClass('loading');
+          } else {
+            div
+              .html(response.message)
+              .removeClass('loading');
+          }
+        }
+      });
+
+      return div;
+    }
+  });
 </script>

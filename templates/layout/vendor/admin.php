@@ -36,6 +36,7 @@
     <!-- Theme style -->
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
     <?= $this->Html->css('CakeLte.style') ?>
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/toastr/toastr.min.css') ?>
     <?= $this->element('layout/css') ?>
@@ -134,10 +135,11 @@
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
-
+<?= $this->Html->script('/js/cscript.js') ?>
 
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>
+    <?= $this->Html->css('cstyle.css') ?>
 </body>
 
 </html>

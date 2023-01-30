@@ -46,7 +46,7 @@
                         <td><?= h($poHeader->added_date) ?></td>
                         <td><?= h($poHeader->updated_date) ?></td>
                         <td class="actions">
-                            <?= $this->Html->link(__('View'), ['action' => 'view', $poHeader->id]) ?>
+                            <a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">View</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

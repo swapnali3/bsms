@@ -20,7 +20,8 @@
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
-
+    
+    <?= $this->Html->css('cstyle.css') ?>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -38,19 +39,20 @@
     <!-- Theme style -->
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
     <?= $this->Html->css('CakeLte.style') ?>
-
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/toastr/toastr.min.css') ?>
-
+    
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
-
+    
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <!-- Bootstrap 4 -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
     <!-- AdminLTE App -->
     <?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
-
+    
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.js") ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
