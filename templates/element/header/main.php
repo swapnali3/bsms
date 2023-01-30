@@ -6,15 +6,15 @@
 </ul>
 
 <div class="navbar" style="margin-left: 25vw;">
-  <!-- <b>
+  <b>
     <img src="<?= $this->Url->build('/') ?>img/rect_logo.png" alt="vekpro" style="width: 8vw;">
   </b>
-  </span>-<i>Vendor Customer Procurement</i> -->
-  <span style="font-weight: 900;font-size: x-large;">
+  </span>-<i>Vendor Customer Procurement</i>
+  <!-- <span style="font-weight: 900;font-size: x-large;">
     <span style="color: #004d87;font-size: xx-large;">ve</span>ndor &nbsp; &nbsp;
     <span style="color: #c7c52e;font-size: xx-large;">k</span>lant &nbsp; &nbsp;
     <span style="color: #e31720;font-size: xx-large;">pro</span>curement
-  </span>
+  </span> -->
 </div>
 
 

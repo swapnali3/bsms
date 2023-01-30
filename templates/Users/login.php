@@ -119,7 +119,8 @@
               <div>
                 <p><i class="fa fa-plus faq__plus" aria-hidden="true"></i><span class="faq__question">I am already
                     working with CHAs and freight forwarders directly. Why should I use Vekpro?</span>
-                <p class="faq__answer" style="display: none;">ftspl unifies information about your shipments served by multiple carriers and
+                <p class="faq__answer" style="display: none;">ftspl unifies information about your shipments served by
+                  multiple carriers and
                   forwarders into a single window, giving you a holistic picture of your shipments instantly.</p>
                 </p>
                 <p class="faq__dottedline"></p>
@@ -149,47 +150,64 @@
                   <div class="select-button login-page .form">
                     <div class="buyer-btn custom-control custom-radio" style="
                       margin-right: 31px">
-                      <input type="radio" id="buyer" class="custom-control-input" name="a" checked="" value="">
+                      <input type="radio" id="mobile_btn" class="custom-control-input" name="a" value="">
                       <label class="custom-control-label" for="buyer"><span>Login with mobile</span></label>
                     </div>
                     <div class="approver-btn custom-control custom-radio ">
-                      <input type="radio" class="custom-control-input" id="buyer" name="a" value="">
+                      <input type="radio" class="custom-control-input" id="email_btn" name="a" checked="" value="">
                       <label class="custom-control-label" for="approver"><span>Login with Email</span></label>
                     </div>
                   </div>
                   </span>
                   </button>
                   <br>
+                  <div id="email_login">
+                    <div style="width: 100%;">
+                      <div class="material-textfield">
+                        <div
+                          class="ant-select material-select   ant-select-auto-complete ant-select-single ant-select-show-search">
+                          <div class="ant-select-selector"><span class="ant-select-selection-search"><input
+                                autocomplete="off" type="search" class="ant-select-selection-search-input"
+                                role="combobox" aria-haspopup="listbox" aria-owns="rc_select_0_list"
+                                aria-autocomplete="list" aria-controls="rc_select_0_list"
+                                aria-activedescendant="rc_select_0_list_0" value="" id="rc_select_0"></span></div>
+                        </div><label class="material-label" style="left: 0px;">Workspace url</label>
+                        <p class="material-rightLabel">.fts-pl.com</p>
+                      </div>
+                    </div>
+                    <div style="width: 100%;">
+                      <div class="material-textfield"><input class="material-input " placeholder="Enter Username/Email"
+                          type="text" name="username" value=""><label class="material-label"
+                          style="left: 0px;">Username/Email</label></div>
+                    </div>
+                    <div style="width: 100%;">
+                      <div class="material-textfield signin-textfield"><input class="material-input "
+                          placeholder="Enter Password" type="password" name="password" value=""><label
+                          class="material-label" style="left: 0px;">Password</label>
+                        <p class="material-rightLabel"><i class="fa fa-eye-slash" aria-hidden="true"
+                            style="cursor: pointer;"></i></p>
+                        <p class="material-rightBottomLabel material-rightBottomLabel__danger">Forgot Password ?</p>
+                      </div>
+                    </div><button type="submit" class="ant-btn btn btn__get-started-btn"><span>SUBMIT</span></button>
+                    <p class="signupform__signin--dontHaveAccount">Don't have an account?<a
+                        style="cursor: pointer;">Create An Account</a></p>
+                  </div>
 
-                  <div style="width: 100%;">
-                    <div class="material-textfield">
-                      <div
-                        class="ant-select material-select   ant-select-auto-complete ant-select-single ant-select-show-search">
-                        <div class="ant-select-selector"><span class="ant-select-selection-search"><input
-                              autocomplete="off" type="search" class="ant-select-selection-search-input" role="combobox"
-                              aria-haspopup="listbox" aria-owns="rc_select_0_list" aria-autocomplete="list"
-                              aria-controls="rc_select_0_list" aria-activedescendant="rc_select_0_list_0" value=""
-                              id="rc_select_0"></span></div>
-                      </div><label class="material-label" style="left: 0px;">Workspace url</label>
-                      <p class="material-rightLabel">.fts-pl.com</p>
-                    </div>
+                  <div class="row" id="mobile_login" style="display: block;">
+                    <form method="post" accept-charset="utf-8" action="<?= $this->Url->build('/') ?>">
+                      <?= $this->Form->create() ?>
+                      <div class="input-group mb-3">
+                        <div class="material-textfield">
+                          <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10"
+                            name="mobile" pattern="[0-9]{10}" value="">
+                          <label class="material-label" style="left: 0px;">Mobile +91</label>
+                        </div>
+                      </div>
+                      <button type="button" class="ant-btn btn btn__get-started-btn" id="getotp">
+                        <span>Get OTP</span>
+                      </button>
+                    </form>
                   </div>
-                  <div style="width: 100%;">
-                    <div class="material-textfield"><input class="material-input " placeholder="Enter Username/Email"
-                        type="text" name="username" value=""><label class="material-label"
-                        style="left: 0px;">Username/Email</label></div>
-                  </div>
-                  <div style="width: 100%;">
-                    <div class="material-textfield signin-textfield"><input class="material-input "
-                        placeholder="Enter Password" type="password" name="password" value=""><label
-                        class="material-label" style="left: 0px;">Password</label>
-                      <p class="material-rightLabel"><i class="fa fa-eye-slash" aria-hidden="true"
-                          style="cursor: pointer;"></i></p>
-                      <p class="material-rightBottomLabel material-rightBottomLabel__danger">Forgot Password ?</p>
-                    </div>
-                  </div><button type="submit" class="ant-btn btn btn__get-started-btn"><span>SUBMIT</span></button>
-                  <p class="signupform__signin--dontHaveAccount">Don’t have an account?<a
-                      style="cursor: pointer;">Create An Account</a></p>
                 </div>
               </div>
               </form>
@@ -199,10 +217,51 @@
       </div>
     </div>
   </div>
-  </div>
 
   <script src="<?= $this->Url->build('/') ?>js/5.b662bfe1.chunk.js"></script>
   <script src="<?= $this->Url->build('/') ?>js/main.d308f349.chunk.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(document).on("change", "#mobile_btn", function () {
+        $('#email_login').hide();
+        $('#mobile_login').show();
+        $("#mobile_login_otp").hide();
+        $('#loginby').val('mobile');
+
+      });
+
+      $(document).on("change", "#email_btn", function () {
+        $('#email_login').show();
+        $('#mobile_login').hide();
+        $("#mobile_login_otp").hide();
+        $('#loginby').val('email');
+      });
+
+      $("#getotp").click(function () {
+        var request = $.ajax({
+          url: "users/get-otp",
+          method: "POST",
+          headers: { 'X-CSRF-Token': $('[name="_csrfToken"]').val() },
+          data: { mobile: $("#mobile").val() },
+          dataType: "json"
+        });
+
+        request.done(function (response) {
+          if (response.status == 'success') {
+            $("#mobile_login_otp").show();
+            $("#mobile_login").hide();
+            $("#user_mobile").val($("#mobile").val());
+          } else {
+            $("#otp_error").html(response.message);
+          }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+          console.log("Request failed: " + textStatus);
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
