@@ -75,6 +75,7 @@
   <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/6.3128c4ca.chunk.js"></script>
   <link rel="stylesheet" type="text/css" href="<?= $this->Url->build('/') ?>css/13.656858bb.chunk.css">
   <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/13.b8dbb772.chunk.js"></script>
+  <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
 </head>
 
 <body>
@@ -141,9 +142,7 @@
           <div class="ant-col content-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
             <div class="ant-card signupcard ant-card-bordered">
               <div class="ant-card-body">
-                <?= $this->Flash->render('auth') ?>
-                <?= $this->Form->create() ?>
-                <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
+                
                 <div class="signupform signupform__signin">
                   <p class="signupform__signin--signinText"><img src="<?= $this->Url->build('/') ?>img/logo_s.png"
                       width="150px"></p>
@@ -161,7 +160,10 @@
                   </span>
                   </button>
                   <br>
+                  <?= $this->Flash->render('auth') ?>
                   <div id="email_login">
+                    <?= $this->Form->create() ?>
+                    <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
                     <div style="width: 100%;">
                       <div class="material-textfield">
                         <div
@@ -191,10 +193,10 @@
                     </div><button type="submit" class="ant-btn btn btn__get-started-btn"><span>SUBMIT</span></button>
                     <p class="signupform__signin--dontHaveAccount">Don't have an account?<a
                         style="cursor: pointer;">Create An Account</a></p>
+                    <?= $this->Form->end() ?>
                   </div>
 
-                  <div class="row" id="mobile_login" style="display: block;">
-                    <form method="post" accept-charset="utf-8" action="<?= $this->Url->build('/') ?>">
+                  <div class="row" id="mobile_login" style="display: none;">
                       <?= $this->Form->create() ?>
                       <div class="input-group mb-3">
                         <div class="material-textfield">
@@ -206,11 +208,34 @@
                       <button type="button" class="ant-btn btn btn__get-started-btn" id="getotp">
                         <span>Get OTP</span>
                       </button>
-                    </form>
+                    <?= $this->Form->end() ?>
                   </div>
+
+                  <div class="row" id="mobile_login_otp" style="display:none;">
+        <?= $this->Form->create() ?>
+        <?= $this->Form->control('mobile', ['type' => 'hidden', 'id' => 'user_mobile']); ?>
+        <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'mobile', 'id' => 'loginby']); ?>
+            <div class="input-group mb-3">
+            <input type="tel" class="form-control" name="otp" id="otp" placeholder="OTP" maxlength="6" pattern="[0-9]{6}">
+            <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-password"></span>
+            </div>
+          </div>
+            </div>
+            <span style="text-color:red;" id="otp_error"></span>
+            <div class="row">
+          <!-- /.col -->
+          <div class="col-4">
+          <?= $this->Form->button(__('Sign in'), ['class' => 'btn btn-primary btn-block']); ?>
+          </div>
+          <!-- /.col -->
+        </div>
+        <?= $this->Form->end() ?>
+          </div>
+
                 </div>
               </div>
-              </form>
             </div>
           </div>
         </div>

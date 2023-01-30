@@ -53,7 +53,7 @@ class DashboardController extends VendorAppController
         $this->set('po_list', $po_list);
         */
 
-        $rfqDetails = $this->RfqDetails->find('all', ['condtions' => ['status' => 0]])->contain(['Products','Uoms'])->order(['RfqDetails.added_date' => 'desc']);
+        $rfqDetails = $this->RfqDetails->find('all', ['condtions' => ['status' => 1]])->contain(['Products','Uoms'])->order(['RfqDetails.added_date' => 'desc']);
         $this->set('rfqDetails', $rfqDetails);
 
         $query = $this->PoHeaders->find();
