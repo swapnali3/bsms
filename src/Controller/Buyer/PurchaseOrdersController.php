@@ -150,7 +150,6 @@ class PurchaseOrdersController extends BuyerAppController
                         <th>Actual Qty</th>
                         <th>Received Qty</th>
                         <th>Delivery Date</th>
-                        <th class="actions">Actions</th>
                     </tr>
             </thead>
             <tbody>';
@@ -161,9 +160,7 @@ class PurchaseOrdersController extends BuyerAppController
                             <td>$row->actual_qty</td>
                             <td>$row->received_qty</td>
                             <td>$row->delivery_date</td>
-                            <td class=\"actions\">
-                                &nbsp;
-                            </td>
+                            
                         </tr>";
             
             }

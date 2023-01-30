@@ -94,6 +94,7 @@
           <table class="table" id="example1">
             <thead>
               <tr>
+                <th width="5%"></th>
                 <th>
                   <?= __('Item') ?>
                 </th>
@@ -135,6 +136,7 @@
             <tbody>
               <?php foreach ($poHeader->po_footers as $poFooters) : ?>
               <tr>
+              <td class= "details-control" footer-id="<?=$poFooters->id?>"><img src="http://i.imgur.com/SD7Dz.png" alt="+"></td>
                 <td>
                   <?= h($poFooters->item) ?>
                 </td>
