@@ -7,8 +7,7 @@
 <div class="rfqDetails index content card">
      
 <div class="card-header">
-        <h3 class="card-title">RFQ List</h3>
-        <?= $this->Html->link(__('New RFQ'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+        <h3>RFQ List<?= $this->Html->link(__('New RFQ'), ['action' => 'add'], ['class' => 'button float-right py-2 px-3','style'=>'font-size:x-large;']) ?></h3>
     </div>
 
     
@@ -49,13 +48,23 @@
                     <td><?= h($rfqDetail->added_date) ?></td>
                     
                     <td class="actions">
-                        
-                        <?php if($rfqDetail->status == 1) : ?>
-                            <?= $this->Html->link(__('Reject'), ['action' => 'apprej', $rfqDetail->id, 'rej']) ?>
+                    <div class="btn-group">
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $rfqDetail->id], ['class'=>'btn btn-default']) ?>
+                    <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                    <?php if($rfqDetail->status == 1) : ?>
+                            <?= $this->Html->link(__('Reject'), ['action' => 'apprej', $rfqDetail->id, 'rej'],['class'=>'dropdown-item']) ?>
                         <?php else : ?>
-                            <?= $this->Html->link(__('Approve'), ['action' => 'apprej', $rfqDetail->id, 'app']) ?>
+                            <?= $this->Html->link(__('Approve'), ['action' => 'apprej', $rfqDetail->id, 'app'],['class'=>'dropdown-item']) ?>
                         <?php endif; ?>
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $rfqDetail->id]) ?>
+                    </div>
+                  </div>
+
+                        
+
+                        
                         <!-- <?= $this->Html->link(__('Edit'), ['action' => 'edit', $rfqDetail->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $rfqDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rfqDetail->id)]) ?> -->
                     </td>

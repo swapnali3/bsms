@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\PoHeader $poHeader
  */
 ?>
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="row">
   <div class="col-12">
     <div class="poHeaders view content card">
@@ -12,8 +14,8 @@
           <?= h($poHeader->po_no) ?>
         </h3>
       </div>
-      <div class="card-body">
-        <table class="table ">
+      <div class="card-body table-responsive p-0">
+        <table class="table">
           <tr>
             <th>
               <?= __('Vendor Code') ?>
@@ -136,7 +138,11 @@
             <tbody>
               <?php foreach ($poHeader->po_footers as $poFooters) : ?>
               <tr>
-              <td class= "details-control" footer-id="<?=$poFooters->id?>"><img src="http://i.imgur.com/SD7Dz.png" alt="+"></td>
+              <td class= "details-control" footer-id="<?=$poFooters->id?>">
+              <span class="material-symbols-outlined flu" data-alt="+">
+                add
+              </span>    
+            </td>
                 <td>
                   <?= h($poFooters->item) ?>
                 </td>
@@ -426,14 +432,19 @@
       "paging": true,
       "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
     });
-
+    $(document).on("click", ".flu", function () {
+      if ($(this).data('alt') == '+') {
+        $(this).data('alt', '-');
+        $(this).empty();
+        $(this).append('Remove');
+      } else {
+        $(this).data('alt', '+');
+        $(this).empty();
+        $(this).append('add');
+      }
+    });
 
     $('#example1 tbody').on('click', 'td.details-control', function () {
-      if ($('img', this).attr('alt') == '+') {
-        $('img', this).attr({ 'alt': "-", 'src': "http://i.imgur.com/d4ICC.png" });
-      } else {
-        $('img', this).attr({ 'alt': "+", 'src': "http://i.imgur.com/SD7Dz.png" });
-      }
 
       var tr = $(this).closest('tr');
       var row = table.row(tr);

@@ -188,7 +188,7 @@
 <div class="col-12 p-2">
   <div class="card">
     <div class="card-body">
-      <table class="table table-bordered table-hover" id="example1">
+      <table class="table table-hover" id="example1">
         <thead>
           <tr>
 
@@ -232,7 +232,7 @@
               <?= $rfqDetail->RfqInquiries['respond'] ? h($rfqDetail->RfqInquiries['respond']) : 0 ?>
             </td>
             <td class="actions">
-              <?= $this->Html->link(__('View'), ['controller' => 'rfq-details', 'action' => 'view', $rfqDetail->id]) ?>
+              <?= $this->Html->link(__('View'), ['controller' => 'rfq-details', 'action' => 'view', $rfqDetail->id], ['class'=> 'button py-1 px-2']) ?>
             </td>
           </tr>
           <?php endforeach; ?>

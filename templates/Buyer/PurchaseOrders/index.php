@@ -12,7 +12,7 @@
             </b>
         </h1>
     </div>
-    <div class="card-body">
+    <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover" id="example1">
                 <thead>
@@ -117,6 +117,7 @@
 <script>
     $(document).ready(function () {
         $("#example1").DataTable({
+            "responsive": {"details": {"type": none}},
             "paging": true,
             "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

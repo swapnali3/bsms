@@ -12846,7 +12846,7 @@
     box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.09), 0 2px 3px -1px rgba(0, 0, 0, 0.07);
   }
   
-  .page-item .page-link,
+  /* .page-item .page-link,
   .page-item span {
     display: flex;
     align-items: center;
@@ -12858,7 +12858,7 @@
     width: 36px;
     height: 36px;
     font-size: 0.875rem;
-  }
+  } */
   
   .pagination-lg .page-item .page-link,
   .pagination-lg .page-item span {

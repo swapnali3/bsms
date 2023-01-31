@@ -26,7 +26,7 @@
                         <th><?= h('Currency') ?></th>
                         <th><?= h('Exchange Rate') ?></th>
                         <!-- <th><?= h('Release Status') ?></th> -->
-                        <th><?= h('Added Date') ?></th>
+                        <!-- <th><?= h('Added Date') ?></th> -->
                         <th><?= h('Updated Date') ?></th>
                         <th class="actions"><?= __('Actions') ?></th>
                     </tr>
@@ -43,10 +43,10 @@
                         <td><?= h($poHeader->currency) ?></td>
                         <td><?= $this->Number->format($poHeader->exchange_rate) ?></td>
                         <!-- <td><?= h($poHeader->release_status) ?></td> -->
-                        <td><?= h($poHeader->added_date) ?></td>
+                        <!-- <td><?= h($poHeader->added_date) ?></td> -->
                         <td><?= h($poHeader->updated_date) ?></td>
                         <td class="actions">
-                            <a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">View</a>
+                            <a type="button" class="btn btn-sm btn-default" href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">View</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

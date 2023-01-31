@@ -4,9 +4,13 @@
  * @var \App\Model\Entity\PoHeader $poHeader
  */
 ?>
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="card">
   <div class="card-header">
-<h1 style="color: navy;"><b><?= h($poHeader->po_no) ?></b></h1>
+    <h1 style="color: navy;"><b>
+        <?= h($poHeader->po_no) ?>
+      </b></h1>
   </div>
   <div class="card-body">
     <table class="table">
@@ -76,7 +80,9 @@
 
 <div class="card">
   <div class="card-header">
-<h1 style="color: navy;"><b><?= __('PO Item List') ?></b></h1>
+    <h1 style="color: navy;"><b>
+        <?= __('PO Item List') ?>
+      </b></h1>
   </div>
   <div class="card-body">
     <?php if (!empty($poHeader->po_footers)) : ?>
@@ -132,8 +138,11 @@
         <tbody>
           <?php foreach ($poHeader->po_footers as $poFooters) : ?>
           <tr>
-            <td class="details-control" data-id="<?=$poFooters->id?>"><img src="http://i.imgur.com/SD7Dz.png"
-                alt="+"></td>
+            <td data-id="<?=$poFooters->id?>" class="details-control">
+              <span class="material-symbols-outlined flu" data-alt="+">
+                add
+              </span>
+            </td>
             <td>
               <?= h($poFooters->item) ?>
             </td>
@@ -361,7 +370,6 @@
 
 <script>
   $(document).ready(function () {
-
     var Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
@@ -389,221 +397,147 @@
       $('#exampleModal form')[0].reset();
     });
 
-
-    /*$.validator.setDefaults({
-        submitHandler: function () {
-          var formdatas = new FormData($('#quickForm')[0]);
-            $.ajax({
-                    type: "POST",
-                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => 
-'purchaseorders', 'action' => 'adddelivery')); ?>",
-                    data: $("#quickForm").serialize(),
-                    dataType:'json',
-                    success: function (response) {
-                        console.log(response);
-                        if(response.status == 'success') {
-                            $('#exampleModal').modal('toggle');
-                            Toast.fire({
-                                icon: 'success',
-                                title: response.message
-                            });
-                        } else {
-                            Toast.fire({
-                                icon: 'error',
-                                title: response.message
-                            });
-                        }
-                        
-                    }
-                });
-                return false; 
-        }
-    }); */
     $('#quickForm').validate({
       rules: {
-        challan_no: {
-          required: true
-        },
-        qty: {
-          required: true,
-          number: true
-        },
-        eway_bill_no: {
-          required: true,
-        },
-        einvoice_no: {
-          required: true,
-        },
+        challan_no: { required: true },
+        qty: { required: true, number: true },
+        eway_bill_no: { required: true, },
+        einvoice_no: { required: true, },
       },
       messages: {
-        challan_no: {
-          required: "Please enter a email address",
-        },
-        qty: {
-          required: "Please provide a password",
-          number: "Please enter number only"
-        },
-        eway_bill_no: {
-          required: "Please enter a email address",
-        },
-        einvoice_no: {
-          required: "Please enter a email address",
-        },
+        challan_no: { required: "Please enter a email address", },
+        qty: { required: "Please provide a password", number: "Please enter number only" },
+        eway_bill_no: { required: "Please enter a email address", },
+        einvoice_no: { required: "Please enter a email address", },
       },
       errorElement: 'span',
       errorPlacement: function (error, element) {
         error.addClass('invalid-feedback');
         element.closest('.form-group').append(error);
       },
-      highlight: function (element, errorClass, validClass) {
-        $(element).addClass('is-invalid');
-      },
-      unhighlight: function (element, errorClass, validClass) {
-        $(element).removeClass('is-invalid');
-      },
+      highlight: function (element, errorClass, validClass) { $(element).addClass('is-invalid'); },
+      unhighlight: function (element, errorClass, validClass) { $(element).removeClass('is-invalid'); },
       submitHandler: function () {
         var formdatas = new FormData($('#quickForm')[0]);
         $.ajax({
           type: "POST",
-          url: "<?php echo \Cake\Routing\Router::url(array('controller' => 
-'/purchase-orders', 'action' => 'adddelivery')); ?> ",
-    data: $("#quickForm").serialize(),
-      dataType: 'json',
-        success: function (response) {
-          console.log(response);
-          if (response.status == 'success') {
-            $('#exampleModal').modal('toggle');
-            Toast.fire({
-              icon: 'success',
-              title: response.message
-            });
-            location.reload(true);
-          } else {
-            Toast.fire({
-              icon: 'error',
-              title: response.message
-            });
+          url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'adddelivery')); ?> ",
+          data: $("#quickForm").serialize(),
+          dataType: 'json',
+          success: function (response) {
+            console.log(response);
+            if (response.status == 'success') {
+              $('#exampleModal').modal('toggle');
+              Toast.fire({
+                icon: 'success',
+                title: response.message
+              });
+              location.reload(true);
+            } else {
+              Toast.fire({ icon: 'error', title: response.message });
+            }
+
           }
+        });
+        return false;
+      }
+    });
 
-        }
-  });
-  return false; 
+    $('#stockForm').validate({
+      rules: {
+        part_code: { required: true },
+        stock: { required: true, number: true },
+      },
+      messages: {
+        part_code: { required: "Please enter part code ", },
+        stock: { required: "Please provide a stock", number: "Please enter number only" },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) { $(element).addClass('is-invalid'); },
+      unhighlight: function (element, errorClass, validClass) { $(element).removeClass('is-invalid'); },
+      submitHandler: function () {
+        var formdatas = new FormData($('#stockForm')[0]);
+        $.ajax({
+          type: "POST",
+          url: "<?php echo \Cake\Routing\Router::url(array( 'controller' => '/po-footers', 'action' => 'update')); ?> /" + $("#po_footer_stock_id").val(),
+          data: $("#stockForm").serialize(),
+          dataType: 'json',
+          success: function (response) {
+            console.log(response);
+            if (response.status == 'success') {
+              $('#updateStockModal').modal('toggle');
+              Toast.fire({
+                icon: 'success',
+                title: response.message
+              });
+            } else {
+              Toast.fire({
+                icon: 'error',
+                title: response.message
+              });
             }
 
-          });
+          }
+        });
+        return false;
+      }
+    });
+
+    $(document).on("click", ".flu", function () {
+      if ($(this).data('alt') == '+') {
+        $(this).data('alt', '-');
+        $(this).empty();
+        $(this).append('Remove');
+      } else {
+        $(this).data('alt', '+');
+        $(this).empty();
+        $(this).append('add');
+      }
+    });
+
+    $('#example1 tbody').on('click', 'td.details-control', function () {
+      var tr = $(this).closest('tr');
+      var row = table.row(tr);
+
+      if (row.child.isShown()) {
+        row.child.hide();
+        tr.removeClass('shown');
+      }
+      else {
+        row.child(format($(this).attr('data-id'))).show();
+        tr.addClass('shown');
+      }
+    });
 
 
+    function format(rowData) {
+      var div = $('<div/>')
+        .addClass('loading')
+        .text('Loading...');
 
-  $('#stockForm').validate({
-    rules: {
-      part_code: {
-        required: true
-      },
-      stock: {
-        required: true,
-        number: true
-      },
-    },
-    messages: {
-      part_code: {
-        required: "Please enter part code ",
-      },
-      stock: {
-        required: "Please provide a stock",
-        number: "Please enter number only"
-      },
-    },
-    errorElement: 'span',
-    errorPlacement: function (error, element) {
-      error.addClass('invalid-feedback');
-      element.closest('.form-group').append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass('is-invalid');
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass('is-invalid');
-    },
-    submitHandler: function () {
-      var formdatas = new FormData($('#stockForm')[0]);
       $.ajax({
-        type: "POST",
-        url: "<?php echo \Cake\Routing\Router::url(array( 'controller' => 
-'/po-footers', 'action' => 'update')); ?> /"+$("#po_footer_stock_id").val(),
-  data: $("#stockForm").serialize(),
-    dataType: 'json',
-      success: function (response) {
-        console.log(response);
-        if (response.status == 'success') {
-          $('#updateStockModal').modal('toggle');
-          Toast.fire({
-            icon: 'success',
-            title: response.message
-          });
-        } else {
-          Toast.fire({
-            icon: 'error',
-            title: response.message
-          });
+        type: "GET",
+        //url: '../getDeliveryDetails/' + rowData,
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-schedules')); ?> /" + rowData,
+        dataType: 'json',
+        success: function (response) {
+          if (response.status == 'success') {
+            div
+              .html(response.html)
+              .removeClass('loading');
+          } else {
+            div
+              .html(response.message)
+              .removeClass('loading');
+          }
         }
-
-      }
-                    });
-  return false; 
-            }
-
-          });
-
-
-
-  $('#example1 tbody').on('click', 'td.details-control', function () {
-    if ($('img', this).attr('alt') == '+') {
-      $('img', this).attr({ 'alt': "-", 'src': "http://i.imgur.com/d4ICC.png" });
-    } else {
-      $('img', this).attr({ 'alt': "+", 'src': "http://i.imgur.com/SD7Dz.png" });
+      });
+      return div;
     }
-
-    var tr = $(this).closest('tr');
-    var row = table.row(tr);
-
-    if (row.child.isShown()) {
-      row.child.hide();
-      tr.removeClass('shown');
-    }
-    else {
-      row.child(format($(this).attr('data-id'))).show();
-      tr.addClass('shown');
-    }
-  });
-
-
-  function format(rowData) {
-    var div = $('<div/>')
-      .addClass('loading')
-      .text('Loading...');
-
-    $.ajax({
-      type: "GET",
-      //url: '../getDeliveryDetails/' + rowData,
-      url: "<?php echo \Cake\Routing\Router::url(array('controller' => 
-'/purchase-orders', 'action' => 'get-schedules')); ?> /" + rowData,
-    dataType: 'json',
-      success: function (response) {
-        if (response.status == 'success') {
-          div
-            .html(response.html)
-            .removeClass('loading');
-        } else {
-          div
-            .html(response.message)
-            .removeClass('loading');
-        }
-      }
-  } );
-
-  return div;
-}
-
   });
 
 
