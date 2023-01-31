@@ -7,11 +7,11 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <div class="row"style="margin-top: 25px">
   <div class="col-sm-12 col-lg-3">
-    <div class="card mb-2" style="border-radius:2rem;">
+    <div class="card mb-2" style="border-radius:1rem;">
 
       <div class="card-header p-3 pt-2">
         <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">weekend</i>
+          <i class="material-icons opacity-10">shopping_cart</i>
         </div>
         <div class="text-end pt-1">
           <h1 class="text-sm mb-0 text-capitalize"><b>Purchase Orders</b></h1>
@@ -31,10 +31,10 @@
   </div>
 
   <div class="col-sm-12 col-lg-3">
-    <div class="card  mb-2" style="border-radius:2rem;">
+    <div class="card  mb-2" style="border-radius:1rem;">
       <div class="card-header p-3 pt-2">
         <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">leaderboard</i>
+          <i class="material-icons opacity-10">request_quote</i>
         </div>
         <div class="text-end pt-1">
           <h1 class="text-sm mb-0 text-capitalize"><b>Vendor Pending for Details</b></h1>
@@ -50,10 +50,10 @@
   </div>
 
   <div class="col-sm-12 col-lg-3">
-    <div class="card  mb-2" style="border-radius:2rem;">
+    <div class="card  mb-2" style="border-radius:1rem;">
       <div class="card-header p-3 pt-2 bg-transparent">
         <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">monetization_on</i>
+          <i class="material-icons opacity-10">local_shipping</i>
         </div>
         <div class="text-end pt-1">
           <h1 class="text-sm mb-0 text-capitalize "><b>Vendor Intransit</b>
@@ -71,7 +71,7 @@
   </div>
 
   <div class="col-sm-12 col-lg-3">
-    <div class="card  mb-2" style="border-radius:2rem;">
+    <div class="card  mb-2" style="border-radius:1rem;">
       <div class="card-header p-3 pt-2 bg-transparent">
         <div
           class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">

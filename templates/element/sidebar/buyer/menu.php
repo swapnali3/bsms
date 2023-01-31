@@ -9,16 +9,21 @@
 <?php $tempindctive = ($controller == 'VendorTemps' && $action == 'index') ? 'active' : ''; ?>
 <?php $createvendactive = ($controller == 'VendorTemps' && $action == 'add') ? 'active' : ''; ?>
 <?php $creatsaevendactive = ($controller == 'VendorTemps' && $action == 'sap-add') ? 'active' : ''; ?>
-
 <?php $rfqactive = ($controller == 'RfqDetails') ? 'active' : ''; ?>
+
+<?php $temvenmenuopen = ($controller == 'VendorTemps') ? 'menu-open' : ''; ?>
+<?php $temvenactive = ($controller == 'buyervendor-temps') ? 'active' : ''; ?>
+<?php $buyvendaddactive = ($controller == 'buyervendor-temps' && $action == 'add') ? 'menu-open' : ''; ?>
+<?php $buyvendsaevendactive = ($controller == 'VendorTemps' && $action == 'sap-add') ? 'menu-open' : ''; ?>
 
 
 <li class="nav-item menu-open">
   <?= $this->Html->link(__('<i class="far fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item">
-  <a href="#" class="nav-link ">
+<!-- 
+<li class="nav-item <?= $temvenmenuopen ?>">
+  <a href="#" class="nav-link  <?= $temvenactive ?>">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
       Vendor Management
@@ -26,27 +31,75 @@
     </p>
   </a>
   <ul class="nav nav-treeview" style="display: none;">
-    <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link "><i class="fa fa-bars nav-icon"></i><p>Vendor List</p></a></li>
+    <li class="nav-item ">
+      <a href="/bsms/buyer/vendor-temps" class="nav-link ">
+        <i class="fa fa-bars nav-icon"></i>
+        <p>Vendor List</p>
+      </a>
+    </li>
     <li class="nav-item">
-  <a href="#" class="nav-link ">
+      <a href="#" class="nav-link ">
+        <i class="nav-icon fas fa-user-alt"></i>
+        <p>
+          Vendor Creation
+          <i class="right fas fa-angle-left"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview" style="display: none;">
+        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/add" class="nav-link <?= $createvendactive ?>"><i
+          class="fa fa-bars nav-icon"></i>
+        <p>New Vendor</p>
+      </a></li>
+        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>"><i
+          class="fa fa-bars nav-icon"></i>
+        <p>SAP Vendor</p>
+      </a></li>
+      </ul>
+    </li>
+  </ul>
+</li> -->
+
+<li class="nav-item <?= $temvenmenuopen ?>">
+  <a href="#" class="nav-link <?= $tempindctive ?> <?= $createvendactive ?>">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
-      Vendor Creation
+      Vendor Management
       <i class="right fas fa-angle-left"></i>
     </p>
   </a>
-  <ul class="nav nav-treeview" style="display: none;">
-  <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/add" class="nav-link "><i class="fa fa-bars nav-icon"></i><p>New Vendor</p></a></li>
-  <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/sap-add" class="nav-link "><i class="fa fa-bars nav-icon"></i><p>SAP Vendor</p></a></li>
-  </ul>
-</li>
+  <ul class="nav nav-treeview">
+    <li class="nav-item ">
+      <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link <?= $tempindctive ?>">
+        <i class="fa fa-bars nav-icon"></i>
+        <p>Vendor List</p>
+      </a>
+    </li>
+    <li class="nav-item <?= $buyvendaddactive ?>">
+      <a href="#" class="nav-link <?= $createvendactive ?>">
+        <i class="nav-icon fas fa-user-alt"></i>
+        <p>
+          Vendor Creation
+          <i class="right fas fa-angle-down"></i>
+        </p>
+      </a>
+      <ul class="nav nav-treeview">
+        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/add" class="nav-link <?= $createvendactive ?>"><i
+              class="fa fa-bars nav-icon"></i>
+            <p>New Vendor</p>
+          </a></li>
+        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>"><i
+              class="fa fa-bars nav-icon"></i>
+            <p>SAP Vendor</p>
+          </a></li>
+      </ul>
+    </li>
   </ul>
 </li>
 
 
 
 <li class="nav-item menu-open">
-<?= $this->Html->link(__('<i class="far fa-question-circle  nav-icon"></i><p>RFQs</p>'), ['controller' => 'rfq-details', 'action' => 'index'], ['class' => "nav-link $rfqactive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="far fa-question-circle  nav-icon"></i><p>RFQs</p>'), ['controller' => 'rfq-details', 'action' => 'index'], ['class' => "nav-link $rfqactive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">
