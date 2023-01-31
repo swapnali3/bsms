@@ -4,126 +4,171 @@
  * @var \App\Model\Entity\AdminUser[]|\Cake\Collection\CollectionInterface $adminUsers
  */
 ?>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
 <!-- Main content -->
-<section class="content">
-  <div class="container-fluid">
-    <div id="content">
-      <main class="row">
-        <ul class="box-info col-12">
-          <li>
-            <i class='bx bxs-calendar-check'></i>
-            <span class="text">
-              <h3>
-                <?= $this->Html->link(__($totalPos), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?>
-              </h3>
-              <p>Purchase Orders</p>
-            </span>
-          </li>
-          <li>
-            <i class='bx bxs-group'></i>
-            <span class="text">
-              <h3>
-                <?= $this->Html->link(__($totalRfqDetails), '#', ['class' => 'small-box-footer', 'escape' => false]) ?>
-              </h3>
-              <p>Total RFQ</p>
-            </span>
-          </li>
+<div class="row" style="margin-top: 25px">
 
-          <li>
-            <i class='bx bxs-dollar-circle' ></i>
-            <span class="text">
-              <h3><?= $totalIntransit ?></h3>
-              <p><?= $this->Html->link(__('Intransit'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?></p>
-            </span>
-          </li>
-
-          <li>
-            <i class='bx bxs-dollar-circle'></i>
-            <span class="text">
-              <h3>
-                <?= $this->Html->link(__('250000/-'), ['#'], ['class' => 'small-box-footer', 'escape' => false]) ?>
-              </h3>
-              <p>Payment Balance</p>
-            </span>
-          </li>
-        </ul>
-      </main>
-    </div>
-
-    <div class="container-fluid">
-      <div class="row my-3">
-        <div class="col-12">
-          <h2>RFQ List</h2>
+  <div class="col-sm-12 col-lg-3">
+    <div class="card mb-2" style="border-radius:2rem;">
+      <div class="card-header p-3 pt-2">
+        <div
+          class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
+          <i class="material-icons opacity-10">weekend</i>
         </div>
-        <?php foreach($rfqDetails as $key => $val) : ?>
-        <?php $attrParams = json_decode($val->attribute_data, true); ?>
-        <div class="col-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-8">
-                  <div class="row">
-                    <div class="col-4">
-                      RFQ No.
-                    </div>
-                    <div class="col-8">
-                      :
-                      <?=$val['rfq_no']?>
-                    </div>
-                    <div class="col-4">
-                      Category
-                    </div>
-                    <div class="col-8">
-                      :
-                      <?=$val['product']->name?>
-                    </div>
-                    <div class="col-4">
-                      Part Name
-                    </div>
-                    <div class="col-8">
-                      :
-                      <?=$val['part_name']?>
-                    </div>
-                    <div class="col-4">
-                      Make
-                    </div>
-                    <div class="col-8">
-                      :
-                      <?=$val['make']?>
-                    </div>
-                    <div class="col-4">
-                      UOM
-                    </div>
-                    <div class="col-8">
-                      :
-                      <?=$val['uom']->description?>
-                    </div>
-                    <div class="col-4">
-                      Remarks
-                    </div>
-                    <div class="col-8">
-                      :
-                      <?=$val['remarks']?>
-                    </div>
+        <div class="text-end pt-1">
+          <h1 class="text-sm mb-0 text-capitalize"><b>Purchase Orders</b></h1>
+          <h4 class="mb-0">
+            <?= $totalPos ?>
+          </h4>
+        </div>
+      </div>
 
-                    <div class="col-4">
-                      Date
-                    </div>
-                    <div class="col-8">
-                      :
-                      <?=$val['added_date']?>
-                    </div>
-                    <div class="col-8 mt-3">
-                      <?= $this->Html->link(__('View'), ['controller' => 'dashboard', 'action' => 'rfq-view', $val['id']], ['class' => 'btn btn-block btn-info', 'escape' => false]) ?>
-                    </div>
-                  </div>
+      <hr class="dark horizontal my-0">
+      <div class="card-footer p-3">
+          <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'small-box-footer button', 'escape' => false]) ?>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-lg-3">
+    <div class="card  mb-2" style="border-radius:2rem;">
+      <div class="card-header p-3 pt-2">
+        <div
+          class="icon icon-lg icon-shape bg-gradient-primary shadow-primary shadow text-center border-radius-xl mt-n4 position-absolute">
+          <i class="material-icons opacity-10">leaderboard</i>
+        </div>
+        <div class="text-end pt-1">
+          <h1 class="text-sm mb-0 text-capitalize"><b>Total RFQ</b></h1>
+          <h4 class="mb-0">
+            <?= $totalIntransit ?>
+          </h4>
+        </div>
+      </div>
+
+      <hr class="dark horizontal my-0">
+      <div class="card-footer p-3">
+          &nbsp;
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-lg-3">
+    <div class="card  mb-2" style="border-radius:2rem;">
+      <div class="card-header p-3 pt-2 bg-transparent">
+        <div
+          class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+          <i class="material-icons opacity-10">monetization_on</i>
+        </div>
+        <div class="text-end pt-1">
+          <h1 class="text-sm mb-0 text-capitalize "><b>IN Transit</b>
+          </h1>
+          <h4 class="mb-0 ">
+            <?= $totalIntransit ?>
+          </h4>
+        </div>
+      </div>
+      <hr class="horizontal my-0 dark">
+      <div class="card-footer p-3"> <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'small-box-footer button', 'escape' => false]) ?></div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-lg-3">
+    <div class="card  mb-2" style="border-radius:2rem;">
+      <div class="card-header p-3 pt-2 bg-transparent">
+        <div
+          class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+          <i class="material-icons opacity-10">monetization_on</i>
+        </div>
+        <div class="text-end pt-1">
+          <h1 class="text-sm mb-0 text-capitalize "><b>Payment Balance</b>
+          </h1>
+          <h4 class="mb-0 ">
+            <?= $this->Html->link(__('250000/-'), ['#'], ['class' => 'small-box-footer', 'escape' => false]) ?>
+          </h4>
+        </div>
+      </div>
+      <hr class="horizontal my-0 dark">
+      <div class="card-footer p-3">&nbsp; </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="container-fluid">
+  <div class="row my-3">
+    <div class="col-12">
+      <h2><b>RFQ List</b></h2>
+    </div>
+    <?php foreach($rfqDetails as $key => $val) : ?>
+    <?php $attrParams = json_decode($val->attribute_data, true); ?>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12  ">
+              <div class="row">
+                <div class="col-4">
+                  <b>RFQ No.</b>
+                </div>
+                <div class="col-8">
+                  :
+                  <?=$val['rfq_no']?>
+                </div>
+                <div class="col-4">
+                  <b>Category</b>
+
+                </div>
+                <div class="col-8">
+                  :
+                  <?=$val['product']->name?>
+                </div>
+                <div class="col-4">
+                  <b>Part Name</b>
+                </div>
+                <div class="col-8">
+                  :
+                  <?=$val['part_name']?>
+                </div>
+                <div class="col-4">
+                  <b>Make</b>
+                </div>
+                <div class="col-8">
+                  :
+                  <?=$val['make']?>
+                </div>
+                <div class="col-4">
+                  <b>UOM</b>
+                </div>
+                <div class="col-8">
+                  :
+                  <?=$val['uom']->description?>
+                </div>
+                <div class="col-4">
+                  <b>Remarks</b>
+                </div>
+                <div class="col-8">
+                  :
+                  <?=$val['remarks']?>
+                </div>
+
+                <div class="col-4">
+                  <b>Date</b>
+                </div>
+                <div class="col-8">
+                  :
+                  <?=$val['added_date']?>
+                </div>
+                <div class="col-8 mt-3">
+                  <?= $this->Html->link(__('View'), ['controller' => 'dashboard', 'action' => 'rfq-view', $val['id']], ['class' => 'btn btn-block btn-info', 'escape' => false]) ?>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <?php endforeach;?>
       </div>
     </div>
+    <?php endforeach;?>
+  </div>
+</div>
 </section>
