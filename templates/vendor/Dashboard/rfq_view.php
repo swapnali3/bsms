@@ -1,13 +1,11 @@
 <?php ?>
 <section id="content">
-    <div class="container clearfix">
-        <div class="row my-3">
-            <div class="col-8">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-5">
                 <div class="card">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-8">
-                            <table class="table">
+                        <table class="table">
                             <tr>
                                 <th>
                                     <?= __('RFQ No.') ?>
@@ -15,7 +13,7 @@
                                 <td>
                                     <?= h($rfqDetails->rfq_no) ?>
                                     <span style="margin-left:20px;">
-                                    <span>
+                                        <span>
                                 </td>
                             </tr>
 
@@ -64,37 +62,37 @@
                                 </td>
                             </tr>
                         </table>
-                            </div>
-
-                            <?php if($userType == 'seller') : ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-body">
+                        <?php if($userType == 'seller') : ?>
+                        <div class="row">
+                            <div class="col-12">
+                                <?= $this->Form->create(null, ['url' => ['controller' => 'rfq-inquiries','action' => 'inquiry',$rfqDetails->id]]); ?>
                                 <div class="row">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <?= $this->Form->create(null, ['url' => ['controller' => 'rfq-inquiries','action' => 'inquiry',$rfqDetails->id]]); ?>
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <?php echo $this->Form->control('qty', array( 'type' => 'number', 'class' => 'form-control rounded-0','div' => 'form-group', 'required' => 'required')); ?>
-                                                </div>
-                                                <div class="col-6">
-                                                    <?php echo $this->Form->control('rate', array('maxlength' => '3','type' => 'number', 'class' => 'form-control rounded-0','div' => 'form-group', 'required' => 'required')); ?>
-                                                </div>
-                                                <div class="col-6">
-                                                    <?php echo $this->Form->control('delivery_date', array('type' => 'date', 'class' => 'form-control rounded-0','div' => 'form-group', 'required' => 'required')); ?>
-                                                </div>
-                                            </div>
-                                            <?= $this->Form->button(__('Save'), [
+                                    <div class="col-4">
+                                        <?php echo $this->Form->control('qty', array( 'label'=> 'Quantity','type' => 'number', 'class' => 'form-control rounded-0','div' => 'form-group', 'required' => 'required')); ?>
+                                    </div>
+                                    <div class="col-4">
+                                        <?php echo $this->Form->control('rate', array('maxlength' => '3','type' => 'number', 'class' => 'form-control rounded-0','div' => 'form-group', 'required' => 'required')); ?>
+                                    </div>
+                                    <div class="col-4">
+                                        <?php echo $this->Form->control('delivery_date', array('type' => 'date', 'class' => 'form-control rounded-0','div' => 'form-group', 'required' => 'required')); ?>
+                                    </div>
+                                </div>
+                                <?= $this->Form->button(__('Save'), [
                                             'label' => 'Save',
-                                            'class' => 'mt-3 btn btn-danger w-100',
+                                            'class' => 'mt-3 mb-0 btn btn-danger float-right',
                                         ]); ?>
-                                            <?= $this->Form->end() ?>
-                                        </div>
-                                    </div>
-                                    </div>
-                            <?php endif; ?>
-                        
+                                <?= $this->Form->end() ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </section>

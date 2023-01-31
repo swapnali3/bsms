@@ -10,10 +10,10 @@
         <h3>RFQ List<?= $this->Html->link(__('New RFQ'), ['action' => 'add'], ['class' => 'button float-right py-2 px-3','style'=>'font-size:x-large;']) ?></h3>
     </div>
 
-    
+    <div class="card-body">
     <div class="table-responsive">
         
-        <table class="table table-bordered table-hover" id="example1">
+        <table class="table table-hover" id="example1">
             <thead>
                 <tr>
                     
@@ -73,7 +73,7 @@
             </tbody>
         </table>
     </div>
-    
+    </div>
 </div>
 
 <script>
