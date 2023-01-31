@@ -52,7 +52,7 @@
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.js") ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
-
+    
 </head>
 
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
@@ -121,7 +121,7 @@
         </footer>
     </div>
     <!-- ./wrapper -->
-
+    
     
 
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?>
@@ -135,8 +135,10 @@
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
-<?= $this->Html->script('/js/cscript.js') ?>
 
+<?= $this->Html->script('CakeLte./AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>
+
+<?= $this->Html->script('/js/cscript.js') ?>
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>
     <?= $this->Html->css('cstyle.css') ?>

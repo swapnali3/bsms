@@ -17,13 +17,13 @@
                 <legend><?= __('Create RFQ') ?></legend>
                 <?php
                     
-                    echo $this->Form->control('product_id', ['options' => $products, 'class' => 'custom-select rounded-0','div' => 'form-group']);
-                    echo $this->Form->control('product_sub_category_id', ['type' => 'text', 'class' => 'form-control rounded-0','div' => 'form-group']);
-                    echo $this->Form->control('part_name',['class' => 'form-control rounded-0','div' => 'form-group']);
-                    echo $this->Form->control('qty', ['class' => 'form-control rounded-0','div' => 'form-group']);
-                    echo $this->Form->control('uom_code', ['options' => $uoms, 'class' => 'custom-select rounded-0','div' => 'form-group']);
-                    echo $this->Form->control('remarks', ['class' => 'form-control rounded-0','div' => 'form-group']);
-                    echo $this->Form->control('make',['class' => 'form-control rounded-0','div' => 'form-group']);
+                    echo $this->Form->control('product_id', ['options' => $products, 'class' => 'custom-select rounded-0','div' => 'form-group','required']);
+                    echo $this->Form->control('product_sub_category_id', ['type' => 'text', 'class' => 'form-control rounded-0','div' => 'form-group','required']);
+                    echo $this->Form->control('part_name',['class' => 'form-control rounded-0','div' => 'form-group','required']);
+                    echo $this->Form->control('qty', ['class' => 'form-control rounded-0','div' => 'form-group','required']);
+                    echo $this->Form->control('uom_code', ['options' => $uoms, 'class' => 'custom-select rounded-0','div' => 'form-group','required']);
+                    echo $this->Form->control('remarks', ['class' => 'form-control rounded-0','div' => 'form-group','required']);
+                    echo $this->Form->control('make',['class' => 'form-control rounded-0','div' => 'form-group','required']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info']) ?>

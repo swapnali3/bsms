@@ -39,11 +39,16 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
+        '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'Z' => 
+        array (
+            'ZipStream\\' => 10,
+        ),
         'T' => 
         array (
             'Twig\\Extra\\Markdown\\' => 20,
@@ -83,12 +88,15 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
             'Psr\\Http\\Client\\' => 16,
             'Psr\\Container\\' => 14,
             'PhpParser\\' => 10,
+            'PhpOffice\\PhpSpreadsheet\\' => 25,
             'Phinx\\' => 6,
             'PHPStan\\PhpDocParser\\' => 21,
         ),
         'M' => 
         array (
+            'MyCLabs\\Enum\\' => 13,
             'Migrations\\' => 11,
+            'Matrix\\' => 7,
             'M1\\Env\\' => 7,
         ),
         'L' => 
@@ -120,6 +128,7 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
             'Composer\\ClassMapGenerator\\' => 27,
             'Composer\\CaBundle\\' => 18,
             'Composer\\' => 9,
+            'Complex\\' => 8,
             'Cake\\TwigView\\' => 14,
             'Cake\\Test\\' => 10,
             'Cake\\Composer\\' => 14,
@@ -143,6 +152,10 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
     );
 
     public static $prefixDirsPsr4 = array (
+        'ZipStream\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
+        ),
         'Twig\\Extra\\Markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/twig/markdown-extra',
@@ -257,6 +270,10 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
+        'PhpOffice\\PhpSpreadsheet\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
+        ),
         'Phinx\\' => 
         array (
             0 => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx',
@@ -265,9 +282,17 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
         ),
+        'MyCLabs\\Enum\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
+        ),
         'Migrations\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp/migrations/src',
+        ),
+        'Matrix\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
         ),
         'M1\\Env\\' => 
         array (
@@ -345,6 +370,10 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
         array (
             0 => __DIR__ . '/..' . '/composer/composer/src/Composer',
         ),
+        'Complex\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
+        ),
         'Cake\\TwigView\\' => 
         array (
             0 => __DIR__ . '/..' . '/cakephp/twig-view/src',
@@ -406,6 +435,13 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
             array (
                 0 => __DIR__ . '/..' . '/josegonzalez/dotenv/src',
                 1 => __DIR__ . '/..' . '/josegonzalez/dotenv/tests',
+            ),
+        ),
+        'H' => 
+        array (
+            'HTMLPurifier' => 
+            array (
+                0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
             ),
         ),
         'D' => 
@@ -1042,7 +1078,7 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
         'SebastianBergmann\\Type\\VoidType' => __DIR__ . '/..' . '/sebastian/type/src/type/VoidType.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'SqlFormatter' => __DIR__ . '/..' . '/jdorn/sql-formatter/lib/SqlFormatter.php',
-        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
         'TheSeer\\Tokenizer\\Exception' => __DIR__ . '/..' . '/theseer/tokenizer/src/Exception.php',
         'TheSeer\\Tokenizer\\NamespaceUri' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUri.php',
         'TheSeer\\Tokenizer\\NamespaceUriException' => __DIR__ . '/..' . '/theseer/tokenizer/src/NamespaceUriException.php',

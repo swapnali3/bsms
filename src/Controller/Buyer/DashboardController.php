@@ -34,6 +34,11 @@ class DashboardController extends BuyerAppController
     public function index() {
 
         $session = $this->getRequest()->getSession();
+
+        if(!$session->check('id')) {
+            $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+        }
+        
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
         $this->loadModel('DeliveryDetails');
