@@ -75,7 +75,7 @@ class ArrayLoader implements LoaderInterface
     }
 
     /**
-     * @param list<array<mixed>> $versions
+     * @param array<array<mixed>> $versions
      *
      * @return list<CompletePackage|CompleteAliasPackage>
      */
@@ -271,7 +271,7 @@ class ArrayLoader implements LoaderInterface
             }
 
             if (!empty($config['keywords']) && \is_array($config['keywords'])) {
-                $package->setKeywords($config['keywords']);
+                $package->setKeywords(array_map('strval', $config['keywords']));
             }
 
             if (!empty($config['license'])) {

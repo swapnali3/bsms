@@ -148,6 +148,8 @@ class Installer
     /** @var bool */
     protected $dryRun = false;
     /** @var bool */
+    protected $downloadOnly = false;
+    /** @var bool */
     protected $verbose = false;
     /** @var bool */
     protected $update = false;
@@ -256,6 +258,10 @@ class Installer
             $this->writeLock = false;
             $this->dumpAutoloader = false;
             $this->mockLocalRepositories($this->repositoryManager);
+        }
+
+        if ($this->downloadOnly) {
+            $this->dumpAutoloader = false;
         }
 
         if ($this->update && !$this->install) {
@@ -625,7 +631,6 @@ class Installer
      *
      * @param array<int, array<string, string>> $aliases
      *
-     *
      * @phpstan-param list<array{package: string, version: string, alias: string, alias_normalized: string}> $aliases
      * @phpstan-return self::ERROR_*
      */
@@ -706,6 +711,13 @@ class Installer
                 $this->io->writeError('<warning>Warning: The lock file is not up to date with the latest changes in composer.json. You may be getting outdated dependencies. It is recommended that you run `composer update` or `composer update <package name>`.</warning>', true, IOInterface::QUIET);
             }
 
+            $missingRequirementInfo = $this->locker->getMissingRequirementInfo($this->package, $this->devMode);
+            if ($missingRequirementInfo !== []) {
+                $this->io->writeError($missingRequirementInfo);
+
+                return self::ERROR_LOCK_FILE_INVALID;
+            }
+
             foreach ($lockedRepository->getPackages() as $package) {
                 $request->fixLockedPackage($package);
             }
@@ -746,22 +758,20 @@ class Installer
         $localRepoTransaction = new LocalRepoTransaction($lockedRepository, $localRepo);
         $this->eventDispatcher->dispatchInstallerEvent(InstallerEvents::PRE_OPERATIONS_EXEC, $this->devMode, $this->executeOperations, $localRepoTransaction);
 
-        if (!$localRepoTransaction->getOperations()) {
-            $this->io->writeError('Nothing to install, update or remove');
+        $installs = $updates = $uninstalls = [];
+        foreach ($localRepoTransaction->getOperations() as $operation) {
+            if ($operation instanceof InstallOperation) {
+                $installs[] = $operation->getPackage()->getPrettyName().':'.$operation->getPackage()->getFullPrettyVersion();
+            } elseif ($operation instanceof UpdateOperation) {
+                $updates[] = $operation->getTargetPackage()->getPrettyName().':'.$operation->getTargetPackage()->getFullPrettyVersion();
+            } elseif ($operation instanceof UninstallOperation) {
+                $uninstalls[] = $operation->getPackage()->getPrettyName();
+            }
         }
 
-        if ($localRepoTransaction->getOperations()) {
-            $installs = $updates = $uninstalls = [];
-            foreach ($localRepoTransaction->getOperations() as $operation) {
-                if ($operation instanceof InstallOperation) {
-                    $installs[] = $operation->getPackage()->getPrettyName().':'.$operation->getPackage()->getFullPrettyVersion();
-                } elseif ($operation instanceof UpdateOperation) {
-                    $updates[] = $operation->getTargetPackage()->getPrettyName().':'.$operation->getTargetPackage()->getFullPrettyVersion();
-                } elseif ($operation instanceof UninstallOperation) {
-                    $uninstalls[] = $operation->getPackage()->getPrettyName();
-                }
-            }
-
+        if ($installs === [] && $updates === [] && $uninstalls === []) {
+            $this->io->writeError('Nothing to install, update or remove');
+        } else {
             $this->io->writeError(sprintf(
                 "<info>Package operations: %d install%s, %d update%s, %d removal%s</info>",
                 count($installs),
@@ -784,7 +794,7 @@ class Installer
 
         if ($this->executeOperations) {
             $localRepo->setDevPackageNames($this->locker->getDevPackageNames());
-            $this->installationManager->execute($localRepo, $localRepoTransaction->getOperations(), $this->devMode, $this->runScripts);
+            $this->installationManager->execute($localRepo, $localRepoTransaction->getOperations(), $this->devMode, $this->runScripts, $this->downloadOnly);
         } else {
             foreach ($localRepoTransaction->getOperations() as $operation) {
                 // output op, but alias op only in debug verbosity
@@ -810,7 +820,6 @@ class Installer
 
     /**
      * @param  array<int, array<string, string>> $rootAliases
-     *
      *
      * @phpstan-param list<array{package: string, version: string, alias: string, alias_normalized: string}> $rootAliases
      */
@@ -1088,6 +1097,18 @@ class Installer
     public function isDryRun(): bool
     {
         return $this->dryRun;
+    }
+
+    /**
+     * Whether to download only or not.
+     *
+     * @return Installer
+     */
+    public function setDownloadOnly(bool $downloadOnly = true): self
+    {
+        $this->downloadOnly = $downloadOnly;
+
+        return $this;
     }
 
     /**

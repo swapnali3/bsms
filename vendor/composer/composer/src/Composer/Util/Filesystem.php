@@ -324,7 +324,6 @@ class Filesystem
      * Some systems can't rename and also don't have proc_open,
      * which requires this solution.
      *
-     *
      * @return void
      */
     public function copyThenRemove(string $source, string $target)
@@ -441,13 +440,19 @@ class Filesystem
             $commonPath = strtr(\dirname($commonPath), '\\', '/');
         }
 
-        if (0 !== strpos($from, $commonPath) || '/' === $commonPath) {
+        // no commonality at all
+        if (0 !== strpos($from, $commonPath)) {
             return $to;
         }
 
         $commonPath = rtrim($commonPath, '/') . '/';
         $sourcePathDepth = substr_count((string) substr($from, \strlen($commonPath)), '/');
         $commonPathCode = str_repeat('../', $sourcePathDepth);
+
+        // allow top level /foo & /bar dirs to be addressed relatively as this is common in Docker setups
+        if ('/' === $commonPath && $sourcePathDepth > 1) {
+            return $to;
+        }
 
         $result = $commonPathCode . substr($to, \strlen($commonPath));
         if (\strlen($result) === 0) {
@@ -482,15 +487,22 @@ class Filesystem
             $commonPath = strtr(\dirname($commonPath), '\\', '/');
         }
 
-        if (0 !== strpos($from, $commonPath) || '/' === $commonPath || '.' === $commonPath) {
+        // no commonality at all
+        if (0 !== strpos($from, $commonPath) || '.' === $commonPath) {
             return var_export($to, true);
         }
 
         $commonPath = rtrim($commonPath, '/') . '/';
-        if (strpos($to, $from.'/') === 0) {
+        if (str_starts_with($to, $from.'/')) {
             return '__DIR__ . '.var_export((string) substr($to, \strlen($from)), true);
         }
         $sourcePathDepth = substr_count((string) substr($from, \strlen($commonPath)), '/') + (int) $directories;
+
+        // allow top level /foo & /bar dirs to be addressed relatively as this is common in Docker setups
+        if ('/' === $commonPath && $sourcePathDepth > 1) {
+            return var_export($to, true);
+        }
+
         if ($staticCode) {
             $commonPathCode = "__DIR__ . '".str_repeat('/..', $sourcePathDepth)."'";
         } else {
@@ -552,7 +564,7 @@ class Filesystem
         }
 
         // extract a prefix being a protocol://, protocol:, protocol://drive: or simply drive:
-        if (Preg::isMatch('{^( [0-9a-z]{2,}+: (?: // (?: [a-z]: )? )? | [a-z]: )}ix', $path, $match)) {
+        if (Preg::isMatchStrictGroups('{^( [0-9a-z]{2,}+: (?: // (?: [a-z]: )? )? | [a-z]: )}ix', $path, $match)) {
             $prefix = $match[1];
             $path = substr($path, \strlen($prefix));
         }
@@ -575,6 +587,7 @@ class Filesystem
 
         // ensure c: is normalized to C:
         $prefix = Preg::replaceCallback('{(^|://)[a-z]:$}i', static function (array $m) {
+            assert(is_string($m[0]));
             return strtoupper($m[0]);
         }, $prefix);
 
@@ -716,7 +729,6 @@ class Filesystem
     /**
      * return true if that directory is a symlink.
      *
-     *
      * @return bool
      */
     public function isSymlinkedDirectory(string $directory)
@@ -761,7 +773,6 @@ class Filesystem
 
     /**
      * Creates an NTFS junction.
-     *
      *
      * @return void
      */
@@ -856,7 +867,6 @@ class Filesystem
 
     /**
      * Copy file using stream_copy_to_stream to work around https://bugs.php.net/bug.php?id=6463
-     *
      *
      * @return void
      */
