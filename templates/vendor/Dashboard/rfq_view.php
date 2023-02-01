@@ -65,10 +65,11 @@
                     </div>
                 </div>
             </div>
+            <?php if($isResponded == 'no') : ?>
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
-                        <?php if($userType == 'seller') : ?>
+                        
                         <div class="row">
                             <div class="col-12">
                                 <?= $this->Form->create(null, ['url' => ['controller' => 'rfq-inquiries','action' => 'inquiry',$rfqDetails->id]]); ?>
@@ -90,9 +91,10 @@
                                 <?= $this->Form->end() ?>
                             </div>
                         </div>
-                        <?php endif; ?>
+                        
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
 </section>
