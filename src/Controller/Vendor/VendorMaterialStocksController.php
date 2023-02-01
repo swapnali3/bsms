@@ -149,7 +149,7 @@ class VendorMaterialStocksController extends VendorAppController
                     $vendorMaterialStock = $this->VendorMaterialStocks->newEntities($data);
 
                     if ($this->VendorMaterialStocks->saveMany($vendorMaterialStock)) {
-                        $this->Flash->success(__('The vendor material stock has been saved.'));
+                        $this->Flash->success(__('The material stock has been saved.'));
                         return $this->redirect(['action' => 'index']);
                     }
 
@@ -161,7 +161,7 @@ class VendorMaterialStocksController extends VendorAppController
 
             //exit;
             
-            $this->Flash->error(__('The vendor material stock could not be saved. Please, try again.'));
+            $this->Flash->error(__('The  material stock could not be saved. Please, try again.'));
         }
     }
 }

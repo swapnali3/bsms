@@ -78,5 +78,6 @@ class VendorTemp extends Entity
         'purchasing_organization' => true,
         'account_group' => true,
         'schema_group' => true,
+        'remark' => true
     ];
 }
