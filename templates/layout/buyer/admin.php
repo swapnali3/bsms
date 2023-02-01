@@ -75,21 +75,16 @@
                 style="background-color:#ffffff; text-align-last:center;">
                 <?= $this->Html->image('ft_rect_logo.png', ['width' => '175', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
             </a>
-            <!-- Sidebar -->
             <div class="sidebar">
-
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="text-align-last: center;">
+                <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="text-align-last: center;">
                     <div class="text-light">
                         Welcome,
                         <?=$full_name?> (
                         <?=$group_name?> )
                     </div>
                 </div>
-
-                <?= $this->element('sidebar/buyer/main') ?>
+                <?= $this->element('sidebar/buyer/main') ?> -->
             </div>
-            <!-- /.sidebar -->
         </aside>
 
         <!-- Content Wrapper. Contains page content -->

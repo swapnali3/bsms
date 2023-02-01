@@ -74,21 +74,16 @@
                 <?= $this->Html->image('ft_rect_logo.png', ['style' => 'width:8.6vw', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
             </a>
 
-            <!-- Sidebar -->
             <div class="sidebar">
-
-                <!-- Sidebar user panel (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="text-light">
                         Welcome,
                         <?=$full_name?> (
                         <?=$group_name?> )
                     </div>
                 </div>
-
-                <?= $this->element('sidebar/vendor/main') ?>
+                <?= $this->element('sidebar/vendor/main') ?> -->
             </div>
-            <!-- /.sidebar -->
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
