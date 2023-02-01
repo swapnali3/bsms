@@ -26,9 +26,9 @@
                         <th>
                             <?= h('Status') ?>
                         </th>
-                        <th class="actions">
+                        <!-- <th class="actions">
                             <?= __('Actions') ?>
-                        </th>
+                        </th> -->
                         <th>
                             <?= h('Name') ?>
                         </th>
@@ -73,13 +73,13 @@
                         case 4 : $status = '<span class="badge bg-danger">Rejected</span>'; break;
                     }
                     ?>
-                    <tr>
+                    <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">
                         <td>
                             <?= $status ?>
                         </td>
-                        <td class="actions">
+                        <!-- <td class="actions">
                             <a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">View</a>
-                        </td>
+                        </td> -->
                         <td>
                             <?= h($vendorTemp->name) ?>
                         </td>
@@ -135,5 +135,10 @@
             "autoWidth": false,
             "responsive": true,
         });
+
+        $('#example1').on('click', 'tbody tr', function(){
+            window.location = $(this).closest('tr').attr('redirect');
+        });
+
     });
 </script>

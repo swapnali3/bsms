@@ -222,8 +222,8 @@
             <div class="card-footer">
                 <div class="text">
                 <?php if($vendorTemp->status == 1) : ?>
-                    <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success' ]) ?>
-                    <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject', 'data-toggle'=> "modal", 'data-target' => "#remarkModal"]) ?>
+                    <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-default' ]) ?>
+                    <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-default reject', 'data-toggle'=> "modal", 'data-target' => "#remarkModal"]) ?>
                 <?php endif; ?>
                 </div>
             </div>
