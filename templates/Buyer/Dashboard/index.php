@@ -232,7 +232,7 @@
               <?= $rfqDetail->RfqInquiries['respond'] ? h($rfqDetail->RfqInquiries['respond']) : 0 ?>
             </td>
             <td class="actions">
-              <?= $this->Html->link(__('View'), ['controller' => 'rfq-details', 'action' => 'view', $rfqDetail->id], ['class'=> 'button py-1 px-2']) ?>
+              <?= $this->Html->link(__('View'), ['controller' => 'rfq-details', 'action' => 'view', $rfqDetail->id], ['class'=> 'btn btn-default']) ?>
             </td>
           </tr>
           <?php endforeach; ?>
