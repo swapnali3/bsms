@@ -57,6 +57,10 @@
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.js") ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
+    <?= $this->Html->script('/js/cscript.js') ?>
+    <script>
+        var baseurl = "<?= $this->Url->build('/') ?>";
+    </script>
 
 </head>
 
