@@ -62,6 +62,8 @@ class BuyerAppController extends Controller
 
         $session = $this->getRequest()->getSession();
 
+        //echo '<pre>'; print_r($session->check('id')); exit;
+
         $full_name = $session->read('full_name');
         $role = $session->read('role');
         $group_name = $session->read('group_name');
