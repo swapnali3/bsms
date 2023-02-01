@@ -70,7 +70,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
-            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="background-color:#ffffff;">
+            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="background-color:#ffffff;text-align: center;">
                 <?= $this->Html->image('ft_rect_logo.png', ['style' => 'width:8.6vw', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
             </a>
 
