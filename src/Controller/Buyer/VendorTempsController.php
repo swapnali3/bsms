@@ -27,6 +27,7 @@ class VendorTempsController extends BuyerAppController
         $this->loadModel("VendorTemps");
         $this->paginate = [
             'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
+            'order' => array('VendorTemps.added_date' => 'DESC'),
         ];
         $vendorTemps = $this->paginate($this->VendorTemps);
 

@@ -70,7 +70,7 @@
                         case 1 : $status = '<span class="badge bg-info">Pending for approval</span>'; break;
                         case 2 : $status = '<span class="badge bg-info">Sent to SAP</span>'; break;
                         case 3 : $status = '<span class="badge bg-success">Approved</span>'; break;
-                        case 4 : $status = '<span class="badge bg-danger">Rjected</span>'; break;
+                        case 4 : $status = '<span class="badge bg-danger">Rejected</span>'; break;
                     }
                     ?>
                     <tr>
@@ -123,6 +123,7 @@
     $(document).ready(function () {
         $("#example1").DataTable({
             "responsive": false, "lengthChange": false, "autoWidth": false,
+            'order': [[10, 'desc']],
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
