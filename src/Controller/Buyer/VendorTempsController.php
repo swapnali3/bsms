@@ -78,7 +78,7 @@ class VendorTempsController extends BuyerAppController
                     ->setSubject('Verify New Account')
                     ->deliver('Hi '.$data['name'].'<br/>Welcome to Vendor portal. <br/>' . $link);
 
-                $this->Flash->success(__('The vendor temp has been saved.'));
+                $this->Flash->success(__('The vendor has been initiated'));
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -118,7 +118,7 @@ class VendorTempsController extends BuyerAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $this->request->getData());
             if ($this->VendorTemps->save($vendorTemp)) {
-                $this->Flash->success(__('The vendor temp has been saved.'));
+                $this->Flash->success(__('The vendor has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -154,12 +154,28 @@ class VendorTempsController extends BuyerAppController
     {   
         $this->loadModel("VendorTemps");
         $vendor = $this->VendorTemps->get($id);
+
+        if($action == 'rej') {
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $remarks = $this->request->getData('remarks');
+                $vendor->status = 4;
+                $vendor->remark = $remarks;
+                $this->VendorTemps->save($vendor);
+                $this->Flash->success(__('The Vendor successfully rejected'));
+            } else {
+                $this->Flash->success(__('Issue in vendor rejection'));
+            }
+            
+            return $this->redirect(['action' => 'view', $id]);
+        }
+
         if($action == 'app') {
             $vendor->status = 2;
         }
+
         
         if ($this->VendorTemps->save($vendor)) {
-            
+
             //echo '<pre>'; print_r($vendor); exit;
 
             $data['DATA'] = array();
@@ -194,7 +210,9 @@ class VendorTempsController extends BuyerAppController
                     ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
             );
 
-            if($action == 'app') {
+            $this->Flash->success(__('The Vendor sent to SAP for approval'));
+
+            /*if($action == 'app') { // send Mail
 
                 $this->loadModel("Users");
                 $adminUser = $this->Users->newEmptyEntity();
@@ -222,16 +240,13 @@ class VendorTempsController extends BuyerAppController
                         ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
                         '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
                     
-                }
-                    
-
-                $this->Flash->success(__('The Vendor successfully approved and sent to SAP system'));
-            }
+                } 
+            } */
         } else {
             $this->Flash->error(__('The Vendor detail could not be updated. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['action' => 'view', $id]);
     }
 
 

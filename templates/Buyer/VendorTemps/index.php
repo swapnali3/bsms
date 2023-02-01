@@ -24,10 +24,10 @@
                 <thead>
                     <tr>
                         <th>
-                            <?= h('Purchasing Organization') ?>
+                            <?= h('Status') ?>
                         </th>
-                        <th>
-                            <?= h('Account Group') ?>
+                        <th class="actions">
+                            <?= __('Actions') ?>
                         </th>
                         <th>
                             <?= h('Name') ?>
@@ -53,17 +53,12 @@
                         <th>
                             <?= h('Contact Mobile') ?>
                         </th>
-                        <th>
-                            <?= h('Status') ?>
-                        </th>
+                        
                         <th>
                             <?= h('Added Date') ?>
                         </th>
                         <th>
                             <?= h('Updated Date') ?>
-                        </th>
-                        <th class="actions">
-                            <?= __('Actions') ?>
                         </th>
                     </tr>
                 </thead>
@@ -73,15 +68,17 @@
                     switch($vendorTemp->status) {
                         case 0 : $status = '<span class="badge bg-warning">Sent to Vendor</span>'; break;
                         case 1 : $status = '<span class="badge bg-info">Pending for approval</span>'; break;
-                        case 2 : $status = '<span class="badge bg-success">Approved</span>'; break;
+                        case 2 : $status = '<span class="badge bg-info">Sent to SAP</span>'; break;
+                        case 3 : $status = '<span class="badge bg-success">Approved</span>'; break;
+                        case 4 : $status = '<span class="badge bg-danger">Rjected</span>'; break;
                     }
                     ?>
                     <tr>
                         <td>
-                            <?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?>
+                            <?= $status ?>
                         </td>
-                        <td>
-                            <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
+                        <td class="actions">
+                            <a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">View</a>
                         </td>
                         <td>
                             <?= h($vendorTemp->name) ?>
@@ -108,29 +105,10 @@
                             <?= h($vendorTemp->contact_mobile) ?>
                         </td>
                         <td>
-                            <?= $status ?>
-                        </td>
-                        <td>
                             <?= h($vendorTemp->added_date) ?>
                         </td>
                         <td>
                             <?= h($vendorTemp->updated_date) ?>
-                        </td>
-                        <td class="actions">
-                            <?php if($vendorTemp->status == 1) : ?>
-                            <div class="btn-group">
-                                <?php endif; ?>
-                                <a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">View</a>
-                                <?php if($vendorTemp->status == 1) : ?>
-                                <button type="button" class="btn btn-default dropdown-toggle dropdown-icon"
-                                    data-toggle="dropdown">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu" role="menu">
-                                    <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app']) ?>
-                                </div>
-                            </div>
-                            <?php endif; ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>
