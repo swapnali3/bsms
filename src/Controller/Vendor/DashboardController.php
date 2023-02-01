@@ -21,6 +21,7 @@ use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Static content controller
@@ -34,6 +35,8 @@ class DashboardController extends VendorAppController
     public function index() {
 
         $session = $this->getRequest()->getSession();
+        $conn = ConnectionManager::get('default');
+
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
 
@@ -53,8 +56,35 @@ class DashboardController extends VendorAppController
         $this->set('po_list', $po_list);
         */
 
-        $rfqDetails = $this->RfqDetails->find('all', ['condtions' => ['status' => 1]])->contain(['Products','Uoms'])->order(['RfqDetails.added_date' => 'desc']);
-        $this->set('rfqDetails', $rfqDetails);
+        //$rfqDetails = $this->RfqDetails->find('all', ['condtions' => ['status' => 1]])->contain(['Products','Uoms'])->order(['RfqDetails.added_date' => 'desc']);
+
+
+        //echo '<pre>';print_r($session->read()); exit;
+        /*$rfqDetails = $this->RfqDetails->find()
+            ->select(['RfqDetails.id'])
+            ->contain(['Products', 'Uoms'])
+            ->leftJoin(
+                ['VendorTemps' => 'vendor_temps'],
+                ['VendorTemps.buyer_id = RfqDetails.buyer_seller_user_id'])
+            ->where(['RfqDetails.status = 1', 
+                    "VendorTemps.sap_vendor_code = '".$session->read('vendor_code')."'",
+                    'RfqDetails.id not in (select rfq_id from rfq_inquiries where seller_id = '.$session->read('id').')'
+                    ])->toArray();
+                    */
+
+
+        $rfqnewDetails = $conn->execute("SELECT RfqDetails.*,Products.name product, Uoms.description uom FROM `rfq_details` RfqDetails
+        join products Products on Products.id = RfqDetails.product_id
+        join uoms Uoms on Uoms.id = RfqDetails.uom_code
+        join vendor_temps VendorTemps on RfqDetails.buyer_seller_user_id = VendorTemps.buyer_id
+        where RfqDetails.status = 1 and VendorTemps.sap_vendor_code = '".$session->read('vendor_code')."' and RfqDetails.id not in (select rfq_id from rfq_inquiries where seller_id = ".$session->read('id').")");
+
+        $rfqRequested = $conn->execute("SELECT RfqDetails.*, Products.name product, Uoms.description uom FROM `rfq_details` RfqDetails
+        join products Products on Products.id = RfqDetails.product_id
+        join uoms Uoms on Uoms.id = RfqDetails.uom_code
+        join vendor_temps VendorTemps on RfqDetails.buyer_seller_user_id = VendorTemps.buyer_id
+        where RfqDetails.status = 1 and VendorTemps.sap_vendor_code = '".$session->read('vendor_code')."' and RfqDetails.id in (select rfq_id from rfq_inquiries where seller_id = ".$session->read('id').")");
+
 
         $query = $this->PoHeaders->find();
         $query->innerJoin(
@@ -64,9 +94,10 @@ class DashboardController extends VendorAppController
         $totalPos = $query->count();
 
         $totalIntransit = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();
+        
         $totalRfqDetails = $this->RfqDetails->find('all', array('conditions'=>array('status'=>1)))->count();
 
-        $this->set(compact('totalPos','totalIntransit', 'totalRfqDetails'));
+        $this->set(compact('totalPos','totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested'));
 
     }
 
