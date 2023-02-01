@@ -6,9 +6,12 @@
 
 
  switch($vendorTemp->status) {
-    case 0 : $status = 'Sent to Vendor'; break;
-    case 1 : $status = 'Pending for approval'; break;
-    case 2 : $status = 'approved'; break;
+    case 0 : $status = '<span class="badge bg-warning">Sent to Vendor</span>'; break;
+    case 1 : $status = '<span class="badge bg-info">Pending for approval</span>'; break;
+    case 2 : $status = '<span class="badge bg-info">Sent to SAP</span>'; break;
+    case 3 : $status = '<span class="badge bg-success">Approved</span>'; break;
+    case 4 : $status = '<span class="badge bg-danger">Rejected</span>'; break;
+
 }
 
 ?>
@@ -195,12 +198,22 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        <?= __('Payment Term') ?>
+                                    </th>
+                                    <td>
+                                        <?= $this->Text->autoParagraph(h($vendorTemp->payment_term)); ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         <?= __('Updated Date') ?>
                                     </th>
                                     <td>
                                         <?= h($vendorTemp->updated_date) ?>
                                     </td>
                                 </tr>
+
+                               
                             </table>
                         </div>
                     </div>
@@ -208,14 +221,49 @@
             </div>
             <div class="card-footer">
                 <div class="text">
-                    <strong>
-                        <?= __('Payment Term') ?>
-                    </strong>
-                    <blockquote>
-                        <?= $this->Text->autoParagraph(h($vendorTemp->payment_term)); ?>
-                    </blockquote>
+                <?php if($vendorTemp->status == 1) : ?>
+                    <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success' ]) ?>
+                    <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject', 'data-toggle'=> "modal", 'data-target' => "#remarkModal"]) ?>
+                <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal Reject remarks-->
+<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+    <div class="modal-content">
+
+      <?= $this->Form->create(null, ['id' => 'rejectRemarks',  'url' => ['action' => 'approve-vendor', $vendorTemp->id, 'rej']]) ?>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Rejection Remark</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <?php
+            echo $this->Form->control('remarks', ['label' => false, 'type' => 'textarea', 'class' => 'form-control rounded-0','div' => 'form-group']);  
+            
+        ?>
+      </div>
+      <div id="error_msg"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Reject</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".reject").onClick( function () {
+                
+        }); 
+    });
+</script>
