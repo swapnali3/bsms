@@ -48,7 +48,7 @@
 
       <hr class="dark horizontal my-0">
       <div class="card-footer p-3">
-        &nbsp;
+        <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer button', 'escape' => false]) ?>
       </div>
     </div>
   </div>
@@ -91,7 +91,9 @@
         </div>
       </div>
       <hr class="horizontal my-0 dark">
-      <div class="card-footer p-3">&nbsp; </div>
+      <div class="card-footer p-3">
+        <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer button', 'escape' => false]) ?>
+      </div>
     </div>
   </div>
 
@@ -105,7 +107,7 @@
     <?php foreach($rfqDetails as $key => $val) : ?>
     <?php $attrParams = json_decode($val->attribute_data, true); ?>
     <div class="col-4">
-      <div class="card mb-0">
+      <div class="card mb-2">
         <div class="card-body">
           <div class="row">
             <div class="col-4">
