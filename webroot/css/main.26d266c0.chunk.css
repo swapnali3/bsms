@@ -27,7 +27,7 @@ body {
         padding: 25px;
         overflow-y: hidden;
         overflow-x: hidden;
-        background-image: linear-gradient(90deg, rgba(0, 153, 255, 0.9), #010cb1 148.96%), url(../img/bg.webp);
+        background-image: linear-gradient(90deg, rgba(10, 10, 10, 0.527), #2222227e 148.96%), url(../img/man.jpg);
         background-size: cover;
         background-position: top;
         height: -webkit-fit-content;
@@ -83,7 +83,7 @@ body {
         padding: 25px;
         overflow-y: hidden;
         overflow-x: hidden;
-        background-image: linear-gradient(90deg, rgba(35, 31, 41, .9), #42089e 148.96%), url(../img/bg.webp);
+        background-image: linear-gradient(90deg, rgba(224, 224, 224, 0.9), #d8d8d8 148.96%), url(../img/employer-networking.jpg);
         background-size: cover;
         background-position: top;
         height: -webkit-fit-content;
@@ -682,7 +682,7 @@ body {
 .navbar-container nav {
     width: 100%;
     height: 60px;
-    background: linear-gradient(90deg, rgba(0, 153, 255, 0.9), #010cb1 148.96%);
+    background: linear-gradient(90deg, rgba(226, 226, 226, 0.9), #dfdfdf 148.96%);
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -1128,7 +1128,6 @@ body {
 
 .faq__header {
     height: 34px;
-    width: 79px;
     color: #fff;
     font-family: "Museo Sans";
     font-size: 32px;
@@ -1148,11 +1147,11 @@ body {
 .faq__question {
     min-height: 16px;
     width: 655px;
-    color: #fff;
+    color: rgb(255, 184, 54);
     font-family: Lato;
     font-size: 16px;
     letter-spacing: 0;
-    line-height: 16px;
+    line-height: 25px;
     font-family: "Lato", sans-serif;
     margin-left: 1rem
 }

@@ -93,7 +93,7 @@
   .button {
     border: rgb(179, 0, 0);
     background-color: #3b90ff;
-    border-radius: 12px;
+    border-radius: 4px;
     color: rgb(255, 255, 255);
     padding: 3px 6px;
     text-align: center;
@@ -9162,13 +9162,15 @@
   }
   
   .card .card-header {
-    padding: 1.5rem;
+    padding: 1rem;
+    
+    
   }
   
-  .card .card-body {
+  /* .card .card-body {
     font-family: "Roboto", Helvetica, Arial, sans-serif;
     padding: 1.5rem;
-  }
+  } */
   
   .card.card-plain {
     background-color: transparent;

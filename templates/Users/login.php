@@ -82,59 +82,62 @@
   <div id="root">
     <div class="App">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-      <div class="navbar-container">
-        <nav><img src="<?= $this->Url->build('/') ?>img/ftspl.png" style="width:150px;height:auto ;"></nav>
-      </div>
+
       <div class="v2container">
         <div class="ant-row">
           <div
             class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
-            <div class="others">
-              <p class="others__text1">Connect with Sellers <br>In Real-Time Using A Single Dashboard</p>
-              <p class="others__text2">Get an automated, comprehensive view of your request in a single pane across
-                all the contracted sellers</p>
+            <!-- <div class="others">
+              <p class="others__text1">&nbsp;<br>&nbsp;</p>
+              <p class="others__text2">&nbsp;</p>
               <div class="others__benifits">
-                <div class="others__benifits__box"><img class="others__benifits__box--image"
-                    src="<?= $this->Url->build('/') ?>img/logo_s.png">
-                  <div class="others__benifits__box--name">Drives down searchs to best sellers by</div>
-                  <div class="others__benifits__box--percentage">90<span
-                      class="others__benifits__box--percentage--sign">%</span></div>
+                <div class="others__benifits__box">
+                  <img class="others__benifits__box--image" src="<?= $this->Url->build('/') ?>img/logo_s.png">
+                  <div class="others__benifits__box--name">&nbsp;</div>
+                  <div class="others__benifits__box--percentage">&nbsp;<span
+                      class="others__benifits__box--percentage--sign">&nbsp;</span></div>
                 </div>
-                <div class="others__benifits__box"><img class="others__benifits__box--image"
-                    src="<?= $this->Url->build('/') ?>img/logo_s.png">
-                  <div class="others__benifits__box--name"> Reduce seller verification by</div>
-                  <div class="others__benifits__box--percentage">10<span
-                      class="others__benifits__box--percentage--sign">%</span></div>
+                <div class="others__benifits__box">
+                  <img class="others__benifits__box--image" src="<?= $this->Url->build('/') ?>img/logo_s.png">
+                  <div class="others__benifits__box--name"> &nbsp;</div>
+                  <div class="others__benifits__box--percentage">&nbsp;<span
+                      class="others__benifits__box--percentage--sign">&nbsp;</span></div>
                 </div>
-                <div class="others__benifits__box"><img class="others__benifits__box--image"
-                    src="<?= $this->Url->build('/') ?>img/logo_s.png  ">
-                  <div class="others__benifits__box--name">Deliver connecctivity with customer experience </div>
-                  <div class="others__benifits__box--percentage">64<span
-                      class="others__benifits__box--percentage--sign">%</span></div>
+                <div class="others__benifits__box">
+                  <img class="others__benifits__box--image" src="<?= $this->Url->build('/') ?>img/logo_s.png  ">
+                  <div class="others__benifits__box--name">&nbsp; </div>
+                  <div class="others__benifits__box--percentage">&nbsp;<span
+                      class="others__benifits__box--percentage--sign">&nbsp;</span></div>
                 </div>
               </div>
-              <div class="others__bottomBar"></div>
+              <div>&nbsp;</div>
+            </div> -->
+            <div class="row" style="padding-top: 10vh;">
+              <div class="col-12">
+                <img src="<?= $this->Url->build('/') ?>img/1234.png" style="height: 50vh;">
+              </div>
             </div>
+
             <div class="faq">
-              <h4 class="faq__header">FAQs</h4>
+              <h4 class="faq__header">Welcome to FTSPL Supplier Portal
+              </h4>
               <div>
-                <p><i class="fa fa-plus faq__plus" aria-hidden="true"></i><span class="faq__question">I am already
-                    working with CHAs and freight forwarders directly. Why should I use Vekpro?</span>
+
+                <p><span class="faq__question" style="margin-left: 0px;font-size: x-large; font-weight: 500;">A single
+                    window
+                    digital interface and communication platform for supplier assessment and onboarding- Towards Co-creating Governance.
+                  </span>
+                </p>
                 <p class="faq__answer" style="display: none;">ftspl unifies information about your shipments served by
                   multiple carriers and
                   forwarders into a single window, giving you a holistic picture of your shipments instantly.</p>
-                </p>
-                <p class="faq__dottedline"></p>
+                <p></p>
               </div>
               <div>
-                <p><i class="fa fa-plus faq__plus" aria-hidden="true"></i><span class="faq__question">What happens if I
-                    reach my container limit?</span></p>
-                <p class="faq__dottedline"></p>
+
               </div>
               <div>
-                <p><i class="fa fa-plus faq__plus" aria-hidden="true"></i><span class="faq__question">What is your
-                    cancellation policy?</span></p>
-                <p class="faq__dottedline"></p>
+                <p><span class="faq__question">&nbsp;</span></p>
               </div>
               <div></div>
             </div>
@@ -142,10 +145,16 @@
           <div class="ant-col content-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
             <div class="ant-card signupcard ant-card-bordered">
               <div class="ant-card-body">
-                
+
                 <div class="signupform signupform__signin">
-                  <p class="signupform__signin--signinText"><img src="<?= $this->Url->build('/') ?>img/logo_s.png"
-                      width="150px"></p>
+                  <p class="signupform__signin--signinText">
+                    <img src="<?= $this->Url->build('/') ?>img/ftspl.png" 
+                      width="120px">
+                    
+                    <img src="<?= $this->Url->build('/') ?>img/logo_s.png" 
+                      width="100px"></p>
+                      
+
                   <div class="select-button login-page .form">
                     <div class="buyer-btn custom-control custom-radio" style="
                       margin-right: 31px">
@@ -194,53 +203,58 @@
                     <p class="signupform__signin--dontHaveAccount">Don't have an account?<a
                         style="cursor: pointer;">Create An Account</a></p>
                     <?= $this->Form->end() ?>
+                    <p style="text-align: center;"><a href="mailto: email@example.com">Help</a> <a
+                        href="mailto: email@example.com">Privacy</a><a href="mailto: email@example.com">Terms</a>
+
                   </div>
-
-                  <div class="row" id="mobile_login" style="display: none;">
-                      <?= $this->Form->create() ?>
-                      <div class="input-group mb-3">
-                        <div class="material-textfield">
-                          <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10"
-                            name="mobile" pattern="[0-9]{10}" value="">
-                          <label class="material-label" style="left: 0px;">Mobile +91</label>
-                        </div>
-                      </div>
-                      <button type="button" class="ant-btn btn btn__get-started-btn" id="getotp">
-                        <span>Get OTP</span>
-                      </button>
-                    <?= $this->Form->end() ?>
-                  </div>
-
-                  <div class="row" id="mobile_login_otp" style="display:none;">
-        <?= $this->Form->create() ?>
-        <?= $this->Form->control('mobile', ['type' => 'hidden', 'id' => 'user_mobile']); ?>
-        <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'mobile', 'id' => 'loginby']); ?>
-            <div class="input-group mb-3">
-            <input type="tel" class="form-control" name="otp" id="otp" placeholder="OTP" maxlength="6" pattern="[0-9]{6}">
-            <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-password"></span>
-            </div>
-          </div>
-            </div>
-            <span style="text-color:red;" id="otp_error"></span>
-            <div class="row">
-          <!-- /.col -->
-          <div class="col-4">
-          <?= $this->Form->button(__('Sign in'), ['class' => 'btn btn-primary btn-block']); ?>
-          </div>
-          <!-- /.col -->
-        </div>
-        <?= $this->Form->end() ?>
-          </div>
-
                 </div>
+
+                <div class="row" id="mobile_login" style="display: none;">
+                  <?= $this->Form->create() ?>
+                  <div class="input-group mb-3">
+                    <div class="material-textfield">
+                      <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10"
+                        name="mobile" pattern="[0-9]{10}" value="">
+                      <label class="material-label" style="left: 0px;">Mobile +91</label>
+                    </div>
+                  </div>
+                  <button type="button" class="ant-btn btn btn__get-started-btn" id="getotp">
+                    <span>Get OTP</span>
+                  </button>
+                  <?= $this->Form->end() ?>
+                </div>
+
+                <div class="row" id="mobile_login_otp" style="display:none;">
+                  <?= $this->Form->create() ?>
+                  <?= $this->Form->control('mobile', ['type' => 'hidden', 'id' => 'user_mobile']); ?>
+                  <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'mobile', 'id' => 'loginby']); ?>
+                  <div class="input-group mb-3">
+                    <input type="tel" class="form-control" name="otp" id="otp" placeholder="OTP" maxlength="6"
+                      pattern="[0-9]{6}">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <span class="fas fa-password"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <span style="text-color:red;" id="otp_error"></span>
+                  <div class="row">
+                    <!-- /.col -->
+                    <div class="col-4">
+                      <?= $this->Form->button(__('Sign in'), ['class' => 'btn btn-primary btn-block']); ?>
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <?= $this->Form->end() ?>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
 
   <script src="<?= $this->Url->build('/') ?>js/5.b662bfe1.chunk.js"></script>
