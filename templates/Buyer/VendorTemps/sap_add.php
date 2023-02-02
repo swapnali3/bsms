@@ -12,8 +12,10 @@
     <div class="col-12">
         <div class="card">
             <?= $this->Form->create() ?>
-            <div class="card-header">
-            <h1 style="color:navy"><b><?= __('IMPORT SAP VENDOR') ?></b></h1>
+            <div class="card-header"style="
+    background-color: #0095ff;
+">
+            <h3 style="color:white"><b><?= __('IMPORT SAP VENDOR') ?></b></h3>
             </div>
             <div class="card-body">
                 <div class="row">

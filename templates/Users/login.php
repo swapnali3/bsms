@@ -199,8 +199,8 @@
                     <p class="signupform__signin--dontHaveAccount">Don't have an account?<a
                         style="cursor: pointer;">Create An Account</a></p>
                     <?= $this->Form->end() ?>
-                    <p style="text-align: center;"><a href="mailto: email@example.com">Help</a> <a
-                        href="mailto: email@example.com">Privacy</a><a href="mailto: email@example.com">Terms</a>
+                    <p style="text-align: center;"><a href="mailto: support@fts-pl.com">Help</a> <a
+                        href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a>
 
                   </div>
                   <div class="row" id="mobile_login" style="width:100%; display: none;">

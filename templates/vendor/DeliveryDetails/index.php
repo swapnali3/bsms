@@ -6,16 +6,16 @@
 ?>
 <div class="deliveryDetails index content card">
     <div class="card-header">
-        <h1 style="color: navy;">
+        <h3 style="color: navy;">
             <b>
                 <?= __('DELIVERY DETAIL') ?>
             </b>
-        </h1>
+        </h3>
     </div>
     <div class="card-body">
-        <table class="table table-hover" id="example1">
+        <table class="table table-hover" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
             <thead>
-                <tr>
+                <tr style="background-color: #d3d3d36e;">
                     <th>Purchase Order</th>
                     <th>Item</th>
                     <th>Challan No.</th>

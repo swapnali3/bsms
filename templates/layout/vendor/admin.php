@@ -81,8 +81,9 @@
                         <?=$full_name?> (
                         <?=$group_name?> )
                     </div>
-                </div>
-                <?= $this->element('sidebar/vendor/main') ?> -->
+                </div> -->
+                <?= $this->element('sidebar/vendor/main') ?>
+            
             </div>
         </aside>
 
