@@ -5,16 +5,17 @@
  */
 ?>
 <div class="card">
-    <div class="card-header px-4 py-3">
-        <div class="row">
+<div class="card-header px-4 py-3" style="
+    background-color: #0095ff;
+">
+        <div class="row" style="width:110vw;">
             <div class="col-sm-12 col-lg-9">
-                <h3 style="color:navy;" class="mb-0"><b>VENDOR LIST</b></h3>
+                <h3 style="color:white;" class="mb-0"><b>VENDOR LIST</b></h3>
             </div>
             <div class="col-sm-12 col-lg-3">
                 <h4 class="float-right mb-0">
                     <b>
-                        <a href="<?= $this->Url->build('/') ?>buyervendor-temps/add/"
-                            style="color: navy;pointer:cursor;">
+                        <a href="/bsms/buyervendor-temps/add/" style="color: navy;pointer:cursor;">
                             ADD VENDOR
                             <i class="material-icons opacity-10">add</i>
                         </a>
@@ -129,6 +130,6 @@
         $('#example1').on('click', 'tbody tr', function () {
             window.location = $(this).closest('tr').attr('redirect');
         });
-        $('.row').attr('style','width:100vw;')
+        $('.row').attr('style','width:110vw;')
     });
 </script>

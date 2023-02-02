@@ -5,12 +5,14 @@
  */
 ?>
 <div class="poHeaders index content card">
-    <div class="card-header">
-        <h1 style="color:navy">
+    <div class="card-header"style="
+    background-color: #0095ff;
+">
+        <h3 style="color:WHITE">
             <b>
                 <?= __('PURCHASE ORDER LISTS') ?>
             </b>
-        </h1>
+        </h3>
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">
