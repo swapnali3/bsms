@@ -105,15 +105,15 @@
   <div class="card-header">
         <div class="row">
             <div class="col-sm-12 col-lg-10">
-                <h1 style="color:navy;"><b>Open RFQs</b></h1>
+                <h3 class="mb-0" style="color:navy;"><b>Open RFQs</b></h3>
             </div>
         </div>
   </div>
   <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover" id="newrfqlist">
+            <table class="table table-hover" id="newrfqlist" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
                 <thead>
-                    <tr>
+                    <tr style="background-color: #d3d3d36e;">
                         <th>
                             <?= h('RFQ No.') ?>
                         </th>
@@ -180,15 +180,15 @@
   <div class="card-header">
         <div class="row">
             <div class="col-sm-12 col-lg-10">
-                <h1 style="color:navy;"><b> Submitted RFQs</b></h1>
+                <h3 class="mb-0" style="color:navy;"><b> Submitted RFQs</b></h3>
             </div>
         </div>
   </div>
   <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover" id="respondedrfqlist">
+            <table class="table table-hover" id="respondedrfqlist"  style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
                 <thead>
-                    <tr>
+                    <tr style="background-color: #d3d3d36e;">
                         <th>
                             <?= h('RFQ No.') ?>
                         </th>

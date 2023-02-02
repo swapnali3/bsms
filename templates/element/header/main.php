@@ -10,13 +10,7 @@
     <img src="<?= $this->Url->build('/') ?>img/rect_logo.png" alt="vekpro" style="width: 8vw;">
   </b>
   </span> - &nbsp; <b>Vendor Customer Procurement</b>
-  <!-- <span style="font-weight: 900;font-size: x-large;">
-    <span style="color: #004d87;font-size: xx-large;">ve</span>ndor &nbsp; &nbsp;
-    <span style="color: #c7c52e;font-size: xx-large;">k</span>lant &nbsp; &nbsp;
-    <span style="color: #e31720;font-size: xx-large;">pro</span>curement
-  </span> -->
 </div>
-
 
 <ul class="navbar-nav ml-auto">
   <li class="nav-item">
@@ -24,5 +18,14 @@
       <i class="fas fa-expand-arrows-alt"></i>
     </a>
   </li>
+  <li>
+    <div class="user-panel d-flex">
+      <div class="image">
+        <img src="<?= $this->Url->build('/') ?>img/<?=$group_name?>.png" class="img-circle elevation-2" alt="User Image">
+      </div>
+      <div style="font-size: x-large; color: darkcyan; padding: 0vw .5vw;">
+        <b><?=$full_name?></b>
+      </div>
+    </div>
+  </li>
 </ul>
-
