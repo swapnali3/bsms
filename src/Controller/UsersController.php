@@ -227,7 +227,7 @@ class UsersController extends AppController
         //$this->redirect($this->Auth->logout());
         $session = $this->getRequest()->getSession();
         $session->destroy();
-        $this->Flash->success("You've successfully logged out.");
+        // $this->Flash->success("You've successfully logged out.");
         $this->redirect(array('controller' => 'users', 'action' => 'login'));
     }
 }

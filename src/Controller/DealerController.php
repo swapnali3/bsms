@@ -49,7 +49,7 @@ class DealerController extends AppController
     public function logout() {
         $session = $this->getRequest()->getSession();
         $session->destroy();
-        $this->Flash->success("You've successfully logged out.");
+        // $this->Flash->success("You've successfully logged out.");
         $this->redirect(array('controller' => 'home', 'action' => 'index'));
     }
 

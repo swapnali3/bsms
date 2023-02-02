@@ -52,7 +52,7 @@ class AdminUsersController extends BuyerAppController
     public function logout() {
         $session = $this->getRequest()->getSession();
         $session->destroy();
-        $this->Flash->success("You've successfully logged out.");
+        // $this->Flash->success("You've successfully logged out.");
         $this->redirect(array('controller' => 'adminusers', 'action' => 'login'));
     }
 

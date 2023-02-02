@@ -185,9 +185,7 @@
                       </div>
                     </div>
                     <div style="width: 100%;">
-                      <div class="material-textfield"><input class="material-input sentence" placeholder="Enter Username/Email"
-                          type="text" name="username" value=""><label class="material-label"
-                          style="left: 0px;">Username/Email</label></div>
+                      <div class="material-textfield"><input class="material-input sentence" placeholder="Enter Username/Email" type="text" name="username" value=""><label class="material-label" style="left: 0px;">Username/Email</label></div>
                     </div>
                     <div style="width: 100%;">
                       <div class="material-textfield signin-textfield"><input class="material-input "
@@ -252,7 +250,6 @@
         </div>
       </div>
     </div>
-  </div>
   </div>
 
   <script src="<?= $this->Url->build('/') ?>js/5.b662bfe1.chunk.js"></script>
