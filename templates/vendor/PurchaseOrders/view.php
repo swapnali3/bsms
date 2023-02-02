@@ -8,13 +8,13 @@
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="card">
   <div class="card-header">
-    <h1 style="color: navy;"><b>
+    <h3 style="color: navy;"><b>
         <?= h($poHeader->po_no) ?>
-      </b></h1>
+      </b></h3>
   </div>
   <div class="card-body">
-    <table class="table">
-      <tr>
+    <table class="table" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
+      <tr style="background-color: #d3d3d36e;">
         <th>
           <?= __('Vendor Code') ?>
         </th>
@@ -80,16 +80,16 @@
 
 <div class="card">
   <div class="card-header">
-    <h1 style="color: navy;"><b>
+    <h3 style="color: navy;"><b>
         <?= __('PO Item List') ?>
-      </b></h1>
+      </b></h3>
   </div>
   <div class="card-body">
     <?php if (!empty($poHeader->po_footers)) : ?>
     <div class="table-responsive">
-      <table class="table table-hover" id="example1">
+      <table class="table table-hover" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
         <thead>
-          <tr>
+          <tr style="background-color: #d3d3d36e;">
             <th>&nbsp;</th>
             <th>
               <?= __('Item') ?>
@@ -139,7 +139,7 @@
           <?php foreach ($poHeader->po_footers as $poFooters) : ?>
           <tr>
             <td data-id="<?=$poFooters->id?>" class="details-control">
-              <span class="material-symbols-outlined flu" data-alt="+">
+              <span class="material-symbols-outlined flu" data-alt="+" style="cursor: pointer;">
                 add
               </span>
             </td>
@@ -184,18 +184,9 @@
             </td>
 
             <td class="actions">
-              <div class="btn-group">
-                <?= $this->Html->link(__('View'), "#", ['class' => 'dispatch_item btn btn-default', 'data-toggle'=> "modal", 'data-target' => "#item_$poFooters->item" ,'header-id']) ?>
-                <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                  <span class="sr-only">Toggle Dropdown</span>
-                </button>
-                <div class="dropdown-menu" role="menu">
-                  <?= $this->Html->link(__('Stock'), "#", ['class' => 'stock_item dropdown-item', 'data-toggle'=> "modal", 'data-target' => "#updateStockModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id, 'part-code' => $poFooters->part_code,]) ?>
-                </div>
-              </div>
-
-
-              <!-- <?= $this->Html->link(__('Dispatch'), "#", ['class' => 'dispatch_item', 'data-toggle'=> "modal", 'data-target' => "#exampleModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id]) ?> -->
+            <?= $this->Html->link(__('View'), "#", ['class' => 'dispatch_item btn btn-default mb-0', 'data-toggle'=> "modal", 'data-target' => "#item_$poFooters->item" ,'header-id']) ?>
+            <?= $this->Html->link(__('Stock'), "#", ['class' => 'stock_item btn btn-default mb-0', 'data-toggle'=> "modal", 'data-target' => "#updateStockModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id, 'part-code' => $poFooters->part_code,]) ?>
+                            <!-- <?= $this->Html->link(__('Dispatch'), "#", ['class' => 'dispatch_item', 'data-toggle'=> "modal", 'data-target' => "#exampleModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id]) ?> -->
             </td>
           </tr>
           <?php endforeach; ?>
@@ -442,7 +433,7 @@
         return false;
       }
     });
-
+    $('.row').attr('style','width:110vw;');
     $('#stockForm').validate({
       rules: {
         part_code: { required: true },
