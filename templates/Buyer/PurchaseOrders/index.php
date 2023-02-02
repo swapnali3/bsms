@@ -92,7 +92,7 @@
                             <?= h($poHeader->updated_date) ?>
                         </td>
                         <td class="actions">
-                            <a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= h($poHeader->id) ?>">View</a>
+                            <a type="button" class="btn btn-sm btn-default mb-0" href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= h($poHeader->id) ?>">View</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>
