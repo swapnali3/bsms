@@ -110,9 +110,14 @@ class DashboardController extends VendorAppController
         $rfqDetails = $this->RfqDetails->get($id, [
             'contain' => ['Products', 'Uoms'],
         ]);
-        //$attrParams = json_decode($rfqDetails->uploaded_files, true);
-
         
+        $inquired = $this->RfqInquiries->exists(['rfq_id' => $id, 'seller_id' => $session->read('id')]);
+        
+        $isResponded = 'no';
+        if($inquired) {
+            $isResponded = 'yes';
+        }
+
         $userType = 'seller';
         if($userType == 'seller') {
             $RfqInquiry = $this->RfqInquiries->newEmptyEntity();
@@ -123,7 +128,7 @@ class DashboardController extends VendorAppController
             $results = $this->RfqInquiries->save($RfqInquiry);
         }   
 
-        $this->set(compact('rfqDetails', 'userType', 'results'));
+        $this->set(compact('rfqDetails', 'userType', 'results', 'isResponded'));
     }
 
     public function getlist() {
