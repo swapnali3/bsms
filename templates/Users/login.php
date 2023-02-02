@@ -112,9 +112,9 @@
               </div>
               <div>&nbsp;</div>
             </div> -->
-            <div class="row" style="padding-top: 10vh;">
-              <div class="col-12">
-                <img src="<?= $this->Url->build('/') ?>img/1234.png" style="height: 50vh;">
+            <div class="row" style="padding-top: 11.5vh;">
+              <div class="col-12" style="text-align-last: center;">
+                <img src="<?= $this->Url->build('/') ?>img/1234.png" style="height: 59vh;">
               </div>
             </div>
 
@@ -148,12 +148,10 @@
 
                 <div class="signupform signupform__signin">
                   <p class="signupform__signin--signinText">
-                    <img src="<?= $this->Url->build('/') ?>img/ftspl.png" 
-                      width="120px">
-                    
-                    <img src="<?= $this->Url->build('/') ?>img/logo_s.png" 
-                      width="100px"></p>
-                      
+                    <img src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px">
+
+                    <img src="<?= $this->Url->build('/') ?>img/logo_s.png" width="100px">
+                  </p>
 
                   <div class="select-button login-page .form">
                     <div class="buyer-btn custom-control custom-radio" style="
@@ -166,10 +164,10 @@
                       <label class="custom-control-label" for="approver"><span>Login with Email</span></label>
                     </div>
                   </div>
-                  </span>
-                  </button>
+
                   <br>
                   <?= $this->Flash->render('auth') ?>
+
                   <div id="email_login">
                     <?= $this->Form->create() ?>
                     <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
@@ -187,9 +185,7 @@
                       </div>
                     </div>
                     <div style="width: 100%;">
-                      <div class="material-textfield"><input class="material-input " placeholder="Enter Username/Email"
-                          type="text" name="username" value=""><label class="material-label"
-                          style="left: 0px;">Username/Email</label></div>
+                      <div class="material-textfield"><input class="material-input sentence" placeholder="Enter Username/Email" type="text" name="username" value=""><label class="material-label" style="left: 0px;">Username/Email</label></div>
                     </div>
                     <div style="width: 100%;">
                       <div class="material-textfield signin-textfield"><input class="material-input "
@@ -203,26 +199,26 @@
                     <p class="signupform__signin--dontHaveAccount">Don't have an account?<a
                         style="cursor: pointer;">Create An Account</a></p>
                     <?= $this->Form->end() ?>
-                    <p style="text-align: center;"><a href="mailto: email@example.com">Help</a> <a
-                        href="mailto: email@example.com">Privacy</a><a href="mailto: email@example.com">Terms</a>
+                    <p style="text-align: center;"><a href="mailto: support@fts-pl.com">Help</a> <a
+                        href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a>
 
                   </div>
-                </div>
-
-                <div class="row" id="mobile_login" style="display: none;">
-                  <?= $this->Form->create() ?>
-                  <div class="input-group mb-3">
-                    <div class="material-textfield">
-                      <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10"
-                        name="mobile" pattern="[0-9]{10}" value="">
-                      <label class="material-label" style="left: 0px;">Mobile +91</label>
+                  <div class="row" id="mobile_login" style="width:100%; display: none;">
+                    <?= $this->Form->create() ?>
+                    <div class="input-group mb-3">
+                      <div class="material-textfield">
+                        <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10"
+                          name="mobile" pattern="[0-9]{10}" value="">
+                        <label class="material-label" style="left: 0px;">Mobile +91</label>
+                      </div>
                     </div>
+                    <button type="button" class="ant-btn btn btn__get-started-btn" id="getotp">
+                      <span>Get OTP</span>
+                    </button>
+                    <?= $this->Form->end() ?>
                   </div>
-                  <button type="button" class="ant-btn btn btn__get-started-btn" id="getotp">
-                    <span>Get OTP</span>
-                  </button>
-                  <?= $this->Form->end() ?>
                 </div>
+
 
                 <div class="row" id="mobile_login_otp" style="display:none;">
                   <?= $this->Form->create() ?>
@@ -255,7 +251,6 @@
       </div>
     </div>
   </div>
-  </div>
 
   <script src="<?= $this->Url->build('/') ?>js/5.b662bfe1.chunk.js"></script>
   <script src="<?= $this->Url->build('/') ?>js/main.d308f349.chunk.js"></script>
@@ -274,6 +269,10 @@
         $('#mobile_login').hide();
         $("#mobile_login_otp").hide();
         $('#loginby').val('email');
+      });
+
+      $(document).on("change, keyup", ".sentence", function () {
+        $(this).val($(this).val().toLowerCase())
       });
 
       $("#getotp").click(function () {

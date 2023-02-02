@@ -99,76 +99,180 @@
 
 </div>
 
-<div class="container-fluid">
-  <div class="row my-3">
-    <div class="col-12">
-      <h2><b>RFQ List</b></h2>
-    </div>
-    <?php foreach($rfqDetails as $key => $val) : ?>
-    <?php $attrParams = json_decode($val->attribute_data, true); ?>
-    <div class="col-4">
-      <div class="card mb-2">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-4">
-              <b>RFQ No.</b>
+<!-- New RFQs-->
+<?php if(count($rfqnewDetails)) : ?>
+<div class="card">
+  <div class="card-header">
+        <div class="row">
+            <div class="col-sm-12 col-lg-10">
+                <h3 class="mb-0" style="color:navy;"><b>Open RFQs</b></h3>
             </div>
-            <div class="col-8">
-              :
-              <?=$val['rfq_no']?>
-            </div>
-            <div class="col-4">
-              <b>Category</b>
-
-            </div>
-            <div class="col-8">
-              :
-              <?=$val['product']->name?>
-            </div>
-            <div class="col-4">
-              <b>Part Name</b>
-            </div>
-            <div class="col-8">
-              :
-              <?=$val['part_name']?>
-            </div>
-            <div class="col-4">
-              <b>Make</b>
-            </div>
-            <div class="col-8">
-              :
-              <?=$val['make']?>
-            </div>
-            <div class="col-4">
-              <b>UOM</b>
-            </div>
-            <div class="col-8">
-              :
-              <?=$val['uom']->description?>
-            </div>
-            <div class="col-4">
-              <b>Remarks</b>
-            </div>
-            <div class="col-8">
-              :
-              <?=$val['remarks']?>
-            </div>
-
-            <div class="col-4">
-              <b>Date</b>
-            </div>
-            <div class="col-8">
-              :
-              <?=$val['added_date']?>
-            </div>
-          </div>
         </div>
-        <div class="card-footer p-0">
-          <?= $this->Html->link(__('<i class="material-icons opacity-10">visibility</i>&nbsp; View'), ['controller' => 'dashboard', 'action' => 'rfq-view', $val['id']], ['class' => 'btn btn-block btn-info mb-0', 'escape' => false]) ?>
-        </div>
-      </div>
-    </div>
-    <?php endforeach;?>
   </div>
+  <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="newrfqlist" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
+                <thead>
+                    <tr style="background-color: #d3d3d36e;">
+                        <th>
+                            <?= h('RFQ No.') ?>
+                        </th>
+                        <th>
+                            <?= h('Category') ?>
+                        </th>
+                        <th>
+                            <?= h('Part Name') ?>
+                        </th>
+                        <th>
+                            <?= h('Make') ?>
+                        </th>
+                        <th>
+                            <?= h('UOM') ?>
+                        </th>
+                        <th>
+                            <?= h('Remarks') ?>
+                        </th>
+                        <th>
+                            <?= h('Date') ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rfqnewDetails as $key => $val): 
+                    
+                    ?>
+                    <tr redirect="<?= $this->Url->build('/') ?>vendor/dashboard/rfq-view/<?= $val['id'] ?>">
+                        <td>
+                            <?= $val['rfq_no'] ?>
+                        </td>
+                        
+                        <td>
+                            <?=$val['product']?>
+                        </td>
+                        <td>
+                            <?=$val['part_name']?>
+                        </td>
+                        <td>
+                            <?=$val['make']?>
+                        </td>
+                        <td>
+                            <?=$val['uom']?>
+                        </td>
+                        <td>
+                            <?=$val['remarks']?>
+                        </td>
+                        <td>
+                            <?=$val['added_date']?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+<?php endif; ?>
+    
+
+<!-- Responded RFQs--> 
+<?php if(count($rfqRequested)) : ?>
+<div class="card">
+  <div class="card-header">
+        <div class="row">
+            <div class="col-sm-12 col-lg-10">
+                <h3 class="mb-0" style="color:navy;"><b> Submitted RFQs</b></h3>
+            </div>
+        </div>
+  </div>
+  <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="respondedrfqlist"  style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
+                <thead>
+                    <tr style="background-color: #d3d3d36e;">
+                        <th>
+                            <?= h('RFQ No.') ?>
+                        </th>
+                        <th>
+                            <?= h('Category') ?>
+                        </th>
+                        <th>
+                            <?= h('Part Name') ?>
+                        </th>
+                        <th>
+                            <?= h('Make') ?>
+                        </th>
+                        <th>
+                            <?= h('UOM') ?>
+                        </th>
+                        <th>
+                            <?= h('Remarks') ?>
+                        </th>
+                        <th>
+                            <?= h('Date') ?>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($rfqRequested as $key => $val): 
+                    
+                    ?>
+                    <tr redirect="<?= $this->Url->build('/') ?>vendor/dashboard/rfq-view/<?= $val['id'] ?>">
+                        <td>
+                            <?= $val['rfq_no'] ?>
+                        </td>
+                        
+                        <td>
+                            <?=$val['product']?>
+                        </td>
+                        <td>
+                            <?=$val['part_name']?>
+                        </td>
+                        <td>
+                            <?=$val['make']?>
+                        </td>
+                        <td>
+                            <?=$val['uom']?>
+                        </td>
+                        <td>
+                            <?=$val['remarks']?>
+                        </td>
+                        <td>
+                            <?=$val['added_date']?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<?php endif; ?>
+
+
 </section>
+
+<script>
+    $(document).ready(function () {
+        $("#newrfqlist").DataTable({
+            "responsive": false, "lengthChange": false, "autoWidth": false,
+            "ordering":false,
+            "searching" :false,
+            "paging": false
+
+        });
+
+        $("#respondedrfqlist").DataTable({
+            "responsive": false, "lengthChange": false, "autoWidth": false,
+            "ordering":false,
+            "searching" :false,
+            "paging": false
+
+        });
+        
+
+        $('#newrfqlist, #respondedrfqlist').on('click', 'tbody tr', function(){
+            window.location = $(this).closest('tr').attr('redirect');
+        });
+
+    });
+</script>

@@ -5,30 +5,34 @@
  */
 ?>
 <div class="card">
-    <div class="card-header">
-        <div class="row">
-            <div class="col-sm-12 col-lg-10">
-                <h1 style="color:navy;"><b>VENDOR LIST</b></h1>
+<div class="card-header px-4 py-3" style="
+    background-color: #0095ff;
+">
+        <div class="row" style="width:110vw;">
+            <div class="col-sm-12 col-lg-9">
+                <h3 style="color:white;" class="mb-0"><b>VENDOR LIST</b></h3>
             </div>
-            <div class="col-sm-12 col-lg-2 pt-3">
-                <h4><b>
-                        <?= $this->Html->link(__('NEW VENDOR '), ['action' => 'add']) ?><i
-                            class="fa fa-chevron-circle-right nav-icon" style="color: navy;"></i>
-                    </b></h4>
+            <div class="col-sm-12 col-lg-3">
+                <h4 class="float-right mb-0">
+                    <b>
+                        <a href="/bsms/buyervendor-temps/add/" style="color: navy;pointer:cursor;">
+                            ADD VENDOR
+                            <i class="material-icons opacity-10">add</i>
+                        </a>
+                    </b>
+                </h4>
             </div>
         </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover" id="example1">
+            <table class="card-body table table-hover" id="example1">
                 <thead>
                     <tr>
                         <th>
                             <?= h('Status') ?>
                         </th>
-                        <th class="actions">
-                            <?= __('Actions') ?>
-                        </th>
+                        <!-- <th class="actions"><?= __('Actions') ?></th> -->
                         <th>
                             <?= h('Name') ?>
                         </th>
@@ -53,7 +57,6 @@
                         <th>
                             <?= h('Contact Mobile') ?>
                         </th>
-                        
                         <th>
                             <?= h('Added Date') ?>
                         </th>
@@ -73,13 +76,11 @@
                         case 4 : $status = '<span class="badge bg-danger">Rejected</span>'; break;
                     }
                     ?>
-                    <tr>
+                    <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">
                         <td>
                             <?= $status ?>
                         </td>
-                        <td class="actions">
-                            <a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">View</a>
-                        </td>
+                        <!-- <td class="actions"><a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">View</a></td> -->
                         <td>
                             <?= h($vendorTemp->name) ?>
                         </td>
@@ -122,18 +123,13 @@
 <script>
     $(document).ready(function () {
         $("#example1").DataTable({
-            "responsive": false, "lengthChange": false, "autoWidth": false,
+            "responsive": false, "lengthChange": true, "autoWidth": true,
             'order': [[10, 'desc']],
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
         });
+        $('#example1').on('click', 'tbody tr', function () {
+            window.location = $(this).closest('tr').attr('redirect');
+        });
+        $('.row').attr('style','width:110vw;')
     });
 </script>

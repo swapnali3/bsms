@@ -144,23 +144,24 @@ class PurchaseOrdersController extends BuyerAppController
         $html = '';
 
         if($data->count() > 0) {
-            $html .= '<table class="table table-bordered table-hover" id="example2">
+            $html .= '<table class="table" id="example2">
             <thead>
                     <tr>
                         <th>Actual Qty</th>
                         <th>Received Qty</th>
                         <th>Delivery Date</th>
+                        <th>&nbsp;</th>
                     </tr>
             </thead>
             <tbody>';
             $totalQty = 0;
-            foreach($data as $row) {
-                
+            foreach($data as $row) { 
+                //$link = $Html->link(__('Communication'), "#", ['class' => 'schedule_item btn btn-default', 'header-id' => $poHeader->id, 'footer-id' => $poFooters->id, 'item-no' => $poFooters->item]);
                 $html .= "<tr>
                             <td>$row->actual_qty</td>
                             <td>$row->received_qty</td>
                             <td>$row->delivery_date</td>
-                            
+                            <td><a href='#' class='notify_item btn btn-default' schedue-id='$row->id' data-toggle='modal' data-target='#notifyModal'>Notify</a></td>
                         </tr>";
             
             }
@@ -180,6 +181,77 @@ class PurchaseOrdersController extends BuyerAppController
 
         //echo '<pre>'; print_r($data); exit;
         
+
+        echo json_encode($response);
+    }
+
+    public function getScheduleMessages($id = null)
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+        $this->loadModel("ItemScheduleMessages");
+
+        $data = $this->ItemScheduleMessages->find()
+        
+        ->select(['ItemScheduleMessages.message', 'ItemScheduleMessages.added_date', 'fullname' => 'CONCAT(Users.first_name,  " ",  Users.last_name )'])
+        ->Contain(['Users'])
+        ->where(['ItemScheduleMessages.schedule_id' => $id]);
+
+        
+        if($data->count() > 0) {
+
+            $html = '';
+
+            foreach($data as $row) { 
+                $html .= "<div>$row->fullname</div>
+                            <div>$row->added_date</div>
+                            <div>$row->message</div>";
+            
+            }
+
+
+            $response['status'] = 'success';
+            $response['message'] = 'success';
+            $response['html'] = $html;
+        } else {
+            $response['status'] = 'fail';
+            $response['message'] = 'no record';
+            $response['html'] = '';
+        }
+
+        echo json_encode($response);
+    }
+
+    public function saveScheduleRemarks()
+    {
+        $session = $this->getRequest()->getSession();
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+        $this->loadModel("ItemScheduleMessages");
+        //echo '<pre>'; print_r($this->request->getData()); exit;
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            try{
+                $data = array();
+                $data['schedule_id'] = $this->request->getData('schedule_id');
+                $data['user_id'] = $session->read('id');
+                $data['message'] = $this->request->getData('message');
+                $PoItemSchedule = $this->ItemScheduleMessages->newEmptyEntity();
+                
+                $PoItemSchedule = $this->ItemScheduleMessages->patchEntity($PoItemSchedule, $data);
+                //echo '<pre>'; print_r($PoItemSchedule); exit();
+                if ($this->ItemScheduleMessages->save($PoItemSchedule)) {
+                    $response['status'] = 'success';
+                    $response['message'] = 'Record save successfully';
+                }
+            } catch (\Exception $e) {
+                $response['status'] = 'fail';
+                $response['message'] = $e->getMessage();
+            }
+        }
 
         echo json_encode($response);
     }

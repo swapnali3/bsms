@@ -5,7 +5,7 @@
  */
 ?>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-<div class="row"style="margin-top: 25px">
+<div class="row mt-4 mx-1">
   <div class="col-sm-12 col-lg-3">
     <div class="card mb-2" style="border-radius:1rem;">
 
@@ -187,13 +187,13 @@
   -->
 <div class="col-12 p-2">
   <div class="card">
-    <div class="card-body">
+    <div class="card-body p-2">
       <table class="table table-hover" id="example1">
         <thead>
           <tr>
 
             <th>
-              <?= h('Rfq No.') ?>
+              <?= h('RFQ No.') ?>
             </th>
             <th>
               <?= h('Category') ?>
@@ -214,8 +214,7 @@
         </thead>
         <tbody>
           <?php foreach ($rfqDetails as $rfqDetail):?>
-          <tr>
-
+          <tr style="text-align-last: center;">
             <td>
               <?= str_pad($rfqDetail->rfq_no, 5, 0, STR_PAD_LEFT) ?>
             </td>
@@ -232,7 +231,10 @@
               <?= $rfqDetail->RfqInquiries['respond'] ? h($rfqDetail->RfqInquiries['respond']) : 0 ?>
             </td>
             <td class="actions">
-              <?= $this->Html->link(__('View'), ['controller' => 'rfq-details', 'action' => 'view', $rfqDetail->id], ['class'=> 'btn btn-default']) ?>
+              <a href="<?= $this->Url->build('/') ?>buyer/rfq-details/view/<?= $rfqDetail->id ?>" class="btn btn-sm bg-gradient-primary mb-0 py-1 px-2">
+              <i class='material-icons opacity-10'>visibility</i> View
+            </a>
+              <!-- <?= $this->Html->link(__(""), ['controller' => 'rfq-details', 'action' => 'view', $rfqDetail->id], ['class'=> 'button py-1 px-2']) ?> -->
             </td>
           </tr>
           <?php endforeach; ?>

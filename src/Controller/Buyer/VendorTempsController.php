@@ -173,18 +173,17 @@ class VendorTempsController extends BuyerAppController
         if($action == 'app') {
             $vendor->status = 2;
         }
-
         
         if ($this->VendorTemps->save($vendor)) {
 
-            //echo '<pre>'; print_r($vendor); exit;
+            //echo '<pre>'; print_r($vendor);
 
             $data['DATA'] = array();
 
             $data['DATA']['LIFNR'] = $vendor->sap_vendor_code;
             $data['DATA']['BUKRS'] = '1000';
-            $data['DATA']['EKORG'] = $vendor->purchasing_organization_id;
-            $data['DATA']['KTOKK'] = $vendor->account_group_id;
+            $data['DATA']['EKORG'] = '1000';//$vendor->purchasing_organization_id;
+            $data['DATA']['KTOKK'] = 'ZZ01';//$vendor->account_group_id;
             $data['DATA']['TITLE_MEDI'] = 'MR.';
             $data['DATA']['NAME1'] = $vendor->name;
             $data['DATA']['NAME2'] = $vendor->name;
@@ -199,9 +198,9 @@ class VendorTempsController extends BuyerAppController
             $data['DATA']['SMTP_ADDR'] = $vendor->email;
             $data['DATA']['MOB_NUMBER'] = $vendor->mobile;
 
-            $data['DATA']['AKONT'] = 100110;
-            $data['DATA']['ZUAWA'] = 1;
-            $data['DATA']['ZTERM'] = '1';
+            $data['DATA']['AKONT'] = '100110';
+            $data['DATA']['ZUAWA'] = '001';
+            $data['DATA']['ZTERM'] = '0001';
             $data['DATA']['WAERS'] = $vendor->order_currency;
 
             $http = new Client();
@@ -211,38 +210,60 @@ class VendorTempsController extends BuyerAppController
                     ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
             );
 
-            $this->Flash->success(__('The Vendor sent to SAP for approval'));
+            //echo '<pre>'; print_r($data);
+            //echo '<pre>'; print_r($response->isOk()); 
+            
 
-            /*if($action == 'app') { // send Mail
+            if($response->isOk()) {
+                $result = json_decode($response->getStringBody());
 
-                $this->loadModel("Users");
-                $adminUser = $this->Users->newEmptyEntity();
-                
-                $data = array();
-                $data['first_name'] = $vendor->name;
-                $data['last_name'] = $vendor->name;
-                $data['username'] = $vendor->email;
-                $data['mobile'] = $vendor->mobile;
-                $data['password'] = $vendor->mobile;
-                $data['group_id'] = 3;
-                
-                $adminUser = $this->Users->patchEntity($adminUser, $data);
+                if($result->RESPONSE->SUCCESS) {
 
-                //echo '<pre>';print_r($adminUser); exit;
-                if ($this->Users->save($adminUser)) {
-                    $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-                    $mailer = new Mailer('default');
-                    $mailer
-                        ->setTransport('smtp')
-                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                        ->setTo($data['username'])
-                        ->setEmailFormat('html')
-                        ->setSubject('Vendor Portal - Account created')
-                        ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
-                        '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
-                    
-                } 
-            } */
+                    $resultResponse = json_decode($result->RESPONSE->DATA);
+                    $newVendorCode = trim($resultResponse->DATA->LIFNR);
+
+                    if(!empty($newVendorCode)) {
+                        $this->loadModel("Users");
+                        $adminUser = $this->Users->newEmptyEntity();
+                        
+                        $data = array();
+                        $data['first_name'] = $vendor->name;
+                        $data['last_name'] = $vendor->name;
+                        $data['username'] = $vendor->email;
+                        $data['mobile'] = $vendor->mobile;
+                        $data['password'] = $vendor->mobile;
+                        $data['group_id'] = 3;
+                        
+                        if(empty($vendor->sap_vendor_code)) {
+                            $adminUser = $this->Users->patchEntity($adminUser, $data);
+
+                            if ($this->Users->save($adminUser)) {
+                                $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                                $mailer = new Mailer('default');
+                                $mailer
+                                    ->setTransport('smtp')
+                                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                                    ->setTo($data['username'])
+                                    ->setEmailFormat('html')
+                                    ->setSubject('Vendor Portal - Account created')
+                                    ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
+                                    '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
+                                
+                            } 
+                        }
+                    }
+
+                    //echo '<pre>'; print_r($resultResponse); exit;
+                    $vendor->status = 3; //Approved by SAP
+                    $vendor->sap_vendor_code = $newVendorCode;
+                    $this->VendorTemps->save($vendor);
+                    $this->Flash->success(__('The Vendor successfully approved'));
+                }
+                //echo '<pre>'; print_r($result->RESPONSE); exit;
+                //echo '<pre>'; print_r($response->getStringBody()); exit;
+            } else {
+                $this->Flash->success(__('The Vendor sent to SAP for approval'));
+            }
         } else {
             $this->Flash->error(__('The Vendor detail could not be updated. Please, try again.'));
         }

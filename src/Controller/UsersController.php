@@ -167,6 +167,7 @@ class UsersController extends AppController
 
                             $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();    
                             $session->write('vendor_code', $result[0]->sap_vendor_code);
+                            $session->write('vendor_id', $result[0]->id);
 
                             $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
                         }
@@ -226,7 +227,7 @@ class UsersController extends AppController
         //$this->redirect($this->Auth->logout());
         $session = $this->getRequest()->getSession();
         $session->destroy();
-        $this->Flash->success("You've successfully logged out.");
+        // $this->Flash->success("You've successfully logged out.");
         $this->redirect(array('controller' => 'users', 'action' => 'login'));
     }
 }

@@ -11,8 +11,10 @@
     <div class="col-12">
         <div class="card">
             <?= $this->Form->create($vendorTemp) ?>
-            <div class="card-header">
-                <h1 style="color: navy;"><b><?= __('ADD VENDOR') ?></b></h1>
+            <div class="card-header" style="
+    background-color: #0095ff;
+">
+                <h3 style="color: white;"><b><?= __('ADD VENDOR') ?></b></h3>
             </div>
             <div class="card-body">
                 <div class="row">
