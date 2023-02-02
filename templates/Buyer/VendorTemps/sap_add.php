@@ -18,7 +18,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
-                        <?php echo $this->Form->control('sap_vendor_code', array('class' => 'form-control rounded-0','div' => 'form-group', 'required' => 'required')); ?>
+                        <?php echo $this->Form->control('sap_vendor_code', array('class' => 'form-control rounded-0','div' => 'form-group', 'required')); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 mt-4 pt-2">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info']) ?>

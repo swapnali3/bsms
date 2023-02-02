@@ -96,10 +96,67 @@ class VendorTempsController extends BuyerAppController
     public function sapAdd()
     {
         $this->loadModel("VendorTemps");
-        $vendorTemp = $this->VendorTemps->newEmptyEntity();
+        
         if ($this->request->is('post')) {
-            exit;
-            
+
+            $vendorCode = trim($this->request->getData('sap_vendor_code'));
+
+            if(!empty($vendorCode)) {
+
+                if(!$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $vendorCode])) {
+                    $data['DATA'] = array();
+                    $data['DATA']['LIFNR'] = $vendorCode;
+
+                    $http = new Client();
+                    $response = $http->post(
+                        'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
+                        json_encode($data),
+                        ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
+                    );
+
+                    if($response->isOk()) {
+                        $result = json_decode($response->getStringBody());
+
+                        //print_r($result);
+
+                        if($result->RESPONSE->SUCCESS) {
+                            $vendorTemp = $this->VendorTemps->newEmptyEntity();
+                            $resultResponse = json_decode($result->RESPONSE->DATA);
+
+                            $data = array();
+                            $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
+                            $data['purchasing_organization_id'] = 1;
+                            $data['account_group_id'] = 1;
+                            $data['schema_group_id'] = 1;
+                            $data['name'] = $resultResponse->DATA->NAME1;
+                            $data['address'] = $resultResponse->DATA->STREET;
+                            $data['city'] = $resultResponse->DATA->CITY1;
+                            $data['pincode'] = $resultResponse->DATA->POST_CODE1;
+                            $data['country'] = $resultResponse->DATA->COUNTRY;
+                            $data['email'] = $resultResponse->DATA->SMTP_ADDR;
+                            $data['mobile'] = $resultResponse->DATA->MOB_NUMBER;
+                            $data['payment_term'] = $resultResponse->DATA->ZTERM;
+                            $data['valid_date'] = date('Y-m-d h:i:s');
+                            $data['status'] = 3;
+
+                            $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
+                            
+                            try {
+                                if ($this->VendorTemps->save($vendorTemp)) {
+                                    $this->Flash->success(__('The Vendor successfully added'));
+                                }
+                            } catch (\Exception $e) {
+                                $this->Flash->error(__($e->getMessage()));
+                            }
+                        }
+                    }
+                } else {
+                    $this->Flash->error(__('Vendor Already Exists for SAP code - '.$vendorCode));
+                }
+
+            } else {
+                $this->Flash->error(__('Please enter valid SAP Vendor Code'));
+            }
         }
     }
 
@@ -188,7 +245,7 @@ class VendorTempsController extends BuyerAppController
             $data['DATA']['NAME1'] = $vendor->name;
             $data['DATA']['NAME2'] = $vendor->name;
 
-            $data['DATA']['SORT1'] = $vendor->name;
+            $data['DATA']['SORT1'] = 'Sort';
             $data['DATA']['STREET'] = $vendor->city;
             $data['DATA']['CITY1'] = $vendor->city;
             $data['DATA']['POST_CODE1'] = $vendor->pincode;
