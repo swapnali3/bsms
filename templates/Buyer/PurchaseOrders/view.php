@@ -6,6 +6,9 @@
 ?>
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
+
 <div class="row">
   <div class="col-12">
     <div class="poHeaders view content card">
@@ -220,7 +223,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <table class="table table-hover" id="example1">
+        <table class="table" id="example1">
           <thead>
             <tr>
               <th>
@@ -324,6 +327,41 @@
 </div>
 
 
+<!-- Modal stock -->
+<div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="notifyModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+
+    <div class="modal-content">
+    <div class="overlay">
+                <i class="fas fa-2x fa-sync fa-spin"></i>
+            </div>
+
+      <?= $this->Form->create(null, ['id' => 'notifyForm',  'url' => ['controller' => 'purchase-orders', 'action' => 'save-schedule-remarks']]) ?>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Communication</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="past_messages"></div>
+        <?php
+            echo $this->Form->control('schedule_id', [ 'type' => 'hidden', 'id' => 'schedule_id']);
+            echo $this->Form->control('message', [ 'type' => 'textarea', 'class' => 'form-control rounded-0']);
+            //echo $this->Form->control('message', [ 'type' => 'textarea','class' => 'summernote form-control rounded-0','div' => 'form-group', 'required', 'data-msg'=>"Please write something"]);
+        ?>
+      </div>
+      <div id="error_msg"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div class="container" style="display:none;">
   <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered table-hover table-striped"
     id="example2">
@@ -346,6 +384,8 @@
   </table>
 </div>
 
+<?= $this->Html->script('CakeLte./AdminLTE/plugins/summernote/summernote-bs4.min.js') ?>
+
 <script>
   $(document).ready(function () {
 
@@ -355,6 +395,39 @@
       showConfirmButton: false,
       timer: 3000
     });
+
+    var summernoteForm = $('.form-validate-summernote');
+    var summernoteElement = $('.summernote');
+
+    var summernoteValidator = summernoteForm.validate({
+        errorElement: "div",
+        errorClass: 'is-invalid',
+        validClass: 'is-valid',
+        ignore: ':hidden:not(.summernote),.note-editable.card-block',
+        errorPlacement: function (error, element) {
+            // Add the `help-block` class to the error element
+            error.addClass("invalid-feedback");
+            console.log(element);
+            if (element.prop("type") === "checkbox") {
+                error.insertAfter(element.siblings("label"));
+            } else if (element.hasClass("summernote")) {
+                error.insertAfter(element.siblings(".note-editor"));
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+    summernoteElement.summernote({
+        height: 150,
+        callbacks: {
+            onChange: function (contents, $editable) {
+                summernoteElement.val(summernoteElement.summernote('isEmpty') ? "" : contents);
+                summernoteValidator.element(summernoteElement);
+            }
+        }
+    });
+
 
     $(".schedule_item").click(function () {
       $("#po_header_id").val($(this).attr('header-id'));
@@ -485,5 +558,67 @@
 
       return div;
     }
+
+    //notify schedule delivery to vendor
+
+    $(document).on('click','.notify_item', function () {
+      $("#schedule_id").val($(this).attr('schedue-id'));
+
+      $.ajax({
+        type: "GET",
+        //url: '../getDeliveryDetails/' + rowData,
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-schedule-messages')); ?> /" + $(this).attr('schedue-id'),
+        dataType: 'json',
+        success: function (response) {
+          if (response.status == 'success') {
+            $("#past_messages").html(response.html);
+          } 
+          $(".overlay").hide();
+        }
+      });
+
+    });
+
+
+    $('#notifyForm').validate({
+      ignore: ":not(.summernote),.note-editable.panel-body",
+      rules: {
+        message: { required: true },
+      },
+      messages: {
+        message: { required: "Please enter remarks", },
+      },
+      errorElement: 'span',
+      errorPlacement: function (error, element) {
+        error.addClass('invalid-feedback');
+        element.closest('.form-group').append(error);
+      },
+      highlight: function (element, errorClass, validClass) { $(element).addClass('is-invalid'); },
+      unhighlight: function (element, errorClass, validClass) { $(element).removeClass('is-invalid'); },
+      submitHandler: function () {
+        var formdatas = new FormData($('#notifyForm')[0]);
+        $.ajax({
+          type: "POST",
+          url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'save-schedule-remarks')); ?>",
+          data: $("#notifyForm").serialize(),
+          dataType: 'json',
+          success: function (response) {
+            console.log(response);
+            if (response.status == 'success') {
+              $('#notifyModal').modal('toggle');
+              Toast.fire({
+                icon: 'success',
+                title: response.message
+              });
+              //location.reload(true);
+            } else {
+              Toast.fire({ icon: 'error', title: response.message });
+            }
+
+          }
+        });
+        return false;
+      }
+    });
   });
 </script>
