@@ -6,7 +6,7 @@
 ?>
 <div class="deliveryDetails index content card">
     <div class="card-header">
-        <h1 style="color:tomato;"><b><?= __('DELIVERY DETAIL') ?></b></h1>
+        <h1 style="color:navy;"><b><?= __('DELIVERY DETAIL') ?></b></h1>
     </div>
     <div class="card-body table-responsive">
         <table class="table table-hover" id="example1">
