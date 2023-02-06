@@ -119,7 +119,7 @@
         <ul class="products-list product-list-in-card pl-2 pr-2">
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image"
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image"
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -131,7 +131,7 @@
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image"
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image"
                 style="width: 2vw;height: auto;">
 
             </div>
@@ -146,7 +146,7 @@
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -160,7 +160,7 @@
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -204,7 +204,7 @@
         <ul class="products-list product-list-in-card pl-2 pr-2">
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -218,7 +218,7 @@
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -232,7 +232,7 @@
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -246,7 +246,7 @@
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -291,7 +291,7 @@
         <ul class="products-list product-list-in-card pl-2 pr-2">
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -305,7 +305,7 @@
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -319,7 +319,7 @@
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -333,7 +333,7 @@
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -379,7 +379,7 @@
         <ul class="products-list product-list-in-card pl-2 pr-2">
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -392,7 +392,7 @@
           </li>
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -405,7 +405,7 @@
           </li>
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -418,7 +418,7 @@
           </li>
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>/img/checklist.png" alt="Product Image" class=""
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
