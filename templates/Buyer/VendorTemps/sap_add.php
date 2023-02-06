@@ -15,7 +15,7 @@
             <div class="card-header"style="
     background-color: #0095ff;
 ">
-            <h3 style="color:white"><b><?= __('IMPORT SAP VENDOR') ?></b></h3>
+            <h5 style="color:white"><b><?= __('IMPORT SAP VENDOR') ?></b></h5>
             </div>
             <div class="card-body">
                 <div class="row">

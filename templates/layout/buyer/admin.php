@@ -6,6 +6,9 @@
  */
 
 ?>
+<style>
+
+</style>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -46,6 +49,7 @@
     
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
+
     
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
@@ -77,7 +81,7 @@
             <!-- Brand Logo -->
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
                 style="background-color:#ffffff; text-align-last:center;">
-                <?= $this->Html->image('ft_rect_logo.png', ['width' => '175', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
+                <?= $this->Html->image('ft_rect_logo.png', ['width' => '110', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
             </a>
             <div class="sidebar">
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="text-align-last: center;">

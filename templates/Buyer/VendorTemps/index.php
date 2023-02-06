@@ -3,14 +3,28 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp[]|\Cake\Collection\CollectionInterface $vendorTemps
  */
+
 ?>
+
+<style>
+.card-body{
+    padding:0.1rem
+}
+.table td, .table th{font-size:small;}
+.card-header{
+    padding:0.3rem
+}
+label{
+    margin-top:0.5rem
+}
+</style>
 <div class="card">
-<div class="card-header px-4 py-3" style="
-    background-color: #0095ff;
+<div class="card-header" style="
+    background-color: #cbcbcb;
 ">
-        <div class="row" style="width:110vw;">
+        <div class="row" style="width:90vw;">
             <div class="col-sm-12 col-lg-9">
-                <h3 style="color:white;" class="mb-0"><b>VENDOR LIST</b></h3>
+                <h5 style="color:white;" class="mb-0"><b>VENDOR LIST</b></h5>
             </div>
             <div class="col-sm-12 col-lg-3">
                 <h4 class="float-right mb-0">

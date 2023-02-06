@@ -9,7 +9,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<style>
+.brand-link{
+padding: 0.5rem 0.5rem;
+}
 
+
+</style>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -70,8 +76,9 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
-            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="background-color:#ffffff;text-align: center;">
-                <?= $this->Html->image('ft_rect_logo.png', ['style' => 'width:8.6vw', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
+            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
+                style="background-color:#ffffff; text-align-last:center;">
+                <?= $this->Html->image('ft_rect_logo.png', ['width' => '110', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
             </a>
 
             <div class="sidebar">

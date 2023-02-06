@@ -6,11 +6,21 @@
  * @var string[]|\Cake\Collection\CollectionInterface $accountGroups
  * @var string[]|\Cake\Collection\CollectionInterface $schemaGroups
  */
+
+
+
+
 ?>
+
+<style>
+.row{
+    margin-left:0px;margin-right:0px
+}
+    </style>
 <div class="row">
     <div class="column-responsive column-80">
         <div class="vendorTemps form content">
-        <legend><?= __('Onboarding') ?></legend>
+        <legend><?= __('Purchase Details') ?></legend>
 
         <div class="card">
 						<div class="card-body">

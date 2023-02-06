@@ -7,14 +7,27 @@
  * @var \Cake\Collection\CollectionInterface|string[] $schemaGroups
  */
 ?>
+<style>
+.card-header{
+    padding:0rem 0rem;
+    
+    background-color: #cbcbcb;
+    padding-left:7.5px;
+    margin-bottom:2px     
+
+}
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6{
+    margin-bottom:1px
+}
+    </style>
+
 <div class="row">
     <div class="col-12">
         <div class="card">
             <?= $this->Form->create($vendorTemp) ?>
-            <div class="card-header" style="
-    background-color: #0095ff;
+            <div class="card-header" 
 ">
-                <h3 style="color: white;"><b><?= __('ADD VENDOR') ?></b></h3>
+                <h5 style="color: white;"><b><?= __('ADD VENDOR') ?></b></h5>
             </div>
             <div class="card-body">
                 <div class="row">
