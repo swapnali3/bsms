@@ -4,14 +4,27 @@
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
  */
 ?>
+<style>
+    .body{
+        font-size:0.9rem;
+    }
+    .card-body{
+        font-size:0.9rem
+    }
+    .table td, .table th{
+        padding:0rem
+    }
+    </style>
+
+
 <div class="deliveryDetails index content card">
-    <div class="card-header">
+    <!-- <div class="card-header">
         <h3 style="color: navy;">
             <b>
                 <?= __('DELIVERY DETAIL') ?>
             </b>
         </h3>
-    </div>
+    </div> -->
     <div class="card-body">
         <table class="table table-hover" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
             <thead>

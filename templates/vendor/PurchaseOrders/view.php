@@ -4,6 +4,25 @@
  * @var \App\Model\Entity\PoHeader $poHeader
  */
 ?>
+
+<style>
+.table td, .table th{
+        padding:0rem;
+        font-size:small
+    }
+    .card-body{
+        padding:0.5rem
+    }
+    .btn
+    {
+        padding:0.1rem;
+        font-size:0.7rem;
+        border:1px;
+        border-color:black
+    }
+    
+
+    </style>
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="card">

@@ -4,8 +4,27 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
+<style>
+.table td, .table th{
+        padding:0rem;
+        font-size:small
+    }
+    .card-body{
+        padding:0.5rem
+    }
+    .btn
+    {
+        padding:0.1rem;
+        font-size:0.7rem;
+        border:1px;
+        border-color:black
+    }
+    
+
+    </style>
+
 <div class="poHeaders index content card">
-    <div class="card-header"style="
+    <!-- <div class="card-header"style="
     background-color: #0095ff;
 ">
         <h3 style="color:WHITE">
@@ -13,7 +32,7 @@
                 <?= __('PURCHASE ORDER LISTS') ?>
             </b>
         </h3>
-    </div>
+    </div> -->
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover" id="example1">

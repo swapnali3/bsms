@@ -5,18 +5,18 @@
  */
 ?>
 <div class="row">
-    <div class="col-12">
+    <!-- <div class="col-12">
         <?= $this->Form->create($setting) ?>
         <div class="card">
             <div class="card-header"style="
     background-color: #0095ff;
 ">
                 <div class="settings form content">
-                    <legend>
-                        <h3 style="color:white;"><b><?= __('SETTING') ?></b></h3>
-                    </legend>
+                    <!-- <legend>
+                        <h3 style="color:white;"><b><?= __('SETTNG') ?></b></h3>
+                    </legend> -->
                 </div>
-            </div>
+            <!-- </div> --> 
             <div class="card-body">
                 <div class="row">
                     <?php foreach($setting as $row) : ?>

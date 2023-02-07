@@ -8,15 +8,27 @@
     .redirect{
         cursor: pointer;
     }
+    .table td, .table th{
+        padding:0rem
+    }
+    body{
+        font-size:0.9rem
+    }
+    /* table.dataTable>thead>tr>th:not(.sorting_disabled), table.dataTable>thead>tr>td:not(.sorting_disabled){
+        padding-top:2px
+    } */
+    /* .table thead th{
+        padding:0rem
+    } */
 </style>
 <div class="poHeaders index content card">
-    <div class="card-header">
+    <!-- <div class="card-header">
         <h3 style="color:navy">
             <b>
                 <?= __('PURCHASE ORDER LISTS') ?>
             </b>
         </h3>
-    </div>
+    </div> -->
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-hover" id="example1"
@@ -96,7 +108,7 @@
     $(document).ready(function () {
         $("#example1").DataTable({
             "paging": true,
-            "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
+            // "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });

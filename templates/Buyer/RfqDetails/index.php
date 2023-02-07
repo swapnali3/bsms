@@ -4,14 +4,33 @@
  * @var \App\Model\Entity\RfqDetail[]|\Cake\Collection\CollectionInterface $rfqDetails
  */
 ?>
+
+<style>
+    .table td, .table th{
+        padding:0rem;
+        font-size:small
+    }
+    .card-body{
+        padding:0.5rem
+    }
+    .btn
+    {
+        padding:0.1rem;
+        font-size:0.7rem;
+        border:1px;
+        border-color:black;
+        display:inline
+    }
+
+    </style>
 <div class="rfqDetails index content card">
 
-    <div class="card-header" style="background-color: #0095ff;">
-        <h3 style="color: white;"><b>RFQ LIST</b>
+    <div class="card-header" style="background-color: ;">
+        <!-- <h3 style="color: white;"><b>RFQ LIST</b> -->
 
 
 
-            <?= $this->Html->link(__('New RFQ'), ['action' => 'add'], ['class' => 'button float-right py-2 px-3','style'=>'font-size:x-large;']) ?>
+            <?= $this->Html->link(__('New RFQ'), ['action' => 'add'], ['class' => 'button float-right py-2 px-3','style'=>'font-size:small;']) ?>
         </h3>
     </div>
 
@@ -31,9 +50,9 @@
                         <th>Make</th>
                         <th>Status</th>
                         <th>Added Date</th>
-                        <th class="actions">
+                        <!-- <th class="actions">
                             <?= __('Actions') ?>
-                        </th>
+                        </th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -72,7 +91,7 @@
                             <?= h($rfqDetail->added_date) ?>
                         </td>
 
-                        <td class="actions">
+                        <!-- <td class="actions">
                                 <?= $this->Html->link(__('View'), ['action' => 'view', $rfqDetail->id], ['class'=>'btn btn-default mb-0']) ?>
                                 <?php if($rfqDetail->status == 1) : ?>
                                     <?= $this->Html->link(__('Reject'), ['action' => 'apprej', $rfqDetail->id, 'rej'],['class'=>'btn btn-default mb-0']) ?>
@@ -84,7 +103,7 @@
                             </div>
                             <!-- <?= $this->Html->link(__('Edit'), ['action' => 'edit', $rfqDetail->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $rfqDetail->id], ['confirm' => __('Are you sure you want to delete # {0}?', $rfqDetail->id)]) ?> -->
-                        </td>
+                        </td> 
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

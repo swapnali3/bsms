@@ -8,7 +8,8 @@
 
 <style>
 .card-body{
-    padding:0.1rem
+    padding:0.1rem;
+    background-Color:WHITE
 }
 .table td, .table th{font-size:small;}
 .card-header{
@@ -17,8 +18,18 @@
 label{
     margin-top:0.5rem
 }
+.table td, .table th{
+    padding:0rem
+}
+.table> :not(caption)>*>*{
+    padding:0.3rem 0.3rem
+}
+.mb-2, .my-2{
+    margin-bottom:0.5rem
+}
+
 </style>
-<div class="card">
+<!-- <div class="card">
 <div class="card-header" style="
     background-color: #cbcbcb;
 ">
@@ -35,7 +46,7 @@ label{
                         </a>
                     </b>
                 </h4>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="card-body">

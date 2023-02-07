@@ -7,16 +7,29 @@
  * @var \Cake\Collection\CollectionInterface|string[] $schemaGroups
  */
 ?>
+
+<style>
+.card-header{
+    padding:0.3rem;
+    
+    background-color: #cbcbcb;
+    padding-left:7.5px;
+    margin-bottom:2px     
+
+}
+.card-body{
+    padding:0.5rem
+}
+</Style>
 <div class="row">
     
     <div class="col-12">
         <div class="card">
             <?= $this->Form->create() ?>
-            <div class="card-header"style="
-    background-color: #0095ff;
-">
+            <!-- <div class="card-header";
+>
             <h5 style="color:white"><b><?= __('IMPORT SAP VENDOR') ?></b></h5>
-            </div>
+            </div> -->
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-md-3">
