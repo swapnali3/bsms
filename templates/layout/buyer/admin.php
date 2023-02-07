@@ -124,7 +124,7 @@
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
-        <footer class="main-footer">
+        <footer class="main-footer"  style="margin-top:0px;">
             <?= $this->element('footer/main') ?>
         </footer>
     </div>
