@@ -71,7 +71,7 @@
                                         <?=$val['remarks']?>
                                     </div>
                                     <div class="col-8 mt-3">
-                                            <a href="<?= $this->Url->build('/') ?>dealer/view/<?=$val['id']?>" class="btn w-100 pale">View</a>
+                                            <a href="<?= $this->Url->build('/') ?>dealer/view/<?=$val['id']?>" class="btn w-80 pale">View</a>
                                     </div>
                                 </div>
                             </div>

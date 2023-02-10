@@ -51,7 +51,8 @@
 
   .main-footer {
     padding: 0rem;
-    margin-top:25px
+    margin-top:25px;
+    margin-bottom:10px
   }
 
   .mt-4, .my-4{
@@ -531,7 +532,7 @@
 </div>
 <div class="row mx-1">
   <div class="col-sm-12 col-lg-6">
-    <div class="card card-default">
+    <div class="card card-default" >
       <div class="card-header">
         <h3 class="card-title">Top Vendors by order Value</h3>
 
@@ -547,7 +548,7 @@
           </div>
         </div>
         <canvas id="donutChart"
-          style="min-height: 200px; height: 150px; max-height: 200px; max-width: 100%; display: block; width: 487px;"
+          style="min-height: 200px; height: 150px; max-height: 100%; max-width: 100%; display: block; width: 487px;"
           width="487" height="200" class="chartjs-render-monitor"></canvas>
       </div>
       <!-- /.card-body -->
@@ -556,7 +557,7 @@
 
   <div class="col-sm-12 col-lg-6">
 
-    <div class="card card-dafault">
+    <div class="card card-dafault" >
       <div class="card-header">
         <h3 class="card-title">Po order value by period</h3>
 
@@ -573,8 +574,8 @@
             </div>
           </div>
           <canvas id="barChart"
-            style="min-height: 200px; height: 250px; max-height: 200px; max-width: 100%; display: block; width: 200;"
-            width="200" height="200" class="chartjs-render-monitor"></canvas>
+          style="min-height: 200px; height: 150px; max-height: 100%; max-width: 100%; display: block; width: 487px;"
+          width="487" height="200" class="chartjs-render-monitor"></canvas>
         </div>
       </div>
       <!-- /.card-body -->
@@ -602,7 +603,7 @@
           </div>
         </div>
         <canvas id="donutChart1"
-          style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%; display: block; width: 300px;"
+        style="min-height: 200px; height: 150px; max-height: 100%; max-width: 100%; display: block; width: 487px;"
           width="487" height="200" class="chartjs-render-monitor"></canvas>
       </div>
       <!-- /.card-body -->
@@ -612,13 +613,13 @@
 
   <div class="col-sm-12 col-lg-6">
 
-    <div class="card card-default">
+    <div class="card card-default" style="min-height: 30vh;">
       <div class="card-header">
         <h3 class="card-title">Top Material by order value</h3>
 
 
       </div>
-      <div class="card-body">
+      <div class="card-body" style="min-height: 30vh;">
         <div class="chart">
           <div class="chartjs-size-monitor">
             <div class="chartjs-size-monitor-expand">
@@ -629,8 +630,8 @@
             </div>
           </div>
           <canvas id="barChart1"
-            style="min-height: 200px; height: 200px; max-height: 200px; max-width: 100%; display: block; width: 487px;"
-            width="487" height="200" class="chartjs-render-monitor"></canvas>
+          style="min-height: 200px; height: 150px; max-height: 100%; max-width: 100%; display: block; width: 487px;"
+          width="487" height="200" class="chartjs-render-monitor"></canvas>
         </div>
       </div>
       <!-- /.card-body -->

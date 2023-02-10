@@ -4,6 +4,11 @@
  * @var \App\Model\Entity\AdminUser[]|\Cake\Collection\CollectionInterface $adminUsers
  */
 ?>
+<style>
+  .card-body{
+    padding:1rem
+  }
+  </style>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
 <!-- Main content -->
@@ -180,7 +185,7 @@
   <div class="card-header">
         <div class="row">
             <div class="col-sm-12 col-lg-10">
-                <h3 class="mb-0" style="color:navy;"><b> Submitted RFQs</b></h3>
+                <h5 class="mb-0" style="color:navy;"><b> Submitted RFQs</b></h5>
             </div>
         </div>
   </div>
