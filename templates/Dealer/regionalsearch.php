@@ -8,7 +8,7 @@
     <div class="row p-2">
         <div class="col-3 p-0">
             <div class="row">
-                <!-- <img src="<?= $this->Url->build('/') ?>img/side.png" style="float: right; padding-left: 2vw;"> -->
+                <img src="<?= $this->Url->build('/') ?>img/side.png" style="float: right; padding-left: 2vw;">
                 <div class="col-12" style="text-align: center;">
                     <a href="<?= $this->Url->build('/') ?>dealer/addproduct/buyer">
                         <img class="login" src="<?= $this->Url->build('/') ?>img/button/1.png" style="width: 15vw;"></a>
