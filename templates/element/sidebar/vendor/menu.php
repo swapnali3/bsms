@@ -4,6 +4,7 @@
      <?php $dashactive = ($controller == 'Dashboard') ? 'active' : ''; ?>
      <?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
      <?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : ''; ?>
+     <?php $profileActive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
 <style>
      .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl{
       padding-left:0rem
@@ -42,7 +43,7 @@
 </li>
 
 <li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="far fa-user nav-icon"></i><p>Profile</p>'), "#", ['class' => "nav-link", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="far fa-user nav-icon"></i><p>Profile</p>'), ['controller' => 'vendor-temps', 'action' => 'view', 0], ['class' => "nav-link $profileActive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">

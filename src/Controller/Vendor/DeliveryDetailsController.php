@@ -19,11 +19,16 @@ class DeliveryDetailsController extends VendorAppController
     public function index()
     {
         $this->loadModel('DeliveryDetails');
+        $session = $this->getRequest()->getSession();
         $this->paginate = [
             'contain' => ['PoHeaders', 'PoFooters'],
-            'conditions' => ['status' => '0']
+            'conditions' => ['status' => '0', 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')] 
         ];
+
+        
         $deliveryDetails = $this->paginate($this->DeliveryDetails);
+
+        //echo '<pre>'; print_r($deliveryDetails);
 
         $this->set(compact('deliveryDetails'));
     }
