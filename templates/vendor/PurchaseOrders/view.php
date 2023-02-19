@@ -373,7 +373,7 @@
       "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
     });
 
-    $(".dispatch_item").click(function () {
+    $(document).on("click", ".dispatch_item", function () {
       $("#po_header_id").val($(this).attr('header-id'));
       $("#po_footer_id").val($(this).attr('footer-id'));
     });
@@ -423,7 +423,7 @@
                 icon: 'success',
                 title: response.message
               });
-              location.reload(true);
+              //location.reload(true);
             } else {
               Toast.fire({ icon: 'error', title: response.message });
             }
