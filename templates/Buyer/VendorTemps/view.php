@@ -32,6 +32,14 @@
                             <table class="table">
                                 <tr>
                                     <th>
+                                        <?= __('SAP Vendor Code') ?>
+                                    </th>
+                                    <td>
+                                        <?= !empty($vendorTemp->sap_vendor_code) ?  $vendorTemp->sap_vendor_code : '' ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         <?= __('Purchasing Organization') ?>
                                     </th>
                                     <td>

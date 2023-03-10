@@ -19,7 +19,8 @@ class VendorMaterialStocksController extends VendorAppController
      */
     public function index()
     {
-        $vendorMaterialStocks = $this->paginate($this->VendorMaterialStocks);
+        $session = $this->getRequest()->getSession();
+        $vendorMaterialStocks = $this->paginate($this->VendorMaterialStocks->find()->where(['sap_vendor_code' => $session->read('vendor_code')]));
 
         $this->set(compact('vendorMaterialStocks'));
     }

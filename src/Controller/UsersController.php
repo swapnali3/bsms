@@ -134,6 +134,7 @@ class UsersController extends AppController
                         }else if($result[0]->group_id == 3) {
                             $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();    
                             $session->write('vendor_code', $result[0]->sap_vendor_code);
+                            $session->write('vendor_id', $result[0]->id);
                             $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
                         }
                     } else {

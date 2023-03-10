@@ -98,15 +98,11 @@ class PoHeadersTable extends Table
             ->notEmptyString('currency');
 
         $validator
-            ->decimal('exchange_rate')
-            ->requirePresence('exchange_rate', 'create')
-            ->notEmptyString('exchange_rate');
+            ->decimal('exchange_rate');
 
         $validator
             ->scalar('release_status')
-            ->maxLength('release_status', 10)
-            ->requirePresence('release_status', 'create')
-            ->notEmptyString('release_status');
+            ->maxLength('release_status', 10);
 
         $validator
             ->dateTime('added_date')

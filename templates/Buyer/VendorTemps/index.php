@@ -59,6 +59,9 @@ label{
                         </th>
                         <!-- <th class="actions"><?= __('Actions') ?></th> -->
                         <th>
+                            <?= h('SAP Vendor Code') ?>
+                        </th>
+                        <th>
                             <?= h('Name') ?>
                         </th>
                         <th>
@@ -106,6 +109,9 @@ label{
                             <?= $status ?>
                         </td>
                         <!-- <td class="actions"><a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">View</a></td> -->
+                        <td>
+                            <?= h($vendorTemp->sap_vendor_code) ?>
+                        </td>
                         <td>
                             <?= h($vendorTemp->name) ?>
                         </td>

@@ -93,7 +93,16 @@ class DashboardController extends VendorAppController
             ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code')]);
         $totalPos = $query->count();
 
-        $totalIntransit = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();
+        $intraQry = $this->DeliveryDetails->find();
+        $intraQry->innerJoin(
+            ['PoHeaders' => 'po_headers'],
+            ['DeliveryDetails.po_header_id = PoHeaders.id'])
+            ->where(['status' => 0, 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')]);
+        $totalIntransit = $intraQry->count();
+
+        //echo '<pre>';print_r($intraQry); exit;
+
+        //$totalIntransit = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();
         
         $totalRfqDetails = $this->RfqDetails->find('all', array('conditions'=>array('status'=>1)))->count();
 
