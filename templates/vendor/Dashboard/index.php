@@ -176,6 +176,7 @@
     
 
 <!-- Responded RFQs--> 
+<?php $rfqRequested = array(); ?>
 <?php if(count($rfqRequested)) : ?>
 <div class="card">
   <div class="card-header">

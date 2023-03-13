@@ -110,7 +110,7 @@
   <div class="col-sm-12 col-lg-3">
     <div class="card">
       <div class="card-header">
-        <h1 class="card-title">Supply Orders</h1>
+        <h1 class="card-title">Vendors</h1>
 
 
       </div>
@@ -123,8 +123,8 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Total
+                <span class="badge badge-warning float-right">6</span></a>
 
             </div>
           </li>
@@ -136,8 +136,8 @@
 
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Onboarding
+                <span class="badge badge-warning float-right">2</span></a>
               <span class="product-description">
                 
               </span>
@@ -150,8 +150,8 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Approved
+                <span class="badge badge-warning float-right">3</span></a>
               <span class="product-description">
                 
               </span>
@@ -164,8 +164,8 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Sent to SAP
+                <span class="badge badge-warning float-right">1</span></a>
               <span class="product-description">
                 
               </span>
@@ -195,7 +195,7 @@
   <div class="col-sm-12 col-lg-3">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Advanced Shipping Notes</h3>
+        <h3 class="card-title">Purchase Orders</h3>
 
 
       </div>
@@ -208,8 +208,8 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Total
+                <span class="badge badge-warning float-right">20</span></a>
               <span class="product-description">
                 
               </span>
@@ -222,8 +222,8 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Completed
+                <span class="badge badge-warning float-right">15</span></a>
               <span class="product-description">
                 
               </span>
@@ -236,53 +236,25 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Pending
+                <span class="badge badge-warning float-right">5</span></a>
               <span class="product-description">
                 
               </span>
             </div>
           </li>
-          <!-- /.item -->
-          <li class="item">
-            <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
-            </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
-              <span class="product-description">
-                
-              </span>
-            </div>
-          </li>
-          <!-- /.item -->
         </ul>
       </div>
       <!-- /.card-body -->
 
       <!-- /.card-footer -->
     </div>
-    <!-- <div class="card mb-2" style="border-radius:1rem;">
-
-      <div class="card-header p-3 pt-2">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">shopping_cart</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize"><b>Purchase Orders</b></h1>
-          <h4 class="mb-0">
-            <?= $totalPos ?>
-          </h4>
-        </div> -->
   </div>
 
   <div class="col-sm-12 col-lg-3">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Supplier Count</h3>
+        <h3 class="card-title">Payments</h3>
 
 
       </div>
@@ -295,8 +267,8 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Total Amount
+                <span class="badge badge-warning float-right">₹500000.00</span></a>
               <span class="product-description">
                 
               </span>
@@ -309,8 +281,8 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Paid
+                <span class="badge badge-warning float-right">₹400000.00</span></a>
               <span class="product-description">
                 
               </span>
@@ -323,55 +295,25 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Balance
+                <span class="badge badge-warning float-right">₹100000.00</span></a>
               <span class="product-description">
                 
               </span>
             </div>
           </li>
-          <!-- /.item -->
-          <li class="item">
-            <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
-            </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
-              <span class="product-description">
-                
-              </span>
-            </div>
-          </li>
-          <!-- /.item -->
         </ul>
       </div>
       <!-- /.card-body -->
 
       <!-- /.card-footer -->
     </div>
-    <!-- <div class="card mb-2" style="border-radius:1rem;">
-
-      <div class="card-header p-3 pt-2">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">shopping_cart</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize"><b>Purchase Orders</b></h1>
-          <h4 class="mb-0">
-            <?= $totalPos ?>
-          </h4>
-        </div> -->
   </div>
 
   <div class="col-sm-12 col-lg-3">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Service Orders</h3>
-
-
+        <h3 class="card-title">Intransit</h3>
 
       </div>
       <!-- /.card-header -->
@@ -383,8 +325,8 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Dispatched
+                <span class="badge badge-warning float-right">10</span></a>
               <span class="product-description">
                 
               </span>
@@ -396,8 +338,8 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Intrasit
+                <span class="badge badge-warning float-right">5</span></a>
               <span class="product-description">
                 
               </span>
@@ -409,123 +351,22 @@
                 style="width: 2vw;height: auto;">
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
+              <a href="javascript:void(0)" class="product-title">Delivered
+                <span class="badge badge-warning float-right">5</span></a>
               <span class="product-description">
                 
               </span>
             </div>
           </li>
-          <li class="item">
-            <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
-            </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Samsung TV
-                <span class="badge badge-warning float-right">$1800</span></a>
-              <span class="product-description">
-                
-              </span>
-            </div>
-          </li>
-          <!-- /.item -->
+          
         </ul>
       </div>
       <!-- /.card-body -->
 
       <!-- /.card-footer -->
     </div>
-    <!-- <div class="card mb-2" style="border-radius:1rem;">
-
-      <div class="card-header p-3 pt-2">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">shopping_cart</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize"><b>Purchase Orders</b></h1>
-          <h4 class="mb-0">
-            <?= $totalPos ?>
-          </h4>
-        </div> -->
+    
   </div>
-
-  <!-- <div class="col-sm-12 col-lg-3">
-    <div class="card  mb-2" style="border-radius:1rem;">
-      <div class="card-header p-3 pt-2">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-primary shadow-primary shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">request_quote</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize"><b>Vendor Pending for Details</b></h1>
-          <h4 class="mb-0">
-            <?= $totalVendorTemps ?>
-          </h4>
-        </div>
-      </div>
-
-      <hr class="dark horizontal my-0">
-      <div class="card-footer p-3">
-        <button type="button" class="button">
-          <?= $this->Html->link(__('More info!'), ['controller' => 'vendor-temps', 'action' => 'index'],['style'=>'color:white;'],['class' => 'small-box-footer', 'escape' => false]) ?>
-        </button>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- <div class="col-sm-12 col-lg-3">
-    <div class="card  mb-2" style="border-radius:1rem;">
-      <div class="card-header p-3 pt-2 bg-transparent">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">local_shipping</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize "><b>Vendor Intransit</b>
-          </h1>
-          <h4 class="mb-0 ">
-            <?= $totalIntransit ?>
-          </h4>
-        </div>
-      </div>
-
-
-      <hr class="horizontal my-0 dark">
-      <div class="card-footer p-3">
-        <button type="button" class="button">
-          <?= $this->Html->link(__('More info!'), ['controller' => 'delivery-details', 'action' => 'index'],['style'=>'color:white;'], ['class' => 'small-box-footer', 'escape' => false]) ?>
-        </button>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- <div class="col-sm-12 col-lg-3">
-    <div class="card  mb-2" style="border-radius:1rem;">
-      <div class="card-header p-3 pt-2 bg-transparent">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">monetization_on</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize "><b>More Info</b>
-          </h1>
-          <h4 class="mb-0 ">
-            <?= $totalRfqDetails ?>
-          </h4>
-        </div>
-      </div>
-
-
-      <hr class="horizontal my-0 dark">
-      <div class="card-footer p-3">
-        <button type="button" class="button">
-          <?= $this->Html->link(__('More info '), ['controller' => 'rfq-details', 'action' => 'index'],['style'=>'color:white;'], ['class' => 'small-box-footer', 'escape' => false]) ?>
-        </button>
-      </div>
-    </div>
-  </div> -->
 
 </div>
 <div class="row mx-1">
@@ -627,7 +468,7 @@
               <div class=""></div>
             </div>
           </div>
-          <canvas id="barChart1"
+          <canvas id="barChart2"
             style="min-height: 150pxx; height: 250px; max-height: 150px; max-width: 100%; display: block; width: 487px;"
             width="487" height="250" class="chartjs-render-monitor"></canvas>
         </div>
@@ -645,7 +486,7 @@
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
       {
-        label: 'Digital Goods',
+        label: 'Payment',
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,
@@ -656,7 +497,7 @@
         data: [28, 48, 40, 19, 86, 27, 90]
       },
       {
-        label: 'Electronics',
+        label: 'Order',
         backgroundColor: 'rgba(210, 214, 222, 1)',
         borderColor: 'rgba(210, 214, 222, 1)',
         pointRadius: false,
@@ -664,12 +505,12 @@
         pointStrokeColor: '#c1c7d1',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(220,220,220,1)',
-        data: [65, 59, 80, 81, 56, 55, 40]
+        data: [120, 100, 150, 200, 150, 100, 140]
       },
     ]
   }
   var barChartCanvas = $('#barChart').get(0).getContext('2d')
-  var barChartCanvas1 = $('#barChart1').get(0).getContext('2d')
+  var barChartCanvas1 = $('#barChart2').get(0).getContext('2d')
   var barChartData = $.extend(true, {}, areaChartData)
   var temp0 = areaChartData.datasets[0]
   var temp1 = areaChartData.datasets[1]
@@ -703,13 +544,13 @@
   var donutChartCanvas1 = $('#donutChart1').get(0).getContext('2d');
   var donutData = {
     labels: [
-      'Chrome',
-      'IE',
-      'FireFox',
+      '0000100119',
+      '0000100114',
+      '0000100123',
     ],
     datasets: [
       {
-        data: [700, 500, 400],
+        data: [5000, 2000, 1500],
         backgroundColor: ['#f56954', '#00a65a', '#f39c12'],
       }
     ]
@@ -728,15 +569,14 @@
 
   var donutData1 = {
     labels: [
-      'Chrome',
-      'IE',
-      'FireFox',
+      'PHFG0411',
+      'PHFG0417',
   
     ],
     datasets: [
       {
-        data: [700, 500, 400, ],
-        backgroundColor: ['#f56954', '#00a65a', '#f39c12', ],
+        data: [345345345, 503232340],
+        backgroundColor: ['#f56954', '#00a65a'],
       }
     ]
   }
