@@ -34,6 +34,42 @@ class VendorTempsController extends BuyerAppController
         $this->set(compact('vendorTemps'));
     }
 
+
+    public function getList($term = null)
+    {
+        $this->autoRender = false;
+        $list = array();
+        $term = isset($_GET['term']) ? $_GET['term'] : null;
+
+        $response['status'] = 0;
+        $response['message'] = 'no records';
+        if($term != null) {
+            $this->loadModel("VendorTemps");
+
+            $vendors = $this->VendorTemps->find()
+            ->select(['id', 'name', 'city', 'email', 'mobile'])
+            ->where(["name like '%$term%'"])
+            ->order(['name asc'])->all();
+
+            foreach($vendors as $vendor) {
+                $tmp = array();
+                $tmp['id'] = $vendor->id;
+                $tmp['value'] = $vendor->name .' ('. $vendor->city.')';
+                //$tmp['email'] = $vendor->email;
+                //$tmp['mobile'] = $vendor->mobile;
+                $list[] = $tmp;
+            }
+        }
+
+        if(count($list)) {
+            $response['status'] = 1;
+            $response['message'] = 'success';
+            $response['data'] = $list;
+        }
+
+        echo json_encode($list);
+    }
+
     /**
      * View method
      *

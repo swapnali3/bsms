@@ -1431,3 +1431,793 @@ Stack Trace:
 - /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
 - /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
 
+2023-03-03 18:02:51 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:06:07 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:06:10 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:07:33 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:07:36 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:12:22 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:12:44 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:15:48 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:15:56 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:19:58 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:21:32 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:25:07 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:30:47 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:33:17 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:34:55 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:35:00 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:36:34 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:36:42 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:36:50 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-03 18:57:38 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 13:56:58 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:12:45 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:19:23 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:19:41 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:20:13 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:20:18 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:21:25 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:21:31 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:23:45 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:24:01 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:24:11 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:26:28 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:26:30 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:26:43 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:26:54 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:26:59 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:27:54 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:30:32 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:30:50 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:37:01 error: [Error] Class 'Bake\Command\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:37:28 error: [Twig\Error\RuntimeError] An exception has been thrown during the rendering of a template ("Element file `Bake.file_header.twig` could not be found.
+
+The following paths were searched:
+
+- `/Users/deepaksingh/source_code/htdocs/bsms/templates/plugin/Bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/templates/bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/templates/bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/templates/bake/element/file_header.twig`
+"). in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/templates/bake/Model/table.twig on line 20
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Template.php:367
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Template.php:379
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/TemplateWrapper.php:40
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/twig-view/src/View/TwigView.php:301
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/View/View.php:1177
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/View/BakeView.php:85
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Utility/TemplateRenderer.php:101
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:1200
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+Caused by: [Cake\View\Exception\MissingElementException] Element file `Bake.file_header.twig` could not be found.
+
+The following paths were searched:
+
+- `/Users/deepaksingh/source_code/htdocs/bsms/templates/plugin/Bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/templates/bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/templates/bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/templates/bake/element/file_header.twig`
+ in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/View/View.php on line 708
+Exception Attributes: array (
+  'file' => 'file_header.twig',
+  'paths' => 
+  array (
+    0 => '/Users/deepaksingh/source_code/htdocs/bsms/templates/plugin/Bake/element/',
+    1 => '/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/templates/bake/element/',
+    2 => '/Users/deepaksingh/source_code/htdocs/bsms/templates/bake/element/',
+    3 => '/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/templates/bake/element/',
+  ),
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/twig-view/src/Twig/Extension/ViewExtension.php:46
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Environment.php(361) : eval()'d code:46
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Template.php:394
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Template.php:367
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Template.php:379
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/TemplateWrapper.php:40
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/twig-view/src/View/TwigView.php:301
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/View/View.php:1177
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/View/BakeView.php:85
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Utility/TemplateRenderer.php:101
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:1200
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:37:38 error: [Twig\Error\RuntimeError] An exception has been thrown during the rendering of a template ("Element file `Bake.file_header.twig` could not be found.
+
+The following paths were searched:
+
+- `/Users/deepaksingh/source_code/htdocs/bsms/templates/plugin/Bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/templates/bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/templates/bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/templates/bake/element/file_header.twig`
+"). in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/templates/bake/Model/table.twig on line 20
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Template.php:367
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Template.php:379
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/TemplateWrapper.php:40
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/twig-view/src/View/TwigView.php:301
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/View/View.php:1177
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/View/BakeView.php:85
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Utility/TemplateRenderer.php:101
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:1200
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+Caused by: [Cake\View\Exception\MissingElementException] Element file `Bake.file_header.twig` could not be found.
+
+The following paths were searched:
+
+- `/Users/deepaksingh/source_code/htdocs/bsms/templates/plugin/Bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/templates/bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/templates/bake/element/file_header.twig`
+- `/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/templates/bake/element/file_header.twig`
+ in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/View/View.php on line 708
+Exception Attributes: array (
+  'file' => 'file_header.twig',
+  'paths' => 
+  array (
+    0 => '/Users/deepaksingh/source_code/htdocs/bsms/templates/plugin/Bake/element/',
+    1 => '/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/templates/bake/element/',
+    2 => '/Users/deepaksingh/source_code/htdocs/bsms/templates/bake/element/',
+    3 => '/Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/templates/bake/element/',
+  ),
+)
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/twig-view/src/Twig/Extension/ViewExtension.php:46
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Environment.php(361) : eval()'d code:46
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Template.php:394
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Template.php:367
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/Template.php:379
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/twig/twig/src/TemplateWrapper.php:40
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/twig-view/src/View/TwigView.php:301
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/View/View.php:1177
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/View/BakeView.php:85
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Utility/TemplateRenderer.php:101
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:1200
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:37:57 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:38:06 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:38:36 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:38:59 error: [Cake\Database\Exception\DatabaseException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ft_supplier_portal.a_c_l' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php on line 160
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:521
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ft_supplier_portal.a_c_l' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:329
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:332
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:158
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:521
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:39:03 error: [Cake\Database\Exception\DatabaseException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ft_supplier_portal.acl' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php on line 160
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:521
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ft_supplier_portal.acl' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:329
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:332
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:158
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:521
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:39:28 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:39:40 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:46:50 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:49:30 error: [Cake\Database\Exception\DatabaseException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ft_supplier_portal.pr_header' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php on line 160
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:521
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+Caused by: [PDOException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'ft_supplier_portal.pr_header' doesn't exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php on line 39
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Statement/MysqlStatement.php:39
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:329
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Core/Retry/CommandRetry.php:70
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Connection.php:332
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:158
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Database/Schema/Collection.php:118
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/ORM/Table.php:521
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:111
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:49:33 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:51:03 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:51:27 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:52:03 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:52:33 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:54:17 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:57:11 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:58:14 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:58:44 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/AllCommand.php:115
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 14:59:22 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 15:00:48 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 15:02:58 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 15:05:29 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 15:06:14 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-03-06 15:24:39 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php on line 1195
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:113
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/bake/src/Command/ModelCommand.php:94
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/BaseCommand.php:189
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:334
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+

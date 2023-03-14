@@ -5,6 +5,8 @@
      <?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
      <?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : ''; ?>
      <?php $profileActive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
+     <?php $rfqlickActive = ($controller == 'Rfqs') ? 'active' : ''; ?>
+     
 <style>
      .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl{
       padding-left:0rem
@@ -48,6 +50,10 @@
 
 <li class="nav-item menu-open">
   <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link $polickActive" , 'escape' => false]) ?>
+</li>
+
+<li class="nav-item menu-open">
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>RFQs</p>'), ['controller' => 'rfqs', 'action' => 'index'], ['class' => "nav-link $rfqlickActive" , 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">
