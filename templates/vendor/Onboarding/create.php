@@ -13,6 +13,9 @@
 ?>
 
 <style>
+.label{
+    font-size:10px
+}
 .row{
     margin-left:0px;margin-right:0px
 }

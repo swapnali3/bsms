@@ -9,15 +9,16 @@
     
     <div class="column-responsive column-80">
         <div class="rfqs view content">
-            <h3><?= "PR NO : " . h($rfqs->toArray()[0]->pr_header->pr_no) ?></h3>
-            <h3><?= "RFQ NO : " . h($rfqs->toArray()[0]->rfq_no) ?></h3>
+            <h5><b><?= "PR NO : " . h($rfqs->toArray()[0]->pr_header->pr_no) ?></b></h5>
+            <h5><b><?= "RFQ NO : " . h($rfqs->toArray()[0]->rfq_no) ?></b></h5>
 
 
             <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover" id="example1">
                     <thead>
-                        <tr>
+                        <tr style="
+    BACKGROUND-COLOR: GAINSBORO"  >
                             <!-- <th><?= h(_('RFQ No')) ?></th>
                             <th><?= h(_('PR')) ?></th> -->
                             <th><?= h(_('Vendor')) ?></th>
@@ -41,9 +42,9 @@
                             <td><?= $rfq->has('RfqInquiries') ? $rfq->RfqInquiries['delivery_date'] : '' ?></td>
 
                             
-                            <td class="actions">
+                            <!-- <td class="actions">
                                 
-                            </td>
+                            </td> -->
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -56,7 +57,7 @@
 
 <div class="row card">
     <div class="column-responsive column-80">
-        <h3>Communications</h3>
+        <h5><b>Communications</b></h5>
         <hr />
         <div class="card-body p-0">
             <?php foreach($chatHistory as $chat) :?>

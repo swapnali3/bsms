@@ -69,7 +69,7 @@
                 <tbody>
                     <?php foreach ($poHeaders as $poHeader): ?>
                     <tr>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->sap_vendor_code) ?></td>
+                    <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->sap_vendor_code) ?></td>
                         <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->po_no) ?></td>
                         <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->document_type) ?></td>
                         <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->created_on) ?></td>

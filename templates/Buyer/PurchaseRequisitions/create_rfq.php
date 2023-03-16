@@ -15,17 +15,17 @@
   <div class="col-12">
     <div class="poHeaders view content card">
       <div class="card-header">
-        <h3>
+        <h5><b>
           <?= "Purchase Requisition : " . h($prHeader->pr_no) ?>
-        </h3>
+</b></h5>
       </div>
     </div>
 
     <div class="related card">
       <div class="card-header">
-        <h4>
+        <h5><b>
           <?= __('Material List') ?>
-        </h4>
+</b></h5>
       </div>
       <div class="card-body">
         <?php if (!empty($prHeader->pr_footers)) : ?>

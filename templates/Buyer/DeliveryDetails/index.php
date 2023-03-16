@@ -23,9 +23,9 @@
       .table{
         background-color:transparent
       }
-      .table:not(.table-dark){
+      /* .table:not(.table-dark){
         background-color:beige
-      }
+      } */
 </style>
 
 
@@ -38,7 +38,7 @@
     <div class="card-body table-responsive">
         <table class="table table-hover" id="example1">
             <thead>
-                <tr>
+                <tr style="background-color: #d3d3d36e;">
                     <th>Purchase Order</th>
                     <th>Item</th>
                     <th>Challan No.</th>

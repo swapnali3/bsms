@@ -19,12 +19,13 @@
             <!-- </div> --> 
             <div class="card-body">
                 <div class="row">
+                    
                     <?php foreach($setting as $row) : ?>
-                    <div class="col-sm-12 col-lg-3 mt-3">
+                    <div class="col-sm-12 col-lg-3 mt-2">
                         <?php echo $this->Form->control($row->name, ['value' => $row->value, 'class' => 'custom-select rounded-0','div' => 'form-group']); ?>
                     </div>
                     <?php endforeach;?>
-                    <div class="col-sm-12 col-lg-3 mt-3">
+                    <div class="col-sm-12 col-lg-3 mt-2">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info']) ?>
                         <?= $this->Form->end() ?>
                     </div>

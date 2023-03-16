@@ -4,14 +4,26 @@
  * @var iterable<\App\Model\Entity\Rfq> $rfqs
  */
 ?>
-<div class="rfqs index content card">
-    
-    <h3><?= __('Rfqs') ?></h3>
+<style>
+    .table td, .table th{
+        padding:0.2rem
+    }
+    .table thead th{
+        padding:0.2rem
+    }
+    </style>
+<div class="poHeaders index content card" class="card-header">
+<div class="card-header">
+        <h5 style="color:black">
+            <b><?= __('Rfqs') ?></b>
+        </h5>
+    </div>
     <div class="card-body p-0">
     <div class="table-responsive">
-        <table class="table table-hover" id="example1">
-            <thead>
-                <tr>
+        <table class="table table-hover" id="example1" >
+            <thead style="
+    BACKGROUND-COLOR: GAINSBORO" >
+                <tr >
                     <th><?= h(_('RFQ No')) ?></th>
                     <th><?= h(_('Vendor')) ?></th>
                     <th><?= h(_('PR')) ?></th>
@@ -25,9 +37,8 @@
                     <td><?= $rfq->has('vendor_temp') ? $rfq->vendor_temp->name : '' ?></td>
                     <td><?= $rfq->has('pr_header') ? $rfq->pr_header->pr_no : '' ?></td>
                     <td><?= h($rfq->added_date) ?></td>
-                    <td class="actions">
-                        
-                    </td>
+                    <!-- <td class="actions">
+                    </td> -->
                 </tr>
                 <?php endforeach; ?>
             </tbody>

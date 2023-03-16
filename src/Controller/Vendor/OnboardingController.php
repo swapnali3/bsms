@@ -89,7 +89,7 @@ class OnboardingController extends VendorAppController
             $VendorTempOtp = $this->VendorTempOtps->newEmptyEntity();
             $vendorOtp = $this->VendorTempOtps->patchEntity($VendorTempOtp, $data);
             if ($this->VendorTempOtps->save($vendorOtp)) {
-                $mailer = new Mailer('default');
+                /*$mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
@@ -97,6 +97,8 @@ class OnboardingController extends VendorAppController
                         ->setEmailFormat('html')
                         ->setSubject('Verify New Account otp')
                         ->deliver('Hi '.$vendorTemp->name.'<br/>OTP : ' . $otp);
+
+                        */
             }
         }
 
@@ -124,7 +126,7 @@ class OnboardingController extends VendorAppController
 
                 $link = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'create', base64_encode($data['email']), '_full' => true, 'escape' => true]);
 
-                $mailer = new Mailer('default');
+                /*$mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
@@ -132,6 +134,7 @@ class OnboardingController extends VendorAppController
                     ->setEmailFormat('html')
                     ->setSubject('Verify New Account')
                     ->deliver('Hi '.$data['name'].'<br/>Welcome to Code The Pixel.' . $link);
+                    */
 
                 $this->Flash->success(__('The vendor temp has been saved.'));
 

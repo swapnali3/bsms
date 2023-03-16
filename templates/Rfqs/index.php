@@ -4,9 +4,10 @@
  * @var iterable<\App\Model\Entity\Rfq> $rfqs
  */
 ?>
+
 <div class="rfqs index content">
     <?= $this->Html->link(__('New Rfq'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Rfqs') ?></h3>
+    <h5><?= __('Rfqs') ?></h5>
     <div class="table-responsive">
         <table>
             <thead>

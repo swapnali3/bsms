@@ -17,10 +17,10 @@
     }
 </style>
 <div class="vendorMaterialStocks index content card">
-    <div class="vendorMaterialStocks form content col-5">
+    <div class="card-header">
         <?= $this->Form->create(null, ['url' => ['action' => 'upload'],'type' => 'file']) ?>
         <fieldset>
-            <legend><?= __('Upload Stocks') ?></legend>
+            <h5><b><?= __('Upload Stocks') ?></b></h5>
             
             <div class="form-group">
                 <div class="input-group">
@@ -36,14 +36,14 @@
     </div>
 
     <div class="card-header">
-        <h3 class="card-title">Material Stock List</h3>
+        <h5><b>Material Stock List</b></h5>
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-hover" id="example1">
                 <thead>
-                    <tr>
+                    <tr style="background-color: #d3d3d36e;">
                         <th>
                             <?= h('Part Code') ?>
                         </th>

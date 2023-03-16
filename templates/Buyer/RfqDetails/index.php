@@ -39,7 +39,7 @@
 
             <table class="table table-hover" id="example1">
                 <thead>
-                    <tr>
+                    <tr style="background-color: #d3d3d36e;">
 
                         <th>RFQ No.</th>
                         <th>Product</th>

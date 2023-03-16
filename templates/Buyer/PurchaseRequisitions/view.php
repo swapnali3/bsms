@@ -13,9 +13,9 @@
   <div class="col-12">
     <div class="poHeaders view content card">
       <div class="card-header">
-        <h3>
+        <h5><b>
           <?= h($prHeader->pr_no) ?>
-        </h3>
+</b></h5>
       </div>
       <div class="card-body table-responsive p-0">
         <table class="table">
@@ -57,9 +57,9 @@
 
     <div class="related card">
       <div class="card-header">
-        <h4>
+        <h5><b>
           <?= __('PR Item List') ?>
-        </h4>
+</b>  </h5>
       </div>
       <div class="card-body">
         <?php if (!empty($prHeader->pr_footers)) : ?>

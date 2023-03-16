@@ -26,8 +26,10 @@ padding: 0.5rem 0.5rem;
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
-
+    
+    <?= $this->Html->css('listing.css') ?>
     <?= $this->Html->css('cstyle.css') ?>
+    <?= $this->Html->css('table.css') ?>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">

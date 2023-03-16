@@ -27,9 +27,9 @@
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div class="card">
   <div class="card-header">
-    <h3 style="color: navy;"><b>
+    <h5 ><b>
         <?= h($poHeader->po_no) ?>
-      </b></h3>
+      </b></h5>
   </div>
   <div class="card-body">
     <table class="table" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
@@ -99,9 +99,9 @@
 
 <div class="card">
   <div class="card-header">
-    <h3 style="color: navy;"><b>
+    <h5 ><b>
         <?= __('PO Item List') ?>
-      </b></h3>
+      </b></h5>
   </div>
   <div class="card-body">
     <?php if (!empty($poHeader->po_footers)) : ?>

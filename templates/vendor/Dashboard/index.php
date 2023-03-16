@@ -6,7 +6,17 @@
 ?>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
+
 <!-- Main content -->
+<style>
+  .table> :not(caption)>*>*{
+    padding:0rem
+    
+  }
+  .table thead th{
+    padding:0rem
+  }
+  </style>
 <div class="row" style="margin-top: 25px">
 
   <div class="col-sm-12 col-lg-3">
@@ -182,13 +192,13 @@
   <div class="card-header">
         <div class="row">
             <div class="col-sm-12 col-lg-10">
-                <h3 class="mb-0" style="color:navy;"><b> Submitted RFQs</b></h3>
+                <h4 class="mb-0" style="color:navy;"><b> Submitted RFQs</b></h4>
             </div>
         </div>
   </div>
   <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover" id="respondedrfqlist"  style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
+            <table class="table table-hover" id="respondedrfqlist"  style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray; padding:0rem">
                 <thead>
                     <tr style="background-color: #d3d3d36e;">
                         <th>

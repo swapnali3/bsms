@@ -11,7 +11,7 @@
     <div class="column-responsive column-80">
         <div class="rfqs view content">
             
-        RFQ NO : <?= $rfqs->toArray()[0]->rfq_no ?>
+        <b>RFQ NO : <?= $rfqs->toArray()[0]->rfq_no ?></b>
             <div class="card-body">
         <div class="table-responsive">
           <table class="table" id="example1">
@@ -57,7 +57,7 @@
 
 <div class="row card">
     <div class="column-responsive column-80">
-        <h3>Communications</h3>
+        <h5><b>Communications</b></h5>
         <hr />
         <div class="card-body p-0">
             <?php foreach($chatHistory as $chat) :?>

@@ -53,7 +53,7 @@ label{
         <div class="table-responsive">
             <table class="card-body table table-hover" id="example1">
                 <thead>
-                    <tr>
+                    <tr style="background-color: #d3d3d36e;">
                         <th>
                             <?= h('Status') ?>
                         </th>
