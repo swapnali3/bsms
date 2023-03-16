@@ -5,10 +5,8 @@
  */
 ?>
 <div class="deliveryDetails index content card">
-    <div class="card-header"style="
-    background-color: #0095ff;
-">
-        <h3 style="color:white;"><b><?= __('DELIVERY DETAIL') ?></b></h3>
+    <div class="card-header">
+        <h3><b><?= __('DELIVERY DETAIL') ?></b></h3>
     </div>
     <div class="card-body table-responsive">
         <table class="table table-hover" id="example1">

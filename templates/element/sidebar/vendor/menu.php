@@ -6,6 +6,7 @@
      <?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : ''; ?>
      <?php $profileActive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
      <?php $rfqlickActive = ($controller == 'Rfqs') ? 'active' : ''; ?>
+     <?php $asnActive = ($controller == 'asn') ? 'active' : ''; ?>
      
 <style>
      .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl{
@@ -50,6 +51,10 @@
 
 <li class="nav-item menu-open">
   <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link $polickActive" , 'escape' => false]) ?>
+</li>
+
+<li class="nav-item menu-open">
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>ASN</p>'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">

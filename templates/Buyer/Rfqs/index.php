@@ -6,7 +6,14 @@
 ?>
 <div class="rfqs index content card">
     
-    <h3><?= __('Rfqs') ?></h3>
+<div class="card-header">
+        <h3>
+            <b>
+                <?= __('RFQ List') ?>
+            </b>
+        </h3>
+    </div>
+
     <div class="card-body p-0">
     <div class="table-responsive">
         <table class="table table-hover" id="example1">

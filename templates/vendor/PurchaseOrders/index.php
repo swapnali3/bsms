@@ -56,18 +56,18 @@
                 </thead>
                 <tbody>
                     <?php foreach ($poHeaders as $poHeader): ?>
-                    <tr>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->sap_vendor_code) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->po_no) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->document_type) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->created_on) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->created_by) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->pay_terms) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->currency) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= $this->Number->format($poHeader->exchange_rate) ?> </td>
+                    <tr class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td><?= h($poHeader->sap_vendor_code) ?></td>
+                        <td><?= h($poHeader->po_no) ?></td>
+                        <td><?= h($poHeader->document_type) ?></td>
+                        <td><?= h($poHeader->created_on) ?></td>
+                        <td><?= h($poHeader->created_by) ?></td>
+                        <td><?= h($poHeader->pay_terms) ?></td>
+                        <td><?= h($poHeader->currency) ?></td>
+                        <td><?= $this->Number->format($poHeader->exchange_rate) ?> </td>
                         <!-- <td><?= h($poHeader->release_status) ?></td> -->
                         <!-- <td><?= h($poHeader->added_date) ?></td> -->
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= h($poHeader->updated_date) ?>
                         </td>
                     </tr>

@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
 /**
  * RfqInquiries Model
  *
+ * @property \App\Model\Table\RfqsTable&\Cake\ORM\Association\BelongsTo $Rfqs
  * @property \App\Model\Table\RfqItemsTable&\Cake\ORM\Association\BelongsTo $RfqItems
  *
  * @method \App\Model\Entity\RfqInquiry newEmptyEntity()
@@ -81,6 +82,14 @@ class RfqInquiriesTable extends Table
         $validator
             ->decimal('rate')
             ->allowEmptyString('rate');
+
+        $validator
+            ->decimal('discount')
+            ->notEmptyString('discount');
+
+        $validator
+            ->decimal('sub_total')
+            ->notEmptyString('sub_total');
 
         $validator
             ->date('delivery_date')

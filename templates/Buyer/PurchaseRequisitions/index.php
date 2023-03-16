@@ -5,12 +5,10 @@
  */
 ?>
 <div class="poHeaders index content card">
-    <div class="card-header"style="
-    background-color: #0095ff;
-">
-        <h3 style="color:WHITE">
+    <div class="card-header">
+        <h3>
             <b>
-                <?= __('PURCHASE Requisitions LISTS') ?>
+                <?= __('PURCHASE REQUISITIONS LISTS') ?>
             </b>
         </h3>
     </div>
