@@ -13,7 +13,7 @@
         <div class="card">
             <?= $this->Form->create() ?>
             <div class="card-header">
-            <h5><b><?= __('Enter ASN No') ?></b></h5>
+            <h5><b>ENTER ASN NO</b></h5>
             </div>
             <div class="card-body">
                 <div class="row">

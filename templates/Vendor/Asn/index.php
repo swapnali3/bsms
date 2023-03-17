@@ -4,13 +4,20 @@
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
  */
 ?>
+
+<style>
+    .card-header{
+	padding:1rem
+}
+
+    </style>
 <div class="deliveryDetails index content card">
     <div class="card-header">
-        <h3>
+        <h5>
             <b>
                 <?= __('ASN LIST') ?>
             </b>
-        </h3>
+        </h5>
     </div>
     <div class="card-body">
         <table class="table table-hover" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">

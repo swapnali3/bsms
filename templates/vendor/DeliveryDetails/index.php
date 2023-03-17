@@ -18,13 +18,13 @@
 
 
 <div class="deliveryDetails index content card">
-    <!-- <div class="card-header">
-        <h3 style="color: navy;">
+    <div class="card-header">
+        <h5>
             <b>
                 <?= __('DELIVERY DETAIL') ?>
             </b>
-        </h3>
-    </div> -->
+        </h5>
+    </div>
     <div class="card-body">
         <table class="table table-hover" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
             <thead>

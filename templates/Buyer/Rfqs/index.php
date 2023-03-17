@@ -7,11 +7,11 @@
 <div class="rfqs index content card">
     
 <div class="card-header">
-        <h3>
+        <h5>
             <b>
-                <?= __('RFQ List') ?>
+                RFQ LIST
             </b>
-        </h3>
+        </h5>
     </div>
 
     <div class="card-body p-0">
@@ -32,9 +32,9 @@
                     <td><?= $rfq->has('vendor_temp') ? $rfq->vendor_temp->name : '' ?></td>
                     <td><?= $rfq->has('pr_header') ? $rfq->pr_header->pr_no : '' ?></td>
                     <td><?= h($rfq->added_date) ?></td>
-                    <td class="actions">
+                    <!-- <td class="actions">
                         
-                    </td>
+                    </td> -->
                 </tr>
                 <?php endforeach; ?>
             </tbody>

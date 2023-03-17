@@ -35,7 +35,7 @@
                     <div class="col-sm-12 col-md-3">
                         <?php echo $this->Form->control('sap_vendor_code', array('class' => 'form-control rounded-0','div' => 'form-group', 'required')); ?>
                     </div>
-                    <div class="col-sm-12 col-md-3 mt-4 pt-2">
+                    <div class="col-sm-12 col-md-1 mt-4 pt-3">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info']) ?>
                     </div>
                 </div>

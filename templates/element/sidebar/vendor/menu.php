@@ -54,7 +54,7 @@
 </li>
 
 <li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>ASN</p>'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>ASN</p>'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">

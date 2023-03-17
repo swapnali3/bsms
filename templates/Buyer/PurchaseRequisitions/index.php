@@ -6,11 +6,11 @@
 ?>
 <div class="poHeaders index content card">
     <div class="card-header">
-        <h3>
+        <h5>
             <b>
                 <?= __('PURCHASE REQUISITIONS LISTS') ?>
             </b>
-        </h3>
+        </h5 >
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">

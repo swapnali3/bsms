@@ -15,12 +15,15 @@
     body{
         font-size:0.9rem
     }
+    button, input, optgroup, select, textarea {
+        margin:10px
+    }
 </style>
 <div class="vendorMaterialStocks index content card">
     <div class="card-header">
         <?= $this->Form->create(null, ['url' => ['action' => 'upload'],'type' => 'file']) ?>
         <fieldset>
-            <h5><b><?= __('Upload Stocks') ?></b></h5>
+            <h5><b>UPLOAD STOCKS</b></h5>
             
             <div class="form-group">
                 <div class="input-group">
@@ -36,7 +39,7 @@
     </div>
 
     <div class="card-header">
-        <h5><b>Material Stock List</b></h5>
+        <h5><b>MATERIAL STOCK LIST</b></h5>
     </div>
 
     <div class="card-body">

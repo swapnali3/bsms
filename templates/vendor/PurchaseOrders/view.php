@@ -9,9 +9,9 @@
 
 <div class="card">
   <div class="card-header">
-    <h3 style="color: navy;"><b>
+    <h5><b>
         <?= h($poHeader[0]->po_no) ?>
-      </b></h3>
+      </b></h5>
   </div>
   <!-- <div class="card-body">
     <table class="table" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
@@ -83,7 +83,7 @@
 
 <div class="card">
   <div class="card-header">
-    <h3 style="color: navy;"><b><?= __('Invoice Details') ?></b></h3>
+    <h5><b><?= __('Invoice Details') ?></b></h5>
   </div>
   <div class="card-body">
         <div class="row">
@@ -119,9 +119,9 @@
 
 <div class="card">
   <div class="card-header">
-    <h3 style="color: navy;"><b>
+    <h5><b>
         <?= __('Material List') ?>
-      </b></h3>
+      </b></h5>
   </div>
   <div class="card-body">
     <?php if (count($poHeader)) : ?>
@@ -199,7 +199,7 @@
             Total Value : <span id="total_value"> 0 </span>
     </div>
     
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-info">Submit</button>
     <?php endif; ?>
   </div>
 </div>

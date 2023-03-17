@@ -8,14 +8,17 @@
     .redirect{
         cursor: pointer;
     }
+    .card-header{
+        padding:1rem
+    }
 </style>
 <div class="poHeaders index content card">
     <div class="card-header">
-        <h3 style="color:navy">
+        <h5>
             <b>
                 <?= __('PURCHASE ORDER LISTS') ?>
             </b>
-        </h3>
+        </h5>
     </div>
     <div class="card-body">
         <div class="table-responsive">

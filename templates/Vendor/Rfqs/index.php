@@ -19,7 +19,7 @@
     <div class="card-header">
         <h5 style="color:black">
             <b>
-                <?= __('Rfqs') ?>
+                RFQ
             </b>
         </h5>
     </div>
