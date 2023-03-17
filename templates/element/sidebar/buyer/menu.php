@@ -101,7 +101,7 @@
 </li>
 
 <li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>purchase Requisitions</p>'), ['controller' => 'purchase-requisitions', 'action' => 'index'], ['class' => "nav-link $prlickActive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Requisitions</p>'), ['controller' => 'purchase-requisitions', 'action' => 'index'], ['class' => "nav-link $prlickActive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">

@@ -9,7 +9,7 @@
     
     <div class="column-responsive column-80">
         <div class="rfqs view content">
-            <h3>RFQ Details</h3>
+            <h5><b>RFQ Details</b></h5>
 
 
             <div class="row">
@@ -21,7 +21,7 @@
                     RFQ No. : <b><?=h($rfqs->toArray()[0]->rfq_no) ?></b>
                 </div>
 
-                <div class="col-sm-1 col-lg-2 mt-4">
+                <div class="col-sm-1 col-lg-3 mt-4">
                     Vendor : <b><?=h($rfqs->toArray()[0]->vendor_temp->name) ?></b>
                 </div>
             </div>
@@ -92,7 +92,7 @@
 
 <div class="row card">
     <div class="column-responsive column-80">
-        <h3>Communications</h3>
+        <hs><b>Communications</b></hs>
         <hr />
         <div class="card-body p-0">
             <?php foreach($chatHistory as $chat) :?>
