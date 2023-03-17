@@ -13,13 +13,17 @@ use Cake\ORM\Entity;
  * @property int $buyer_id
  * @property int $vendor_temp_id
  * @property int $pr_header_id
+ * @property string $sub_total
+ * @property string $freight_value
+ * @property string $tax_value
+ * @property string $total_value
  * @property bool $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
  *
  * @property \App\Model\Entity\VendorTemp $vendor_temp
  * @property \App\Model\Entity\PrHeader $pr_header
- * @property \App\Model\Entity\RfqInquiry[] $rfq_inquiries
+ * @property \App\Model\Entity\RfqCommunication[] $rfq_communications
  * @property \App\Model\Entity\RfqItem[] $rfq_items
  */
 class Rfq extends Entity
@@ -38,12 +42,16 @@ class Rfq extends Entity
         'buyer_id' => true,
         'vendor_temp_id' => true,
         'pr_header_id' => true,
+        'sub_total' => true,
+        'freight_value' => true,
+        'tax_value' => true,
+        'total_value' => true,
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
         'vendor_temp' => true,
         'pr_header' => true,
-        'rfq_inquiries' => true,
+        'rfq_communications' => true,
         'rfq_items' => true,
     ];
 }

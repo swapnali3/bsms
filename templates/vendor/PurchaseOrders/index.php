@@ -8,27 +8,15 @@
     .redirect{
         cursor: pointer;
     }
-    .table td, .table th{
-        padding:0rem
-    }
-    body{
-        font-size:0.9rem
-    }
-    /* table.dataTable>thead>tr>th:not(.sorting_disabled), table.dataTable>thead>tr>td:not(.sorting_disabled){
-        padding-top:2px
-    } */
-    /* .table thead th{
-        padding:0rem
-    } */
 </style>
 <div class="poHeaders index content card">
-    <!-- <div class="card-header">
+    <div class="card-header">
         <h3 style="color:navy">
             <b>
                 <?= __('PURCHASE ORDER LISTS') ?>
             </b>
         </h3>
-    </div> -->
+    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-hover" id="example1"
@@ -68,18 +56,18 @@
                 </thead>
                 <tbody>
                     <?php foreach ($poHeaders as $poHeader): ?>
-                    <tr>
-                    <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->sap_vendor_code) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->po_no) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->document_type) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->created_on) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->created_by) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->pay_terms) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->currency) ?></td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>"><?= $this->Number->format($poHeader->exchange_rate) ?> </td>
+                    <tr class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td><?= h($poHeader->sap_vendor_code) ?></td>
+                        <td><?= h($poHeader->po_no) ?></td>
+                        <td><?= h($poHeader->document_type) ?></td>
+                        <td><?= h($poHeader->created_on) ?></td>
+                        <td><?= h($poHeader->created_by) ?></td>
+                        <td><?= h($poHeader->pay_terms) ?></td>
+                        <td><?= h($poHeader->currency) ?></td>
+                        <td><?= $this->Number->format($poHeader->exchange_rate) ?> </td>
                         <!-- <td><?= h($poHeader->release_status) ?></td> -->
                         <!-- <td><?= h($poHeader->added_date) ?></td> -->
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= h($poHeader->updated_date) ?>
                         </td>
                     </tr>
@@ -108,7 +96,7 @@
     $(document).ready(function () {
         $("#example1").DataTable({
             "paging": true,
-            // "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
+            "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });

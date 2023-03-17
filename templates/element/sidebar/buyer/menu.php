@@ -36,7 +36,7 @@
      with font-awesome or any other icon font library -->
 
 <?php $polickActive = ($controller == 'PurchaseOrders') ? 'active' : ''; ?>
-<?php $prlickActive = ($controller == 'purchaseRequisitions') ? 'active' : ''; ?>
+<?php $prlickActive = ($controller == 'PurchaseRequisitions') ? 'active' : ''; ?>
 <?php $dashactive = ($controller == 'Dashboard') ? 'active' : ''; ?>
 <?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
 <?php $settingactive = ($controller == 'Settings') ? 'active' : ''; ?>
@@ -50,6 +50,7 @@
 <?php $temvenactive = ($controller == 'buyervendor-temps') ? 'active' : ''; ?>
 <?php $buyvendaddactive = ($controller == 'buyervendor-temps' && $action == 'add') ? 'menu-open' : ''; ?>
 <?php $buyvendsaevendactive = ($controller == 'VendorTemps' && $action == 'sap-add') ? 'menu-open' : ''; ?>
+<?php $asnactive = ($controller == 'Asn') ? 'active' : ''; ?>
 
 
 <li class="nav-item menu-open">
@@ -109,6 +110,9 @@
 
 <li class="nav-item menu-open">
   <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
+</li>
+<li class="nav-item menu-open">
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Gate Entry</p>'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">

@@ -4,42 +4,19 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
-<style>
-.table td, .table th{
-        padding:0rem;
-        font-size:small;
-        
-
-    }
-    .card-body{
-        padding:0.5rem
-    }
-    .btn
-    {
-        padding:0.1rem;
-        font-size:0.7rem;
-        border:1px;
-        border-color:black
-    }
-    
-
-    </style>
-
 <div class="poHeaders index content card">
-    <!-- <div class="card-header"style="
-    background-color: #0095ff;
-">
-        <h3 style="color:WHITE">
+    <div class="card-header">
+        <h3>
             <b>
                 <?= __('PURCHASE ORDER LISTS') ?>
             </b>
         </h3>
-    </div> -->
+    </div>
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover" id="example1">
                 <thead>
-                    <tr style="background-color: #d3d3d36e;">
+                    <tr>
                         <th>
                             <?= h('Vendor Code') ?>
                         </th>
@@ -73,48 +50,50 @@
                         <th>
                             <?= h('Updated Date') ?>
                         </th>
-                        <!-- <th class="actions">
-                            <?= __('Actions') ?> -->
+                        <th class="actions">
+                            <?= __('Actions') ?>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($poHeaders as $poHeader): ?>
                     <tr>
-                    
-                    <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>"><?= h($poHeader->sap_vendor_code) ?></td>
-                        
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
+                            <?= h($poHeader->sap_vendor_code) ?>
+                        </td>
+                        <td>
                             <?= h($poHeader->po_no) ?>
                         </td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= h($poHeader->document_type) ?>
                         </td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= h($poHeader->created_on) ?>
                         </td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= h($poHeader->created_by) ?>
                         </td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= h($poHeader->pay_terms) ?>
                         </td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= h($poHeader->currency) ?>
                         </td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= $this->Number->format($poHeader->exchange_rate) ?>
                         </td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= h($poHeader->release_status) ?>
                         </td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= h($poHeader->added_date) ?>
                         </td>
-                        <td class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
+                        <td>
                             <?= h($poHeader->updated_date) ?>
                         </td>
-                        
+                        <td class="actions">
+                            <a type="button" class="btn btn-sm btn-default mb-0" href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= h($poHeader->id) ?>">View</a>
+                        </td>
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -136,9 +115,7 @@
 
 
 <script>
-        $(document).on("click", ".redirect", function () {
-        window.location.href = $(this).data("href");
-    });
+    
     $(document).ready(function () {
         $("#example1").DataTable({
             "responsive": {"details": {"type": none}},

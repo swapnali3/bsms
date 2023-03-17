@@ -52,7 +52,7 @@ class RfqsController extends BuyerAppController
         $this->loadModel('RfqCommunications');
 
         $rfqs = $this->Rfqs->find()
-            ->select(['Rfqs.id', 'Rfqs.rfq_no', 'PrHeaders.pr_no', 'PrFooters.item', 'PrFooters.material', 'VendorTemps.name', 'RfqInquiries.qty', 'RfqInquiries.rate', 'RfqInquiries.delivery_date'])
+            ->select(['Rfqs.id', 'Rfqs.rfq_no', 'PrHeaders.pr_no','Rfqs.sub_total','Rfqs.freight_value','Rfqs.tax_value','Rfqs.total_value', 'PrFooters.item', 'PrFooters.material', 'VendorTemps.name', 'RfqInquiries.qty', 'RfqInquiries.rate', 'RfqInquiries.delivery_date','RfqInquiries.discount', 'RfqInquiries.sub_total'])
             ->contain(['VendorTemps', 'PrHeaders'])
             ->leftJoin(['RfqItems' => 'rfq_items'],
             ['RfqItems.rfq_id = Rfqs.id']

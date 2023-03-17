@@ -3,34 +3,19 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
-
-
-
 ?>
-<style>
-    .table td, .table th{
-        padding:0.2rem
-    }
-    .table thead th{
-        padding:0.2rem
-    }
-    body{font-family:"Source Sans Pro"
-    }
-    
-    </style>
 <div class="poHeaders index content card">
     <div class="card-header">
-        <h5 style="color:black">
+        <h3>
             <b>
-                PURCHASE REQUISITION LIST
+                <?= __('PURCHASE REQUISITIONS LISTS') ?>
             </b>
-        </h5>
+        </h3>
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover" id="example1">
-                <thead style="
-    BACKGROUND-COLOR: GAINSBORO;">
+                <thead>
                     <tr>
                         
                         <th>

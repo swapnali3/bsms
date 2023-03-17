@@ -13,6 +13,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\VendorTempsTable&\Cake\ORM\Association\BelongsTo $VendorTemps
  * @property \App\Model\Table\PrHeadersTable&\Cake\ORM\Association\BelongsTo $PrHeaders
+ * @property \App\Model\Table\RfqCommunicationsTable&\Cake\ORM\Association\HasMany $RfqCommunications
  * @property \App\Model\Table\RfqItemsTable&\Cake\ORM\Association\HasMany $RfqItems
  *
  * @method \App\Model\Entity\Rfq newEmptyEntity()
@@ -56,6 +57,12 @@ class RfqsTable extends Table
         $this->hasMany('RfqCommunications', [
             'foreignKey' => 'rfq_id',
         ]);
+        $this->hasMany('RfqInquiries', [
+            'foreignKey' => 'rfq_id',
+        ]);
+        $this->hasMany('RfqInquiriesHistories', [
+            'foreignKey' => 'rfq_id',
+        ]);
         $this->hasMany('RfqItems', [
             'foreignKey' => 'rfq_id',
         ]);
@@ -85,6 +92,22 @@ class RfqsTable extends Table
         $validator
             ->integer('pr_header_id')
             ->notEmptyString('pr_header_id');
+
+        $validator
+            ->decimal('sub_total')
+            ->notEmptyString('sub_total');
+
+        $validator
+            ->decimal('freight_value')
+            ->notEmptyString('freight_value');
+
+        $validator
+            ->decimal('tax_value')
+            ->notEmptyString('tax_value');
+
+        $validator
+            ->decimal('total_value')
+            ->notEmptyString('total_value');
 
         $validator
             ->boolean('status')

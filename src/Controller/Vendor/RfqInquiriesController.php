@@ -115,11 +115,22 @@ class RfqInquiriesController extends VendorAppController
             $request = $this->request->getData();
             //echo '<pre>'; print_r($request); exit;
             
+            $this->loadModel('Rfqs');
             $this->loadModel('RfqInquiries');
             $this->loadModel('RfqInquiriesHistories');
 
             try {
 
+                $rfq = $this->Rfqs->get($request['rfq_id']);
+                $rfq->sub_total = $request['subtotal_value'];
+                $rfq->freight_value = $request['freight_value'];
+                $rfq->tax_value = $request['tax_value'];
+                $rfq->total_value = $request['total_value'];
+                
+                if($this->Rfqs->save($rfq)) {
+                        
+                }
+                
                 $data = array();
                 $error = false;
                 foreach($request['rfq_item_id'] as $key => $val) {
@@ -134,6 +145,8 @@ class RfqInquiriesController extends VendorAppController
                         $RfqInquiry->inquiry = 1;
                         $RfqInquiry->qty = $request['qty'][$key];
                         $RfqInquiry->rate = $request['rate'][$key];
+                        $RfqInquiry->discount = $request['discount'][$key];
+                        $RfqInquiry->sub_total = $request['item_subtotal_value'][$key];
                         $RfqInquiry->delivery_date = $request['delivery_date'][$key];
                     } else {
                         $data['rfq_id'] =  $request['rfq_id'];
@@ -142,6 +155,8 @@ class RfqInquiriesController extends VendorAppController
                         $data['inquiry'] = 1;
                         $data['qty'] = $request['qty'][$key];
                         $data['rate'] = $request['rate'][$key];
+                        $data['discount'] = $request['discount'][$key];
+                        $data['sub_total'] = $request['item_subtotal_value'][$key];
                         $data['delivery_date'] = $request['delivery_date'][$key];
                         //print_r($data); exit;
                         //$RfqInquiry = $this->RfqInquiries->newEntities($data);
@@ -156,37 +171,8 @@ class RfqInquiriesController extends VendorAppController
                     } else {
                         $error = true;
                     }
-                
-                    /*$tmp = array();
-                    $tmp['rfq_id'] = $val;
-                    $tmp['seller_id'] = $session->read('vendor_id');
-                    $tmp['inquiry'] = 1;
-                    $tmp['qty'] = $request['qty'][$key];
-                    $tmp['rate'] =  $request['rate'][$key];
-                    $tmp['delivery_date'] =  $request['delivery_date'][$key];
-
-                    $data[] = $tmp; */
                 }
 
-                
-
-
-                //$RfqInquiry = $this->RfqInquiries->newEntities($data);
-
-                //print_r($RfqInquiry); exit;
-                
-                /*if($this->RfqInquiries->save($RfqInquiry)) {
-                    $this->Flash->success(__('Inquiry send to Buyer.'));
-                    return $this->redirect(['controller' => 'rfqs', 'action' => 'index']);
-                } else {
-                    
-                    foreach($RfqInquiry as $err) {
-                        if($err->hasErrors()) {
-                            $this->Flash->error(__("Quation save fail"));
-                        }
-                    }
-                    return $this->redirect(['controller' => 'rfqs', 'action' => 'view', $id]);
-                } */
 
                 if($error) {
                     foreach($RfqInquiry as $err) {

@@ -4,41 +4,14 @@
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
  */
 ?>
-
-<style>
-  .table td, .table th{
-          padding:0rem;
-          font-size:small;
-          background-color:
-      }
-      .card
-      {margin-bottom:0rem}
-
-      .content-wrapper{
-        background-color:white
-      }
-      .card-body{
-        padding:0.5rem
-      }
-      .table{
-        background-color:transparent
-      }
-      /* .table:not(.table-dark){
-        background-color:beige
-      } */
-</style>
-
-
 <div class="deliveryDetails index content card">
-    <!-- <div class="card-header"style="
-    background-color: #0095ff;
-">
-        !-- <h3 style="color:white;"><b><?= __('DELIVERY DETAIL') ?></b></h3> -->
-    </div> 
+    <div class="card-header">
+        <h3><b><?= __('DELIVERY DETAIL') ?></b></h3>
+    </div>
     <div class="card-body table-responsive">
         <table class="table table-hover" id="example1">
             <thead>
-                <tr style="background-color: #d3d3d36e;">
+                <tr>
                     <th>Purchase Order</th>
                     <th>Item</th>
                     <th>Challan No.</th>
