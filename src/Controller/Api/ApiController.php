@@ -157,7 +157,7 @@ class ApiController extends ApiAppController
                             $tmp['short_text'] = $item['TXZ01'];
                             $tmp['qty'] = $item['MENGE'];
                             $tmp['unit'] = $item['MEINS'];
-                            $tmp['delivery_date'] = $item['LPEIN'];
+                            $tmp['delivery_date'] = $item['LFDAT'];
                             $tmp['plant'] = $item['WERKS'];
                             $tmp['material_group'] = $item['MATKL'];
                             $tmp['storage_location'] = $item['LGORT'];
