@@ -50,7 +50,7 @@
   }
 
   .main-footer {
-    padding: 0rem;
+    /* padding: 0rem; */
   }
 
   .mt-4, .my-4{
@@ -387,7 +387,7 @@
           </div>
         </div>
         <canvas id="donutChart"
-          style="min-height: 150px; height: 150px; max-height: 150px; max-width: 100%; display: block; width: 487px;"
+          style="min-height: 180px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
           width="487" height="150" class="chartjs-render-monitor"></canvas>
       </div>
       <!-- /.card-body -->
@@ -413,7 +413,7 @@
             </div>
           </div>
           <canvas id="barChart"
-            style="min-height: 150px; height: 250px; max-height: 150px; max-width: 100%; display: block; width: 200;"
+            style="min-height: 165px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 200;"
             width="200" height="250" class="chartjs-render-monitor"></canvas>
         </div>
       </div>
@@ -442,7 +442,7 @@
           </div>
         </div>
         <canvas id="donutChart1"
-          style="min-height: 150px; height: 250px; max-height: 150px; max-width: 100%; display: block; width: 300px;"
+          style="min-height: 180px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 300px;"
           width="487" height="250" class="chartjs-render-monitor"></canvas>
       </div>
       <!-- /.card-body -->
@@ -469,7 +469,7 @@
             </div>
           </div>
           <canvas id="barChart2"
-            style="min-height: 150pxx; height: 250px; max-height: 150px; max-width: 100%; display: block; width: 487px;"
+            style="min-height: 250pxx; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
             width="487" height="250" class="chartjs-render-monitor"></canvas>
         </div>
       </div>

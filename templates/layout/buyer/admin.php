@@ -7,7 +7,9 @@
 
 ?>
 <style>
-
+.content-wrapper{
+    min-height:750px !important;
+}
 </style>
 
 <!DOCTYPE html>
@@ -82,8 +84,9 @@
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
-                style="background-color:#ffffff; text-align-last:center;">
-                <?= $this->Html->image('ft_rect_logo.png', ['width' => '110', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
+                style="text-align-last:center;background-color:#fff;"  >
+                <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '1']) ?>
+                <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
             <div class="sidebar">
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="text-align-last: center;">

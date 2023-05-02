@@ -5,9 +5,9 @@
  */
 
 ?>
-
+<?= $this->Html->css('custom') ?>
 <style>
-.card-body{
+/* .card-body{
     padding:0.1rem;
     background-Color:WHITE
 }
@@ -26,7 +26,7 @@ label{
 }
 .mb-2, .my-2{
     margin-bottom:0.5rem
-}
+} */
 
 </style>
 <!-- <div class="card">
@@ -49,11 +49,11 @@ label{
             </div> -->
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body vendor-list">
         <div class="table-responsive">
-            <table class="card-body table table-hover" id="example1">
+            <table class="table table-hover" id="example1">
                 <thead>
-                    <tr style="background-color: #d3d3d36e;">
+                    <tr>
                         <th>
                             <?= h('Status') ?>
                         </th>
@@ -156,11 +156,15 @@ label{
         $("#example1").DataTable({
             "responsive": false, "lengthChange": true, "autoWidth": true,
             'order': [[10, 'desc']],
+            language: {
+          search: "_INPUT_",
+        searchPlaceholder: "Search..."
+    },
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         });
         $('#example1').on('click', 'tbody tr', function () {
             window.location = $(this).closest('tr').attr('redirect');
         });
-        $('.row').attr('style','width:110vw;')
+        // $('.row').attr('style','width:110vw;')
     });
 </script>

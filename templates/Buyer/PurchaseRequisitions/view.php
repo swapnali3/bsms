@@ -8,6 +8,7 @@
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
+  <?= $this->Html->css('custom') ?>
 
 <div class="row">
   <div class="col-12">
@@ -18,7 +19,7 @@
 </b></h5>
       </div>
       <div class="card-body table-responsive p-0">
-        <table class="table">
+        <table class="table table-bordered">
           <tr>
             
             <th>
@@ -368,6 +369,10 @@
     var table = $("#example1").DataTable({
       "paging": true,
       "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
+      language: {
+          search: "_INPUT_",
+        searchPlaceholder: "Search..."
+    },
     });
     $(document).on("click", ".flu", function () {
       if ($(this).data('alt') == '+') {

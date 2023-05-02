@@ -4,7 +4,8 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
-<div class="poHeaders index content card">
+ <?= $this->Html->css('custom') ?>
+<div class="poHeaders index content card PR">
     <div class="card-header">
         <h5>
             <b>
@@ -49,8 +50,8 @@
                         </td>
                         <td 
                         class="actions">
-                        <a type="button" class="btn btn-sm btn-default mb-0" href="<?= $this->Url->build('/') ?>buyer/purchase-requisitions/create-rfq/<?= h($poHeader->id) ?>">Create RFQ</a>
-                            <a type="button" class="btn btn-sm btn-default mb-0" href="<?= $this->Url->build('/') ?>buyer/purchase-requisitions/view/<?= h($poHeader->id) ?>">View</a>
+                        <a type="button" class="btn btn-sm btn-default btn-success mb-0" href="<?= $this->Url->build('/') ?>buyer/purchase-requisitions/create-rfq/<?= h($poHeader->id) ?>">Create RFQ</a>
+                            <a type="button" class="btn btn-sm btn-default btn-info mb-0" href="<?= $this->Url->build('/') ?>buyer/purchase-requisitions/view/<?= h($poHeader->id) ?>">View</a>
                         </td>
                     </tr>
                     <?php endforeach; ?>

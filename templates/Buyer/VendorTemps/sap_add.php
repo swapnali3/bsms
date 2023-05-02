@@ -8,20 +8,8 @@
  */
 ?>
 
-<style>
-.card-header{
-    padding:0.3rem;
-    
-    background-color: #cbcbcb;
-    padding-left:7.5px;
-    margin-bottom:2px     
-
-}
-.card-body{
-    padding:0.5rem
-}
-</Style>
-<div class="row">
+<?= $this->Html->css('custom') ?>
+<div class="row sap-vendor">
     
     <div class="col-12">
         <div class="card">
@@ -32,10 +20,10 @@
             </div> -->
             <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-12 col-md-3">
+                    <div class="col-sm-12 col-md-6">
                         <?php echo $this->Form->control('sap_vendor_code', array('class' => 'form-control rounded-0','div' => 'form-group', 'required')); ?>
                     </div>
-                    <div class="col-sm-12 col-md-1 mt-4 pt-3">
+                    <div class="col-sm-12 col-md-12 mt-3">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info']) ?>
                     </div>
                 </div>

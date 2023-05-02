@@ -1,4 +1,7 @@
 <style>
+  .custom-i {
+    background-color: #ffc107 !important;
+}
   .navbar{
     padding:0rem 0rem
   }
@@ -53,7 +56,7 @@
   <li class="nav-item dropdown show">
           <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge">15</span>
+            <span class="badge badge-warning navbar-badge custom-i">15</span>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
             <span class="dropdown-header">15 Notifications</span>

@@ -8,6 +8,7 @@
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
+  <?= $this->Html->css('custom') ?>
 
 <div class="row">
 <?= $this->Form->create(null, ['id' => 'rfqForm']) ?>
@@ -87,12 +88,12 @@
     </div>
 
     <div class="related card">
-      <div class="card-header">
+      <!-- <div class="card-header">
         
-      </div>
-      <div class="card-body">
+      </div> -->
+      <div class="card-body rfq-editor">
         <?php if (!empty($vendors)) : ?>
-        <div class="table-responsive">
+        <div class="table-responsive ">
         <?php 
           echo $this->Form->control('search_supplier', ['label' => 'Search Supplier', 'class' => 'search_supplier form-control']);
         //echo $this->Form->control("Suppliers", ['label' => false, 'class' => 'form-control', 'id' => 'suppliers', 'options' => $vendors, 'empty' => 'Select', 'multiple' => true, 'required' => true]); ?>

@@ -4,7 +4,9 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
-<div class="poHeaders index content card">
+ <?= $this->Html->css('custom') ?>
+
+<div class="poHeaders index content card po">
     <div class="card-header">
         <h5>
             <b>

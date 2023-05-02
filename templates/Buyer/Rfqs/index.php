@@ -4,6 +4,7 @@
  * @var iterable<\App\Model\Entity\Rfq> $rfqs
  */
 ?>
+<?= $this->Html->css('custom') ?>
 <div class="rfqs index content card">
     
 <div class="card-header">
@@ -16,7 +17,7 @@
 
     <div class="card-body p-0">
     <div class="table-responsive">
-        <table class="table table-hover" id="example1">
+        <table class="table table-hover table-bordered" id="example1">
             <thead>
                 <tr>
                     <th><?= h(_('RFQ No')) ?></th>

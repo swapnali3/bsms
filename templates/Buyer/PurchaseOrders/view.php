@@ -6,37 +6,22 @@
 ?>
 
 
-<style>
-  .table td, .table th{
-          padding:0rem;
-          font-size:small
-      }
-      .card-body{
-          padding:0.5rem
-      }
-      .btn
-    {
-        padding:0.1rem;
-        font-size:0.7rem;
-        border:1px;
-        border-color:black
-    }
-</style>     
+   
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
-
+  <?= $this->Html->css('custom') ?>
 <div class="row">
   <div class="col-12">
     <div class="poHeaders view content card">
       <div class="card-header">
-        <h5><b>
+        <h5>PO NO :<b>
           <?= h($poHeader->po_no) ?>
   </b></h5>
       </div>
       <div class="card-body table-responsive p-0">
-        <table class="table">
+        <table class="table table-bordered">
           <tr>
             <th>
               <?= __('Vendor Code') ?>
@@ -200,8 +185,8 @@
 
                 <td class="actions">
                   <div class="btn-group">
-                    <?= $this->Html->link(__('Schedule'), "#", ['class' => 'schedule_item btn btn-default', 'data-toggle'=> "modal", 'data-target' => "#scheduleModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id, 'item-no' => $poFooters->item]) ?>
-                    <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                    <?= $this->Html->link(__('Schedule'), "#", ['class' => 'schedule_item btn-warning btn btn-default', 'data-toggle'=> "modal", 'data-target' => "#scheduleModal" ,'header-id' => $poHeader->id, 'footer-id' => $poFooters->id, 'item-no' => $poFooters->item]) ?>
+                    <button type="button" class="btn btn-default btn-success view-btn dropdown-toggle dropdown-icon" data-toggle="dropdown">
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu" role="menu">
@@ -233,7 +218,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">Delivery Detail :
+        <h5 class="modal-title"><b>Delivery Detail :</b>
           <?= h($poHeader->po_no .' - '. $poFooters->item) ?>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -362,7 +347,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <table>
+      <table class="table table-bordered commu-tbl">
   <tr style="align:middle">
     <th>Name</th>
     <th>Date</th>
@@ -538,8 +523,18 @@
 
     var table = $("#example1").DataTable({
       "paging": true,
-      "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
+      "responsive": true,
+       "lengthChange": false,
+        "autoWidth": false,
+         "searching": true,
+         language: {
+          search: "_INPUT_",
+        searchPlaceholder: "Search..."
+    },
     });
+
+     
+
     $(document).on("click", ".flu", function () {
       if ($(this).data('alt') == '+') {
         $(this).data('alt', '-');

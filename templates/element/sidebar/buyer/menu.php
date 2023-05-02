@@ -54,10 +54,10 @@
 
 
 <li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="far fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item <?= $temvenmenuopen ?>">
+<li class="nav-item menu-open <?= $temvenmenuopen ?>">
   <a href="#" class="nav-link <?= $tempindctive ?> <?= $createvendactive ?>">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
@@ -73,6 +73,7 @@
       </a>
     </li>
     <li class="nav-item <?= $buyvendaddactive ?>">
+    
       <a href="#" class="nav-link <?= $createvendactive ?>">
         <i class="nav-icon fas fa-user-alt"></i>
         <p>

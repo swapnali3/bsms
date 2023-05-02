@@ -4,44 +4,48 @@
  * @var \App\Model\Entity\Rfq $rfq
  */
 ?>
+<?= $this->Html->css('custom') ?>
 <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
 <div class="row card">
     
     <div class="column-responsive column-80">
         <div class="rfqs view content">
             <h5><b>RFQ Details</b></h5>
-
-
-            <div class="row">
-                <div class="col-sm-1 col-lg-2 mt-4">
-                    PR No. : <b><?=h($rfqs->toArray()[0]->pr_header->pr_no) ?></b>
+            <div class="rfq-details-head">
+                <div class="row">
+                    <div class="col-md-3">
+                    <h6><lable> PR No. :</lable>
+                    <b><?=h($rfqs->toArray()[0]->pr_header->pr_no) ?></b></h6>
+                    </div>
+                    <div class="col-md-3">
+                    <h6><lable> RFQ No. :</lable>
+                    <b><?=h($rfqs->toArray()[0]->rfq_no) ?></b></h6>
+                    </div>
+                    <div class="col-md-3">
+                    <h6><lable> Vendor :</lable>
+                    <b><?=h($rfqs->toArray()[0]->vendor_temp->name) ?></b></h6>
+                    </div>
                 </div>
-
-                <div class="col-sm-1 col-lg-2 mt-4">
-                    RFQ No. : <b><?=h($rfqs->toArray()[0]->rfq_no) ?></b>
-                </div>
-
-                <div class="col-sm-1 col-lg-3 mt-4">
-                    Vendor : <b><?=h($rfqs->toArray()[0]->vendor_temp->name) ?></b>
+                <div class="row">
+                    <div class="col-md-3">
+                    <h6><lable> Sub Total :</lable>
+                    <b><?=h($rfqs->toArray()[0]->sub_total) ?></b></h6>
+                    </div>
+                    <div class="col-md-3">
+                    <h6><lable> Freight :</lable>
+                    <b><?=h($rfqs->toArray()[0]->freight_value) ?></b></h6>
+                    </div>
+                    <div class="col-md-3">
+                    <h6><lable> Tax :</lable>
+                    <b><?=h($rfqs->toArray()[0]->tax_value) ?></b></h6>
+                    </div>
+                    <div class="col-md-3">
+                   <h6> <lable> Total :</lable>
+                    <b><?=h($rfqs->toArray()[0]->total_value) ?></b></h6>
+                    </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-sm-1 col-lg-2 mt-4">
-                    Sub Total : <b><?=h($rfqs->toArray()[0]->sub_total) ?></b>
-                </div>
-
-                <div class="col-sm-1 col-lg-2 mt-4">
-                    Freight : <b><?=h($rfqs->toArray()[0]->freight_value) ?></b>
-                </div>
-
-                <div class="col-sm-1 col-lg-2 mt-4">
-                    Tax : <b><?=h($rfqs->toArray()[0]->tax_value) ?></b>
-                </div>
-                <div class="col-sm-1 col-lg-2 mt-4">
-                    Total : <b><?=h($rfqs->toArray()[0]->total_value) ?></b>
-                </div>
-            </div>
+            
 
             <div class="card-body p-0">
             <div class="table-responsive">
@@ -91,15 +95,16 @@
 </div>
 
 <div class="row card">
-    <div class="column-responsive column-80">
-        <hs><b>Communications</b></hs>
+    <div class="column-responsive commu-review column-80">
+        <h5><b>Communications</b></h5>
         <hr />
         <div class="card-body p-0">
             <?php foreach($chatHistory as $chat) :?>
-                <?= $chat['message'] ?>
+                
                 <div>
-                    <b><?=$chat['name']?></b> &nbsp;&nbsp;<?=$chat['added_date'] ?>
+                    <p class="d-flex justify-content-between"><b><?=$chat['name']?></b> <i><?=$chat['added_date'] ?></i></p>
                 </div>
+                <h6><?= $chat['message'] ?></h6>
                 <hr />
             <?php endforeach?>
         </div>
