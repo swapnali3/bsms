@@ -16,20 +16,20 @@
 
 ?>
 
-
+<?= $this->Html->css('custom') ?>
 <div class="row">
     <div class="col-12">
         <div class="vendorTemps view content card">
             <div class="card-header">
                 <h5>
-                    <?= h($vendorTemp->name) ?>
+                    <b><?= h($vendorTemp->name) ?></b>
                 </h5>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
                         <div class="card">
-                            <table class="table">
+                            <table class="table vendor-info mb-0">
                                 <tr>
                                     <th>
                                         <?= __('SAP Vendor Code') ?>
@@ -131,7 +131,7 @@
                     </div>
                     <div class="col-6">
                         <div class="card">
-                            <table class="table">
+                            <table class="table vendor-info mb-0">
                                 <tr>
                                     <th>
                                         <?= __('Account Group') ?>

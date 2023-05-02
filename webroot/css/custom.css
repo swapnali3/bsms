@@ -1,43 +1,261 @@
 /* ----------------------------------------------------------------
-	Custom CSS
+    Custom CSS
 
-	Add all your Custom Styled CSS here for New Styles or
-	Overwriting Default Theme Styles for Better Handling Updates
+    Add all your Custom Styled CSS here for New Styles or
+    Overwriting Default Theme Styles for Better Handling Updates
 -----------------------------------------------------------------*/
 .revo-slider-emphasis-text {
-	font-size: 58px;
-	font-weight: 700;
-	letter-spacing: 1px;
-	font-family: 'Poppins', sans-serif;
-	padding: 15px 20px;
-	border-top: 2px solid #FFF;
-	border-bottom: 2px solid #FFF;
+    font-size: 58px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-family: 'Poppins', sans-serif;
+    padding: 15px 20px;
+    border-top: 2px solid #FFF;
+    border-bottom: 2px solid #FFF;
 }
 
 .revo-slider-desc-text {
-	font-size: 20px;
-	font-family: 'Lato', sans-serif;
-	width: 650px;
-	text-align: center;
-	line-height: 1.5;
+    font-size: 20px;
+    font-family: 'Lato', sans-serif;
+    width: 650px;
+    text-align: center;
+    line-height: 1.5;
 }
 
 .revo-slider-caps-text {
-	font-size: 16px;
-	font-weight: 400;
-	letter-spacing: 3px;
-	font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .tp-video-play-button {
-	display: none !important;
+    display: none !important;
 }
 
 .tp-caption {
-	white-space: nowrap;
+    white-space: nowrap;
 }
 
 .pale {
-	background-color: #1ABC9C;
-	color: #000;
+    background-color: #1ABC9C;
+    color: #000;
+}
+/* Purchase Order */
+/* view */
+.poHeaders .card-header h5,.related .card-header h5 {
+    padding-left: 10px;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    color: #004d87;
+    text-transform: uppercase;
+}
+.poHeaders .card-body,.related .card-body{
+    padding: 15px !important;
+}
+.poHeaders th, .poHeaders td{
+    padding: 10px;
+    cursor: pointer;
+}
+.poHeaders .table-responsive {
+    border: 1px solid #ddd !important;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px !important;
+}
+.poHeaders table th {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+}
+.poHeaders table{
+    margin-bottom: 0px !important;
+}
+.poHeaders .related #example1_filter .form-control{
+    width: 100%;
+    padding: 21px 10px;
+    border-radius: 5px;
+    margin-left: 0px;
+    border: 2px solid #d6d4d4;
+}
+.poHeaders .related #example1_wrapper .row:first-child{
+    display: flex !important;
+    flex-direction: row-reverse !important;
+}
+#example1_filter input.form-control.form-control-sm {
+    width: 100% !important;
+    padding: 20px 10px !important;
+    border-radius: 5px !important;
+    margin-left: -12px !important;
+    border-color: #989090 !important;
+}
+#example1_filter label{
+    width: 100% !important;
+}
+div#example1_wrapper .row:first-child,.deliveryDetails .row:first-child{
+    flex-direction: row-reverse !important;
+}
+table#example1 tr th {
+    padding: 10px 0px !important;
+    background-color: #f1f1f1 !important;
+}
+table#example1  span.material-symbols-outlined.flu {
+    font-size: 18px;
+    cursor: pointer;
+}
+#example1,#example2{
+    border: 1px solid #ddd;
+}
+div#scheduleModal .btn {
+    padding: 6px 20px;
+}
+table#example1 tr th,table#example1 tr td{
+    padding: 10px !important;
+    vertical-align: middle;
+    cursor: pointer;
+}
+#example1 a.schedule_item {
+    background-color: #ffc107;
+    padding: 5px;
+    margin-bottom: 0px;
+    font-size: 12px;
+}
+#example1 .view-btn {
+    background-color: #138496;
+    color: #fff;
+    margin-bottom: 0px;
+    padding: 3px;
+}
+#example2 a.notify_item {
+    background-color: #218838;
+    color: #fff;
+    padding: 3px 10px;
+    margin-bottom: 0px !important;
+    font-size: 12px;
+}
+.related #example1_wrapper ul.pagination li a {
+    font-size: 12px !important;
+}
+/* intransit css */
+.deliveryDetails .row:first-child{
+    flex-direction: row-reverse !important;
+}
+.deliveryDetails .card-header h5,.rfqs .card-header h5,
+.vendorTemps .card-header h5 {
+    padding-left: 8px;
+    padding-top: 12px;
+    padding-bottom: 8px;
+    color: #004d87;
+    text-transform: uppercase;
+}
+.deliveryDetails #example1_wrapper{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.deliveryDetails #example1_wrapper a,.vendor-list #example1_wrapper a{
+    font-size: 12px !important;
+}
+.deliveryDetails .dataTables_info {
+    font-size: 12px;
+}
+/* end */
+/* Setting */
+.setting-fm {
+    padding: 30px;
+}
+.setting-fm h5{
+    color: #004d87;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.setting-fm label {
+    color: #444;
+}
+.setting-fm .btn {
+    background-color: #218838;
+    padding: 7px 40px;
+    margin-top: 15px;
+}
+.PR .btn-success{
+    background-color: #28a745;
+    color: #fff;
+}
+.PR .btn-info{
+    background-color: #138496;
+    color: #fff;
+}
+.card-body.rfq-editor label,.gate-entry-haed {
+    color: #004d87 !important;
+}
+.gate-entry {
+    padding: 20px;
+}
+.rfqs .card-body {
+    padding: 15px !important;
+}
+.rfq-details-head {
+    padding-left: 15px;
+}
+.rfq-details-head h6 {
+    padding-bottom: 10px;
+    font-weight: 500;
+   
+}
+.rfqs h5 {
+    padding-left: 15px;
+    padding-top: 12px;
+    padding-bottom: 5px;
+    color: #dc3545;
+    text-transform: uppercase;
+    font-size: 24px;
+}
+.rfq-details-head h6 b,.commu-review h5{
+    color: #004d87;
+    
+}
+.commu-review {
+    padding: 15px 25px;
+}
+.commu-review .card-body h6 p {
+    font-size: 16px !important;
+}
+.vendorTemps .card-body {
+    padding: 10px 15px;
+}
+.vendorTemps .table.vendor-info td,.vendorTemps .vendor-info th {
+    padding: 12px 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.vendorTemps .table.vendor-info span.badge.bg-info {
+    background-color: unset!important;
+    color: #004d87!important;
+    font-size: 14px;
+    padding: 7px 12px;
+}
+.vendorTemps .table.vendor-info .badge.bg-success{
+    background-color: unset!important;
+    color: #4CAF50!important;
+    font-size: 14px;
+    padding: 7px 12px;
+}
+.vendorTemps h5{
+    padding-left: 15px !important;
+}
+
+.card-body.vendor-list {
+    padding: 15px;
+}
+.add-vendor .card-body {
+    padding: 15px !important;
+}
+.sap-vendor .card-body {
+    padding: 15px;
+}
+.sap-vendor label {
+    color: #004d87 !important;
+    font-size: 20px;
+    text-transform: uppercase;
+}
+.add-vendor .btn.btn-info {
+    background-color: #218838;
+    padding: 7px 40px;
 }

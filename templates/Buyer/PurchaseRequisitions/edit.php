@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\PoHeader $poHeader
  */
 ?>
+<?= $this->Html->css('custom') ?>
 <div class="row">
     <aside class="column">
         <div class="side-nav">

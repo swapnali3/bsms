@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
  */
 ?>
+<?= $this->Html->css('custom') ?>
 <div class="deliveryDetails index content card">
     <div class="card-header">
         <h5><b><?= __('DELIVERY DETAIL') ?></b></h5>
@@ -48,6 +49,10 @@
         var table = $("#example1").DataTable({
             "paging": true,
             "responsive": false, "lengthChange": false, "autoWidth": false, "searching" :true,
+            language: {
+          search: "_INPUT_",
+        searchPlaceholder: "Search..."
+    },
         });
     });
     
