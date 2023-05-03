@@ -11,8 +11,8 @@
                     <h3><b><?= __('Gate Entry') ?></b></h3>
                 </div>
         <div class="deliveryDetails view content">
-            <h6> ASN No. - <?= h($deliveryDetails->toArray()[0]->asn_no) ?></h6>
-            <h6> PO No. - <?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></h6>
+            <h6> ASN No. - <b><?= h($deliveryDetails->toArray()[0]->asn_no) ?></b></h6>
+            <h6> PO No. - <b><?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></b></h6>
             <div class="card">
                 
                 <div class="card-body">
