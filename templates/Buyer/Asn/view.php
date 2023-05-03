@@ -4,13 +4,15 @@
  * @var \App\Model\Entity\DeliveryDetail $deliveryDetail
  */
 ?>
-<div class="row content card">
+<?= $this->Html->css('custom') ?>
+<div class="row content card gate-entry">
     <div class="column-responsive column-80">
     <div class="card-header">
                     <h3><b><?= __('Gate Entry') ?></b></h3>
                 </div>
         <div class="deliveryDetails view content">
-            <h3> ASN No. - <?= h($deliveryDetails->toArray()[0]->asn_no) ?>  &nbsp; &nbsp; &nbsp; PO No. - <?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></h3>
+            <h6> ASN No. - <?= h($deliveryDetails->toArray()[0]->asn_no) ?></h6>
+            <h6> PO No. - <?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></h6>
             <div class="card">
                 
                 <div class="card-body">

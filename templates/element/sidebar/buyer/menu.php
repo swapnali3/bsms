@@ -1,5 +1,8 @@
 
 <style>
+  /* nav.main-header {
+    height: 52px;
+} */
   .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl{
     padding-left:0rem
   }
@@ -14,7 +17,7 @@
     margin-left:210px
   }
   .sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link{
-    width:calc(224px - 1.1rem * 2)
+    width:calc(235px - 1.1rem * 2)
   }
   .nav-sidebar .nav-link>.right, .nav-sidebar .nav-link>p>.right{
     top:0.9rem
@@ -23,7 +26,7 @@
     width:210px
   }
   p, .p{
-    font-size:12px
+    font-size:14px
   }
   .sidebar{
     padding-left:0.6rem
@@ -44,7 +47,7 @@
 <?php $tempindctive = ($controller == 'VendorTemps' && $action == 'index') ? 'active' : ''; ?>
 <?php $createvendactive = ($controller == 'VendorTemps' && $action == 'add') ? 'active' : ''; ?>
 <?php $creatsaevendactive = ($controller == 'VendorTemps' && $action == 'sap-add') ? 'active' : ''; ?>
-<?php $rfqactive = ($controller == 'RfqDetails') ? 'active' : ''; ?>
+<?php $rfqactive = ($controller == 'Rfqs') ? 'active' : ''; ?>
 
 <?php $temvenmenuopen = ($controller == 'VendorTemps') ? 'menu-open' : ''; ?>
 <?php $temvenactive = ($controller == 'buyervendor-temps') ? 'active' : ''; ?>
@@ -53,11 +56,11 @@
 <?php $asnactive = ($controller == 'Asn') ? 'active' : ''; ?>
 
 
-<li class="nav-item menu-open">
+<li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item menu-open <?= $temvenmenuopen ?>">
+<li class="nav-item <?= $temvenmenuopen ?>">
   <a href="#" class="nav-link <?= $tempindctive ?> <?= $createvendactive ?>">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
@@ -68,7 +71,8 @@
   <ul class="nav nav-treeview">
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link <?= $tempindctive ?>">
-        <i class="fa fa-bars nav-icon"></i>
+        <!-- <i class="fa fa-bars nav-icon"></i> -->
+        <i class="fa fa-solid fa-list nav-icon"></i>
         <p>Vendor List</p>
       </a>
     </li>
@@ -82,12 +86,13 @@
         </p>
       </a>
       <ul class="nav nav-treeview">
-        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/add" class="nav-link <?= $createvendactive ?>"><i
-              class="fa fa-bars nav-icon"></i>
+        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/add" class="nav-link <?= $createvendactive ?>">
+        <!-- <i class="fa fa-bars nav-icon"></i> -->
+        <i class="fa fa-solid fa-plus nav-icon"></i>
             <p>New Vendor</p>
           </a></li>
-        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>"><i
-              class="fa fa-bars nav-icon"></i>
+        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>">
+        <i class="fa fa-solid fa-plus nav-icon"></i>
             <p>SAP Vendor</p>
           </a></li>
       </ul>
@@ -97,29 +102,29 @@
 
 
 
-<li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="far fa-question-circle  nav-icon"></i><p>RFQs</p>'), ['controller' => 'rfqs', 'action' => 'index'], ['class' => "nav-link $rfqactive", 'escape' => false]) ?>
+<li class="nav-item">
+  <?= $this->Html->link(__('<i class="fa fa-file-invoice  nav-icon"></i><p>RFQs</p>'), ['controller' => 'rfqs', 'action' => 'index'], ['class' => "nav-link $rfqactive", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item menu-open">
+<li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Requisitions</p>'), ['controller' => 'purchase-requisitions', 'action' => 'index'], ['class' => "nav-link $prlickActive", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item menu-open">
+<li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link $polickActive", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item menu-open">
+<li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
 </li>
-<li class="nav-item menu-open">
+<li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Gate Entry</p>'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
 </li>
 
-<li class="nav-item menu-open">
+<li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-cog nav-icon"></i><p>Settings</p>'), ['controller' => 'settings', 'action' => 'update'], ['class' => "nav-link $settingactive", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item menu-open">
+<li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-power-off nav-icon"></i><p>Logout</p>'), ['prefix' => false, 'controller' => 'users', 'action' => 'logout'], ['class' => 'nav-link', 'escape' => false]) ?>
 </li>

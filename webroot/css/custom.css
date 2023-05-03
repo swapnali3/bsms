@@ -205,7 +205,7 @@ table#example1 tr th,table#example1 tr td{
     padding-bottom: 5px;
     color: #dc3545;
     text-transform: uppercase;
-    font-size: 24px;
+    /* font-size: 24px; */
 }
 .rfq-details-head h6 b,.commu-review h5{
     color: #004d87;
@@ -258,4 +258,29 @@ table#example1 tr th,table#example1 tr td{
 .add-vendor .btn.btn-info {
     background-color: #218838;
     padding: 7px 40px;
+}
+.gate-entry .card-header h3 {
+    color: #004d87;
+    text-transform: uppercase;
+    font-size: 1.25rem;
+}
+.gate-entry .deliveryDetails .row:first-child{
+    flex-direction: unset !important;
+}
+/* Login Form */
+.signupcard .signupform__signin {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 5% 11% 10%;
+    height: 600px;
+}
+.ant-card-body {
+    height: 600px;
+}
+.ant-card.signupcard.ant-card-bordered {
+    height: 625px;
+}
+.ant-row {
+    margin-top: 30px;
 }

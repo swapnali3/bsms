@@ -15,7 +15,11 @@
 }
 
 ?>
-
+<style>
+    p{
+        margin-bottom:0px;
+    }
+</style>
 <?= $this->Html->css('custom') ?>
 <div class="row">
     <div class="col-12">

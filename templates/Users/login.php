@@ -3,12 +3,28 @@
 
 <head>
   <style type="text/css">
+    .signupcard .signupform__signin {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 5% 11% 10%;
+    height: 600px;
+}
+.ant-card-body {
+    height: 600px;
+}
+.ant-card.signupcard.ant-card-bordered {
+    height: 625px;
+}
+
     .v2container {
     color: white;
     background-color: #b61924 !important;
     background: #2980b9 !important;
     background: -webkit-linear-gradient(to right, #2c3e50, #2980b9) !important;
     background: linear-gradient(to right, #2c3e50, #2980b9) !important;
+    height: 625px !important;
+    min-height: calc(100vh - 0px) !important;
 }
 .left-content h1 {
     color: #fff;
@@ -30,6 +46,7 @@ img.flow-img {
     left: 20px;
     width: 98%;
     align-items: center;
+    margin-top: 30px;
 }
     .s-logo {
     width: 65%;
@@ -243,10 +260,13 @@ img.flow-img {
                         <label class="material-label" style="left: 0px;">Mobile +91</label>
                       </div>
                     </div>
-                    <button type="button" class="ant-btn btn btn__get-started-btn" id="getotp">
+                    <button type="button" class="sub-btn ant-btn btn btn__get-started-btn mb-4" id="getotp">
                       <span>Get OTP</span>
                     </button>
                     <?= $this->Form->end() ?>
+                    <p style="text-align: center;font-weight: 500;margin-top:20px;"><a href="mailto: support@fts-pl.com" style="margin-right: 5px;border-right: 1px solid;padding-right: 10px;">Help</a> <a
+                        href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a></p>
+                    <p class="text-center" style="text-align:center"> <img src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px"></p>
                   </div>
                 </div>
 
