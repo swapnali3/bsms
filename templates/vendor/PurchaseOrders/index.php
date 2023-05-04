@@ -4,14 +4,7 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
-<style>
-    .redirect{
-        cursor: pointer;
-    }
-    .card-header{
-        padding:1rem
-    }
-</style>
+<?= $this->Html->css('vendorCustom') ?>
 <div class="poHeaders index content card">
     <div class="card-header">
         <h5>
@@ -22,8 +15,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover" id="example1"
-                style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
+            <table class="table table-hover" id="example1">
                 <thead>
                     <tr style="background-color: #d3d3d36e;">
                         <th>
@@ -100,6 +92,10 @@
         $("#example1").DataTable({
             "paging": true,
             "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
+            language: {
+          search: "_INPUT_",
+        searchPlaceholder: "Search..."
+    },
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });

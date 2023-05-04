@@ -11,10 +11,10 @@
     height: 600px;
 }
 .ant-card-body {
-    height: 600px;
+    height: auto;
 }
 .ant-card.signupcard.ant-card-bordered {
-    height: 625px;
+    height: 100%;
 }
 
     .v2container {
@@ -23,13 +23,13 @@
     background: #2980b9 !important;
     background: -webkit-linear-gradient(to right, #2c3e50, #2980b9) !important;
     background: linear-gradient(to right, #2c3e50, #2980b9) !important;
-    height: 625px !important;
-    min-height: calc(100vh - 0px) !important;
+    /* height: 625px !important; */
+    /* min-height: calc(100vh - 0px) !important; */
 }
 .left-content h1 {
     color: #fff;
     font-size: 2.8vw;
-    line-height: 1.5rem;
+    line-height: 3.5rem;
 }
 .left-content {
     padding-left: 65px;
@@ -46,7 +46,7 @@ img.flow-img {
     left: 20px;
     width: 98%;
     align-items: center;
-    margin-top: 30px;
+    /* margin-top: 30px; */
 }
     .s-logo {
     width: 65%;

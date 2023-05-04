@@ -4,13 +4,12 @@
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
  */
 ?>
-
 <style>
-    .card-header{
-	padding:1rem
-}
-
-    </style>
+    .deliveryDetails #example1_filter input.form-control.form-control-sm{
+        margin-left:-4px !important;
+    }
+</style>
+<?= $this->Html->css('vendorCustom') ?>
 <div class="deliveryDetails index content card">
     <div class="card-header">
         <h5>
@@ -60,6 +59,10 @@
         var table = $("#example1").DataTable({
             "paging": true,
             "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
+            language: {
+          search: "_INPUT_",
+        searchPlaceholder: "Search..."
+    },
         });
     });
 

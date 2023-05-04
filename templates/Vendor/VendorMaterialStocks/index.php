@@ -6,7 +6,7 @@
 ?>
 
 <style>
-    .redirect{
+    /* .redirect{
         cursor: pointer;
     }
     .table td, .table th{
@@ -17,8 +17,12 @@
     }
     button, input, optgroup, select, textarea {
         margin:10px
+    } */
+    .vendorMaterialStocks #example1_filter input.form-control.form-control-sm{
+        margin-left:-10px !important;
     }
 </style>
+<?= $this->Html->css('vendorCustom') ?>
 <div class="vendorMaterialStocks index content card">
     <div class="card-header">
         <?= $this->Form->create(null, ['url' => ['action' => 'upload'],'type' => 'file']) ?>
@@ -31,7 +35,7 @@
                         <?php echo $this->Form->control('Upload Stocks', ['label' => false, 'accept'=>".xls,.xlsx", 'type' => 'file', 'class' => 'custom-file-input', 'id' => 'exampleInputFile']); ?>
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
-                    <?= $this->Form->button(__('Upload'), ['class' => 'btn btn-info']) ?>
+                   <?= $this->Form->button(__('Upload'), ['class' => 'btn btn-success mb-0 mt-2']) ?>
                 </div>
             </div>
         </fieldset>
@@ -102,6 +106,10 @@
         $("#example1").DataTable({
             "paging": true,
             "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
+            language: {
+          search: "_INPUT_",
+        searchPlaceholder: "Search..."
+    },
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });

@@ -4,7 +4,7 @@
  * @var iterable<\App\Model\Entity\Rfq> $rfqs
  */
 ?>
-<style>
+<!-- <style>
     .table td,
     .table th {
         padding: 0.2rem
@@ -13,20 +13,20 @@
     .table thead th {
         padding: 0.2rem
     }
-</style>
-
+</style> -->
+<?= $this->Html->css('vendorCustom') ?>
 <div class="poHeaders index content card" class="card-header">
     <div class="card-header">
-        <h5 style="color:black">
+        <h5>
             <b>
                 RFQ
             </b>
         </h5>
     </div>
     <!-- <h3><?= __('Rfqs') ?></h3> -->
-    <div class="card-body p-0">
+    <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover" id="example1">
+            <table class="table table-hover table-bordered" id="example1">
                 <thead style="BACKGROUND-COLOR: GAINSBORO">
                     <tr>
                         <th>

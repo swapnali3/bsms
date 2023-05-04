@@ -5,7 +5,7 @@
  */
 ?>
 <style>
-    .body{
+    /* .body{
         font-size:0.9rem;
     }
     .card-body{
@@ -13,9 +13,9 @@
     }
     .table td, .table th{
         padding:0rem
-    }
+    } */
     </style>
-
+<?= $this->Html->css('vendorCustom') ?>
 
 <div class="deliveryDetails index content card">
     <div class="card-header">
@@ -84,6 +84,10 @@
         var table = $("#example1").DataTable({
             "paging": true,
             "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
+            language: {
+          search: "_INPUT_",
+        searchPlaceholder: "Search..."
+    },
         });
     });
 

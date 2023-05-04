@@ -32,7 +32,7 @@
       width:210px
     }
     p, .p{
-      font-size:12px
+      font-size:14px
     }
     .sidebar{
       padding-left:0.6rem
@@ -42,7 +42,7 @@
     }
     </style>
 <li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="far fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">

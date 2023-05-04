@@ -6,10 +6,10 @@
 ?>
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+  <?= $this->Html->css('vendorCustom') ?>
 <div class="card">
   <div class="card-header">
-    <h5><b>
+    <h5><b>PO NO : 
         <?= h($poHeader[0]->po_no) ?>
       </b></h5>
   </div>
@@ -85,32 +85,32 @@
   <div class="card-header">
     <h5><b><?= __('Invoice Details') ?></b></h5>
   </div>
-  <div class="card-body">
+  <div class="card-body invoice-details">
         <div class="row">
-            <div class="col-sm-8 col-lg-1 mt-2">
+            <div class="col-sm-8 col-lg-1">
                 <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0','div' => 'form-group', 'required'));?>
             </div>
-            <div class="col-sm-8 col-lg-1 mt-2">
+            <div class="col-sm-8 col-lg-1">
                 <?php echo $this->Form->control('invoice_date', array('type' => 'date', 'class' => 'form-control rounded-0','div' => 'form-group', 'required'));?>
             </div>
 
-            <div class="col-sm-8 col-lg-1 mt-2">
+            <div class="col-sm-8 col-lg-1">
                 <?php echo $this->Form->control('invoice_value', array('type' => 'number', 'class' => 'form-control rounded-0','div' => 'form-group', 'required'));?>
             </div>
             
-            <div class="col-sm-8 col-lg-1 mt-2">
+            <div class="col-sm-8 col-lg-1">
                 <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0','div' => 'form-group', 'required'));?>
             </div>
-            <div class="col-sm-8 col-lg-1 mt-2">
+            <div class="col-sm-8 col-lg-1">
                 <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0','div' => 'form-group', 'required'));?>
             </div>
 
-            <div class="col-sm-8 col-lg-1 mt-2">
+            <div class="col-sm-8 col-lg-1">
                 <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0','div' => 'form-group', 'required'));?>
             </div>
             
-            <div class="col-sm-8 col-lg-2 mt-2">
-            <?php echo $this->Form->control('invoices', array('label' => 'Invoice', 'type' => 'file', 'class' => 'form-control rounded-0','div' => 'form-group', 'required'));?>
+            <div class="col-sm-8 col-lg-2">
+            <?php echo $this->Form->control('invoices', array('label' => 'Upload Invoice', 'type' => 'file', 'class' => 'pt-1 rounded-0','div' => 'form-group', 'required'));?>
               
             </div>
         </div>
@@ -126,9 +126,9 @@
   <div class="card-body">
     <?php if (count($poHeader)) : ?>
     <div class="table-responsive">
-      <table class="table"  style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
+      <table class="table table-bordered material-list">
         <thead>
-          <tr style="background-color: #d3d3d36e;">
+          <tr style="background-color: #fff;">
             <th>
               <?= __('Item') ?>
             </th>
@@ -189,15 +189,17 @@
       </table>
     </div>
 
-    <div class="col-sm-4 col-lg-2 mt-2">
+   <div class="row mb-4">
+   <div class="col-sm-4 col-md-2 col-lg-2 mt-2">
             Sub Total : <span id="sub_total"> 0 </span>
     </div>
-    <div class="col-sm-4 col-lg-2 mt-2">
+    <div class="col-sm-4 col-md-2 col-lg-2 mt-2">
             Total GST(18%) : <span id="total_gst"> 0 </span>
     </div>
-    <div class="col-sm-4 col-lg-2 mt-2">
+    <div class="col-sm-4 col-md-2 col-lg-2 mt-2">
             Total Value : <span id="total_value"> 0 </span>
     </div>
+   </div>
     
         <button type="submit" class="btn btn-info">Submit</button>
     <?php endif; ?>

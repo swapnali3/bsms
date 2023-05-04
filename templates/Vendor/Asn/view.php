@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\DeliveryDetail $deliveryDetail
  */
 ?>
+<?= $this->Html->css('vendorCustom') ?>
 <div class="row content card">
     <div class="column-responsive column-80">
         <div class="deliveryDetails view content">

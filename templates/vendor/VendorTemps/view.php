@@ -15,13 +15,8 @@
 }
 
 ?>
-<style>
-    .table td, .table th{
-        padding:0.2rem
-    }
-        
-    
-</style>
+<?= $this->Html->css('vendorCustom')?>
+
 
 
 <div class="row">
@@ -36,7 +31,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="card">
-                            <table class="table" style="font-size: 0.8rem;">
+                            <table class="table">
                                 <tr>
                                     <td>
                                         <?= __('SAP Vendor Code') ?>
