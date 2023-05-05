@@ -205,9 +205,17 @@ class PurchaseOrdersController extends BuyerAppController
             $html = '';
 
             foreach($data as $row) { 
-                $html .= "<div>$row->fullname</div>
-                            <div>$row->added_date</div>
-                            <div>$row->message</div>";
+                $html .= "<div class='past-msg'>
+                <div class='row m-2'>
+                <div class='col-md-12'>
+                <div class='d-flex justify-content-between'>
+                <div class='c-name'><b>$row->fullname</b></div>
+                <div class='c-adde-ddate'><i>$row->added_date</i></div>
+                </div>
+                <div class='c-msg'>$row->message</div>
+                </div>
+                </div>
+                </div> ";
             
             }
 

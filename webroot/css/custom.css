@@ -170,7 +170,7 @@ table#example1 tr th,table#example1 tr td{
     color: #444;
 }
 .setting-fm .btn {
-    background-color: #218838;
+    /* background-color: #218838; */
     padding: 7px 40px;
     margin-top: 15px;
 }
@@ -267,20 +267,36 @@ table#example1 tr th,table#example1 tr td{
 .gate-entry .deliveryDetails .row:first-child{
     flex-direction: unset !important;
 }
-/* Login Form */
-.signupcard .signupform__signin {
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-    padding: 5% 11% 10%;
-    height: 600px;
+.ge-head h6 {
+    color: yellowgreen;
+    font-size: 16px;
+    font-weight: 600;
+    padding-top: 12px;
+    padding-left: 5px;
+    padding-bottom: 10px;
 }
-.ant-card-body {
-    height: 600px;
+.gateentry-asn label {
+    color: #444;
+    font-size: 16px !important;
 }
-.ant-card.signupcard.ant-card-bordered {
-    height: 625px;
+.veiw-invoice {
+    font-size: 14px;
+    text-transform: capitalize;
 }
-.ant-row {
-    margin-top: 30px;
+#notifyModal .modal-title {
+    color: #004d87;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+div#past_messages {
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f1f1f1;
+    font-size: 12px;
+}
+div#past_messages  .past-msg {
+    border-bottom: 2px solid #ddd;
+}
+div#past_messages  .past-msg:last-child{
+    border-bottom: none;
 }

@@ -347,6 +347,8 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      
+      <div class="modal-body">
       <table class="table table-bordered commu-tbl">
   <tr style="align:middle">
     <th>Name</th>
@@ -363,8 +365,7 @@
     <td>Francisco Chang</td>
     <td>Mexico</td>
   </tr>
-</table>    
-      <div class="modal-body">
+</table> 
         <div id="past_messages"></div>
         <?php
             echo $this->Form->control('schedule_id', [ 'type' => 'hidden', 'id' => 'schedule_id']);
