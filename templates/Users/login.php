@@ -7,15 +7,15 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    padding: 5% 11% 10%;
-    height: 600px;
+    padding: 5% 15% 5% !important;
+    /* height: 600px; */
 }
-.ant-card-body {
-    height: auto;
+ .ant-card-body {
+    padding:0px !important;
 }
-.ant-card.signupcard.ant-card-bordered {
+/*.ant-card.signupcard.ant-card-bordered {
     height: 100%;
-}
+} */
 
     .v2container {
     color: white;
@@ -23,8 +23,19 @@
     background: #2980b9 !important;
     background: -webkit-linear-gradient(to right, #2c3e50, #2980b9) !important;
     background: linear-gradient(to right, #2c3e50, #2980b9) !important;
-    /* height: 625px !important; */
-    /* min-height: calc(100vh - 0px) !important; */
+    height: auto !important;
+    min-height: calc(100vh - 0px) !important;
+}
+canvas.particles-js-canvas-el {
+  
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    left: 0;
+    top:0;
+    bottom:0;
+    right:0;
 }
 .left-content h1 {
     color: #fff;
@@ -41,12 +52,15 @@ img.flow-img {
     width: 65%;
 }
 .ant-row {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 98%;
+  position: absolute;
+    top: 50%;
+    left: 50%;
     align-items: center;
-    /* margin-top: 30px; */
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
 }
     .s-logo {
     width: 65%;

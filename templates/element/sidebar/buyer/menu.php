@@ -7,7 +7,7 @@
     padding-left:0rem
   }
   .layout-fixed .brand-link{
-    width:210px
+    width:218px
   }
 
   .brand-link{
@@ -23,7 +23,7 @@
     top:0.9rem
   }
   .main-sidebar, .main-sidebar::before{
-    width:210px
+    width:218px
   }
   p, .p{
     font-size:14px
@@ -107,7 +107,7 @@
 </li>
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Requisitions</p>'), ['controller' => 'purchase-requisitions', 'action' => 'index'], ['class' => "nav-link $prlickActive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-file nav-icon"></i><p>Purchase Requisitions</p>'), ['controller' => 'purchase-requisitions', 'action' => 'index'], ['class' => "nav-link $prlickActive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item">
@@ -118,7 +118,7 @@
   <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
 </li>
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Gate Entry</p>'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-universal-access nav-icon"></i><p>Gate Entry</p>'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
 </li>
 
 <li class="nav-item">
