@@ -49,7 +49,7 @@ canvas.particles-js-canvas-el {
     font-size: 20px;
 }
 img.flow-img {
-    width: 65%;
+    width: 55%;
 }
 .ant-row {
   position: absolute;
@@ -200,7 +200,7 @@ img.flow-img {
            <div class="left-content animate__animated animate__backInLeft">
            <h1>Welcome to FTSPL Supplier Portal</h1>
 	<p>A single window digital interface and communication platform for supplier assessment and onboarding- Towards Co-creating Governance.</p>
-  <img  class="flow-img" src="<?= $this->Url->build('/')  ?>img/1234.png">           
+  <img  class="flow-img" src="<?= $this->Url->build('/')  ?>img/login-img.png">           
 </div>
           </div>
           <div class="ant-col content-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
