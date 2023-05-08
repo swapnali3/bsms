@@ -324,9 +324,9 @@ div#past_messages  .past-msg:last-child{
     margin-bottom: 20px;
     display: block;
 }
-.gate-entry .content-box input[type="text"]::placeholder {
+/* .gate-entry .content-box input[type="text"]::placeholder {
     text-align: center;
-}
+} */
 .gateentry-asn label {
     color: #999;
     margin-left: 0px;

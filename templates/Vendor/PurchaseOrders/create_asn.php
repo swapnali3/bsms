@@ -5,19 +5,33 @@
  */
 ?>
 <?= $this->Html->css('vendorCustom') ?>
-<div class="poHeaders index content card">
+<div class="poHeaders index content card create-asn">
     <div class="card-header">
-        <h5>
+        <div class="row">
+            <div class="col-md-6">
+            <h4 class="text-info" style="color:#004d87 !important;">
             <b>
                 <?= __('CREATE ASN') ?>
             </b>
-        </h5>
+        </h4>
+            </div>
+            <div class="col-md-6">
+            <div class="action-btn d-flex justify-content-end">
+       <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a>
+        <a href="#" class="btn btn-secondary mb-0">Continue</a>
+       </div>
+            </div>
+        </div>
+       
+       
     </div>
     <div class="card-body">
         <div class="table-responsive">
+            <h5><b>Select Material</b></h5>
             <table class="table table-hover" id="example1">
                 <thead>
                     <tr style="background-color: #d3d3d36e;">
+                   
                         <th>
                             <?= h('Vendor Code') ?>
                         </th>
@@ -52,6 +66,7 @@
                 <tbody>
                     <?php foreach ($poHeaders as $poHeader): ?>
                     <tr class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">
+                   
                         <td><?= h($poHeader->sap_vendor_code) ?></td>
                         <td><?= h($poHeader->po_no) ?></td>
                         <td><?= h($poHeader->document_type) ?></td>

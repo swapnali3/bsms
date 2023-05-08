@@ -19,7 +19,7 @@
           
             <div class="">
                 
-                <div class="card-body p-3 gateentry-asn">
+                <div class="card-body p-3 gateentry-asn" style="background-color: #f1f1f1;">
                     <div class="row">
                        <div class="col-md-2">
                        <label>ASN No.</label>
@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="card-body p-3">
+            <div class="card-body mt-3">
             <table class="table table-bordered delivery-dt-tbl">
             <thead>
                 <tr  style="background-color: #ddd;"><th>Item</th><th>Material</th><th>UOM</th><th>Qty</th><th>Schedule Qty</th><th>Schedule Date</th></tr>
