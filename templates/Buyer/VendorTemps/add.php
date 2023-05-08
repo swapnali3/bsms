@@ -12,7 +12,7 @@
     
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card m-4">
             <?= $this->Form->create($vendorTemp) ?>
             <!-- <div class="card-header">
                 <h5 style="color: white;"><b><?= __('ADD VENDOR') ?></b></h5>
@@ -28,19 +28,19 @@
                     <div class="col-sm-12 col-lg-4 col-md-4">
                         <?php echo $this->Form->control('schema_group_id', array('class' => 'custom-select rounded-0','div' => 'form-group'));?>
                     </div>
-                    <div class="col-sm-12 col-lg-4 mt-4 col-md-4">
+                    <div class="col-sm-12 col-lg-4 mt-2 col-md-4">
                         <?php echo $this->Form->control('name', array('class' => 'form-control rounded-0','div' => 'form-group'));?>
                     </div>
-                    <div class="col-sm-12 col-lg-4 mt-4 col-md-4">
+                    <div class="col-sm-12 col-lg-4 mt-2 col-md-4">
                         <?php echo $this->Form->control('mobile', array('class' => 'form-control rounded-0','div' => 'form-group'));?>
                     </div>
-                    <div class="col-sm-12 col-lg-4 mt-4 col-md-4">
+                    <div class="col-sm-12 col-lg-4 mt-2 col-md-4">
                         <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0','div' => 'form-group'));?>
                     </div>
-                    <div class="col-sm-12 col-lg-4 mt-4 col-md-4">
+                    <div class="col-sm-12 col-lg-4 mt-2 col-md-4">
                         <?php echo $this->Form->control('payment_term', array('class' => 'form-control rounded-0','div' => 'form-group'));?>
                     </div>
-                    <div class="col-sm-12 col-lg-12 col-md-12 mt-4">
+                    <div class="col-sm-12 col-lg-12 col-md-12 mt-2">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info']) ?>
                     </div>
                 </div>

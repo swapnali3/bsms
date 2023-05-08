@@ -125,7 +125,7 @@ padding: 0.5rem 0.5rem;
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
-        <footer class="main-footer"  style="margin-top:0px;">
+        <footer class="main-footer"  style="margin-top:0px;text-align: center;">
             <?= $this->element('footer/main') ?>
         </footer>
     </div>

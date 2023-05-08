@@ -129,7 +129,7 @@
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
-        <footer class="main-footer"  style="margin-top:0px;">
+        <footer class="main-footer text-center p-2"  style="margin-top:0px;">
             <?= $this->element('footer/main') ?>
         </footer>
     </div>

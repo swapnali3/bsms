@@ -13,55 +13,55 @@
 <div class="row content card gate-entry">
     <div class="column-responsive column-80">
     <div class="card-header">
-                    <h3><b><?= __('Gate Entry') ?></b></h3>
+                    <h4 class="p-2 text-info"><b>Gate Entry (GE)</b></h4>
                 </div>
         <div class="deliveryDetails view content">
-           <div class="d-flex ge-head">
-           <h6 class="mr-4"> ASN No. - <b><?= h($deliveryDetails->toArray()[0]->asn_no) ?></b></h6>
-            <h6> PO No. - <b><?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></b></h6>
-           </div>
-            <div class="card">
+          
+            <div class="">
                 
                 <div class="card-body p-3 gateentry-asn">
                     <div class="row">
                        <div class="col-md-2">
-                       <label>Invoice No :</label>
-                       <b><?= h($deliveryDetails->toArray()[0]->invoice_no) ?></b>
+                       <label>ASN No.</label>
+                       <p><b><?= h($deliveryDetails->toArray()[0]->asn_no) ?></b></p>
+                       </div>
+                       <div class="col-md-2">
+                       <label>PO No.</label>
+                       <p><b><?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></b></p>
+                       </div>
+                       <div class="col-md-2">
+                       <label>Invoice No</label>
+                       <p><b><?= h($deliveryDetails->toArray()[0]->invoice_no) ?></b></p>
                        </div>
                        <div class="col-md-2">
                        <label> Invoice Date :</label>
-                        <b><?= h($deliveryDetails->toArray()[0]->invoice_date) ?></b>
+                        <p><b><?= h($deliveryDetails->toArray()[0]->invoice_date) ?></b></p>
                        </div>
                        <div class="col-md-2">
                        <label> Invoice Value :</label>
-                                <b><?= h($deliveryDetails->toArray()[0]->invoice_value) ?></b>
+                       <p><b><?= h($deliveryDetails->toArray()[0]->invoice_value) ?></b></p>
                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
+                       <div class="col-md-3">
                         <?php echo $this->Form->control('vehicle_no :', array('class' => 'form-control rounded-0','div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->vehicle_no));?>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                         <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0','div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_name));?>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                         <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0','div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact));?>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-3">
                         <?php $files = json_decode($deliveryDetails->toArray()[0]->invoice_path, true);
-                            echo $this->Html->link('View invoice','/'.$files[0],['target' => '_blank','class' => 'veiw-invoice btn btn-info mt-3']);
+                            echo $this->Html->link('View invoice','/'.$files[0],['target' => '_blank','class' => 'veiw-invoice text-info align-self-end mt-3']);
                         ?>
                         </div>
-
                     </div>
-                      
-
-                        
+                     
                 </div>
             </div>
 
-            <div class="card-body">
-            <table class="table table-bordered">
+            <div class="card-body p-3">
+            <table class="table table-bordered delivery-dt-tbl">
             <thead>
                 <tr  style="background-color: #ddd;"><th>Item</th><th>Material</th><th>UOM</th><th>Qty</th><th>Schedule Qty</th><th>Schedule Date</th></tr>
             </thead>

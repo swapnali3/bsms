@@ -280,8 +280,12 @@ table#example1 tr th,table#example1 tr td{
     font-size: 16px !important;
 }
 .veiw-invoice {
-    font-size: 14px;
+    font-size: 16px;
     text-transform: capitalize;
+    margin-top: 37px !important;
+    font-weight: 600;
+    display: block;
+    margin-left: 10px;
 }
 #notifyModal .modal-title {
     color: #004d87;
@@ -299,4 +303,37 @@ div#past_messages  .past-msg {
 }
 div#past_messages  .past-msg:last-child{
     border-bottom: none;
+}
+.vendor-list #example1_filter input.form-control.form-control-sm{
+    margin-left: 0px !important;
+}
+.gate-entry .content-box {
+    width: 50%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 50px 0px;
+}
+.gate-entry .content-box img.scanner-img {
+    width: 180px;
+    margin-bottom: 30px;
+}
+.gate-entry .content-box span {
+    font-size: 20px;
+    color: #979797;
+    font-style: italic;
+    margin-bottom: 20px;
+    display: block;
+}
+.gate-entry .content-box input[type="text"]::placeholder {
+    text-align: center;
+}
+.gateentry-asn label {
+    color: #999;
+    margin-left: 0px;
+    text-transform: uppercase;
+    margin-top: 0px;
+    font-size: 14px !important;
+}
+table.table.table-bordered.delivery-dt-tbl td,table.table.table-bordered.delivery-dt-tbl th {
+    font-size: 14px;
 }
