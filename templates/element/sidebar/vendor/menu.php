@@ -1,6 +1,7 @@
 <!-- Add icons to the links using the .nav-icon class
      with font-awesome or any other icon font library -->
-     <?php $polickActive = ($controller == 'PurchaseOrders') ? 'active' : ''; ?>
+     <?php $polickActive = ($controller == 'PurchaseOrders' && $action == 'index') ? 'active' : ''; ?>
+     <?php $createAsnActive = ($controller == 'PurchaseOrders' && $action == 'create-asn') ? 'active' : ''; ?>
      <?php $dashactive = ($controller == 'Dashboard') ? 'active' : ''; ?>
      <?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
      <?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : ''; ?>
@@ -54,7 +55,11 @@
 </li>
 
 <li class="nav-item menu-open">
-  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>ASN</p>'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Create ASN</p>'), ['controller' => 'purchase-orders', 'action' => 'create-asn'], ['class' => "nav-link $createAsnActive" , 'escape' => false]) ?>
+</li>
+
+<li class="nav-item menu-open">
+  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>ASN List</p>'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
 </li>
 
 <li class="nav-item menu-open">

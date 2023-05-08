@@ -9,7 +9,7 @@
     <div class="card-header">
         <h5>
             <b>
-                <?= __('PURCHASE ORDER LISTS') ?>
+                <?= __('CREATE ASN') ?>
             </b>
         </h5>
     </div>
@@ -51,7 +51,7 @@
                 </thead>
                 <tbody>
                     <?php foreach ($poHeaders as $poHeader): ?>
-                    <tr  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">
+                    <tr class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">
                         <td><?= h($poHeader->sap_vendor_code) ?></td>
                         <td><?= h($poHeader->po_no) ?></td>
                         <td><?= h($poHeader->document_type) ?></td>

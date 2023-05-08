@@ -327,7 +327,7 @@ class VendorTempsController extends BuyerAppController
                         $data['password'] = $vendor->mobile;
                         $data['group_id'] = 3;
                         
-                        if(empty($vendor->sap_vendor_code)) {
+                        if(!empty($vendor->sap_vendor_code)) {
                             $adminUser = $this->Users->patchEntity($adminUser, $data);
 
                             if ($this->Users->save($adminUser)) {
