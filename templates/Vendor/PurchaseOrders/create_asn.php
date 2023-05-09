@@ -28,10 +28,10 @@
     <div class="card-body">
         <div class="table-responsive">
             <h5><b>Select Material</b></h5>
-            <table class="table table-hover" id="example1">
+            <table class="table" id="example1">
                 <thead>
                     <tr style="background-color: #d3d3d36e;">
-                   
+                        <th></th>
                         <th>
                             <?= h('Vendor Code') ?>
                         </th>
@@ -66,7 +66,7 @@
                 <tbody>
                     <?php foreach ($poHeaders as $poHeader): ?>
                     <tr class="redirect"  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">
-                   
+                        <td><span><i class="fa fa-solid fa-plus"></i></span></td>
                         <td><?= h($poHeader->sap_vendor_code) ?></td>
                         <td><?= h($poHeader->po_no) ?></td>
                         <td><?= h($poHeader->document_type) ?></td>
@@ -82,6 +82,69 @@
                         </td>
                     </tr>
                     <?php endforeach; ?>
+                    <tr class="mat-list">
+                        <td colspan="13">
+                        <table class="table table-bordered material-list">
+                                <thead>
+                                    <tr style="background-color: #fff;">
+                                        <th>
+                                        <input type="checkbox"  id="ckbCheckAll">
+                                        </th>
+                                        <th>
+                                        <?= __('Item') ?>
+                                        </th>
+                                        <th>
+                                        <?= __('Material') ?>
+                                        </th>
+                                        <th>
+                                        <?= __('Short Text') ?>
+                                        </th>
+                                        <th>
+                                        <?= __('Pending Qty') ?>
+                                        </th>
+                                        <th>
+                                        <?= __('Base Price') ?>
+                                        </th>
+                                        <th>
+                                        <?= __('Shipping Qty') ?>
+                                        </th>
+                                        <th>
+                                        <?= __('Net Value') ?>
+                                        </th>
+                                        <th>
+                                        <?= __('Expected Date') ?>
+                                        </th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                    <td><input type="checkbox" class="checkBoxClass" id="select1" data-pendingqty="2" data-id="1"></td>
+                                     <td>00010</td>
+                                     <td>PHFG0411</td>
+                                     <td>Ethyl-2-(3-hydroxyphenyl)acetate</td>
+                                     <td>2.00 KG</td>
+                                     <td>20.000  INR</td>
+                                     <td><input type="number" name="qty[]" class="form-control check_qty" required="required" data-item="00010" data-net-price="20.000" id="qty1" value="0"></td>
+                                     <td>0</td>
+                                     <td>2023-01-18</td>
+                                    </tr>
+                                    <tr>
+                                    <td><input type="checkbox" class="checkBoxClass" id="select2" data-pendingqty="2" data-id="2"></td>
+                                     <td>00010</td>
+                                     <td>PHFG0411</td>
+                                     <td>Ethyl-2-(3-hydroxyphenyl)acetate</td>
+                                     <td>2.00 KG</td>
+                                     <td>20.000  INR</td>
+                                     <td><input type="number" name="qty[]" class="form-control check_qty" required="required" data-item="00010" data-net-price="20.000" id="qty2" value="0"></td>
+                                     <td>0</td>
+                                     <td>2023-01-18</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    
                 </tbody>
             </table>
         </div>
@@ -98,7 +161,6 @@
     </div> -->
 </div>
 
-
 <script>
     $(document).on("click", ".redirect", function () {
         window.location.href = $(this).data("href");
@@ -106,6 +168,7 @@
     $(document).ready(function () {
         $("#example1").DataTable({
             "paging": true,
+            "ordering": false,
             "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
             language: {
           search: "_INPUT_",
@@ -113,5 +176,35 @@
     },
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+    // for select all checkbox
+    // $("#ckbCheckAll").click(function () {
+    //         $(".checkBoxClass").attr('checked', this.checked);
+    //     });
+        $('#ckbCheckAll').on('click',function(){
+        if(this.checked){
+            $('.checkBoxClass').each(function(){
+                this.checked = true;
+                $("#select"+$(this).data("id")).trigger("change");
+            });
+        }else{
+             $('.checkBoxClass').each(function(){
+                this.checked = false;
+                $("#select"+$(this).data("id")).trigger("change");
+            });
+        }
+    });
+
+    $('.checkBoxClass').on('change',function(){
+        if($(this).is(':checked')){ $("#qty"+$(this).data("id")).val($(this).data("pendingqty"));}
+        else {$("#qty"+$(this).data("id")).val('');}
+    });
+    
+    $('.checkBoxClass').on('click',function(){
+        if($('.checkBoxClass:checked').length == $('.checkBoxClass').length){
+            $('#ckbCheckAll').prop('checked',true);
+        }else{
+            $('#ckbCheckAll').prop('checked',false);
+        }
     });
 </script>

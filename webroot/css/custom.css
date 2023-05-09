@@ -337,3 +337,10 @@ div#past_messages  .past-msg:last-child{
 table.table.table-bordered.delivery-dt-tbl td,table.table.table-bordered.delivery-dt-tbl th {
     font-size: 14px;
 }
+.card-body.invoice-details .dgf {
+    width: 100% !important;
+    background-color: #f1f1f1;
+    border-radius: 0px !important;
+    padding: 10px !important;
+    padding-bottom: 20px !important;
+}
