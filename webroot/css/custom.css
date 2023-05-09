@@ -369,3 +369,10 @@ a.back-btn {
     padding: 10px 13px !important;
     background-color: #f1f1f1;
 }
+.settings .card-header h5{
+    color: #004d87 !important;
+}
+.settings table.users-tbl td,.settings table.users-tbl th {
+    font-size: 16px;
+    padding: 8px 13px;
+}
