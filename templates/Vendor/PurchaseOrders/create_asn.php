@@ -6,7 +6,7 @@
 ?>
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<?= $this->Html->css('vendorCustom') ?>
+<?= $this->Html->css('Custom') ?>
 <?= $this->Form->create(null,['action' => 'asn-materials', 'id' => 'asnForm']) ?>
 <?= $this->form->control('po_header_id', ['id' =>'po_header_id', 'label' => false, 'type' => 'hidden', 'value'=> '']) ?>
 <div class="poHeaders index content card create-asn">
@@ -30,19 +30,20 @@
        
     </div>
     <div class="card-body">
-        <div class="table-responsive">
+        <div class="">
             <h5><b>Select Material</b></h5>
-            <table class="table" id="example1">
+            <div class="d-flex">
+                <div class="t1"> <table class="table" id="example1">
                 <thead>
-                    <tr style="background-color: #d3d3d36e;">
-                        <th width="5%"></th>
+                    <tr style="background-color: #ddd;">
+                        <!-- <th width="5%"></th>
                         <th>
                             <?= h('Vendor Code') ?>
-                        </th>
+                        </th> -->
                         <th>
                             <?= h('PO No.') ?>
                         </th>
-                        <th>
+                        <!-- <th>
                             <?= h('Document Type') ?>
                         </th>
                         <th>
@@ -59,41 +60,45 @@
                         </th>
                         <th>
                             <?= h('Exchange Rate') ?>
-                        </th>
+                        </th> -->
                         <!-- <th><?= h('Release Status') ?></th> -->
                         <!-- <th><?= h('Added Date') ?></th> -->
-                        <th>
+                        <!-- <th>
                             <?= h('Updated Date') ?>
-                        </th>
+                        </th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($poHeaders as $poHeader): ?>
-                    <tr>
-                    <td class="details-control" header-id="<?=$poHeader->id?>">
+                    <tr style="background-color:#fff;">
+                    <!-- <td class="details-control" header-id="<?=$poHeader->id?>">
                         <span class="material-symbols-outlined flu" data-alt="+">
                             add
                         </span>    
-                        </td>
-                        <td><?= h($poHeader->sap_vendor_code) ?></td>
-                        <td><?= h($poHeader->po_no) ?></td>
-                        <td><?= h($poHeader->document_type) ?></td>
+                        </td> -->
+                        <!-- <td><?= h($poHeader->sap_vendor_code) ?></td> -->
+                        <td class="details-control" header-id="<?=$poHeader->id?>"><?= h($poHeader->po_no) ?></td>
+                        <!-- <td><?= h($poHeader->document_type) ?></td>
                         <td><?= h($poHeader->created_on) ?></td>
                         <td><?= h($poHeader->created_by) ?></td>
                         <td><?= h($poHeader->pay_terms) ?></td>
                         <td><?= h($poHeader->currency) ?></td>
-                        <td><?= $this->Number->format($poHeader->exchange_rate) ?> </td>
+                        <td><?= $this->Number->format($poHeader->exchange_rate) ?> </td> -->
                         <!-- <td><?= h($poHeader->release_status) ?></td> -->
                         <!-- <td><?= h($poHeader->added_date) ?></td> -->
-                        <td>
+                        <!-- <td>
                             <?= h($poHeader->updated_date) ?>
-                        </td>
+                        </td> -->
                     </tr>
                     <?php endforeach; ?>
                     
                     
                 </tbody>
-            </table>
+            </table></div>
+                <div class="t2"> </div>
+            </div>
+           
+           
         </div>
     </div>
     <!-- <div class="paginator">
@@ -113,10 +118,11 @@
     $(document).ready(function () {
 
         var table = $("#example1").DataTable({
-      "paging": true,
+      "paging": false,
       "responsive": true,
        "lengthChange": false,
         "autoWidth": false,
+        "ordering": false,
          "searching": true,
          language: {
           search: "_INPUT_",
@@ -140,18 +146,7 @@
 
     $('#example1 tbody').on('click', 'td.details-control', function () {
 
-      var tr = $(this).closest('tr');
-      var row = table.row(tr);
-
-      if (row.child.isShown()) {
-        row.child.hide();
-        tr.removeClass('shown');
-      }
-      else {
-        row.child(format($(this).attr('header-id'))).show();
-        tr.addClass('shown');
-        $("#po_header_id").val($(this).attr('header-id'));
-      }
+      $(".t2").html(format($(this).attr('header-id')));
     });
 
 

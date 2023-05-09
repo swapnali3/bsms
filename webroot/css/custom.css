@@ -376,3 +376,27 @@ a.back-btn {
     font-size: 16px;
     padding: 8px 13px;
 }
+.create-asn .dataTables_info{
+    display: none;
+}
+.create-asn .t1{
+    width: 20%;
+    margin-right: 15px;
+    background-color: #f1f1f1;
+    padding: 15px;
+}
+
+.create-asn .t2{
+    width: 80%;
+}
+.create-asn table#example1 tr th {
+   
+    background-color: #c6c6c6 !important;
+}
+.create-asn #example1_filter input.form-control.form-control-sm {
+    width: unset !important;
+    padding: 20px 10px !important;
+    border-radius: 5px !important;
+    margin-left: 0px !important;
+    border-color: #989090 !important;
+}
