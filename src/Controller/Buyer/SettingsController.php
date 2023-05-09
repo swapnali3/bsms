@@ -124,4 +124,12 @@ class SettingsController extends BuyerAppController
         $this->set(compact('setting'));
     }
 
+    public function buyerManagement() {
+
+    }
+
+    public function vendorManagement() {
+     
+    }
+
 }
