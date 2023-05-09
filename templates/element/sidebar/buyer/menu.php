@@ -50,10 +50,15 @@
 <?php $rfqactive = ($controller == 'Rfqs') ? 'active' : ''; ?>
 
 <?php $temvenmenuopen = ($controller == 'VendorTemps') ? 'menu-open' : ''; ?>
+<?php $settingmenuopen = ($controller == 'Settings') ? 'menu-open' : ''; ?>
 <?php $temvenactive = ($controller == 'buyervendor-temps') ? 'active' : ''; ?>
 <?php $buyvendaddactive = ($controller == 'buyervendor-temps' && $action == 'add') ? 'menu-open' : ''; ?>
 <?php $buyvendsaevendactive = ($controller == 'VendorTemps' && $action == 'sap-add') ? 'menu-open' : ''; ?>
 <?php $asnactive = ($controller == 'Asn') ? 'active' : ''; ?>
+
+<?php $settingBuyerActive = ($controller == 'settings' && $action == 'buyer-management') ? 'active' : ''; ?>
+<?php $settingVendorActive = ($controller == 'settings' && $action == 'vendor-management') ? 'active' : ''; ?>
+
 
 
 <li class="nav-item">
@@ -121,10 +126,20 @@
   <?= $this->Html->link(__('<i class="fa fa-universal-access nav-icon"></i><p>Gate Entry</p>'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
 </li>
 
-<li class="nav-item">
+<li class="nav-item <?=$settingmenuopen?>">
   <?= $this->Html->link(__('<i class="fa fa-cog nav-icon"></i><p>Settings</p>'), ['controller' => 'settings', 'action' => 'update'], ['class' => "nav-link $settingactive", 'escape' => false]) ?>
+
+  <ul class="nav nav-treeview">
+    <li class="nav-item ">
+    <?= $this->Html->link(__('<i class="fa fa-solid fa-list nav-icon"></i><p>Buyer Management</p>'), ['controller' => '/settings', 'action' => 'buyer-management'], ['class' => "nav-link $settingBuyerActive", 'escape' => false]) ?>
+    </li>
+
+    <li class="nav-item ">
+    <?= $this->Html->link(__('<i class="fa fa-solid fa-list nav-icon"></i><p>Vendor Management</p>'), ['controller' => '/settings', 'action' => 'vendor-management'], ['class' => "nav-link $settingVendorActive", 'escape' => false]) ?>
+    </li>
+  </ul>
 </li>
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fas fa-power-off nav-icon"></i><p>Logout</p>'), ['prefix' => false, 'controller' => 'users', 'action' => 'logout'], ['class' => 'nav-link', 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-power-off nav-icon"></i><p>Logout</p>'), ['prefix' => false, 'controller' => 'users', 'action' => 'logout'], ['class' => "nav-link", 'escape' => false]) ?>
 </li>
