@@ -344,3 +344,28 @@ table.table.table-bordered.delivery-dt-tbl td,table.table.table-bordered.deliver
     padding: 10px !important;
     padding-bottom: 20px !important;
 }
+a.back-btn {
+    border: 1px solid;
+    padding: 10px 30px;
+    margin-left: 25px;
+    line-height: 22px;
+}
+.calcu {
+   
+    margin: 0 0 0 auto;
+    background-color: #f1f1f1;
+    padding: 15px;
+}
+.calcu table {
+    width: 14%;
+    margin: 0 15px 0 auto;
+    font-size: 17px;
+}
+.invoice-details label {
+    color: #444;
+    margin-left: 0px;
+}
+.material-list th {
+    padding: 10px 13px !important;
+    background-color: #f1f1f1;
+}

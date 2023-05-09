@@ -9,9 +9,19 @@
   <?= $this->Html->css('Custom') ?>
 <div class="card">
   <div class="card-header">
-    <h5 class="text-info"><b>PO NO : 
+    <div class="d-flex">
+      <div class="col-md-6">
+      <h5 class="text-info mt-2"><b>PO NO : 
         <?= h($poHeader[0]->po_no) ?>
       </b></h5>
+      </div>
+      <div class="col-md-6 d-flex justify-content-end">
+        <h6 class="text-right">Expected Delivery Date <br> <b>May 28, 2022</b></h6>
+        <a href="javascript:history.back()" class=" back-btn d-block"><i class="fas fa-angle-double-left"></i> BACK</a>
+        <button type="submit" class="btn btn-info mb-0 ml-2">Create ASN</button>
+      </div>
+    </div>
+   
   </div>
   <!-- <div class="card-body">
     <table class="table" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
@@ -198,26 +208,20 @@
       </table>
     </div>
 
-   <div class="row mb-4">
-    <table>
+   <div class="calcu">
+   <table>
       <tbody>
-        <tr><td>  Sub Total : <span id="sub_total"> 0 </span></td></tr>
-        <tr><td> Total GST(18%) : <span id="total_gst"> 0 </span></td></tr>
-        <tr><td> Total Value : <span id="total_value"> 0 </span></td></tr>
+        <tr><td>  Sub Total : </td>
+      <td><span id="sub_total"> 0 </span></td></tr>
+        <tr><td> Total GST(18%) : </td>
+      <td><span id="total_gst"> 0 </span></td></tr>
+        <tr><td colspan="2"><hr class="mt-2 mb-2"></td></tr>
+        <tr><td> <b>Total Value : </b></td>
+      <td><b><span id="total_value"> 0 </span></b></td></tr>
       </tbody>
     </table>
-   <!-- <div class="col-sm-4 col-md-2 col-lg-2 mt-2">
-            Sub Total : <span id="sub_total"> 0 </span>
-    </div>
-    <div class="col-sm-4 col-md-2 col-lg-2 mt-2">
-            Total GST(18%) : <span id="total_gst"> 0 </span>
-    </div>
-    <div class="col-sm-4 col-md-2 col-lg-2 mt-2">
-            Total Value : <span id="total_value"> 0 </span>
-    </div> -->
    </div>
-    
-        <button type="submit" class="btn btn-info">Submit</button>
+   
     <?php endif; ?>
   </div>
 </div>
