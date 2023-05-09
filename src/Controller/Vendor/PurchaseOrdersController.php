@@ -365,4 +365,108 @@ class PurchaseOrdersController extends VendorAppController
 
         echo json_encode($response);
     }
+
+
+    public function getItems($id = null)
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+
+        //$data = $this->PoFooters->find('all', ['conditions' => ['po_header_id' => $id]]);
+
+        $data = $this->PoHeaders->find('all')
+        ->select(['PoHeaders.id', 'PoHeaders.po_no','PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material','PoFooters.short_text', 'PoFooters.order_unit','PoFooters.net_price', 'PoItemSchedules.id','actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)' , 'PoItemSchedules.delivery_date'])
+        ->innerJoin(['PoFooters' => 'po_footers'],['PoFooters.po_header_id = PoHeaders.id'])
+        ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
+        ->innerJoin(['dateDe' => '(select min(delivery_date) date from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date'])
+        
+        ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0']);
+
+
+
+        //echo '<pre>'; print_r($data); exit;
+
+        $html = '';
+        if($data->count() > 0) {
+            $html .= '<table class="table table-bordered material-list" id="example2">
+            <thead>
+                <tr style="background-color: #fff;">
+                    <th>
+                    <input type="checkbox"  id="ckbCheckAll">
+                    </th>
+                    <th>Item</th>
+                    <th>Material</th>
+                    <th>Short Text</th>
+                    <th>Pending Qty</th>
+                    <th>Set Delivery Qty</th>
+                </tr>
+            </thead>
+            <tbody>';
+            $totalQty = 0;
+            foreach($data as $row) {
+                //print_r($row); exit;
+                $html .= '<tr>
+                <td><input type="checkbox" name="footer_id[]" value="'.$row->PoFooters['id'].'" class="checkBoxClass" id="select1" data-pendingqty="'.$row->PoFooters['net_price'].'" data-id="'.$row->PoFooters['item'].'"></td>
+                 <td>'.$row->PoFooters['item'].'</td>
+                 <td>'.$row->PoFooters['material'].'</td>
+                 <td>'.$row->PoFooters['short_text'].'</td>
+                 <td>'.$row->PoFooters['net_price'].' '.$row->PoFooters['order_unit'].'</td>
+                 <td><input type="number" name="footer_id_qty[]" class="form-control check_qty" required="required" data-item="'.$row->PoFooters['item'].'" id="qty'.$row->PoFooters['item'].'" value="0"></td>
+                 
+                </tr>';
+            
+            }
+
+            $html .= "</tbody>
+            </table>";
+
+            $response['status'] = 'success';
+            $response['message'] = 'success';
+            $response['html'] = $html;
+
+        } else {
+            $response['status'] = 'fail';
+            $response['message'] = 'Material not found';
+        }
+        
+
+        //echo '<pre>'; print_r($data); exit;
+        
+
+        echo json_encode($response);
+
+    }
+
+
+    public function asnMaterials($id = null)
+    {
+        if ($this->request->is(['patch', 'post', 'put'])) {
+
+            $request = $this->request->getData();
+
+            echo '<pre>'; print_r($request); exit;
+
+            $id = $request['po_header_id'];
+            $this->loadModel('PoHeaders');
+            $this->loadModel('PoItemSchedules');
+
+            $poHeader = $this->PoHeaders->find('all')
+            ->select(['PoHeaders.id', 'PoHeaders.po_no','PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material','PoFooters.short_text', 'PoFooters.order_unit','PoFooters.net_price', 'PoItemSchedules.id','actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)' , 'PoItemSchedules.delivery_date'])
+            ->innerJoin(['PoFooters' => 'po_footers'],['PoFooters.po_header_id = PoHeaders.id'])
+            ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
+            ->innerJoin(['dateDe' => '(select min(delivery_date) date from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date'])
+            
+            ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0'])->toArray();
+
+            
+            $this->set(compact('poHeader'));
+        }
+
+    }
+
 }
