@@ -384,6 +384,9 @@ a.back-btn {
     margin-right: 15px;
     background-color: #f1f1f1;
     padding: 15px;
+    height: 560px;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .create-asn .t2{
@@ -399,4 +402,7 @@ a.back-btn {
     border-radius: 5px !important;
     margin-left: 0px !important;
     border-color: #989090 !important;
+}
+.t2 input#select1 {
+    margin-left: 4px;
 }

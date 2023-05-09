@@ -8,12 +8,32 @@
 <div class="row content card">
     <div class="column-responsive column-80">
         <div class="deliveryDetails view content">
-            <h3> ASN No. - <?= h($deliveryDetails->toArray()[0]->asn_no) ?>  &nbsp; &nbsp; &nbsp; PO No. - <?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></h3>
-            <div class="card">
-                <div class="card-header">
-                    <h3><b><?= __('Tracking Details') ?></b></h3>
+            <!-- <h6> ASN No. - <?= h($deliveryDetails->toArray()[0]->asn_no) ?>  &nbsp; &nbsp; &nbsp; PO No. - <?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></h3> -->
+            <div class="card mt-2">
+                <div class="card-header" style="background-color:#f1f1f1;">
+                <div class="row">
+                    <div class="col-sm-12 col-lg-2">
+                             ASN No. - <b><?= h($deliveryDetails->toArray()[0]->asn_no) ?></b>
+                    </div>
+                    <div class="col-sm-12 col-lg-2">
+                            PO No. - <b><?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></b>
+                    </div>
+                    <div class="col-sm-12 col-lg-2">
+                          Status: <b>Shipped</b>
+                    </div>
+                    <div class="col-sm-12 col-lg-2">
+                            <a href="#" class="btn btn-success mb-0">Shipped</a>
+                    </div>
+                    </div>
+                    
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12">
+                        <h5><b><?= __('Tracking Details') ?></b></h5>
+                        </div>
+                    
+                    </div>
                         <div class="row">
                         <div class="col-sm-12 col-lg-3 mt-4">
                                 Invoice No. : <b><?= h($deliveryDetails->toArray()[0]->invoice_no) ?></b>

@@ -13,7 +13,16 @@
 <div class="row content card gate-entry">
     <div class="column-responsive column-80">
     <div class="card-header">
-                    <h4 class="p-2 text-info"><b>Gate Entry (GE)</b></h4>
+        <div class="d-flex justify-content-between">
+            
+            <div class="head-t">
+            <h4 class="p-2 text-info"><b>Gate Entry (GE)</b></h4>
+            </div>
+            <div class="actionbtn">
+                <button type="button" class="btn btn-success">Mark Entry</button>
+            </div>
+        </div>
+                   
                 </div>
         <div class="deliveryDetails view content">
           

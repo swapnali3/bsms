@@ -12,7 +12,7 @@ div#example1_wrapper .row:first-child{
     flex-direction: row-reverse !important;
 }
 #example1_filter input.form-control.form-control-sm {
-    width: 100% !important;
+    /* width: 100% !important; */
     padding: 20px 10px !important;
     border-radius: 5px !important;
     margin-left: -4px !important;
