@@ -147,6 +147,7 @@
     $('#example1 tbody').on('click', 'td.details-control', function () {
 
       $(".t2").html(format($(this).attr('header-id')));
+      $("#po_header_id").val($(this).attr('header-id'));
     });
 
 

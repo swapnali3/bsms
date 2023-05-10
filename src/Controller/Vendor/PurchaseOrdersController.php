@@ -449,11 +449,24 @@ class PurchaseOrdersController extends VendorAppController
 
             $request = $this->request->getData();
 
-            echo '<pre>'; print_r($request); exit;
+            //echo '<pre>'; print_r($request); exit;
 
             $id = $request['po_header_id'];
             $this->loadModel('PoHeaders');
             $this->loadModel('PoItemSchedules');
+
+            $conditions = array();
+            $whereFooterIds = "";
+
+            $conditions['PoHeaders.id']  = $id;
+            
+            $conditions[]  = '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0';
+
+            
+            if(!empty($request['footer_id'])) {
+                //$whereFooterIds = " PoFooters.id in (".implode(',', $request['footer_id']).") ";
+                $conditions[]  = "PoFooters.id in (".implode(',', $request['footer_id']).")";
+            }
 
             $poHeader = $this->PoHeaders->find('all')
             ->select(['PoHeaders.id', 'PoHeaders.po_no','PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material','PoFooters.short_text', 'PoFooters.order_unit','PoFooters.net_price', 'PoItemSchedules.id','actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)' , 'PoItemSchedules.delivery_date'])
@@ -461,9 +474,23 @@ class PurchaseOrdersController extends VendorAppController
             ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
             ->innerJoin(['dateDe' => '(select min(delivery_date) date from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date'])
             
-            ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0'])->toArray();
+            ->where($conditions)->toArray();
 
+
+            foreach($poHeader as &$row) {
+                foreach($request['footer_id'] as $key => $footer_id) {
+                    if($row->PoFooters['id'] == $footer_id) {
+                        $row->actual_qty = $request['footer_id_qty'][$key];
+                    }   
+                }
+                //echo '<pre>';print_r($row); exit;
+            }
             
+            
+
+            //echo '<pre>'; print_r($poHeader); exit;
+
+
             $this->set(compact('poHeader'));
         }
 
