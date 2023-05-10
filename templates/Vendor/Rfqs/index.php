@@ -26,8 +26,8 @@
     <!-- <h3><?= __('Rfqs') ?></h3> -->
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="example1">
-                <thead style="BACKGROUND-COLOR: GAINSBORO">
+            <table class="table table-hover" id="example1">
+                <thead>
                     <tr>
                         <th>
                             <?= h(_('RFQ No')) ?>

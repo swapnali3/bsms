@@ -10,7 +10,9 @@
 }
 
 .table thead th {
-	padding: 0.2rem
+	padding: 0.2rem;
+	font-weight: 500;
+    color: #818589 !important;
 }
 
 hr {
@@ -20,7 +22,10 @@ hr {
 
 .table>thead{
 
-    BACKGROUND-COLOR: GAINSBORO;
+    background-color: #d4ddf7 !important;
+}
+.table>tbody{
+	background-color: #f5f7fd !important;
 }
 .table th{
 	font-size:14px;
@@ -28,7 +33,22 @@ hr {
 .table td, .table th{
 	font-size:14px;
 }
-
+.badge.bg-warning {
+    background: #415586 !important;
+    color: #fff !important;
+}
+.page-item.active .page-link {
+   color: #fff !important;
+    background-color: #112a68 !important;
+    border-color: #112a68 !important;
+}
+.page-link{
+	color: #112a68 !important;
+}
+.table-hover tbody tr:hover {
+   
+    background-color: #B4F2FB !important;
+}
 
 
 .btn-group-sm>.btn, .btn-sm{
@@ -38,5 +58,7 @@ hr {
 .card-header{
 	padding:0rem
 }
-
+.table tbody tr td {
+    font-size: 16px;
+}
 

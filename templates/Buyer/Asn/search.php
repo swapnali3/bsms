@@ -23,13 +23,13 @@
                 </div> -->
                     <div class="col-sm-12 col-md-12">
                        <div class="content-box">
-                       <img  class="scanner-img" src="<?= $this->Url->build('/')  ?>img/barcode-scanner.png"> 
+                       <!-- <img  class="scanner-img" src="<?= $this->Url->build('/')  ?>img/barcode-scanner.png">  -->
                         <br>  
-                        <span>Waiting for ASN Barcode to be scanned...</span>  
+                        <span>Scan your ASN barcode</span>  
                         <p><b>OR</b></p>
                         <!-- <h5 class="mb-2 gate-entry-haed font-weight-bold">ENTER ASN NO :</h5> -->
                             <?php echo $this->Form->control('asn_no', array('label' => false, 'class' => 'form-control rounded-0', "placeholder"=>"Start entering ASN or Invoice Number",'div' => 'form-group', 'required')); ?>
-                            <?= $this->Form->button(__('GO'), ['class' => 'btn btn-info btn-block mt-3']) ?>
+                            <?= $this->Form->button(__('GO'), ['class' => 'btn btn-custom mt-3']) ?>
                        </div>
                     </div>
                        

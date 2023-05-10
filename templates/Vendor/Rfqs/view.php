@@ -5,11 +5,15 @@
  */
 ?>
 <style>
-    hr {
-        margin-top: 0px;
-        margin-bottom: 0px
-    }
+    .btn-save {
+    padding: 6px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    margin-right: 15px;
+}
 </style>
+
 <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
 <?= $this->Form->create(null, ['url' => ['controller' => 'rfq-inquiries','action' => 'inquiry',$rfqs->toArray()[0]->rfq_no]]); ?>
 <?= $this->Form->control('rfq_id', array('label'=> false,'type' => 'hidden', 'value' => $rfqs->toArray()[0]->id)) ?>
@@ -17,6 +21,7 @@
 <?= $this->Form->control('subtotal_value', array('label'=> false,'type' => 'hidden', 'id' => 'subtotal_value')) ?>
 <?= $this->Form->control('tax_value', array('label'=> false,'type' => 'hidden', 'id' => 'tax_value')) ?>
 <?= $this->Form->control('total_value', array('label'=> false,'type' => 'hidden', 'id' => 'total_value')) ?>
+<?= $this->Html->css('vendorCustom') ?>
 
 <div class="row ml-2">
     <div class="card mb-3">
@@ -26,7 +31,7 @@
                 </b>
             </h5>
         </div>
-        <div class="card-body">
+        <div class="card-body mb-3 rfq-head-d">
             <div class="row">
                 <div class="col-sm-1 col-lg-2 mt-1"><b>Material</b></div>
                 <div class="col-sm-1 col-lg-2 mt-1"><b>Date</b></div>
@@ -35,6 +40,7 @@
                 <div class="col-sm-1 col-lg-2 mt-1"><b>Discount</b></div>
                 <div class="col-sm-1 col-lg-2 mt-1"><b>Sub Total</b></div>
             </div>
+            
 
             <?php 
                         $subTotal = 0;
@@ -80,11 +86,44 @@
                         $totalAmount = $discountedAmount + $tax;
                         ?>
 
+<hr class="mt-4">
 
+            <div class="rfqs view content row paymnt-cal">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>Sub Total :</td>
+                            <th><span id="sub_total">
+                        <b><?=$subTotal ?></b></th>
+                        </tr>
+                        <tr>
+                            <td>Freight :</td>
+                            <th> <?= $this->Form->control('freight_value', array('value' => $rfq->freight_value ,'label' => false,'id' => 'freight_calc', 'maxlength' => '3','type' => 'number', 'class' => 'check_qty form-control rounded-0','div' => 'form-group')); ?></th>
+                        </tr>
+                        <tr>
+                            <td>Total :</td>
+                            <th><span id="discounted_total">
+                        <b><?=$subTotal + $rfq->freight_value ?></b>
+                    </span></th>
+                        </tr>
+                        <tr>
+                            <td>GST(18%) :</td>
+                            <th><span id="total_gst"> <b><?=$rfq->tax_value ?></b> </span></th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <hr class="mb-2 mt-2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total Amount :</td>
+                            <th><span id="total_amount">
+                        <b><?= $rfq->total_value?></b></th>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <div class="rfqs view content row">
-
-                <div class="col-sm-4 col-lg-12 mt-2">
+                <!-- <div class="col-sm-4 col-lg-12 mt-2">
                     Sub Total : <span id="sub_total">
                         <b><?=$subTotal ?></b>
                     </span>
@@ -109,12 +148,13 @@
                 <div class="col-sm-4 col-lg-12 mt-2">
                     GST(18%) : <span id="total_gst"> <b><?=$rfq->tax_value ?></b> </span>
                 </div>
-
+                   
                 <div class="col-sm-4 col-lg-12 mt-2">
+                <hr class="mb-2 mt-2">
                     Total Amount : <span id="total_amount">
                         <b><?= $rfq->total_value?></b>
                     </span>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -145,9 +185,9 @@
 
     <div>
         <button label="Login"
-            class="button button-rounded button-reveal button-large button-yellow button-light text-end" type="submit"
+            class="button btn-save btn-custom button-rounded button-reveal button-large button-yellow button-light text-end" type="submit"
             style="float:right;">
-            <i class="icon-line-save"></i>
+            <!-- <i class="icon-line-save"></i> -->
             <span>SAVE</span>
         </button>
     </div>

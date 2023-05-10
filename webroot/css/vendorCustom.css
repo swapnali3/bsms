@@ -40,3 +40,27 @@ table.material-list th {
 table th,table td{
     cursor: pointer !important;
 }
+.paymnt-cal {
+    width: 25%;
+    margin-top: 15px;
+    margin-left: 3px;
+    font-size: 16px;
+}
+.btn-custom {
+    background-color: #112A68;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.1rem;
+    padding: 10px 20px;
+}
+.btn-custom:hover {
+    color: #fff !important;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+.rfq-head-d{
+    background-color: #f5f7fd ;
+}
+input#freight_calc {
+    width: 90px;
+    height: 30px;
+}

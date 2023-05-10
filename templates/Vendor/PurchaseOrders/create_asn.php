@@ -7,10 +7,11 @@
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table') ?>
 <?= $this->Form->create(null,['action' => 'asn-materials', 'id' => 'asnForm']) ?>
 <?= $this->form->control('po_header_id', ['id' =>'po_header_id', 'label' => false, 'type' => 'hidden', 'value'=> '']) ?>
 <div class="poHeaders index content card create-asn">
-    <div class="card-header">
+    <div class="card-header p-3">
         <div class="row">
             <div class="col-md-6">
             <h4 class="text-info" style="color:#004d87 !important;">
@@ -31,16 +32,17 @@
     </div>
     <div class="card-body">
         <div class="">
-            <h5><b>Select Material</b></h5>
+            <!-- <h5><b>Select Material</b></h5> -->
             <div class="d-flex">
-                <div class="t1"> <table class="table" id="example1">
+                <div class="t1">
+                <h5><b>Select Material</b></h5> <table class="table" id="example1">
                 <thead>
-                    <tr style="background-color: #ddd;">
+                    <tr>
                         <!-- <th width="5%"></th>
                         <th>
                             <?= h('Vendor Code') ?>
                         </th> -->
-                        <th>
+                        <th class="pono">
                             <?= h('PO No.') ?>
                         </th>
                         <!-- <th>
@@ -70,14 +72,14 @@
                 </thead>
                 <tbody>
                     <?php foreach ($poHeaders as $poHeader): ?>
-                    <tr style="background-color:#fff;">
+                    <tr>
                     <!-- <td class="details-control" header-id="<?=$poHeader->id?>">
                         <span class="material-symbols-outlined flu" data-alt="+">
                             add
                         </span>    
                         </td> -->
                         <!-- <td><?= h($poHeader->sap_vendor_code) ?></td> -->
-                        <td class="details-control" header-id="<?=$poHeader->id?>"><?= h($poHeader->po_no) ?></td>
+                        <td class="details-control ponum" header-id="<?=$poHeader->id?>"><?= h($poHeader->po_no) ?></td>
                         <!-- <td><?= h($poHeader->document_type) ?></td>
                         <td><?= h($poHeader->created_on) ?></td>
                         <td><?= h($poHeader->created_by) ?></td>
@@ -95,7 +97,27 @@
                     
                 </tbody>
             </table></div>
-                <div class="t2"> </div>
+                <div class="t2"> 
+                <table class="table table-bordered material-list" id="example2">
+            <thead>
+                <tr>
+                    <th>
+                    <input type="checkbox" id="ckbCheckAll">
+                    </th>
+                    <th>Item</th>
+                    <th>Material</th>
+                    <th>Short Text</th>
+                    <th>Pending Qty</th>
+                    <th>Set Delivery Qty</th>
+                </tr>
+            </thead>
+             <tbody>
+               <tr>
+                <td colspan="6" class="text-center"> <p>No data found !</p></td>
+               </tr>
+             </tbody>
+            </table>
+                </div>
             </div>
            
            

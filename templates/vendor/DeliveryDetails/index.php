@@ -21,14 +21,14 @@
     <div class="card-header">
         <h5>
             <b>
-                <?= __('DELIVERY DETAIL') ?>
+                <?= __('DELIVERY DETAILS') ?>
             </b>
         </h5>
     </div>
     <div class="card-body">
-        <table class="table table-hover" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
+        <table class="table table-hover" id="example1">
             <thead>
-                <tr style="background-color: #d3d3d36e;">
+                <tr>
                     <th>Purchase Order</th>
                     <th>Item</th>
                     <th>Challan No.</th>
@@ -84,6 +84,7 @@
         var table = $("#example1").DataTable({
             "paging": true,
             "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
+            "ordering":false,
             language: {
           search: "_INPUT_",
         searchPlaceholder: "Search..."

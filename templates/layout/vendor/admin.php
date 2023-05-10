@@ -13,6 +13,13 @@
 .brand-link{
 padding: 0.5rem 0.5rem;
 }
+.nav-link.active{
+    background-color: #0C1D49 !important;
+
+}
+aside.main-sidebar {
+    background-color: #112A68 !important;
+}
 
 
 </style>
@@ -76,11 +83,12 @@ padding: 0.5rem 0.5rem;
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
+        <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>" style="background-color:#482668;">
             <!-- Brand Logo -->
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
                 style="background-color:#ffffff; text-align-last:center;">
-                <?= $this->Html->image('ft_rect_logo.png', ['width' => '110', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
+                <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '2']) ?>
+                <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
 
             <div class="sidebar">

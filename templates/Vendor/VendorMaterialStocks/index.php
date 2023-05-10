@@ -35,7 +35,7 @@
                         <?php echo $this->Form->control('Upload Stocks', ['label' => false, 'accept'=>".xls,.xlsx", 'type' => 'file', 'class' => 'custom-file-input', 'id' => 'exampleInputFile']); ?>
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
-                   <?= $this->Form->button(__('Upload'), ['class' => 'btn btn-success mb-0 mt-2']) ?>
+                   <?= $this->Form->button(__('Upload'), ['class' => 'btn btn-custom mb-0 mt-2']) ?>
                 </div>
             </div>
         </fieldset>
@@ -50,7 +50,7 @@
         <div class="table-responsive">
             <table class="table table-hover" id="example1">
                 <thead>
-                    <tr style="background-color: #d3d3d36e;">
+                    <tr>
                         <th>
                             <?= h('Part Code') ?>
                         </th>

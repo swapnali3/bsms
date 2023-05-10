@@ -92,6 +92,7 @@
         $("#example1").DataTable({
             "paging": true,
             "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
+            "ordering":false,
             language: {
           search: "_INPUT_",
         searchPlaceholder: "Search..."

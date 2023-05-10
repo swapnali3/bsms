@@ -20,7 +20,7 @@
       <div class="col-md-6 d-flex justify-content-end">
         <h6 class="text-right">Expected Delivery Date <br> <b>May 28, 2022</b></h6>
         <a href="javascript:history.back()" class=" back-btn d-block"><i class="fas fa-angle-double-left"></i> BACK</a>
-        <button type="submit" class="btn btn-info mb-0 ml-2">Create ASN</button>
+        <button type="submit" class="btn btn-custom mb-0 ml-2">Create ASN</button>
       </div>
     </div>
    
@@ -146,7 +146,7 @@
     <div class="table-responsive">
       <table class="table table-bordered material-list">
         <thead>
-          <tr style="background-color: #fff;">
+          <tr>
             <th>
               <?= __('Item') ?>
             </th>

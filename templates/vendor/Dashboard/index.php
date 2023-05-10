@@ -17,6 +17,7 @@
     padding:0rem
   }
   </style>
+  <?= $this->Html->css('custom') ?>
 <div class="row" style="margin-top: 25px">
 
   <div class="col-sm-12 col-lg-3">
@@ -36,7 +37,7 @@
 
       <hr class="dark horizontal my-0">
       <div class="card-footer p-3">
-        <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'small-box-footer button', 'escape' => false]) ?>
+        <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'small-box-footer button btn-custom', 'escape' => false]) ?>
       </div>
     </div>
   </div>
@@ -58,7 +59,7 @@
 
       <hr class="dark horizontal my-0">
       <div class="card-footer p-3">
-        <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer button', 'escape' => false]) ?>
+        <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer button btn-custom', 'escape' => false]) ?>
       </div>
     </div>
   </div> -->
@@ -80,7 +81,7 @@
       </div>
       <hr class="horizontal my-0 dark">
       <div class="card-footer p-3">
-        <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'small-box-footer button', 'escape' => false]) ?>
+        <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'small-box-footer button btn-custom', 'escape' => false]) ?>
       </div>
     </div>
   </div>
@@ -102,7 +103,7 @@
       </div>
       <hr class="horizontal my-0 dark">
       <div class="card-footer p-3">
-        <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer button', 'escape' => false]) ?>
+        <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer button btn-custom', 'escape' => false]) ?>
       </div>
     </div>
   </div>

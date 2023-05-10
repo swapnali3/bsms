@@ -95,7 +95,7 @@ div#example1_wrapper .row:first-child,.deliveryDetails .row:first-child{
 }
 table#example1 tr th {
     padding: 10px 0px !important;
-    background-color: #f1f1f1 !important;
+    /* background-color: #f1f1f1 !important; */
 }
 table#example1  span.material-symbols-outlined.flu {
     font-size: 18px;
@@ -308,21 +308,22 @@ div#past_messages  .past-msg:last-child{
     margin-left: 0px !important;
 }
 .gate-entry .content-box {
-    width: 50%;
     text-align: center;
     margin: 0 auto;
-    padding: 50px 0px;
+    padding: 0px 25%;
+    background-color: f5f7fd;
 }
 .gate-entry .content-box img.scanner-img {
     width: 180px;
     margin-bottom: 30px;
 }
 .gate-entry .content-box span {
-    font-size: 20px;
-    color: #979797;
-    font-style: italic;
+    font-size: 35px;
+    color: #000;
     margin-bottom: 20px;
     display: block;
+    text-transform: uppercase;
+    font-weight: 600;
 }
 /* .gate-entry .content-box input[type="text"]::placeholder {
     text-align: center;
@@ -339,7 +340,7 @@ table.table.table-bordered.delivery-dt-tbl td,table.table.table-bordered.deliver
 }
 .card-body.invoice-details .dgf {
     width: 100% !important;
-    background-color: #f1f1f1;
+    background-color: #f5f7fd !important;
     border-radius: 0px !important;
     padding: 10px !important;
     padding-bottom: 20px !important;
@@ -349,11 +350,13 @@ a.back-btn {
     padding: 10px 30px;
     margin-left: 25px;
     line-height: 22px;
+    color: #112A68 !important;
+    border-color: #112A68 !important;
 }
 .calcu {
    
     margin: 0 0 0 auto;
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
     padding: 15px;
 }
 .calcu table {
@@ -362,12 +365,22 @@ a.back-btn {
     font-size: 17px;
 }
 .invoice-details label {
-    color: #444;
+    color: #818589 !important;
     margin-left: 0px;
+    font-size: 12px;
+}
+.invoice-details p {
+    color: #000 !important;
+    font-weight: 600;
+    font-size: 16px;
+}
+.invoice-details .form-control {
+    height: 32px !important;
+    width: 150px;
 }
 .material-list th {
     padding: 10px 13px !important;
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
 }
 .settings .card-header h5{
     color: #004d87 !important;
@@ -382,19 +395,16 @@ a.back-btn {
 .create-asn .t1{
     width: 20%;
     margin-right: 15px;
-    background-color: #f1f1f1;
+    background-color: #fff;
     padding: 15px;
     height: 560px;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 }
 
 .create-asn .t2{
     width: 80%;
-}
-.create-asn table#example1 tr th {
-   
-    background-color: #c6c6c6 !important;
 }
 .create-asn #example1_filter input.form-control.form-control-sm {
     width: unset !important;
@@ -405,4 +415,36 @@ a.back-btn {
 }
 .t2 input#select1 {
     margin-left: 4px;
+}
+.action-btn a {
+    background-color: #112A68 !important;
+    font-size: 14px;
+    padding: 10px 14px;
+}
+td.ponum {
+    font-size: 17px !important;
+    font-weight: 600;
+    font-family: 'Lato', sans-serif;
+}
+.t1 h5 {
+    font-size: 18px;
+    margin-left: 5px;
+}
+.btn-custom {
+    background-color: #112A68;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.1rem;
+    padding: 10px 20px;
+}
+a.back-btn:hover {
+    background-color: #112A68 !important;
+    color: #fff !important;
+}
+.btn-custom:hover {
+    color: #fff !important;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+.text-info {
+    color: #112A68 !important;
 }

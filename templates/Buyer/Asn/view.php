@@ -19,7 +19,7 @@
             <h4 class="p-2 text-info"><b>Gate Entry (GE)</b></h4>
             </div>
             <div class="actionbtn">
-                <button type="button" class="btn btn-success">Mark Entry</button>
+                <button type="button" class="btn btn-custom">Mark Entry</button>
             </div>
         </div>
                    
