@@ -85,7 +85,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-lg-3">
+  <!-- <div class="col-sm-12 col-lg-3">
     <div class="card  mb-2" style="border-radius:1rem;">
       <div class="card-header p-3 pt-2 bg-transparent">
         <div
@@ -105,7 +105,7 @@
         <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer button', 'escape' => false]) ?>
       </div>
     </div>
-  </div>
+  </div> -->
 
 </div>
 

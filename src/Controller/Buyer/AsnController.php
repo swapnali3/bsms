@@ -14,6 +14,7 @@ class AsnController extends BuyerAppController
 
     public function search()
     {
+        $this->set('headTitle', 'Gate Entry(GE)');
         $this->loadModel('AsnHeaders');
         $session = $this->getRequest()->getSession();
 

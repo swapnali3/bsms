@@ -18,6 +18,7 @@ class RfqsController extends BuyerAppController
      */
     public function index()
     {
+        $this->set('headTitle', 'RFQ List');
 
         $query = $this->Rfqs->find()
             ->select(['Rfqs.rfq_no','VendorTemps.name', 'PrHeaders.pr_no','Rfqs.added_date'])
@@ -46,6 +47,7 @@ class RfqsController extends BuyerAppController
      */
     public function view($id = null)
     {
+        $this->set('headTitle', 'RFQ Detail');
         $session = $this->getRequest()->getSession();
         $buyerId = $session->read('id');
 

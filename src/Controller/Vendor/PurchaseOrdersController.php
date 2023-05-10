@@ -21,6 +21,7 @@ class PurchaseOrdersController extends VendorAppController
      */
     public function index()
     { 
+        $this->set('headTitle', 'Purchase Order List');
         $this->loadModel('PoHeaders');
         $this->loadModel('PoItemSchedules');
         $session = $this->getRequest()->getSession();
@@ -32,6 +33,7 @@ class PurchaseOrdersController extends VendorAppController
 
     public function createAsn()
     { 
+        $this->set('headTitle', 'Create ASN');
         $this->loadModel('PoHeaders');
         $this->loadModel('PoItemSchedules');
         $session = $this->getRequest()->getSession();
@@ -445,6 +447,7 @@ class PurchaseOrdersController extends VendorAppController
 
     public function asnMaterials($id = null)
     {
+        $this->set('headTitle', 'Create ASN Review');
         if ($this->request->is(['patch', 'post', 'put'])) {
 
             $request = $this->request->getData();

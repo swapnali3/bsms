@@ -18,6 +18,7 @@ class AsnController extends VendorAppController
      */
     public function index()
     {
+        $this->set('headTitle', 'ASN List');
         $this->loadModel('AsnHeaders');
         $session = $this->getRequest()->getSession();
         /*$this->paginate = [
@@ -49,6 +50,7 @@ class AsnController extends VendorAppController
      */
     public function view($id = null)
     {
+        $this->set('headTitle', 'ASN Detail');
         $this->loadModel('AsnHeaders');
 
         $deliveryDetails = $this->AsnHeaders->find('all')

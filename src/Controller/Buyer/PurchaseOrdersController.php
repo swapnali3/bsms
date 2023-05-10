@@ -19,6 +19,7 @@ class PurchaseOrdersController extends BuyerAppController
      */
     public function index()
     {
+        $this->set('headTitle', 'Purchase Order List');
         $this->loadModel('PoHeaders');
         $poHeaders = $this->paginate($this->PoHeaders);
 
@@ -34,6 +35,7 @@ class PurchaseOrdersController extends BuyerAppController
      */
     public function view($id = null)
     {
+        $this->set('headTitle', 'PO Detail');
         $this->loadModel('PoHeaders');
         $poHeader = $this->PoHeaders->get($id, [
             'contain' => ['PoFooters'=>'DeliveryDetails'],

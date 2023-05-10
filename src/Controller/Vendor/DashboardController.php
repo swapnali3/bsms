@@ -34,6 +34,7 @@ class DashboardController extends VendorAppController
 {
     public function index() {
 
+        $this->set('headTitle', 'Dashboard');
         $session = $this->getRequest()->getSession();
         $conn = ConnectionManager::get('default');
 

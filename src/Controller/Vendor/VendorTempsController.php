@@ -33,6 +33,7 @@ class VendorTempsController extends VendorAppController
      */
     public function view($id = null)
     {
+        $this->set('headTitle', 'Profile');
         $session = $this->getRequest()->getSession();
         $this->loadModel("VendorTemps");
         $vendorTemp = $this->VendorTemps->get($session->read('vendor_id'), [

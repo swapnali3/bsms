@@ -20,6 +20,7 @@ class PurchaseRequisitionsController extends BuyerAppController
      */
     public function index()
     {
+        $this->set('headTitle', 'Purchase Requisitions List');
         $this->loadModel('PrHeaders');
         $prHeaders = $this->paginate($this->PrHeaders);
 
@@ -35,6 +36,7 @@ class PurchaseRequisitionsController extends BuyerAppController
      */
     public function view($id = null)
     {
+        $this->set('headTitle', 'PR Detail');
         $this->loadModel('PrHeaders');
         $prHeader = $this->PrHeaders->get($id, [
             'contain' => ['PrFooters'],
@@ -45,6 +47,7 @@ class PurchaseRequisitionsController extends BuyerAppController
 
     public function createRfq($id = null)
     {
+        $this->set('headTitle', 'Create RFQ');
         $session = $this->getRequest()->getSession();
         $this->loadModel('PrHeaders');
         $this->loadModel('VendorTemps');
