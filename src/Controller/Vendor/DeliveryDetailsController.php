@@ -18,6 +18,7 @@ class DeliveryDetailsController extends VendorAppController
      */
     public function index()
     {
+        $this->set('headTitle', 'Intransit');
         $this->loadModel('DeliveryDetails');
         $session = $this->getRequest()->getSession();
         $this->paginate = [

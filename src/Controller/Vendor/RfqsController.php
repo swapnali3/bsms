@@ -18,6 +18,7 @@ class RfqsController extends VendorAppController
      */
     public function index()
     {
+        $this->set('headTitle', 'RFQ List');
         $session = $this->getRequest()->getSession();
 
        
@@ -50,6 +51,7 @@ class RfqsController extends VendorAppController
      */
     public function view($id = null)
     {
+        $this->set('headTitle', 'RFQ Detail');
         $session = $this->getRequest()->getSession();
 
         $this->loadModel('RfqCommunications');

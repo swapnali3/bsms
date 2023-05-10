@@ -18,6 +18,7 @@ class DeliveryDetailsController extends BuyerAppController
      */
     public function index()
     {
+        $this->set('headTitle', 'Intransit');
         $this->loadModel('DeliveryDetails');
         $this->paginate = [
             'contain' => ['PoHeaders', 'PoFooters'],

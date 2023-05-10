@@ -38,8 +38,8 @@
   <?= $this->element('header/menu') ?>
 </ul>
 
-<div class="navbar" style="margin-left: 0vw;margin-top:0.3vw;font-size:30px">
-<h4>Dashboard</h4>
+<div class="navbar card-header" style="margin-left: 0vw;margin-top:0.3vw;font-size:30px">
+<h4><b><?=(isset($headTitle)) ? $headTitle : '' ?></b></h4>
   <!-- <b>
     <img src="<?= $this->Url->build('/') ?>img/rect_logo.png" alt="vekpro" style="width: 8vw;">
   </b> -->

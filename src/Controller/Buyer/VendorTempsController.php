@@ -24,6 +24,7 @@ class VendorTempsController extends BuyerAppController
      */
     public function index()
     {
+        $this->set('headTitle', 'Vendor List');
         $this->loadModel("VendorTemps");
         $this->paginate = [
             'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
@@ -94,6 +95,7 @@ class VendorTempsController extends BuyerAppController
      */
     public function add()
     {
+        $this->set('headTitle', 'Create Vendor');
         $this->loadModel("VendorTemps");
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -131,6 +133,7 @@ class VendorTempsController extends BuyerAppController
 
     public function sapAdd()
     {
+        $this->set('headTitle', 'Import SAP Vendor');
         $this->loadModel("VendorTemps");
         
         if ($this->request->is('post')) {

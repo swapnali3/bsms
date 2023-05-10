@@ -6,7 +6,7 @@
 ?>
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <?= $this->Html->css('Custom') ?>
+  <?= $this->Html->css('custom') ?>
   <?= $this->Form->create(null,['url' => '/vendor/purchase-orders/view/'.$poHeader[0]->id,'type' => 'file', 'id' => 'asnForm']) ?>
 <?= $this->form->control('po_header_id', ['label' => false, 'type' => 'hidden', 'value'=> $poHeader[0]->id]) ?>
 <div class="card">

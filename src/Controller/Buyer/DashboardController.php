@@ -33,6 +33,7 @@ class DashboardController extends BuyerAppController
 {
     public function index() {
 
+        $this->set('headTitle', 'Dashboard');
         $session = $this->getRequest()->getSession();
 
         if(!$session->check('id')) {
