@@ -397,7 +397,7 @@ class PurchaseOrdersController extends VendorAppController
         if($data->count() > 0) {
             $html .= '<table class="table table-bordered material-list" id="example2">
             <thead>
-                <tr style="background-color: #fff;">
+                <tr>
                     <th>
                     <input type="checkbox"  id="ckbCheckAll">
                     </th>

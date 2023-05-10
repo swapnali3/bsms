@@ -127,7 +127,7 @@ input[type="search"] {
         <div class="card-header d-flex pb-3 pt-3">
             <div class="col-md-8">
             <div class="d-flex">
-            <h5 class="p-2 text-info mr-4"><b> Vendor Management</b></h5>
+            <!-- <h5 class="p-2 text-info mr-4"><b> Vendor Management</b></h5> -->
             <form class="search-fm">
                 <input type="search" placeholder="Search...">
                 <button type="submit">Search</button>

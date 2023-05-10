@@ -16,13 +16,13 @@
 </style> -->
 <?= $this->Html->css('vendorCustom') ?>
 <div class="poHeaders index content card" class="card-header">
-    <div class="card-header">
+    <!-- <div class="card-header">
         <h5>
             <b>
                 RFQ
             </b>
         </h5>
-    </div>
+    </div> -->
     <!-- <h3><?= __('Rfqs') ?></h3> -->
     <div class="card-body">
         <div class="table-responsive">

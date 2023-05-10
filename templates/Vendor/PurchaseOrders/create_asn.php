@@ -14,11 +14,11 @@
     <div class="card-header p-3">
         <div class="row">
             <div class="col-md-6">
-            <h4 class="text-info" style="color:#004d87 !important;">
+            <!-- <h4 class="text-info" style="color:#004d87 !important;">
             <b>
                 <?= __('CREATE ASN') ?>
             </b>
-        </h4>
+        </h4> -->
             </div>
             <div class="col-md-6">
             <div class="action-btn d-flex justify-content-end">

@@ -13,9 +13,9 @@
     <div class="col-12">
         <div class="card">
             <?= $this->Form->create() ?>
-            <div class="card-header">
+            <!-- <div class="card-header">
             <h4 class="p-2 text-info"><b>Gate Entry (GE)</b></h3>
-            </div>
+            </div> -->
             <div class="card-body gate-entry">
                 <div class="row">
                 <!-- <div class="col-sm-12 col-md-6">

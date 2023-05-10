@@ -6,13 +6,13 @@
 ?>
 <?= $this->Html->css('vendorCustom') ?>
 <div class="poHeaders index content card">
-    <div class="card-header">
+    <!-- <div class="card-header">
         <h5>
             <b>
                 <?= __('PURCHASE ORDER LISTS') ?>
             </b>
         </h5>
-    </div>
+    </div> -->
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-hover" id="example1">

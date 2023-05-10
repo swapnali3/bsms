@@ -7,13 +7,13 @@
 <?= $this->Html->css('custom') ?>
 <div class="rfqs index content card">
     
-<div class="card-header">
+<!-- <div class="card-header">
         <h5>
             <b>
                 RFQ LIST
             </b>
         </h5>
-    </div>
+    </div> -->
 
     <div class="card-body p-0">
     <div class="table-responsive">

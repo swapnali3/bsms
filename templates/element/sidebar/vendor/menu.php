@@ -59,7 +59,7 @@
 </li>
 
 <li class="nav-item ">
-  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>ASN List</p>'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-list nav-icon"></i><p>ASN List</p>'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
 </li>
 
 <li class="nav-item ">
@@ -67,7 +67,7 @@
 </li>
 
 <li class="nav-item ">
-  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Material Stocks</p>'), ['controller' => 'vendor-material-stocks', 'action' => 'index'], ['class' => "nav-link $stockActive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-box-open nav-icon"></i><p>Material Stocks</p>'), ['controller' => 'vendor-material-stocks', 'action' => 'index'], ['class' => "nav-link $stockActive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item ">

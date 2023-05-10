@@ -28,6 +28,11 @@
   .badge-warning{
     background-color:#ffc107
   }
+  .navbar.card-header h4 {
+    color: #004d87;
+    text-transform: uppercase;
+    font-size: 22px;
+}
  
   </style>
 

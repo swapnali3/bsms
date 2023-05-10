@@ -81,7 +81,7 @@
     flex-direction: row-reverse !important;
 }
 #example1_filter input.form-control.form-control-sm {
-    width: 100% !important;
+    /* width: 100% !important; */
     padding: 20px 10px !important;
     border-radius: 5px !important;
     margin-left: -12px !important;
@@ -415,6 +415,12 @@ a.back-btn {
 }
 .t2 input#select1 {
     margin-left: 4px;
+}
+.material-list#example2 tbody tr td {
+    padding: 10px !important;
+}
+.material-list#example2 .check_qty {
+    width: 90px;
 }
 .action-btn a {
     background-color: #112A68 !important;

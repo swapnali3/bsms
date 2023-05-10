@@ -154,7 +154,8 @@ label{
 <script>
     $(document).ready(function () {
         $("#example1").DataTable({
-            "responsive": false, "lengthChange": true, "autoWidth": true,
+            "responsive": false, "lengthChange": false, "autoWidth": true,
+            "ordering":false,
             'order': [[10, 'desc']],
             language: {
           search: "_INPUT_",
