@@ -14,16 +14,12 @@
     <div class="card-header p-3">
         <div class="row">
             <div class="col-md-6">
-            <!-- <h4 class="text-info" style="color:#004d87 !important;">
-            <b>
-                <?= __('CREATE ASN') ?>
-            </b>
-        </h4> -->
+            <h5><b>Select Material</b></h5> 
             </div>
             <div class="col-md-6">
             <div class="action-btn d-flex justify-content-end">
        <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a>
-       <button type="submit" class="btn btn-secondary mb-0 continue_btn">Continue</button>
+       <button type="submit" class="btn btn-secondary mb-0 continue_btn" disabled>Continue</button>
        </div>
             </div>
         </div>
@@ -35,7 +31,7 @@
             <!-- <h5><b>Select Material</b></h5> -->
             <div class="d-flex">
                 <div class="t1">
-                <h5><b>Select Material</b></h5> <table class="table" id="example1">
+                <table class="table" id="example1">
                 <thead>
                     <tr>
                         <!-- <th width="5%"></th>
@@ -213,10 +209,12 @@
         }
         if($('.checkBoxClass:checked').length) {
             $(".continue_btn").addClass('btn-success');
+            $(".continue_btn").removeAttr('disabled');
             $(".continue_btn").removeClass('btn-secondary');
         } else {
             $(".continue_btn").addClass('btn-secondary ');
             $(".continue_btn").removeClass('btn-success');
+            $(".continue_btn").attr('disabled', 'disabled');
         }
     });
 
@@ -234,10 +232,12 @@
 
         if($('.checkBoxClass:checked').length) {
             $(".continue_btn").addClass('btn-success');
+            $(".continue_btn").removeAttr('disabled');
             $(".continue_btn").removeClass('btn-secondary');
         } else {
             $(".continue_btn").addClass('btn-secondary ');
             $(".continue_btn").removeClass('btn-success');
+            $(".continue_btn").attr('disabled', 'disabled');
         }
 
     });

@@ -18,7 +18,7 @@
       </b></h5>
       </div>
       <div class="col-md-6 d-flex justify-content-end">
-        <h6 class="text-right">Expected Delivery Date <br> <b>May 28, 2022</b></h6>
+        <!-- <h6 class="text-right">Expected Delivery Date <br> <b>May 28, 2022</b></h6> -->
         <a href="javascript:history.back()" class=" back-btn d-block"><i class="fas fa-angle-double-left"></i> BACK</a>
         <button type="submit" class="btn btn-custom mb-0 ml-2">Create ASN</button>
       </div>
@@ -96,7 +96,7 @@
   </div>
   <div class="card-body invoice-details">
         <div class="row dgf" style="background-color:#f1f1f1 !important;width:100%">
-        <div class="col-sm-8 col-md-2">
+            <!-- <div class="col-sm-8 col-md-2">
                <label>VENDOR</label>
                <p>Dharti Enterprise</p>
             </div>
@@ -104,7 +104,7 @@
                 <label>VENDOR CODE</label>
                 <p>LARET0</p>
                 
-            </div>
+            </div> -->
             <div class="col-sm-8  col-md-2">
                 <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0','div' => 'form-group', 'required'));?>
             </div>
@@ -113,7 +113,7 @@
             </div>
 
             <div class="col-sm-8 col-md-2">
-                <?php echo $this->Form->control('invoice_value', array('type' => 'number', 'class' => 'form-control rounded-0','div' => 'form-group', 'required'));?>
+                <?php echo $this->Form->control('invoice_value', array('id' => 'invoice_value', 'type' => 'number', 'class' => 'form-control rounded-0','div' => 'form-group', 'required', 'readonly'));?>
             </div>
             
             <div class="col-sm-8 col-md-2">
@@ -168,9 +168,7 @@
             <th>
               <?= __('Net Value') ?>
             </th>
-            <th>
-              <?= __('Expected Date') ?>
-            </th>
+            
             
           </tr>
         </thead>
@@ -195,12 +193,9 @@
             <td style="width:50px;">
               <?= $this->form->control('po_footer_id[]', ['label' => false, 'type' => 'hidden', 'value'=> $row['PoFooters']['id']]) ?>
               <?= $this->form->control('schedule_id[]', ['label' => false, 'type' => 'hidden', 'value'=> $row['PoItemSchedules']['id']]) ?>
-              <?= $this->form->control('qty[]', ['label' => false, 'value' => 0, 'class' => 'form-control check_qty', 'type' => 'number', 'required' , 'data-item' => $row['PoFooters']['item'],'data-net-price' => $row['PoFooters']['net_price']]) ?>
+              <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'class' => 'form-control check_qty', 'type' => 'number', 'required' , 'data-item' => $row['PoFooters']['item'],'data-net-price' => $row['PoFooters']['net_price']]) ?>
             </td>
-            <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>">0</td>
-            <td>
-              <?= h($row['PoItemSchedules']['delivery_date']) ?>
-            </td>
+            <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>"><?= ($row['PoFooters']['net_price'] * $row['actual_qty'])?></td>
           </tr>
           <?php endforeach; ?>
         </tbody>
@@ -228,12 +223,18 @@
 
 <script>
   $(document).ready(function () {
+
+    $(document).ready(function($) {
+          $('.check_qty').trigger('keyup'); 
+        });
+
     var Toast = Swal.mixin({
       toast: true,
       position: 'top-end',
       showConfirmButton: false,
       timer: 3000
     });
+
 
 
     $(document).on('keyup', '.check_qty', function () {
@@ -258,6 +259,7 @@
         $("#sub_total").html(subTotal);
         $("#total_gst").html(gst);
         $("#total_value").html(subTotal + gst);
+        $('#invoice_value').val(subTotal + gst)
     });
 
     
@@ -313,7 +315,13 @@
       }
     });
 
+    
+
   });
+
+  $(window).on('popstate', function(event) {
+      alert("pop");
+    });
 
 
 </script>
