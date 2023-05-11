@@ -281,12 +281,16 @@ table#example1 tr th,table#example1 tr td{
     font-size: 16px !important;
 }
 .veiw-invoice {
-    font-size: 16px;
-    text-transform: capitalize;
-    margin-top: 37px !important;
-    font-weight: 600;
+    /* font-size: 16px;
+    text-transform: capitalize; */
+    /* margin-top: 37px !important; */
     display: block;
-    margin-left: 10px;
+    margin-top: 0 !important;
+    display: block;
+    width: 113px;
+    /* font-weight: 600;
+    display: block;
+    margin-left: 10px; */
 }
 #notifyModal .modal-title {
     color: #004d87;
