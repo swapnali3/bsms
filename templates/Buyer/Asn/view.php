@@ -62,9 +62,9 @@
                         <div class="col-md-2">
                         <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0','div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact));?>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-2 align-self-end">
                         <?php $files = json_decode($deliveryDetails->toArray()[0]->invoice_path, true);
-                            echo $this->Html->link('View invoice','/'.$files[0],['target' => '_blank','class' => 'veiw-invoice text-info align-self-end mt-3']);
+                            echo $this->Html->link('View invoice','/'.$files[0],['target' => '_blank','class' => 'veiw-invoice btn-custom']);
                         ?>
                         </div>
                     </div>
