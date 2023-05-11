@@ -79,3 +79,10 @@ b.vlu {
     font-size: 16px;
     display: block;
 }
+b.asnstatus {
+    font-size: 14px;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 5px;
+}

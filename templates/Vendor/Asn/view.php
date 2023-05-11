@@ -33,7 +33,7 @@
                     <?php 
                             if($deliveryDetails[0]->status == '1') { ?>
                     <div class="col-sm-12 col-lg-2">
-                            <button class="btn btn-success mb-0 mark_delivered" >Mark Delivered</button>
+                            <button class="btn btn-custom mb-0 mark_delivered" >Mark Delivered</button>
                     </div>
                     <?php  } ?>
                     </div>
@@ -70,7 +70,7 @@
                             <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
 
                             if(!empty($files)) {
-                                echo $this->Html->link('View invoice','/'.$files[0],['target' => '_blank']);
+                                echo $this->Html->link('View invoice','/'.$files[0],['target' => '_blank','class'=>'btn btn-custom mt-4']);
                             }
                         ?>
                             </div>
