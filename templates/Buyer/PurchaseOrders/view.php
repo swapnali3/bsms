@@ -476,11 +476,11 @@
           success: function (response) {
             console.log(response);
             if (response.status == 'success') {
-              $('#scheduleModal').modal('toggle');
               Toast.fire({
                 icon: 'success',
                 title: response.message
               });
+              $('#scheduleModal').modal('toggle');
             } else {
               Toast.fire({
                 icon: 'error',
@@ -528,7 +528,7 @@
 
     var table = $("#example1").DataTable({
       "paging": true,
-      "responsive": true,
+      "responsive": false,
        "lengthChange": false,
         "autoWidth": false,
          "searching": true,
@@ -645,7 +645,6 @@
                 icon: 'success',
                 title: response.message
               });
-              //location.reload(true);
             } else {
               Toast.fire({ icon: 'error', title: response.message });
             }

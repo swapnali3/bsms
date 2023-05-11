@@ -54,14 +54,14 @@ class AsnController extends VendorAppController
         $this->loadModel('AsnHeaders');
 
         $deliveryDetails = $this->AsnHeaders->find('all')
-        ->select(['AsnHeaders.id', 'AsnHeaders.asn_no','AsnHeaders.invoice_path','AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value','AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact','AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material','PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])
+        ->select(['AsnHeaders.id', 'AsnHeaders.status', 'AsnHeaders.asn_no','AsnHeaders.invoice_path','AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value','AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact','AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material','PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])
         ->innerJoin(['PoHeaders' => 'po_headers'],['AsnHeaders.po_header_id = PoHeaders.id'])
         ->innerJoin(['PoFooters' => 'po_footers'],['PoFooters.po_header_id = PoHeaders.id'])
         ->innerJoin(['PoItemSchedules' => 'po_item_schedules'],['PoItemSchedules.po_header_id = PoHeaders.id', 'PoItemSchedules.po_footer_id = PoFooters.id'])
         ->innerJoin(['AsnFooters' => 'asn_footers'],['AsnFooters.asn_header_id = AsnHeaders.id', 'AsnFooters.po_footer_id = PoFooters.id'])
         ->innerJoin(['AsnFooters' => 'asn_footers'],['AsnFooters.asn_header_id = AsnHeaders.id', 'AsnFooters.po_footer_id = PoFooters.id', 'AsnFooters.po_schedule_id = PoItemSchedules.id'])
         
-        ->where(['AsnHeaders.id' => $id]);
+        ->where(['AsnHeaders.id' => $id])->toArray();
 
         //echo '<pre>';  print_r($deliveryDetails); exit;
         /*$deliveryDetail = $this->AsnHeaders->get($id, [
@@ -70,7 +70,7 @@ class AsnController extends VendorAppController
 
         //$record = $deliveryDetails->first();
         //$this->set('deliveryDetailw', $record);
-        $this->set('deliveryDetails', $deliveryDetails->all());
+        $this->set('deliveryDetails', $deliveryDetails);
     }
 
     /**
@@ -139,5 +139,33 @@ class AsnController extends VendorAppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function markDelivered($id = null)
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->loadModel('AsnHeaders');
+
+
+        $deliveryDetail = $this->AsnHeaders->get($id, [
+            'contain' => [],
+        ]);
+    
+        $deliveryDetail = $this->AsnHeaders->patchEntity($deliveryDetail, ['status' => 2]);
+        if ($this->AsnHeaders->save($deliveryDetail)) {
+            $response['status'] = 'success';
+            $response['message'] = 'success';
+        } else {
+            $response['status'] = 'fail';
+            $response['message'] = 'Material not found';
+        }
+        
+
+        echo json_encode($response);
+
     }
 }
