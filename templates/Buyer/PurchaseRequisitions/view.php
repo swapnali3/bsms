@@ -20,7 +20,8 @@
       </div>
       <div class="card-body table-responsive p-0">
         <table class="table table-bordered">
-          <tr>
+         <thead>
+         <tr>
             
             <th>
               <?= __('PR No') ?>
@@ -36,6 +37,8 @@
               <?= __('Added Date') ?>
             </th>
           </tr>
+         </thead>
+          <tbody>
           <tr>
             
             <td>
@@ -52,6 +55,7 @@
               <?= h($prHeader->updated_date) ?>
             </td>
           </tr>
+          </tbody>
         </table>
       </div>
     </div>

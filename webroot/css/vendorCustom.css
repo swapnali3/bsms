@@ -64,3 +64,10 @@ input#freight_calc {
     width: 90px;
     height: 30px;
 }
+b.c-msg p {
+    font-weight: 600;
+    font-size: 18px;
+}
+.c-date span {
+    font-size: 14px;
+}

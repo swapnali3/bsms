@@ -9,8 +9,8 @@
 <div class="row card">
     
     <div class="column-responsive column-80">
-        <div class="rfqs view content">
-            <h5><b>RFQ Details</b></h5>
+        <div class="rfqs view content pt-2">
+           
             <div class="rfq-details-head">
                 <div class="row">
                     <div class="col-md-3">
@@ -63,6 +63,7 @@
                             <th><?= h(_('Discount')) ?></th>
                             <th><?= h(_('Total')) ?></th>
                             <th><?= h(_('Delivery Date')) ?></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

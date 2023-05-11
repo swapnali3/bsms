@@ -4,7 +4,10 @@
  * @var \App\Model\Entity\Setting[]|\Cake\Collection\CollectionInterface $settings
  */
 ?>
+
+
 <style>
+   
     .search-fm {
   color: #555;
   display: flex;
@@ -12,6 +15,8 @@
   border: 1px solid #8c8c8c;
   border-radius: 30px;
   margin: 0 0 0px;
+  margin-left: 10px;
+  background-color:#fff;
 }
 .search-fm 
 input[type="search"] {
@@ -117,7 +122,7 @@ input[type="search"] {
     
     <!-- <h3><?= __('Setting') ?></h3> -->
     <div class="card">
-        <div class="card-header d-flex pb-3 pt-3">
+        <div class="card-header d-flex pb-3 pt-3" style="background-color:#f5f7fd">
             <div class="col-md-8">
             <div class="d-flex">
             <!-- <h5 class="p-2 text-info mr-4"><b>Buyer Management</b></h5> -->
@@ -139,7 +144,7 @@ input[type="search"] {
             <div class="table-responssive">
                 <table class="table table-bordered users-tbl">
                     <thead>
-                        <tr style="background-color:#f1f1f1">
+                        <tr>
                             <th>User Name</th>
                             <th>Employee Code</th>
                             <th>Email</th>

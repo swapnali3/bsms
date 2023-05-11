@@ -31,7 +31,7 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="card">
-                            <table class="table">
+                            <table class="table mb-0">
                                 <tr>
                                     <td>
                                         <?= __('SAP Vendor Code') ?>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="col-6">
                         <div class="card">
-                            <table class="table" style="font-size: 0.8rem;">
+                            <table class="table mb-0" style="font-size: 0.8rem;">
                                 <tr>
                                     <td>
                                         <?= __('Account Group') ?>

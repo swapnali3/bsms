@@ -28,7 +28,7 @@
           
             <div class="">
                 
-                <div class="card-body p-3 gateentry-asn" style="background-color: #f1f1f1;">
+                <div class="card-body p-3 gateentry-asn" style="background-color: #f5f7fd !important;">
                     <div class="row">
                        <div class="col-md-2">
                        <label>ASN No.</label>
@@ -50,16 +50,19 @@
                        <label> Invoice Value :</label>
                        <p><b><?= h($deliveryDetails->toArray()[0]->invoice_value) ?></b></p>
                        </div>
-                       <div class="col-md-3">
+                       
+                    </div>
+                    <div class="row">
+                    <div class="col-md-2">
                         <?php echo $this->Form->control('vehicle_no :', array('class' => 'form-control rounded-0','div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->vehicle_no));?>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                         <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0','div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_name));?>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                         <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0','div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact));?>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                         <?php $files = json_decode($deliveryDetails->toArray()[0]->invoice_path, true);
                             echo $this->Html->link('View invoice','/'.$files[0],['target' => '_blank','class' => 'veiw-invoice text-info align-self-end mt-3']);
                         ?>
@@ -72,7 +75,7 @@
             <div class="card-body mt-3">
             <table class="table table-bordered delivery-dt-tbl">
             <thead>
-                <tr  style="background-color: #ddd;"><th>Item</th><th>Material</th><th>UOM</th><th>Qty</th><th>Schedule Qty</th><th>Schedule Date</th></tr>
+                <tr><th>Item</th><th>Material</th><th>UOM</th><th>Qty</th><th>Schedule Qty</th><th>Schedule Date</th></tr>
             </thead>
             <tbody>
                 <?php foreach($deliveryDetails as $deliveryDetail) : ?>

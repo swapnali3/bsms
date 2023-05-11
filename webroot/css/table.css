@@ -10,9 +10,9 @@
 }
 
 .table thead th {
-	padding: 0.2rem;
-	font-weight: 500;
-    color: #818589 !important;
+    font-weight: 500;
+    color: #696969 !important;
+    font-size: 14px !important;
 }
 
 hr {

@@ -7,7 +7,10 @@
      <?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : ''; ?>
      <?php $profileActive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
      <?php $rfqlickActive = ($controller == 'Rfqs') ? 'active' : ''; ?>
-     <?php $asnActive = ($controller == 'asn') ? 'active' : ''; ?>
+     <?php $asnActive = ($controller == 'Asn') ? 'active' : '';
+     
+     //echo $controller; exit;
+     ?>
      
 <style>
      .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl{

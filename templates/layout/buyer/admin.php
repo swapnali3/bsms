@@ -28,8 +28,11 @@
     
     <?= $this->Html->css('cstyle.css') ?>
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 
@@ -70,7 +73,12 @@
     </script>
 
 </head>
-
+<style>
+     body{
+        
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+</style>
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
     <div class="wrapper">
         <!-- Navbar -->

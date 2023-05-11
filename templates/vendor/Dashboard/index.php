@@ -24,11 +24,11 @@
     <div class="card mb-2" style="border-radius:1rem;">
       <div class="card-header p-3 pt-2">
         <div
-          class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
+          class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl position-absolute">
           <i class="material-icons opacity-10">shopping_cart</i>
         </div>
         <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize"><b>Purchase Orders</b></h1>
+          <h2 class="text-sm mb-0 text-capitalize"><b>Purchase Orders</b></h2>
           <h4 class="mb-0">
             <?= $totalPos ?>
           </h4>
@@ -68,7 +68,7 @@
     <div class="card  mb-2" style="border-radius:1rem;">
       <div class="card-header p-3 pt-2 bg-transparent">
         <div
-          class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl  position-absolute">
           <i class="material-icons opacity-10">local_shipping</i>
         </div>
         <div class="text-end pt-1">

@@ -22,6 +22,7 @@
       </div>
       <div class="card-body table-responsive p-0">
         <table class="table table-bordered">
+          <thead>
           <tr>
             <th>
               <?= __('Vendor Code') ?>
@@ -54,6 +55,8 @@
               <?= __('Added Date') ?>
             </th>
           </tr>
+          </thead>
+          <tbody>
           <tr>
             <td>
               <?= h($poHeader->sap_vendor_code) ?>
@@ -86,6 +89,7 @@
               <?= h($poHeader->added_date) ?>
             </td>
           </tr>
+          </tbody>
         </table>
       </div>
     </div>

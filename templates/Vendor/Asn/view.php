@@ -10,7 +10,7 @@
         <div class="deliveryDetails view content">
             <!-- <h6> ASN No. - <?= h($deliveryDetails->toArray()[0]->asn_no) ?>  &nbsp; &nbsp; &nbsp; PO No. - <?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></h3> -->
             <div class="card mt-2">
-                <div class="card-header" style="background-color:#f1f1f1;">
+                <div class="card-header" style="background-color: #f5f7fd !important;">
                 <div class="row">
                     <div class="col-sm-12 col-lg-2">
                              ASN No. - <b><?= h($deliveryDetails->toArray()[0]->asn_no) ?></b>

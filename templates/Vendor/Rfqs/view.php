@@ -165,14 +165,12 @@
     </div>
     <div class="card-body">
         <?php foreach($chatHistory as $chat) :?>
-        <p>
-            <?= $chat['message'] ?>
-        </p>
-        <div>
-            <b>
-                <?=$chat['name']?>
-            </b> &nbsp;&nbsp;
-            <?=$chat['added_date'] ?>
+        
+            <b class="c-msg"><?= $chat['message'] ?></b>
+            <b class="c-nm"><?=$chat['name']?></b> 
+        <div class="c-date">
+           
+            <span><?=$chat['added_date'] ?></span>
         </div>
         <hr>
         <?php endforeach?>
