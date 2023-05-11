@@ -156,7 +156,7 @@
 
         var table = $("#example1").DataTable({
       "paging": false,
-      "responsive": true,
+      "responsive": false,
        "lengthChange": false,
         "autoWidth": false,
         "ordering": false,

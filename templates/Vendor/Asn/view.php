@@ -47,26 +47,26 @@
                     
                     </div>
                         <div class="row">
-                        <div class="col-sm-12 col-lg-3 mt-4">
+                        <div class="col-sm-12 col-lg-2 mt-4">
                                 Invoice No. : <b><?= h($deliveryDetails[0]->invoice_no) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-3 mt-4">
+                            <div class="col-sm-12 col-lg-2 mt-4">
                                 Invoice Date : <b><?= h($deliveryDetails[0]->invoice_date) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-3 mt-4">
+                            <div class="col-sm-12 col-lg-2 mt-4">
                                 Invoice Value : <b><?= h($deliveryDetails[0]->invoice_value) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-3 mt-4">
+                            <div class="col-sm-12 col-lg-2 mt-4">
                                 Vehicle No. : <b><?= h($deliveryDetails[0]->vehicle_no) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-3 mt-4">
+                            <div class="col-sm-12 col-lg-2 mt-4">
                                 Driver Name : <b><?= h($deliveryDetails[0]->driver_name) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-3 mt-4">
+                            <div class="col-sm-12 col-lg-2 mt-4">
                                 Driver Contact : <b><?= h($deliveryDetails[0]->driver_contact) ?></b>
                             </div>
 
-                            <div class="col-sm-12 col-lg-3 mt-4">
+                            <div class="col-sm-12 col-lg-2">
                             <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
 
                             if(!empty($files)) {

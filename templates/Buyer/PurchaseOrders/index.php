@@ -124,7 +124,7 @@
         $("#example1").DataTable({
             "responsive": {"details": {"type": none}},
             "paging": true,
-            "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
+            "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });

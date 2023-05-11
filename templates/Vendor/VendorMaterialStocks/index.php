@@ -105,7 +105,7 @@
     $(document).ready(function () {
         $("#example1").DataTable({
             "paging": true,
-            "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
+            "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
             language: {
           search: "_INPUT_",
         searchPlaceholder: "Search..."
