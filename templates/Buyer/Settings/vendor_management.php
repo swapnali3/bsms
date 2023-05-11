@@ -126,14 +126,15 @@ input[type="search"] {
     
     <!-- <h3><?= __('Setting') ?></h3> -->
     <div class="card">
-        <div class="card-header d-flex pb-3 pt-3" style="background-color:#f5f7fd">
+        <div class="card-header d-flex pl-3 pb-3 pt-3" style="background-color:#f5f7fd">
             <div class="col-md-8">
             <div class="d-flex">
             <!-- <h5 class="p-2 text-info mr-4"><b> Vendor Management</b></h5> -->
-            <form class="search-fm">
+            <!-- <form class="search-fm">
                 <input type="search" placeholder="Search...">
                 <button type="submit">Search</button>
-            </form>
+            </form> -->
+            <input type="search" placeholder="Search..." class="form-control search">
             </div>
             </div>
             <div class="col-md-4 pt-2">
