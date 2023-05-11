@@ -71,3 +71,11 @@ b.c-msg p {
 .c-date span {
     font-size: 14px;
 }
+h5.tracking-det {
+    font-size: 17px;
+    color: #444;
+}
+b.vlu {
+    font-size: 16px;
+    display: block;
+}

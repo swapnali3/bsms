@@ -11,7 +11,7 @@
 <?= $this->Form->create(null,['action' => 'asn-materials', 'id' => 'asnForm']) ?>
 <?= $this->form->control('po_header_id', ['id' =>'po_header_id', 'label' => false, 'type' => 'hidden', 'value'=> '']) ?>
 <div class="poHeaders index content card create-asn">
-    <div class="card-header p-3">
+    <!-- <div class="card-header p-3">
         <div class="row">
             <div class="col-md-6">
             <h5><b>Select Material</b></h5> 
@@ -25,7 +25,7 @@
         </div>
        
        
-    </div>
+    </div> -->
     <div class="card-body">
         <div class="">
             <!-- <h5><b>Select Material</b></h5> -->
@@ -92,28 +92,47 @@
                     
                     
                 </tbody>
-            </table></div>
-                <div class="t2"> 
-                <table class="table table-bordered material-list" id="example2">
-            <thead>
-                <tr>
-                    <th>
-                    <input type="checkbox" id="ckbCheckAll">
-                    </th>
-                    <th>Item</th>
-                    <th>Material</th>
-                    <th>Short Text</th>
-                    <th>Pending Qty</th>
-                    <th>Set Delivery Qty</th>
-                </tr>
-            </thead>
-             <tbody>
-               <tr>
-                <td colspan="6" class="text-center"> <p>No data found !</p></td>
-               </tr>
-             </tbody>
             </table>
-                </div>
+        </div>
+               <div class="t2">
+                 <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+            <h5><b>Select Material</b></h5> 
+            </div>
+            <div class="col-md-6">
+            <div class="action-btn d-flex justify-content-end">
+       <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a>
+       <button type="submit" class="btn btn-secondary mb-0 continue_btn" disabled>Continue</button>
+       </div>
+            </div>
+        </div>
+       
+       
+    </div>
+               <div class="right-side"> 
+                    
+                    <table class="table table-bordered material-list" id="example2">
+                <thead>
+                    <tr>
+                        <th>
+                        <input type="checkbox" id="ckbCheckAll">
+                        </th>
+                        <th>Item</th>
+                        <th>Material</th>
+                        <th>Short Text</th>
+                        <th>Pending Qty</th>
+                        <th>Set Delivery Qty</th>
+                    </tr>
+                </thead>
+                 <tbody>
+                   <tr>
+                    <td colspan="6" class="text-center"> <p>No data found !</p></td>
+                   </tr>
+                 </tbody>
+                </table>
+                    </div>
+               </div>
             </div>
            
            
@@ -164,7 +183,7 @@
 
     $('#example1 tbody').on('click', 'td.details-control', function () {
 
-      $(".t2").html(format($(this).attr('header-id')));
+      $(".right-side").html(format($(this).attr('header-id')));
       $("#po_header_id").val($(this).attr('header-id'));
     });
 
