@@ -198,11 +198,14 @@
     $(document).on("click", "#ckbCheckAll",function(){
         if(this.checked){
             $('.checkBoxClass').each(function(){
+                $("#qty"+$(this).data("id")).val($(this).data("pendingqty"));
                 this.checked = true;
                 $("#select"+$(this).data("id")).trigger("change");
             });
         }else{
+           
              $('.checkBoxClass').each(function(){
+                $("#qty"+$(this).data("id")).val('0');
                 this.checked = false;
                 $("#select"+$(this).data("id")).trigger("change");
             });
@@ -219,8 +222,14 @@
     });
 
     $(document).on("change", ".checkBoxClass",function(){
-        if($(this).is(':checked')){ $("#qty"+$(this).data("id")).val($(this).data("pendingqty"));}
-        else {$("#qty"+$(this).data("id")).val('0');}
+     
+        if($(this).is(':checked')){
+           
+             $("#qty"+$(this).data("id")).val($(this).data("pendingqty"));
+            }
+        else {
+            $("#qty"+$(this).data("id")).val('0');
+        }
     });
     
         $(document).on("change", ".checkBoxClass",function(){
