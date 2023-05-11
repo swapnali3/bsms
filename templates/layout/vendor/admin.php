@@ -20,6 +20,10 @@ padding: 0.5rem 0.5rem;
 aside.main-sidebar {
     background-color: #112A68 !important;
 }
+body{
+        
+        font-family: 'Source Sans Pro', sans-serif;
+    }
 
 
 </style>
@@ -38,8 +42,9 @@ aside.main-sidebar {
     <?= $this->Html->css('cstyle.css') ?>
     <?= $this->Html->css('table.css') ?>
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 

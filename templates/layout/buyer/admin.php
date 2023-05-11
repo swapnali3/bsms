@@ -10,6 +10,13 @@
 .content-wrapper{
     min-height:750px !important;
 }
+aside.main-sidebar {
+    background-color: #112A68 !important;
+}
+.nav-link.active {
+    background-color: #0C1D49 !important;
+    color:#fff !important;
+}
 </style>
 
 <!DOCTYPE html>

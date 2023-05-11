@@ -57,7 +57,12 @@
     margin-top:0.5rem !important
   }
 
-
+  aside.main-sidebar {
+    background-color: #112A68 !important;
+}
+.nav-link.active {
+    background-color: #0C1D49 !important;
+}
 
   .card-title{
     font-size:0.9rem;
