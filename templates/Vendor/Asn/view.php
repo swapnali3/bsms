@@ -3,27 +3,39 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\DeliveryDetail $deliveryDetail
  */
+
+ //echo '<pre>'; print_r($deliveryDetails); exit;
 ?>
 <?= $this->Html->css('vendorCustom') ?>
 <div class="row content card">
     <div class="column-responsive column-80">
         <div class="deliveryDetails view content">
-            <!-- <h6> ASN No. - <?= h($deliveryDetails->toArray()[0]->asn_no) ?>  &nbsp; &nbsp; &nbsp; PO No. - <?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></h3> -->
+            
             <div class="card mt-2">
                 <div class="card-header " style="background-color: #d4ddf7  !important;">
                 <div class="row ">
                     <div class="col-sm-12 col-lg-2">
-                             ASN No. - <b><?= h($deliveryDetails->toArray()[0]->asn_no) ?></b>
+                             ASN No. : <b><?= h($deliveryDetails[0]->asn_no) ?></b>
                     </div>
                     <div class="col-sm-12 col-lg-2">
-                            PO No. - <b><?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></b>
+                            PO No. : <b><?= h($deliveryDetails[0]->PoHeaders['po_no']) ?></b>
                     </div>
                     <div class="col-sm-12 col-lg-2">
-                          Status: <b>Shipped</b>
+                          Status: <b class='asnstatus'>
+                          <?php 
+                            if($deliveryDetails[0]->status == '1') {
+                                echo 'Created';
+                            } else if($deliveryDetails[0]->status == '2') {
+                                echo 'Delivered';
+                            } ?>
+                            </b>
                     </div>
+                    <?php 
+                            if($deliveryDetails[0]->status == '1') { ?>
                     <div class="col-sm-12 col-lg-2">
-                            <a href="#" class="btn btn-custom  mb-0">Shipped</a>
+                            <button class="btn btn-success mb-0 mark_delivered" >Mark Delivered</button>
                     </div>
+                    <?php  } ?>
                     </div>
                     
                 </div>
@@ -34,29 +46,32 @@
                         </div>
                     
                     </div>
-                        <div class="row trck">
-                        <div class="col-sm-12 col-lg-2 mt-2">
-                                Invoice No. <b class="vlu"><?= h($deliveryDetails->toArray()[0]->invoice_no) ?></b>
+                        <div class="row">
+                        <div class="col-sm-12 col-lg-3 mt-4">
+                                Invoice No. : <b><?= h($deliveryDetails[0]->invoice_no) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-2 mt-2">
-                                Invoice Date  <b class="vlu"><?= h($deliveryDetails->toArray()[0]->invoice_date) ?></b>
+                            <div class="col-sm-12 col-lg-3 mt-4">
+                                Invoice Date : <b><?= h($deliveryDetails[0]->invoice_date) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-2 mt-2">
-                                Invoice Value  <b class="vlu"><?= h($deliveryDetails->toArray()[0]->invoice_value) ?></b>
+                            <div class="col-sm-12 col-lg-3 mt-4">
+                                Invoice Value : <b><?= h($deliveryDetails[0]->invoice_value) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-2 mt-2">
-                                Vehicle No.  <b class="vlu"><?= h($deliveryDetails->toArray()[0]->vehicle_no) ?></b>
+                            <div class="col-sm-12 col-lg-3 mt-4">
+                                Vehicle No. : <b><?= h($deliveryDetails[0]->vehicle_no) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-1 mt-2">
-                                Driver Name <b class="vlu"><?= h($deliveryDetails->toArray()[0]->driver_name) ?></b>
+                            <div class="col-sm-12 col-lg-3 mt-4">
+                                Driver Name : <b><?= h($deliveryDetails[0]->driver_name) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-1 mt-2">
-                                Driver Contact  <b class="vlu"><?= h($deliveryDetails->toArray()[0]->driver_contact) ?></b>
+                            <div class="col-sm-12 col-lg-3 mt-4">
+                                Driver Contact : <b><?= h($deliveryDetails[0]->driver_contact) ?></b>
                             </div>
 
-                            <div class="col-sm-12 col-lg-2 mt-2">
-                            <?php $files = json_decode($deliveryDetails->toArray()[0]->invoice_path, true);
-                            echo $this->Html->link('View invoice','/'.$files[0],['target' => '_blank','class'=>'btn btn-custom mb-0 mt-2']);
+                            <div class="col-sm-12 col-lg-3 mt-4">
+                            <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
+
+                            if(!empty($files)) {
+                                echo $this->Html->link('View invoice','/'.$files[0],['target' => '_blank']);
+                            }
                         ?>
                             </div>
                         </div>
@@ -96,6 +111,26 @@
             "ordering":false,
             "searching": false, "sorting":false,
         });
+
+        $(".mark_delivered").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'mark-delivered', $deliveryDetails[0]->id)); ?>",
+                dataType: 'json',
+                success: function (response) {
+                if (response.status == 'success') {
+                    //location.reload(true);
+                    $(".mark_delivered").hide();
+                    $(".asnstatus").html('Delivered');
+                } else {
+                    alert('Please try again...');
+                }
+                }
+            });
+        });
+
+        
+
     });
 
 </script>
