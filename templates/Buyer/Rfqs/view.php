@@ -118,7 +118,7 @@
 
         
         <button label="Login"
-                            class="button button-rounded button-reveal button-large button-yellow button-light text-end"
+                            class="button btn-custom button-rounded button-reveal button-large button-yellow button-light text-end"
                             type="submit" style="float:right;">
                             <i class="icon-line-save"></i>
                             <span>SAVE RFQ</span>

@@ -325,8 +325,8 @@
       </div>
       <div id="error_msg"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-secondary p-1" style="font-size:14px;padding:" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-custom">Submit</button>
       </div>
       </form>
     </div>

@@ -31,7 +31,7 @@
   .navbar.card-header h4 {
     color: #004d87;
     text-transform: uppercase;
-    font-size: 22px;
+    font-size: 20px;
 }
  
   </style>

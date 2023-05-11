@@ -12,7 +12,7 @@
 .table thead th {
     font-weight: 500;
     color: #696969 !important;
-    font-size: 14px !important;
+    font-size: 12px !important;
 }
 
 hr {
@@ -28,11 +28,11 @@ hr {
 	background-color: #f5f7fd !important;
 }
 .table th{
-	font-size:14px;
+	font-size:12px;
 }
-.table td, .table th{
+/* .table td, .table th{
 	font-size:14px;
-}
+} */
 .badge.bg-warning {
     background: #415586 !important;
     color: #fff !important;
@@ -59,6 +59,6 @@ hr {
 	padding:0rem
 }
 .table tbody tr td {
-    font-size: 16px;
+    font-size: 14px;
 }
 

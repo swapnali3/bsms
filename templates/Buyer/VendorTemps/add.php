@@ -41,7 +41,7 @@
                         <?php echo $this->Form->control('payment_term', array('class' => 'form-control rounded-0','div' => 'form-group'));?>
                     </div>
                     <div class="col-sm-12 col-lg-12 col-md-12 mt-2">
-                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info']) ?>
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom']) ?>
                     </div>
                 </div>
                 
