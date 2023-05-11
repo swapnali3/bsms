@@ -46,18 +46,22 @@
 <?php $temvenactive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
 <?php $tempindctive = ($controller == 'VendorTemps' && $action == 'index') ? 'active' : ''; ?>
 <?php $createvendactive = ($controller == 'VendorTemps' && $action == 'add') ? 'active' : ''; ?>
-<?php $creatsaevendactive = ($controller == 'VendorTemps' && $action == 'sap-add') ? 'active' : ''; ?>
+<?php $creatsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'active' : ''; ?>
 <?php $rfqactive = ($controller == 'Rfqs') ? 'active' : ''; ?>
 
 <?php $temvenmenuopen = ($controller == 'VendorTemps') ? 'menu-open' : ''; ?>
 <?php $settingmenuopen = ($controller == 'Settings') ? 'menu-open' : ''; ?>
 <?php $temvenactive = ($controller == 'buyervendor-temps') ? 'active' : ''; ?>
 <?php $buyvendaddactive = ($controller == 'buyervendor-temps' && $action == 'add') ? 'menu-open' : ''; ?>
-<?php $buyvendsaevendactive = ($controller == 'VendorTemps' && $action == 'sap-add') ? 'menu-open' : ''; ?>
+<?php $buyvendsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'menu-open' : ''; ?>
 <?php $asnactive = ($controller == 'Asn') ? 'active' : ''; ?>
 
-<?php $settingBuyerActive = ($controller == 'settings' && $action == 'buyer-management') ? 'active' : ''; ?>
-<?php $settingVendorActive = ($controller == 'settings' && $action == 'vendor-management') ? 'active' : ''; ?>
+<?php $settingBuyerActive = ($controller == 'Settings' && $action == 'buyerManagement') ? 'active' : ''; ?>
+<?php $settingVendorActive = ($controller == 'Settings' && $action == 'vendorManagement') ? 'active' : ''; 
+
+//echo $action; exit;
+
+?>
 
 
 

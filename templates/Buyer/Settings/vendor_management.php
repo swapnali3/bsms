@@ -121,7 +121,7 @@ input[type="search"] {
 	content: "Active";
 }
 </style>
-<?= $this->Html->css('Custom') ?>
+<?= $this->Html->css('custom') ?>
 <div class="settings index content">
     
     <!-- <h3><?= __('Setting') ?></h3> -->
