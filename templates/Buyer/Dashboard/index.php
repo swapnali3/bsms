@@ -5,16 +5,19 @@
  */
 ?>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  .products-list>.item {
-    padding: 1px; 
-  }
+    aside.main-sidebar {
+    background-color: #112A68 !important;
+    }
+    .nav-link.active {
+        background-color: #0C1D49 !important;
+    }
+  /* 
   
-  .products-list .product-info {
-    margin-left: 20px;
-    font-size: x-small;
-    margin-top:5px
-  }
+  
   .user-panel .image{
     margin-right: 10px;
   }
@@ -49,20 +52,11 @@
     background-Color: lightgrey
   }
 
-  .main-footer {
-    /* padding: 0rem; */
-  }
+  
 
-  .mt-4, .my-4{
-    margin-top:0.5rem !important
-  }
+  
 
-  aside.main-sidebar {
-    background-color: #112A68 !important;
-}
-.nav-link.active {
-    background-color: #0C1D49 !important;
-}
+
 
   .card-title{
     font-size:0.9rem;
@@ -80,37 +74,14 @@
   .products-list .product-title{
     font-weight:400;
   }
-
+ */
 
 
 </style>
+<?= $this->Html->css('custom') ?>
+<div class="buyer-dash">
 <div class="row mt-4 mx-1">
-  <!-- <div class="col-sm-12 col-lg-3">
-    <div class="card mb-2" style="border-radius:1rem;">
-
-      <div class="card-header p-3 pt-2">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">shopping_cart</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize"><b>Purchase Orders</b></h1>
-          <h4 class="mb-0">
-            <?= $totalPos ?>
-          </h4>
-        </div>
-      </div>
-
-      <hr class="dark horizontal my-0">
-      <div class="card-footer p-3">
-        <button type="button" class="button">
-          <?= $this->Html->link(__('More Info!'), ['controller' => 'purchase-orders', 'action' => 'index'], ['style'=>'color:white;'], ['class' => 'small-box-footer', 'escape' => false]) ?>
-
-        </button>
-
-      </div>
-    </div>
-  </div> -->
+  
 
   <div class="col-sm-12 col-lg-3">
     <div class="card">
@@ -121,59 +92,49 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body p-0">
-        <ul class="products-list product-list-in-card pl-2 pr-2">
+        <ul class="products-list product-list-in-card">
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image"
-                style="width: 2vw;height: auto;">
+            <i class="fas fa-th-large text-info"></i>
             </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Total
-                <span class="badge badge-warning float-right">6</span></a>
-
+            <div class="product-info">
+              <a href="javascript:void(0)" class="product-title">Total</a>
+              <span class="p-value">6</span>
             </div>
           </li>
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image"
-                style="width: 2vw;height: auto;">
+            <i class="fas fa-user-plus text-danger"></i>
 
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Onboarding
-                <span class="badge badge-warning float-right">2</span></a>
-              <span class="product-description">
-                
-              </span>
+               </a>
+                <span class="p-value">2</span>
             </div>
           </li>
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
+            <i class="far fa-check-square text-success"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Approved
-                <span class="badge badge-warning float-right">3</span></a>
-              <span class="product-description">
-                
-              </span>
+               </a>
+                <span class="p-value">3</span>
             </div>
           </li>
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
+            <i class="fas fa-share-square text-warning"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Sent to SAP
-                <span class="badge badge-warning float-right">1</span></a>
-              <span class="product-description">
-                
-              </span>
+              
+        </a>
+                <span class="p-value">1</span>
             </div>
           </li>
           <!-- /.item -->
@@ -182,19 +143,7 @@
 
       <!-- /.card-footer -->
     </div>
-    <!-- <div class="card mb-2" style="border-radius:1rem;">
-
-      <div class="card-header p-3 pt-2">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">shopping_cart</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize"><b>Purchase Orders</b></h1>
-          <h4 class="mb-0">
-            <?= $totalPos ?>
-          </h4>
-        </div> -->
+    
   </div>
 
   <div class="col-sm-12 col-lg-3">
@@ -206,50 +155,41 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body p-0">
-        <ul class="products-list product-list-in-card pl-2 pr-2">
+        <ul class="products-list product-list-in-card">
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
+            <i class="fas fa-th-large text-info"></i>
             </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Total
-                <span class="badge badge-warning float-right">20</span></a>
-              <span class="product-description">
-                
-              </span>
+            <div class="product-info">
+              <a href="javascript:void(0)" class="product-title">Total</a>
+              <span class="p-value">20</span>
             </div>
           </li>
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
+            <i class="far fa-calendar-check text-success"></i>
+
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Completed
-                <span class="badge badge-warning float-right">15</span></a>
-              <span class="product-description">
-                
-              </span>
+              <a href="javascript:void(0)" class="product-title">Completed</a>
+              <span class="p-value">15</span>
             </div>
           </li>
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
+            <i class="far fa-clock text-danger"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Pending
-                <span class="badge badge-warning float-right">5</span></a>
-              <span class="product-description">
-                
-              </span>
+              <a href="javascript:void(0)" class="product-title">Pending</a>
+                <span class="p-value">5</span>
             </div>
           </li>
+         
         </ul>
       </div>
+    
       <!-- /.card-body -->
 
       <!-- /.card-footer -->
@@ -265,50 +205,41 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body p-0">
-        <ul class="products-list product-list-in-card pl-2 pr-2">
+        <ul class="products-list product-list-in-card">
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
+            <i class="fas fa-th-large text-info"></i>
             </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Total Amount
-                <span class="badge badge-warning float-right">₹500000.00</span></a>
-              <span class="product-description">
-                
-              </span>
+            <div class="product-info">
+              <a href="javascript:void(0)" class="product-title">Total Amount</a>
+              <span class="p-value">500000.00</span>
             </div>
           </li>
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
+            <i class="far fa-calendar-check text-warning"></i>
+
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Paid
-                <span class="badge badge-warning float-right">₹400000.00</span></a>
-              <span class="product-description">
-                
-              </span>
+              <a href="javascript:void(0)" class="product-title">Paid</a>
+              <span class="p-value">400000.00</span>
             </div>
           </li>
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
+            <i class="fas fa-balance-scale text-success"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Balance
-                <span class="badge badge-warning float-right">₹100000.00</span></a>
-              <span class="product-description">
-                
-              </span>
+              <a href="javascript:void(0)" class="product-title">Balance</a>
+                <span class="p-value">100000.00</span>
             </div>
           </li>
+         
         </ul>
       </div>
+    
       <!-- /.card-body -->
 
       <!-- /.card-footer -->
@@ -323,6 +254,41 @@
       </div>
       <!-- /.card-header -->
       <div class="card-body p-0">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+            <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="javascript:void(0)" class="product-title">Dispatched</a>
+              <span class="p-value">10</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="far fa-calendar-check text-warning"></i>
+
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Intrasit</a>
+              <span class="p-value">5</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="fas fa-truck text-info"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Delivered</a>
+                <span class="p-value">5</span>
+            </div>
+          </li>
+         
+        </ul>
+      </div>
+      <!-- <div class="card-body p-0">
         <ul class="products-list product-list-in-card pl-2 pr-2">
           <li class="item">
             <div class="product-img">
@@ -365,7 +331,7 @@
           </li>
           
         </ul>
-      </div>
+      </div> -->
       <!-- /.card-body -->
 
       <!-- /.card-footer -->
@@ -481,6 +447,7 @@
       <!-- /.card-body -->
     </div>
   </div>
+</div>
 </div>
 <script src="<?= $this->Url->build('/') ?>js/chart.js"></script>
 <script>

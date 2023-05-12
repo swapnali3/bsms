@@ -4,6 +4,10 @@
     Add all your Custom Styled CSS here for New Styles or
     Overwriting Default Theme Styles for Better Handling Updates
 -----------------------------------------------------------------*/
+body{
+        
+    font-family: 'Source Sans Pro', sans-serif;
+}
 .revo-slider-emphasis-text {
     font-size: 58px;
     font-weight: 700;
@@ -484,3 +488,58 @@ input.form-control.search {
 .check_qty {
     width: 140px;
 }
+.buyer-dash .card-header {
+    background-color: #d4ddf7 !important;
+    margin: 0 !important;
+    padding: 7px 10px;
+}
+.buyer-dash .card-title{
+    margin-bottom: 0px !important;
+    font-size: 0.9rem;
+}
+.buyer-dash .products-list .product-info {
+    margin-left: 20px;
+    justify-content: space-between;
+    display: flex;
+  }
+  .buyer-dash .products-list>.item {
+    padding: 5px 10px;
+    border-bottom: 0px;
+    /* background-color: #f5f7fd; */
+}
+  .buyer-dash .mt-4,.buyer-dash .my-4{
+    margin-top:0.5rem !important
+  }
+  .buyer-dash .card-body {
+    padding: 0.25rem;
+}
+.buyer-dash .products-list .product-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #000;
+    margin-left: 10px;
+}
+.buyer-dash .products-list .product-img{
+    margin-top: 5px;
+}
+.buyer-dash span.p-value {
+    background-color: #d4ddf7;
+    padding: 8px;
+    line-height: 12px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 14px !important;
+}
+.buyer-dash .product-img i {
+    font-size: 16px;
+}
+.add-vendor .card-body .row {
+    background-color: #f5f7fd;
+    border-radius: 0px;
+    padding: 20px;
+    margin: 0 auto;
+}
+.add-vendor form{
+    margin-bottom: 0px !important;
+}
+

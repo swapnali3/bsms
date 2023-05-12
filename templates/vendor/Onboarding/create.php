@@ -19,57 +19,87 @@
 .row{
     margin-left:0px;margin-right:0px
 }
+img.vekpro-logo {
+    width: 100px;
+}
+img.ft-icon {
+    width: 40px;
+    margin-right: -5px;
+}
+.vendorTemps.form.content {
+    width: 70%;
+    margin: 0 auto;
+    background-color: #f5f7fd;
+    margin-top: 20px;
+}
+.form-control{
+    font-size:14px;
+}
+label {
+    font-size: 11px;
+    color: #999;
+}
     </style>
 <div class="row">
     <div class="column-responsive column-80">
         <div class="vendorTemps form content">
-        <legend><?= __('Purchase Details') ?></legend>
+            <div class="d-flex justify-content-between">
+                <div class="h">
+                <h4 class="text-info"><legend><?= __('Purchase Details') ?></legend></h4>
+                </div>
+                <div class="">
+                <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon">
+            <img src="<?= $this->Url->build('/') ?>img/logo_s.png" class="vekpro-logo" widht="50">
+                </div>
+
+            </div>
+       
 
         <div class="card">
 						<div class="card-body">
             <?= $this->Form->create($vendorTemp) ?>
             <div class="row">
             
-                <div class="col-3 mt-3">
+                <div class="col-3 mt-3 col-md-4">
                     <?php echo $this->Form->control('purchasing_organization_id', ['disabled' =>'disabled','options' => $purchasingOrganizations, 'class' => 'form-control']);?>
                 </div>
 
-                <div class="col-3 mt-3">
+                <div class="col-3 mt-3 col-md-4">
                     <?php echo $this->Form->control('account_group_id', ['disabled' =>'disabled', 'options' => $accountGroups, 'class' => 'form-control']);?>
                 </div>
 
-                <div class="col-3 mt-3">
+                <div class="col-3 mt-3 col-md-4">
                     <?php echo $this->Form->control('schema_group_id', ['disabled' =>'disabled', 'options' => $schemaGroups, 'class' => 'form-control']); ?>
                 </div>
             </div>
             <div class="row">
-                <div class="col-3 mt-3">
+                <div class="col-3 mt-3 col-md-4">
                     <?php  echo $this->Form->control('name',['disabled' =>'disabled', 'class' => 'form-control']);?>
                 </div>
 
-                <div class="col-3 mt-3">
+                <div class="col-3 mt-3 col-md-4">
                     <?php  echo $this->Form->control('mobile', ['disabled' =>'disabled', 'class' => 'form-control']); ?>
                 </div>
 
-                <div class="col-3 mt-3">
+                <div class="col-3 mt-3 col-md-4">
                     <?php  echo $this->Form->control('email', ['disabled' =>'disabled', 'class' => 'form-control']); ?>
                 </div>
 
             </div>
             <div class="row">
-                <div class="col-3 mt-3">
+                <div class="col-3 mt-3 col-md-3">
                     <?php  echo $this->Form->control('address',['class' => 'form-control']);?>
                 </div>
 
-                <div class="col-3 mt-3">
+                <div class="col-3 mt-3 col-md-3">
                     <?php  echo $this->Form->control('city',['class' => 'form-control']); ?>
                 </div>
 
-                <div class="col-3 mt-3">
+                <div class="col-3 mt-3 col-md-3">
                     <?php  echo $this->Form->control('pincode',['class' => 'form-control']); ?>
                 </div>
 
-                <div class="col-3 mt-3">
+                <div class="col-3 mt-3 col-md-3">
                     <?php  echo $this->Form->control('country', ['class' => 'form-control']); ?>
                 </div>
             </div>
@@ -91,6 +121,9 @@
                     <?php  echo $this->Form->control('pan_no', ['class' => 'form-control']); ?>
                 </div>
 
+                
+            </div>
+            <div class="row">
                 <div class="col-3 mt-3">
                     <?php  echo $this->Form->control('tan_no',['class' => 'form-control']); ?>
                 </div>
@@ -99,7 +132,6 @@
                     <?php  echo $this->Form->control('cin_no',['class' => 'form-control']); ?>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-3 mt-3">
                     <?php  echo $this->Form->control('contact_person',['class' => 'form-control']);?>
@@ -115,11 +147,12 @@
             </div>
             </div>
 					</div>
-                    <div class="col-1 mt-1 pt-1">
-                <?php echo $this->Form->button('Submit',array('class' => 'button button-rounded button-reveal button-large button-yellow button-light text-end w-100'));?>
+                    <div class="col-3 col-md-12 text-center mt-1 pt-1">
+                <?php echo $this->Form->button('Submit',array('class' => 'btn btn-custom mt-3'));?>
             </div>
             
             <?= $this->Form->end() ?>
+           
         </div>
     </div>
 </div>
