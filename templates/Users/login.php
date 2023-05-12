@@ -3,6 +3,16 @@
 
 <head>
   <style type="text/css">
+    .mb-0{
+      margin-bottom:0px;
+    }
+    p.error-msg {
+    color: #e31720;
+    text-align: left;
+    margin-top: 5px;
+    font-size: 12px;
+    font-style: italic;
+}
     .signupcard .signupform__signin {
     justify-content: center;
     flex-direction: column;
@@ -25,6 +35,10 @@
     background: linear-gradient(to right, #2c3e50, #2980b9) !important;
     height: auto !important;
     min-height: calc(100vh - 0px) !important;
+}
+div#mobile_login {
+    width: 100%;
+    padding: 0px 16%;
 }
 canvas.particles-js-canvas-el {
   
@@ -243,17 +257,25 @@ img.flow-img {
                                 aria-activedescendant="rc_select_0_list_0" value="" id="rc_select_0"></span></div>
                         </div><label class="material-label" style="left: 0px;">Workspace url</label>
                         <p class="material-rightLabel">.fts-pl.com</p>
+                        <p class="error-msg mb-0">Please enter valid URL</p>
                       </div>
                     </div>
                     <div style="width: 100%;">
-                      <div class="material-textfield"><input class="material-input sentence" placeholder="Enter Username/Email" type="text" name="username" value=""><label class="material-label" style="left: 0px;">Username/Email</label></div>
+                      <div class="material-textfield mb-0">
+                        <input class="material-input sentence" placeholder="Enter Username/Email" type="text" name="username" value="">
+                        <label class="material-label" style="left: 0px;">Username/Email</label>
+                        <p class="error-msg mb-0">Please enter valid username</p>
+                    </div>
+                      
                     </div>
                     <div style="width: 100%;">
                       <div class="material-textfield signin-textfield"><input class="material-input "
                           placeholder="Enter Password" type="password" name="password" value=""><label
                           class="material-label" style="left: 0px;">Password</label>
+                          
                         <p class="material-rightLabel"><i class="fa fa-eye-slash" aria-hidden="true"
                             style="cursor: pointer;"></i></p>
+                            <p class="error-msg mb-0">Please enter valid password</p>
                         <p class="material-rightBottomLabel material-rightBottomLabel__danger">Forgot Password ?</p>
                       </div>
                     </div><button type="submit" class="ant-btn btn btn__get-started-btn sub-btn">SUBMIT</button>
@@ -272,6 +294,8 @@ img.flow-img {
                         <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10"
                           name="mobile" pattern="[0-9]{10}" value="">
                         <label class="material-label" style="left: 0px;">Mobile +91</label>
+                        <p class="error-msg mb-0">Please enter valid mobile number</p>
+                        
                       </div>
                     </div>
                     <button type="button" class="sub-btn ant-btn btn btn__get-started-btn mb-4" id="getotp">

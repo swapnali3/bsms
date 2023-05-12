@@ -9,18 +9,65 @@
 
 <!-- Main content -->
 <style>
-  .table> :not(caption)>*>*{
+  .i .fas.fa-truck {
+    color: #fff;
+    background-color: #E46161;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 21px;
+}
+.i .fa-clipboard-list {
+    color: #fff;
+    background-color: #B1BD68;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 21px;
+}
+.i {
+    align-self: center;
+}
+.txt h3 {
+    color: #878a99;
+    font-size: 1.2rem;
+    margin-bottom: 0px;
+}
+.btn-action {
+    border-top: 1px solid #ddd;
+    margin-top: 15px;
+    text-align:right;
+}
+.btn-action .btn {
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 5px 10px;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    background-color: #112A68;
+}
+.txt h5 {
+    font-size: 28px;
+    margin-bottom: 0px;
+}
+.d-box{
+  background-color: #fff;
+    padding: 25px;
+    justify-content: space-between;
+    box-shadow: 0 3px 3px rgba(56,65,74,0.1);
+    border-radius:5px;
+}
+  /* .table> :not(caption)>*>*{
     padding:0rem
     
   }
   .table thead th{
     padding:0rem
-  }
+  } */
   </style>
   <?= $this->Html->css('custom') ?>
 <div class="row" style="margin-top: 25px">
 
-  <div class="col-sm-12 col-lg-3">
+  <!-- <div class="col-sm-12 col-lg-3">
     <div class="card mb-2" style="border-radius:1rem;">
       <div class="card-header p-3 pt-2">
         <div
@@ -40,7 +87,7 @@
         <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'small-box-footer button btn-custom', 'escape' => false]) ?>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- <div class="col-sm-12 col-lg-3">
     <div class="card  mb-2" style="border-radius:1rem;">
@@ -64,13 +111,14 @@
     </div>
   </div> -->
 
-  <div class="col-sm-12 col-lg-3">
+  <!-- <div class="col-sm-12 col-lg-3">
     <div class="card  mb-2" style="border-radius:1rem;">
       <div class="card-header p-3 pt-2 bg-transparent">
         <div
 class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl  position-absolute">
           <i class="material-icons opacity-10">local_shipping</i>
         </div>
+        <i class="fas fa-truck"></i>
         <div class="text-end pt-1">
           <h1 class="text-sm mb-0 text-capitalize "><b>IN Transit</b>
           </h1>
@@ -83,6 +131,38 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
       <div class="card-footer p-3">
         <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'small-box-footer button btn-custom', 'escape' => false]) ?>
       </div>
+    </div>
+  </div> -->
+  <div class="col-md-3">
+    <div class="d-box">
+      <div class="d-flex justify-content-between text-right">
+        <div class="i">
+        <i class="fas fa-clipboard-list"></i>
+        </div>
+        <div class="txt">
+          <h3>Purchase Order</h3>
+          <h5><?= $totalPos ?></h5>
+        </div>
+      </div>
+        <div class="btn-action">
+        <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'btn ', 'escape' => false]) ?>
+        </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="d-box">
+      <div class="d-flex justify-content-between text-right">
+        <div class="i">
+          <i class="fas fa-truck"></i>
+        </div>
+        <div class="txt">
+          <h3>In Transit</h3>
+          <h5><?= $totalIntransit ?></h5>
+        </div>
+      </div>
+        <div class="btn-action">
+        <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'btn', 'escape' => false]) ?>
+        </div>
     </div>
   </div>
 

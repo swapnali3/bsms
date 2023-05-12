@@ -481,3 +481,6 @@ a.back-btn:hover {
 input.form-control.search {
     width: 230px;
 }
+.check_qty {
+    width: 140px;
+}

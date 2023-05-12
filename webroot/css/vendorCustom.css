@@ -87,3 +87,6 @@ b.asnstatus {
     padding: 5px 8px;
     border-radius: 5px;
 }
+.check_qty {
+    width: 140px;
+}
