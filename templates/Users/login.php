@@ -3,6 +3,9 @@
 
 <head>
   <style type="text/css">
+    .signupcard .signupform__signin--signinText{
+      margin-bottom:5% !important;
+    }
     .mb-0{
       margin-bottom:0px;
     }
@@ -77,7 +80,7 @@ img.flow-img {
     z-index: 999;
 }
     .s-logo {
-    width: 65%;
+    width: 60%;
 }
     .sub-btn {
     background-image: linear-gradient(to right, #FF4E50 0%, #F9D423  51%, #FF4E50  100%) !important;
@@ -270,10 +273,10 @@ img.flow-img {
                     </div>
                     <div style="width: 100%;">
                       <div class="material-textfield signin-textfield"><input class="material-input "
-                          placeholder="Enter Password" type="password" name="password" value=""><label
+                          placeholder="Enter Password" type="password" id="password" name="password" value=""><label
                           class="material-label" style="left: 0px;">Password</label>
                           
-                        <p class="material-rightLabel"><i class="fa fa-eye-slash" aria-hidden="true"
+                        <p class="material-rightLabel"><i class="fa fa-eye-slash" id="eye" aria-hidden="true"
                             style="cursor: pointer;"></i></p>
                             <p class="error-msg mb-0">Please enter valid password</p>
                         <p class="material-rightBottomLabel material-rightBottomLabel__danger">Forgot Password ?</p>
@@ -504,6 +507,26 @@ img.flow-img {
         });
       });
     });
+    // for password hide/show
+    $('#eye').click(function(){
+       
+       if($(this).hasClass('fa-eye-slash')){
+          
+         $(this).removeClass('fa-eye-slash');
+         
+         $(this).addClass('fa-eye');
+         
+         $('#password').attr('type','text');
+           
+       }else{
+        
+         $(this).removeClass('fa-eye');
+         
+         $(this).addClass('fa-eye-slash');  
+         
+         $('#password').attr('type','password');
+       }
+   });
   </script>
 </body>
 
