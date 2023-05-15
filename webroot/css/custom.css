@@ -313,9 +313,9 @@ div#past_messages  .past-msg {
 div#past_messages  .past-msg:last-child{
     border-bottom: none;
 }
-.vendor-list #example1_filter input.form-control.form-control-sm{
+/* .vendor-list #example1_filter input.form-control.form-control-sm{
     margin-left: 0px !important;
-}
+} */
 .gate-entry .content-box {
     text-align: center;
     margin: 0 auto;
@@ -325,9 +325,10 @@ div#past_messages  .past-msg:last-child{
 .gate-entry .content-box img.scanner-img {
     width: 180px;
     margin-bottom: 30px;
+    margin-top: 15px;
 }
 .gate-entry .content-box span {
-    font-size: 35px;
+    font-size: 24px;
     color: #000;
     margin-bottom: 20px;
     display: block;
@@ -543,3 +544,6 @@ input.form-control.search {
     margin-bottom: 0px !important;
 }
 
+.first-row .card {
+    height: 100%;
+}

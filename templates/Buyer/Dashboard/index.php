@@ -80,7 +80,7 @@
 </style>
 <?= $this->Html->css('custom') ?>
 <div class="buyer-dash">
-<div class="row mt-4 mx-1">
+<div class="row mt-4 mx-1 mb-3 first-row">
   
 
   <div class="col-sm-12 col-lg-3">

@@ -16,7 +16,7 @@
     border-radius: 8px;
     font-size: 21px;
 }
-.i .fa-clipboard-list {
+.i .fa-cart-plus {
     color: #fff;
     background-color: #B1BD68;
     padding: 15px;
@@ -137,7 +137,7 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
     <div class="d-box">
       <div class="d-flex justify-content-between text-right">
         <div class="i">
-        <i class="fas fa-clipboard-list"></i>
+        <i class="fas fa-cart-plus"></i>
         </div>
         <div class="txt">
           <h3>Purchase Order</h3>

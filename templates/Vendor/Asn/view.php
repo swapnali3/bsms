@@ -13,7 +13,7 @@
             
             <div class="card mt-2">
                 <div class="card-header " style="background-color: #d4ddf7  !important;">
-                <div class="row ">
+                <div class="row align-items-center">
                     <div class="col-sm-12 col-lg-2">
                              ASN No. : <b><?= h($deliveryDetails[0]->asn_no) ?></b>
                     </div>

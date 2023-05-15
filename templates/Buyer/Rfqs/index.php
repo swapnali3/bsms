@@ -15,9 +15,9 @@
         </h5>
     </div> -->
 
-    <div class="card-body p-0">
+    <div class="card-body p-2">
     <div class="table-responsive">
-        <table class="table table-hover table-bordered" id="example1">
+        <table class="table table-hover table-bordered mb-0" id="example1">
             <thead>
                 <tr>
                     <th><?= h(_('RFQ No')) ?></th>

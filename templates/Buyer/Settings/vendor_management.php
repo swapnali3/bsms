@@ -151,7 +151,7 @@ input[type="search"] {
                     <thead>
                         <tr>
                             <th>User Name</th>
-                            <th>Employee Code</th>
+                            <th>Vendor Code</th>
                             <th>Email</th>
                             <th>Status</th>
                         </tr>

@@ -90,3 +90,36 @@ b.asnstatus {
 .check_qty {
     width: 140px;
 }
+.prof-img i {
+    font-size: 115px;
+    margin: 15px 0px;
+    color: #112a68;
+}
+.desc ul{
+    list-style: none;
+    text-align: center;
+    padding: 0;
+}
+.right-s table {
+    width: 100%;
+}
+.right-s table tr th, .right-s table tr td {
+    padding: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+}
+.head h5 {
+    color: #112a68 !important;
+    font-weight: 700;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #d4ddf7;
+    margin-bottom: 0px;
+    font-size: 14px;
+}
+.right-s table tr td {
+   
+    padding-left: 20px;
+    font-weight: 400;
+}

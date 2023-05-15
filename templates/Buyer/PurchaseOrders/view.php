@@ -20,7 +20,7 @@
           <?= h($poHeader->po_no) ?>
   </b></h5>
       </div>
-      <div class="card-body table-responsive p-0">
+      <div class="table-responsive p-2">
         <table class="table table-bordered">
           <thead>
           <tr>
@@ -193,7 +193,7 @@
                     <button type="button" class="btn btn-default btn-success view-btn dropdown-toggle dropdown-icon" data-toggle="dropdown">
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
-                    <div class="dropdown-menu" role="menu">
+                    <div class="dropdown-menu view-drpdwn" role="menu">
                       <?= $this->Html->link(__('View'), "#", ['class' => 'dispatch_item dropdown-item', 'data-toggle'=> "modal", 'data-target' => "#item_$poFooters->item" ,'header-id']) ?>
                     </div>
                   </div>

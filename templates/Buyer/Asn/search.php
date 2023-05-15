@@ -23,7 +23,7 @@
                 </div> -->
                     <div class="col-sm-12 col-md-12">
                        <div class="content-box">
-                       <!-- <img  class="scanner-img" src="<?= $this->Url->build('/')  ?>img/barcode-scanner.png">  -->
+                       <img  class="scanner-img" src="<?= $this->Url->build('/')  ?>img/barcode.png"> 
                         <br>  
                         <span>Scan your ASN barcode</span>  
                         <p><b>OR</b></p>
