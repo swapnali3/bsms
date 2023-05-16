@@ -65,7 +65,7 @@
   } */
   </style>
   <?= $this->Html->css('custom') ?>
-<div class="row" style="margin-top: 25px">
+<div class="row">
 
   <!-- <div class="col-sm-12 col-lg-3">
     <div class="card mb-2" style="border-radius:1rem;">

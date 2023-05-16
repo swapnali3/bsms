@@ -56,7 +56,7 @@ body{
     font-size: 16px;
 }
 .poHeaders .card-body,.related .card-body{
-    padding: 15px !important;
+    padding: 3px 8px !important;
 }
 .poHeaders th, .poHeaders td{
     padding: 10px;
@@ -546,4 +546,7 @@ input.form-control.search {
 
 .first-row .card {
     height: 100%;
+}
+.poHeaders .card-body {
+    padding: 10px;
 }

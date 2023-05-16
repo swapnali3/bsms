@@ -24,7 +24,10 @@
                 <tr style="background-color: #d3d3d36e;">
                     <th>ASN NO</th>
                     <th>Purchase Order</th>
+                    <th>Invoice No</th>
+                    <th>Invoice Date</th>
                     <th>Added Date</th>
+                    <th>States</th>
                     
                 </tr>
             </thead>
@@ -37,8 +40,18 @@
                     <td>
                         <?= $deliveryDetail->has('po_header') ? $deliveryDetail->po_header->po_no : '' ?>
                     </td>
+                    
+                    <td>
+                            1232324
+                    </td>
+                    <td>
+                        12/3/2023
+                    </td>
                     <td>
                         <?= h($deliveryDetail->added_date) ?>
+                    </td>
+                    <td>
+                        Send to sap
                     </td>
                     
                 </tr>
