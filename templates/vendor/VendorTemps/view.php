@@ -22,9 +22,9 @@
     <div class="col-md-3">
         <div class="card" style="height:100%">
         <div class="left-s">
-        <div class="head">
+        <!-- <div class="head">
                 <h5 class="text-uppercase text-info">Personal Details</h5>
-            </div>
+            </div> -->
             <div class="prof-img text-center">
             <i class="fas fa-user-circle"></i>
             </div>
@@ -44,11 +44,11 @@
        <div class="card mb-0" style="height:100%">
         <div class="right-s">
            <div class="row">
-            <div class="col-md-12">
+            <!-- <div class="col-md-12">
             <div class="head">
                 <h5 class="text-uppercase text-info">Other Details</h5>
             </div>
-            </div>
+            </div> -->
             <div class="col-md-12">
              <div class="des">
              <div class="row">

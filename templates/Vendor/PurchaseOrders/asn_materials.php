@@ -10,12 +10,16 @@
 <?= $this->Form->create(null, ['url' => '/vendor/purchase-orders/view/' . $poHeader[0]->id, 'type' => 'file', 'id' => 'asnForm']) ?>
 <?= $this->form->control('po_header_id', ['label' => false, 'type' => 'hidden', 'value' => $poHeader[0]->id]) ?>
 <div class="card">
-  <div class="card-header">
+  <div class="card-header p-2">
     <div class="d-flex">
-      <div class="col-md-6">
-        <h5 class="text-info mt-2"><b>PO NO :
-            <?= h($poHeader[0]->po_no) ?>
-          </b></h5>
+      <div class="col-md-6 align-self-center">
+       <div class="d-flex justify-content-between">
+       <h6 class="mb-0"><small>PO NO :</small>
+            <b><?= h($poHeader[0]->po_no) ?></b>
+          </h6>
+          <h6 class="mb-0"><small>Vendor Name: </small><b>abc</b></h6>
+          <h6 class="mb-0"><small>Plant Name:</small> <b>sdbfdjjk</b></h6>
+       </div>
       </div>
       <div class="col-md-6 d-flex justify-content-end">
         <!-- <h6 class="text-right">Expected Delivery Date <br> <b>May 28, 2022</b></h6> -->
@@ -95,6 +99,7 @@
     <h5><b><?= __('Invoice Details') ?></b></h5>
   </div>
   <div class="card-body invoice-details">
+    
     <div class="row dgf" style="background-color:#f1f1f1 !important;width:100%">
       <!-- <div class="col-sm-8 col-md-2">
                <label>VENDOR</label>
@@ -138,6 +143,11 @@
       <div class="col-sm-8 col-md-2">
         <div class="form-group">
           <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+        </div>
+      </div>
+      <div class="col-sm-8 col-md-2">
+        <div class="form-group">
+          <?php echo $this->Form->control('Transporter Name', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
         </div>
       </div>
 

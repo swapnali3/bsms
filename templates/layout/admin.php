@@ -12,7 +12,11 @@
     <?= $this->fetch('meta') ?>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500&display=swap" rel="stylesheet">
+
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
     <!-- Theme style -->
@@ -21,7 +25,11 @@
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
 </head>
-
+<style>
+    body{
+        font-family: 'Karla', sans-serif;
+    }
+</style>
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
     <div class="wrapper">
         <!-- Navbar -->
