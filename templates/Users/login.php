@@ -2,6 +2,10 @@
 <html lang="en">
 
 <head>
+
+<?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
+<?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
+
   <style type="text/css">
     .signupcard .signupform__signin--signinText{
       margin-bottom:5% !important;
@@ -247,7 +251,7 @@ img.flow-img {
                   <?= $this->Flash->render('auth') ?>
 
                   <div id="email_login">
-                    <?= $this->Form->create() ?>
+                    <?= $this->Form->create(null,['id' => 'loginForm']) ?>
                     <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
                     <div style="width: 100%;">
                       <div class="material-textfield">
@@ -260,25 +264,23 @@ img.flow-img {
                                 aria-activedescendant="rc_select_0_list_0" value="" id="rc_select_0"></span></div>
                         </div><label class="material-label" style="left: 0px;">Workspace url</label>
                         <p class="material-rightLabel">.fts-pl.com</p>
-                        <p class="error-msg mb-0">Please enter valid URL</p>
                       </div>
                     </div>
                     <div style="width: 100%;">
-                      <div class="material-textfield mb-0">
-                        <input class="material-input sentence" placeholder="Enter Username/Email" type="text" name="username" value="">
+                      <div class="material-textfield mb-0 form-group">
+                        <input class="material-input sentence form-control" placeholder="Enter Username/Email" required="required" type="text" name="username" value="">
                         <label class="material-label" style="left: 0px;">Username/Email</label>
-                        <p class="error-msg mb-0">Please enter valid username</p>
                     </div>
                       
                     </div>
                     <div style="width: 100%;">
-                      <div class="material-textfield signin-textfield"><input class="material-input "
-                          placeholder="Enter Password" type="password" id="password" name="password" value=""><label
+                      <div class="material-textfield signin-textfield form-group"><input class="material-input form-control"
+                          placeholder="Enter Password" type="password" id="password" name="password" required="required" value=""><label
                           class="material-label" style="left: 0px;">Password</label>
                           
                         <p class="material-rightLabel"><i class="fa fa-eye-slash" id="eye" aria-hidden="true"
                             style="cursor: pointer;"></i></p>
-                            <p class="error-msg mb-0">Please enter valid password</p>
+                            
                         <p class="material-rightBottomLabel material-rightBottomLabel__danger">Forgot Password ?</p>
                       </div>
                     </div><button type="submit" class="ant-btn btn btn__get-started-btn sub-btn">SUBMIT</button>
@@ -505,6 +507,29 @@ img.flow-img {
         request.fail(function (jqXHR, textStatus) {
           console.log("Request failed: " + textStatus);
         });
+      });
+
+      $("#loginForm").validate({
+          rules: {
+            username: { required: true, email:true },
+            password: { required: true}
+          },
+          messages: {
+            username: { required: "Please enter username", email:"Please enter valid email id" },
+            password: { required: "Please enter password" }
+          },
+          errorElement: 'span',
+          errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+          },
+          highlight: function (element, errorClass, validClass) { $(element).addClass('is-invalid'); },
+          unhighlight: function (element, errorClass, validClass) { $(element).removeClass('is-invalid'); },
+          submitHandler: function(form, event) { 
+            event.preventDefault();
+            $('#loginForm')[0].submit();
+            return false;
+          }
       });
     });
     // for password hide/show
