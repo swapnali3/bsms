@@ -5,7 +5,59 @@
  */
 ?>
 
+<style>
+      .d-flex::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+ 
+.d-flex::-webkit-scrollbar-thumb {
+  background: #BEBEFF;
+  border-radius: 20px;
+}
 
+.d-flex::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 20px;
+}
+
+   .po-list {
+    border: 1px solid #ddd;
+    background-color: #f5f7fd ;
+    /* padding-right:15px; */
+   
+}
+
+
+.po-box {
+    border-right: 1px solid #ccc;
+    padding: 15px 30px;
+    width: 170px;
+    cursor: pointer;
+    color: #999;
+}
+.po-code {
+    font-size: 0.8rem;
+}
+.po-list .d-flex {
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+.po-box:hover {
+    background-color: #d4ddf7;
+}
+.pono b {
+    color: #004d87;
+}
+.po-box .pono{
+    padding-bottom:5px;
+}
+.search-bar .search-box {
+    height: 28px;
+    width: 200px;
+    font-size: 12px;
+}
+</style>
    
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -15,13 +67,109 @@
 <div class="row">
   <div class="col-12">
     <div class="poHeaders view content card">
-      <div class="card-header">
-        <h5>PO NO :<b>
-          <?= h($poHeader->po_no) ?>
-  </b></h5>
-      </div>
+      <!-- <div class="card-header">
+      
+      </div> -->
       <div class="table-responsive p-2">
-        <table class="table table-bordered">
+      <div class="search-bar mb-2">
+            <input type="search" placeholder="search all orders" class="form-control search-box">
+            </div>
+      <div class="po-list">
+               
+               <div class="d-flex">
+                  <div class="po-box">
+                      <div class="pono">
+                           <small class="mb-0"><?= h('PO No -') ?></small>
+                           <b>4510000421</b>
+                       </div>
+                       <div class="po-code">
+                       <small class="mb-0"><?= h('Vendor Code :') ?></small>
+                           <small><b>LARET0</b></small>
+                       </div>
+                  </div>
+                  <div class="po-box">
+                      <div class="pono">
+                           <small class="mb-0"><?= h('PO No -') ?></small>
+                           <b>4510000421</b>
+                       </div>
+                       <div class="po-code">
+                       <small class="mb-0"><?= h('Vendor Code :') ?></small>
+                           <small><b>LARET0</b></small>
+                       </div>
+                  </div>
+                  <div class="po-box">
+                      <div class="pono">
+                           <small class="mb-0"><?= h('PO No -') ?></small>
+                           <b>4510000421</b>
+                       </div>
+                       <div class="po-code">
+                       <small class="mb-0"><?= h('Vendor Code :') ?></small>
+                           <small><b>LARET0</b></small>
+                       </div>
+                  </div>
+                  <div class="po-box">
+                      <div class="pono">
+                           <small class="mb-0"><?= h('PO No -') ?></small>
+                           <b>4510000421</b>
+                       </div>
+                       <div class="po-code">
+                       <small class="mb-0"><?= h('Vendor Code :') ?></small>
+                           <small><b>LARET0</b></small>
+                       </div>
+                  </div>
+                  <div class="po-box">
+                      <div class="pono">
+                           <small class="mb-0"><?= h('PO No -') ?></small>
+                           <b>4510000421</b>
+                       </div>
+                       <div class="po-code">
+                       <small class="mb-0"><?= h('Vendor Code :') ?></small>
+                           <small><b>LARET0</b></small>
+                       </div>
+                  </div>
+                  <div class="po-box">
+                      <div class="pono">
+                           <small class="mb-0"><?= h('PO No -') ?></small>
+                           <b>4510000421</b>
+                       </div>
+                       <div class="po-code">
+                       <small class="mb-0"><?= h('Vendor Code :') ?></small>
+                           <small><b>LARET0</b></small>
+                       </div>
+                  </div>
+                  <div class="po-box">
+                      <div class="pono">
+                           <small class="mb-0"><?= h('PO No -') ?></small>
+                           <b>4510000421</b>
+                       </div>
+                       <div class="po-code">
+                       <small class="mb-0"><?= h('Vendor Code :') ?></small>
+                           <small><b>LARET0</b></small>
+                       </div>
+                  </div>
+                  <div class="po-box">
+                      <div class="pono">
+                           <small class="mb-0"><?= h('PO No -') ?></small>
+                           <b>4510000421</b>
+                       </div>
+                       <div class="po-code">
+                       <small class="mb-0"><?= h('Vendor Code :') ?></small>
+                           <small><b>LARET0</b></small>
+                       </div>
+                  </div>
+                  <div class="po-box">
+                      <div class="pono">
+                           <small class="mb-0"><?= h('PO No -') ?></small>
+                           <b>4510000421</b>
+                       </div>
+                       <div class="po-code">
+                       <small class="mb-0"><?= h('Vendor Code :') ?></small>
+                           <small><b>LARET0</b></small>
+                       </div>
+                  </div>
+               </div>
+           </div>
+        <!-- <table class="table table-bordered">
           <thead>
           <tr>
             <th>
@@ -90,16 +238,16 @@
             </td>
           </tr>
           </tbody>
-        </table>
+        </table> -->
       </div>
     </div>
 
     <div class="related card">
-      <div class="card-header">
+      <!-- <div class="card-header">
         <h5><b>
           <?= __('PO Item List') ?>
   </b></h5>
-      </div>
+      </div> -->
       <div class="card-body">
         <?php if (!empty($poHeader->po_footers)) : ?>
         <div class="table-responsive">
@@ -531,11 +679,11 @@
       "responsive": false,
        "lengthChange": false,
         "autoWidth": false,
-         "searching": true,
-         language: {
-          search: "_INPUT_",
-        searchPlaceholder: "Search..."
-    },
+         "searching": false,
+    //      language: {
+    //       search: "_INPUT_",
+    //     searchPlaceholder: "Search..."
+    // },
     });
 
      
