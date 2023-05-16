@@ -547,3 +547,6 @@ input.form-control.search {
 .first-row .card {
     height: 100%;
 }
+.poHeaders .card-body {
+    padding: 10px;
+}

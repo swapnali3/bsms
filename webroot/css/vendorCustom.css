@@ -16,11 +16,12 @@ div#example1_wrapper .row:first-child{
     /* width: 100% !important; */
     padding: 20px 10px !important;
     border-radius: 5px !important;
-    margin-left: -4px !important;
+    margin-left: -7px !important;
     border-color: #989090 !important;
 }
 #example1_filter label {
     width: 100% !important;
+    margin: 0px;
 }
 table#example1 tr th, table#example1 tr td {
     padding: 10px !important;
@@ -122,4 +123,11 @@ b.asnstatus {
    
     padding-left: 20px;
     font-weight: 400;
+}
+.des input.form-control {
+    height: 28px !important;
+    font-size: 14px !important;
+}
+.poHeaders .card-body {
+    padding: 10px;
 }

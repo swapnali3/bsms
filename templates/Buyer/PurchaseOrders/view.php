@@ -31,7 +31,7 @@
 
 .po-box {
     border-right: 1px solid #ccc;
-    padding: 15px 30px;
+    padding: 5px 20px;
     width: 170px;
     cursor: pointer;
     color: #999;
@@ -72,7 +72,7 @@
       </div> -->
       <div class="table-responsive p-2">
       <div class="search-bar mb-2">
-            <input type="search" placeholder="search all orders" class="form-control search-box">
+            <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
             </div>
       <div class="po-list">
                
