@@ -92,7 +92,7 @@ class PurchaseOrdersController extends VendorAppController
                 $productImage = $request["invoices"];
                 $uploads["invoices"] = array();
                 // file uploaded
-                //foreach($productImages as $productImage) {
+                foreach($productImage as $productImage) {
                     $fileName = $asnNo.'_'.time().'_'.$productImage->getClientFilename();
                     $fileType = $productImage->getClientMediaType();
 
@@ -101,7 +101,7 @@ class PurchaseOrdersController extends VendorAppController
                         $productImage->moveTo($imagePath);
                         $uploads["invoices"][]= "uploads/" . $fileName;
                     }
-                //}
+                }
                 
                 $asnData = array();
                 $asnData['asn_no'] = $asnNo;
@@ -113,6 +113,7 @@ class PurchaseOrdersController extends VendorAppController
                 $asnData['vehicle_no'] = $request['vehicle_no'];
                 $asnData['driver_name'] = $request['driver_name'];
                 $asnData['driver_contact'] = $request['driver_contact'];
+                $asnData['transporter_name'] = $request['transporter_name'];
 
                 $asnObj = $this->AsnHeaders->newEmptyEntity();
                 $asnObj = $this->AsnHeaders->patchEntity($asnObj, $asnData);

@@ -46,6 +46,7 @@ class AsnHeader extends Entity
         'vehicle_no' => true,
         'driver_name' => true,
         'driver_contact' => true,
+        'transporter_name' => true,
         'status' => true,
         'added_date' => true,
         'updated_date' => true,

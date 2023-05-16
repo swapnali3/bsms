@@ -17,8 +17,8 @@
        <h6 class="mb-0"><small>PO NO :</small>
             <b><?= h($poHeader[0]->po_no) ?></b>
           </h6>
-          <h6 class="mb-0"><small>Vendor Name: </small><b>abc</b></h6>
-          <h6 class="mb-0"><small>Plant Name:</small> <b>sdbfdjjk</b></h6>
+          <h6 class="mb-0"><small>Vendor Name: </small><b><?php echo $this->getRequest()->getSession()->read('vendor_name'); ?></b></h6>
+        
        </div>
       </div>
       <div class="col-md-6 d-flex justify-content-end">
@@ -145,15 +145,18 @@
           <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
         </div>
       </div>
-      <div class="col-sm-8 col-md-2">
-        <div class="form-group">
-          <?php echo $this->Form->control('Transporter Name', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
-        </div>
-      </div>
 
       <div class="col-sm-8 col-md-2">
         <div class="form-group">
-          <?php echo $this->Form->control('invoices', array('label' => 'Upload Invoice', 'type' => 'file', 'class' => 'pt-1 rounded-0', 'div' => 'form-group', 'required')); ?>
+          <?php echo $this->Form->control('transporter_name', array('type' => 'text', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+        </div>
+      </div>
+ 
+
+      <div class="col-sm-8 col-md-3">
+        <div class="form-group">
+          <?php echo $this->Form->control('invoices[]', array('label' => 'Upload Invoice', 'accept' => '.pdf', 'type' => 'file','multiple' => 'true','class' => 'pt-1 rounded-0', 'div' => 'form-group', 'required')); ?>
+          <span id="file__input"></span>
         </div>
       </div>
     </div>
@@ -269,6 +272,20 @@
       showConfirmButton: false,
       timer: 3000
     });
+
+
+    $('#invoices').on('change',function(event){
+		var files = event.target.files;
+		for (var i = 0; i < files.length; i++) {
+			var file = files[i];
+			$("<div class='file__value'><div class='file__value--text'>" + file.name + " <span class='' data-id='" + file.name + "' ><i class='fas fa-times-circle text-danger'</i></span></div></div>").insertAfter('#file__input');
+		}	
+	});
+
+
+  $('body').on('click', '.file__value', function() {
+		$(this).remove();
+	});
 
 
 
