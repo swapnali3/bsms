@@ -131,3 +131,13 @@ b.asnstatus {
 .poHeaders .card-body {
     padding: 10px;
 }
+.prof-udt{
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.btn-font {
+    font-size: 12px !important;
+}
+.modal-footer .btn-updt {
+    padding: 5px 10px;
+}

@@ -7,6 +7,14 @@
 <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
 
   <style type="text/css">
+    .error {
+    color: #FF0000;
+    text-align: left;
+    display: block;
+}
+    input::placeholder {
+    font-size: 14px;
+}
     .signupcard .signupform__signin--signinText{
       margin-bottom:5% !important;
     }
@@ -247,13 +255,14 @@ img.flow-img {
                     </div>
                   </div>
 
-                  <br>
+                  
                   <?= $this->Flash->render('auth') ?>
 
                   <div id="email_login">
                     <?= $this->Form->create(null,['id' => 'loginForm']) ?>
                     <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
-                    <div style="width: 100%;">
+                     <span class="error" style="margin-bottom:20px;">Invalid Username or Password</span>
+                    <!-- <div style="width: 100%;">
                       <div class="material-textfield">
                         <div
                           class="ant-select material-select   ant-select-auto-complete ant-select-single ant-select-show-search">
@@ -265,7 +274,7 @@ img.flow-img {
                         </div><label class="material-label" style="left: 0px;">Workspace url</label>
                         <p class="material-rightLabel">.fts-pl.com</p>
                       </div>
-                    </div>
+                    </div> -->
                     <div style="width: 100%;">
                       <div class="material-textfield mb-0 form-group">
                         <input class="material-input sentence form-control" placeholder="Enter Username/Email" required="required" type="text" name="username" value="">
@@ -294,12 +303,13 @@ img.flow-img {
                   </div>
                   <div class="row" id="mobile_login" style="width:100%; display: none;">
                     <?= $this->Form->create() ?>
+                    <span class="error" style="margin-bottom:20px;">Invalid Mobile No</span>
                     <div class="input-group mb-3">
                       <div class="material-textfield">
                         <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10"
                           name="mobile" pattern="[0-9]{10}" value="">
                         <label class="material-label" style="left: 0px;">Mobile +91</label>
-                        <p class="error-msg mb-0">Please enter valid mobile number</p>
+                        <!-- <p class="error-msg mb-0">Please enter valid mobile number</p> -->
                         
                       </div>
                     </div>
