@@ -7,6 +7,9 @@
 <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
 
   <style type="text/css">
+    div#email_login {
+    margin-top: 20px;
+}
     .error {
     color: #FF0000;
     text-align: left;
@@ -261,7 +264,7 @@ img.flow-img {
                   <div id="email_login">
                     <?= $this->Form->create(null,['id' => 'loginForm']) ?>
                     <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
-                     <span class="error" style="margin-bottom:20px;">Invalid Username or Password</span>
+                     <span class="error" style="margin-bottom:20px;margin-top: -20px;">Invalid Username or Password</span>
                     <!-- <div style="width: 100%;">
                       <div class="material-textfield">
                         <div

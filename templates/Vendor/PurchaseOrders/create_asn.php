@@ -10,106 +10,74 @@
 <?= $this->Html->css('table') ?>
 <?= $this->Form->create(null,['action' => 'asn-materials', 'id' => 'asnForm']) ?>
 <?= $this->form->control('po_header_id', ['id' =>'po_header_id', 'label' => false, 'type' => 'hidden', 'value'=> '']) ?>
+<style>
+          .d-flex::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+ 
+.d-flex::-webkit-scrollbar-thumb {
+  background: #BEBEFF;
+  border-radius: 20px;
+}
+
+.d-flex::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 20px;
+}
+    td.details-control.ponum {
+    padding: 20px;
+}
+.po-box {
+    border-right: 1px solid #ccc;
+    padding: 10px 20px;
+    width: 135px;
+    cursor: pointer;
+    color: #999;
+}
+.polist .d-flex {
+    overflow-y: hidden;
+    overflow-x: scroll;
+}
+.polist{
+    border: 1px solid #ddd;
+    background-color: #f5f7fd;
+}
+</style>
 <div class="poHeaders index content card create-asn">
-    <!-- <div class="card-header p-3">
-        <div class="row">
-            <div class="col-md-6">
-            <h5><b>Select Material</b></h5> 
-            </div>
-            <div class="col-md-6">
-            <div class="action-btn d-flex justify-content-end">
-       <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a>
-       <button type="submit" class="btn btn-secondary mb-0 continue_btn" disabled>Continue</button>
-       </div>
-            </div>
-        </div>
-       
-       
-    </div> -->
     <div class="card-body">
-        <div class="">
-            <!-- <h5><b>Select Material</b></h5> -->
-            <div class="d-flex">
+            <div class="content-d">
                 <div class="t1">
-                <table class="table" id="example1">
-                <thead>
-                    <tr>
-                        <!-- <th width="5%"></th>
-                        <th>
-                            <?= h('Vendor Code') ?>
-                        </th> -->
-                        <th class="pono">
-                            <?= h('PO No.') ?>
-                        </th>
-                        <!-- <th>
-                            <?= h('Document Type') ?>
-                        </th>
-                        <th>
-                            <?= h('Created On') ?>
-                        </th>
-                        <th>
-                            <?= h('Created By') ?>
-                        </th>
-                        <th>
-                            <?= h('Pay Terms') ?>
-                        </th>
-                        <th>
-                            <?= h('Currency') ?>
-                        </th>
-                        <th>
-                            <?= h('Exchange Rate') ?>
-                        </th> -->
-                        <!-- <th><?= h('Release Status') ?></th> -->
-                        <!-- <th><?= h('Added Date') ?></th> -->
-                        <!-- <th>
-                            <?= h('Updated Date') ?>
-                        </th> -->
-                    </tr>
-                </thead>
-                <tbody>
+                <div class="row">
+                    <div class="col-md-6">
+                    <h5><b>Select Material</b></h5> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="action-btn d-flex justify-content-end">
+                        <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a>
+                        <button type="submit" class="btn btn-secondary mb-0 continue_btn" disabled>Continue</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="scrollable-div">
+                <div class="search-bar mb-2">
+            <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
+            </div>
+                 <div class="polist">
+                    <div class="d-flex">
                     <?php foreach ($poHeaders as $poHeader): ?>
-                    <tr>
-                    <!-- <td class="details-control" header-id="<?=$poHeader->id?>">
-                        <span class="material-symbols-outlined flu" data-alt="+">
-                            add
-                        </span>    
-                        </td> -->
-                        <!-- <td><?= h($poHeader->sap_vendor_code) ?></td> -->
-                        <td class="details-control ponum" header-id="<?=$poHeader->id?>"><?= h($poHeader->po_no) ?></td>
-                        <!-- <td><?= h($poHeader->document_type) ?></td>
-                        <td><?= h($poHeader->created_on) ?></td>
-                        <td><?= h($poHeader->created_by) ?></td>
-                        <td><?= h($poHeader->pay_terms) ?></td>
-                        <td><?= h($poHeader->currency) ?></td>
-                        <td><?= $this->Number->format($poHeader->exchange_rate) ?> </td> -->
-                        <!-- <td><?= h($poHeader->release_status) ?></td> -->
-                        <!-- <td><?= h($poHeader->added_date) ?></td> -->
-                        <!-- <td>
-                            <?= h($poHeader->updated_date) ?>
-                        </td> -->
-                    </tr>
-                    <?php endforeach; ?>
-                    
-                    
-                </tbody>
-            </table>
+                        <div class="po-box details-control ponum" header-id="<?=$poHeader->id?>">
+                             <p class="po-no mb-0">PO No</p>
+                             <b class="text-info"><?= h($poHeader->po_no) ?></b>
+                        </div>
+                       
+                        <?php endforeach; ?>
+                    </div>
+                 </div>
+                </div>
         </div>
-               <div class="t2">
-                 <div class="card-header">
-        <div class="row">
-            <div class="col-md-6">
-            <h5><b>Select Material</b></h5> 
-            </div>
-            <div class="col-md-6">
-            <div class="action-btn d-flex justify-content-end">
-       <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a>
-       <button type="submit" class="btn btn-secondary mb-0 continue_btn" disabled>Continue</button>
-       </div>
-            </div>
-        </div>
-       
-       
-    </div>
+               <div class="t2 mt-2">
+             
                <div class="right-side"> 
                     
                     <table class="table table-bordered material-list" id="example2">
@@ -135,8 +103,7 @@
                </div>
             </div>
            
-           
-        </div>
+    
     </div>
     <!-- <div class="paginator">
         <ul class="pagination">
@@ -181,7 +148,7 @@
       }
     });
 
-    $('#example1 tbody').on('click', 'td.details-control', function () {
+    $(document).on('click', 'div.details-control', function () {
 
       $(".right-side").html(format($(this).attr('header-id')));
       $("#po_header_id").val($(this).attr('header-id'));

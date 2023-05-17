@@ -403,19 +403,14 @@ a.back-btn {
     display: none;
 }
 .create-asn .t1{
-    width: 20%;
-    margin-right: 15px;
-    background-color: #fff;
-    padding: 15px;
-    height: 650px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+   
+    
+    padding: 7px;
+   
+    
 }
 
-.create-asn .t2{
-    width: 80%;
-}
+
 .create-asn #example1_filter input.form-control.form-control-sm {
     width: unset !important;
     padding: 20px 10px !important;
@@ -465,7 +460,7 @@ a.back-btn:hover {
     color: #112A68 !important;
 }
 .message.danger.bg-danger {
-    background-color: #fff!important;
+    background-color: transparent !important;
     color: #dc3545!important;
     text-align: center;
     padding: 12px;
@@ -549,4 +544,9 @@ input.form-control.search {
 }
 .poHeaders .card-body {
     padding: 10px;
+}
+.search-bar .search-box {
+    height: 30px;
+    width: 200px;
+    font-size: 12px;
 }

@@ -18,18 +18,18 @@
     button, input, optgroup, select, textarea {
         margin:10px
     } */
-    .vendorMaterialStocks #example1_filter input.form-control.form-control-sm{
+    /* .vendorMaterialStocks #example1_filter input.form-control.form-control-sm{
         margin-left:-10px !important;
-    }
+    } */
 </style>
 <?= $this->Html->css('vendorCustom') ?>
 <div class="vendorMaterialStocks index content card">
-    <div class="card-header">
+    <div class="card-header p-2">
         <?= $this->Form->create(null, ['url' => ['action' => 'upload'],'type' => 'file']) ?>
         <fieldset>
             <h5><b>UPLOAD STOCKS</b></h5>
             
-            <div class="form-group">
+            <div class="form-group mb-0">
                 <div class="input-group">
                     <div class="custom-file">
                         <?php echo $this->Form->control('Upload Stocks', ['label' => false, 'accept'=>".xls,.xlsx", 'type' => 'file', 'class' => 'custom-file-input', 'id' => 'exampleInputFile']); ?>
@@ -42,11 +42,11 @@
         <?= $this->Form->end() ?>
     </div>
 
-    <div class="card-header">
+    <!-- <div class="card-header">
         <h5><b>MATERIAL STOCK LIST</b></h5>
-    </div>
+    </div> -->
 
-    <div class="card-body">
+    <div class="card-body p-2">
         <div class="table-responsive">
             <table class="table table-hover" id="example1">
                 <thead>
