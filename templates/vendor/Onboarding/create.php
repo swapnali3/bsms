@@ -99,10 +99,10 @@
                     </div>
                     <div class="row">
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('address-1', ['class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('address', ['class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('address-2', ['class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('address_2', ['class' => 'form-control']); ?>
                         </div>
 
                         <div class="col-3 mt-3 col-md-3">

@@ -97,6 +97,7 @@ class VendorTempsController extends BuyerAppController
     {
         $this->set('headTitle', 'Create Vendor');
         $this->loadModel("VendorTemps");
+        $this->loadModel("PaymentTerms");
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -127,7 +128,9 @@ class VendorTempsController extends BuyerAppController
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups'));
+        $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'code', 'valueField' => 'code'])->all();
+
+        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'payment_term'));
     }
 
 
@@ -330,23 +333,22 @@ class VendorTempsController extends BuyerAppController
                         $data['password'] = $vendor->mobile;
                         $data['group_id'] = 3;
                         
-                        if(!empty($vendor->sap_vendor_code)) {
-                            $adminUser = $this->Users->patchEntity($adminUser, $data);
+                        
+                        $adminUser = $this->Users->patchEntity($adminUser, $data);
 
-                            if ($this->Users->save($adminUser)) {
-                                $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-                                $mailer = new Mailer('default');
-                                $mailer
-                                    ->setTransport('smtp')
-                                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                                    ->setTo($data['username'])
-                                    ->setEmailFormat('html')
-                                    ->setSubject('Vendor Portal - Account created')
-                                    ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
-                                    '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
-                                
-                            } 
-                        }
+                        if ($this->Users->save($adminUser)) {
+                            $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                            $mailer = new Mailer('default');
+                            $mailer
+                                ->setTransport('smtp')
+                                ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                                ->setTo($data['username'])
+                                ->setEmailFormat('html')
+                                ->setSubject('Vendor Portal - Account created')
+                                ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
+                                '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
+                            
+                        } 
                     }
 
                     //echo '<pre>'; print_r($resultResponse); exit;

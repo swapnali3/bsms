@@ -84,12 +84,12 @@ class OnboardingController extends VendorAppController
             $data['otp'] =$otp;
             $data['expire_date'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +5 minutes'));
 
-            $t = $this->Sms->sendOTP($vendorTemp->mobile, 'Onboarding OTP :: '. $otp);
+            //$t = $this->Sms->sendOTP($vendorTemp->mobile, 'Onboarding OTP :: '. $otp);
 
             $VendorTempOtp = $this->VendorTempOtps->newEmptyEntity();
             $vendorOtp = $this->VendorTempOtps->patchEntity($VendorTempOtp, $data);
             if ($this->VendorTempOtps->save($vendorOtp)) {
-                /*$mailer = new Mailer('default');
+                $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
@@ -97,12 +97,8 @@ class OnboardingController extends VendorAppController
                         ->setEmailFormat('html')
                         ->setSubject('Verify New Account otp')
                         ->deliver('Hi '.$vendorTemp->name.'<br/>OTP : ' . $otp);
-
-                        */
             }
         }
-
-        //print_r($vendorTemp);
 
         $this->set(compact('vendorTemp'));
     }
@@ -126,23 +122,23 @@ class OnboardingController extends VendorAppController
 
                 $link = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'create', base64_encode($data['email']), '_full' => true, 'escape' => true]);
 
-                /*$mailer = new Mailer('default');
+                $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                     ->setTo($data['email'])
                     ->setEmailFormat('html')
                     ->setSubject('Verify New Account')
-                    ->deliver('Hi '.$data['name'].'<br/>Welcome to Code The Pixel.' . $link);
-                    */
+                    ->deliver('Hi '.$data['name'].'<br/>Welcome to Vekpro.' . $link);
+                    
 
                 $this->Flash->success(__('The vendor temp has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
 
-            print_r($vendorTemp);
-            exit;
+            //print_r($vendorTemp);
+            //exit;
             $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
@@ -162,6 +158,8 @@ class OnboardingController extends VendorAppController
     {
         $this->loadModel("VendorTemps");
         $request = explode('||', base64_decode($request));
+
+        //print_r($request); exit;
         $id = $request[1];
         $vendorTemp = $this->VendorTemps->get($id, [
             'contain' => [],

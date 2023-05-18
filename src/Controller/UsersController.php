@@ -171,8 +171,6 @@ class UsersController extends AppController
                             $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();    
                             $session->write('vendor_code', $result[0]->sap_vendor_code);
                             $session->write('vendor_id', $result[0]->id);
-                         
-                        
 
                             $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
                         }
@@ -201,7 +199,7 @@ class UsersController extends AppController
                 $user = $this->Users->get($result[0]->id);
                 $user = $this->Users->patchEntity($user, array('otp' => $otp));
                 if ($this->Users->save($user)) {
-                    $t = $this->Sms->sendOTP($this->request->getData('mobile'), 'Portal Login OTP :: '. $otp);
+                    //$t = $this->Sms->sendOTP($this->request->getData('mobile'), 'Portal Login OTP :: '. $otp);
 
                     $mailer = new Mailer('default');
                 $mailer

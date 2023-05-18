@@ -26,7 +26,7 @@
                         <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0','placeholder'=>'please enter email id','div' => 'form-group'));?>
                     </div>
                     <div class="col-sm-12 col-lg-3 mt-2 col-md-6">
-                        <?php echo $this->Form->control('payment_term', array('class' => 'form-control rounded-0','placeholder'=>'please enter payment term','div' => 'form-group'));?>
+                        <?php echo $this->Form->control('payment_term', array('class' => 'custom-select rounded-0','options' => $payment_term,'div' => 'form-group', 'empty' => 'Please Select'));?>
                     </div>
                     <div class="col-sm-12 col-lg-4 mt-2 col-md-4">
                         <?php echo $this->Form->control('purchasing_organization_id', array('class' => 'custom-select rounded-0','div' => 'form-group'));?>

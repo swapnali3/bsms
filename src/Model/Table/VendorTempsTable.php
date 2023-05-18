@@ -57,6 +57,15 @@ class VendorTempsTable extends Table
             'foreignKey' => 'schema_group_id',
             'joinType' => 'INNER',
         ]);
+        $this->hasMany('RfqCommunications', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('Rfqs', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorTempOtps', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
     }
 
     /**
@@ -69,18 +78,20 @@ class VendorTempsTable extends Table
     {
         $validator
             ->integer('purchasing_organization_id')
-            ->requirePresence('purchasing_organization_id', 'create')
             ->notEmptyString('purchasing_organization_id');
 
         $validator
             ->integer('account_group_id')
-            ->requirePresence('account_group_id', 'create')
             ->notEmptyString('account_group_id');
 
         $validator
             ->integer('schema_group_id')
-            ->requirePresence('schema_group_id', 'create')
             ->notEmptyString('schema_group_id');
+
+        $validator
+            ->scalar('sap_vendor_code')
+            ->maxLength('sap_vendor_code', 10)
+            ->allowEmptyString('sap_vendor_code');
 
         $validator
             ->scalar('name')
@@ -110,10 +121,10 @@ class VendorTempsTable extends Table
             ->notEmptyString('mobile');
 
         $validator
-            ->scalar('email')
-            ->maxLength('email', 100)
+            ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmptyString('email');
+            ->notEmptyString('email')
+            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('country')
@@ -122,8 +133,14 @@ class VendorTempsTable extends Table
 
         $validator
             ->scalar('payment_term')
+            ->maxLength('payment_term', 50)
             ->requirePresence('payment_term', 'create')
             ->notEmptyString('payment_term');
+
+        $validator
+            ->scalar('order_currency')
+            ->maxLength('order_currency', 10)
+            ->notEmptyString('order_currency');
 
         $validator
             ->scalar('gst_no')
@@ -160,6 +177,30 @@ class VendorTempsTable extends Table
             ->maxLength('tan_no', 25)
             ->allowEmptyString('tan_no');
 
+        $validator
+            ->notEmptyString('status');
+
+        $validator
+            ->dateTime('valid_date')
+            ->requirePresence('valid_date', 'create')
+            ->notEmptyDateTime('valid_date');
+
+        $validator
+            ->scalar('remark')
+            ->allowEmptyString('remark');
+
+        $validator
+            ->integer('buyer_id')
+            ->requirePresence('buyer_id', 'create')
+            ->notEmptyString('buyer_id');
+
+        $validator
+            ->dateTime('added_date')
+            ->notEmptyDateTime('added_date');
+
+        $validator
+            ->dateTime('updated_date')
+            ->notEmptyDateTime('updated_date');
 
         return $validator;
     }
@@ -173,6 +214,7 @@ class VendorTempsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
         $rules->add($rules->existsIn('purchasing_organization_id', 'PurchasingOrganizations'), ['errorField' => 'purchasing_organization_id']);
         $rules->add($rules->existsIn('account_group_id', 'AccountGroups'), ['errorField' => 'account_group_id']);
         $rules->add($rules->existsIn('schema_group_id', 'SchemaGroups'), ['errorField' => 'schema_group_id']);
