@@ -318,6 +318,8 @@
 
     $('#purViewId').on('click', '.po-box', function () {
       $("#id_pofooter").empty();
+      $('.po-box').removeClass("active");
+      $(this).addClass("active");
       var poid = $(this).attr('data-id');
 
 
@@ -488,8 +490,10 @@
         var currTR = this.parentNode.parentNode;
         var newTR = document.createElement("tr");
         newTR.setAttribute('id', 'id_subtr' + $(this).data('id'))
-        newTR.innerHTML = `<td colspan="6">` + response.html + `</td><td colspan="7"></td>`;
-        if (response.html != '') { currTR.parentNode.insertBefore(newTR, currTR.nextSibling); }
+        
+        if (response.html != '') { newTR.innerHTML = `<td colspan="6">` + response.html + `</td><td colspan="7"></td>`; }
+        else { newTR.innerHTML = `<td colspan="6">` + response.message + `</td><td colspan="7"></td>`; }
+        currTR.parentNode.insertBefore(newTR, currTR.nextSibling);
       } else {
         $(this).data('alt', '+').empty().append('add');
         $("#id_subtr" + $(this).data('id')).remove();
