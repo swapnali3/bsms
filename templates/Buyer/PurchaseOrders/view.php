@@ -71,7 +71,8 @@
   }
 </style>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
 <?= $this->Html->css('custom') ?>
@@ -88,219 +89,130 @@
         <div class="po-list">
           <div class="d-flex">
             <?php foreach ($poHeaders as $poHeader) : ?>
-              <div class="po-box" data-id="<?= $poHeader->id ?>">
-                <div class="pono">
-                  <small class="mb-0"><?= h('PO No -') ?></small>
-                  <b><?= h($poHeader->po_no) ?></b>
-                </div>
-                <div class="po-code">
-                  <small class="mb-0"><?= h('Vendor Code:') ?></small>
-                  <br> <small><b><?= h($poHeader->sap_vendor_code) ?></b></small>
-                </div>
+            <div class="po-box" data-id="<?= $poHeader->id ?>">
+              <div class="pono">
+                <small class="mb-0">
+                  <?= h('PO No -') ?>
+                </small>
+                <b>
+                  <?= h($poHeader->po_no) ?>
+                </b>
               </div>
+              <div class="po-code">
+                <small class="mb-0">
+                  <?= h('Vendor Code:') ?>
+                </small>
+                <br> <small><b>
+                    <?= h($poHeader->sap_vendor_code) ?>
+                  </b></small>
+              </div>
+            </div>
             <?php endforeach; ?>
           </div>
         </div>
-        <!-- <table class="table table-bordered">
-          <thead>
-          <tr>
-            <th>
-              <?= __('Vendor Code') ?>
-            </th>
-            <th>
-              <?= __('Po No') ?>
-            </th>
-            <th>
-              <?= __('Document Type') ?>
-            </th>
-            <th>
-              <?= __('Created By') ?>
-            </th>
-            <th>
-              <?= __('Pay Terms') ?>
-            </th>
-            <th>
-              <?= __('Currency') ?>
-            </th>
-            <th>
-              <?= __('Release Status') ?>
-            </th>
-            <th>
-              <?= __('Exchange Rate') ?>
-            </th>
-            <th>
-              <?= __('Created On') ?>
-            </th>
-            <th>
-              <?= __('Added Date') ?>
-            </th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>
-              <?= h($poHeader->sap_vendor_code) ?>
-            </td>
-            <td>
-              <?= h($poHeader->po_no) ?>
-            </td>
-            <td>
-              <?= h($poHeader->document_type) ?>
-            </td>
-            <td>
-              <?= h($poHeader->created_by) ?>
-            </td>
-            <td>
-              <?= h($poHeader->pay_terms) ?>
-            </td>
-            <td>
-              <?= h($poHeader->currency) ?>
-            </td>
-            <td>
-              <?= h($poHeader->release_status) ?>
-            </td>
-            <td>
-              <?= $this->Number->format($poHeader->exchange_rate) ?>
-            </td>
-            <td>
-              <?= h($poHeader->created_on) ?>
-            </td>
-            <td>
-              <?= h($poHeader->added_date) ?>
-            </td>
-          </tr>
-          </tbody>
-        </table> -->
       </div>
     </div>
 
     <div class="related card">
-      <!-- <div class="card-header">
-        <h5><b>
-          <?= __('PO Item List') ?>
-  </b></h5>
-      </div> -->
       <div class="card-body">
-        <div class="table-responsive" id="id_potableresp" style="display:none;">
-          <table class="table" id="example1">
-            <thead>
-              <tr>
-                <th width="5%"></th>
-                <th><?= __('Item') ?></th>
-                <th><?= __('Material') ?></th>
-                <th><?= __('Short Text') ?></th>
-                <th><?= __('Po Qty') ?></th>
-                <th><?= __('Grn Qty') ?></th>
-                <th><?= __('Pending Qty') ?></th>
-                <th><?= __('Order Unit') ?></th>
-                <th><?= __('Net Price') ?></th>
-                <th><?= __('Price Unit') ?></th>
-                <th><?= __('Net Value') ?></th>
-                <th><?= __('Gross Value') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-              </tr>
-            </thead>
-            <tbody id="id_pofooter">
-
-            </tbody>
-          </table>
-        </div>
+        <div class="table-responsive" id="id_potableresp" style="display:none;"></div>
       </div>
     </div>
   </div>
 </div>
-</div>
 
-<?php foreach ($poHeader->po_footers as $poFooters) :
-  $actualQty = $poFooters->po_qty;
-  $totalQty = 0;
-?>
-  <!-- delivery modal -->
-  <div class="modal fade" id="item_<?= h($poFooters->item) ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+<!-- <?php foreach ($poHeader->po_footers as $poFooters) :
+        $actualQty = $poFooters->po_qty;
+        $totalQty = 0;
+      ?> -->
+<!-- delivery modal -->
+<div class="modal fade" id="item_<?= h($poFooters->item) ?>" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
 
-      <div class="modal-content">
+    <div class="modal-content">
 
-        <div class="modal-header">
-          <h5 class="modal-title"><b>Delivery Detail :</b>
-            <?= h($poHeader->po_no . ' - ' . $poFooters->item) ?>
-          </h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <table class="table" id="example1">
-            <thead>
-              <tr>
-                <th>
-                  <?= __('Item') ?>
-                </th>
-                <th>
-                  <?= __('Short Text') ?>
-                </th>
-                <th>
-                  <?= __('Challan No.') ?>
-                </th>
-                <th>
-                  <?= __('Qty') ?>
-                </th>
-                <th>
-                  <?= __('Eway Bill No.') ?>
-                </th>
-                <th>
-                  <?= __('Einvoice No') ?>
-                </th>
-                <th class="actions">
-                  <?= __('Actions') ?>
-                </th>
-              </tr>
-            </thead>
+      <div class="modal-header">
+        <h5 class="modal-title"><b>Delivery Detail :</b>
+          <?= h($poHeader->po_no . ' - ' . $poFooters->item) ?>
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table" id="example2">
+          <thead>
+            <tr>
+              <th>
+                <?= __('Item') ?>
+              </th>
+              <th>
+                <?= __('Short Text') ?>
+              </th>
+              <th>
+                <?= __('Challan No.') ?>
+              </th>
+              <th>
+                <?= __('Qty') ?>
+              </th>
+              <th>
+                <?= __('Eway Bill No.') ?>
+              </th>
+              <th>
+                <?= __('Einvoice No') ?>
+              </th>
+              <th class="actions">
+                <?= __('Actions') ?>
+              </th>
+            </tr>
+          </thead>
 
-            <tbody>
-              <?php foreach ($poFooters->delivery_details as $delivery) :
-                $totalQty = $totalQty + $delivery->qty;
-              ?>
-                <tr>
-                  <td>
-                    <?= h($poFooters->item) ?>
-                  </td>
-                  <td>
-                    <?= h($poFooters->short_text) ?>
-                  </td>
-                  <td>
-                    <?= h($delivery->challan_no) ?>
-                  </td>
-                  <td>
-                    <?= h($delivery->qty) ?>
-                  </td>
-                  <td>
-                    <?= h($delivery->eway_bill_no) ?>
-                  </td>
-                  <td>
-                    <?= h($delivery->einvoice_no) ?>
-                  </td>
-                  <td class="actions">
-                    <!-- <?= $this->Html->link(__('View'), ['controller' => 'PoFooters', 'action' => 'view', $poFooters->id]) ?> -->
-                  </td>
-                </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <b>Actual Qty :</b>
-          <?php echo $actualQty ?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          <b>Delivered Qty :</b>
-          <?php echo $totalQty ?>
-        </div>
+          <tbody>
+            <?php foreach ($poFooters->delivery_details as $delivery) :
+              $totalQty = $totalQty + $delivery->qty;
+            ?>
+            <tr>
+              <td>
+                <?= h($poFooters->item) ?>
+              </td>
+              <td>
+                <?= h($poFooters->short_text) ?>
+              </td>
+              <td>
+                <?= h($delivery->challan_no) ?>
+              </td>
+              <td>
+                <?= h($delivery->qty) ?>
+              </td>
+              <td>
+                <?= h($delivery->eway_bill_no) ?>
+              </td>
+              <td>
+                <?= h($delivery->einvoice_no) ?>
+              </td>
+              <td class="actions">
+                <!-- <?= $this->Html->link(__('View'), ['controller' => 'PoFooters', 'action' => 'view', $poFooters->id]) ?> -->
+              </td>
+            </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <b>Actual Qty :</b>
+        <?php echo $actualQty ?>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+        <b>Delivered Qty :</b>
+        <?php echo $totalQty ?>
       </div>
     </div>
   </div>
+</div>
 <?php endforeach; ?>
 
 <!-- Modal stock -->
-<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
 
     <div class="modal-content">
@@ -313,7 +225,9 @@
         </button>
       </div>
       <div class="modal-body">
-        <div><b>PO : </b><?= $poHeader->po_no ?></div>
+        <div><b>PO : </b>
+          <?= $poHeader->po_no ?>
+        </div>
         <div id="item_title"></div>
         <?php
         echo $this->Form->control('po_header_id', ['id' => 'po_header_id', 'type' => 'hidden', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
@@ -324,7 +238,8 @@
       </div>
       <div id="error_msg"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary p-1" style="font-size:14px;padding:" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary p-1" style="font-size:14px;padding:"
+          data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-custom">Submit</button>
       </div>
       </form>
@@ -334,7 +249,8 @@
 
 
 <!-- Modal stock -->
-<div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="notifyModalLabel" aria-hidden="true">
+<div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="notifyModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
 
     <div class="modal-content">
@@ -386,7 +302,8 @@
 </div>
 
 <div class="container" style="display:none;">
-  <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered table-hover table-striped" id="example2">
+  <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered table-hover table-striped"
+    id="example2">
     <thead>
       <tr>
         <th>L3Type</th>
@@ -421,7 +338,7 @@
     }
     return resp;
   }
-  $(document).ready(function() {
+  $(document).ready(function () {
 
     var Toast = Swal.mixin({
       toast: true,
@@ -438,7 +355,7 @@
       errorClass: 'is-invalid',
       validClass: 'is-valid',
       ignore: ':hidden:not(.summernote),.note-editable.card-block',
-      errorPlacement: function(error, element) {
+      errorPlacement: function (error, element) {
         // Add the `help-block` class to the error element
         error.addClass("invalid-feedback");
         console.log(element);
@@ -455,7 +372,7 @@
     summernoteElement.summernote({
       height: 150,
       callbacks: {
-        onChange: function(contents, $editable) {
+        onChange: function (contents, $editable) {
           summernoteElement.val(summernoteElement.summernote('isEmpty') ? "" : contents);
           summernoteValidator.element(summernoteElement);
         }
@@ -463,7 +380,7 @@
     });
 
 
-    $('#purViewId').on('click', '.po-box', function() {
+    $('#purViewId').on('click', '.po-box', function () {
       $("#id_pofooter").empty();
       var poid = $(this).attr('data-id');
 
@@ -473,13 +390,31 @@
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-po-Footers')); ?>/" + poid,
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
           if (response.status == 'success') {
-            $("#id_potableresp").show();
-
-            $.each(response.data.po_footers, function(key, val) {
+            $("#id_potableresp").empty().show().append(`<table class="table" id="example1"></table>`);
+            $("#example1").empty().append(`<thead>
+              <tr>
+                <th width="5%"></th>
+                <th><?= __('Item') ?></th>
+                <th><?= __('Material') ?></th>
+                <th><?= __('Short Text') ?></th>
+                <th><?= __('Po Qty') ?></th>
+                <th><?= __('Grn Qty') ?></th>
+                <th><?= __('Pending Qty') ?></th>
+                <th><?= __('Order Unit') ?></th>
+                <th><?= __('Net Price') ?></th>
+                <th><?= __('Price Unit') ?></th>
+                <th><?= __('Net Value') ?></th>
+                <th><?= __('Gross Value') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+              </tr>
+            </thead>
+            <tbody id="id_pofooter"></tbody>`)
+            $.each(response.data.po_footers, function (key, val) {
               $("#id_pofooter").append(`<tr class="odd" data-trid="id_tr` + val.id + `">
-              <td class="details-control" data-id="` + val.id + `" footer-id="` + val.id + `"><span class="material-symbols-outlined flu" data-id="` + val.id + `" data-alt="+">add</span></td>
+              <td class="details-control" data-id="` + val.id + `" footer-id="` + val.id + `">
+                <span class="material-symbols-outlined flu" data-id="` + val.id + `" data-alt="+">add</span></td>
               <td>` + val.item + `</td>
               <td>` + val.material + `</td>
               <td>` + val.short_text + `</td>
@@ -502,15 +437,20 @@
                     </div>
                   </div>
                 </td>
-              </tr><tr style="display:none;" id="id_subtr` + val.id + `"></tr>`);
+              </tr>`);
             });
-
-
+            setTimeout(function () {
+              //your code to be executed after 1 second
+              $("#example1").DataTable({
+                "paging": true,
+                "responsive": false,
+                "lengthChange": false,
+                "autoWidth": false,
+                "searching": false
+              });
+            }, 50);
           } else {
-            $("#id_potableresp").hide();
-            div
-              .html(response.message)
-              .removeClass('loading');
+            $("#id_potableresp").empty().hide().append(`<table class="table" id="example1"></table>`);
           }
         }
       });
@@ -518,26 +458,26 @@
     });
 
 
-    $(".schedule_item").click(function() {
+    $(".schedule_item").click(function () {
       $("#po_header_id").val($(this).attr('header-id'));
       $("#po_footer_id").val($(this).attr('footer-id'));
       $("#item_title").html('<b>Item : </b>' + $(this).attr('item-no'));
     });
 
-    $('#scheduleModal').on('hidden.bs.modal', function(e) {
+    $('#scheduleModal').on('hidden.bs.modal', function (e) {
       $('#scheduleModal form')[0].reset();
     });
 
 
     $.validator.setDefaults({
-      submitHandler: function() {
+      submitHandler: function () {
         var formdatas = new FormData($('#scheduleForm')[0]);
         $.ajax({
           type: "POST",
           url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'create-schedule')); ?> ",
           data: $("#scheduleForm").serialize(),
           dataType: 'json',
-          success: function(response) {
+          success: function (response) {
             console.log(response);
             if (response.status == 'success') {
               Toast.fire({
@@ -577,20 +517,20 @@
         }
       },
       errorElement: 'span',
-      errorPlacement: function(error, element) {
+      errorPlacement: function (error, element) {
         error.addClass('invalid-feedback');
         element.closest('.form-group').append(error);
       },
-      highlight: function(element, errorClass, validClass) {
+      highlight: function (element, errorClass, validClass) {
         $(element).addClass('is-invalid');
       },
-      unhighlight: function(element, errorClass, validClass) {
+      unhighlight: function (element, errorClass, validClass) {
         $(element).removeClass('is-invalid');
       }
     });
 
 
-    var table = $("#example1").DataTable({
+    var table = $("#example2").DataTable({
       "paging": true,
       "responsive": false,
       "lengthChange": false,
@@ -604,63 +544,25 @@
 
 
 
-    $(document).on("click", ".flu", function() {
+    $(document).on("click", ".flu", function () {
       var response = "";
       if ($(this).data('alt') == '+') {
         $(this).data('alt', '-').empty().append('Remove');
         response = getRemote("<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-schedules')); ?>/" + $(this).data("id"))
-        
-        $("#id_subtr" + $(this).data('id')).empty().append(`<td colspan="6">` + response.html + `</td><td colspan="7"></td>`).show();
+        var currTR = this.parentNode.parentNode;
+        var newTR = document.createElement("tr");
+        newTR.setAttribute('id', 'id_subtr' + $(this).data('id'))
+        newTR.innerHTML = `<td colspan="6">` + response.html + `</td><td colspan="7"></td>`;
+        if (response.html != '') { currTR.parentNode.insertBefore(newTR, currTR.nextSibling); }
       } else {
-        $(this).data('alt', '+').append('add');
-        $("#id_subtr" + $(this).data('id')).empty();
+        $(this).data('alt', '+').empty().append('add');
+        $("#id_subtr" + $(this).data('id')).remove();
       }
     });
 
-    // $('#example1').on('click', 'td .details-control', function() {
-
-    //   var tr = $(this).closest('tr');
-    //   console.log(tr);
-    //   var row = table.row(tr);
-
-    //   if (row.child.isShown()) {
-    //     row.child.hide();
-    //     tr.removeClass('shown');
-    //   } else {
-    //     row.child(format($(this).attr('footer-id'), $(this).attr('id'))).show();
-    //     tr.addClass('shown');
-    //   }
-    // });
-
-
-    // function format(rowData, ids) {
-    //   var div = $('<div/>').addClass('loading').text('Loading...');
-
-    //   $.ajax({
-    //     type: "GET",
-    //     //url: '../getDeliveryDetails/' + rowData,
-    //     url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-schedules')); ?> /" + rowData,
-    //     dataType: 'json',
-    //     success: function(response) {
-    //       if (response.status == 'success') {
-    //         $("#id_tr" + ids)
-    //           .html(response.html)
-    //           .removeClass('loading');
-    //       } else {
-    //         $("#id_tr" + ids)
-    //           .html(response.message)
-    //           .removeClass('loading');
-    //       }
-    //     }
-    //   });
-    //   var divelemnt = $("#id_tr" + ids);
-    //   return divelemnt;
-    // }
-
-
     //notify schedule delivery to vendor
 
-    $(document).on('click', '.notify_item', function() {
+    $(document).on('click', '.notify_item', function () {
       $("#schedule_id").val($(this).attr('schedue-id'));
 
       $.ajax({
@@ -668,7 +570,7 @@
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-schedule-messages')); ?> /" + $(this).attr('schedue-id'),
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
           if (response.status == 'success') {
             $("#past_messages").html(response.html);
           }
@@ -692,24 +594,24 @@
         },
       },
       errorElement: 'span',
-      errorPlacement: function(error, element) {
+      errorPlacement: function (error, element) {
         error.addClass('invalid-feedback');
         element.closest('.form-group').append(error);
       },
-      highlight: function(element, errorClass, validClass) {
+      highlight: function (element, errorClass, validClass) {
         $(element).addClass('is-invalid');
       },
-      unhighlight: function(element, errorClass, validClass) {
+      unhighlight: function (element, errorClass, validClass) {
         $(element).removeClass('is-invalid');
       },
-      submitHandler: function() {
+      submitHandler: function () {
         var formdatas = new FormData($('#notifyForm')[0]);
         $.ajax({
           type: "POST",
           url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'save-schedule-remarks')); ?>",
           data: $("#notifyForm").serialize(),
           dataType: 'json',
-          success: function(response) {
+          success: function (response) {
             console.log(response);
             if (response.status == 'success') {
               $('#notifyModal').modal('toggle');
