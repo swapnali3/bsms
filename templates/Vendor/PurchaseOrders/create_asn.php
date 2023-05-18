@@ -10,40 +10,7 @@
 <?= $this->Html->css('table') ?>
 <?= $this->Form->create(null,['action' => 'asn-materials', 'id' => 'asnForm']) ?>
 <?= $this->form->control('po_header_id', ['id' =>'po_header_id', 'label' => false, 'type' => 'hidden', 'value'=> '']) ?>
-<style>
-          .d-flex::-webkit-scrollbar {
-  height: 10px;
-  width: 10px;
-}
- 
-.d-flex::-webkit-scrollbar-thumb {
-  background: #BEBEFF;
-  border-radius: 20px;
-}
 
-.d-flex::-webkit-scrollbar-track {
-  background: #ddd;
-  border-radius: 20px;
-}
-    td.details-control.ponum {
-    padding: 20px;
-}
-.po-box {
-    border-right: 1px solid #ccc;
-    padding: 10px 20px;
-    width: 135px;
-    cursor: pointer;
-    color: #999;
-}
-.polist .d-flex {
-    overflow-y: hidden;
-    overflow-x: scroll;
-}
-.polist{
-    border: 1px solid #ddd;
-    background-color: #f5f7fd;
-}
-</style>
 <div class="poHeaders index content card create-asn">
     <div class="card-body">
             <div class="content-d">

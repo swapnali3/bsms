@@ -6,77 +6,12 @@
  * @var \App\Model\Entity\PoHeader $poHeader
  */
 ?>
-
-<style>
-  .d-flex::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
-  }
-
-  .d-flex::-webkit-scrollbar-thumb {
-    background: #BEBEFF;
-    border-radius: 20px;
-  }
-
-  .d-flex::-webkit-scrollbar-track {
-    background: #ddd;
-    border-radius: 20px;
-  }
-
-  .po-list {
-    border: 1px solid #ddd;
-    background-color: #f5f7fd;
-    /* padding-right:15px; */
-
-  }
-
-
-  .po-box {
-    border-right: 1px solid #ccc;
-    padding: 5px 20px;
-    width: 170px;
-    cursor: pointer;
-    color: #999;
-  }
-
-  .po-code {
-    font-size: 0.8rem;
-  }
-
-  .po-list .d-flex {
-    overflow-y: hidden;
-    overflow-x: scroll;
-  }
-
-  .po-box:hover {
-    background-color: #d4ddf7;
-  }
-
-  .pono b {
-    color: #004d87;
-  }
-
-  .po-box .pono {
-    padding-bottom: 5px;
-  }
-
-  .search-bar .search-box {
-    height: 28px;
-    width: 200px;
-    font-size: 12px;
-  }
-
-  .active {
-    background-color: #d4ddf7;
-  }
-</style>
-
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
 <?= $this->Html->css('custom') ?>
-<div class="row">
+<div class="row purchase-order">
   <div class="col-12">
     <div class="poHeaders view content card" id="">
       <!-- <div class="card-header">
@@ -92,7 +27,8 @@
             <div class="po-box" data-id="<?= $poHeader->id ?>">
               <div class="pono">
                 <small class="mb-0">
-                  <?= h('PO No -') ?>
+                  <?= h('PO No ') ?>
+                  <br>
                 </small>
                 <b>
                   <?= h($poHeader->po_no) ?>
@@ -114,8 +50,8 @@
     </div>
 
     <div class="related card">
-      <div class="card-body">
-        <div class="table-responsive" id="id_potableresp" style="display:none;"></div>
+      <div class="">
+        <div class="table-responsive card-body" id="id_potableresp" style="display:none;"></div>
       </div>
     </div>
   </div>
