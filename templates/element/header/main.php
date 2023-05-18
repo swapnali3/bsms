@@ -1,106 +1,165 @@
 <style>
-  .custom-i {
+.custom-i {
     background-color: #ffc107 !important;
 }
-  .navbar{
-    padding:0rem 0rem
-  }
-  .brand-link{
-    padding:0.4rem 0.4rem
-  }
-  .user-panel img{
-    width:1.5rem
-  }
-  .main-sidebar, .main-sidebar::before{
-    width:207px
-    
-  }
-  .layout-fixed .brand-link{
-    width:207px
-  }
-  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header{
-    margin-left:209px
-    
-  }
-  .user-panel .image{
-    margin-top:6px
-  }
-  .badge-warning{
-    background-color:#ffc107
-  }
-  .navbar.card-header h4 {
+
+.navbar {
+    padding: 0rem 0rem
+}
+
+.brand-link {
+    padding: 0.4rem 0.4rem
+}
+
+.user-panel img {
+    width: 1.5rem
+}
+
+.main-sidebar,
+.main-sidebar::before {
+    width: 207px
+}
+
+.layout-fixed .brand-link {
+    width: 207px
+}
+
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+    margin-left: 209px
+}
+
+.user-panel .image {
+    padding-left: 0px;
+}
+
+.badge-warning {
+    background-color: #ffc107
+}
+
+.navbar.card-header h4 {
     color: #004d87;
     text-transform: uppercase;
     font-size: 20px;
 }
- 
-  </style>
+.user .thumb {
+    margin-right: 10px;
+    height: 35px;
+    width: 35px;
+    border-radius: 50px;
+    color: #fff;
+    text-align: center;
+}
+.user .thumb img{
+  width:35px;
+}
+.user {
+    display: flex;
+    align-items: center;
+}
+.user-setting {
+    width: auto;
+    max-width: 250px;
+    min-width: 200px;
+}
+</style>
 
 <ul class="navbar-nav">
-  <li class="nav-item">
-    <a class="nav-link ftimage" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-  </li>
-  <?= $this->element('header/menu') ?>
+    <li class="nav-item">
+        <a class="nav-link ftimage" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    </li>
+    <?= $this->element('header/menu') ?>
 </ul>
 
 <div class="navbar card-header" style="margin-left: 0vw;margin-top:0.3vw;font-size:30px">
-<h4><b><?=(isset($headTitle)) ? $headTitle : '' ?></b></h4>
-  <!-- <b>
+    <h4><b><?=(isset($headTitle)) ? $headTitle : '' ?></b></h4>
+    <!-- <b>
     <img src="<?= $this->Url->build('/') ?>img/rect_logo.png" alt="vekpro" style="width: 8vw;">
   </b> -->
-  <!-- </span> - &nbsp; <b>Vendor Customer Procurement</b> -->
+    <!-- </span> - &nbsp; <b>Vendor Customer Procurement</b> -->
 </div>
 
 <ul class="navbar-nav ml-auto">
-  <li class="nav-item">
-    <!-- <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+    <li class="nav-item">
+        <!-- <a class="nav-link" data-widget="fullscreen" href="#" role="button">
       <i class="fas fa-expand-arrows-alt"></i>
     </a> -->
-  </li>
- 
-  <li class="nav-item dropdown show">
-          <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+    </li>
+
+    <li class="nav-item dropdown show">
+        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <i class="far fa-bell"></i>
             <span class="badge badge-warning navbar-badge custom-i">15</span>
-          </a>
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list"
+            style="left: inherit; right: 0px;">
             <span class="dropdown-header">15 Notifications</span>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope text-info mr-2"></i> 4 new messages
-              <span class="float-right text-muted text-sm">3 mins</span>
+                <i class="fas fa-envelope text-info mr-2"></i> 4 new messages
+                <span class="float-right text-muted text-sm">3 mins</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-              <i class="fas fa-users text-danger mr-2"></i> 8 friend requests
-              <span class="float-right text-muted text-sm">12 hours</span>
+                <i class="fas fa-users text-danger mr-2"></i> 8 friend requests
+                <span class="float-right text-muted text-sm">12 hours</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-              <i class="fas fa-file text-warning mr-2"></i> 3 new reports
-              <span class="float-right text-muted text-sm">2 days</span>
+                <i class="fas fa-file text-warning mr-2"></i> 3 new reports
+                <span class="float-right text-muted text-sm">2 days</span>
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-          </div>
-        </li>
+        </div>
+    </li>
+    <li class="nav-item dropdown show">
+        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+            <div class="user-panel d-flex">
+                <div class="image">
+                    <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2"
+                        alt="User Image" style="box-shadow:none !important;margin-right:15px">
 
-      <div class="user-panel d-flex">
-      <div class="image">
-        <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2" alt="User Image" style="box-shadow:none !important;margin-right:15px">
-        
-      
-      </div>
-      
-      
-      <div style="font-size: small; color: darkcyan; padding: 0vw .5vw; display:none;">
+
+                </div>
+            </div>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting"
+            style="left: inherit; right: 10px;">
+            <span class="dropdown-header">
+                <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle" alt=""></span>
+                    <div class="user-info text-left">
+                        <h6 class="mb-0 text-info">Snehal Belhware</h6><span>Vendor</span>
+                    </div>
+                </div>
+                <!-- <p class="unm">Snehal</p>
+                <p class="role">Vendor</p> -->
+            </span>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+                <i class="fas fa-user-cog text-info mr-2"></i>
+                <Span>Profile</Span>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item">
+                <i class="fas fa-power-off text-danger mr-2"></i>
+                <span>Logout</span>
+            </a>
+
+        </div>
+    </li>
+
+
+
+
+    <!-- <div style="font-size: small; color: darkcyan; padding: 0vw .5vw;">
         <b><?=$full_name?></b>
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
           <i class="far fa-bell"></i>
           <b class="badge badge-warning navbar-badge">15</b>
           
         </a>
-      </div>
-    </div>
-  </li>
+      </div> -->
+
 </ul>
