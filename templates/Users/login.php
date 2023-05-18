@@ -98,7 +98,7 @@ img.flow-img {
     width: 60%;
 }
     .sub-btn {
-    background-image: linear-gradient(to right, #FF4E50 0%, #F9D423  51%, #FF4E50  100%) !important;
+      background-image: linear-gradient(to right, #FF4E50 0%, #F9D423 51%, #FF4E50 100%) !important;
     transition: 0.5s;
     background-size: 200% auto !important;
     color: white;
@@ -108,8 +108,9 @@ img.flow-img {
     font-size: 15px !important;
     line-height: 1.1em !important;
     margin: 0px !important;
-    height: 50px !important;
+    height: 40px !important;
     border: none !important;
+    margin-top: 7px !important;
 }
 .sub-btn:hover {
     background-position: right center !important;
@@ -293,13 +294,14 @@ img.flow-img {
                         <p class="material-rightLabel"><i class="fa fa-eye-slash" id="eye" aria-hidden="true"
                             style="cursor: pointer;"></i></p>
                             
-                        <p class="material-rightBottomLabel material-rightBottomLabel__danger">Forgot Password ?</p>
+                        <p class="material-rightBottomLabel" style="text-decoration:none !important;"><a href="#" >Forgot Password ?</a></p>
                       </div>
+
                     </div><button type="submit" class="ant-btn btn btn__get-started-btn sub-btn">SUBMIT</button>
-                    <p class="signupform__signin--dontHaveAccount">Don't have an account?<a
-                        style="cursor: pointer;">Create An Account</a></p>
+                    <!-- <p class="signupform__signin--dontHaveAccount">Don't have an account?<a
+                        style="cursor: pointer;">Create An Account</a></p> -->
                     <?= $this->Form->end() ?>
-                    <p style="text-align: center;font-weight: 500;"><a href="mailto: support@fts-pl.com" style="margin-right: 5px;border-right: 1px solid;padding-right: 10px;">Help</a> <a
+                    <p style="text-align: center;font-weight: 500;margin-top:10px;"><a href="mailto: support@fts-pl.com" style="margin-right: 5px;border-right: 1px solid;padding-right: 10px;">Help</a> <a
                         href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a></p>
                     <p class="text-center" style="text-align:center"> <img src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px"></p>
 
