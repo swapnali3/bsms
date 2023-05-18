@@ -78,10 +78,22 @@ switch ($vendorTemp->status) {
                                         <table style="border-right:1px solid #ddd;">
                                             <tr>
                                                 <td>
-                                                    <?= __('Address') ?>
+                                                    <?= __('Address 1') ?>
                                                 </td>
                                                 <th>
-                                                    <?= h($vendorTemp->address) ?>
+                                                    
+                                                    <input type="text" value="<?= h($vendorTemp->address) ?>"
+                                                        class="form-control">
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <?= __('Address 2') ?>
+                                                </td>
+                                                <th>
+                                                    
+                                                    <input type="text" value=" "
+                                                        class="form-control">
                                                 </th>
                                             </tr>
                                             <tr>
@@ -234,27 +246,31 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-md-12 col-lg-12">
                                         <div class="text-right m-2">
-                                            <button type="button" class="btn-custom prof-udt" data-toggle="modal" data-target="#modal-confirm">Update</button>
+                                            <button type="button" class="btn-custom prof-udt" data-toggle="modal"
+                                                data-target="#modal-confirm">Update</button>
                                         </div>
                                         <div class="modal fade" id="modal-confirm">
                                             <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                <h5 class="modal-title">Are you sure?</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                                </div>
-                                                <!-- <div class="modal-body">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Are you sure?</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <!-- <div class="modal-body">
                                                 <p>Are you sure?</p>
                                                 </div> -->
-                                                <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-updt btn-custom">Save changes</button>
-                                                <button type="button" class="btn btn-font btn-secondary" data-dismiss="modal">Close</button>
-                                               
+                                                    <div class="modal-footer justify-content-between">
+                                                        <button type="button" class="btn btn-updt btn-custom">Save
+                                                            changes</button>
+                                                        <button type="button" class="btn btn-font btn-secondary"
+                                                            data-dismiss="modal">Close</button>
+
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <!-- /.modal-content -->
+                                                <!-- /.modal-content -->
                                             </div>
                                             <!-- /.modal-dialog -->
                                         </div>
