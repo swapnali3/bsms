@@ -80,7 +80,7 @@ switch ($vendorTemp->status) {
                                                 <td>
                                                     <?= __('Address 1') ?>
                                                 </td>
-                                                <th>
+                                                <th style="padding:10px 10px;">
                                                     
                                                     <input type="text" value="<?= h($vendorTemp->address) ?>"
                                                         class="form-control">
@@ -90,7 +90,7 @@ switch ($vendorTemp->status) {
                                                 <td>
                                                     <?= __('Address 2') ?>
                                                 </td>
-                                                <th>
+                                                <th style="padding:4px 10px;">
                                                     
                                                     <input type="text" value=" "
                                                         class="form-control">
@@ -158,13 +158,6 @@ switch ($vendorTemp->status) {
                                                 </th>
                                             </tr>
 
-
-
-                                        </table>
-                                    </div>
-                                    <div class="clo-md-6 col-lg-6 pl-0">
-
-                                        <table>
                                             <tr>
                                                 <td>
                                                     <?= __('Account Group') ?>
@@ -173,6 +166,13 @@ switch ($vendorTemp->status) {
                                                     <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
                                                 </th>
                                             </tr>
+
+                                        </table>
+                                    </div>
+                                    <div class="clo-md-6 col-lg-6 pl-0">
+
+                                        <table>
+                                           
 
 
                                             <tr>
@@ -221,6 +221,26 @@ switch ($vendorTemp->status) {
                                                         class="form-control">
                                                 </th>
                                             </tr>
+                                            <tr>
+                                                <td>
+                                                    <?= __('Contact Department') ?>
+                                                </td>
+                                                <th style="padding:4px 10px;">
+
+                                                    <input type="email" value=""
+                                                        class="form-control">
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <?= __('Contact Designation') ?>
+                                                </td>
+                                                <th style="padding:4px 10px;">
+
+                                                    <input type="email" value=""
+                                                        class="form-control">
+                                                </th>
+                                            </tr>
 
                                             <tr>
                                                 <td>
@@ -242,13 +262,17 @@ switch ($vendorTemp->status) {
 
 
                                         </table>
-
-                                    </div>
-                                    <div class="col-md-12 col-lg-12">
                                         <div class="text-right m-2">
                                             <button type="button" class="btn-custom prof-udt" data-toggle="modal"
                                                 data-target="#modal-confirm">Update</button>
                                         </div>
+
+                                    </div>
+                                    <div class="col-md-12 col-lg-12">
+                                        <!-- <div class="text-right m-2">
+                                            <button type="button" class="btn-custom prof-udt" data-toggle="modal"
+                                                data-target="#modal-confirm">Update</button>
+                                        </div> -->
                                         <div class="modal fade" id="modal-confirm">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">

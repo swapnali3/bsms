@@ -113,7 +113,8 @@ b.asnstatus {
 .right-s table tr th, .right-s table tr td {
     padding: 10px;
     font-size: 14px;
-    border-bottom: 1px solid #ddd;
+    padding-left: 15px;
+    /* border-bottom: 1px solid #ddd; */
 }
 .head h5 {
     color: #112a68 !important;
