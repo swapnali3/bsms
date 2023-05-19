@@ -1,68 +1,72 @@
 <style>
-.custom-i {
-    background-color: #ffc107 !important;
-}
+    .custom-i {
+        background-color: #ffc107 !important;
+    }
 
-.navbar {
-    padding: 0rem 0rem
-}
+    .navbar {
+        padding: 0rem 0rem
+    }
 
-.brand-link {
-    padding: 0.4rem 0.4rem
-}
+    .brand-link {
+        padding: 0.4rem 0.4rem
+    }
 
-.user-panel img {
-    width: 1.5rem
-}
+    .user-panel img {
+        width: 1.5rem
+    }
 
-.main-sidebar,
-.main-sidebar::before {
-    width: 207px
-}
+    .main-sidebar,
+    .main-sidebar::before {
+        width: 207px
+    }
 
-.layout-fixed .brand-link {
-    width: 207px
-}
+    .layout-fixed .brand-link {
+        width: 207px
+    }
 
-body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
-body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
-body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
-    margin-left: 209px
-}
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+        margin-left: 209px
+    }
 
-.user-panel .image {
-    padding-left: 0px;
-}
+    .user-panel .image {
+        padding-left: 0px;
+    }
 
-.badge-warning {
-    background-color: #ffc107
-}
+    .badge-warning {
+        background-color: #ffc107
+    }
 
-.navbar.card-header h4 {
-    color: #004d87;
-    text-transform: uppercase;
-    font-size: 20px;
-}
-.user .thumb {
-    margin-right: 10px;
-    height: 35px;
-    width: 35px;
-    border-radius: 50px;
-    color: #fff;
-    text-align: center;
-}
-.user .thumb img{
-  width:35px;
-}
-.user {
-    display: flex;
-    align-items: center;
-}
-.user-setting {
-    width: auto;
-    max-width: 250px;
-    min-width: 200px;
-}
+    .navbar.card-header h4 {
+        color: #004d87;
+        text-transform: uppercase;
+        font-size: 20px;
+    }
+
+    .user .thumb {
+        margin-right: 10px;
+        height: 35px;
+        width: 35px;
+        border-radius: 50px;
+        color: #fff;
+        text-align: center;
+    }
+
+    .user .thumb img {
+        width: 35px;
+    }
+
+    .user {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-setting {
+        width: auto;
+        max-width: 250px;
+        min-width: 200px;
+    }
 </style>
 
 <ul class="navbar-nav">
@@ -73,7 +77,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
 </ul>
 
 <div class="navbar card-header" style="margin-left: 0vw;margin-top:0.3vw;font-size:30px">
-    <h4><b><?=(isset($headTitle)) ? $headTitle : '' ?></b></h4>
+    <h4><b><?= (isset($headTitle)) ? $headTitle : '' ?></b></h4>
     <!-- <b>
     <img src="<?= $this->Url->build('/') ?>img/rect_logo.png" alt="vekpro" style="width: 8vw;">
   </b> -->
@@ -92,8 +96,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
             <i class="far fa-bell"></i>
             <span class="badge badge-warning navbar-badge custom-i">15</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list"
-            style="left: inherit; right: 0px;">
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
             <span class="dropdown-header">15 Notifications</span>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
@@ -118,32 +121,30 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <div class="user-panel d-flex">
                 <div class="image">
-                    <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2"
-                        alt="User Image" style="box-shadow:none !important;margin-right:15px">
+                    <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2" alt="User Image" style="box-shadow:none !important;margin-right:15px">
 
 
                 </div>
             </div>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting"
-            style="left: inherit; right: 10px;">
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting" style="left: inherit; right: 10px;">
             <span class="dropdown-header">
                 <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle" alt=""></span>
                     <div class="user-info text-left">
                         <h6 class="mb-0 text-info">
-                            <?php echo $this->getRequest()->getSession()->read('buyer_name'); ?></h6><span>Vendor</span>
+                            <?php echo $this->getRequest()->getSession()->read('vendor_name'); ?></h6><span>Vendor</span>
                     </div>
                 </div>
                 <!-- <p class="unm">Snehal</p>
                 <p class="role">Vendor</p> -->
             </span>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
+            <a href="<?= $this->Url->build(['controller' => 'vendor-temps', 'action' => 'view', 0]) ?>" class="dropdown-item">
                 <i class="fas fa-user-cog text-info mr-2"></i>
-                <Span>Profile</Span>
+                <span>Profile</span>
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
+            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>" class="dropdown-item">
                 <i class="fas fa-power-off text-danger mr-2"></i>
                 <span>Logout</span>
             </a>
@@ -155,7 +156,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
 
 
     <!-- <div style="font-size: small; color: darkcyan; padding: 0vw .5vw;">
-        <b><?=$full_name?></b>
+        <b><?= $full_name ?></b>
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
           <i class="far fa-bell"></i>
           <b class="badge badge-warning navbar-badge">15</b>
