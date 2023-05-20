@@ -29,47 +29,39 @@
         <table class="table table-hover" id="example1">
             <thead>
                 <tr>
+                  
+                    <th>Asn No</th>
                     <th>Purchase Order</th>
-                    <th>Item</th>
-                    <th>Challan No.</th>
-                    <th>Qty</th>
-                    <th>Ewaybill No.</th>
-                    <th>E-invoice No</th>
+                    <th>invoice No</th>
+                    <th>invoice value</th>
                     <th>Status</th>
-                    <th>Added Date</th>
-                    <th>Updated Date</th>
+                   
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($deliveryDetails as $deliveryDetail): ?>
                 <tr>
+                   
+                    <td>
+                    <?=  $deliveryDetail->asn_no ?>
+                    </td>
                     <td>
                         <?= $deliveryDetail->has('po_header') ? $deliveryDetail->po_header->po_no : '' ?>
                     </td>
+
+                    
                     <td>
-                        <?= $deliveryDetail->has('po_footer') ? $deliveryDetail->po_footer->item : '' ?>
+                        <?= h($deliveryDetail->invoice_no) ?>
+                    </td>
+                    
+
+                    <td>
+                        <?= h($deliveryDetail->invoice_value).' '. h($deliveryDetail->po_header->currency)?>
                     </td>
                     <td>
-                        <?= h($deliveryDetail->challan_no) ?>
-                    </td>
-                    <td>
-                        <?= $this->Number->format($deliveryDetail->qty) ?>
-                    </td>
-                    <td>
-                        <?= h($deliveryDetail->eway_bill_no) ?>
-                    </td>
-                    <td>
-                        <?= h($deliveryDetail->einvoice_no) ?>
-                    </td>
-                    <td><span class="badge bg-warning">
-                            <?= h($deliveryDetail->status ? '' : 'Intransit') ?>
-                        </span></td>
-                    <td>
-                        <?= h($deliveryDetail->added_date) ?>
-                    </td>
-                    <td>
-                        <?= h($deliveryDetail->updated_date) ?>
-                    </td>
+                    <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">Delivered</span>' : '<span class="badge bg-warning">INTRANSIT</span>' ?>
+</td>
+                
                 </tr>
                 <?php endforeach; ?>
             </tbody>

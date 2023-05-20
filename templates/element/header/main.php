@@ -130,7 +130,8 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
             <span class="dropdown-header">
                 <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle" alt=""></span>
                     <div class="user-info text-left">
-                        <h6 class="mb-0 text-info">Snehal Belhware</h6><span>Vendor</span>
+                        <h6 class="mb-0 text-info">
+                            <?php echo $this->getRequest()->getSession()->read('buyer_name'); ?></h6><span>Vendor</span>
                     </div>
                 </div>
                 <!-- <p class="unm">Snehal</p>

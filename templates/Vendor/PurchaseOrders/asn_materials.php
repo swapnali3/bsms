@@ -13,13 +13,13 @@
   <div class="card-header p-2">
     <div class="d-flex">
       <div class="col-md-6 align-self-center">
-       <div class="d-flex justify-content-between">
-       <h6 class="mb-0"><small>PO NO :</small>
+        <div class="d-flex justify-content-between">
+          <h6 class="mb-0"><small>PO NO :</small>
             <b><?= h($poHeader[0]->po_no) ?></b>
           </h6>
           <h6 class="mb-0"><small>Vendor Name: </small><b><?php echo $this->getRequest()->getSession()->read('vendor_name'); ?></b></h6>
-        
-       </div>
+
+        </div>
       </div>
       <div class="col-md-6 d-flex justify-content-end">
         <!-- <h6 class="text-right">Expected Delivery Date <br> <b>May 28, 2022</b></h6> -->
@@ -99,7 +99,7 @@
     <h5><b><?= __('Invoice Details') ?></b></h5>
   </div>
   <div class="card-body invoice-details">
-    
+
     <div class="row dgf" style="background-color:#f1f1f1 !important;width:100%">
       <!-- <div class="col-sm-8 col-md-2">
                <label>VENDOR</label>
@@ -151,11 +151,11 @@
           <?php echo $this->Form->control('transporter_name', array('type' => 'text', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
         </div>
       </div>
- 
+
 
       <div class="col-sm-8 col-md-3">
         <div class="form-group">
-          <?php echo $this->Form->control('invoices[]', array('label' => 'Upload Invoice', 'accept' => '.pdf', 'type' => 'file','multiple' => 'true','class' => 'pt-1 rounded-0', 'div' => 'form-group', 'required')); ?>
+          <?php echo $this->Form->control('invoices[]', array('label' => 'Upload Invoice', 'accept' => '.pdf', 'type' => 'file', 'multiple' => 'true', 'class' => 'pt-1 rounded-0', 'div' => 'form-group', 'required')); ?>
           <span id="file__input"></span>
         </div>
       </div>
@@ -219,9 +219,11 @@
                   <?= h($row['PoFooters']['net_price']) ?> &nbsp;<?= h($row['currency']) ?>
                 </td>
                 <td style="width:50px;">
+                <div class="form-group mb-0">
                   <?= $this->form->control('po_footer_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoFooters']['id']]) ?>
                   <?= $this->form->control('schedule_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoItemSchedules']['id']]) ?>
-                  <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'class' => 'form-control check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'data-net-price' => $row['PoFooters']['net_price']]) ?>
+                  <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'class' => 'form-control check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'max' => $row['actual_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
+            </div>
                 </td>
                 <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>"><?= ($row['PoFooters']['net_price'] * $row['actual_qty']) ?></td>
               </tr>
@@ -274,18 +276,18 @@
     });
 
 
-    $('#invoices').on('change',function(event){
-		var files = event.target.files;
-		for (var i = 0; i < files.length; i++) {
-			var file = files[i];
-			$("<div class='file__value'><div class='file__value--text'>" + file.name + " <span class='' data-id='" + file.name + "' ><i class='fas fa-times-circle text-danger'</i></span></div></div>").insertAfter('#file__input');
-		}	
-	});
+    $('#invoices').on('change', function(event) {
+      var files = event.target.files;
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        $("<div class='file__value'><div class='file__value--text'>" + file.name + " <span class='' data-id='" + file.name + "' ><i class='fas fa-times-circle text-danger'</i></span></div></div>").insertAfter('#file__input');
+      }
+    });
 
 
-  $('body').on('click', '.file__value', function() {
-		$(this).remove();
-	});
+    $('body').on('click', '.file__value', function() {
+      $(this).remove();
+    });
 
 
 
@@ -334,7 +336,7 @@
         "qty[]": {
           required: true,
           number: true,
-          maxlength: 5,
+          //maxlength: 5,
           checkQty: true
         },
       },
@@ -352,6 +354,12 @@
         invoices: {
           required: "Please upload file"
         },
+        "qty[]": {
+          required: "Please enter a quantity",
+          number: "Please enter a valid number",
+          //maxlength: "Maximum length exceeded",
+          checkQty: "Current value is less than actual_qty"
+        }
       },
       errorElement: 'span',
       errorPlacement: function(error, element) {

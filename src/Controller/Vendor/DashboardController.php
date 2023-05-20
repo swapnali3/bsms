@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -14,6 +15,7 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller\Vendor;
 
 use Cake\Core\Configure;
@@ -32,7 +34,8 @@ use Cake\Datasource\ConnectionManager;
  */
 class DashboardController extends VendorAppController
 {
-    public function index() {
+    public function index()
+    {
 
         $this->set('headTitle', 'Dashboard');
         $session = $this->getRequest()->getSession();
@@ -46,6 +49,8 @@ class DashboardController extends VendorAppController
         $this->loadModel('Products');
 
         $this->loadModel('PoHeaders');
+        $this->loadModel('PoItemSchedules');
+
         $this->loadModel('DeliveryDetails');
 
 
@@ -53,37 +58,32 @@ class DashboardController extends VendorAppController
         join products Products on Products.id = RfqDetails.product_id
         join uoms Uoms on Uoms.id = RfqDetails.uom_code
         join vendor_temps VendorTemps on RfqDetails.buyer_seller_user_id = VendorTemps.buyer_id
-        where RfqDetails.status = 1 and VendorTemps.sap_vendor_code = '".$session->read('vendor_code')."' and RfqDetails.id not in (select rfq_item_id from rfq_inquiries where seller_id = ".$session->read('id').")");
+        where RfqDetails.status = 1 and VendorTemps.sap_vendor_code = '" . $session->read('vendor_code') . "' and RfqDetails.id not in (select rfq_item_id from rfq_inquiries where seller_id = " . $session->read('id') . ")");
 
         $rfqRequested = $conn->execute("SELECT RfqDetails.*, Products.name product, Uoms.description uom FROM `rfq_details` RfqDetails
         join products Products on Products.id = RfqDetails.product_id
         join uoms Uoms on Uoms.id = RfqDetails.uom_code
         join vendor_temps VendorTemps on RfqDetails.buyer_seller_user_id = VendorTemps.buyer_id
-        where RfqDetails.status = 1 and VendorTemps.sap_vendor_code = '".$session->read('vendor_code')."' and RfqDetails.id in (select rfq_item_id from rfq_inquiries where seller_id = ".$session->read('id').")");
+        where RfqDetails.status = 1 and VendorTemps.sap_vendor_code = '" . $session->read('vendor_code') . "' and RfqDetails.id in (select rfq_item_id from rfq_inquiries where seller_id = " . $session->read('id') . ")");
 
-
-        $query = $this->PoHeaders->find();
-        $query->innerJoin(
-            ['VendorTemps' => 'vendor_temps'],
-            ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code'])
-            ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code')]);
+        $query = $conn->execute("SELECT po_header_id FROM db_bsms.po_item_schedules GROUP BY po_header_id");
         $totalPos = $query->count();
 
-        $intraQry = $this->DeliveryDetails->find();
-        $intraQry->innerJoin(
-            ['PoHeaders' => 'po_headers'],
-            ['DeliveryDetails.po_header_id = PoHeaders.id'])
-            ->where(['status' => 0, 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')]);
+        $this->loadModel('AsnHeaders');
+        $session = $this->getRequest()->getSession();
+        $intraQry = $this->AsnHeaders->find()
+            ->select(['AsnHeaders.id', 'AsnHeaders.invoice_no', 'AsnHeaders.status', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_value', 'PoHeaders.po_no', 'AsnHeaders.added_date', 'AsnHeaders.updated_date'])
+            ->contain(['PoHeaders'])
+            ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code'), 'AsnHeaders.status' => '2']);
         $totalIntransit = $intraQry->count();
 
         //echo '<pre>';print_r($intraQry); exit;
 
         //$totalIntransit = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();
-        
-        $totalRfqDetails = $this->RfqDetails->find('all', array('conditions'=>array('status'=>1)))->count();
 
-        $this->set(compact('totalPos','totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested'));
+        $totalRfqDetails = $this->RfqDetails->find('all', array('conditions' => array('status' => 1)))->count();
 
+        $this->set(compact('totalPos', 'totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested'));
     }
 
     public function rfqView($id = null)
@@ -95,43 +95,45 @@ class DashboardController extends VendorAppController
         $rfqDetails = $this->RfqDetails->get($id, [
             'contain' => ['Products', 'Uoms'],
         ]);
-        
+
         $inquired = $this->RfqInquiries->exists(['rfq_id' => $id, 'seller_id' => $session->read('id')]);
-        
+
         $isResponded = 'no';
-        if($inquired) {
+        if ($inquired) {
             $isResponded = 'yes';
         }
 
         $userType = 'seller';
-        if($userType == 'seller') {
+        if ($userType == 'seller') {
             $RfqInquiry = $this->RfqInquiries->newEmptyEntity();
             $data = array();
             $data['rfq_id'] = $id;
             $data['seller_id'] = $session->read('id');
             $RfqInquiry = $this->RfqInquiries->patchEntity($RfqInquiry, $data);
             $results = $this->RfqInquiries->save($RfqInquiry);
-        }   
+        }
 
         $this->set(compact('rfqDetails', 'userType', 'results', 'isResponded'));
     }
 
-    public function getlist() {
+    public function getlist()
+    {
 
 
-        $this->autoRender= false;
+        $this->autoRender = false;
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
-        
+
 
         $query = $this->PoHeaders->find();
         $query->join(['PoFooters' => 'po_footers'])
-        ->leftJoin(
+            ->leftJoin(
                 ['VendorTemps' => 'vendor_temps'],
-                ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code'])->toArray();
+                ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code']
+            )->toArray();
 
 
-        
+
         print_r($query);
     }
 }

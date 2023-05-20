@@ -28,7 +28,7 @@ class AsnController extends VendorAppController
 
 
         $query = $this->AsnHeaders->find()
-            ->select(['AsnHeaders.id','AsnHeaders.asn_no','PoHeaders.po_no', 'AsnHeaders.added_date'])
+            ->select(['AsnHeaders.id','AsnHeaders.asn_no','AsnHeaders.invoice_no','AsnHeaders.invoice_date','PoHeaders.po_no', 'AsnHeaders.added_date','AsnHeaders.status'])
             ->contain(['PoHeaders'])
             ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code')]);
 

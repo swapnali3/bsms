@@ -26,7 +26,6 @@
                     <th>Purchase Order</th>
                     <th>Invoice No</th>
                     <th>Invoice Date</th>
-                    <th>Added Date</th>
                     <th>States</th>
                     
                 </tr>
@@ -42,16 +41,15 @@
                     </td>
                     
                     <td>
-                            1232324
+                    <?= h($deliveryDetail->invoice_no) ?>
                     </td>
                     <td>
-                        12/3/2023
+                    <?= h($deliveryDetail->invoice_date) ?>
                     </td>
+
                     <td>
-                        <?= h($deliveryDetail->added_date) ?>
-                    </td>
-                    <td>
-                        Send to sap
+                    
+                    <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">Delivered</span>' : '<span class="badge bg-warning">INTRANSIT</span>' ?>
                     </td>
                     
                 </tr>
