@@ -49,8 +49,8 @@
 
                     <td>
                     
-                    <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">Delivered</span>' : '<span class="badge bg-warning">INTRANSIT</span>' ?>
-                    </td>
+                    <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">Delivered</span>' : ($deliveryDetail->status == 3 ? '<span class="badge bg-warning">Received</span>' : '<span class="badge bg-info">Created</span>') ?>
+
                     
                 </tr>
                 <?php endforeach; ?>

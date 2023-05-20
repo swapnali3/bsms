@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Buyer;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * DeliveryDetails Controller
@@ -9,7 +11,7 @@ namespace App\Controller\Buyer;
  * @property \App\Model\Table\DeliveryDetailsTable $DeliveryDetails
  * @method \App\Model\Entity\DeliveryDetail[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class AsnController extends BuyerAppController 
+class AsnController extends BuyerAppController
 {
 
     public function search()
@@ -20,14 +22,13 @@ class AsnController extends BuyerAppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $exists = $this->AsnHeaders->find()
-            ->where(['asn_no' => $this->request->getData('asn_no')])->first();
+                ->where(['asn_no' => $this->request->getData('asn_no')])->first();
             if ($exists) {
-                $this->redirect(['action' => 'view', $exists->id ]);
+                $this->redirect(['action' => 'view', $exists->id]);
             } else {
                 $this->Flash->error(__('ASN details not found'));
             }
         }
-        
     }
 
     /**
@@ -46,12 +47,12 @@ class AsnController extends BuyerAppController
 
 
         $query = $this->AsnHeaders->find()
-            ->select(['AsnHeaders.id','AsnHeaders.asn_no','PoHeaders.po_no', 'AsnHeaders.added_date'])
+            ->select(['AsnHeaders.id', 'AsnHeaders.asn_no', 'PoHeaders.po_no', 'AsnHeaders.added_date'])
             ->contain(['PoHeaders']);
 
-            //echo '<pre>'; print_r($query); exit;
-            $deliveryDetails = $this->paginate($query);
-    
+        //echo '<pre>'; print_r($query); exit;
+        $deliveryDetails = $this->paginate($query);
+
 
         //echo '<pre>'; print_r($rfqDetails); exit;
 
@@ -70,23 +71,48 @@ class AsnController extends BuyerAppController
         $this->loadModel('AsnHeaders');
 
         $deliveryDetails = $this->AsnHeaders->find('all')
-        ->select(['AsnHeaders.id', 'AsnHeaders.asn_no','AsnHeaders.invoice_path','AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value','AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact','AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material','PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])
-        ->innerJoin(['PoHeaders' => 'po_headers'],['AsnHeaders.po_header_id = PoHeaders.id'])
-        ->innerJoin(['PoFooters' => 'po_footers'],['PoFooters.po_header_id = PoHeaders.id'])
-        ->innerJoin(['PoItemSchedules' => 'po_item_schedules'],['PoItemSchedules.po_header_id = PoHeaders.id', 'PoItemSchedules.po_footer_id = PoFooters.id'])
-        ->innerJoin(['AsnFooters' => 'asn_footers'],['AsnFooters.asn_header_id = AsnHeaders.id', 'AsnFooters.po_footer_id = PoFooters.id'])
-        ->innerJoin(['AsnFooters' => 'asn_footers'],['AsnFooters.asn_header_id = AsnHeaders.id', 'AsnFooters.po_footer_id = PoFooters.id', 'AsnFooters.po_schedule_id = PoItemSchedules.id'])
-        
-        ->where(['AsnHeaders.id' => $id]);
+            ->select(['AsnHeaders.id', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_path', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value', 'AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact', 'AsnHeaders.status', 'AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material', 'PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])
+            ->innerJoin(['PoHeaders' => 'po_headers'], ['AsnHeaders.po_header_id = PoHeaders.id'])
+            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+            ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_header_id = PoHeaders.id', 'PoItemSchedules.po_footer_id = PoFooters.id'])
+            ->innerJoin(['AsnFooters' => 'asn_footers'], ['AsnFooters.asn_header_id = AsnHeaders.id', 'AsnFooters.po_footer_id = PoFooters.id'])
+            ->innerJoin(['AsnFooters' => 'asn_footers'], ['AsnFooters.asn_header_id = AsnHeaders.id', 'AsnFooters.po_footer_id = PoFooters.id', 'AsnFooters.po_schedule_id = PoItemSchedules.id'])
 
-        //echo '<pre>';  print_r($deliveryDetails); exit;
-        /*$deliveryDetail = $this->AsnHeaders->get($id, [
-            'contain' => ['PoHeaders'],
-        ]); */
+            ->where(['AsnHeaders.id' => $id]);
+
+
 
         //$record = $deliveryDetails->first();
         //$this->set('deliveryDetailw', $record);
         $this->set('deliveryDetails', $deliveryDetails->all());
+    }
+
+    public function update($id = null)
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->loadModel('AsnHeaders');
+
+
+        $deliveryDetail = $this->AsnHeaders->get($id, [
+            'contain' => [],
+        ]);
+    
+        $deliveryDetail = $this->AsnHeaders->patchEntity($deliveryDetail, ['status' => 3]);
+        if ($this->AsnHeaders->save($deliveryDetail)) {
+            $response['status'] = 'success';
+            $response['message'] = 'success';
+        } else {
+            $response['status'] = 'fail';
+            $response['message'] = 'success';
+        }
+        
+
+        echo json_encode($response);
+        
     }
 
     /**

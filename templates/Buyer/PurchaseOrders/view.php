@@ -6,8 +6,7 @@
  * @var \App\Model\Entity\PoHeader $poHeader
  */
 ?>
-<link rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
 <?= $this->Html->css('custom') ?>
@@ -24,25 +23,25 @@
         <div class="po-list">
           <div class="d-flex">
             <?php foreach ($poHeaders as $poHeader) : ?>
-            <div class="po-box" data-id="<?= $poHeader->id ?>">
-              <div class="pono">
-                <small class="mb-0">
-                  <?= h('PO No ') ?>
-                  <br>
-                </small>
-                <b>
-                  <?= h($poHeader->po_no) ?>
-                </b>
+              <div class="po-box" data-id="<?= $poHeader->id ?>">
+                <div class="pono">
+                  <small class="mb-0">
+                    <?= h('PO No ') ?>
+                    <br>
+                  </small>
+                  <b>
+                    <?= h($poHeader->po_no) ?>
+                  </b>
+                </div>
+                <div class="po-code">
+                  <small class="mb-0">
+                    <?= h('Vendor Code:') ?>
+                  </small>
+                  <br> <small><b>
+                      <?= h($poHeader->sap_vendor_code) ?>
+                    </b></small>
+                </div>
               </div>
-              <div class="po-code">
-                <small class="mb-0">
-                  <?= h('Vendor Code:') ?>
-                </small>
-                <br> <small><b>
-                    <?= h($poHeader->sap_vendor_code) ?>
-                  </b></small>
-              </div>
-            </div>
             <?php endforeach; ?>
           </div>
         </div>
@@ -62,8 +61,7 @@
         $totalQty = 0;
       ?> -->
 <!-- delivery modal -->
-<div class="modal fade" id="item_<?= h($poFooters->item) ?>" tabindex="-1" role="dialog"
-  aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="item_<?= h($poFooters->item) ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
 
     <div class="modal-content">
@@ -108,29 +106,29 @@
             <?php foreach ($poFooters->delivery_details as $delivery) :
               $totalQty = $totalQty + $delivery->qty;
             ?>
-            <tr>
-              <td>
-                <?= h($poFooters->item) ?>
-              </td>
-              <td>
-                <?= h($poFooters->short_text) ?>
-              </td>
-              <td>
-                <?= h($delivery->challan_no) ?>
-              </td>
-              <td>
-                <?= h($delivery->qty) ?>
-              </td>
-              <td>
-                <?= h($delivery->eway_bill_no) ?>
-              </td>
-              <td>
-                <?= h($delivery->einvoice_no) ?>
-              </td>
-              <td class="actions">
-                <!-- <?= $this->Html->link(__('View'), ['controller' => 'PoFooters', 'action' => 'view', $poFooters->id]) ?> -->
-              </td>
-            </tr>
+              <tr>
+                <td>
+                  <?= h($poFooters->item) ?>
+                </td>
+                <td>
+                  <?= h($poFooters->short_text) ?>
+                </td>
+                <td>
+                  <?= h($delivery->challan_no) ?>
+                </td>
+                <td>
+                  <?= h($delivery->qty) ?>
+                </td>
+                <td>
+                  <?= h($delivery->eway_bill_no) ?>
+                </td>
+                <td>
+                  <?= h($delivery->einvoice_no) ?>
+                </td>
+                <td class="actions">
+                  <!-- <?= $this->Html->link(__('View'), ['controller' => 'PoFooters', 'action' => 'view', $poFooters->id]) ?> -->
+                </td>
+              </tr>
             <?php endforeach; ?>
           </tbody>
         </table>
@@ -147,8 +145,7 @@
 <?php endforeach; ?>
 
 <!-- Modal stock -->
-<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
 
     <div class="modal-content">
@@ -171,11 +168,13 @@
         echo $this->Form->control('actual_qty', ['id' => 'actual_qty', 'type' => 'number', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
         echo $this->Form->control('delivery_date', ['type' => 'date', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
         ?>
+
+        <span class="actualTotalValue d-none"></span>
+
       </div>
       <div id="error_msg"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary p-1" style="font-size:14px;padding:"
-          data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary p-1" style="font-size:14px;" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-custom">Submit</button>
       </div>
       </form>
@@ -185,8 +184,7 @@
 
 
 <!-- Modal stock -->
-<div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="notifyModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="notifyModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
 
     <div class="modal-content">
@@ -203,24 +201,8 @@
       </div>
 
       <div class="modal-body">
-        <table class="table table-bordered commu-tbl">
-          <tr style="align:middle">
-            <th>Name</th>
-            <th>Date</th>
-            <th>Status</th>
-          </tr>
-          <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-          </tr>
-          <tr>
-            <td>Centro comercial Moctezuma</td>
-            <td>Francisco Chang</td>
-            <td>Mexico</td>
-          </tr>
-        </table>
-        <div id="past_messages"></div>
+
+        <!-- <div id="past_messages"></div> -->
         <?php
         echo $this->Form->control('schedule_id', ['type' => 'hidden', 'id' => 'schedule_id']);
         echo $this->Form->control('message', ['type' => 'textarea', 'class' => 'form-control rounded-0']);
@@ -238,8 +220,7 @@
 </div>
 
 <div class="container" style="display:none;">
-  <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered table-hover table-striped"
-    id="example2">
+  <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-bordered table-hover table-striped" id="example2">
     <thead>
       <tr>
         <th>L3Type</th>
@@ -274,7 +255,7 @@
     }
     return resp;
   }
-  $(document).ready(function () {
+  $(document).ready(function() {
 
     var Toast = Swal.mixin({
       toast: true,
@@ -291,7 +272,7 @@
       errorClass: 'is-invalid',
       validClass: 'is-valid',
       ignore: ':hidden:not(.summernote),.note-editable.card-block',
-      errorPlacement: function (error, element) {
+      errorPlacement: function(error, element) {
         // Add the `help-block` class to the error element
         error.addClass("invalid-feedback");
         console.log(element);
@@ -308,7 +289,7 @@
     summernoteElement.summernote({
       height: 150,
       callbacks: {
-        onChange: function (contents, $editable) {
+        onChange: function(contents, $editable) {
           summernoteElement.val(summernoteElement.summernote('isEmpty') ? "" : contents);
           summernoteValidator.element(summernoteElement);
         }
@@ -316,7 +297,7 @@
     });
 
 
-    $('#purViewId').on('click', '.po-box', function () {
+    $('#purViewId').on('click', '.po-box', function() {
       $("#id_pofooter").empty();
       $('.po-box').removeClass("active");
       $(this).addClass("active");
@@ -328,7 +309,7 @@
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-po-Footers')); ?>/" + poid,
         dataType: 'json',
-        success: function (response) {
+        success: function(response) {
           if (response.status == 'success') {
             $("#id_potableresp").empty().show().append(`<table class="table" id="example1"></table>`);
             $("#example1").empty().append(`<thead>
@@ -349,14 +330,16 @@
               </tr>
             </thead>
             <tbody id="id_pofooter"></tbody>`)
-            $.each(response.data.po_footers, function (key, val) {
+
+            $.each(response.data.po_footers, function(key, val) {
+              var poHeaderId = response.data.po_header;
               $("#id_pofooter").append(`<tr class="odd" data-trid="id_tr` + val.id + `">
               <td class="details-control" data-id="` + val.id + `" footer-id="` + val.id + `">
                 <span class="material-symbols-outlined flu" data-id="` + val.id + `" data-alt="+">add</span></td>
               <td>` + val.item + `</td>
               <td>` + val.material + `</td>
               <td>` + val.short_text + `</td>
-              <td>` + val.po_qty + `</td>
+              <td class="poqtyvalu">` + val.po_qty + `</td>
               <td>` + val.grn_qty + `</td>
               <td>` + val.pending_qty + `</td>
               <td>` + val.order_unit + `</td>
@@ -366,18 +349,18 @@
               <td>` + val.gross_value + `</td>
               <td class="actions">
                   <div class="btn-group">
-                  <a href="#" class="schedule_item btn-warning btn btn-default" data-toggle="modal" data-target="#scheduleModal" header-id="1" footer-id="1" item-no="1">Schedule</a>
+                  <a href="#" class="schedule_item btn-warning btn btn-default" data-toggle="modal" data-target="#scheduleModal" header-id="` + val.po_header_id + `" footer-id="` + val.id + `" item-no=` + val.item + `>Schedule</a>
                     <button type="button" class="btn btn-default btn-success view-btn dropdown-toggle dropdown-icon" data-toggle="dropdown">
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu view-drpdwn" role="menu">
-                    <a href="#" class="dispatch_item dropdown-item" data-toggle="modal" data-target="#item_" header-id="header-id">View</a>
+                    <a href="#" class="dispatch_item dropdown-item" data-toggle="modal" data-target="#item_` + val.item + `" header-id="">View</a>
                     </div>
                   </div>
                 </td>
               </tr>`);
             });
-            setTimeout(function () {
+            setTimeout(function() {
               //your code to be executed after 1 second
               $("#example1").DataTable({
                 "paging": true,
@@ -395,27 +378,26 @@
 
     });
 
-
-    $(".schedule_item").click(function () {
+    $(document).on("click", ".schedule_item", function() {
       $("#po_header_id").val($(this).attr('header-id'));
       $("#po_footer_id").val($(this).attr('footer-id'));
       $("#item_title").html('<b>Item : </b>' + $(this).attr('item-no'));
     });
 
-    $('#scheduleModal').on('hidden.bs.modal', function (e) {
+    $('#scheduleModal').on('hidden.bs.modal', function(e) {
       $('#scheduleModal form')[0].reset();
     });
 
 
     $.validator.setDefaults({
-      submitHandler: function () {
+      submitHandler: function() {
         var formdatas = new FormData($('#scheduleForm')[0]);
         $.ajax({
           type: "POST",
           url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'create-schedule')); ?> ",
           data: $("#scheduleForm").serialize(),
           dataType: 'json',
-          success: function (response) {
+          success: function(response) {
             console.log(response);
             if (response.status == 'success') {
               Toast.fire({
@@ -435,6 +417,13 @@
         return false;
       }
     });
+    $('#actual_qty').keyup(function() {
+      var totalvalueqty = $('.poqtyvalu').text();
+      var totallistqty = $('.actualTotalValue').text();
+
+      console.log(totalvalueqty);
+    });
+
     $('#scheduleForm').validate({
       rules: {
         actual_qty: {
@@ -455,14 +444,14 @@
         }
       },
       errorElement: 'span',
-      errorPlacement: function (error, element) {
+      errorPlacement: function(error, element) {
         error.addClass('invalid-feedback');
         element.closest('.form-group').append(error);
       },
-      highlight: function (element, errorClass, validClass) {
+      highlight: function(element, errorClass, validClass) {
         $(element).addClass('is-invalid');
       },
-      unhighlight: function (element, errorClass, validClass) {
+      unhighlight: function(element, errorClass, validClass) {
         $(element).removeClass('is-invalid');
       }
     });
@@ -482,7 +471,7 @@
 
 
 
-    $(document).on("click", ".flu", function () {
+    $(document).on("click", ".flu", function() {
       var response = "";
       if ($(this).data('alt') == '+') {
         $(this).data('alt', '-').empty().append('Remove');
@@ -490,9 +479,16 @@
         var currTR = this.parentNode.parentNode;
         var newTR = document.createElement("tr");
         newTR.setAttribute('id', 'id_subtr' + $(this).data('id'))
-        
-        if (response.html != '') { newTR.innerHTML = `<td colspan="6">` + response.html + `</td><td colspan="7"></td>`; }
-        else { newTR.innerHTML = `<td colspan="6">` + response.message + `</td><td colspan="7"></td>`; }
+
+        if (response.totalQty) {
+          $(".actualTotalValue").text(response.totalQty);
+        }
+
+        if (response.html != '') {
+          newTR.innerHTML = `<td colspan="6">` + response.html + `</td><td colspan="7"></td>`;
+        } else {
+          newTR.innerHTML = `<td colspan="6">` + response.message + `</td><td colspan="7"></td>`;
+        }
         currTR.parentNode.insertBefore(newTR, currTR.nextSibling);
       } else {
         $(this).data('alt', '+').empty().append('add');
@@ -502,7 +498,7 @@
 
     //notify schedule delivery to vendor
 
-    $(document).on('click', '.notify_item', function () {
+    $(document).on('click', '.notify_item', function() {
       $("#schedule_id").val($(this).attr('schedue-id'));
 
       $.ajax({
@@ -510,7 +506,7 @@
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-schedule-messages')); ?> /" + $(this).attr('schedue-id'),
         dataType: 'json',
-        success: function (response) {
+        success: function(response) {
           if (response.status == 'success') {
             $("#past_messages").html(response.html);
           }
@@ -534,24 +530,24 @@
         },
       },
       errorElement: 'span',
-      errorPlacement: function (error, element) {
+      errorPlacement: function(error, element) {
         error.addClass('invalid-feedback');
         element.closest('.form-group').append(error);
       },
-      highlight: function (element, errorClass, validClass) {
+      highlight: function(element, errorClass, validClass) {
         $(element).addClass('is-invalid');
       },
-      unhighlight: function (element, errorClass, validClass) {
+      unhighlight: function(element, errorClass, validClass) {
         $(element).removeClass('is-invalid');
       },
-      submitHandler: function () {
+      submitHandler: function() {
         var formdatas = new FormData($('#notifyForm')[0]);
         $.ajax({
           type: "POST",
           url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'save-schedule-remarks')); ?>",
           data: $("#notifyForm").serialize(),
           dataType: 'json',
-          success: function (response) {
+          success: function(response) {
             console.log(response);
             if (response.status == 'success') {
               $('#notifyModal').modal('toggle');

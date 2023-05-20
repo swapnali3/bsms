@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
@@ -6,54 +7,72 @@
 ?>
 <?= $this->Html->css('custom') ?>
 <div class="deliveryDetails index content card">
-    <div class="card-header">
+    <!-- <div class="card-header">
         <h5><b><?= __('DELIVERY DETAIL') ?></b></h5>
-    </div>
+    </div> -->
     <div class="card-body table-responsive">
         <table class="table table-hover" id="example1">
             <thead>
                 <tr>
+
+                    <th>Asn No</th>
+                    <th>Vendor Code</th>
                     <th>Purchase Order</th>
-                    <th>Item</th>
-                    <th>Challan No.</th>
-                    <th>Qty</th>
-                    <th>Ewaybill No.</th>
-                    <th>E-invoice No</th>
+                    <th>invoice No</th>
+                    <th>invoice value</th>
                     <th>Status</th>
-                    <th>Added Date</th>
-                    <th>Updated Date</th>
+
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($deliveryDetails as $deliveryDetail): ?>
-                <tr>
-                    <td><?= $deliveryDetail->has('po_header') ? $deliveryDetail->po_header->po_no : '' ?></td>
-                    <td><?= $deliveryDetail->has('po_footer') ? $deliveryDetail->po_footer->item : '' ?></td>
-                    <td><?= h($deliveryDetail->challan_no) ?></td>
-                    <td><?= $this->Number->format($deliveryDetail->qty) ?></td>
-                    <td><?= h($deliveryDetail->eway_bill_no) ?></td>
-                    <td><?= h($deliveryDetail->einvoice_no) ?></td>
-                    <td><span class="badge bg-warning"><?= h($deliveryDetail->status ? '' : 'Intransit') ?></span></td>
-                    <td><?= h($deliveryDetail->added_date) ?></td>
-                    <td><?= h($deliveryDetail->updated_date) ?></td>
-                </tr>
+          
+
+                <?php foreach ($deliveryDetails as $deliveryDetail) : ?>
+                    <tr onclick="window.location.href = '<?= $this->Url->build(['controller' => 'asn', 'action' => 'view', $deliveryDetail->id]) ?>';">
+
+                        <td>
+                            <?= $deliveryDetail->asn_no ?>
+                        </td>
+                        <td>
+                            <?=  $deliveryDetail->po_header->sap_vendor_code   ?>
+                        </td>
+                        <td>
+                            <?= $deliveryDetail->has('po_header') ? $deliveryDetail->po_header->po_no : '' ?>
+                        </td>
+
+
+                        <td>
+                            <?= h($deliveryDetail->invoice_no) ?>
+                        </td>
+
+
+                        <td>
+                            <?= h($deliveryDetail->invoice_value) . ' ' . h($deliveryDetail->po_header->currency) ?>
+                        </td>
+                        <td>
+                            <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">Delivered</span>' : '<span class="badge bg-warning">INTRANSIT</span>' ?>
+                        </td>
+
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     </div>
-    
+
 </div>
 
 <script>
-    $(document).ready(function() { 
+    $(document).ready(function() {
         var table = $("#example1").DataTable({
             "paging": true,
-            "responsive": false, "lengthChange": false, "autoWidth": false, "searching" :true,
+            "responsive": false,
+            "lengthChange": false,
+            "autoWidth": false,
+            "searching": true,
             language: {
-          search: "_INPUT_",
-        searchPlaceholder: "Search..."
-    },
+                search: "_INPUT_",
+                searchPlaceholder: "Search..."
+            },
         });
     });
-    
 </script>

@@ -2,12 +2,16 @@
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
+use Cake\Datasource\ConnectionManager;
+
+
 
 use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Http\Client;
+
 
 /**
  * VendorTemps Controller
@@ -35,10 +39,55 @@ class VendorTempsController extends VendorAppController
     {
         $this->set('headTitle', 'Profile');
         $session = $this->getRequest()->getSession();
-        $this->loadModel("VendorTemps");
+ 
         $vendorTemp = $this->VendorTemps->get($session->read('vendor_id'), [
             'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
         ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $this->loadModel('AsnHeaders');
+
+            $this->loadModel('VendorTemps');
+
+            
+            try{
+                $request = $this->request->getData();
+                $conn = ConnectionManager::get('default');
+                $userData = [
+                    'address' => $request['address1'],
+                    'address_2' => $request['address2'],
+                    'contact_person' => $request['contact_person'],
+                    'contact_mobile' => $request['contact_mobiles'],
+                    'contact_email' => $request['contact_email'],
+                    'contact_department' => $request['contact_department'],
+                    'contact_designation' => $request['contact_designation']  
+                ];
+            
+                $userObj = $this->VendorTemps->newEmptyEntity();
+                $userObj = $this->VendorTemps->patchEntity($userObj, $userData);
+            
+                if ($this->VendorTemps->saveOrFail($userObj)) {
+                    // Save operation succeeded
+                    $response['status'] = 'success';
+                    $response['message'] = 'Record saved successfully';
+                    $this->Flash->success("User with ID {$request['id']} has been created successfully");
+                    // return $this->redirect(['controller' => 'users', 'action' => 'index']);
+                } else {
+                    // Handle save error
+                    $this->Flash->error('Failed to save user data.');
+                }
+            } catch (\PDOException $e) {
+                $this->Flash->error($e->getMessage());
+            } catch (\Exception $e) {
+                $response['status'] = 'fail';
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+
+
+
+
 
         $this->set(compact('vendorTemp'));
     }

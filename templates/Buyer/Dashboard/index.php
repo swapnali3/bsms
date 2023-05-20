@@ -249,7 +249,7 @@
   <div class="col-sm-12 col-lg-3">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Intransit</h3>
+        <h3 class="card-title">ASN</h3>
 
       </div>
       <!-- /.card-header -->
@@ -260,7 +260,7 @@
             <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
-              <a href="javascript:void(0)" class="product-title">Dispatched</a>
+              <a href="javascript:void(0)" class="product-title">Intransit</a>
               <span class="p-value">10</span>
             </div>
           </li>
@@ -271,7 +271,7 @@
 
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Intrasit</a>
+              <a href="javascript:void(0)" class="product-title">Created</a>
               <span class="p-value">5</span>
             </div>
           </li>
@@ -281,7 +281,7 @@
             <i class="fas fa-truck text-info"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Delivered</a>
+              <a href="javascript:void(0)" class="product-title">Received</a>
                 <span class="p-value">5</span>
             </div>
           </li>
