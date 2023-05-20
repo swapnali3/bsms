@@ -19,6 +19,9 @@ div#example1_wrapper .row:first-child{
     margin-left: -7px !important;
     border-color: #989090 !important;
 }
+.intransit #example1_filter input.form-control.form-control-sm {
+    margin-left: 0px !important;
+}
 #example1_filter label {
     width: 100% !important;
     margin: 0px;

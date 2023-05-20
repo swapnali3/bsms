@@ -404,15 +404,6 @@ a.back-btn {
 .create-asn .dataTables_info{
     display: none;
 }
-.create-asn .t1{
-   
-    
-    padding: 7px;
-   
-    
-}
-
-
 .create-asn #example1_filter input.form-control.form-control-sm {
     width: unset !important;
     padding: 20px 10px !important;

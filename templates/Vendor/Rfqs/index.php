@@ -24,9 +24,9 @@
         </h5>
     </div> -->
     <!-- <h3><?= __('Rfqs') ?></h3> -->
-    <div class="card-body">
+    <div class="card-body p-1">
         <div class="table-responsive">
-            <table class="table table-hover" id="example1">
+            <table class="table table-hover mb-0" id="example1">
                 <thead>
                     <tr>
                         <th>

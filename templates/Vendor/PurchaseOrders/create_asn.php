@@ -14,7 +14,7 @@
 <div class="poHeaders index content card create-asn">
     <div class="card-body">
         <div class="content-d">
-            <div class="t1">
+            <div class="t1 pt-1">
                 <div class="row">
                     <div class="col-md-6">
                         <h5><b>Select Material</b></h5>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <div class="t2 mt-2">
+            <div class="t2 mt-2 mb-1">
 
                 <div class="right-side">
 

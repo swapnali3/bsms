@@ -17,15 +17,15 @@
     </style>
 <?= $this->Html->css('vendorCustom') ?>
 
-<div class="deliveryDetails index content card">
-    <div class="card-header">
-        <h5>
+<div class="deliveryDetails index content card intransit">
+    <div class="card-header p-2">
+        <h5 class="mb-0">
             <b>
                 <?= __('DELIVERY DETAILS') ?>
             </b>
         </h5>
     </div>
-    <div class="card-body">
+    <div class="card-body p-2">
         <table class="table table-hover" id="example1">
             <thead>
                 <tr>

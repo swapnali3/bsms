@@ -6,7 +6,7 @@
 ?>
 <style>
     .deliveryDetails #example1_filter input.form-control.form-control-sm{
-        margin-left:-4px !important;
+        margin-left:0px !important;
     }
 </style>
 <?= $this->Html->css('vendorCustom') ?>
@@ -18,7 +18,7 @@
             </b>
         </h5>
     </div> -->
-    <div class="card-body">
+    <div class="card-body p-2">
         <table class="table table-hover" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
             <thead>
                 <tr style="background-color: #d3d3d36e;">
