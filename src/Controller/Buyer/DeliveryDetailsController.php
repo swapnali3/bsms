@@ -19,12 +19,28 @@ class DeliveryDetailsController extends BuyerAppController
     public function index()
     {
         $this->set('headTitle', 'Intransit');
-        $this->loadModel('DeliveryDetails');
-        $this->paginate = [
-            'contain' => ['PoHeaders', 'PoFooters'],
-            'conditions' => ['status' => '0']
-        ];
-        $deliveryDetails = $this->paginate($this->DeliveryDetails);
+        // $this->loadModel('DeliveryDetails');
+        // $this->paginate = [
+        //     'contain' => ['PoHeaders', 'PoFooters'],
+        //     'conditions' => ['status' => '0']
+        // ];
+        // $deliveryDetails = $this->paginate($this->DeliveryDetails);
+
+        // $this->set(compact('deliveryDetails'));
+
+        $this->loadModel('AsnHeaders');
+        $session = $this->getRequest()->getSession();
+        $query = $this->AsnHeaders->find()
+            ->select(['AsnHeaders.id','AsnHeaders.invoice_no','AsnHeaders.status','AsnHeaders.asn_no','AsnHeaders.invoice_value', 'PoHeaders.po_no','PoHeaders.currency','PoHeaders.sap_vendor_code', 'AsnHeaders.added_date','AsnHeaders.updated_date'])
+            ->contain(['PoHeaders'])
+            ->where(['AsnHeaders.status' => '2' ]);
+
+        //echo '<pre>'; print_r($query); exit;
+        $deliveryDetails = $this->paginate($query);
+        
+
+
+        //echo '<pre>'; print_r($rfqDetails); exit;
 
         $this->set(compact('deliveryDetails'));
     }

@@ -128,18 +128,20 @@ class UsersController extends AppController
                         $session->write('username', $result[0]->username);
                         $session->write('group_name', $result[0]->group_name);
                         $session->write('full_name', $result[0]->first_name . ' ' . $result[0]->last_name);
+                        $session->write('first_name', $result[0]->first_name);
+                        $session->write('last_name', $result[0]->last_name);
                         $session->write('id', $result[0]->id);
                         $session->write('role', $result[0]->group_id);
                         if ($result[0]->group_id == 1) {
                             $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
                         } else if ($result[0]->group_id == 2) {
-                            $session->write('vendor_name', $result[0]->name);
+                           
                             $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
                         } else if ($result[0]->group_id == 3) {
                             $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();
                             $session->write('vendor_code', $result[0]->sap_vendor_code);
                             $session->write('vendor_id', $result[0]->id);
-                            $session->write('vendor_name', $result[0]->name);
+                           
 
                             $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
                         }

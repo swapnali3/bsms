@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp $vendorTemp
@@ -21,7 +22,6 @@ switch ($vendorTemp->status) {
     case 4:
         $status = '<span class="badge bg-danger">Rejected</span>';
         break;
-
 }
 
 ?>
@@ -65,12 +65,9 @@ switch ($vendorTemp->status) {
         <div class="col-md-9">
             <div class="card mb-0" style="height:100%">
                 <div class="right-s">
+                    <?= $this->Form->create(null, ['url' => '/vendor/vendor-temps/view/', 'type' => 'file', 'id' => 'profileUpdate']) ?>
+
                     <div class="row">
-                        <!-- <div class="col-md-12">
-            <div class="head">
-                <h5 class="text-uppercase text-info">Other Details</h5>
-            </div>
-            </div> -->
                         <div class="col-md-12">
                             <div class="des">
                                 <div class="row">
@@ -81,235 +78,234 @@ switch ($vendorTemp->status) {
                                                     <?= __('Address 1') ?>
                                                 </td>
                                                 <th style="padding:10px 10px;">
-                                                    
-                                                    <input type="text" value="<?= h($vendorTemp->address) ?>"
-                                                        class="form-control">
+                                                    <div class="form-group mb-0">
+                                                        <input type="text" name="address1" value="<?= h($vendorTemp->address) ?>" class="form-control" required>
                                                 </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Address 2') ?>
-                                                </td>
-                                                <th style="padding:4px 10px;">
-                                                    
-                                                    <input type="text" value=" "
-                                                        class="form-control">
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('City') ?>
-                                                </td>
-                                                <th>
-                                                    <?= h($vendorTemp->city) ?>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Pincode') ?>
-                                                </td>
-                                                <th>
-                                                    <?= h($vendorTemp->pincode) ?>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Country') ?>
-                                                </td>
-                                                <th>
-                                                    <?= h($vendorTemp->country) ?>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Purchasing Organization') ?>
-                                                </td>
-                                                <th>
-                                                    <?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Schema Group') ?>
-                                                </td>
-                                                <th>
-                                                    <?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?>
-                                                </th>
-                                            </tr>
-
-
-
-
-                                            <tr>
-                                                <td>
-                                                    <?= __('Pan No') ?>
-                                                </td>
-                                                <th>
-                                                    <?= h($vendorTemp->pan_no) ?>
-                                                </th>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <?= __('Cin No') ?>
-                                                </td>
-                                                <th>
-                                                    <?= h($vendorTemp->cin_no) ?>
-                                                </th>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <?= __('Account Group') ?>
-                                                </td>
-                                                <th>
-                                                    <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
-                                                </th>
-                                            </tr>
-
-                                        </table>
                                     </div>
-                                    <div class="clo-md-6 col-lg-6 pl-0">
-
-                                        <table>
-                                           
-
-
-                                            <tr>
-                                                <td>
-                                                    <?= __('Gst No') ?>
-                                                </td>
-                                                <th>
-                                                    <?= h($vendorTemp->gst_no) ?>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Tan No') ?>
-                                                </td>
-                                                <th>
-                                                    <?= h($vendorTemp->tan_no) ?>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Contact Person') ?>
-                                                </td>
-                                                <th style="padding:4px 10px;">
-
-                                                    <input type="text" value=" <?= h($vendorTemp->contact_person) ?>"
-                                                        class="form-control">
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Contact Mobile') ?>
-                                                </td>
-                                                <th style="padding:4px 10px;">
-                                                    <input type="number" value="<?= h($vendorTemp->contact_mobile) ?>"
-                                                        class="form-control">
-
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Contact Email Id') ?>
-                                                </td>
-                                                <th style="padding:4px 10px;">
-
-                                                    <input type="email" value=" <?= h($vendorTemp->contact_email) ?>"
-                                                        class="form-control">
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Contact Department') ?>
-                                                </td>
-                                                <th style="padding:4px 10px;">
-
-                                                    <input type="email" value=""
-                                                        class="form-control">
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Contact Designation') ?>
-                                                </td>
-                                                <th style="padding:4px 10px;">
-
-                                                    <input type="email" value=""
-                                                        class="form-control">
-                                                </th>
-                                            </tr>
-
-                                            <tr>
-                                                <td>
-                                                    <?= __('Payment Term') ?>
-                                                </td>
-                                                <th>
-                                                    <?= (h($vendorTemp->payment_term)); ?>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <?= __('Order Currency') ?>
-                                                </td>
-                                                <th>
-                                                    <?= h($vendorTemp->order_currency) ?>
-                                                </th>
-                                            </tr>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('Address 2') ?>
+                                        </td>
+                                        <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="text" name="address2" value="" class="form-control">
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('City') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->city) ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('Pincode') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->pincode) ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('Country') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->country) ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('Purchasing Organization') ?>
+                                        </td>
+                                        <th>
+                                            <?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('Schema Group') ?>
+                                        </td>
+                                        <th>
+                                            <?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?>
+                                        </th>
+                                    </tr>
 
 
 
-                                        </table>
-                                        <div class="text-right m-2">
-                                            <button type="button" class="btn-custom prof-udt" data-toggle="modal"
-                                                data-target="#modal-confirm">Update</button>
-                                        </div>
 
+                                    <tr>
+                                        <td>
+                                            <?= __('Pan No') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->pan_no) ?>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <?= __('Cin No') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->cin_no) ?>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <?= __('Account Group') ?>
+                                        </td>
+                                        <th>
+                                            <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
+                                        </th>
+                                    </tr>
+
+                                    </table>
+                                </div>
+                                <div class="clo-md-6 col-lg-6 pl-0">
+
+                                    <table>
+
+
+
+                                        <tr>
+                                            <td>
+                                                <?= __('Gst No') ?>
+                                            </td>
+                                            <th>
+                                                <?= h($vendorTemp->gst_no) ?>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Tan No') ?>
+                                            </td>
+                                            <th>
+                                                <?= h($vendorTemp->tan_no) ?>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Contact Person') ?>
+                                            </td>
+                                            <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="text" name="contact_person" value=" <?= h($vendorTemp->contact_person) ?>" class="form-control">
+                                            </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Contact Mobile') ?>
+                                            </td>
+                                            <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="number" name="contact_mobiles" value="<?= h($vendorTemp->contact_mobile) ?>" class="form-control">
+                                            </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Contact Email Id') ?>
+                                            </td>
+                                            <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="email" name="contact_email" value=" <?= h($vendorTemp->contact_email) ?>" class="form-control">
+                                            </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Contact Department') ?>
+                                            </td>
+                                            <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="text" name="contact_department" value="" class="form-control">
+                                            </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Contact Designation') ?>
+                                            </td>
+                                            <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="text" name="contact_designation" value="" class="form-control">
+                                            </div>
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <?= __('Payment Term') ?>
+                                            </td>
+                                            <th>
+                                                <?= (h($vendorTemp->payment_term)); ?>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Order Currency') ?>
+                                            </td>
+                                            <th>
+                                                <?= h($vendorTemp->order_currency) ?>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                    <!-- <div class="text-right m-2">
+                                            <button type="button" class="btn-custom prof-udt" data-toggle="modal" data-target="#modal-confirm">Update</button>
+                                        </div> -->
+                                    <div class="text-right m-2">
+                                        <button type="submit" class="btn btn-custom">Update</button>
                                     </div>
-                                    <div class="col-md-12 col-lg-12">
-                                        <!-- <div class="text-right m-2">
+
+
+                                </div>
+                                <div class="col-md-12 col-lg-12">
+                                    <!-- <div class="text-right m-2">
                                             <button type="button" class="btn-custom prof-udt" data-toggle="modal"
                                                 data-target="#modal-confirm">Update</button>
                                         </div> -->
-                                        <div class="modal fade" id="modal-confirm">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Are you sure?</h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <!-- <div class="modal-body">
+                                    <div class="modal fade" id="modal-confirm">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Are you sure?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <!-- <div class="modal-body">
                                                 <p>Are you sure?</p>
                                                 </div> -->
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-updt btn-custom">Save
-                                                            changes</button>
-                                                        <button type="button" class="btn btn-font btn-secondary"
-                                                            data-dismiss="modal">Close</button>
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="submit" class="btn btn-updt btn-custom">Save
+                                                        changes</button>
+                                                    <button type="button" class="btn btn-font btn-secondary" data-dismiss="modal">Close</button>
 
-                                                    </div>
                                                 </div>
-                                                <!-- /.modal-content -->
                                             </div>
-                                            <!-- /.modal-dialog -->
+                                            <!-- /.modal-content -->
                                         </div>
-                                        <!-- /.modal -->
+                                        <!-- /.modal-dialog -->
                                     </div>
+                                    <!-- /.modal -->
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
+
+
                 </div>
+                <?= $this->form->end() ?>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- <div class="row">
@@ -524,7 +520,7 @@ switch ($vendorTemp->status) {
             </div>
             <div class="card-footer">
                 <div class="text">
-                <?php if ($vendorTemp->status == 1): ?>
+                <?php if ($vendorTemp->status == 1) : ?>
                     <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-default']) ?>
                     <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-default reject', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
                 <?php endif; ?>
@@ -535,8 +531,7 @@ switch ($vendorTemp->status) {
 </div> -->
 
 <!-- Modal Reject remarks-->
-<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
 
         <div class="modal-content">
@@ -550,9 +545,9 @@ switch ($vendorTemp->status) {
             </div>
             <div class="modal-body">
                 <?php
-        echo $this->Form->control('remarks', ['label' => false, 'type' => 'textarea', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
+                echo $this->Form->control('remarks', ['label' => false, 'type' => 'textarea', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
 
-        ?>
+                ?>
             </div>
             <div id="error_msg"></div>
             <div class="modal-footer">
@@ -564,9 +559,71 @@ switch ($vendorTemp->status) {
     </div>
 </div>
 <script>
-$(document).ready(function() {
-    $(".reject").onClick(function() {
+    $(document).ready(function() {
+        $(".reject").onClick(function() {
 
+        });
     });
-});
+
+
+    $("#profileUpdate").validate({
+        rules: {
+            address1: {
+                required: true
+            },
+            contact_person: {
+                required: true
+            },
+            contact_mobiles: {
+                required: true
+            },
+            contact_email: {
+                required: true,
+                email: true
+            },
+            contact_department: {
+                required: true
+            },
+            contact_designation: {
+                required: true
+            }
+        },
+        messages: {
+            address1: {
+                required: "Please enter an address"
+            },
+            contact_person: {
+                required: "Please enter a contact person"
+            },
+            contact_mobiles: {
+                required: "Please enter a contact mobile"
+            },
+            contact_email: {
+                required: "Please enter a contact email",
+                email: "Please enter a valid email address"
+            },
+            contact_department: {
+                required: "Please enter a contact department"
+            },
+            contact_designation: {
+                required: "Please enter a contact designation"
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function(error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+        submitHandler: function(form, event) {
+            event.preventDefault();
+            $('#profileUpdate')[0].submit();
+            return false;
+        }
+    });
 </script>

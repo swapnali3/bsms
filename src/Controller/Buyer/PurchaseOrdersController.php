@@ -201,6 +201,7 @@ class PurchaseOrdersController extends BuyerAppController
             $totalQty = 0;
             foreach ($data as $row) {
                 //$link = $Html->link(__('Communication'), "#", ['class' => 'schedule_item btn btn-default', 'header-id' => $poHeader->id, 'footer-id' => $poFooters->id, 'item-no' => $poFooters->item]);
+                $totalQty += $row->actual_qty;
                 $html .= "<tr>
                             <td>$row->actual_qty</td>
                             <td>$row->received_qty</td>
@@ -215,6 +216,8 @@ class PurchaseOrdersController extends BuyerAppController
             $response['status'] = 'success';
             $response['message'] = 'success';
             $response['html'] = $html;
+            $response['totalQty'] = $totalQty;
+
         } else {
             $response['html'] = '';
             $response['status'] = 'fail';

@@ -161,7 +161,7 @@ class AsnController extends VendorAppController
             $response['message'] = 'success';
         } else {
             $response['status'] = 'fail';
-            $response['message'] = 'Material not found';
+            $response['message'] = 'mark entry';
         }
         
 
