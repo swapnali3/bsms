@@ -20,9 +20,11 @@
                 <div class="head-t">
                     <h4 class="p-2 text-info"><b>Gate Entry (GE)</b></h4>
                 </div>
+                <?php if($deliveryDetails->toArray()[0]->status == 2) { ?>
                 <div class="actionbtn">
                     <button type="button" class="btn btn-custom mark_delivered" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">Mark Entry</button>
                 </div>
+                <?php } ?>
             </div>
 
         </div>
