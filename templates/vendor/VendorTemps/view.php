@@ -89,7 +89,7 @@ switch ($vendorTemp->status) {
                                         </td>
                                         <th style="padding:4px 10px;">
                                             <div class="form-group mb-0">
-                                                <input type="text" name="address2" value="" class="form-control">
+                                                <input type="text" name="address2" value="<?= h($vendorTemp->address_2) ?>" class="form-control">
                                             </div>
                                         </th>
                                     </tr>
@@ -224,7 +224,7 @@ switch ($vendorTemp->status) {
                                             </td>
                                             <th style="padding:4px 10px;">
                                             <div class="form-group mb-0">
-                                                <input type="text" name="contact_department" value="" class="form-control">
+                                                <input type="text" name="contact_department" value="<?= h($vendorTemp->contact_department) ?>" class="form-control">
                                             </div>
                                             </th>
                                         </tr>
@@ -234,7 +234,7 @@ switch ($vendorTemp->status) {
                                             </td>
                                             <th style="padding:4px 10px;">
                                             <div class="form-group mb-0">
-                                                <input type="text" name="contact_designation" value="" class="form-control">
+                                                <input type="text" name="contact_designation" value="<?= h($vendorTemp->contact_designation) ?>" class="form-control">
                                             </div>
                                             </th>
                                         </tr>

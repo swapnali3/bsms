@@ -40,19 +40,14 @@ class VendorTempsController extends VendorAppController
         $this->set('headTitle', 'Profile');
         $session = $this->getRequest()->getSession();
  
+        $this->loadModel('VendorTemps');
         $vendorTemp = $this->VendorTemps->get($session->read('vendor_id'), [
             'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $this->loadModel('AsnHeaders');
-
-            $this->loadModel('VendorTemps');
-
-            
             try{
                 $request = $this->request->getData();
-                $conn = ConnectionManager::get('default');
                 $userData = [
                     'address' => $request['address1'],
                     'address_2' => $request['address2'],
@@ -64,14 +59,12 @@ class VendorTempsController extends VendorAppController
                 ];
             
                 $userObj = $this->VendorTemps->newEmptyEntity();
-                $userObj = $this->VendorTemps->patchEntity($userObj, $userData);
+                $userObj = $this->VendorTemps->patchEntity($vendorTemp, $userData);
             
-                if ($this->VendorTemps->saveOrFail($userObj)) {
-                    // Save operation succeeded
+                if ($this->VendorTemps->save($userObj)) {
                     $response['status'] = 'success';
                     $response['message'] = 'Record saved successfully';
-                    $this->Flash->success("User with ID {$request['id']} has been created successfully");
-                    // return $this->redirect(['controller' => 'users', 'action' => 'index']);
+                    $this->Flash->success("Profle has been updated successfully");
                 } else {
                     // Handle save error
                     $this->Flash->error('Failed to save user data.');
