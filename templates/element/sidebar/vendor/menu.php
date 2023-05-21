@@ -49,9 +49,9 @@
   <?= $this->Html->link(__('<i class="fa fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item">
+<!-- <li class="nav-item">
   <?= $this->Html->link(__('<i class="far fa-user nav-icon"></i><p>Profile</p>'), ['controller' => 'vendor-temps', 'action' => 'view', 0], ['class' => "nav-link $profileActive", 'escape' => false]) ?>
-</li>
+</li> -->
 
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link $polickActive" , 'escape' => false]) ?>
@@ -81,7 +81,7 @@
 <li class="nav-item menu-open">
   <?= $this->Html->link(__('<i class="far fa-money-bill-alt nav-icon"></i><p>Payment Status</p>'), "#", ['class' => 'nav-link', 'escape' => false]) ?>
 </li> -->
-
+<!-- 
 <li class="nav-item ">
   <?= $this->Html->link(__('<i class="fas fa-power-off nav-icon"></i><p>Logout</p>'), ['prefix' => false, 'controller' => 'users', 'action' => 'logout'], ['class' => 'nav-link', 'escape' => false]) ?>
-</li>
+</li> -->

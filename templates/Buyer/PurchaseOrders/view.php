@@ -418,31 +418,44 @@
       }
     });
     $('#actual_qty').keyup(function() {
-      var totalvalueqty = $('.poqtyvalu').text();
-      var totallistqty = $('.actualTotalValue').text();
 
-      console.log(totalvalueqty);
+      var totalvalueqty = parseInt($('.poqtyvalu').text());
+      var totallistqty = parseInt($('.actualTotalValue').text());
+
+      var actualTotalqty = totalvalueqty - totallistqty;
+
+      var userqtyvalues = parseInt($('#actual_qty').val());
+
+      if (actualTotalqty >= userqtyvalues) {
+        $('#scheduleForm').valid(); // Trigger form validation
+      
+      } else {
+        $('#scheduleForm').find('input[name="actual_qty"]').val(''); // Clear the input value
+      }
+
     });
 
     $('#scheduleForm').validate({
+
       rules: {
         actual_qty: {
           required: true,
           number: true
         },
         delivery_date: {
-          required: true,
+          required: true
         }
       },
       messages: {
-        qty: {
-          required: "Please provide a qty",
-          number: "Please enter number only"
+        actual_qty: {
+          required: "Please provide a quantity",
+          number: "Please enter a valid number"
         },
         delivery_date: {
-          required: "Please select date",
+          required: "Please select a date"
         }
       },
+
       errorElement: 'span',
       errorPlacement: function(error, element) {
         error.addClass('invalid-feedback');
