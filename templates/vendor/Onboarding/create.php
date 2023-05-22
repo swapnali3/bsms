@@ -116,13 +116,8 @@
                         </div>
 
                         <div class="col-3 mt-3 col-md-3">
-                            <!-- <?php echo $this->Form->control('State', ['class' => 'form-control', 'type' => 'text', 'options' => array(), 'empty' => 'Select State']); ?> -->
-                            <label>State</label>
-                            <select class="selectpicker form-control my-select" data-live-search="true">
-                                <option>Goa</option>
-                                <option>Maharastra</option>
-                                <option>Barbecue</option>
-                            </select>
+                            <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                            
                         </div>
 
 
@@ -133,14 +128,7 @@
                             <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mt-3 col-md-3">
-                            <label>country</label>
-                            <select class="selectpicker form-control my-select" data-live-search="true">
-                                <option>India</option>
-                                <option>Indonasia</option>
-                                <option>Barbecue</option>
-                            </select>
-
-
+                        <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                         </div>
                         <div class="col-3 mt-3">
                             <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled', 'class' => 'form-control']); ?>

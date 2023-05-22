@@ -111,6 +111,14 @@ switch ($vendorTemp->status) {
                                     </tr>
                                     <tr>
                                         <td>
+                                            <?= __('State') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->state) ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
                                             <?= __('Country') ?>
                                         </td>
                                         <th>

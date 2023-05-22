@@ -414,11 +414,11 @@ class PurchaseOrdersController extends VendorAppController
             foreach($data as $row) {
                 //print_r($row); exit;
                 $html .= '<tr>
-                <td><input type="checkbox" name="footer_id[]" value="'.$row->PoFooters['id'].'" class="checkBoxClass" id="select1" data-pendingqty="'.$row->PoFooters['net_price'].'" data-id="'.$row->PoFooters['item'].'"></td>
+                <td><input type="checkbox" name="footer_id[]" value="'.$row->PoFooters['id'].'" class="checkBoxClass" id="select1" data-pendingqty="'.$row->actual_qty.'" data-id="'.$row->PoFooters['item'].'"></td>
                  <td>'.$row->PoFooters['item'].'</td>
                  <td>'.$row->PoFooters['material'].'</td>
                  <td>'.$row->PoFooters['short_text'].'</td>
-                 <td>'.$row->PoFooters['net_price'].' '.$row->PoFooters['order_unit'].'</td>
+                 <td>'.$row->actual_qty.' '.$row->PoFooters['order_unit'].'</td>
                  <td><input type="number" name="footer_id_qty[]" class="form-control check_qty" required="required" data-item="'.$row->PoFooters['item'].'" id="qty'.$row->PoFooters['item'].'" value="0"></td>
                  
                 </tr>';
