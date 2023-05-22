@@ -123,6 +123,10 @@
 
             $(this).addClass('active');
 
+            $(".continue_btn").addClass('btn-secondary ');
+            $(".continue_btn").removeClass('btn-success');
+            $(".continue_btn").attr('disabled', 'disabled');
+            
             $(".right-side").html(format($(this).attr('header-id')));
             $("#po_header_id").val($(this).attr('header-id'));
         });
@@ -140,7 +144,7 @@
             $.ajax({
                 type: "GET",
                 //url: '../getDeliveryDetails/' + rowData,
-                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-items')); ?> /" + rowData,
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-items')); ?>/" + rowData,
                 dataType: 'json',
                 success: function(response) {
                     if (response.status == 'success') {

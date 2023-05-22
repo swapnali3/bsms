@@ -260,7 +260,7 @@
             <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
-              <a href="javascript:void(0)" class="product-title">Intransit</a>
+              <a href="javascript:void(0)" class="product-title">Created</a>
               <span class="p-value">10</span>
             </div>
           </li>
@@ -271,7 +271,7 @@
 
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Created</a>
+              <a href="javascript:void(0)" class="product-title">Intransit</a>
               <span class="p-value">5</span>
             </div>
           </li>

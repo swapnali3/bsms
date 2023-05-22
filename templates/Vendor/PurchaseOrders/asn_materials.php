@@ -219,11 +219,11 @@
                   <?= h($row['PoFooters']['net_price']) ?> &nbsp;<?= h($row['currency']) ?>
                 </td>
                 <td style="width:50px;">
-                <div class="form-group mb-0">
-                  <?= $this->form->control('po_footer_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoFooters']['id']]) ?>
-                  <?= $this->form->control('schedule_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoItemSchedules']['id']]) ?>
-                  <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'class' => 'form-control check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'max' => $row['actual_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
-            </div>
+                  <div class="form-group mb-0">
+                    <?= $this->form->control('po_footer_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoFooters']['id']]) ?>
+                    <?= $this->form->control('schedule_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoItemSchedules']['id']]) ?>
+                    <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'class' => 'form-control check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'max' => $row['actual_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
+                  </div>
                 </td>
                 <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>"><?= ($row['PoFooters']['net_price'] * $row['actual_qty']) ?></td>
               </tr>
@@ -278,15 +278,21 @@
 
     $('#invoices').on('change', function(event) {
       var files = event.target.files;
+
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
-        $("<div class='file__value'><div class='file__value--text'>" + file.name + " <span class='' data-id='" + file.name + "' ><i class='fas fa-times-circle text-danger'</i></span></div></div>").insertAfter('#file__input');
+        $("<div class='file__value'><div class='file__value--text'>" + file.name + " <span class='file__remove' data-id='" + file.name + "'><i class='fas fa-times-circle text-danger'></i></span></div></div>").appendTo('#file__input');
       }
     });
 
+    $('body').on('click', '.file__remove', function() {
+      var files = $('#invoices').prop('files');
+      $(this).closest('.file__value').remove();
+      console.log(files);
+      if (files.length === 0) {
+        $('#invoices').val('');
+      }
 
-    $('body').on('click', '.file__value', function() {
-      $(this).remove();
     });
 
 

@@ -296,6 +296,11 @@
       }
     });
 
+    $(document).ready(function() {
+            $('div.po-box:first').click();
+    });
+
+
 
     $('#purViewId').on('click', '.po-box', function() {
       $("#id_pofooter").empty();
@@ -335,7 +340,7 @@
               var poHeaderId = response.data.po_header;
               $("#id_pofooter").append(`<tr class="odd" data-trid="id_tr` + val.id + `">
               <td class="details-control" data-id="` + val.id + `" footer-id="` + val.id + `">
-                <span class="material-symbols-outlined flu" data-id="` + val.id + `" data-alt="+">add</span></td>
+                <span class="material-symbols-outlined flu" id="id_st` + val.id + `" data-id="` + val.id + `" data-alt="+">add</span></td>
               <td>` + val.item + `</td>
               <td>` + val.material + `</td>
               <td>` + val.short_text + `</td>
@@ -382,6 +387,9 @@
       $("#po_header_id").val($(this).attr('header-id'));
       $("#po_footer_id").val($(this).attr('footer-id'));
       $("#item_title").html('<b>Item : </b>' + $(this).attr('item-no'));
+
+      $('#id_st'+$(this).attr('footer-id')).click();
+     
     });
 
     $('#scheduleModal').on('hidden.bs.modal', function(e) {
