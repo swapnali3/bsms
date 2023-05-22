@@ -11,7 +11,13 @@
 
 
 ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
 <style>
     .label {
         font-size: 10px
@@ -110,7 +116,13 @@
                         </div>
 
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('State', ['class' => 'form-control', 'options' => array(), 'empty' => 'Select State']); ?>
+                            <!-- <?php echo $this->Form->control('State', ['class' => 'form-control', 'type' => 'text', 'options' => array(), 'empty' => 'Select State']); ?> -->
+                            <label>State</label>
+                            <select class="selectpicker form-control my-select" data-live-search="true">
+                                <option>Goa</option>
+                                <option>Maharastra</option>
+                                <option>Barbecue</option>
+                            </select>
                         </div>
 
 
@@ -121,8 +133,14 @@
                             <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('country', ['class' => 'form-control', 'options' => array(), 'empty' => 'Select Country']); ?>
-                            
+                            <label>country</label>
+                            <select class="selectpicker form-control my-select" data-live-search="true">
+                                <option>India</option>
+                                <option>Indonasia</option>
+                                <option>Barbecue</option>
+                            </select>
+
+
                         </div>
                         <div class="col-3 mt-3">
                             <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
@@ -197,3 +215,8 @@
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $('.my-select').selectpicker();
+    });
+</script>

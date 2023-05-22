@@ -16,20 +16,25 @@
         <div class="content-d">
             <div class="t1 pt-1">
                 <div class="row">
-                    <div class="col-md-6">
-                        <h5><b>Select Material</b></h5>
+                    <div class="col-md-6 pt-2">
+                        <!-- <h5><b>Select Material</b></h5> -->
+                        <div class="search-bar mb-2">
+                        <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
                     </div>
-                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6 pb-2">
                         <div class="action-btn d-flex justify-content-end">
-                            <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a>
+                        <input type="file" id="imgupload" style="display:none"/> 
+                        <button id="OpenImgUpload" type="button" class="btn btn-custom mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</button>
+                            <!-- <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a> -->
                             <button type="submit" class="btn btn-secondary mb-0 continue_btn" disabled>Continue</button>
                         </div>
                     </div>
                 </div>
                 <div class="scrollable-div">
-                    <div class="search-bar mb-2">
+                    <!-- <div class="search-bar mb-2">
                         <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
-                    </div>
+                    </div> -->
                     <div class="polist">
                         <div class="d-flex">
                             <?php foreach ($poHeaders as $poHeader) : ?>
@@ -88,6 +93,9 @@
 <?= $this->form->end() ?>
 
 <script>
+    // file upload button
+    $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
+
     $(document).ready(function() {
 
         var table = $("#example1").DataTable({
