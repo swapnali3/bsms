@@ -62,6 +62,7 @@ class VendorTemp extends Entity
         'mobile' => true,
         'email' => true,
         'country' => true,
+        'state' => true,
         'payment_term' => true,
         'order_currency' => true,
         'gst_no' => true,

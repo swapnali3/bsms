@@ -157,6 +157,8 @@ class OnboardingController extends VendorAppController
     public function create($request = null)
     {
         $this->loadModel("VendorTemps");
+        $this->loadModel("Countries");
+        $this->loadModel("States");
         $request = explode('||', base64_decode($request));
 
         //print_r($request); exit;
@@ -191,7 +193,11 @@ class OnboardingController extends VendorAppController
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups'));
+
+        $countries = $this->Countries->find('list', ['keyField' => 'country_name', 'valueField' => 'country_name'])->all();
+        $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
+
+        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));
     }
 
     /**

@@ -95,7 +95,7 @@ switch ($vendorTemp->status) {
                                         <?= __('Address 2') ?>
                                     </th>
                                     <td>
-                                        
+                                    <?= h($vendorTemp->address_2) ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -203,6 +203,14 @@ switch ($vendorTemp->status) {
                                 </tr>
                                 <tr>
                                     <th>
+                                        <?= __('State') ?>
+                                    </th>
+                                    <td>
+                                        <?= h($vendorTemp->state) ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         <?= __('Country') ?>
                                     </th>
                                     <td>
@@ -247,7 +255,7 @@ switch ($vendorTemp->status) {
                                         <?= __('Contact Department') ?>
                                     </th>
                                     <td>
-                                        
+                                    <?= h($vendorTemp->contact_department) ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -255,7 +263,7 @@ switch ($vendorTemp->status) {
                                         <?= __('Contact Designation') ?>
                                     </th>
                                     <td>
-                                        
+                                    <?= h($vendorTemp->contact_designation) ?>
                                     </td>
                                 </tr>
                                 <tr>
