@@ -57,10 +57,11 @@ class VendorTempsController extends VendorAppController
                     'contact_department' => $request['contact_department'],
                     'contact_designation' => $request['contact_designation']  
                 ];
+
             
                 $userObj = $this->VendorTemps->newEmptyEntity();
                 $userObj = $this->VendorTemps->patchEntity($vendorTemp, $userData);
-            
+
                 if ($this->VendorTemps->save($userObj)) {
                     $response['status'] = 'success';
                     $response['message'] = 'Record saved successfully';
@@ -76,11 +77,6 @@ class VendorTempsController extends VendorAppController
                 $response['message'] = $e->getMessage();
             }
         }
-
-
-
-
-
 
         $this->set(compact('vendorTemp'));
     }
