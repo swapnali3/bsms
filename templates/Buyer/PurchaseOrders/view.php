@@ -202,7 +202,7 @@
 
       <div class="modal-body">
 
-        <!-- <div id="past_messages"></div> -->
+        <div id="past_messages"></div>
         <?php
         echo $this->Form->control('schedule_id', ['type' => 'hidden', 'id' => 'schedule_id']);
         echo $this->Form->control('message', ['type' => 'textarea', 'class' => 'form-control rounded-0']);
