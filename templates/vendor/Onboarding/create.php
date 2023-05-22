@@ -110,7 +110,7 @@
                         </div>
 
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('State', ['class' => 'form-control', 'options' => array(), 'empty' => 'Select State']); ?>
                         </div>
 
 
@@ -118,7 +118,11 @@
 
                     <div class="row">
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('country', ['class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
+                        </div>
+                        <div class="col-3 mt-3 col-md-3">
+                            <?php echo $this->Form->control('country', ['class' => 'form-control', 'options' => array(), 'empty' => 'Select Country']); ?>
+                            
                         </div>
                         <div class="col-3 mt-3">
                             <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
@@ -166,9 +170,20 @@
                         <div class="col-3 mt-3">
                             <?php echo $this->Form->control('contact_designation', ['class' => 'form-control']); ?>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-4 mt-3">
-                        <label for="formFileMultiple" class="form-label">Upload Documents</label>
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                            <label for="formFileMultiple" class="form-label">Upload GST no</label>
+                            <input class="form-control" type="file" id="formFileMultiple">
+                        </div>
+                        <div class="col-4 mt-3">
+                            <label for="formFileMultiple" class="form-label">Upload pan card</label>
+                            <input class="form-control" type="file" id="formFileMultiple">
+                        </div>
+                        <div class="col-4 mt-3">
+                            <label for="formFileMultiple" class="form-label">Upload bank details</label>
+                            <input class="form-control" type="file" id="formFileMultiple">
                         </div>
                     </div>
                 </div>

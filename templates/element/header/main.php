@@ -14,7 +14,9 @@
     .user-panel img {
         width: 1.5rem
     }
-
+    aside.main-sidebar:hover {
+    width: 210px !important;
+}
     .main-sidebar,
     .main-sidebar::before {
         width: 207px

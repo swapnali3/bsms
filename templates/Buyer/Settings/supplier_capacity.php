@@ -113,7 +113,7 @@
                         <thead>
                             <tr>
                                 <th>Description</th>
-                                <th>No of parts</th>
+                                <th>Production capacity per/day</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -132,7 +132,7 @@
 </div>
 <script>
 
-    var source = ["ITEM 1000", "ITEM 2000", "ITEM 3000", "ITEM 4000", "ITEM 5000", "ITEM 6000"];
+    var source = ["Machine 1", "Machine 2", "Machine 3", "Machine 4", "Machine 5", "Machine 6","Machine 7","Machine 8","Machine 9","Machine 10"];
     $(function () {
         var selectedItems = []; // Array to keep track of selected items
 
