@@ -90,8 +90,9 @@ class AdminUsersController extends BuyerAppController
      */
     public function view($id = null)
     {
+        $session = $this->getRequest()->getSession();
         $this->loadModel("Users");
-        $adminUser = $this->Users->get($id, [
+        $adminUser = $this->Users->get($session->read('id'), [
             'contain' => [],
         ]);
 

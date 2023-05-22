@@ -120,7 +120,7 @@
 </li> -->
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link $polickActive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'view'], ['class' => "nav-link $polickActive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item">
@@ -144,6 +144,7 @@
   </ul>
 </li>
 
+<!--
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-power-off nav-icon"></i><p>Logout</p>'), ['prefix' => false, 'controller' => 'users', 'action' => 'logout'], ['class' => "nav-link", 'escape' => false]) ?>
-</li>
+</li> -->

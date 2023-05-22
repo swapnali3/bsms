@@ -134,4 +134,9 @@ class SettingsController extends BuyerAppController
      
     }
 
+    public function supplierCapacity($id = null)
+    {
+        
+    }
+
 }

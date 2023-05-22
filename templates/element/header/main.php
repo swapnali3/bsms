@@ -139,7 +139,7 @@
                 <p class="role">Vendor</p> -->
             </span>
             <div class="dropdown-divider"></div>
-            <a href="<?= $this->Url->build(['controller' => 'vendor-temps', 'action' => 'view', 0]) ?>" class="dropdown-item">
+            <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>" class="dropdown-item">
                 <i class="fas fa-user-cog text-info mr-2"></i>
                 <span>Profile</span>
             </a>

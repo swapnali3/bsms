@@ -167,7 +167,7 @@
                                     <span class="info-text"></span>
                                 </div>
                             </td>
-                            <td><a href="#">Supplier Capacity</a></td>
+                            <td><?= $this->Html->link(__('Supplier Capacity'), ['controller' => '/settings', 'action' => 'supplier-capacity'], ['class' => "nav-link", 'escape' => false]) ?></td>
                         </tr>
                         <tr>
                             <td>Test Name</td>
@@ -180,7 +180,7 @@
                                     <span class="info-text"></span>
                                 </div>
                             </td>
-                            <td><a href="#">Supplier Capacity</a></td>
+                            <td><?= $this->Html->link(__('Supplier Capacity'), ['controller' => '/settings', 'action' => 'supplier-capacity'], ['class' => "nav-link", 'escape' => false]) ?></td>
                         </tr>
                         <tr>
                             <td>Test Name</td>
@@ -193,7 +193,7 @@
                                     <span class="info-text"></span>
                                 </div>
                             </td>
-                            <td><a href="#">Supplier Capacity</a></td>
+                            <td><?= $this->Html->link(__('Supplier Capacity'), ['controller' => '/settings', 'action' => 'supplier-capacity'], ['class' => "nav-link", 'escape' => false]) ?></td>
                         </tr>
                         <tr>
                             <td>Test Name</td>
@@ -206,7 +206,7 @@
                                     <span class="info-text"></span>
                                 </div>
                             </td>
-                            <td><a href="#">Supplier Capacity</a></td>
+                            <td><?= $this->Html->link(__('Supplier Capacity'), ['controller' => '/settings', 'action' => 'supplier-capacity'], ['class' => "nav-link", 'escape' => false]) ?></td>
                         </tr>
                     </tbody>
 
