@@ -21,7 +21,7 @@
     <div class="card-body p-2">
         <table class="table table-hover" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
             <thead>
-                <tr style="background-color: #d3d3d36e;">
+                <tr style="background-color: #527195;">
                     <th>ASN NO</th>
                     <th>Purchase Order</th>
                     <th>Invoice No</th>
@@ -70,7 +70,7 @@
         var table = $("#example1").DataTable({
             "paging": true,
             "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
-            "ordering":false,
+            "ordering":true,
             language: {
           search: "_INPUT_",
         searchPlaceholder: "Search..."

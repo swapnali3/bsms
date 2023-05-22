@@ -98,7 +98,7 @@
                             <div class="select-machine d-flex">
                                 <Div class="d-flex">
                                     <input type="text" id="auto" class="form-control" placeholder="search machine" />
-                                    <button id="btnClick" class="btn btn-warning">Add</button>
+                                    <button id="btnClick" class="btn btn-warning btn-custom-2">Add</button>
                                 </Div>
                             </div>
                         </div>

@@ -138,7 +138,7 @@
             <div class="col-md-4">
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-custom mr-2 mb-0">CREATE</button>
-                    <button class="btn btn-custom mb-0">EXPORT TO CSV</button>
+                    <button class="btn btn-custom-2 mb-0">EXPORT TO CSV</button>
                 </div>
             </div>
         </div>
