@@ -222,6 +222,7 @@ class PurchaseOrdersController extends BuyerAppController
             $response['html'] = '';
             $response['status'] = 'fail';
             $response['message'] = 'No schedule data';
+            $response['totalQty'] = '0';
         }
 
 
