@@ -26,7 +26,15 @@ switch ($vendorTemp->status) {
 
 ?>
 <?= $this->Html->css('vendorCustom') ?>
-
+<style>.docs .i {
+    margin-right: 30px;
+    margin-left: 15px;
+}
+.docs i {
+    padding-left: 5px;
+    font-size: 12px;
+}
+</style>
 <div class="profile-page pb-4 pl-2">
     <div class="row">
         <div class="col-md-3">
@@ -41,21 +49,31 @@ switch ($vendorTemp->status) {
                     <div class="desc">
                         <ul>
                             <li>
-                                <p>Name : <b> <?= h($vendorTemp->name) ?></b></p>
+                                <p>Name : <b>
+                                        <?= h($vendorTemp->name) ?>
+                                    </b></p>
                             </li>
                             <li>
-                                <p>Mobile No :<b> <?= h($vendorTemp->mobile) ?></b></p>
+                                <p>Mobile No :<b>
+                                        <?= h($vendorTemp->mobile) ?>
+                                    </b></p>
                             </li>
                             <li>
-                                <p>Email ID : <b><?= h($vendorTemp->email) ?></b></p>
+                                <p>Email ID : <b>
+                                        <?= h($vendorTemp->email) ?>
+                                    </b></p>
                             </li>
                             <li>
                                 <p>SAP Vendor Code :
-                                    <b><?= !empty($vendorTemp->sap_vendor_code) ? $vendorTemp->sap_vendor_code : '' ?></b>
+                                    <b>
+                                        <?= !empty($vendorTemp->sap_vendor_code) ? $vendorTemp->sap_vendor_code : '' ?>
+                                    </b>
                                 </p>
                             </li>
                             <li>
-                                <p>Status : <b> <?= $status ?></b></p>
+                                <p>Status : <b>
+                                        <?= $status ?>
+                                    </b></p>
                             </li>
                         </ul>
                     </div>
@@ -79,7 +97,9 @@ switch ($vendorTemp->status) {
                                                 </td>
                                                 <th style="padding:10px 10px;">
                                                     <div class="form-group mb-0">
-                                                        <input type="text" name="address1" value="<?= h($vendorTemp->address) ?>" class="form-control" required>
+                                                        <input type="text" name="address1"
+                                                            value="<?= h($vendorTemp->address) ?>" class="form-control"
+                                                            required>
                                                 </th>
                                     </div>
                                     </tr>
@@ -89,7 +109,8 @@ switch ($vendorTemp->status) {
                                         </td>
                                         <th style="padding:4px 10px;">
                                             <div class="form-group mb-0">
-                                                <input type="text" name="address2" value="<?= h($vendorTemp->address_2) ?>" class="form-control">
+                                                <input type="text" name="address2"
+                                                    value="<?= h($vendorTemp->address_2) ?>" class="form-control">
                                             </div>
                                         </th>
                                     </tr>
@@ -163,6 +184,14 @@ switch ($vendorTemp->status) {
                                         </th>
                                     </tr>
 
+                                   
+
+                                    </table>
+                                </div>
+                                <div class="clo-md-6 col-lg-6 pl-0">
+
+                                    <table>
+
                                     <tr>
                                         <td>
                                             <?= __('Account Group') ?>
@@ -171,14 +200,6 @@ switch ($vendorTemp->status) {
                                             <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
                                         </th>
                                     </tr>
-
-                                    </table>
-                                </div>
-                                <div class="clo-md-6 col-lg-6 pl-0">
-
-                                    <table>
-
-
 
                                         <tr>
                                             <td>
@@ -201,9 +222,11 @@ switch ($vendorTemp->status) {
                                                 <?= __('Contact Person') ?>
                                             </td>
                                             <th style="padding:4px 10px;">
-                                            <div class="form-group mb-0">
-                                                <input type="text" name="contact_person" value=" <?= h($vendorTemp->contact_person) ?>" class="form-control">
-                                            </div>
+                                                <div class="form-group mb-0">
+                                                    <input type="text" name="contact_person"
+                                                        value=" <?= h($vendorTemp->contact_person) ?>"
+                                                        class="form-control">
+                                                </div>
                                             </th>
                                         </tr>
                                         <tr>
@@ -211,9 +234,11 @@ switch ($vendorTemp->status) {
                                                 <?= __('Contact Mobile') ?>
                                             </td>
                                             <th style="padding:4px 10px;">
-                                            <div class="form-group mb-0">
-                                                <input type="number" name="contact_mobiles" value="<?= h($vendorTemp->contact_mobile) ?>" class="form-control">
-                                            </div>
+                                                <div class="form-group mb-0">
+                                                    <input type="number" name="contact_mobiles"
+                                                        value="<?= h($vendorTemp->contact_mobile) ?>"
+                                                        class="form-control">
+                                                </div>
                                             </th>
                                         </tr>
                                         <tr>
@@ -221,9 +246,11 @@ switch ($vendorTemp->status) {
                                                 <?= __('Contact Email Id') ?>
                                             </td>
                                             <th style="padding:4px 10px;">
-                                            <div class="form-group mb-0">
-                                                <input type="email" name="contact_email" value=" <?= h($vendorTemp->contact_email) ?>" class="form-control">
-                                            </div>
+                                                <div class="form-group mb-0">
+                                                    <input type="email" name="contact_email"
+                                                        value=" <?= h($vendorTemp->contact_email) ?>"
+                                                        class="form-control">
+                                                </div>
                                             </th>
                                         </tr>
                                         <tr>
@@ -231,9 +258,11 @@ switch ($vendorTemp->status) {
                                                 <?= __('Contact Department') ?>
                                             </td>
                                             <th style="padding:4px 10px;">
-                                            <div class="form-group mb-0">
-                                                <input type="text" name="contact_department" value="<?= h($vendorTemp->contact_department) ?>" class="form-control">
-                                            </div>
+                                                <div class="form-group mb-0">
+                                                    <input type="text" name="contact_department"
+                                                        value="<?= h($vendorTemp->contact_department) ?>"
+                                                        class="form-control">
+                                                </div>
                                             </th>
                                         </tr>
                                         <tr>
@@ -241,9 +270,11 @@ switch ($vendorTemp->status) {
                                                 <?= __('Contact Designation') ?>
                                             </td>
                                             <th style="padding:4px 10px;">
-                                            <div class="form-group mb-0">
-                                                <input type="text" name="contact_designation" value="<?= h($vendorTemp->contact_designation) ?>" class="form-control">
-                                            </div>
+                                                <div class="form-group mb-0">
+                                                    <input type="text" name="contact_designation"
+                                                        value="<?= h($vendorTemp->contact_designation) ?>"
+                                                        class="form-control">
+                                                </div>
                                             </th>
                                         </tr>
 
@@ -263,17 +294,79 @@ switch ($vendorTemp->status) {
                                                 <?= h($vendorTemp->order_currency) ?>
                                             </th>
                                         </tr>
+                                        <!-- <tr>
+                                            <td>
+                                                <?= __('GST NO') ?>
+                                            </td>
+                                            <th>
+                                                <i class="fas fa-download"></i>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Pan Card') ?>
+                                            </td>
+                                            <th>
+                                                <i class="fas fa-download"></i>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Bank Documnets') ?>
+                                            </td>
+                                            <th>
+                                                <i class="fas fa-download"></i>
+                                            </th>
+                                        </tr> -->
                                     </table>
                                     <!-- <div class="text-right m-2">
                                             <button type="button" class="btn-custom prof-udt" data-toggle="modal" data-target="#modal-confirm">Update</button>
                                         </div> -->
-                                    <div class="text-right m-2">
-                                        <button type="submit" class="btn btn-custom">Update</button>
-                                    </div>
+                                    
+                                   
 
 
                                 </div>
                                 <div class="col-md-12 col-lg-12">
+                                    <hr>
+                                <div class="docs">
+                                    <h6 class="text-info pl-3" style="color:#004d87 !important">All Documents</h6>
+                                    <div class="d-flex">
+                                        <div class="i">
+                                        <td>
+                                                        <?= __('GST NO') ?>
+                                                    </td>
+                                                    <th>
+                                                        <i class="fas text-info fa-download"></i>
+                                                    </th>
+                                        </div>
+                                        <div class="i">
+                                        <tr>
+                                                    <td>
+                                                        <?= __('Pan Card') ?>
+                                                    </td>
+                                                    <th>
+                                                        <i class="fas text-info fa-download"></i>
+                                                    </th>
+                                                </tr>
+                                        </div>
+                                        <div class="i">
+                                        <tr>
+                                                    <td>
+                                                        <?= __('Pan Card') ?>
+                                                    </td>
+                                                    <th>
+                                                        <i class="fas text-info fa-download"></i>
+                                                    </th>
+                                                </tr>
+                                        </div>
+                                    </div>
+                                    
+                                       
+                                    </div>
+                                    <div class="text-right m-2">
+                                        <button type="submit" class="btn btn-custom">Update</button>
+                                    </div>
                                     <!-- <div class="text-right m-2">
                                             <button type="button" class="btn-custom prof-udt" data-toggle="modal"
                                                 data-target="#modal-confirm">Update</button>
@@ -283,7 +376,8 @@ switch ($vendorTemp->status) {
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Are you sure?</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
@@ -293,7 +387,8 @@ switch ($vendorTemp->status) {
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="submit" class="btn btn-updt btn-custom">Save
                                                         changes</button>
-                                                    <button type="button" class="btn btn-font btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-font btn-secondary"
+                                                        data-dismiss="modal">Close</button>
 
                                                 </div>
                                             </div>
@@ -528,7 +623,7 @@ switch ($vendorTemp->status) {
             </div>
             <div class="card-footer">
                 <div class="text">
-                <?php if ($vendorTemp->status == 1) : ?>
+                <?php if ($vendorTemp->status == 1): ?>
                     <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-default']) ?>
                     <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-default reject', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
                 <?php endif; ?>
@@ -539,7 +634,8 @@ switch ($vendorTemp->status) {
 </div> -->
 
 <!-- Modal Reject remarks-->
-<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel" aria-hidden="true">
+<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
 
         <div class="modal-content">
@@ -567,8 +663,8 @@ switch ($vendorTemp->status) {
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        $(".reject").onClick(function() {
+    $(document).ready(function () {
+        $(".reject").onClick(function () {
 
         });
     });
@@ -618,17 +714,17 @@ switch ($vendorTemp->status) {
             }
         },
         errorElement: 'span',
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');
             element.closest('.form-group').append(error);
         },
-        highlight: function(element, errorClass, validClass) {
+        highlight: function (element, errorClass, validClass) {
             $(element).addClass('is-invalid');
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
             $(element).removeClass('is-invalid');
         },
-        submitHandler: function(form, event) {
+        submitHandler: function (form, event) {
             event.preventDefault();
             $('#profileUpdate')[0].submit();
             return false;

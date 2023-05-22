@@ -191,8 +191,10 @@ table#example1 tr th,table#example1 tr td{
     color: #004d87 !important;
 }
 .gate-entry {
-    padding: 20px;
+    margin-left: 0px;
 }
+    
+
 .rfqs .card-body {
     padding-top: 10px !important;
 }
@@ -228,7 +230,7 @@ table#example1 tr th,table#example1 tr td{
 .vendorTemps .table.vendor-info td,.vendorTemps .vendor-info th {
     padding: 12px 15px;
     font-size: 14px;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 .vendorTemps .table.vendor-info span.badge.bg-info {
     background-color: unset!important;
@@ -343,9 +345,14 @@ div#past_messages  .past-msg:last-child{
 .gateentry-asn label {
     color: #999;
     margin-left: 0px;
-    text-transform: uppercase;
+    text-transform: capitalize;
     margin-top: 0px;
-    font-size: 14px !important;
+    font-size: 12px !important;
+    margin-bottom: 4px;
+}
+.card-body.gateentry-asn {
+    padding: 10px;
+    border: 1px solid #ddd;
 }
 table.table.table-bordered.delivery-dt-tbl td,table.table.table-bordered.delivery-dt-tbl th {
     font-size: 14px;
@@ -375,7 +382,7 @@ a.back-btn {
 .calcu table {
     width: 14%;
     margin: 0 15px 0 auto;
-    font-size: 17px;
+    font-size: 15px;
 }
 .invoice-details label {
     color: #818589 !important;
@@ -436,7 +443,14 @@ td.ponum {
     margin-left: 5px;
 }
 .btn-custom {
-    background-color: #112A68;
+    background-color: #8E9B2C;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.1rem;
+    padding: 10px 20px;
+}
+.btn-custom-2 {
+    background-color: #08132F;
     color: #fff;
     font-size: 14px;
     line-height: 1.1rem;
@@ -604,13 +618,19 @@ input.form-control.search {
 
   }
 
-
+  .commu-review .card-body {
+    height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #f1f1f1;
+    padding: 15px !important;
+}
   .purchase-order .po-box {
     border-right: 1px solid #ccc;
     padding: 5px 20px;
     width: 170px;
     cursor: pointer;
-    color: #999;
+    color: #444;
   }
 
   .purchase-order .po-code {

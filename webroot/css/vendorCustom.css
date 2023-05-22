@@ -206,6 +206,7 @@ a.page-link,.dataTables_info {
     margin-right: 5px;
     margin-top: 0px !important ;
     margin-bottom: 0px !important;
+    display: block;
 }
 .search-bar .search-box {
     height: 30px;

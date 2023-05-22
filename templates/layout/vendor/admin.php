@@ -18,7 +18,7 @@ padding: 0.5rem 0.5rem;
 
 }
 aside.main-sidebar {
-    background-color: #112A68 !important;
+    background-color: #08132F !important;
 }
 body{
         

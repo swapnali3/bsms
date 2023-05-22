@@ -1,4 +1,10 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <style>
+    body,h5,h6,p,h4,h3,label{
+        font-family: 'Roboto', sans-serif !important;
+    }
     .custom-i {
         background-color: #ffc107 !important;
     }
@@ -42,8 +48,9 @@
 
     .navbar.card-header h4 {
         color: #004d87;
-        text-transform: uppercase;
-        font-size: 20px;
+    text-transform: uppercase;
+    font-size: 20px;
+    letter-spacing: 0.04rem;
     }
 
     .user .thumb {

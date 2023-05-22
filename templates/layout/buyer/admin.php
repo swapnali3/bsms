@@ -11,7 +11,7 @@
     min-height:750px !important;
 }
 aside.main-sidebar {
-    background-color: #112A68 !important;
+    background-color: #08132F !important;
 }
 .nav-link.active {
     background-color: #0C1D49 !important;
@@ -36,8 +36,8 @@ aside.main-sidebar {
     <?= $this->Html->css('cstyle.css') ?>
     <!-- Google Font: Source Sans Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
     <!-- Font Awesome Icons -->
@@ -82,9 +82,8 @@ aside.main-sidebar {
 
 </head>
 <style>
-     body{
-        
-        font-family: 'Source Sans Pro', sans-serif;
+     body,h5,h6,p,h4,h3,label{
+        font-family: 'Roboto', sans-serif !important;
     }
 </style>
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">

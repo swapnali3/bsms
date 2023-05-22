@@ -18,11 +18,11 @@
             <div class="d-flex justify-content-between">
 
                 <div class="head-t">
-                    <h4 class="p-2 text-info"><b>Gate Entry (GE)</b></h4>
+                    <h5 class="text-info pt-2"><b>Gate Entry (GE)</b></h5>
                 </div>
                 <?php if($deliveryDetails->toArray()[0]->status == 2) { ?>
                 <div class="actionbtn">
-                    <button type="button" class="btn btn-custom mark_delivered" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">Mark Entry</button>
+                    <button type="button" class="btn btn-custom mark_delivered mb-1" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">Mark Entry</button>
                 </div>
                 <?php } ?>
             </div>
@@ -32,7 +32,7 @@
 
             <div class="">
 
-                <div class="card-body p-3 gateentry-asn" style="background-color: #f5f7fd !important;">
+                <div class="card-body gateentry-asn" style="background-color: #f5f7fd !important;">
                     <div class="row">
                         <div class="col-md-2">
                             <label>ASN No.</label>
@@ -90,7 +90,7 @@
             </div>
 
             <div class="card-body mt-3">
-                <table class="table table-bordered delivery-dt-tbl">
+                <table class="table table-bordered delivery-dt-tbl mb-2">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -128,6 +128,7 @@
             "autoWidth": false,
             "searching": false,
             "sorting": false,
+            "ordering":true,
         });
     });
 
