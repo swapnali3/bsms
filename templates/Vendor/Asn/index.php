@@ -49,7 +49,7 @@
 
                     <td>
                     
-                    <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">Delivered</span>' : ($deliveryDetail->status == 3 ? '<span class="badge bg-warning">Received</span>' : '<span class="badge bg-info">Created</span>') ?>
+                    <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">In Transit</span>' : ($deliveryDetail->status == 3 ? '<span class="badge bg-warning">Received</span>' : '<span class="badge bg-info">Created</span>') ?>
 
                     
                 </tr>

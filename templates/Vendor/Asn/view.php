@@ -26,7 +26,9 @@
                             if($deliveryDetails[0]->status == '1') {
                                 echo 'Created';
                             } else if($deliveryDetails[0]->status == '2') {
-                                echo 'Delivered';
+                                echo 'In Transit';
+                            } else if($deliveryDetails[0]->status == '3') {
+                                echo 'Received';
                             } ?>
                             </span>
                     </div>
