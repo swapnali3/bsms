@@ -27,7 +27,7 @@
 
 <body class="stretched">
 	<div id="wrapper" class="clearfix">
-		<header id="header" class="full-header dark">
+		<!-- <header id="header" class="full-header dark">
 			<div id="header-wrap">
 				<div class="container">
 					<div class="header-row">
@@ -41,13 +41,13 @@
 					</div>
 				</div>
 			</div>
-		</header>
+		</header> -->
 
 		<?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
         
 		<!-- Footer		============================================= -->
-		<footer id="footer" class="dark">
+		<!-- <footer id="footer" class="dark">
 			<div class="container">
 				<div class="footer-widgets-wrap p-3">
 					<div class="row col-mb-50">
@@ -59,7 +59,7 @@
 					</div>
 				</div>
 			</div>
-		</footer>
+		</footer> -->
 	</div>
 	<div id="gotoTop" class="icon-angle-up"></div>
 	<?= $this->Html->script(['plugins.min', 'components/bs-select.js', 'components/selectsplitter.js', 'functions', 'jquery.themepunch.tools.min', 'jquery.themepunch.revolution.min', 'extensions/revolution.extension.video.min', 'extensions/revolution.extension.slideanims.min', 'extensions/revolution.extension.actions.min', 'extensions/revolution.extension.layeranimation.min', 'extensions/revolution.extension.kenburn.min', 'extensions/revolution.extension.navigation.min', 'extensions/revolution.extension.migration.min', 'extensions/revolution.extension.parallax.min', 'common', 'custom']) ?>

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
@@ -18,12 +19,33 @@ class DeliveryDetailsController extends VendorAppController
      */
     public function index()
     {
-        $this->loadModel('DeliveryDetails');
-        $this->paginate = [
-            'contain' => ['PoHeaders', 'PoFooters'],
-            'conditions' => ['status' => '0']
-        ];
-        $deliveryDetails = $this->paginate($this->DeliveryDetails);
+        $this->set('headTitle', 'Intransit');
+        // $this->loadModel('DeliveryDetails');
+        // $session = $this->getRequest()->getSession();
+        // $this->paginate = [
+        //     'contain' => ['PoHeaders', 'PoFooters'],
+        //     'conditions' => ['status' => '0', 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')] 
+        // ];
+
+
+        // $deliveryDetails = $this->paginate($this->DeliveryDetails);
+
+        // //echo '<pre>'; print_r($deliveryDetails);
+
+        // $this->set(compact('deliveryDetails'));
+
+        $this->loadModel('AsnHeaders');
+        $session = $this->getRequest()->getSession();
+        $query = $this->AsnHeaders->find()
+            ->select(['AsnHeaders.id','AsnHeaders.invoice_no','AsnHeaders.status','AsnHeaders.asn_no','AsnHeaders.invoice_value', 'PoHeaders.po_no','PoHeaders.currency', 'AsnHeaders.added_date','AsnHeaders.updated_date'])
+            ->contain(['PoHeaders'])
+            ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code'), 'AsnHeaders.status' => '2' ]);
+
+        //echo '<pre>'; print_r($query); exit;
+        $deliveryDetails = $this->paginate($query);
+
+
+        //echo '<pre>'; print_r($rfqDetails); exit;
 
         $this->set(compact('deliveryDetails'));
     }

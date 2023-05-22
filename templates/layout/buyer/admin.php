@@ -6,6 +6,18 @@
  */
 
 ?>
+<style>
+.content-wrapper{
+    min-height:750px !important;
+}
+aside.main-sidebar {
+    background-color: #112A68 !important;
+}
+.nav-link.active {
+    background-color: #0C1D49 !important;
+    color:#fff !important;
+}
+</style>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +35,11 @@
     
     <?= $this->Html->css('cstyle.css') ?>
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 
@@ -43,9 +58,13 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/toastr/toastr.min.css') ?>
-    
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.css') ?>
+  
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
+    <?= $this->Html->css('table.css') ?>
+    <?= $this->Html->css('listing.css') ?>
+
     
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
@@ -57,13 +76,17 @@
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.js") ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
-    <?= $this->Html->script('/js/cscript.js') ?>
     <script>
         var baseurl = "<?= $this->Url->build('/') ?>";
     </script>
 
 </head>
-
+<style>
+     body{
+        
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+</style>
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
     <div class="wrapper">
         <!-- Navbar -->
@@ -76,8 +99,9 @@
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
-                style="background-color:#ffffff; text-align-last:center;">
-                <?= $this->Html->image('ft_rect_logo.png', ['width' => '175', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
+                style="text-align-last:center;background-color:#fff;"  >
+                <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '1']) ?>
+                <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
             <div class="sidebar">
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="text-align-last: center;">
@@ -120,7 +144,7 @@
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
-        <footer class="main-footer">
+        <footer class="main-footer text-center p-2"  style="margin-top:0px;">
             <?= $this->element('footer/main') ?>
         </footer>
     </div>
@@ -142,6 +166,7 @@
 
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>
+    <?= $this->Html->script('/js/cscript.js') ?>
 </body>
 
 </html>

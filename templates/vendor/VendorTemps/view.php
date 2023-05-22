@@ -1,115 +1,629 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp $vendorTemp
  */
 
 
- switch($vendorTemp->status) {
-    case 0 : $status = 'Sent to Vendor'; break;
-    case 1 : $status = 'Pending for approval'; break;
-    case 2 : $status = 'approved'; break;
+switch ($vendorTemp->status) {
+    case 0:
+        $status = '<span class="badge bg-warning">Sent to Vendor</span>';
+        break;
+    case 1:
+        $status = '<span class="badge bg-info">Pending for approval</span>';
+        break;
+    case 2:
+        $status = '<span class="badge bg-info">Sent to SAP</span>';
+        break;
+    case 3:
+        $status = '<span class="badge bg-success">Approved</span>';
+        break;
+    case 4:
+        $status = '<span class="badge bg-danger">Rejected</span>';
+        break;
 }
 
 ?>
+<?= $this->Html->css('vendorCustom') ?>
+
+<div class="profile-page pb-4 pl-2">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card" style="height:100%">
+                <div class="left-s">
+                    <!-- <div class="head">
+                <h5 class="text-uppercase text-info">Personal Details</h5>
+            </div> -->
+                    <div class="prof-img text-center">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="desc">
+                        <ul>
+                            <li>
+                                <p>Name : <b> <?= h($vendorTemp->name) ?></b></p>
+                            </li>
+                            <li>
+                                <p>Mobile No :<b> <?= h($vendorTemp->mobile) ?></b></p>
+                            </li>
+                            <li>
+                                <p>Email ID : <b><?= h($vendorTemp->email) ?></b></p>
+                            </li>
+                            <li>
+                                <p>SAP Vendor Code :
+                                    <b><?= !empty($vendorTemp->sap_vendor_code) ? $vendorTemp->sap_vendor_code : '' ?></b>
+                                </p>
+                            </li>
+                            <li>
+                                <p>Status : <b> <?= $status ?></b></p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card mb-0" style="height:100%">
+                <div class="right-s">
+                    <?= $this->Form->create(null, ['url' => '/vendor/vendor-temps/view/', 'type' => 'file', 'id' => 'profileUpdate']) ?>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="des">
+                                <div class="row">
+                                    <div class="clo-md-6 col-lg-6 pr-0">
+                                        <table style="border-right:1px solid #ddd;">
+                                            <tr>
+                                                <td>
+                                                    <?= __('Address 1') ?>
+                                                </td>
+                                                <th style="padding:10px 10px;">
+                                                    <div class="form-group mb-0">
+                                                        <input type="text" name="address1" value="<?= h($vendorTemp->address) ?>" class="form-control" required>
+                                                </th>
+                                    </div>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('Address 2') ?>
+                                        </td>
+                                        <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="text" name="address2" value="<?= h($vendorTemp->address_2) ?>" class="form-control">
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('City') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->city) ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('Pincode') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->pincode) ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('Country') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->country) ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('Purchasing Organization') ?>
+                                        </td>
+                                        <th>
+                                            <?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <?= __('Schema Group') ?>
+                                        </td>
+                                        <th>
+                                            <?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?>
+                                        </th>
+                                    </tr>
 
 
-<div class="row">
-    <div class="column-responsive column-80">
-        <div class="vendorTemps view content">
-            <h3><?= h($vendorTemp->name) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Purchasing Organization') ?></th>
-                    <td><?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Account Group') ?></th>
-                    <td><?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Schema Group') ?></th>
-                    <td><?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Name') ?></th>
-                    <td><?= h($vendorTemp->name) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Address') ?></th>
-                    <td><?= h($vendorTemp->address) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('City') ?></th>
-                    <td><?= h($vendorTemp->city) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Pincode') ?></th>
-                    <td><?= h($vendorTemp->pincode) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Mobile') ?></th>
-                    <td><?= h($vendorTemp->mobile) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Email Id') ?></th>
-                    <td><?= h($vendorTemp->email) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Country') ?></th>
-                    <td><?= h($vendorTemp->country) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Order Currency') ?></th>
-                    <td><?= h($vendorTemp->order_currency) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Gst No') ?></th>
-                    <td><?= h($vendorTemp->gst_no) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Pan No') ?></th>
-                    <td><?= h($vendorTemp->pan_no) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Contact Person') ?></th>
-                    <td><?= h($vendorTemp->contact_person) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Contact Email Id') ?></th>
-                    <td><?= h($vendorTemp->contact_email) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Contact Mobile') ?></th>
-                    <td><?= h($vendorTemp->contact_mobile) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Cin No') ?></th>
-                    <td><?= h($vendorTemp->cin_no) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Tan No') ?></th>
-                    <td><?= h($vendorTemp->tan_no) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Added Date') ?></th>
-                    <td><?= h($vendorTemp->added_date) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Updated Date') ?></th>
-                    <td><?= h($vendorTemp->updated_date) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Status') ?></th>
-                    <td><?= $status ?></td>
-                </tr>
-            </table>
-            <div class="text">
-                <strong><?= __('Payment Term') ?></strong>
-                <blockquote>
-                    <?= $this->Text->autoParagraph(h($vendorTemp->payment_term)); ?>
-                </blockquote>
+
+
+                                    <tr>
+                                        <td>
+                                            <?= __('Pan No') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->pan_no) ?>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <?= __('Cin No') ?>
+                                        </td>
+                                        <th>
+                                            <?= h($vendorTemp->cin_no) ?>
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <?= __('Account Group') ?>
+                                        </td>
+                                        <th>
+                                            <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
+                                        </th>
+                                    </tr>
+
+                                    </table>
+                                </div>
+                                <div class="clo-md-6 col-lg-6 pl-0">
+
+                                    <table>
+
+
+
+                                        <tr>
+                                            <td>
+                                                <?= __('Gst No') ?>
+                                            </td>
+                                            <th>
+                                                <?= h($vendorTemp->gst_no) ?>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Tan No') ?>
+                                            </td>
+                                            <th>
+                                                <?= h($vendorTemp->tan_no) ?>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Contact Person') ?>
+                                            </td>
+                                            <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="text" name="contact_person" value=" <?= h($vendorTemp->contact_person) ?>" class="form-control">
+                                            </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Contact Mobile') ?>
+                                            </td>
+                                            <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="number" name="contact_mobiles" value="<?= h($vendorTemp->contact_mobile) ?>" class="form-control">
+                                            </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Contact Email Id') ?>
+                                            </td>
+                                            <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="email" name="contact_email" value=" <?= h($vendorTemp->contact_email) ?>" class="form-control">
+                                            </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Contact Department') ?>
+                                            </td>
+                                            <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="text" name="contact_department" value="<?= h($vendorTemp->contact_department) ?>" class="form-control">
+                                            </div>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Contact Designation') ?>
+                                            </td>
+                                            <th style="padding:4px 10px;">
+                                            <div class="form-group mb-0">
+                                                <input type="text" name="contact_designation" value="<?= h($vendorTemp->contact_designation) ?>" class="form-control">
+                                            </div>
+                                            </th>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <?= __('Payment Term') ?>
+                                            </td>
+                                            <th>
+                                                <?= (h($vendorTemp->payment_term)); ?>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Order Currency') ?>
+                                            </td>
+                                            <th>
+                                                <?= h($vendorTemp->order_currency) ?>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                    <!-- <div class="text-right m-2">
+                                            <button type="button" class="btn-custom prof-udt" data-toggle="modal" data-target="#modal-confirm">Update</button>
+                                        </div> -->
+                                    <div class="text-right m-2">
+                                        <button type="submit" class="btn btn-custom">Update</button>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-12 col-lg-12">
+                                    <!-- <div class="text-right m-2">
+                                            <button type="button" class="btn-custom prof-udt" data-toggle="modal"
+                                                data-target="#modal-confirm">Update</button>
+                                        </div> -->
+                                    <div class="modal fade" id="modal-confirm">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Are you sure?</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <!-- <div class="modal-body">
+                                                <p>Are you sure?</p>
+                                                </div> -->
+                                                <div class="modal-footer justify-content-between">
+                                                    <button type="submit" class="btn btn-updt btn-custom">Save
+                                                        changes</button>
+                                                    <button type="button" class="btn btn-font btn-secondary" data-dismiss="modal">Close</button>
+
+                                                </div>
+                                            </div>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
+                                    <!-- /.modal -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <?= $this->form->end() ?>
             </div>
         </div>
     </div>
 </div>
+</div>
+
+<!-- <div class="row">
+    <div class="col-12">
+        <div class="vendorTemps view content card">
+            <div class="card-header">
+                <h5><b>
+                    <?= h($vendorTemp->name) ?></b>
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <table class="table mb-0">
+                                <tr>
+                                    <td>
+                                        <?= __('SAP Vendor Code') ?>
+                                    </td>
+                                    <th>
+                                        <?= !empty($vendorTemp->sap_vendor_code) ? $vendorTemp->sap_vendor_code : '' ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Purchasing Organization') ?>
+                                    </td>
+                                    <th>
+                                        <?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Schema Group') ?>
+                                    </td>
+                                    <th>
+                                        <?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Address') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->address) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Pincode') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->pincode) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Email Id') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->email) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Order Currency') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->order_currency) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Pan No') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->pan_no) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Contact Email Id') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->contact_email) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Cin No') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->cin_no) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Added Date') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->added_date) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Status') ?>
+                                    </td>
+                                    <th>
+                                        <?= $status ?>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <table class="table mb-0" style="font-size: 0.8rem;">
+                                <tr>
+                                    <td>
+                                        <?= __('Account Group') ?>
+                                    </td>
+                                    <th>
+                                        <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Name') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->name) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('City') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->city) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Mobile') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->mobile) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Country') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->country) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Gst No') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->gst_no) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Contact Person') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->contact_person) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Contact Mobile') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->contact_mobile) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Tan No') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->tan_no) ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Payment Term') ?>
+                                    </td>
+                                    <th>
+                                        <?= $this->Text->autoParagraph(h($vendorTemp->payment_term)); ?>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <?= __('Updated Date') ?>
+                                    </td>
+                                    <th>
+                                        <?= h($vendorTemp->updated_date) ?>
+                                    </th>
+                                </tr>
+
+                               
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="text">
+                <?php if ($vendorTemp->status == 1) : ?>
+                    <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-default']) ?>
+                    <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-default reject', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
+                <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- Modal Reject remarks-->
+<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <?= $this->Form->create(null, ['id' => 'rejectRemarks', 'url' => ['action' => 'approve-vendor', $vendorTemp->id, 'rej']]) ?>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Rejection Remark</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php
+                echo $this->Form->control('remarks', ['label' => false, 'type' => 'textarea', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
+
+                ?>
+            </div>
+            <div id="error_msg"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Reject</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $(".reject").onClick(function() {
+
+        });
+    });
+
+
+    $("#profileUpdate").validate({
+        rules: {
+            address1: {
+                required: true
+            },
+            contact_person: {
+                required: true
+            },
+            contact_mobiles: {
+                required: true
+            },
+            contact_email: {
+                required: true,
+                email: true
+            },
+            contact_department: {
+                required: true
+            },
+            contact_designation: {
+                required: true
+            }
+        },
+        messages: {
+            address1: {
+                required: "Please enter an address"
+            },
+            contact_person: {
+                required: "Please enter a contact person"
+            },
+            contact_mobiles: {
+                required: "Please enter a contact mobile"
+            },
+            contact_email: {
+                required: "Please enter a contact email",
+                email: "Please enter a valid email address"
+            },
+            contact_department: {
+                required: "Please enter a contact department"
+            },
+            contact_designation: {
+                required: "Please enter a contact designation"
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function(error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+        submitHandler: function(form, event) {
+            event.preventDefault();
+            $('#profileUpdate')[0].submit();
+            return false;
+        }
+    });
+</script>

@@ -1,4 +1,9 @@
 <?php use Cake\Core\Configure; ?>
+<style>
+    .main-footer span {
+    font-size: 13px;
+}
+</style>
 
 <!-- Default to the left -->
-<p>Copyright &copy; <?php echo date("Y"); ?> <a href="https://fts-pl.com" target="_blank">F.T. Solutions Pvt. Ltd.</a>All rights reserved.</p>
+<span>Copyright &copy; <?php echo date("Y"); ?> <a>F.T. Solutions Pvt. Ltd.</a>All rights reserved.</span>

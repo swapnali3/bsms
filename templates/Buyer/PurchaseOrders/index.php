@@ -4,16 +4,16 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
-<div class="poHeaders index content card">
-    <div class="card-header"style="
-    background-color: #0095ff;
-">
-        <h3 style="color:WHITE">
+ <?= $this->Html->css('custom') ?>
+
+<div class="poHeaders index content card po">
+    <!-- <div class="card-header">
+        <h5>
             <b>
                 <?= __('PURCHASE ORDER LISTS') ?>
             </b>
-        </h3>
-    </div>
+        </h5>
+    </div> -->
     <div class="card-body p-0">
         <div class="table-responsive">
             <table class="table table-hover" id="example1">
@@ -52,14 +52,14 @@
                         <th>
                             <?= h('Updated Date') ?>
                         </th>
-                        <th class="actions">
+                        <!-- <th class="actions">
                             <?= __('Actions') ?>
-                        </th>
+                        </th> -->
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($poHeaders as $poHeader): ?>
-                    <tr>
+                    <tr class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
                         <td>
                             <?= h($poHeader->sap_vendor_code) ?>
                         </td>
@@ -93,9 +93,9 @@
                         <td>
                             <?= h($poHeader->updated_date) ?>
                         </td>
-                        <td class="actions">
+                        <!-- <td class="actions">
                             <a type="button" class="btn btn-sm btn-default mb-0" href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= h($poHeader->id) ?>">View</a>
-                        </td>
+                        </td> -->
                     </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -117,12 +117,14 @@
 
 
 <script>
-    
+     $(document).on("click", ".redirect", function () {
+        window.location.href = $(this).data("href");
+    });
     $(document).ready(function () {
         $("#example1").DataTable({
             "responsive": {"details": {"type": none}},
             "paging": true,
-            "responsive": true, "lengthChange": false, "autoWidth": false, "searching": true,
+            "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });

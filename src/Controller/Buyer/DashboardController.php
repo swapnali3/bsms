@@ -33,6 +33,7 @@ class DashboardController extends BuyerAppController
 {
     public function index() {
 
+        $this->set('headTitle', 'Dashboard');
         $session = $this->getRequest()->getSession();
 
         if(!$session->check('id')) {
@@ -52,8 +53,8 @@ class DashboardController extends BuyerAppController
             ->select(['RfqDetails.id','RfqDetails.rfq_no','Products.name','RfqDetails.added_date', 'RfqInquiries.reach', 'RfqInquiries.respond'])
             ->contain(['Products'])
             ->leftJoin(
-                ['RfqInquiries' => '(select rfq_id, count(seller_id) reach, count(inquiry) respond FROM rfq_inquiries group by rfq_inquiries.rfq_id)'],
-                ['RfqInquiries.rfq_id = RfqDetails.id'])
+                ['RfqInquiries' => '(select rfq_item_id, count(seller_id) reach, count(inquiry) respond FROM rfq_inquiries group by rfq_inquiries.rfq_item_id)'],
+                ['RfqInquiries.rfq_item_id = RfqDetails.id'])
             ->where(['RfqDetails.buyer_seller_user_id' => $session->read('id')]);
 
     $rfqDetails = $this->paginate($query);

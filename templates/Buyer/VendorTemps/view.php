@@ -5,31 +5,67 @@
  */
 
 
- switch($vendorTemp->status) {
-    case 0 : $status = '<span class="badge bg-warning">Sent to Vendor</span>'; break;
-    case 1 : $status = '<span class="badge bg-info">Pending for approval</span>'; break;
-    case 2 : $status = '<span class="badge bg-info">Sent to SAP</span>'; break;
-    case 3 : $status = '<span class="badge bg-success">Approved</span>'; break;
-    case 4 : $status = '<span class="badge bg-danger">Rejected</span>'; break;
+switch ($vendorTemp->status) {
+    case 0:
+        $status = '<span class="badge bg-warning">Sent to Vendor</span>';
+        break;
+    case 1:
+        $status = '<span class="badge bg-info">Pending for approval</span>';
+        break;
+    case 2:
+        $status = '<span class="badge bg-info">Sent to SAP</span>';
+        break;
+    case 3:
+        $status = '<span class="badge bg-success">Approved</span>';
+        break;
+    case 4:
+        $status = '<span class="badge bg-danger">Rejected</span>';
+        break;
 
 }
 
 ?>
-
+<style>
+    p {
+        margin-bottom: 0px;
+    }
+</style>
+<?= $this->Html->css('custom') ?>
 
 <div class="row">
     <div class="col-12">
         <div class="vendorTemps view content card">
             <div class="card-header">
-                <h5>
-                    <?= h($vendorTemp->name) ?>
+                <div class="d-flex justify-content-between">
+                <h5 class="align-self-center">
+                    <b>
+                        <?= h($vendorTemp->name) ?>
+                    </b>
                 </h5>
+                <div class="">
+                <div class="text">
+                    <?php if ($vendorTemp->status == 1): ?>
+                        <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
+                        <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject mb-0 btn-sm', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+                </div>
+                
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
                         <div class="card">
-                            <table class="table">
+                            <table class="table vendor-info mb-0">
+                                <tr>
+                                    <th>
+                                        <?= __('SAP Vendor Code') ?>
+                                    </th>
+                                    <td>
+                                        <?= !empty($vendorTemp->sap_vendor_code) ? $vendorTemp->sap_vendor_code : '' ?>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th>
                                         <?= __('Purchasing Organization') ?>
@@ -48,10 +84,18 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        <?= __('Address') ?>
+                                        <?= __('Address 1') ?>
                                     </th>
                                     <td>
                                         <?= h($vendorTemp->address) ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <?= __('Address 2') ?>
+                                    </th>
+                                    <td>
+                                        
                                     </td>
                                 </tr>
                                 <tr>
@@ -86,14 +130,7 @@
                                         <?= h($vendorTemp->pan_no) ?>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th>
-                                        <?= __('Contact Email Id') ?>
-                                    </th>
-                                    <td>
-                                        <?= h($vendorTemp->contact_email) ?>
-                                    </td>
-                                </tr>
+                                
                                 <tr>
                                     <th>
                                         <?= __('Cin No') ?>
@@ -112,6 +149,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        <?= __('Updated Date') ?>
+                                    </th>
+                                    <td>
+                                        <?= h($vendorTemp->updated_date) ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         <?= __('Status') ?>
                                     </th>
                                     <td>
@@ -123,7 +168,7 @@
                     </div>
                     <div class="col-6">
                         <div class="card">
-                            <table class="table">
+                            <table class="table vendor-info mb-0">
                                 <tr>
                                     <th>
                                         <?= __('Account Group') ?>
@@ -182,10 +227,35 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        <?= __('Contact Email Id') ?>
+                                    </th>
+                                    <td>
+                                        <?= h($vendorTemp->contact_email) ?>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <th>
                                         <?= __('Contact Mobile') ?>
                                     </th>
                                     <td>
                                         <?= h($vendorTemp->contact_mobile) ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <?= __('Contact Department') ?>
+                                    </th>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <?= __('Contact Designation') ?>
+                                    </th>
+                                    <td>
+                                        
                                     </td>
                                 </tr>
                                 <tr>
@@ -201,69 +271,55 @@
                                         <?= __('Payment Term') ?>
                                     </th>
                                     <td>
-                                        <?= $this->Text->autoParagraph(h($vendorTemp->payment_term)); ?>
+                                        <?= h($vendorTemp->payment_term) ?>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th>
-                                        <?= __('Updated Date') ?>
-                                    </th>
-                                    <td>
-                                        <?= h($vendorTemp->updated_date) ?>
-                                    </td>
-                                </tr>
+                                
 
-                               
+
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                <div class="text">
-                <?php if($vendorTemp->status == 1) : ?>
-                    <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-default' ]) ?>
-                    <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-default reject', 'data-toggle'=> "modal", 'data-target' => "#remarkModal"]) ?>
-                <?php endif; ?>
-                </div>
-            </div>
+           
         </div>
     </div>
 </div>
 
 <!-- Modal Reject remarks-->
 <div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
 
-    <div class="modal-content">
+        <div class="modal-content">
 
-      <?= $this->Form->create(null, ['id' => 'rejectRemarks',  'url' => ['action' => 'approve-vendor', $vendorTemp->id, 'rej']]) ?>
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Rejection Remark</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <?php
-            echo $this->Form->control('remarks', ['label' => false, 'type' => 'textarea', 'class' => 'form-control rounded-0','div' => 'form-group']);  
-            
-        ?>
-      </div>
-      <div id="error_msg"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Reject</button>
-      </div>
-      </form>
+            <?= $this->Form->create(null, ['id' => 'rejectRemarks', 'url' => ['action' => 'approve-vendor', $vendorTemp->id, 'rej']]) ?>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Rejection Remark</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php
+                echo $this->Form->control('remarks', ['label' => false, 'type' => 'textarea', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
+
+                ?>
+            </div>
+            <div id="error_msg"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Reject</button>
+            </div>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 <script>
     $(document).ready(function () {
-        $(".reject").onClick( function () {
-                
-        }); 
+        $(".reject").onClick(function () {
+
+        });
     });
 </script>

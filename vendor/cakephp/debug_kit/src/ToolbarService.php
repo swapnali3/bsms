@@ -2,14 +2,14 @@
 declare(strict_types=1);
 
 /**
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link          https://cakephp.org CakePHP(tm) Project
+ * @license       https://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace DebugKit;
 
@@ -100,9 +100,14 @@ class ToolbarService
      */
     public function isEnabled()
     {
-        $enabled = (bool)Configure::read('debug');
+        if (isset($GLOBALS['__PHPUNIT_BOOTSTRAP'])) {
+            return false;
+        }
+        $enabled = (bool)Configure::read('debug')
+                && !$this->isSuspiciouslyProduction()
+                && php_sapi_name() !== 'phpdbg';
 
-        if ($enabled && !$this->isSuspiciouslyProduction()) {
+        if ($enabled) {
             return true;
         }
         $force = $this->getConfig('forceEnable');

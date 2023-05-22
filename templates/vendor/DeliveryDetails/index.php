@@ -4,59 +4,64 @@
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
  */
 ?>
-<div class="deliveryDetails index content card">
-    <div class="card-header">
-        <h3 style="color: navy;">
+<style>
+    /* .body{
+        font-size:0.9rem;
+    }
+    .card-body{
+        font-size:0.9rem
+    }
+    .table td, .table th{
+        padding:0rem
+    } */
+    </style>
+<?= $this->Html->css('vendorCustom') ?>
+
+<div class="deliveryDetails index content card intransit">
+    <div class="card-header p-2">
+        <h5 class="mb-0">
             <b>
-                <?= __('DELIVERY DETAIL') ?>
+                <?= __('DELIVERY DETAILS') ?>
             </b>
-        </h3>
+        </h5>
     </div>
-    <div class="card-body">
-        <table class="table table-hover" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
+    <div class="card-body p-2">
+        <table class="table table-hover" id="example1">
             <thead>
-                <tr style="background-color: #d3d3d36e;">
+                <tr>
+                  
+                    <th>Asn No</th>
                     <th>Purchase Order</th>
-                    <th>Item</th>
-                    <th>Challan No.</th>
-                    <th>Qty</th>
-                    <th>Ewaybill No.</th>
-                    <th>E-invoice No</th>
+                    <th>invoice No</th>
+                    <th>invoice value</th>
                     <th>Status</th>
-                    <th>Added Date</th>
-                    <th>Updated Date</th>
+                   
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($deliveryDetails as $deliveryDetail): ?>
                 <tr>
+                   
+                    <td>
+                    <?=  $deliveryDetail->asn_no ?>
+                    </td>
                     <td>
                         <?= $deliveryDetail->has('po_header') ? $deliveryDetail->po_header->po_no : '' ?>
                     </td>
+
+                    
                     <td>
-                        <?= $deliveryDetail->has('po_footer') ? $deliveryDetail->po_footer->item : '' ?>
+                        <?= h($deliveryDetail->invoice_no) ?>
+                    </td>
+                    
+
+                    <td>
+                        <?= h($deliveryDetail->invoice_value).' '. h($deliveryDetail->po_header->currency)?>
                     </td>
                     <td>
-                        <?= h($deliveryDetail->challan_no) ?>
-                    </td>
-                    <td>
-                        <?= $this->Number->format($deliveryDetail->qty) ?>
-                    </td>
-                    <td>
-                        <?= h($deliveryDetail->eway_bill_no) ?>
-                    </td>
-                    <td>
-                        <?= h($deliveryDetail->einvoice_no) ?>
-                    </td>
-                    <td><span class="badge bg-warning">
-                            <?= h($deliveryDetail->status ? '' : 'Intransit') ?>
-                        </span></td>
-                    <td>
-                        <?= h($deliveryDetail->added_date) ?>
-                    </td>
-                    <td>
-                        <?= h($deliveryDetail->updated_date) ?>
-                    </td>
+                    <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">Delivered</span>' : '<span class="badge bg-warning">INTRANSIT</span>' ?>
+</td>
+                
                 </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -71,6 +76,11 @@
         var table = $("#example1").DataTable({
             "paging": true,
             "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
+            "ordering":false,
+            language: {
+          search: "_INPUT_",
+        searchPlaceholder: "Search..."
+    },
         });
     });
 

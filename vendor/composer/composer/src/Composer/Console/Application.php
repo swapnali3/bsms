@@ -17,6 +17,7 @@ use Composer\Util\Filesystem;
 use Composer\Util\Platform;
 use Composer\Util\Silencer;
 use LogicException;
+use RuntimeException;
 use Seld\Signal\SignalHandler;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Exception\CommandNotFoundException;
@@ -84,10 +85,12 @@ class Application extends BaseApplication
     /** @var SignalHandler */
     private $signalHandler;
 
-    public function __construct()
+    public function __construct(string $name = 'Composer', string $version = '')
     {
         static $shutdownRegistered = false;
-
+        if ($version === '') {
+            $version = Composer::getVersion();
+        }
         if (function_exists('ini_set') && extension_loaded('xdebug')) {
             ini_set('xdebug.show_exception_trace', '0');
             ini_set('xdebug.scream', '0');
@@ -121,7 +124,7 @@ class Application extends BaseApplication
 
         $this->initialWorkingDirectory = getcwd();
 
-        parent::__construct('Composer', Composer::getVersion());
+        parent::__construct($name, $version);
     }
 
     public function __destruct()
@@ -144,7 +147,7 @@ class Application extends BaseApplication
         $this->disableScriptsByDefault = $input->hasParameterOption('--no-scripts');
 
         $stdin = defined('STDIN') ? STDIN : fopen('php://stdin', 'r');
-        if (Platform::getEnv('COMPOSER_NO_INTERACTION') || $stdin === false || !Platform::isTty($stdin)) {
+        if (Platform::getEnv('COMPOSER_TESTS_ARE_RUNNING') !== '1' && (Platform::getEnv('COMPOSER_NO_INTERACTION') || $stdin === false || !Platform::isTty($stdin))) {
             $input->setInteractive(false);
         }
 
@@ -205,6 +208,28 @@ class Application extends BaseApplication
             }
         }
 
+        $needsSudoCheck = !Platform::isWindows()
+            && function_exists('exec')
+            && !Platform::getEnv('COMPOSER_ALLOW_SUPERUSER')
+            && (ini_get('open_basedir') || !file_exists('/.dockerenv'));
+        $isNonAllowedRoot = false;
+
+        // Clobber sudo credentials if COMPOSER_ALLOW_SUPERUSER is not set before loading plugins
+        if ($needsSudoCheck) {
+            $isNonAllowedRoot = function_exists('posix_getuid') && posix_getuid() === 0;
+
+            if ($isNonAllowedRoot) {
+                if ($uid = (int) Platform::getEnv('SUDO_UID')) {
+                    // Silently clobber any sudo credentials on the invoking user to avoid privilege escalations later on
+                    // ref. https://github.com/composer/composer/issues/5119
+                    Silencer::call('exec', "sudo -u \\#{$uid} sudo -K > /dev/null 2>&1");
+                }
+            }
+
+            // Silently clobber any remaining sudo leases on the current user as well to avoid privilege escalations
+            Silencer::call('exec', 'sudo -K > /dev/null 2>&1');
+        }
+
         // avoid loading plugins/initializing the Composer instance earlier than necessary if no plugin command is needed
         // if showing the version, we never need plugin commands
         $mayNeedPluginCommand = false === $input->hasParameterOption(['--version', '-V'])
@@ -213,9 +238,27 @@ class Application extends BaseApplication
                 false === $commandName
                 // list command requires plugin commands to show them
                 || in_array($commandName, ['', 'list', 'help'], true)
+                // autocompletion requires plugin commands but if we are running as root without COMPOSER_ALLOW_SUPERUSER
+                // we'd rather not autocomplete plugins than abort autocompletion entirely, so we avoid loading plugins in this case
+                || ($commandName === '_complete' && !$isNonAllowedRoot)
             );
 
         if ($mayNeedPluginCommand && !$this->disablePluginsByDefault && !$this->hasPluginCommands) {
+            // at this point plugins are needed, so if we are running as root and it is not allowed we need to prompt
+            // if interactive, and abort otherwise
+            if ($isNonAllowedRoot) {
+                $io->writeError('<warning>Do not run Composer as root/super user! See https://getcomposer.org/root for details</warning>');
+
+                if ($io->isInteractive() && $io->askConfirmation('<info>Continue as root/super user</info> [<comment>yes</comment>]? ')) {
+                    // avoid a second prompt later
+                    $isNonAllowedRoot = false;
+                } else {
+                    $io->writeError('<warning>Aborting as no plugin should be loaded if running as super user is not explicitly allowed</warning>');
+
+                    return 1;
+                }
+            }
+
             try {
                 foreach ($this->getPluginCommands() as $command) {
                     if ($this->has($command->getName())) {
@@ -243,6 +286,11 @@ class Application extends BaseApplication
             }
 
             $this->hasPluginCommands = true;
+        }
+
+        if ($isNonAllowedRoot && !$io->isInteractive()) {
+            $io->writeError('<error>Composer plugins have been disabled for safety in this non-interactive session. Set COMPOSER_ALLOW_SUPERUSER=1 if you want to allow plugins to run as root/super user.</error>');
+            $this->disablePluginsByDefault = true;
         }
 
         // determine command name to be executed incl plugin commands, and check if it's a proxy command
@@ -277,30 +325,16 @@ class Application extends BaseApplication
                 $io->writeError(sprintf('<warning>Warning: This development build of Composer is over 60 days old. It is recommended to update it by running "%s self-update" to get the latest version.</warning>', $_SERVER['PHP_SELF']));
             }
 
-            if (
-                !Platform::isWindows()
-                && function_exists('exec')
-                && !Platform::getEnv('COMPOSER_ALLOW_SUPERUSER')
-                && (ini_get('open_basedir') || !file_exists('/.dockerenv'))
-            ) {
-                if (function_exists('posix_getuid') && posix_getuid() === 0) {
-                    if ($commandName !== 'self-update' && $commandName !== 'selfupdate') {
-                        $io->writeError('<warning>Do not run Composer as root/super user! See https://getcomposer.org/root for details</warning>');
+            if ($isNonAllowedRoot) {
+                if ($commandName !== 'self-update' && $commandName !== 'selfupdate' && $commandName !== '_complete') {
+                    $io->writeError('<warning>Do not run Composer as root/super user! See https://getcomposer.org/root for details</warning>');
 
-                        if ($io->isInteractive()) {
-                            if (!$io->askConfirmation('<info>Continue as root/super user</info> [<comment>yes</comment>]? ')) {
-                                return 1;
-                            }
+                    if ($io->isInteractive()) {
+                        if (!$io->askConfirmation('<info>Continue as root/super user</info> [<comment>yes</comment>]? ')) {
+                            return 1;
                         }
                     }
-                    if ($uid = (int) Platform::getEnv('SUDO_UID')) {
-                        // Silently clobber any sudo credentials on the invoking user to avoid privilege escalations later on
-                        // ref. https://github.com/composer/composer/issues/5119
-                        Silencer::call('exec', "sudo -u \\#{$uid} sudo -K > /dev/null 2>&1");
-                    }
                 }
-                // Silently clobber any remaining sudo leases on the current user as well to avoid privilege escalations
-                Silencer::call('exec', 'sudo -K > /dev/null 2>&1');
             }
 
             // Check system temp folder for usability as it can cause weird runtime issues otherwise
@@ -369,17 +403,7 @@ class Application extends BaseApplication
                     $this->renderThrowable($e, $output);
                 }
 
-                $exitCode = $e->getCode();
-                if (is_numeric($exitCode)) {
-                    $exitCode = (int) $exitCode;
-                    if (0 === $exitCode) {
-                        $exitCode = 1;
-                    }
-                } else {
-                    $exitCode = 1;
-                }
-
-                return $exitCode;
+                return max(1, $e->getCode());
             }
 
             throw $e;
@@ -417,12 +441,12 @@ class Application extends BaseApplication
             if (null !== $composer && function_exists('disk_free_space')) {
                 $config = $composer->getConfig();
 
-                $minSpaceFree = 1024 * 1024;
+                $minSpaceFree = 100 * 1024 * 1024;
                 if ((($df = disk_free_space($dir = $config->get('home'))) !== false && $df < $minSpaceFree)
                     || (($df = disk_free_space($dir = $config->get('vendor-dir'))) !== false && $df < $minSpaceFree)
                     || (($df = disk_free_space($dir = sys_get_temp_dir())) !== false && $df < $minSpaceFree)
                 ) {
-                    $io->writeError('<error>The disk hosting '.$dir.' is full, this may be the cause of the following exception</error>', true, IOInterface::QUIET);
+                    $io->writeError('<error>The disk hosting '.$dir.' has less than 100MiB of free space, this may be the cause of the following exception</error>', true, IOInterface::QUIET);
                 }
             }
         } catch (\Exception $e) {
@@ -478,6 +502,10 @@ class Application extends BaseApplication
                     throw $e;
                 }
             } catch (JsonValidationException $e) {
+                if ($required) {
+                    throw $e;
+                }
+            } catch (RuntimeException $e) {
                 if ($required) {
                     throw $e;
                 }

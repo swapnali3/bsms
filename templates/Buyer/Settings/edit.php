@@ -5,6 +5,7 @@
  */
 ?>
 <div class="row">
+
     <div class="column-responsive column-80">
         <div class="settings form content">
             <?= $this->Form->create($setting) ?>

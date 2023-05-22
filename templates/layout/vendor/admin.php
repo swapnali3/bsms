@@ -9,7 +9,24 @@
 
 <!DOCTYPE html>
 <html lang="en">
+<style>
+.brand-link{
+padding: 0.5rem 0.5rem;
+}
+.nav-link.active{
+    background-color: #0C1D49 !important;
 
+}
+aside.main-sidebar {
+    background-color: #112A68 !important;
+}
+body{
+        
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+
+</style>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,11 +37,14 @@
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
-
+    
+    <?= $this->Html->css('listing.css') ?>
     <?= $this->Html->css('cstyle.css') ?>
+    <?= $this->Html->css('table.css') ?>
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 
@@ -68,10 +88,12 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
+        <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>" style="background-color:#482668;">
             <!-- Brand Logo -->
-            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="background-color:#ffffff;text-align: center;">
-                <?= $this->Html->image('ft_rect_logo.png', ['style' => 'width:8.6vw', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
+            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
+                style="background-color:#ffffff; text-align-last:center;">
+                <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '2']) ?>
+                <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
 
             <div class="sidebar">
@@ -116,7 +138,7 @@
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
-        <footer class="main-footer">
+        <footer class="main-footer"  style="margin-top:0px;text-align: center;">
             <?= $this->element('footer/main') ?>
         </footer>
     </div>

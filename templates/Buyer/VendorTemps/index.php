@@ -3,14 +3,39 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp[]|\Cake\Collection\CollectionInterface $vendorTemps
  */
+
 ?>
-<div class="card">
-<div class="card-header px-4 py-3" style="
-    background-color: #0095ff;
+<?= $this->Html->css('custom') ?>
+<style>
+/* .card-body{
+    padding:0.1rem;
+    background-Color:WHITE
+}
+.table td, .table th{font-size:small;}
+.card-header{
+    padding:0.3rem
+}
+label{
+    margin-top:0.5rem
+}
+.table td, .table th{
+    padding:0rem
+}
+.table> :not(caption)>*>*{
+    padding:0.3rem 0.3rem
+}
+.mb-2, .my-2{
+    margin-bottom:0.5rem
+} */
+
+</style>
+<!-- <div class="card">
+<div class="card-header" style="
+    background-color: #cbcbcb;
 ">
-        <div class="row" style="width:110vw;">
+        <div class="row" style="width:90vw;">
             <div class="col-sm-12 col-lg-9">
-                <h3 style="color:white;" class="mb-0"><b>VENDOR LIST</b></h3>
+                <h5 style="color:white;" class="mb-0"><b>VENDOR LIST</b></h5>
             </div>
             <div class="col-sm-12 col-lg-3">
                 <h4 class="float-right mb-0">
@@ -21,18 +46,21 @@
                         </a>
                     </b>
                 </h4>
-            </div>
+            </div> -->
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body vendor-list">
         <div class="table-responsive">
-            <table class="card-body table table-hover" id="example1">
+            <table class="table table-hover" id="example1">
                 <thead>
                     <tr>
                         <th>
                             <?= h('Status') ?>
                         </th>
                         <!-- <th class="actions"><?= __('Actions') ?></th> -->
+                        <th>
+                            <?= h('SAP Vendor Code') ?>
+                        </th>
                         <th>
                             <?= h('Name') ?>
                         </th>
@@ -82,6 +110,9 @@
                         </td>
                         <!-- <td class="actions"><a type="button" class="btn btn-default" href="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">View</a></td> -->
                         <td>
+                            <?= h($vendorTemp->sap_vendor_code) ?>
+                        </td>
+                        <td>
                             <?= h($vendorTemp->name) ?>
                         </td>
                         <td>
@@ -123,13 +154,18 @@
 <script>
     $(document).ready(function () {
         $("#example1").DataTable({
-            "responsive": false, "lengthChange": true, "autoWidth": true,
+            "responsive": false, "lengthChange": false, "autoWidth": true,
+            "ordering":false,
             'order': [[10, 'desc']],
+            language: {
+          search: "_INPUT_",
+        searchPlaceholder: "Search..."
+    },
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         });
         $('#example1').on('click', 'tbody tr', function () {
             window.location = $(this).closest('tr').attr('redirect');
         });
-        $('.row').attr('style','width:110vw;')
+        // $('.row').attr('style','width:110vw;')
     });
 </script>

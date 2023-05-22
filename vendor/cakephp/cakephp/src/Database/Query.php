@@ -1000,6 +1000,19 @@ class Query implements ExpressionInterface, IteratorAggregate
      * If you use string conditions make sure that your values are correctly quoted.
      * The safest thing you can do is to never use string conditions.
      *
+     * ### Using null-able values
+     *
+     * When using values that can be null you can use the 'IS' keyword to let the ORM generate the correct SQL based on the value's type
+     *
+     * ```
+     * $query->where([
+     *     'posted >=' => new DateTime('3 days ago'),
+     *     'category_id IS' => $category,
+     * ]);
+     * ```
+     *
+     * If $category is `null` - it will actually convert that into `category_id IS NULL` - if it's `4` it will convert it into `category_id = 4`
+     *
      * @param \Cake\Database\ExpressionInterface|\Closure|array|string|null $conditions The conditions to filter on.
      * @param array<string, string> $types Associative array of type names used to bind values to query
      * @param bool $overwrite whether to reset conditions with passed list or not
@@ -1534,6 +1547,9 @@ class Query implements ExpressionInterface, IteratorAggregate
      */
     public function limit($limit)
     {
+        if (is_string($limit) && !is_numeric($limit)) {
+            throw new InvalidArgumentException('Invalid value for `limit()`');
+        }
         $this->_dirty();
         $this->_parts['limit'] = $limit;
 
@@ -1560,6 +1576,9 @@ class Query implements ExpressionInterface, IteratorAggregate
      */
     public function offset($offset)
     {
+        if (is_string($offset) && !is_numeric($offset)) {
+            throw new InvalidArgumentException('Invalid value for `offset()`');
+        }
         $this->_dirty();
         $this->_parts['offset'] = $offset;
 
@@ -1646,7 +1665,7 @@ class Query implements ExpressionInterface, IteratorAggregate
      * with Query::values().
      *
      * @param array $columns The columns to insert into.
-     * @param array<string, string> $types A map between columns & their datatypes.
+     * @param array<int|string, string> $types A map between columns & their datatypes.
      * @return $this
      * @throws \RuntimeException When there are 0 columns.
      */

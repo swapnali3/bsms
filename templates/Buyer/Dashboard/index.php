@@ -5,247 +5,563 @@
  */
 ?>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-<div class="row mt-4 mx-1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
+<style>
+    aside.main-sidebar {
+    background-color: #112A68 !important;
+    }
+    .nav-link.active {
+        background-color: #0C1D49 !important;
+    }
+  /* 
+  
+  
+  .user-panel .image{
+    margin-right: 10px;
+  }
+  .products-list .product-img {
+    float: clear;
+  }
+
+  .products-list .product-img .cust-img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .product-description {
+
+    font-size: 7px;
+  }
+
+  .card-header {
+    padding: 0rem.0rem;
+    margin-left: 10px;
+    margin-top: 5px
+  }
+
+  .product-title {
+    color: black;
+  }
+
+
+
+  .badge-warning {
+    color: black;
+    background-Color: lightgrey
+  }
+
+  
+
+  
+
+
+
+  .card-title{
+    font-size:0.9rem;
+    font-family:system-ui;
+  }
+
+  .card-body{
+    padding:0.25rem
+  }
+  .badge-warning{
+    background-Color:white;
+    font-size: 12px;
+  }
+
+  .products-list .product-title{
+    font-weight:400;
+  }
+ */
+
+
+</style>
+<?= $this->Html->css('custom') ?>
+<div class="buyer-dash">
+<div class="row mt-4 mx-1 mb-3 first-row">
+  
+
   <div class="col-sm-12 col-lg-3">
-    <div class="card mb-2" style="border-radius:1rem;">
+    <div class="card">
+      <div class="card-header">
+        <h1 class="card-title">Vendors</h1>
 
-      <div class="card-header p-3 pt-2">
-        <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">shopping_cart</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize"><b>Purchase Orders</b></h1>
-          <h4 class="mb-0"><?= $totalPos ?></h4>
-        </div>
-      </div>
-
-      <hr class="dark horizontal my-0">
-      <div class="card-footer p-3">
-        <button type="button" class="button">
-          <?= $this->Html->link(__('More Info!'), ['controller' => 'purchase-orders', 'action' => 'index'], ['style'=>'color:white;'], ['class' => 'small-box-footer', 'escape' => false]) ?>
-          
-        </button>
 
       </div>
-    </div>
-  </div>
-
-  <div class="col-sm-12 col-lg-3">
-    <div class="card  mb-2" style="border-radius:1rem;">
-      <div class="card-header p-3 pt-2">
-        <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">request_quote</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize"><b>Vendor Pending for Details</b></h1>
-          <h4 class="mb-0"><?= $totalVendorTemps ?></h4>
-        </div>
-      </div>
-
-      <hr class="dark horizontal my-0">
-      <div class="card-footer p-3">
-        <button type="button" class="button"><?= $this->Html->link(__('More info!'), ['controller' => 'vendor-temps', 'action' => 'index'],['style'=>'color:white;'],['class' => 'small-box-footer', 'escape' => false]) ?></button>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-12 col-lg-3">
-    <div class="card  mb-2" style="border-radius:1rem;">
-      <div class="card-header p-3 pt-2 bg-transparent">
-        <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">local_shipping</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize "><b>Vendor Intransit</b>
-          </h1>
-          <h4 class="mb-0 "><?= $totalIntransit ?></h4>
-        </div>
-      </div>
-
-
-      <hr class="horizontal my-0 dark">
-      <div class="card-footer p-3">
-        <button type="button" class="button"><?= $this->Html->link(__('More info!'), ['controller' => 'delivery-details', 'action' => 'index'],['style'=>'color:white;'], ['class' => 'small-box-footer', 'escape' => false]) ?></button>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-12 col-lg-3">
-    <div class="card  mb-2" style="border-radius:1rem;">
-      <div class="card-header p-3 pt-2 bg-transparent">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">monetization_on</i>
-        </div>
-        <div class="text-end pt-1">
-          <h1 class="text-sm mb-0 text-capitalize "><b>More Info</b>
-          </h1>
-          <h4 class="mb-0 "><?= $totalRfqDetails ?></h4>
-        </div>
-      </div>
-
-
-      <hr class="horizontal my-0 dark">
-      <div class="card-footer p-3">
-        <button type="button" class="button"><?= $this->Html->link(__('More info '), ['controller' => 'rfq-details', 'action' => 'index'],['style'=>'color:white;'], ['class' => 'small-box-footer', 'escape' => false]) ?></button>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-
-<!-- <div class="row pt-4">
-      <div class="col-sm-12  col-lg-4 mb-5">
-        <div class="card  mb-2">
-          <div class="card-header p-3 pt-2">
-            <div
-              class="icon icon-lg icon-shape bg-gradient-dark shadow-dark shadow text-center border-radius-xl mt-n4 position-absolute">
-              <i class="material-icons opacity-10">weekend</i>
+      <!-- /.card-header -->
+      <div class="card-body p-0">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+            <i class="fas fa-th-large text-info"></i>
             </div>
-            <div class="text-end pt-1">
-              <p class="text-sm mb-0 text-capitalize">Purchase Orders</p>
-              <h4 class="mb-0">
-                <?= $totalPos ?>
-              </h4>
-        </div>
+            <div class="product-info">
+              <a href="javascript:void(0)" class="product-title">Total</a>
+              <span class="p-value">6</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="fas fa-user-plus text-danger"></i>
+
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Onboarding
+               </a>
+                <span class="p-value">2</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="far fa-check-square text-success"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Approved
+               </a>
+                <span class="p-value">3</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="fas fa-share-square text-warning"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Sent to SAP
+              
+        </a>
+                <span class="p-value">1</span>
+            </div>
+          </li>
+          <!-- /.item -->
+        </ul>
       </div>
 
-      <hr class="dark horizontal my-0">
-      <div class="card-footer p-3">
-        <p class="mb-0"><span class="text-success text-sm font-weight-bolder">
-            <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?>
-          </span>
+      <!-- /.card-footer -->
+    </div>
+    
+  </div>
+
+  <div class="col-sm-12 col-lg-3">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Purchase Orders</h3>
+
+
       </div>
+      <!-- /.card-header -->
+      <div class="card-body p-0">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+            <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="javascript:void(0)" class="product-title">Total</a>
+              <span class="p-value">20</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="far fa-calendar-check text-success"></i>
+
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Completed</a>
+              <span class="p-value">15</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="far fa-clock text-danger"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Pending</a>
+                <span class="p-value">5</span>
+            </div>
+          </li>
+         
+        </ul>
+      </div>
+    
+      <!-- /.card-body -->
+
+      <!-- /.card-footer -->
     </div>
   </div>
-  <div class="col-sm-12  col-lg-4 mb-5">
-    <div class="card  mb-2">
-      <div class="card-header p-3 pt-2">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-primary shadow-primary shadow text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">leaderboard</i>
-        </div>
-        <div class="text-end pt-1">
-          <p class="text-sm mb-0 text-capitalize">Vendor Pending for Details</p>
-          <h4 class="mb-0">
-            <?= $totalVendorTemps ?>
-          </h4>
-        </div>
-      </div>
 
-      <hr class="dark horizontal my-0">
-      <div class="card-footer p-3">
-        <p class="mb-0"><span class="text-success text-sm font-weight-bolder">
-            <?= $this->Html->link(__('More Info'), ['controller' => 'vendor-temps', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?>
-          </span>
+  <div class="col-sm-12 col-lg-3">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Payments</h3>
+
+
       </div>
+      <!-- /.card-header -->
+      <div class="card-body p-0">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+            <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="javascript:void(0)" class="product-title">Total Amount</a>
+              <span class="p-value">500000.00</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="far fa-calendar-check text-warning"></i>
+
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Paid</a>
+              <span class="p-value">400000.00</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="fas fa-balance-scale text-success"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Balance</a>
+                <span class="p-value">100000.00</span>
+            </div>
+          </li>
+         
+        </ul>
+      </div>
+    
+      <!-- /.card-body -->
+
+      <!-- /.card-footer -->
     </div>
   </div>
-  <div class="col-sm-12  col-lg-4 mb-5">
-    <div class="card  mb-2">
-      <div class="card-header p-3 pt-2 bg-transparent">
-        <div
-          class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-          <i class="material-icons opacity-10">monetization_on</i>
-        </div>
-        <div class="text-end pt-1">
-          <p class="text-sm mb-0 text-capitalize ">Vendor Intransit</p>
-          <h4 class="mb-0 ">
-            <?= $totalIntransit ?>
-          </h4>
-        </div>
-      </div>
 
-      <hr class="horizontal my-0 dark">
-      <div class="card-footer p-3">
-        <p class="mb-0 "><span class="text-success text-sm font-weight-bolder">
-            <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?>
-          </span>
+  <div class="col-sm-12 col-lg-3">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">ASN</h3>
+
       </div>
+      <!-- /.card-header -->
+      <div class="card-body p-0">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+            <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="javascript:void(0)" class="product-title">Intransit</a>
+              <span class="p-value">10</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="far fa-calendar-check text-warning"></i>
+
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Created</a>
+              <span class="p-value">5</span>
+            </div>
+          </li>
+          <!-- /.item -->
+          <li class="item">
+            <div class="product-img">
+            <i class="fas fa-truck text-info"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Received</a>
+                <span class="p-value">5</span>
+            </div>
+          </li>
+         
+        </ul>
+      </div>
+      <!-- <div class="card-body p-0">
+        <ul class="products-list product-list-in-card pl-2 pr-2">
+          <li class="item">
+            <div class="product-img">
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
+                style="width: 2vw;height: auto;">
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Dispatched
+                <span class="badge badge-warning float-right">10</span></a>
+              <span class="product-description">
+                
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
+                style="width: 2vw;height: auto;">
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Intrasit
+                <span class="badge badge-warning float-right">5</span></a>
+              <span class="product-description">
+                
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
+                style="width: 2vw;height: auto;">
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="javascript:void(0)" class="product-title">Delivered
+                <span class="badge badge-warning float-right">5</span></a>
+              <span class="product-description">
+                
+              </span>
+            </div>
+          </li>
+          
+        </ul>
+      </div> -->
+      <!-- /.card-body -->
+
+      <!-- /.card-footer -->
+    </div>
+    
+  </div>
+
+</div>
+<div class="row mx-1">
+  <div class="col-sm-12 col-lg-6">
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">Top Vendors by order Value</h3>
+
+
+      </div>
+      <div class="card-body">
+        <div class="chartjs-size-monitor">
+          <div class="chartjs-size-monitor-expand">
+            <div class=""></div>
+          </div>
+          <div class="chartjs-size-monitor-shrink">
+            <div class=""></div>
+          </div>
+        </div>
+        <canvas id="donutChart"
+          style="min-height: 180px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
+          width="487" height="150" class="chartjs-render-monitor"></canvas>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-lg-6">
+
+    <div class="card card-dafault">
+      <div class="card-header">
+        <h3 class="card-title">Po order value by period</h3>
+
+
+      </div>
+      <div class="card-body">
+        <div class="chart">
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div>
+          <canvas id="barChart"
+            style="min-height: 165px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 200;"
+            width="200" height="250" class="chartjs-render-monitor"></canvas>
+        </div>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+
+
+</div>
+<div class="row mx-1">
+  <div class="col-sm-12 col-lg-6">
+
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">Top Material by quantity</h3>
+
+
+      </div>
+      <div class="card-body">
+        <div class="chartjs-size-monitor">
+          <div class="chartjs-size-monitor-expand">
+            <div class=""></div>
+          </div>
+          <div class="chartjs-size-monitor-shrink">
+            <div class=""></div>
+          </div>
+        </div>
+        <canvas id="donutChart1"
+          style="min-height: 180px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 300px;"
+          width="487" height="250" class="chartjs-render-monitor"></canvas>
+      </div>
+      <!-- /.card-body -->
+    </div>
+
+  </div>
+
+  <div class="col-sm-12 col-lg-6">
+
+    <div class="card card-default">
+      <div class="card-header">
+        <h3 class="card-title">Top Material by order value</h3>
+
+
+      </div>
+      <div class="card-body">
+        <div class="chart">
+          <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+              <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+              <div class=""></div>
+            </div>
+          </div>
+          <canvas id="barChart2"
+            style="min-height: 250pxx; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
+            width="487" height="250" class="chartjs-render-monitor"></canvas>
+        </div>
+      </div>
+      <!-- /.card-body -->
     </div>
   </div>
 </div>
-
-<div class="row">
-  <div class="col-lg-3 col-6">
-    <div class="small-box bg-success">
-      <div class="inner">
-        <h3>
-          <?=$totalRfqDetails?>
-        </h3>
-
-        <p>Active RFQ</p>
-      </div>
-      <div class="icon">
-        <i class="fas fa-question-circle  nav-icon"></i>
-      </div>
-
-      <?= $this->Html->link(__('More info &nbsp;<i class="fas fa-arrow-circle-right"></i>'), ['controller' => 'rfq-details', 'action' => 'index'], ['class' => 'small-box-footer', 'escape' => false]) ?>
-    </div>
-  </div>
-  -->
-<div class="col-12 p-2">
-  <div class="card">
-    <div class="card-body p-2">
-      <table class="table table-hover" id="example1">
-        <thead>
-          <tr>
-
-            <th>
-              <?= h('RFQ No.') ?>
-            </th>
-            <th>
-              <?= h('Category') ?>
-            </th>
-            <th>
-              <?= h('Date Raised') ?>
-            </th>
-            <th>
-              <?= h('Supplier Reached') ?>
-            </th>
-            <th>
-              <?= h('Suppliers Responded') ?>
-            </th>
-            <th class="actions">
-              <?= __('Actions') ?>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($rfqDetails as $rfqDetail):?>
-          <tr style="text-align-last: center;">
-            <td>
-              <?= str_pad($rfqDetail->rfq_no, 5, 0, STR_PAD_LEFT) ?>
-            </td>
-            <td>
-              <?= $rfqDetail->has('product') ? h($rfqDetail->product->name) : '' ?>
-            </td>
-            <td>
-              <?= h($rfqDetail->added_date) ?>
-            </td>
-            <td>
-              <?= $rfqDetail->RfqInquiries['reach'] ? h($rfqDetail->RfqInquiries['reach']) : 0 ?>
-            </td>
-            <td>
-              <?= $rfqDetail->RfqInquiries['respond'] ? h($rfqDetail->RfqInquiries['respond']) : 0 ?>
-            </td>
-            <td class="actions">
-              <a href="<?= $this->Url->build('/') ?>buyer/rfq-details/view/<?= $rfqDetail->id ?>" class="btn btn-sm bg-gradient-primary mb-0 py-1 px-2">
-              <i class='material-icons opacity-10'>visibility</i> View
-            </a>
-              <!-- <?= $this->Html->link(__(""), ['controller' => 'rfq-details', 'action' => 'view', $rfqDetail->id], ['class'=> 'button py-1 px-2']) ?> -->
-            </td>
-          </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>
-</div>
-</div>
-</section>
+<script src="<?= $this->Url->build('/') ?>js/chart.js"></script>
+<script>
+  //-------------
+  //- BAR CHART -
+  //-------------
+  var areaChartData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [
+      {
+        label: 'Payment',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [28, 48, 40, 19, 86, 27, 90]
+      },
+      {
+        label: 'Order',
+        backgroundColor: 'rgba(210, 214, 222, 1)',
+        borderColor: 'rgba(210, 214, 222, 1)',
+        pointRadius: false,
+        pointColor: 'rgba(210, 214, 222, 1)',
+        pointStrokeColor: '#c1c7d1',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(220,220,220,1)',
+        data: [120, 100, 150, 200, 150, 100, 140]
+      },
+    ]
+  }
+  var barChartCanvas = $('#barChart').get(0).getContext('2d')
+  var barChartCanvas1 = $('#barChart2').get(0).getContext('2d')
+  var barChartData = $.extend(true, {}, areaChartData)
+  var temp0 = areaChartData.datasets[0]
+  var temp1 = areaChartData.datasets[1]
+  barChartData.datasets[0] = temp1
+  barChartData.datasets[1] = temp0
+
+  var barChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    datasetFill: false
+  }
+
+  new Chart(barChartCanvas, {
+    type: 'bar',
+    data: barChartData,
+    options: barChartOptions
+  })
+  new Chart(barChartCanvas1, {
+    type: 'bar',
+    data: barChartData,
+    options: barChartOptions
+  })
+
+
+
+  //-------------
+  //- DONUT CHART -
+  //-------------
+  // Get context with jQuery - using jQuery's .get() method.
+  var donutChartCanvas = $('#donutChart').get(0).getContext('2d');
+  var donutChartCanvas1 = $('#donutChart1').get(0).getContext('2d');
+  var donutData = {
+    labels: [
+      '0000100119',
+      '0000100114',
+      '0000100123',
+    ],
+    datasets: [
+      {
+        data: [5000, 2000, 1500],
+        backgroundColor: ['#f56954', '#00a65a', '#f39c12'],
+      }
+    ]
+  }
+  var donutOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+  }
+  //Create pie or douhnut chart
+  // You can switch between pie and douhnut using the method below.
+  new Chart(donutChartCanvas, {
+    type: 'doughnut',
+    data: donutData,
+    options: donutOptions
+  })
+
+  var donutData1 = {
+    labels: [
+      'PHFG0411',
+      'PHFG0417',
+  
+    ],
+    datasets: [
+      {
+        data: [345345345, 503232340],
+        backgroundColor: ['#f56954', '#00a65a'],
+      }
+    ]
+  }
+  var donutOptions1 = {
+    maintainAspectRatio: false,
+    responsive: true,
+  }
+  new Chart(donutChartCanvas1, {
+    type: 'doughnut',
+    data: donutData1,
+    options: donutOptions1
+  })
+</script>
 
 <!-- <script>
   $(document).ready(function () {

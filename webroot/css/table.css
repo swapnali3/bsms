@@ -1,0 +1,64 @@
+.table td,
+.table th {
+	padding: 0rem
+}
+
+.hr {
+	margin-top: 10rem;
+	margin-bottom: 10rem;
+
+}
+
+.table thead th {
+    font-weight: 500;
+    color: #696969 !important;
+    font-size: 12px !important;
+}
+
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px
+}
+
+.table>thead{
+
+    background-color: #d4ddf7 !important;
+}
+.table>tbody{
+	background-color: #f5f7fd !important;
+}
+.table th{
+	font-size:12px;
+}
+/* .table td, .table th{
+	font-size:14px;
+} */
+.badge.bg-warning {
+    background: #415586 !important;
+    color: #fff !important;
+}
+.page-item.active .page-link {
+   color: #fff !important;
+    background-color: #112a68 !important;
+    border-color: #112a68 !important;
+}
+.page-link{
+	color: #112a68 !important;
+}
+.table-hover tbody tr:hover {
+   
+    background-color: #B4F2FB !important;
+}
+
+
+.btn-group-sm>.btn, .btn-sm{
+	font-size:10px
+}
+
+.card-header{
+	padding:0rem
+}
+.table tbody tr td {
+    font-size: 14px;
+}
+

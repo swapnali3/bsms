@@ -102,6 +102,8 @@ class Config
     private $configSource;
     /** @var ConfigSourceInterface */
     private $authConfigSource;
+    /** @var ConfigSourceInterface|null */
+    private $localAuthConfigSource = null;
     /** @var bool */
     private $useEnvironment;
     /** @var array<string, true> */
@@ -151,6 +153,16 @@ class Config
     public function getAuthConfigSource(): ConfigSourceInterface
     {
         return $this->authConfigSource;
+    }
+
+    public function setLocalAuthConfigSource(ConfigSourceInterface $source): void
+    {
+        $this->localAuthConfigSource = $source;
+    }
+
+    public function getLocalAuthConfigSource(): ?ConfigSourceInterface
+    {
+        return $this->localAuthConfigSource;
     }
 
     /**
@@ -376,7 +388,8 @@ class Config
                 return $value;
 
             case 'discard-changes':
-                if ($env = $this->getComposerEnv('COMPOSER_DISCARD_CHANGES')) {
+                $env = $this->getComposerEnv('COMPOSER_DISCARD_CHANGES');
+                if ($env !== false) {
                     if (!in_array($env, ['stash', 'true', 'false', '1', '0'], true)) {
                         throw new \RuntimeException(
                             "Invalid value for COMPOSER_DISCARD_CHANGES: {$env}. Expected 1, 0, true, false or stash"
@@ -495,6 +508,7 @@ class Config
         }
 
         return Preg::replaceCallback('#\{\$(.+)\}#', function ($match) use ($flags) {
+            assert(is_string($match[1]));
             return $this->get($match[1], $flags);
         }, $value);
     }
@@ -519,7 +533,7 @@ class Config
      * This should be used to read COMPOSER_ environment variables
      * that overload config values.
      *
-     * @return string|bool
+     * @return string|false
      */
     private function getComposerEnv(string $var)
     {

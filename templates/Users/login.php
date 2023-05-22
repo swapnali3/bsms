@@ -2,7 +2,121 @@
 <html lang="en">
 
 <head>
+
+<?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
+<?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
+
   <style type="text/css">
+    div#email_login {
+    margin-top: 20px;
+}
+    .error {
+    color: #FF0000;
+    text-align: left;
+    display: block;
+}
+    input::placeholder {
+    font-size: 14px;
+}
+    .signupcard .signupform__signin--signinText{
+      margin-bottom:5% !important;
+    }
+    .mb-0{
+      margin-bottom:0px;
+    }
+    p.error-msg {
+    color: #e31720;
+    text-align: left;
+    margin-top: 5px;
+    font-size: 12px;
+    font-style: italic;
+}
+    .signupcard .signupform__signin {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 5% 15% 5% !important;
+    /* height: 600px; */
+}
+ .ant-card-body {
+    padding:0px !important;
+}
+/*.ant-card.signupcard.ant-card-bordered {
+    height: 100%;
+} */
+
+    .v2container {
+    color: white;
+    background-color: #b61924 !important;
+    background: #2980b9 !important;
+    background: -webkit-linear-gradient(to right, #2c3e50, #2980b9) !important;
+    background: linear-gradient(to right, #2c3e50, #2980b9) !important;
+    height: auto !important;
+    min-height: calc(100vh - 0px) !important;
+}
+div#mobile_login {
+    width: 100%;
+    padding: 0px 16%;
+}
+canvas.particles-js-canvas-el {
+  
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    left: 0;
+    top:0;
+    bottom:0;
+    right:0;
+}
+.left-content h1 {
+    color: #fff;
+    font-size: 2.8vw;
+    line-height: 3.5rem;
+}
+.left-content {
+    padding-left: 65px;
+}
+.left-content p {
+    font-size: 20px;
+}
+img.flow-img {
+    width: 55%;
+}
+.ant-row {
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+}
+    .s-logo {
+    width: 60%;
+}
+    .sub-btn {
+      background-image: linear-gradient(to right, #FF4E50 0%, #F9D423 51%, #FF4E50 100%) !important;
+    transition: 0.5s;
+    background-size: 200% auto !important;
+    color: white;
+    box-shadow: 0 0 20px #eee !important;
+    border-radius: 30px !important;
+    display: block;
+    font-size: 15px !important;
+    line-height: 1.1em !important;
+    margin: 0px !important;
+    height: 40px !important;
+    border: none !important;
+    margin-top: 7px !important;
+}
+.sub-btn:hover {
+    background-position: right center !important;
+    color: #fff;
+    text-decoration: none;
+}
     .anticon {
       display: inline-block;
       color: inherit;
@@ -70,6 +184,7 @@
   <link rel="stylesheet" href="<?= $this->Url->build('/') ?>css/all.min.css">
   <link href="<?= $this->Url->build('/') ?>css/5.7cec8de0.chunk.css" rel="stylesheet">
   <link href="<?= $this->Url->build('/') ?>css/main.26d266c0.chunk.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
   <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/0.5bbd83f8.chunk.js"></script>
   <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/1.a9e5058d.chunk.js"></script>
   <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/6.3128c4ca.chunk.js"></script>
@@ -83,44 +198,14 @@
     <div class="App">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
-      <div class="v2container">
+      <div class="v2container" id="particles-js">
         <div class="ant-row">
-          <div
-            class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
-            <!-- <div class="others">
-              <p class="others__text1">&nbsp;<br>&nbsp;</p>
-              <p class="others__text2">&nbsp;</p>
-              <div class="others__benifits">
-                <div class="others__benifits__box">
-                  <img class="others__benifits__box--image" src="<?= $this->Url->build('/') ?>img/logo_s.png">
-                  <div class="others__benifits__box--name">&nbsp;</div>
-                  <div class="others__benifits__box--percentage">&nbsp;<span
-                      class="others__benifits__box--percentage--sign">&nbsp;</span></div>
-                </div>
-                <div class="others__benifits__box">
-                  <img class="others__benifits__box--image" src="<?= $this->Url->build('/') ?>img/logo_s.png">
-                  <div class="others__benifits__box--name"> &nbsp;</div>
-                  <div class="others__benifits__box--percentage">&nbsp;<span
-                      class="others__benifits__box--percentage--sign">&nbsp;</span></div>
-                </div>
-                <div class="others__benifits__box">
-                  <img class="others__benifits__box--image" src="<?= $this->Url->build('/') ?>img/logo_s.png  ">
-                  <div class="others__benifits__box--name">&nbsp; </div>
-                  <div class="others__benifits__box--percentage">&nbsp;<span
-                      class="others__benifits__box--percentage--sign">&nbsp;</span></div>
-                </div>
-              </div>
-              <div>&nbsp;</div>
-            </div> -->
-            <div class="row" style="padding-top: 11.5vh;">
-              <div class="col-12" style="text-align-last: center;">
-                <img src="<?= $this->Url->build('/') ?>img/1234.png" style="height: 59vh;">
-              </div>
-            </div>
+          <div class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
+           
+<!--            
 
             <div class="faq">
-              <h4 class="faq__header">Welcome to FTSPL Supplier Portal
-              </h4>
+              <h4 class="faq__header">Welcome to FTSPL Supplier Portal</h4>
               <div>
 
                 <p><span class="faq__question" style="margin-left: 0px;font-size: x-large; font-weight: 500;">A single
@@ -131,16 +216,25 @@
                 <p class="faq__answer" style="display: none;">ftspl unifies information about your shipments served by
                   multiple carriers and
                   forwarders into a single window, giving you a holistic picture of your shipments instantly.</p>
-                <p></p>
+               
               </div>
               <div>
-
+              <div class="row" style="padding-top: 11.5vh;">
+              <div class="col-12" style="text-align-last: center;">
+                <img  class="flow-img" src="<?= $this->Url->build('/')  ?>img/1234.png">
+              </div>
+            </div>
               </div>
               <div>
                 <p><span class="faq__question">&nbsp;</span></p>
               </div>
               <div></div>
-            </div>
+            </div> -->
+           <div class="left-content animate__animated animate__backInLeft">
+           <h1>Welcome to FTSPL Supplier Portal</h1>
+	<p>A single window digital interface and communication platform for supplier assessment and onboarding- Towards Co-creating Governance.</p>
+  <img  class="flow-img" src="<?= $this->Url->build('/')  ?>img/login-img.png">           
+</div>
           </div>
           <div class="ant-col content-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
             <div class="ant-card signupcard ant-card-bordered">
@@ -148,9 +242,9 @@
 
                 <div class="signupform signupform__signin">
                   <p class="signupform__signin--signinText">
-                    <img src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px">
+                    <!-- <img src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px"> -->
 
-                    <img src="<?= $this->Url->build('/') ?>img/logo_s.png" width="100px">
+                    <img src="<?= $this->Url->build('/') ?>img/logo_s.png" class="s-logo">
                   </p>
 
                   <div class="select-button login-page .form">
@@ -165,13 +259,14 @@
                     </div>
                   </div>
 
-                  <br>
+                  
                   <?= $this->Flash->render('auth') ?>
 
                   <div id="email_login">
-                    <?= $this->Form->create() ?>
+                    <?= $this->Form->create(null,['id' => 'loginForm']) ?>
                     <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
-                    <div style="width: 100%;">
+                     <span class="error" style="margin-bottom:20px;margin-top: -20px;">Invalid Username or Password</span>
+                    <!-- <div style="width: 100%;">
                       <div class="material-textfield">
                         <div
                           class="ant-select material-select   ant-select-auto-complete ant-select-single ant-select-show-search">
@@ -183,39 +278,53 @@
                         </div><label class="material-label" style="left: 0px;">Workspace url</label>
                         <p class="material-rightLabel">.fts-pl.com</p>
                       </div>
+                    </div> -->
+                    <div style="width: 100%;">
+                      <div class="material-textfield mb-0 form-group">
+                        <input class="material-input sentence form-control" placeholder="Enter Username/Email" required="required" type="text" name="username" value="">
+                        <label class="material-label" style="left: 0px;">Username/Email</label>
+                    </div>
+                      
                     </div>
                     <div style="width: 100%;">
-                      <div class="material-textfield"><input class="material-input sentence" placeholder="Enter Username/Email" type="text" name="username" value=""><label class="material-label" style="left: 0px;">Username/Email</label></div>
-                    </div>
-                    <div style="width: 100%;">
-                      <div class="material-textfield signin-textfield"><input class="material-input "
-                          placeholder="Enter Password" type="password" name="password" value=""><label
+                      <div class="material-textfield signin-textfield form-group"><input class="material-input form-control"
+                          placeholder="Enter Password" type="password" id="password" name="password" required="required" value=""><label
                           class="material-label" style="left: 0px;">Password</label>
-                        <p class="material-rightLabel"><i class="fa fa-eye-slash" aria-hidden="true"
+                          
+                        <p class="material-rightLabel"><i class="fa fa-eye-slash" id="eye" aria-hidden="true"
                             style="cursor: pointer;"></i></p>
-                        <p class="material-rightBottomLabel material-rightBottomLabel__danger">Forgot Password ?</p>
+                            
+                        <p class="material-rightBottomLabel" style="text-decoration:none !important;"><a href="#" >Forgot Password ?</a></p>
                       </div>
-                    </div><button type="submit" class="ant-btn btn btn__get-started-btn"><span>SUBMIT</span></button>
-                    <p class="signupform__signin--dontHaveAccount">Don't have an account?<a
-                        style="cursor: pointer;">Create An Account</a></p>
+
+                    </div><button type="submit" class="ant-btn btn btn__get-started-btn sub-btn">SUBMIT</button>
+                    <!-- <p class="signupform__signin--dontHaveAccount">Don't have an account?<a
+                        style="cursor: pointer;">Create An Account</a></p> -->
                     <?= $this->Form->end() ?>
-                    <p style="text-align: center;"><a href="mailto: support@fts-pl.com">Help</a> <a
-                        href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a>
+                    <p style="text-align: center;font-weight: 500;margin-top:10px;"><a href="mailto: support@fts-pl.com" style="margin-right: 5px;border-right: 1px solid;padding-right: 10px;">Help</a> <a
+                        href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a></p>
+                    <p class="text-center" style="text-align:center"> <img src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px"></p>
 
                   </div>
                   <div class="row" id="mobile_login" style="width:100%; display: none;">
                     <?= $this->Form->create() ?>
+                    <span class="error" style="margin-bottom:20px;">Invalid Mobile No</span>
                     <div class="input-group mb-3">
                       <div class="material-textfield">
                         <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10"
                           name="mobile" pattern="[0-9]{10}" value="">
                         <label class="material-label" style="left: 0px;">Mobile +91</label>
+                        <!-- <p class="error-msg mb-0">Please enter valid mobile number</p> -->
+                        
                       </div>
                     </div>
-                    <button type="button" class="ant-btn btn btn__get-started-btn" id="getotp">
+                    <button type="button" class="sub-btn ant-btn btn btn__get-started-btn mb-4" id="getotp">
                       <span>Get OTP</span>
                     </button>
                     <?= $this->Form->end() ?>
+                    <p style="text-align: center;font-weight: 500;margin-top:20px;"><a href="mailto: support@fts-pl.com" style="margin-right: 5px;border-right: 1px solid;padding-right: 10px;">Help</a> <a
+                        href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a></p>
+                    <p class="text-center" style="text-align:center"> <img src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px"></p>
                   </div>
                 </div>
 
@@ -254,7 +363,123 @@
 
   <script src="<?= $this->Url->build('/') ?>js/5.b662bfe1.chunk.js"></script>
   <script src="<?= $this->Url->build('/') ?>js/main.d308f349.chunk.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/ScrollMagic.min.js"></script>
   <script>
+    // background particles
+    particlesJS("particles-js", {
+  "particles": {
+    "number": {
+      "value": 290,
+      "density": {
+        "enable": true,
+        "value_area": 800
+      }
+    },
+    "color": {
+      "value": "#ffffff"
+    },
+    "shape": {
+      "type": "triangle",
+      "stroke": {
+        "width": 0,
+        "color": "#000000"
+      },
+      "polygon": {
+        "nb_sides": 10
+      },
+      "image": {
+        "src": "img/github.svg",
+        "width": 150,
+        "height": 150
+      }
+    },
+    "opacity": {
+      "value": 0.5,
+      "random": false,
+      "anim": {
+        "enable": false,
+        "speed": 1,
+        "opacity_min": 0.1,
+        "sync": false
+      }
+    },
+    "size": {
+      "value": 3,
+      "random": true,
+      "anim": {
+        "enable": false,
+        "speed": 40,
+        "size_min": 0.1,
+        "sync": false
+      }
+    },
+    "line_linked": {
+      "enable": true,
+      "distance": 150,
+      "color": "#ffffff",
+      "opacity": 0.4,
+      "width": 1
+    },
+    "move": {
+      "enable": true,
+      "speed": 6,
+      "direction": "none",
+      "random": true,
+      "straight": false,
+      "out_mode": "out",
+      "bounce": true,
+      "attract": {
+        "enable": false,
+        "rotateX": 600,
+        "rotateY": 1200
+      }
+    }
+  },
+  "interactivity": {
+    "detect_on": "window",
+    "events": {
+      "onhover": {
+        "enable": true,
+        "mode": "repulse"
+      },
+      "onclick": {
+        "enable": true,
+        "mode": "push"
+      },
+      "resize": true
+    },
+    "modes": {
+      "grab": {
+        "distance": 140,
+        "line_linked": {
+          "opacity": 1
+        }
+      },
+      "bubble": {
+        "distance": 400,
+        "size": 100,
+        "duration": 2,
+        "opacity": 8,
+        "speed": 3
+      },
+      "repulse": {
+        "distance": 100,
+        "duration": 0.4
+      },
+      "push": {
+        "particles_nb": 4
+      },
+      "remove": {
+        "particles_nb": 2
+      }
+    }
+  },
+  "retina_detect": true
+});
+
+
+    //end
     $(document).ready(function () {
       $(document).on("change", "#mobile_btn", function () {
         $('#email_login').hide();
@@ -298,7 +523,50 @@
           console.log("Request failed: " + textStatus);
         });
       });
+
+      $("#loginForm").validate({
+          rules: {
+            username: { required: true, email:true },
+            password: { required: true}
+          },
+          messages: {
+            username: { required: "Please enter username", email:"Please enter valid email id" },
+            password: { required: "Please enter password" }
+          },
+          errorElement: 'span',
+          errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+          },
+          highlight: function (element, errorClass, validClass) { $(element).addClass('is-invalid'); },
+          unhighlight: function (element, errorClass, validClass) { $(element).removeClass('is-invalid'); },
+          submitHandler: function(form, event) { 
+            event.preventDefault();
+            $('#loginForm')[0].submit();
+            return false;
+          }
+      });
     });
+    // for password hide/show
+    $('#eye').click(function(){
+       
+       if($(this).hasClass('fa-eye-slash')){
+          
+         $(this).removeClass('fa-eye-slash');
+         
+         $(this).addClass('fa-eye');
+         
+         $('#password').attr('type','text');
+           
+       }else{
+        
+         $(this).removeClass('fa-eye');
+         
+         $(this).addClass('fa-eye-slash');  
+         
+         $('#password').attr('type','password');
+       }
+   });
   </script>
 </body>
 

@@ -65,8 +65,8 @@ class Application extends BaseApplication
 
         // Load more plugins here
         $this->addPlugin('CakeLte');
-        $this->addPlugin('Api');
-        $this->addPlugin('Acl');
+        //$this->addPlugin('Api');
+        //$this->addPlugin('Acl');
     }
 
     /**

@@ -16,7 +16,7 @@
   
   
   
- 
+
   
  
   
@@ -9160,9 +9160,7 @@
     -ms-transform: translate3d(0, -50px, 0);
     transform: translate3d(0, -50px, 0);
   }
-  
-  .card .card-header {
-    padding: 1rem;
+
     
     
   }
@@ -10618,7 +10616,7 @@
     font-size: 0.875rem;
     font-weight: 400;
     margin-bottom: 0.5rem;
-    color: #7b809a;
+    /* color: #7b809a; */
     margin-left: 0.25rem;
   }
   
@@ -15777,3 +15775,10 @@
     }
   }
   
+  .ft_rect_logo {
+    margin-top: 4px !important;
+}
+.ft-text {
+  margin-left: -35px;
+  
+}

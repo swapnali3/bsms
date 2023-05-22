@@ -55,3 +55,6 @@ yarn-error.log
 TODO
 config/app_local.php
 bsms_backup/
+webroot/img/flow-img.jpg
+vendor/composer/installed.php
+logs/debug.log.1662912963

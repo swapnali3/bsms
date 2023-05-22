@@ -111,28 +111,102 @@ class RfqInquiriesController extends VendorAppController
     public function inquiry($id=null) {
         $session = $this->getRequest()->getSession();
         if($this->request->is('post')) {
-            //print_r($this->request->getData()); exit;
-        
-            try {
-            $this->loadModel('RfqInquiries');
-            $request = array();
-            $request['rfq_id'] = $id;
-            $request['seller_id'] = $session->read('id');
-            $RfqInquiry = $this->RfqInquiries->find()->where($request)->first();
-            $RfqInquiry->inquiry = 1;
-            $RfqInquiry->qty = $this->request->getData('qty');
-            $RfqInquiry->rate = $this->request->getData('rate');
-            $RfqInquiry->delivery_date = $this->request->getData('delivery_date');
+
+            $request = $this->request->getData();
+            //echo '<pre>'; print_r($request); exit;
             
-            if($this->RfqInquiries->save($RfqInquiry)) {
-                $this->Flash->success(__('Inquiry send to Buyer.'));
-                return $this->redirect(['controller' => 'dashboard', 'action' => 'index']);
-            }
+            $this->loadModel('Rfqs');
+            $this->loadModel('RfqInquiries');
+            $this->loadModel('RfqInquiriesHistories');
+
+            try {
+
+                $rfq = $this->Rfqs->get($request['rfq_id']);
+                $rfq->sub_total = $request['subtotal_value'];
+                $rfq->freight_value = $request['freight_value'];
+                $rfq->tax_value = $request['tax_value'];
+                $rfq->total_value = $request['total_value'];
+                
+                if($this->Rfqs->save($rfq)) {
+                        
+                }
+                
+                $data = array();
+                $error = false;
+                foreach($request['rfq_item_id'] as $key => $val) {
+                    $qryCnd = array();
+                    $qryCnd['rfq_id'] =  $request['rfq_id'];
+                    $qryCnd['rfq_item_id'] =  $val;
+                    $qryCnd['seller_id'] = $session->read('vendor_id');
+                    $RfqInquiry = $this->RfqInquiries->find()->where($qryCnd)->first();
+                    $exists = false;
+                    if($RfqInquiry) {
+                        $exists = true;
+                        $RfqInquiry->inquiry = 1;
+                        $RfqInquiry->qty = $request['qty'][$key];
+                        $RfqInquiry->rate = $request['rate'][$key];
+                        $RfqInquiry->discount = $request['discount'][$key];
+                        $RfqInquiry->sub_total = $request['item_subtotal_value'][$key];
+                        $RfqInquiry->delivery_date = $request['delivery_date'][$key];
+                    } else {
+                        $data['rfq_id'] =  $request['rfq_id'];
+                        $data['rfq_item_id'] = $val;
+                        $data['seller_id'] = $session->read('vendor_id');
+                        $data['inquiry'] = 1;
+                        $data['qty'] = $request['qty'][$key];
+                        $data['rate'] = $request['rate'][$key];
+                        $data['discount'] = $request['discount'][$key];
+                        $data['sub_total'] = $request['item_subtotal_value'][$key];
+                        $data['delivery_date'] = $request['delivery_date'][$key];
+                        //print_r($data); exit;
+                        //$RfqInquiry = $this->RfqInquiries->newEntities($data);
+                        $RfqInquiry = $this->RfqInquiries->newEmptyEntity();
+                        $RfqInquiry = $this->RfqInquiries->patchEntity($RfqInquiry, $data);
+                    }
+                    
+                    if($this->RfqInquiries->save($RfqInquiry)) {
+                        $rfqInquiryHistory = $this->RfqInquiriesHistories->newEmptyEntity();
+                        $rfqInquiryHistory = $this->RfqInquiriesHistories->patchEntity($rfqInquiryHistory, $RfqInquiry->toArray());
+                        $this->RfqInquiriesHistories->save($rfqInquiryHistory);
+                    } else {
+                        $error = true;
+                    }
+                }
+
+
+                if($error) {
+                    foreach($RfqInquiry as $err) {
+                        if($err->hasErrors()) {
+                            $this->Flash->error(__("Quation save fail"));
+                        }
+                    }
+                    return $this->redirect(['controller' => 'rfqs', 'action' => 'view', $id]);
+                } else {
+                    $this->loadModel('RfqCommunications');
+                    $rfq_id = $this->request->getData('rfq_id');
+                    $message = $this->request->getData('Comments');
+                    $comm = array();
+                    $comm['rfq_id'] = $rfq_id;
+                    $comm['vendor_temp_id'] = $session->read('vendor_id');
+                    $comm['message'] = $message;
+
+                    $newRfqComm = $this->RfqCommunications->newEmptyEntity();
+                    $rfqCommunication= $this->RfqCommunications->patchEntity($newRfqComm, $comm);
+
+                    if ($this->RfqCommunications->save($rfqCommunication)) {
+                    }
+
+                    $this->Flash->success(__('Inquiry send to Buyer.'));
+                    return $this->redirect(['controller' => 'rfqs', 'action' => 'index']);
+                }
+
+            } catch (\PDOException $e) {
+                $this->Flash->error($e->getMessage());
+                return $this->redirect(['controller' => 'rfqs', 'action' => 'view', $id]);
             } catch (\Exception $e) {
                 $this->Flash->error(__($e->getMessage()));
+                return $this->redirect(['controller' => 'rfqs', 'action' => 'view', $id]);
             }
         }
-
-        $this->set('userType', $userType);
     }
 }

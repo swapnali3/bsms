@@ -10,9 +10,20 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property int $rfq_id
+ * @property int $rfq_item_id
  * @property int $seller_id
+ * @property string|null $qty
+ * @property string|null $rate
+ * @property string $discount
+ * @property string $sub_total
+ * @property \Cake\I18n\FrozenDate|null $delivery_date
+ * @property array|null $inquiry_data
  * @property bool|null $inquiry
  * @property \Cake\I18n\FrozenTime $created_date
+ * @property \Cake\I18n\FrozenTime $updated_date
+ *
+ * @property \App\Model\Entity\Rfq $rfq
+ * @property \App\Model\Entity\RfqItem $rfq_item
  */
 class RfqInquiry extends Entity
 {
@@ -27,8 +38,18 @@ class RfqInquiry extends Entity
      */
     protected $_accessible = [
         'rfq_id' => true,
+        'rfq_item_id' => true,
         'seller_id' => true,
+        'qty' => true,
+        'rate' => true,
+        'discount' => true,
+        'sub_total' => true,
+        'delivery_date' => true,
+        'inquiry_data' => true,
         'inquiry' => true,
         'created_date' => true,
+        'updated_date' => true,
+        'rfq' => true,
+        'rfq_item' => true,
     ];
 }
