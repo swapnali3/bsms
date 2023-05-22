@@ -11,24 +11,24 @@
     <div class="column-responsive column-80">
         <div class="deliveryDetails view content">
             
-            <div class="card mt-2">
+            <div class="card mt-2 mb-1">
                 <div class="card-header " style="background-color: #d4ddf7  !important;">
                 <div class="row align-items-center">
                     <div class="col-sm-12 col-lg-2">
-                             ASN No. : <b><?= h($deliveryDetails[0]->asn_no) ?></b>
+                             ASN No : <b><?= h($deliveryDetails[0]->asn_no) ?></b>
                     </div>
                     <div class="col-sm-12 col-lg-2">
-                            PO No. : <b><?= h($deliveryDetails[0]->PoHeaders['po_no']) ?></b>
+                            PO No : <b><?= h($deliveryDetails[0]->PoHeaders['po_no']) ?></b>
                     </div>
                     <div class="col-sm-12 col-lg-2">
-                          Status: <b class='asnstatus'>
+                          Status: <span class='asnstatus'>
                           <?php 
                             if($deliveryDetails[0]->status == '1') {
                                 echo 'Created';
                             } else if($deliveryDetails[0]->status == '2') {
                                 echo 'Delivered';
                             } ?>
-                            </b>
+                            </span>
                     </div>
                     <?php 
                             if($deliveryDetails[0]->status == '1') { ?>
@@ -46,24 +46,24 @@
                         </div>
                     
                     </div>
-                        <div class="row">
-                        <div class="col-sm-12 col-lg-2 mt-4">
-                                Invoice No. : <b><?= h($deliveryDetails[0]->invoice_no) ?></b>
+                        <div class="row tracking-dt">
+                        <div class="col-sm-12 col-lg-2 mt-2">
+                                <label>Invoice No. :</label> <b><?= h($deliveryDetails[0]->invoice_no) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-2 mt-4">
-                                Invoice Date : <b><?= h($deliveryDetails[0]->invoice_date) ?></b>
+                            <div class="col-sm-12 col-lg-2 mt-2">
+                                <label>Invoice Date :</label> <b><?= h($deliveryDetails[0]->invoice_date) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-2 mt-4">
-                                Invoice Value : <b><?= h($deliveryDetails[0]->invoice_value) ?></b>
+                            <div class="col-sm-12 col-lg-2 mt-2">
+                               <label> Invoice Value :</label> <b><?= h($deliveryDetails[0]->invoice_value) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-2 mt-4">
-                                Vehicle No. : <b><?= h($deliveryDetails[0]->vehicle_no) ?></b>
+                            <div class="col-sm-12 col-lg-2 mt-2">
+                                <label>Vehicle No. :</label> <b><?= h($deliveryDetails[0]->vehicle_no) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-2 mt-4">
-                                Driver Name : <b><?= h($deliveryDetails[0]->driver_name) ?></b>
+                            <div class="col-sm-12 col-lg-2 mt-2">
+                               <label> Driver Name :</label> <b><?= h($deliveryDetails[0]->driver_name) ?></b>
                             </div>
-                            <div class="col-sm-12 col-lg-2 mt-4">
-                                Driver Contact : <b><?= h($deliveryDetails[0]->driver_contact) ?></b>
+                            <div class="col-sm-12 col-lg-2 mt-2">
+                               <label> Driver Contact :</label> <b><?= h($deliveryDetails[0]->driver_contact) ?></b>
                             </div>
 
                             <div class="col-sm-12 col-lg-2">

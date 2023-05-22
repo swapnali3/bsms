@@ -90,7 +90,7 @@ b.vlu {
     font-size: 16px;
     display: block;
 }
-b.asnstatus {
+.asnstatus {
     font-size: 14px;
     background-color: #4CAF50;
     color: #fff;
@@ -200,3 +200,79 @@ a.page-link,.dataTables_info {
 .info-tbl td {
     padding: 10px;
 }
+.tracking-dt label {
+    font-size: 13px;
+    font-weight: 400 !important;
+    margin-right: 5px;
+    margin-top: 0px !important ;
+    margin-bottom: 0px !important;
+}
+.search-bar .search-box {
+    height: 30px;
+    width: 200px;
+    font-size: 12px;
+}
+.purchase-order .d-flex::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+
+  .purchase-order .d-flex::-webkit-scrollbar-thumb {
+    background: #BEBEFF;
+    border-radius: 20px;
+  }
+
+  .purchase-order .d-flex::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 20px;
+  }
+
+  .purchase-order .po-list {
+    border: 1px solid #ddd;
+    background-color: #f5f7fd;
+    
+
+  }
+
+
+  .purchase-order .po-box {
+    border-right: 1px solid #ccc;
+    padding: 5px 20px;
+    width: 170px;
+    cursor: pointer;
+    color: #999;
+  }
+
+  .purchase-order .po-code {
+    font-size: 0.8rem;
+  }
+
+  .purchase-order .po-list .d-flex {
+    overflow-y: hidden;
+    overflow-x: auto;
+  }
+
+  .purchase-order .po-box:hover {
+    background-color: #d4ddf7;
+  }
+
+  .purchase-order .pono b {
+    color: #004d87;
+  }
+
+  .purchase-order .po-box .pono {
+    padding-bottom: 5px;
+  }
+  .purchase-order #example2 thead {
+    background-color: #B9E0F5!important;
+}
+.purchase-order #example2 tbody {
+    background-color: #fff!important;
+}
+
+.purchase-order .pono small {
+    font-size: 11px;
+}
+  .active {
+    background-color: #d4ddf7;
+  }
