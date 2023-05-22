@@ -282,8 +282,41 @@ switch ($vendorTemp->status) {
                                         <?= h($vendorTemp->payment_term) ?>
                                     </td>
                                 </tr>
-                                
 
+                                <?php if($vendorTemp->gst_file) : ?>
+                                <tr>
+                                    <th>
+                                        <?= __('GST Document') ?>
+                                    </th>
+                                    <td>
+                                        <?= $this->Html->link('Download','/'.$vendorTemp->gst_file, array('escape' => false));?>
+                                    </td>
+                                </tr>
+
+                                <?php endif ?>
+
+                                
+                                <?php if($vendorTemp->pan_file) : ?>
+                                <tr>
+                                    <th>
+                                        <?= __('PAN Document') ?>
+                                    </th>
+                                    <td>
+                                        <?= $this->Html->link('Download','/'.$vendorTemp->pan_file, array('escape' => false));?>
+                                    </td>
+                                </tr>
+                                <?php endif; ?>
+
+                                <?php if($vendorTemp->bank_file) : ?>
+                                <tr>
+                                    <th>
+                                        <?= __('BANK Document') ?>
+                                    </th>
+                                    <td>
+                                        <?= $this->Html->link('Download','/'.$vendorTemp->bank_file, array('escape' => false));?>
+                                    </td>
+                                </tr>
+                                <?php endif; ?>
 
                             </table>
                         </div>

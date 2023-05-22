@@ -181,6 +181,69 @@ class OnboardingController extends VendorAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
             $data['status'] = 1;
+
+            //echo '<pre>'; print_r($data); exit;
+
+            if($data["gst_file"]) {
+                $gstUpload = $data["gst_file"];
+                if (
+                    $bankUpload !== null &&
+                    $bankUpload->getError() !== \UPLOAD_ERR_NO_FILE
+                ) {
+                    $fileName = $id.'_'.$gstUpload->getClientFilename();
+                    $fileType = $gstUpload->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
+                        $imagePath = WWW_ROOT . "uploads/kyc/" . $fileName;
+                        $gstUpload->moveTo($imagePath);
+                        $data["gst_file"]= "uploads/kyc/" . $fileName;
+                    }
+                } else {
+                    $data["gst_file"] = "";
+                }
+            }
+
+            if($data["pan_file"]) {
+                $panUpload = $data["pan_file"];
+                $bankUpload = $data["bank_file"];
+                if (
+                    $bankUpload !== null &&
+                    $bankUpload->getError() !== \UPLOAD_ERR_NO_FILE
+                ) {
+                    $fileName = $id.'_'.$panUpload->getClientFilename();
+                    $fileType = $panUpload->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
+                        $imagePath = WWW_ROOT . "uploads/kyc/" . $fileName;
+                        $panUpload->moveTo($imagePath);
+                        $data["pan_file"] = "uploads/kyc/" . $fileName;
+                    }
+                } else {
+                    $data["pan_file"] = "";
+                }
+            }
+
+
+            if($data["bank_file"]) {
+                $bankUpload = $data["bank_file"];
+                if (
+                    $bankUpload !== null &&
+                    $bankUpload->getError() !== \UPLOAD_ERR_NO_FILE
+                ) {
+                    $fileName = $id.'_'.$bankUpload->getClientFilename();
+                $fileType = $bankUpload->getClientMediaType();
+
+                if ($fileType == "application/pdf" || $fileType == "image/*") {
+                    $imagePath = WWW_ROOT . "uploads/kyc/" . $fileName;
+                    $bankUpload->moveTo($imagePath);
+                    $data["bank_file"] = "uploads/kyc/" . $fileName;
+                }
+                } else {
+                    $data["bank_file"] = "";
+                }
+                
+            }
+
             //echo '<pre>'; print_r($data); exit;
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
             if ($this->VendorTemps->save($vendorTemp)) {

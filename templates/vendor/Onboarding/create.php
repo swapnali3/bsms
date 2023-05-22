@@ -60,7 +60,7 @@
                 <div class="h">
                     <h4 class="text-info">
                         <legend>
-                            <?= __('Purchase Details') ?>
+                            <?= __('Onboarding') ?>
                         </legend>
                     </h4>
                 </div>
@@ -74,7 +74,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <?= $this->Form->create($vendorTemp) ?>
+                    <?= $this->Form->create($vendorTemp, ['type' => 'file']) ?>
                     <div class="row">
 
                         <div class="col-3 mt-3 col-md-4">
@@ -181,15 +181,15 @@
                     <div class="row">
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" class="form-label">Upload GST no</label>
-                            <input class="form-control" type="file" id="formFileMultiple">
+                            <input class="form-control" type="file" name="gst_file" id="formFileMultiple">
                         </div>
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" class="form-label">Upload pan card</label>
-                            <input class="form-control" type="file" id="formFileMultiple">
+                            <input class="form-control" type="file" name="pan_file" id="formFileMultiple">
                         </div>
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" class="form-label">Upload bank details</label>
-                            <input class="form-control" type="file" id="formFileMultiple">
+                            <input class="form-control" type="file" name="bank_file" id="formFileMultiple">
                         </div>
                     </div>
                 </div>
