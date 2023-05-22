@@ -132,17 +132,26 @@
                 <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle" alt=""></span>
                     <div class="user-info text-left">
                         <h6 class="mb-0 text-info">
-                            <?php echo $this->getRequest()->getSession()->read('vendor_name'); ?></h6><span><?php echo $this->getRequest()->getSession()->read('first_name'); ?></span>
+                            <?php echo $full_name; ?></h6>
                     </div>
                 </div>
                 <!-- <p class="unm">Snehal</p>
                 <p class="role">Vendor</p> -->
             </span>
             <div class="dropdown-divider"></div>
+
+            <?php if($role == 2) :?>
             <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>" class="dropdown-item">
                 <i class="fas fa-user-cog text-info mr-2"></i>
                 <span>Profile</span>
             </a>
+            <?php endif;?>
+            <?php if($role == 3) :?>
+            <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>" class="dropdown-item">
+                <i class="fas fa-user-cog text-info mr-2"></i>
+                <span>Profile</span>
+            </a>
+            <?php endif;?>
             <div class="dropdown-divider"></div>
             <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>" class="dropdown-item">
                 <i class="fas fa-power-off text-danger mr-2"></i>
