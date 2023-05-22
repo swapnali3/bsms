@@ -29,6 +29,10 @@ switch ($vendorTemp->status) {
     p {
         margin-bottom: 0px;
     }
+
+    /* .docs-list {
+    width: 30% !important;
+} */
 </style>
 <?= $this->Html->css('custom') ?>
 
@@ -37,21 +41,21 @@ switch ($vendorTemp->status) {
         <div class="vendorTemps view content card">
             <div class="card-header">
                 <div class="d-flex justify-content-between">
-                <h5 class="align-self-center">
-                    <b>
-                        <?= h($vendorTemp->name) ?>
-                    </b>
-                </h5>
-                <div class="">
-                <div class="text">
-                    <?php if ($vendorTemp->status == 1): ?>
-                        <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
-                        <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject mb-0 btn-sm', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
-                    <?php endif; ?>
+                    <h5 class="align-self-center">
+                        <b>
+                            <?= h($vendorTemp->name) ?>
+                        </b>
+                    </h5>
+                    <div class="">
+                        <div class="text">
+                            <?php if ($vendorTemp->status == 1): ?>
+                                <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
+                                <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject mb-0 btn-sm', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </div>
-            </div>
-                </div>
-                
+
             </div>
             <div class="card-body">
                 <div class="row">
@@ -95,7 +99,7 @@ switch ($vendorTemp->status) {
                                         <?= __('Address 2') ?>
                                     </th>
                                     <td>
-                                    <?= h($vendorTemp->address_2) ?>
+                                        <?= h($vendorTemp->address_2) ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -130,7 +134,7 @@ switch ($vendorTemp->status) {
                                         <?= h($vendorTemp->pan_no) ?>
                                     </td>
                                 </tr>
-                                
+
                                 <tr>
                                     <th>
                                         <?= __('Cin No') ?>
@@ -165,6 +169,28 @@ switch ($vendorTemp->status) {
                                 </tr>
                             </table>
                         </div>
+                        <div class="row">
+                    <div class="col-md-12">
+                        <h6 class="text-info mb-2 pl-2">Uploaded Documnets</h6>
+                        <table class="table docs-list vendor-info table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>GST NO</td>
+                                    </td>
+                                    <td><i class="fas fa-download"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Pan card</td>
+                                    <td><i class="fas fa-download"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>Bank Documents</td>
+                                    <td><i class="fas fa-download"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
                     </div>
                     <div class="col-6">
                         <div class="card">
@@ -241,7 +267,7 @@ switch ($vendorTemp->status) {
                                         <?= h($vendorTemp->contact_email) ?>
                                     </td>
                                 </tr>
-                                
+
                                 <tr>
                                     <th>
                                         <?= __('Contact Mobile') ?>
@@ -255,7 +281,7 @@ switch ($vendorTemp->status) {
                                         <?= __('Contact Department') ?>
                                     </th>
                                     <td>
-                                    <?= h($vendorTemp->contact_department) ?>
+                                        <?= h($vendorTemp->contact_department) ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -263,7 +289,7 @@ switch ($vendorTemp->status) {
                                         <?= __('Contact Designation') ?>
                                     </th>
                                     <td>
-                                    <?= h($vendorTemp->contact_designation) ?>
+                                        <?= h($vendorTemp->contact_designation) ?>
                                     </td>
                                 </tr>
                                 <tr>
@@ -282,15 +308,16 @@ switch ($vendorTemp->status) {
                                         <?= h($vendorTemp->payment_term) ?>
                                     </td>
                                 </tr>
-                                
+
 
 
                             </table>
                         </div>
                     </div>
                 </div>
+                
             </div>
-           
+
         </div>
     </div>
 </div>

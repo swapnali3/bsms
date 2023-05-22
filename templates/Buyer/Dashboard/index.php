@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
 <style>
     aside.main-sidebar {
-    background-color: #112A68 !important;
+    background-color: #08132F !important;
     }
     .nav-link.active {
         background-color: #0C1D49 !important;
