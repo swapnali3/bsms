@@ -59,7 +59,7 @@
 
                             </td>
 
-                            <p> <?= $deliveryDetails->toArray()[0]->status == 2 ? '<span class="badge bg-success asnstatus">Delivered</span>' : '<span class="badge bg-warning">Received</span>' ?></p>
+                            <p> <?= $deliveryDetails->toArray()[0]->status == 2 ? '<span class="badge bg-success asnstatus">In Transit</span>' : '<span class="badge bg-warning">Received</span>' ?></p>
                             </td>
                         </div>
 
