@@ -80,7 +80,7 @@ b.c-msg p {
     margin-top: 5px;
 }
 .c-date span {
-    font-size: 14px;
+    font-size: 11px;
 }
 h5.tracking-det {
     font-size: 17px;
@@ -276,4 +276,10 @@ a.page-link,.dataTables_info {
 }
   .active {
     background-color: #d4ddf7;
+  }
+  .bg_color_blu{
+    background-color: #08132F  !important;
+  }
+  .bg_color_grn{
+    background-color: #8E9B2C !important;
   }

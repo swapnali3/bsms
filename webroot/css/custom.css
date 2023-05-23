@@ -111,6 +111,7 @@ table#example1  span.material-symbols-outlined.flu {
 }
 div#scheduleModal .btn {
     padding: 6px 20px;
+    font-size: 12px !important;
 }
 table#example1 tr th,table#example1 tr td{
     padding: 10px !important;
@@ -130,7 +131,7 @@ table#example1 tr th,table#example1 tr td{
     padding: 3px;
 }
 #example2 a.notify_item {
-    background-color: #218838;
+    background-color: #444;
     color: #fff;
     padding: 3px 10px;
     margin-bottom: 0px !important;
@@ -193,7 +194,12 @@ table#example1 tr th,table#example1 tr td{
 .gate-entry {
     margin-left: 0px;
 }
-    
+.btn:hover {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.modal-footer .btn {
+    font-size: 13px;
+}  
 
 .rfqs .card-body {
     padding-top: 10px !important;
@@ -310,6 +316,9 @@ div#past_messages {
     padding: 10px;
     background-color: #f1f1f1;
     font-size: 12px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 190px;
 }
 div#past_messages  .past-msg {
     border-bottom: 2px solid #ddd;
@@ -324,7 +333,10 @@ div#past_messages  .past-msg:last-child{
     text-align: center;
     margin: 0 auto;
     padding: 0px 25%;
-    background-color: f5f7fd;
+    /* background-color: f5f7fd; */
+}
+.gate-entry input#asn-no {
+    font-size: 13px;
 }
 .gate-entry .content-box img.scanner-img {
     width: 180px;
@@ -558,17 +570,20 @@ input.form-control.search {
     width: 200px;
     font-size: 12px;
 }
-.create-asn .d-flex::-webkit-scrollbar {
+.c-msg p {
+    margin-bottom: 0px;
+}
+.create-asn .d-flex::-webkit-scrollbar,div#past_messages::-webkit-scrollbar {
     height: 10px;
     width: 10px;
   }
    
-  .create-asn .d-flex::-webkit-scrollbar-thumb {
+  .create-asn .d-flex::-webkit-scrollbar-thumb,div#past_messages::-webkit-scrollbar-thumb {
     background: #BEBEFF;
     border-radius: 20px;
   }
   
-  .create-asn .d-flex::-webkit-scrollbar-track {
+  .create-asn .d-flex::-webkit-scrollbar-track,div#past_messages::-webkit-scrollbar-track {
     background: #ddd;
     border-radius: 20px;
   }
@@ -654,7 +669,7 @@ input.form-control.search {
     padding-bottom: 5px;
   }
   .purchase-order #example2 thead {
-    background-color: #B9E0F5!important;
+    background-color: #b0c235!important
 }
 .purchase-order #example2 tbody {
     background-color: #fff!important;
@@ -666,3 +681,12 @@ input.form-control.search {
   .active {
     background-color: #d4ddf7;
   }
+  .bg_color_blu{
+    background-color: #08132F  !important;
+  }
+  .bg_color_grn{
+    background-color: #8E9B2C !important;
+  }
+  .action-btn .btn-success {
+    background-color: #08132F !important;
+}

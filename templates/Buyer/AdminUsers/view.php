@@ -1,23 +1,32 @@
-<div class="buyer=profile">
+<style>
+    .vendor-profile table {
+    font-size: 14px;
+}
+.vendor-profile tr {
+    display: block;
+    padding: 5px 10px;
+}
+</style>
+<div class="buyer-profile">
 <div class="row">
     <div class="col-12">
         <div class="vendorTemps view content card">
             <div class="card-header">
-                <h5>
+                <h6 class="mt-2 ml-2 text-info">
                     <b>
                         <?= $adminUser->first_name .' '. $adminUser->last_name ?>
                     </b>
-                </h5>
+                </h6>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card">
-                            <table class="table vendor-info mb-0">
+                        <div class="vendor-profile">
+                            <table class="mb-0">
 
                                 <tr>
                                     <th>
-                                        <?= __('Mobile No') ?>
+                                        <?= __('Mobile No :') ?>
                                     </th>
                                     <td>
                                        <?= $adminUser->mobile?>
@@ -25,7 +34,7 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        <?= __('Email Id') ?>
+                                        <?= __('Email Id :') ?>
                                     </th>
                                     <td>
                                     <?= $adminUser->username?>
@@ -33,7 +42,7 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        <?= __('Address') ?>
+                                        <?= __('Address :') ?>
                                     </th>
                                     <td>
                                         Mumbai

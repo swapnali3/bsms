@@ -9,7 +9,7 @@
 <div class="poHeaders index content card purchase-order">
   <div class="card-body">
     <div class="table-responsive">
-      <div class="table-responsive p-2" id="purViewId">
+      <div class="table-responsive" id="purViewId">
         <div class="search-bar mb-2">
           <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
         </div>
