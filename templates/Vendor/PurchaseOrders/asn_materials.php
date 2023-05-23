@@ -5,6 +5,15 @@
  * @var \App\Model\Entity\PoHeader $poHeader
  */
 ?>
+<style>
+  .file-upld-btn {
+    font-size: 12px;
+    text-transform: capitalize;
+}
+.file__value {
+    font-size: 0.8rem;
+}
+</style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <?= $this->Html->css('custom') ?>
 <?= $this->Form->create(null, ['url' => '/vendor/purchase-orders/view/' . $poHeader[0]->id, 'type' => 'file', 'id' => 'asnForm']) ?>
@@ -155,8 +164,11 @@
 
       <div class="col-sm-8 col-md-3">
         <div class="form-group">
-          <?php echo $this->Form->control('invoices[]', array('label' => 'Upload Invoice', 'accept' => '.pdf', 'type' => 'file', 'multiple' => 'true', 'class' => 'pt-1 rounded-0', 'div' => 'form-group', 'required')); ?>
-          <span id="file__input"></span>
+          <label for="invoices">Upload Invoice</label><br>
+          <input type="file" name="invoices[]" accept=".pdf" multiple="multiple" class="pt-1 rounded-0 d-none" div="form-group" required="required" id="invoices">
+          <button id="OpenImgUpload" type="button" class="btn btn-secondary mb-0 file-upld-btn">Choose File</button>
+
+          <div id="file__input" class="mt-2"></div>
         </div>
       </div>
     </div>
@@ -276,24 +288,74 @@
     });
 
 
+    // $('#invoices').on('change', function(event) {
+    //   var files = event.target.files;
+
+    //   for (var i = 0; i < files.length; i++) {
+    //     var file = files[i];
+    //     $("<div class='file__value'><div class='file__value--text'>" + file.name + " <span class='file__remove' data-id='" + file.name + "'><i class='fas fa-times-circle text-danger'></i></span></div></div>").appendTo('#file__input');
+    //   }
+    // });
+
+    const dt = new DataTransfer(); // Permet de manipuler les fichiers de l'input file
+
     $('#invoices').on('change', function(event) {
       var files = event.target.files;
-
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
         $("<div class='file__value'><div class='file__value--text'>" + file.name + " <span class='file__remove' data-id='" + file.name + "'><i class='fas fa-times-circle text-danger'></i></span></div></div>").appendTo('#file__input');
       }
-    });
 
-    $('body').on('click', '.file__remove', function() {
-      var files = $('#invoices').prop('files');
-      $(this).closest('.file__value').remove();
-      console.log(files);
-      if (files.length === 0) {
-        $('#invoices').val('');
+      for (let file of this.files) {
+        dt.items.add(file);
       }
+      // Mise à jour des fichiers de l'input file après ajout
+      this.files = dt.files;
+
+      $('body').on('click', '.file__remove', function() {
+        let name = $(this).next('.file__value--text').text();
+
+        console.log(name);
+        $(this).parent().remove();
+        for (let i = 0; i < dt.items.length; i++) {
+
+          if (name === dt.items[i].getAsFile().name) {
+          
+            dt.items.remove(i);
+            console.log(dt.files);
+            continue;
+          }
+        }
+      });
+
+
+      document.getElementById('invoices').files = dt.files;
+
+      console.log(dt.files);
+   
+    });
+
+    // file upload button
+    $('#OpenImgUpload').click(function() {
+      $('#invoices').trigger('click');
 
     });
+
+
+    // $('body').on('click', '.file__remove', function() {
+
+    //   var fileValue = $(this).closest('.file__value');
+    //   var fileInput = fileValue.closest('.form-group').find('input[type="file"]');
+    //   var files = fileInput[0].files;
+
+    //   console.log(files);
+
+    //   fileValue.remove();
+
+    //   if (files.length === 1) {
+    //     fileInput.val(null);
+    //   }
+    // });
 
 
 
