@@ -20,9 +20,9 @@
     .user-panel img {
         width: 1.5rem
     }
-    aside.main-sidebar:hover {
+    /* aside.main-sidebar:hover {
     width: 210px !important;
-}
+} */
     .main-sidebar,
     .main-sidebar::before {
         width: 207px
@@ -52,7 +52,9 @@
     font-size: 20px;
     letter-spacing: 0.04rem;
     }
-
+    .nav-sidebar .nav-item .nav-link p {
+    font-size: 13px;
+}
     .user .thumb {
         margin-right: 10px;
         height: 35px;
