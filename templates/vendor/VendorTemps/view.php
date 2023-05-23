@@ -306,6 +306,7 @@ switch ($vendorTemp->status) {
                                 <div class="docs">
                                     <h6 class="text-info pl-3" style="color:#004d87 !important">All Documents</h6>
                                     <div class="d-flex">
+                                    <?php if($vendorTemp->gst_file) : ?>
                                         <div class="i">
                                         <td>
                                                         <?= __('GST NO') ?>
@@ -314,6 +315,8 @@ switch ($vendorTemp->status) {
                                                     <?= $this->Html->link('<i class="fas text-info fa-download"></i>','/'.$vendorTemp->gst_file, array('escape' => false));?>
                                                     </th>
                                         </div>
+                                        <?php endif; ?>
+                                        <?php if($vendorTemp->pan_file) : ?>
                                         <div class="i">
                                         <tr>
                                                     <td>
@@ -324,6 +327,8 @@ switch ($vendorTemp->status) {
                                                     </th>
                                                 </tr>
                                         </div>
+                                        <?php endif; ?>
+                                        <?php if($vendorTemp->bank_file) : ?>
                                         <div class="i">
                                         <tr>
                                                     <td>
@@ -334,6 +339,7 @@ switch ($vendorTemp->status) {
                                                     </th>
                                                 </tr>
                                         </div>
+                                        <?php endif; ?>
                                     </div>
                                     
                                        
