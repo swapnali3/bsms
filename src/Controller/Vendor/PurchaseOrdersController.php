@@ -458,12 +458,9 @@ class PurchaseOrdersController extends VendorAppController
         //$data = $this->PoFooters->find('all', ['conditions' => ['po_header_id' => $id]]);
 
         $data = $this->PoHeaders->find('all')
-        ->select(['PoHeaders.id', 'PoHeaders.po_no','PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material','PoFooters.short_text', 'PoFooters.order_unit','PoFooters.net_price', 'PoItemSchedules.id','actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)' , 'PoItemSchedules.delivery_date'])
+        ->select(['PoHeaders.id', 'PoHeaders.po_no','PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material','PoFooters.short_text', 'PoFooters.order_unit','PoFooters.po_qty', 'PoFooters.net_price','PoFooters.net_value'])
         ->innerJoin(['PoFooters' => 'po_footers'],['PoFooters.po_header_id = PoHeaders.id'])
-        ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
-        ->innerJoin(['dateDe' => '(select min(delivery_date) date from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date'])
-        
-        ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0']);
+        ->where(['PoHeaders.id' => $id]);
 
 
 
@@ -478,7 +475,9 @@ class PurchaseOrdersController extends VendorAppController
                     <th>Item</th>
                     <th>Material</th>
                     <th>Short Text</th>
-                    <th>Pending Qty</th>
+                    <th>Quantity</th>
+                    <th>Base Value</th>
+                    <th>Net Value</th>
             
                 </tr>
             </thead>
@@ -491,7 +490,9 @@ class PurchaseOrdersController extends VendorAppController
                  <td>'.$row->PoFooters['item'].'</td>
                  <td>'.$row->PoFooters['material'].'</td>
                  <td>'.$row->PoFooters['short_text'].'</td>
-                 <td>'.$row->PoFooters['net_price'].' '.$row->PoFooters['order_unit'].'</td>
+                 <td>'.$row->PoFooters['po_qty'].' '.$row->PoFooters['order_unit'].'</td>
+                 <td>'.$row->PoFooters['net_price'].'</td>
+                 <td>'.$row->PoFooters['net_value'].'</td>
                  
                 </tr>';
             
