@@ -165,9 +165,18 @@
         <?php
         echo $this->Form->control('po_header_id', ['id' => 'po_header_id', 'type' => 'hidden', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
         echo $this->Form->control('po_footer_id', ['id' => 'po_footer_id', 'type' => 'hidden', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
-        echo $this->Form->control('actual_qty', ['id' => 'actual_qty', 'type' => 'number', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
-        echo $this->Form->control('delivery_date', ['type' => 'date', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
         ?>
+
+        <div class="form-group">
+          <?php
+          echo $this->Form->control('actual_qty', ['id' => 'actual_qty', 'type' => 'number', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
+          ?>
+        </div>
+        <div class="form-group">
+          <?php
+          echo $this->Form->control('delivery_date', ['type' => 'date', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
+          ?>
+        </div>
 
         <span class="actualTotalValue d-none"></span>
 
@@ -297,7 +306,7 @@
     });
 
     $(document).ready(function() {
-            $('div.po-box:first').click();
+      $('div.po-box:first').click();
     });
 
 
@@ -388,8 +397,8 @@
       $("#po_footer_id").val($(this).attr('footer-id'));
       $("#item_title").html('<b>Item : </b>' + $(this).attr('item-no'));
 
-      $('#id_st'+$(this).attr('footer-id')).click();
-     
+      $('#id_st' + $(this).attr('footer-id')).click();
+
     });
 
     $('#scheduleModal').on('hidden.bs.modal', function(e) {
@@ -436,9 +445,9 @@
 
       if (actualTotalqty >= userqtyvalues) {
         $('#scheduleForm').valid(); // Trigger form validation
-      
+
       } else {
-        $('#scheduleForm').find('input[name="actual_qty"]').val(''); // Clear the input value
+        //$('#scheduleForm').find('input[name="actual_qty"]').val(''); // Clear the input value
       }
 
     });
@@ -448,7 +457,8 @@
       rules: {
         actual_qty: {
           required: true,
-          number: true
+          number: true,
+          checkQty: true
         },
         delivery_date: {
           required: true
@@ -457,7 +467,8 @@
       messages: {
         actual_qty: {
           required: "Please provide a quantity",
-          number: "Please enter a valid number"
+          number: "Please enter a valid number",
+          checkQty: "Do not exceed PO qty value"
         },
         delivery_date: {
           required: "Please select a date"
@@ -476,6 +487,20 @@
         $(element).removeClass('is-invalid');
       }
     });
+
+
+    $.validator.addMethod('checkQty', function(value, element) {
+
+      var totalvalueqty = parseInt($('.poqtyvalu').text());
+      var totallistqty = parseInt($('.actualTotalValue').text());
+      var actualTotalqty = totalvalueqty - totallistqty;
+      var userqtyvalues = parseInt($('#actual_qty').val());
+
+      if (actualTotalqty >= userqtyvalues) {
+        return true;
+      }
+      return false;
+    }, 'message');
 
 
     var table = $("#example2").DataTable({
