@@ -174,19 +174,25 @@ switch ($vendorTemp->status) {
                         <h6 class="text-info mb-2 pl-2">Uploaded Documnets</h6>
                         <table class="table docs-list vendor-info table-bordered">
                             <tbody>
+                                <?php if($vendorTemp->gst_file) : ?>
                                 <tr>
                                     <td>GST NO</td>
                                     </td>
-                                    <td><i class="fas fa-download"></i></td>
+                                    <td><?= $this->Html->link('<i class="fas fa-download"></i>','/'.$vendorTemp->gst_file, array('escape' => false));?></td>
                                 </tr>
+                                <?php endif; ?>
+                                <?php if($vendorTemp->pan_file) : ?>
                                 <tr>
                                     <td>Pan card</td>
-                                    <td><i class="fas fa-download"></i></td>
+                                    <td><?= $this->Html->link('<i class="fas fa-download"></i>','/'.$vendorTemp->pan_file, array('escape' => false));?></td>
                                 </tr>
+                                <?php endif ?>
+                                <?php if($vendorTemp->bank_file) : ?>
                                 <tr>
                                     <td>Bank Documents</td>
-                                    <td><i class="fas fa-download"></i></td>
+                                    <td><?= $this->Html->link('<i class="fas fa-download"></i>','/'.$vendorTemp->bank_file, array('escape' => false));?></td>
                                 </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -308,31 +314,6 @@ switch ($vendorTemp->status) {
                                         <?= h($vendorTemp->payment_term) ?>
                                     </td>
                                 </tr>
-                                
-
-                                
-                                <?php if($vendorTemp->pan_file) : ?>
-                                <tr>
-                                    <th>
-                                        <?= __('PAN Document') ?>
-                                    </th>
-                                    <td>
-                                        <?= $this->Html->link('Download','/'.$vendorTemp->pan_file, array('escape' => false));?>
-                                    </td>
-                                </tr>
-                                <?php endif; ?>
-
-                                <?php if($vendorTemp->bank_file) : ?>
-                                <tr>
-                                    <th>
-                                        <?= __('BANK Document') ?>
-                                    </th>
-                                    <td>
-                                        <?= $this->Html->link('Download','/'.$vendorTemp->bank_file, array('escape' => false));?>
-                                    </td>
-                                </tr>
-                                <?php endif; ?>
-
                             </table>
                         </div>
                     </div>

@@ -294,34 +294,8 @@ switch ($vendorTemp->status) {
                                                 <?= h($vendorTemp->order_currency) ?>
                                             </th>
                                         </tr>
-                                        <!-- <tr>
-                                            <td>
-                                                <?= __('GST NO') ?>
-                                            </td>
-                                            <th>
-                                                <i class="fas fa-download"></i>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <?= __('Pan Card') ?>
-                                            </td>
-                                            <th>
-                                                <i class="fas fa-download"></i>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <?= __('Bank Documnets') ?>
-                                            </td>
-                                            <th>
-                                                <i class="fas fa-download"></i>
-                                            </th>
-                                        </tr> -->
                                     </table>
-                                    <!-- <div class="text-right m-2">
-                                            <button type="button" class="btn-custom prof-udt" data-toggle="modal" data-target="#modal-confirm">Update</button>
-                                        </div> -->
+                                   
                                     
                                    
 
@@ -337,7 +311,7 @@ switch ($vendorTemp->status) {
                                                         <?= __('GST NO') ?>
                                                     </td>
                                                     <th>
-                                                        <i class="fas text-info fa-download"></i>
+                                                    <?= $this->Html->link('<i class="fas text-info fa-download"></i>','/'.$vendorTemp->gst_file, array('escape' => false));?>
                                                     </th>
                                         </div>
                                         <div class="i">
@@ -346,17 +320,17 @@ switch ($vendorTemp->status) {
                                                         <?= __('Pan Card') ?>
                                                     </td>
                                                     <th>
-                                                        <i class="fas text-info fa-download"></i>
+                                                    <?= $this->Html->link('<i class="fas text-info fa-download"></i>','/'.$vendorTemp->pan_file, array('escape' => false));?>
                                                     </th>
                                                 </tr>
                                         </div>
                                         <div class="i">
                                         <tr>
                                                     <td>
-                                                        <?= __('Pan Card') ?>
+                                                        <?= __('Bank Card') ?>
                                                     </td>
                                                     <th>
-                                                        <i class="fas text-info fa-download"></i>
+                                                    <?= $this->Html->link('<i class="fas text-info fa-download"></i>','/'.$vendorTemp->bank_file, array('escape' => false));?>
                                                     </th>
                                                 </tr>
                                         </div>
