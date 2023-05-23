@@ -241,7 +241,7 @@ a.page-link,.dataTables_info {
     padding: 5px 20px;
     width: 170px;
     cursor: pointer;
-    color: #999;
+    color: #444;
   }
 
   .purchase-order .po-code {

@@ -26,14 +26,18 @@ switch ($vendorTemp->status) {
 
 ?>
 <?= $this->Html->css('vendorCustom') ?>
-<style>.docs .i {
-    margin-right: 30px;
-    margin-left: 15px;
-}
-.docs i {
-    padding-left: 5px;
-    font-size: 12px;
-}
+<style>
+    .docs .i {
+        margin-right: 30px;
+        margin-left: 15px;
+        font-size: 14px;
+    }
+
+    .docs i {
+        padding-left: 5px;
+        font-size: 12px;
+        color: #8E9B2C !important;
+    }
 </style>
 <div class="profile-page pb-4 pl-2">
     <div class="row">
@@ -184,7 +188,7 @@ switch ($vendorTemp->status) {
                                         </th>
                                     </tr>
 
-                                   
+
 
                                     </table>
                                 </div>
@@ -192,14 +196,14 @@ switch ($vendorTemp->status) {
 
                                     <table>
 
-                                    <tr>
-                                        <td>
-                                            <?= __('Account Group') ?>
-                                        </td>
-                                        <th>
-                                            <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
-                                        </th>
-                                    </tr>
+                                        <tr>
+                                            <td>
+                                                <?= __('Account Group') ?>
+                                            </td>
+                                            <th>
+                                                <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
+                                            </th>
+                                        </tr>
 
                                         <tr>
                                             <td>
@@ -294,54 +298,25 @@ switch ($vendorTemp->status) {
                                                 <?= h($vendorTemp->order_currency) ?>
                                             </th>
                                         </tr>
-                                        <!-- <tr>
-                                            <td>
-                                                <?= __('GST NO') ?>
-                                            </td>
-                                            <th>
-                                                <i class="fas fa-download"></i>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <?= __('Pan Card') ?>
-                                            </td>
-                                            <th>
-                                                <i class="fas fa-download"></i>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <?= __('Bank Documnets') ?>
-                                            </td>
-                                            <th>
-                                                <i class="fas fa-download"></i>
-                                            </th>
-                                        </tr> -->
+                                       
                                     </table>
-                                    <!-- <div class="text-right m-2">
-                                            <button type="button" class="btn-custom prof-udt" data-toggle="modal" data-target="#modal-confirm">Update</button>
-                                        </div> -->
-                                    
-                                   
-
-
                                 </div>
                                 <div class="col-md-12 col-lg-12">
                                     <hr>
-                                <div class="docs">
-                                    <h6 class="text-info pl-3" style="color:#004d87 !important">All Documents</h6>
-                                    <div class="d-flex">
-                                        <div class="i">
-                                        <td>
-                                                        <?= __('GST NO') ?>
-                                                    </td>
-                                                    <th>
-                                                        <i class="fas text-info fa-download"></i>
-                                                    </th>
-                                        </div>
-                                        <div class="i">
-                                        <tr>
+                                    <div class="d-flex justify-content-between">
+                                    <div class="docs">
+                                        <h6 class="text-info pl-3" style="color:#004d87 !important">All Documents</h6>
+                                        <div class="d-flex">
+                                            <div class="i">
+                                                <td>
+                                                    <?= __('GST NO') ?>
+                                                </td>
+                                                <th>
+                                                    <i class="fas text-info fa-download"></i>
+                                                </th>
+                                            </div>
+                                            <div class="i">
+                                                <tr>
                                                     <td>
                                                         <?= __('Pan Card') ?>
                                                     </td>
@@ -349,9 +324,9 @@ switch ($vendorTemp->status) {
                                                         <i class="fas text-info fa-download"></i>
                                                     </th>
                                                 </tr>
-                                        </div>
-                                        <div class="i">
-                                        <tr>
+                                            </div>
+                                            <div class="i">
+                                                <tr>
                                                     <td>
                                                         <?= __('Pan Card') ?>
                                                     </td>
@@ -359,13 +334,14 @@ switch ($vendorTemp->status) {
                                                         <i class="fas text-info fa-download"></i>
                                                     </th>
                                                 </tr>
+                                            </div>
                                         </div>
-                                    </div>
-                                    
-                                       
+
+
                                     </div>
                                     <div class="text-right m-2">
                                         <button type="submit" class="btn btn-custom">Update</button>
+                                    </div>
                                     </div>
                                     <!-- <div class="text-right m-2">
                                             <button type="button" class="btn-custom prof-udt" data-toggle="modal"

@@ -7,6 +7,20 @@
 ?>
 <?= $this->Html->css('custom') ?>
 <style>
+    .table-responsive::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+   
+  .table-responsive::-webkit-scrollbar-thumb {
+    background: #BEBEFF;
+    border-radius: 20px;
+  }
+  
+  .table-responsive::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 20px;
+  }
 /* .card-body{
     padding:0.1rem;
     background-Color:WHITE

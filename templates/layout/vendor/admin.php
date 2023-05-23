@@ -14,7 +14,7 @@
 padding: 0.5rem 0.5rem;
 }
 .nav-link.active{
-    background-color: #0C1D49 !important;
+    background-color: #8E9B2C !important;
 
 }
 aside.main-sidebar {
