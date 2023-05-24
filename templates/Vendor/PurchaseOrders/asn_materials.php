@@ -24,6 +24,12 @@
     padding-top: 10px;
     padding-right: 15px;
   }
+  /* span#invoices-error {
+    margin-top: -36px;
+}
+.file-upld-btn {
+    margin-top: -55px;
+} */
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <?= $this->Html->css('custom') ?>
@@ -175,9 +181,9 @@
 
       <div class="col-sm-8 col-md-3">
         <div class="form-group">
-          <label for="invoices">Upload Invoice</label><br>
-          <input type="file" name="invoices[]" accept=".pdf" multiple="multiple" class="pt-1 rounded-0 d-none" div="form-group" required="required" id="invoices">
-          <button id="OpenImgUpload" type="button" class="btn btn-secondary mb-0 file-upld-btn">Choose File</button>
+          <label for="invoices">Upload Invoice</label>
+          <input type="file" name="invoices[]" accept=".pdf" multiple="multiple" class="pt-1 rounded-0" style="visibility: hidden;position:absolute;" div="form-group"  required="required" id="invoices">
+          <button id="OpenImgUpload" type="button" class="d-block btn btn-secondary mb-0 file-upld-btn">Choose File</button>
 
           <p id="files-area">
             <span id="filesList">
