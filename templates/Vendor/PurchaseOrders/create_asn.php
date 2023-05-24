@@ -5,7 +5,8 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table') ?>
 <?= $this->Form->create(null, ['action' => 'asn-materials', 'id' => 'asnForm']) ?>
@@ -17,15 +18,17 @@
             <div class="t1 pt-1">
                 <div class="row">
                     <div class="col-md-6 pt-2">
-                        <!-- <h5><b>Select Material</b></h5> -->
-                        <div class="search-bar mb-2">
-                        <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
-                    </div>
+                        <div class="search-bar d-flex mb-2">
+                            <input type="search" placeholder="Search all orders, meterials.."
+                                class="form-control search-box">
+                            <button type="button" class="btn-go">GO</button>
+                        </div>
                     </div>
                     <div class="col-md-6 pb-2">
                         <div class="action-btn d-flex justify-content-end">
-                        <input type="file" id="imgupload" style="display:none"/> 
-                        <button id="OpenImgUpload" type="button" class="btn btn-custom mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</button>
+                            <input type="file" id="imgupload" style="display:none" />
+                            <button id="OpenImgUpload" type="button" class="btn btn-custom mb-0 mr-1"><i
+                                    class="fa fa-solid fa-file-import"></i> Upload ASN File</button>
                             <!-- <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a> -->
                             <button type="submit" class="btn btn-secondary mb-0 continue_btn" disabled>Continue</button>
                         </div>
@@ -37,10 +40,12 @@
                     </div> -->
                     <div class="polist">
                         <div class="d-flex">
-                            <?php foreach ($poHeaders as $poHeader) : ?>
+                            <?php foreach ($poHeaders as $poHeader): ?>
                                 <div class="po-box details-control  ponum" header-id="<?= $poHeader->id ?>">
                                     <p class="po-no mb-0">PO No</p>
-                                    <b class="text-info"><?= h($poHeader->po_no) ?></b>
+                                    <b class="text-info">
+                                        <?= h($poHeader->po_no) ?>
+                                    </b>
                                 </div>
 
                             <?php endforeach; ?>
@@ -94,9 +99,9 @@
 
 <script>
     // file upload button
-    $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
+    $('#OpenImgUpload').click(function () { $('#imgupload').trigger('click'); });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         var table = $("#example1").DataTable({
             "paging": false,
@@ -113,7 +118,7 @@
 
 
 
-        $(document).on("click", ".flu", function() {
+        $(document).on("click", ".flu", function () {
             if ($(this).data('alt') == '+') {
                 $(this).data('alt', '-');
                 $(this).empty();
@@ -125,7 +130,7 @@
             }
         });
 
-        $(document).on('click', 'div.details-control', function() {
+        $(document).on('click', 'div.details-control', function () {
 
             $('div.details-control').removeClass('active');
 
@@ -134,7 +139,7 @@
             $(".continue_btn").addClass('btn-secondary ');
             $(".continue_btn").removeClass('btn-success');
             $(".continue_btn").attr('disabled', 'disabled');
-            
+
             $(".right-side").html(format($(this).attr('header-id')));
             $("#po_header_id").val($(this).attr('header-id'));
         });
@@ -154,7 +159,7 @@
                 //url: '../getDeliveryDetails/' + rowData,
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-items')); ?>/" + rowData,
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     if (response.status == 'success') {
                         div
                             .html(response.html)
@@ -170,21 +175,21 @@
             return div;
         }
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('div.details-control:first').click();
         });
 
 
-        $(document).on("click", "#ckbCheckAll", function() {
+        $(document).on("click", "#ckbCheckAll", function () {
             if (this.checked) {
-                $('.checkBoxClass').each(function() {
+                $('.checkBoxClass').each(function () {
                     $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
                     this.checked = true;
                     $("#select" + $(this).data("id")).trigger("change");
                 });
             } else {
 
-                $('.checkBoxClass').each(function() {
+                $('.checkBoxClass').each(function () {
                     $("#qty" + $(this).data("id")).val('0');
                     this.checked = false;
                     $("#select" + $(this).data("id")).trigger("change");
@@ -201,7 +206,7 @@
             }
         });
 
-        $(document).on("change", ".checkBoxClass", function() {
+        $(document).on("change", ".checkBoxClass", function () {
 
             if ($(this).is(':checked')) {
 
@@ -211,7 +216,7 @@
             }
         });
 
-        $(document).on("change", ".checkBoxClass", function() {
+        $(document).on("change", ".checkBoxClass", function () {
             if ($('.checkBoxClass:checked').length == $('.checkBoxClass').length) {
                 $('#ckbCheckAll').prop('checked', true);
             } else {

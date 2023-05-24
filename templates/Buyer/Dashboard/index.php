@@ -15,72 +15,14 @@
     .nav-link.active {
         background-color: #8E9B2C !important;
     }
-  /* 
+    .content-wrapper{
+      min-height: 780px !important;
+    }
   
-  
-  .user-panel .image{
-    margin-right: 10px;
-  }
-  .products-list .product-img {
-    float: clear;
-  }
-
-  .products-list .product-img .cust-img {
-    width: 20px;
-    height: 20px;
-  }
-
-  .product-description {
-
-    font-size: 7px;
-  }
-
-  .card-header {
-    padding: 0rem.0rem;
-    margin-left: 10px;
-    margin-top: 5px
-  }
-
-  .product-title {
-    color: black;
-  }
-
-
-
-  .badge-warning {
-    color: black;
-    background-Color: lightgrey
-  }
-
-  
-
-  
-
-
-
-  .card-title{
-    font-size:0.9rem;
-    font-family:system-ui;
-  }
-
-  .card-body{
-    padding:0.25rem
-  }
-  .badge-warning{
-    background-Color:white;
-    font-size: 12px;
-  }
-
-  .products-list .product-title{
-    font-weight:400;
-  }
- */
-
-
 </style>
 <?= $this->Html->css('custom') ?>
 <div class="buyer-dash">
-<div class="row mt-4 mx-1 mb-3 first-row">
+<div class="row mt-4 mx-1 mb-1 first-row">
   
 
   <div class="col-sm-12 col-lg-3">
@@ -397,7 +339,7 @@
 <div class="row mx-1">
   <div class="col-sm-12 col-lg-6">
 
-    <div class="card card-default">
+    <div class="card card-default btm-card">
       <div class="card-header">
         <h3 class="card-title">Top Material by quantity</h3>
 
@@ -423,7 +365,7 @@
 
   <div class="col-sm-12 col-lg-6">
 
-    <div class="card card-default">
+    <div class="card card-default btm-card">
       <div class="card-header">
         <h3 class="card-title">Top Material by order value</h3>
 

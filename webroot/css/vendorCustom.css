@@ -208,10 +208,28 @@ a.page-link,.dataTables_info {
     margin-bottom: 0px !important;
     display: block;
 }
-.search-bar .search-box {
-    height: 30px;
-    width: 200px;
+.search-bar {
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    width: 260px;
+    padding: 5px 10px;
+    justify-content: space-between;
+}
+.search-bar input.search-box {
+    border: none;
+    font-size: 13px;
+    width: 100%;
+    height: 32px !important;
+    padding-left: 5px;
+}
+.search-bar .btn-go {
     font-size: 12px;
+    padding: 7px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: #527195;
+    color: #fff;
+    border: 1px solid #527195;
 }
 .purchase-order .d-flex::-webkit-scrollbar {
     height: 10px;

@@ -10,8 +10,9 @@
   <div class="card-body">
     <div class="table-responsive">
       <div class="table-responsive" id="purViewId">
-        <div class="search-bar mb-2">
-          <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
+        <div class="search-bar d-flex mb-2">
+          <input type="search" placeholder="Search all orders, meterials.." class="form-control search-box">
+          <button type="button" class="btn-go">GO</button>
         </div>
         <div class="po-list">
           <div class="d-flex">
