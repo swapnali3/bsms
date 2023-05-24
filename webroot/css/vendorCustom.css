@@ -283,3 +283,6 @@ a.page-link,.dataTables_info {
   .bg_color_grn{
     background-color: #8E9B2C !important;
   }
+  .btn-custom-2:hover {
+    color: #fff;
+}

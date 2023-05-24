@@ -20,11 +20,22 @@
                 <div class="head-t">
                     <h5 class="text-info pt-2"><b>Gate Entry (GE)</b></h5>
                 </div>
-                <?php if($deliveryDetails->toArray()[0]->status == 2) { ?>
                 <div class="actionbtn">
+                <?php
+                            $files = json_decode($deliveryDetails->toArray()[0]->invoice_path, true);
+
+                            if (!empty($files) && isset($files[0])) {
+                                echo $this->Html->link('View invoice', '/' . $files[0], ['target' => '_blank', 'class' => 'btn mb-1 view-invoice btn-custom-2']);
+                            }
+                            ?>
+                <?php if($deliveryDetails->toArray()[0]->status == 2) { ?>
+                
                     <button type="button" class="btn btn-custom mark_delivered mb-1" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">Mark Entry</button>
-                </div>
+
+               
                 <?php } ?>
+                </div>
+
             </div>
 
         </div>
@@ -75,15 +86,7 @@
                         <div class="col-md-2">
                             <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
                         </div>
-                        <div class="col-md-2 align-self-end">
-                            <?php
-                            $files = json_decode($deliveryDetails->toArray()[0]->invoice_path, true);
-
-                            if (!empty($files) && isset($files[0])) {
-                                echo $this->Html->link('View invoice', '/' . $files[0], ['target' => '_blank', 'class' => 'view-invoice btn-custom']);
-                            }
-                            ?>
-                        </div>
+                       
                     </div>
 
                 </div>
