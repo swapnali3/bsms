@@ -15,7 +15,7 @@ div#example1_wrapper .row:first-child{
 #example1_filter input.form-control.form-control-sm {
     /* width: 100% !important; */
     padding: 15px 10px !important;
-    border-radius: 5px !important;
+    border-radius: 30px !important;
     margin-left: -7px !important;
     border-color: #989090 !important;
 }
