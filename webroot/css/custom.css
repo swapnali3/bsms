@@ -711,3 +711,6 @@ input.form-control.search {
   .action-btn .btn-success {
     background-color: #08132F !important;
 }
+.btn-custom-2:hover {
+    color: #fff;
+}
