@@ -9,10 +9,21 @@
   .file-upld-btn {
     font-size: 12px;
     text-transform: capitalize;
-}
-.file__value {
+  }
+
+  span.file-delete i {
+    padding-right: 5px;
+  }
+
+  .file__value {
     font-size: 0.8rem;
-}
+  }
+
+  span.file-block {
+    display: inline-block;
+    padding-top: 10px;
+    padding-right: 15px;
+  }
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <?= $this->Html->css('custom') ?>
@@ -168,7 +179,11 @@
           <input type="file" name="invoices[]" accept=".pdf" multiple="multiple" class="pt-1 rounded-0 d-none" div="form-group" required="required" id="invoices">
           <button id="OpenImgUpload" type="button" class="btn btn-secondary mb-0 file-upld-btn">Choose File</button>
 
-          <div id="file__input" class="mt-2"></div>
+          <p id="files-area">
+            <span id="filesList">
+              <span id="files-names"></span>
+            </span>
+          </p>
         </div>
       </div>
     </div>
@@ -288,51 +303,42 @@
     });
 
 
-    // $('#invoices').on('change', function(event) {
-    //   var files = event.target.files;
-
-    //   for (var i = 0; i < files.length; i++) {
-    //     var file = files[i];
-    //     $("<div class='file__value'><div class='file__value--text'>" + file.name + " <span class='file__remove' data-id='" + file.name + "'><i class='fas fa-times-circle text-danger'></i></span></div></div>").appendTo('#file__input');
-    //   }
-    // });
-
-    const dt = new DataTransfer(); // Permet de manipuler les fichiers de l'input file
+    const dt = new DataTransfer();
 
     $('#invoices').on('change', function(event) {
       var files = event.target.files;
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        $("<div class='file__value'><div class='file__value--text'>" + file.name + " <span class='file__remove' data-id='" + file.name + "'><i class='fas fa-times-circle text-danger'></i></span></div></div>").appendTo('#file__input');
-      }
+      for (var i = 0; i < this.files.length; i++) {
+        let fileBloc = $('<span/>', {
+            class: 'file-block'
+          }),
+          fileName = $('<span/>', {
+            class: 'name',
+            text: this.files.item(i).name
+          });
+        $("#filesList > #files-names").append(fileBloc);
+        fileBloc.append('<span class="file-delete"><span><i class="fas fa-times-circle text-danger"></i></span></span>')
+          .append(fileName);
 
+      };
       for (let file of this.files) {
         dt.items.add(file);
       }
-      // Mise à jour des fichiers de l'input file après ajout
       this.files = dt.files;
 
-      $('body').on('click', '.file__remove', function() {
-        let name = $(this).next('.file__value--text').text();
-
-        console.log(name);
+      $('span.file-delete').click(function() {
+        let name = $(this).next('span.name').text();
         $(this).parent().remove();
         for (let i = 0; i < dt.items.length; i++) {
-
           if (name === dt.items[i].getAsFile().name) {
-          
             dt.items.remove(i);
-            console.log(dt.files);
+            // console.log(dt.files);
             continue;
           }
         }
+        document.getElementById('invoices').files = dt.files;
+        
       });
 
-
-      document.getElementById('invoices').files = dt.files;
-
-      console.log(dt.files);
-   
     });
 
     // file upload button
@@ -340,23 +346,6 @@
       $('#invoices').trigger('click');
 
     });
-
-
-    // $('body').on('click', '.file__remove', function() {
-
-    //   var fileValue = $(this).closest('.file__value');
-    //   var fileInput = fileValue.closest('.form-group').find('input[type="file"]');
-    //   var files = fileInput[0].files;
-
-    //   console.log(files);
-
-    //   fileValue.remove();
-
-    //   if (files.length === 1) {
-    //     fileInput.val(null);
-    //   }
-    // });
-
 
 
     $(document).on('keyup', '.check_qty', function() {

@@ -88,9 +88,9 @@ class PurchaseOrdersController extends VendorAppController
                     }
                 }
 
-                echo '<pre>';
-                print_r($request);
-                exit;
+                // echo '<pre>';
+                // print_r($request);
+                // exit;
 
                 $productImages = $request["invoices"];
 
