@@ -33,6 +33,44 @@ class PurchaseOrdersController extends VendorAppController
         $this->set(compact('poHeaders'));
     }
 
+    public function poApi($search = null)
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->set('headTitle', 'Purchase Order List');
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoItemSchedules');
+
+        $session = $this->getRequest()->getSession();
+
+        $data = $this->PoHeaders->find('all')
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+            ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+            ->where([
+                'sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
+                'OR' => [
+                    ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
+                    ['PoFooters.material LIKE' => '%' . $search . '%'],
+                    ['PoFooters.short_text LIKE' => '%' . $search . '%'],
+                ]
+            ]);
+
+        //    print_r($data);exit;
+
+        if ($data->count() > 0) {
+            $response['status'] = 'success';
+            $response['message'] = $data;
+        } else {
+            $response['status'] = 'fail';
+            $response['message'] = 'Order not found';
+        }
+        echo json_encode($response);
+    }
+
     public function createAsn()
     {
         $this->set('headTitle', 'Create ASN');
@@ -389,7 +427,7 @@ class PurchaseOrdersController extends VendorAppController
             ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'PoItemSchedules.delivery_date'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
-            //->innerJoin(['dateDe' => '(select min(delivery_date) date from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date'])
+            ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
 
             ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0']);
 
@@ -413,18 +451,18 @@ class PurchaseOrdersController extends VendorAppController
             <tbody>';
             $totalQty = 0;
             foreach ($data as $row) {
-                //print_r($row); exit;
+                // print_r($row); 
                 $html .= '<tr>
-                <td><input type="checkbox" name="footer_id[]" value="' . $row->PoFooters['id'] . '" class="checkBoxClass" id="select1" data-pendingqty="' . $row->actual_qty . '" data-id="' . $row->PoFooters['item'] . '"></td>
+                <td><input type="checkbox" name="footer_id[]" value="' . $row->PoFooters['id'] . '" class="checkBoxClass" id="select1" data-pendingqty="' . $row->actual_qty . '" data-id="' . $row->PoItemSchedules['id'] . '"></td>
                  <td>' . $row->PoFooters['item'] . '</td>
                  <td>' . $row->PoFooters['material'] . '</td>
                  <td>' . $row->PoFooters['short_text'] . '</td>
                  <td>' . $row->actual_qty . ' ' . $row->PoFooters['order_unit'] . '</td>
-                 <td><input type="number" name="footer_id_qty[]" class="form-control check_qty" required="required" data-item="' . $row->PoFooters['item'] . '" id="qty' . $row->PoFooters['item'] . '" value="0"></td>
+                 <td><input type="number" name="footer_id_qty[]" class="form-control check_qty" required="required" data-item="' . $row->PoFooters['item'] . '" id="qty' . $row->PoItemSchedules['id'] . '" value="0"></td>
                  
                 </tr>';
             }
-
+            // exit;
             $html .= "</tbody>
             </table>";
 

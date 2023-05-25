@@ -48,6 +48,45 @@ class PurchaseOrdersController extends BuyerAppController
         $this->set(compact('poHeaders'));
     }
 
+
+       public function poApi($search = null)
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->set('headTitle', 'Purchase Order List');
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoItemSchedules');
+
+        $session = $this->getRequest()->getSession();
+
+        $data = $this->PoHeaders->find('all')
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text'])
+            ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+            ->where([
+                'select count(buyer_id) from vendor_temps where buyer_id IN' => $session->read('id'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id and po_footer_id = PoFooters.id ) > 0',
+                'OR' => [
+                    ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
+                    ['PoFooters.material LIKE' => '%' . $search . '%'],
+                    ['PoFooters.short_text LIKE' => '%' . $search . '%'],
+                ]
+            ]);
+
+           print_r($data);exit;
+
+        if ($data->count() > 0) {
+            $response['status'] = 'success';
+            $response['message'] = $data;
+        } else {
+            $response['status'] = 'fail';
+            $response['message'] = 'Order not found';
+        }
+        echo json_encode($response);
+    }
+
     public function getPoFooters($id = null)
     {
 

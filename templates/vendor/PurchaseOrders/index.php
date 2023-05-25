@@ -12,11 +12,11 @@
       <div class="table-responsive" id="purViewId">
         <div class="search-bar d-flex mb-2">
           <input type="search" placeholder="Search all orders, meterials.." class="form-control search-box">
-          <button type="button" class="btn-go">GO</button>
+          <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
         </div>
         <div class="po-list">
-          <div class="d-flex">
-            <?php foreach ($poHeaders as $poHeader) : ?>
+          <div class="d-flex" id="poItes">
+            <!-- <?php foreach ($poHeaders as $poHeader) : ?>
               <div class="po-box details-control" data-id="<?= $poHeader->id ?>">
                 <div class="pono">
                   <small class="mb-0">
@@ -36,7 +36,7 @@
                     </b></small>
                 </div>
               </div>
-            <?php endforeach; ?>
+            <?php endforeach; ?> -->
           </div>
         </div>
       </div>
@@ -67,10 +67,10 @@
 </div>
 
 <script>
-  $(document).on("click", ".redirect", function() {
+  $(document).on("click", ".redirect", function () {
     window.location.href = $(this).data("href");
   });
-  $(document).ready(function() {
+  $(document).ready(function () {
     $("#example1").DataTable({
       "paging": true,
       "responsive": false,
@@ -85,11 +85,11 @@
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('div.details-control').click();
     });
 
-    $(document).on('click', 'div.details-control', function() {
+    $(document).on('click', 'div.details-control', function () {
 
       $('div.details-control').removeClass('active');
 
@@ -100,6 +100,8 @@
 
 
     function format(rowData) {
+
+      $(".related").show();
       var div = $('<div/>')
         .addClass('loading')
         .text('Loading...');
@@ -113,7 +115,7 @@
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'getPurchaseItem')); ?> /" + rowData,
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
           if (response.status == 'success') {
             div
               .html(response.html)
@@ -129,9 +131,75 @@
       return div;
     }
 
-    $(document).ready(function() {
-      $('div.details-control:first').click();
+
+    $('.search-box').on('keypress', function (event) {
+      if (event.which === 13) { 
+        var searchName = $(this).closest('.search-bar').find('.search-box').val();   
+        poform(searchName);
+        return false;
+      }
     });
 
+    $('.search-box').on('keydown', function (event) {
+    
+      if (event.which === 8) { // Check if Backspace key is pressed 
+        var searchName = $(this).closest('.search-bar').find('.search-box').val();
+        if (searchName.length === 1) {
+          $(".related").show();
+          poform(searchName);
+        }
+      }
+    });
+
+    poform();
+
+    function poform(search = "") {
+      var div = $('<div/>')
+        .addClass('loading')
+        .text('Loading...');
+      $("#poItes").empty();
+      var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
+      if (search != "") {
+        uri += "/" + search
+      }
+      $.ajax({
+        type: "GET",
+        url: uri,
+        dataType: 'json',
+        success: function (response) {
+          if (response.status == 'success') {
+            $.each(response.message, function (key, val) {
+              $("#poItes").append(`<div class="po-box details-control" data-id="` + val.id + `"> <div class="pono"><small class="mb-0">
+                    <?= h('PO No ') ?>
+                    <br>
+                  </small>
+                  <b>` + val.po_no + `</b>
+                </div>
+                <div class="po-code">
+                  <small class="mb-0">
+                    <?= h('Vendor Code:') ?>
+                  </small>
+                  <br> <small><b>
+                     ` + val.sap_vendor_code + `
+                    </b></small>
+                </div>
+              </div>`);
+
+              $('div.details-control:first').click();
+
+            });
+          } else {
+            $("#poItes").empty().hide().append(`No data Found`);
+            $(".related").hide();
+           
+
+          }
+        }
+      });
+    }
+    $(document).ready(function() {
+      $('div.details-control').click();
+    });
+  
   });
 </script>

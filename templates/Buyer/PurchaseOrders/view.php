@@ -19,6 +19,7 @@
       <div class="table-responsive p-2" id="purViewId">
         <div class="search-bar mb-2">
           <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
+          <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
         </div>
         <div class="po-list">
           <div class="d-flex">
@@ -560,6 +561,73 @@
         }
       });
 
+    });
+
+
+    $('.search-box').on('keypress', function(event) {
+      if (event.which === 13) {
+        var searchName = $(this).closest('.search-bar').find('.search-box').val();
+        poform(searchName);
+        return false;
+      }
+    });
+
+    $('.search-box').on('keydown', function(event) {
+
+      if (event.which === 8) { // Check if Backspace key is pressed 
+        var searchName = $(this).closest('.search-bar').find('.search-box').val();
+        if (searchName.length === 1) {
+          $(".right-side").show();
+          poform(searchName);
+        }
+      }
+    });
+
+
+    poform();
+
+    function poform(search = "") {
+
+      $(".dataTable").empty();
+      var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
+      if (search != "") {
+        uri += "/" + search
+      }
+      $.ajax({
+        type: "GET",
+        url: uri,
+        dataType: 'json',
+        success: function(response) {
+          if (response.status == 'success') {
+            $.each(response.message, function(key, val) {
+              $(".dataTable").append(`<div class="po-box details-control" data-id="` + val.id + `"> <div class="pono"><small class="mb-0">
+                    <?= h('PO No ') ?>
+                    <br>
+                  </small>
+                  <b>` + val.po_no + `</b>
+                </div>
+                <div class="po-code">
+                  <small class="mb-0">
+                    <?= h('Vendor Code:') ?>
+                  </small>
+                  <br> <small><b>
+                     ` + val.sap_vendor_code + `
+                    </b></small>
+                </div>
+              </div>`);
+              $('div.details-control:first').click();
+            });
+          } else {
+            $(".dataTable").empty().hide().append(`No data Found`);
+            $(".right-side").hide();
+
+          }
+        }
+      });
+    }
+
+    $(document).ready(function() {
+      $('div.details-control:first').click();
     });
 
 
