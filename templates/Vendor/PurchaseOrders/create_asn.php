@@ -5,8 +5,7 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
-<link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table') ?>
 <?= $this->Form->create(null, ['action' => 'asn-materials', 'id' => 'asnForm']) ?>
@@ -19,16 +18,14 @@
                 <div class="row">
                     <div class="col-md-6 pt-2">
                         <div class="search-bar d-flex mb-2">
-                            <input type="search" placeholder="Search all orders, meterials.."
-                                class="form-control search-box">
-                            <button type="button" class="btn-go">GO</button>
+                            <input type="search" placeholder="Search all orders, meterials.." class="form-control search-box">
+                           <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
                         </div>
                     </div>
                     <div class="col-md-6 pb-2">
                         <div class="action-btn d-flex justify-content-end">
                             <input type="file" id="imgupload" style="display:none" />
-                            <button id="OpenImgUpload" type="button" class="btn btn-custom mb-0 mr-1"><i
-                                    class="fa fa-solid fa-file-import"></i> Upload ASN File</button>
+                            <button id="OpenImgUpload" type="button" class="btn btn-custom mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</button>
                             <!-- <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a> -->
                             <button type="submit" class="btn btn-secondary mb-0 continue_btn" disabled>Continue</button>
                         </div>
@@ -39,8 +36,8 @@
                         <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
                     </div> -->
                     <div class="polist">
-                        <div class="d-flex">
-                            <?php foreach ($poHeaders as $poHeader): ?>
+                        <div class="d-flex" id="poItemss">
+                            <!-- <?php foreach ($poHeaders as $poHeader) : ?>
                                 <div class="po-box details-control  ponum" header-id="<?= $poHeader->id ?>">
                                     <p class="po-no mb-0">PO No</p>
                                     <b class="text-info">
@@ -48,7 +45,7 @@
                                     </b>
                                 </div>
 
-                            <?php endforeach; ?>
+                            <?php endforeach; ?> -->
                         </div>
                     </div>
                 </div>
@@ -99,9 +96,11 @@
 
 <script>
     // file upload button
-    $('#OpenImgUpload').click(function () { $('#imgupload').trigger('click'); });
+    $('#OpenImgUpload').click(function() {
+        $('#imgupload').trigger('click');
+    });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         var table = $("#example1").DataTable({
             "paging": false,
@@ -118,7 +117,7 @@
 
 
 
-        $(document).on("click", ".flu", function () {
+        $(document).on("click", ".flu", function() {
             if ($(this).data('alt') == '+') {
                 $(this).data('alt', '-');
                 $(this).empty();
@@ -130,7 +129,7 @@
             }
         });
 
-        $(document).on('click', 'div.details-control', function () {
+        $(document).on('click', 'div.details-control', function() {
 
             $('div.details-control').removeClass('active');
 
@@ -159,7 +158,7 @@
                 //url: '../getDeliveryDetails/' + rowData,
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-items')); ?>/" + rowData,
                 dataType: 'json',
-                success: function (response) {
+                success: function(response) {
                     if (response.status == 'success') {
                         div
                             .html(response.html)
@@ -175,21 +174,78 @@
             return div;
         }
 
-        $(document).ready(function () {
+
+
+        // this code is po list function]
+
+        $('.search-box').on('keypress', function(event) {
+            if (event.which === 13) {
+                var searchName = $(this).closest('.search-bar').find('.search-box').val();
+                poform(searchName);
+                return false;
+            }
+        });
+
+        $('.search-box').on('keydown', function(event) {
+
+            if (event.which === 8) { // Check if Backspace key is pressed 
+                var searchName = $(this).closest('.search-bar').find('.search-box').val();
+                if (searchName.length === 1) {
+                    $(".right-side").show();
+                    poform(searchName);
+                }
+            }
+        });
+
+
+        poform();
+
+        function poform(search = "") {
+
+            $("#poItemss").empty();
+            var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
+            if (search != "") {
+                uri += "/" + search
+            }
+            $.ajax({
+                type: "GET",
+                url: uri,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status == 'success') {
+                        $.each(response.message, function(key, val) {
+                            $("#poItemss").append(`<div class="po-box details-control  ponum" header-id="` + val.id + `">
+                                    <p class="po-no mb-0">PO No</p>
+                                    <b class="text-info">
+                                    ` + val.po_no + `
+                                    </b>
+                                </div>`);
+                            $('div.details-control:first').click();
+                        });
+                    } else {
+                        $("#poItemss").empty().hide().append(`No data Found`);
+                        $(".right-side").hide();
+                    
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function() {
             $('div.details-control:first').click();
         });
 
 
-        $(document).on("click", "#ckbCheckAll", function () {
+        $(document).on("click", "#ckbCheckAll", function() {
             if (this.checked) {
-                $('.checkBoxClass').each(function () {
+                $('.checkBoxClass').each(function() {
                     $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
                     this.checked = true;
                     $("#select" + $(this).data("id")).trigger("change");
                 });
             } else {
 
-                $('.checkBoxClass').each(function () {
+                $('.checkBoxClass').each(function() {
                     $("#qty" + $(this).data("id")).val('0');
                     this.checked = false;
                     $("#select" + $(this).data("id")).trigger("change");
@@ -206,17 +262,15 @@
             }
         });
 
-        $(document).on("change", ".checkBoxClass", function () {
-
+        $(document).on("change", ".checkBoxClass", function() {
             if ($(this).is(':checked')) {
-
                 $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
             } else {
                 $("#qty" + $(this).data("id")).val('0');
             }
         });
 
-        $(document).on("change", ".checkBoxClass", function () {
+        $(document).on("change", ".checkBoxClass", function() {
             if ($('.checkBoxClass:checked').length == $('.checkBoxClass').length) {
                 $('#ckbCheckAll').prop('checked', true);
             } else {
