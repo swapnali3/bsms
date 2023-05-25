@@ -187,8 +187,8 @@ class OnboardingController extends VendorAppController
             if($data["gst_file"]) {
                 $gstUpload = $data["gst_file"];
                 if (
-                    $bankUpload !== null &&
-                    $bankUpload->getError() !== \UPLOAD_ERR_NO_FILE
+                    $gstUpload !== null &&
+                    $gstUpload->getError() !== \UPLOAD_ERR_NO_FILE
                 ) {
                     $fileName = $id.'_'.$gstUpload->getClientFilename();
                     $fileType = $gstUpload->getClientMediaType();
@@ -205,10 +205,9 @@ class OnboardingController extends VendorAppController
 
             if($data["pan_file"]) {
                 $panUpload = $data["pan_file"];
-                $bankUpload = $data["bank_file"];
                 if (
-                    $bankUpload !== null &&
-                    $bankUpload->getError() !== \UPLOAD_ERR_NO_FILE
+                    $panUpload !== null &&
+                    $panUpload->getError() !== \UPLOAD_ERR_NO_FILE
                 ) {
                     $fileName = $id.'_'.$panUpload->getClientFilename();
                     $fileType = $panUpload->getClientMediaType();
