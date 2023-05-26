@@ -73,8 +73,7 @@ class PurchaseOrdersController extends BuyerAppController
                 'type' => 'INNER',
                 'conditions' => ['V.sap_vendor_code = PoHeaders.sap_vendor_code', 'V.buyer_id' => $session->read('id'), 'status' => '3']
             ])
-            ->where([
-                 '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id) > 0',
+            ->where([ 
                 'OR' => [
                     ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
                     ['PoFooters.material LIKE' => '%' . $search . '%'],
