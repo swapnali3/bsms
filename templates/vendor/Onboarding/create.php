@@ -31,7 +31,10 @@
     img.vekpro-logo {
         width: 100px;
     }
-
+    .info-msg {
+    padding-left: 5px;
+    font-size: 12px;
+}
     img.ft-icon {
         width: 40px;
         margin-right: -5px;
@@ -181,15 +184,18 @@
                     <div class="row">
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" class="form-label">Upload GST no</label>
-                            <input class="form-control" type="file" name="gst_file" id="formFileMultiple">
+                            <input class="form-control" type="file" accept=".pdf" name="gst_file" id="formFileMultiple">
+                            <small class="text-warning info-msg">Upload only PDF file</small>
                         </div>
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" class="form-label">Upload pan card</label>
-                            <input class="form-control" type="file" name="pan_file" id="formFileMultiple">
+                            <input class="form-control" accept=".pdf" type="file" name="pan_file" id="formFileMultiple">
+                            <small class="text-warning info-msg">Upload only PDF file</small>
                         </div>
                         <div class="col-4 mt-3">
-                            <label for="formFileMultiple" class="form-label">Upload bank details</label>
+                            <label for="formFileMultiple" accept=".pdf" class="form-label">Upload bank details</label>
                             <input class="form-control" type="file" name="bank_file" id="formFileMultiple">
+                            <small class="text-warning info-msg">Upload only PDF file</small>
                         </div>
                     </div>
                 </div>
