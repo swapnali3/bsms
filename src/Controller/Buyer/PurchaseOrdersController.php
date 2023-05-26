@@ -59,6 +59,7 @@ class PurchaseOrdersController extends BuyerAppController
         $this->set('headTitle', 'Purchase Order List');
         $this->loadModel('PoHeaders');
         $this->loadModel('PoItemSchedules');
+        $this->loadModel("VendorTemps");
 
         $session = $this->getRequest()->getSession();
 
@@ -66,8 +67,14 @@ class PurchaseOrdersController extends BuyerAppController
             ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text'])
             ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+            ->join([
+                'table' => 'vendor_temps',
+                'alias' => 'V',
+                'type' => 'INNER',
+                'conditions' => ['V.sap_vendor_code = PoHeaders.sap_vendor_code', 'V.buyer_id' => $session->read('id'), 'status' => '3']
+            ])
             ->where([
-                'select count(buyer_id) from vendor_temps where buyer_id IN' => $session->read('id'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id and po_footer_id = PoFooters.id ) > 0',
+                 '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id) > 0',
                 'OR' => [
                     ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
                     ['PoFooters.material LIKE' => '%' . $search . '%'],
@@ -75,7 +82,7 @@ class PurchaseOrdersController extends BuyerAppController
                 ]
             ]);
 
-           print_r($data);exit;
+        //print_r($data);exit;
 
         if ($data->count() > 0) {
             $response['status'] = 'success';

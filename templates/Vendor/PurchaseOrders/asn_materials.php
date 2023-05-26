@@ -43,7 +43,7 @@
           <h6 class="mb-0"><small>PO NO :</small>
             <b><?= h($poHeader[0]->po_no) ?></b>
           </h6>
-          <h6 class="mb-0"><small>Vendor Name: </small><b><?php echo $this->getRequest()->getSession()->read('first_name'); ?></b></h6>
+          <h6 class="mb-0"><small>Vendor Name: </small><b><?php echo $this->getRequest()->getSession()->read('full_name'); ?></b></h6>
 
         </div>
       </div>

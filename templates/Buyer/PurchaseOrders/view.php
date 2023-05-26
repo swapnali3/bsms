@@ -22,8 +22,8 @@
           <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
         </div>
         <div class="po-list">
-          <div class="d-flex">
-            <?php foreach ($poHeaders as $poHeader) : ?>
+          <div class="d-flex" id="poItemss">
+            <!-- <?php foreach ($poHeaders as $poHeader) : ?>
               <div class="po-box" data-id="<?= $poHeader->id ?>">
                 <div class="pono">
                   <small class="mb-0">
@@ -43,7 +43,7 @@
                     </b></small>
                 </div>
               </div>
-            <?php endforeach; ?>
+            <?php endforeach; ?> -->
           </div>
         </div>
       </div>
@@ -577,7 +577,7 @@
       if (event.which === 8) { // Check if Backspace key is pressed 
         var searchName = $(this).closest('.search-bar').find('.search-box').val();
         if (searchName.length === 1) {
-          $(".right-side").show();
+          $(".related").show();
           poform(searchName);
         }
       }
@@ -588,7 +588,7 @@
 
     function poform(search = "") {
 
-      $(".dataTable").empty();
+      $("#poItemss").empty();
       var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
       if (search != "") {
         uri += "/" + search
@@ -600,7 +600,7 @@
         success: function(response) {
           if (response.status == 'success') {
             $.each(response.message, function(key, val) {
-              $(".dataTable").append(`<div class="po-box details-control" data-id="` + val.id + `"> <div class="pono"><small class="mb-0">
+              $("#poItemss").append(`<div class="po-box details-control" data-id="` + val.id + `"> <div class="pono"><small class="mb-0">
                     <?= h('PO No ') ?>
                     <br>
                   </small>
@@ -618,8 +618,8 @@
               $('div.details-control:first').click();
             });
           } else {
-            $(".dataTable").empty().hide().append(`No data Found`);
-            $(".right-side").hide();
+            $("#poItemss").empty().hide().append(`No data Found`);
+            $(".related").hide();
 
           }
         }

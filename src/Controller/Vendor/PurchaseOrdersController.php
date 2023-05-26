@@ -453,12 +453,12 @@ class PurchaseOrdersController extends VendorAppController
             foreach ($data as $row) {
                 // print_r($row); 
                 $html .= '<tr>
-                <td><input type="checkbox" name="footer_id[]" value="' . $row->PoFooters['id'] . '" class="checkBoxClass" id="select1" data-pendingqty="' . $row->actual_qty . '" data-id="' . $row->PoItemSchedules['id'] . '"></td>
+                <td><input type="checkbox" name="footer_id[]" value="' . $row->PoFooters['id'] . '" class="checkBoxClass"  data-pendingqty="' . $row->actual_qty . '" data-id="' . $row->PoItemSchedules['id'] . '"></td>
                  <td>' . $row->PoFooters['item'] . '</td>
                  <td>' . $row->PoFooters['material'] . '</td>
                  <td>' . $row->PoFooters['short_text'] . '</td>
                  <td>' . $row->actual_qty . ' ' . $row->PoFooters['order_unit'] . '</td>
-                 <td><input type="number" name="footer_id_qty[]" class="form-control check_qty" required="required" data-item="' . $row->PoFooters['item'] . '" id="qty' . $row->PoItemSchedules['id'] . '" value="0"></td>
+                 <td><input type="number" name="" class="form-control check_qty" required="required" data-item="' . $row->PoFooters['item'] . '" id="qty' . $row->PoItemSchedules['id'] . '" value="0"></td>
                  
                 </tr>';
             }
@@ -582,9 +582,12 @@ class PurchaseOrdersController extends VendorAppController
                 ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'PoItemSchedules.delivery_date'])
                 ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
                 ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
-                ->innerJoin(['dateDe' => '(select min(delivery_date) date from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date'])
+                ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
+                ->where($conditions)
+                ->toArray();
 
-                ->where($conditions)->toArray();
+
+           //echo '<pre>'; print_r($poHeader); exit;
 
 
             foreach ($poHeader as &$row) {
@@ -595,13 +598,12 @@ class PurchaseOrdersController extends VendorAppController
                 }
                 //echo '<pre>';print_r($row); exit;
             }
-
-
-
-            //echo '<pre>'; print_r($poHeader); exit;
-
-
+        
             $this->set(compact('poHeader'));
         }
+        else {
+            return $this->redirect(['action' => 'create-asn']);
+        }
+
     }
 }

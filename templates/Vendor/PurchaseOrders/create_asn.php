@@ -19,7 +19,7 @@
                     <div class="col-md-6 pt-2">
                         <div class="search-bar d-flex mb-2">
                             <input type="search" placeholder="Search all orders, meterials.." class="form-control search-box">
-                           <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
+                            <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
                         </div>
                     </div>
                     <div class="col-md-6 pb-2">
@@ -27,7 +27,7 @@
                             <input type="file" id="imgupload" style="display:none" />
                             <button id="OpenImgUpload" type="button" class="btn btn-custom mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</button>
                             <!-- <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a> -->
-                            <button type="submit" class="btn btn-secondary mb-0 continue_btn" disabled>Continue</button>
+                            <button type="button" id="continueSub" class="btn btn-secondary mb-0 continue_btn" disabled>Continue</button>
                         </div>
                     </div>
                 </div>
@@ -115,6 +115,17 @@
             },
         });
 
+
+        $('#continueSub').on("click", function() {
+
+            $('.checkBoxClass').each(function() {
+                if ($(this).is(':checked')) {
+                    $("#qty"+$(this).data("id")).attr("name", "footer_id_qty[]")
+                }
+             });
+
+             $('#asnForm').submit();
+        })
 
 
         $(document).on("click", ".flu", function() {
@@ -225,7 +236,7 @@
                     } else {
                         $("#poItemss").empty().hide().append(`No data Found`);
                         $(".right-side").hide();
-                    
+
                     }
                 }
             });
