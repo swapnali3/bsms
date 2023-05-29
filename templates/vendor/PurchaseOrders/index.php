@@ -135,6 +135,11 @@
     $('.search-box').on('keypress', function (event) {
       if (event.which === 13) { 
         var searchName = $(this).closest('.search-bar').find('.search-box').val();   
+        $(".related tbody:first").empty().hide().append(`<tr>
+          <td colspan="6" class="text-center">
+            <p>No data found !</p>
+          </td>
+        </tr>`);
         poform(searchName);
         return false;
       }
@@ -145,7 +150,7 @@
       if (event.which === 8) { // Check if Backspace key is pressed 
         var searchName = $(this).closest('.search-bar').find('.search-box').val();
         if (searchName.length === 1) {
-          $(".related").show();
+          $(".related tbody:first").empty().hide();
           poform(searchName);
         }
       }
@@ -158,6 +163,8 @@
         .addClass('loading')
         .text('Loading...');
       $("#poItes").empty();
+
+       $(".related tbody:first").show();
       var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
       if (search != "") {
         uri += "/" + search
@@ -189,8 +196,11 @@
 
             });
           } else {
-            $("#poItes").empty().hide().append(`No data Found`);
-            $(".related").hide();
+        //     $(".related tbody:first").empty().hide().append(`<tr>
+        //   <td colspan="6" class="text-center">
+        //     <p>No data found !</p>
+        //   </td>
+        // </tr>`);
            
 
           }

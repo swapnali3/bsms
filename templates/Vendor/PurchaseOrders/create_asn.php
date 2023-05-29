@@ -120,11 +120,11 @@
 
             $('.checkBoxClass').each(function() {
                 if ($(this).is(':checked')) {
-                    $("#qty"+$(this).data("id")).attr("name", "footer_id_qty[]")
+                    $("#qty" + $(this).data("id")).attr("name", "footer_id_qty[]")
                 }
-             });
+            });
 
-             $('#asnForm').submit();
+            $('#asnForm').submit();
         })
 
 
@@ -192,6 +192,11 @@
         $('.search-box').on('keypress', function(event) {
             if (event.which === 13) {
                 var searchName = $(this).closest('.search-bar').find('.search-box').val();
+                $(".right-side tbody:first").empty().hide().append(`<tr>
+          <td colspan="6" class="text-center">
+            <p>No data found !</p>
+          </td>
+        </tr>`);
                 poform(searchName);
                 return false;
             }
@@ -202,7 +207,8 @@
             if (event.which === 8) { // Check if Backspace key is pressed 
                 var searchName = $(this).closest('.search-bar').find('.search-box').val();
                 if (searchName.length === 1) {
-                    $(".right-side").show();
+                    // $(".right-side").show();
+                    $(".right-side tbody:first").empty().hide();
                     poform(searchName);
                 }
             }
@@ -214,6 +220,7 @@
         function poform(search = "") {
 
             $("#poItemss").empty();
+            $(".right-side tbody:first").show();
             var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
             if (search != "") {
                 uri += "/" + search
@@ -234,8 +241,8 @@
                             $('div.details-control:first').click();
                         });
                     } else {
-                        $("#poItemss").empty().hide().append(`No data Found`);
-                        $(".right-side").hide();
+                        // $("#poItemss").empty().hide().append(`No data Found`);
+                        // $(".right-side").hide();
 
                     }
                 }
