@@ -285,7 +285,7 @@ class VendorTempsController extends BuyerAppController
             $data['DATA']['KTOKK'] = 'ZZ01';//$vendor->account_group_id;
             $data['DATA']['TITLE_MEDI'] = 'MR.';
             $data['DATA']['NAME1'] = $vendor->name;
-            $data['DATA']['NAME2'] = $vendor->name;
+            // $data['DATA']['NAME2'] = $vendor->name;
 
             $data['DATA']['SORT1'] = 'Sort';
             $data['DATA']['STREET'] = $vendor->city;
@@ -324,17 +324,22 @@ class VendorTempsController extends BuyerAppController
                     if(!empty($newVendorCode)) {
                         $this->loadModel("Users");
                         $adminUser = $this->Users->newEmptyEntity();
+                        echo '<pre>'; print_r($adminUser);
                         
                         $data = array();
                         $data['first_name'] = $vendor->name;
-                        $data['last_name'] = $vendor->name;
+                        // $data['last_name'] = $vendor->name;
                         $data['username'] = $vendor->email;
                         $data['mobile'] = $vendor->mobile;
                         $data['password'] = $vendor->mobile;
                         $data['group_id'] = 3;
-                        
+
+                         
                         
                         $adminUser = $this->Users->patchEntity($adminUser, $data);
+
+                        // echo '<pre>'; print_r($adminUser);exit;
+                        
 
                         if ($this->Users->save($adminUser)) {
                             $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);

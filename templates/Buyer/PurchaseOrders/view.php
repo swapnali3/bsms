@@ -306,12 +306,6 @@
       }
     });
 
-    $(document).ready(function() {
-      $('div.po-box:first').click();
-    });
-
-
-
     $('#purViewId').on('click', '.po-box', function() {
       $("#id_pofooter").empty();
       $('.po-box').removeClass("active");
@@ -324,10 +318,11 @@
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-po-Footers')); ?>/" + poid,
         dataType: 'json',
+        async:false,
         success: function(response) {
+          $("#id_potableresp").empty().hide().append(`<table class="table" id="example1"></table>`);
           if (response.status == 'success') {
-            $("#id_potableresp").empty().show().append(`<table class="table" id="example1"></table>`);
-            $("#example1").empty().append(`<thead>
+            $("#example1").append(`<thead>
               <tr>
                 <th width="5%"></th>
                 <th><?= __('Item') ?></th>
@@ -377,16 +372,16 @@
             });
             setTimeout(function() {
               //your code to be executed after 1 second
+              $("#id_potableresp").show();
               $("#example1").DataTable({
                 "paging": true,
                 "responsive": false,
                 "lengthChange": false,
                 "autoWidth": false,
+                "ordering": false,
                 "searching": false
               });
-            }, 50);
-          } else {
-            $("#id_potableresp").empty().hide().append(`<table class="table" id="example1"></table>`);
+            }, 500);
           }
         }
       });
@@ -567,6 +562,11 @@
     $('.search-box').on('keypress', function(event) {
       if (event.which === 13) {
         var searchName = $(this).closest('.search-bar').find('.search-box').val();
+        $(".related tbody:first").empty().hide().append(`<tr>
+          <td colspan="13" class="text-center">
+            <p>No data found !</p>
+          </td>
+        </tr>`);
         poform(searchName);
         return false;
       }
@@ -577,7 +577,7 @@
       if (event.which === 8) { // Check if Backspace key is pressed 
         var searchName = $(this).closest('.search-bar').find('.search-box').val();
         if (searchName.length === 1) {
-          $(".related").show();
+          $(".related tbody:first").empty().hide();
           poform(searchName);
         }
       }
@@ -589,6 +589,9 @@
     function poform(search = "") {
 
       $("#poItemss").empty();
+
+      $(".related tbody:first").show();
+
       var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
       if (search != "") {
         uri += "/" + search
@@ -615,20 +618,17 @@
                     </b></small>
                 </div>
               </div>`);
-              $('div.details-control:first').click();
             });
+            $('div.details-control:first').click();
           } else {
-            $("#poItemss").empty().hide().append(`No data Found`);
-            $(".related").hide();
+            // $("#poItemss").empty().hide().append(`No data Found`);
+            // $(".related").hide();
 
           }
         }
       });
     }
 
-    $(document).ready(function() {
-      $('div.details-control:first').click();
-    });
 
 
     $('#notifyForm').validate({
