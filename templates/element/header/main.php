@@ -78,6 +78,9 @@
         max-width: 250px;
         min-width: 200px;
     }
+    .user-info h6 {
+    white-space: initial;
+}
 </style>
 
 <ul class="navbar-nav">

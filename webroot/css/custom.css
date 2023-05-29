@@ -114,9 +114,12 @@ div#scheduleModal .btn {
     font-size: 12px !important;
 }
 table#example1 tr th,table#example1 tr td{
-    padding: 10px !important;
+    padding:5px 10px !important;
     vertical-align: middle;
     cursor: pointer;
+}
+.vendor-list table#example1 tr th,.vendor-list table#example1 tr td {
+    white-space: nowrap;
 }
 #example1 a.schedule_item {
     background-color: #ffc107;
@@ -208,7 +211,7 @@ table#example1 tr th,table#example1 tr td{
     padding-left: 15px;
 }
 .rfq-details-head h6 {
-    padding-bottom: 10px;
+    padding-bottom: 2px;
     font-weight: 500;
    
 }
@@ -418,8 +421,9 @@ a.back-btn {
     color: #004d87 !important;
 }
 .settings table.users-tbl td,.settings table.users-tbl th {
-    font-size: 16px;
+    font-size: 14px;
     padding: 8px 13px;
+    vertical-align: middle;
 }
 .create-asn .dataTables_info{
     display: none;
@@ -492,7 +496,7 @@ a.back-btn:hover {
 .rfq-details-head {
     padding: 15px;
     background-color: #f5f7fd;
-    /* border-radius: 10px; */
+    padding-bottom: 0px
 }
 .rfq-details-head b {
     color: #000;

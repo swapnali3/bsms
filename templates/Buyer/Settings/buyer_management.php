@@ -7,56 +7,7 @@
 
 
 <style>
-   
-    .search-fm {
-  color: #555;
-  display: flex;
-  padding: 2px;
-  border: 1px solid #8c8c8c;
-  border-radius: 30px;
-  margin: 0 0 0px;
-  margin-left: 10px;
-  background-color:#fff;
-}
-.search-fm 
-input[type="search"] {
-  border: none;
-  background: transparent;
-  margin: 0;
-  padding: 7px 8px;
-  font-size: 14px;
-  color: inherit;
-  border: 1px solid transparent;
-  border-radius: inherit;
-}
-
-.search-fm input[type="search"]::placeholder {
-  color: #bbb;
-}
-
-.search-fm button[type="submit"] {
-  text-indent: -999px;
-  overflow: hidden;
-  width: 40px;
-  padding: 0;
-  margin: 0;
-  border: 1px solid transparent;
-  border-radius: inherit;
-  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat center;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.search-fm button[type="submit"]:hover {
-  opacity: 1;
-}
-
-.search-fm button[type="submit"]:focus,
-.search-fm input[type="search"]:focus {
-  box-shadow: 0 0 3px 0 #1183d6;
-  border-color: #1183d6;
-  outline: none;
-}
+ 
 /* toggle */
 .toggle-btn .input-switch{
 	display: none;
@@ -116,24 +67,21 @@ input[type="search"] {
 .input-switch:checked ~ .info-text::before{
 	content: "Active";
 }
+.stus{
+    width: 20%;
+}
 </style>
 <?= $this->Html->css('custom') ?>
 <div class="settings index content">
     
-    <!-- <h3><?= __('Setting') ?></h3> -->
     <div class="card">
-        <div class="card-header d-flex pl-3 pb-3 pt-3" style="background-color:#f5f7fd">
+        <div class="card-header d-flex pb-2 pt-2" style="background-color:#f5f7fd">
             <div class="col-md-8">
             <div class="d-flex">
-            <!-- <h5 class="p-2 text-info mr-4"><b>Buyer Management</b></h5> -->
-            <!-- <form class="search-fm">
-                <input type="search" placeholder="Search...">
-                <button type="submit">Search</button>
-            </form> -->
             <input type="search" placeholder="Search..." class="form-control search">
             </div>
             </div>
-            <div class="col-md-4 pt-2">
+            <div class="col-md-4">
            <div class="d-flex justify-content-end">
               <button class="btn btn-custom mr-2 mb-0">CREATE</button>
               <button class="btn btn-custom-2 mb-0">EXPORT TO CSV</button>
@@ -141,15 +89,15 @@ input[type="search"] {
         </div>
         </div>
         
-        <div class="card-body p-4">
+        <div class="card-body p-2">
             <div class="table-responssive">
-                <table class="table table-bordered users-tbl">
+                <table class="table table-bordered users-tbl mb-0">
                     <thead>
                         <tr>
                             <th>User Name</th>
                             <th>Employee Code</th>
                             <th>Email</th>
-                            <th>Status</th>
+                            <th class="stus">Status</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -157,7 +105,7 @@ input[type="search"] {
                             <td>Test Name</td>
                             <td>ABC456</td>
                             <td>test@gmail.com</td>
-                            <td style="width:15%;">
+                            <td>
                            <div class="toggle-btn">
                            <input class='input-switch' type="checkbox" id="demo"/>
                             <label class="label-switch" for="demo"></label>
@@ -169,7 +117,7 @@ input[type="search"] {
                             <td>Test Name</td>
                             <td>ABC456</td>
                             <td>test@gmail.com</td>
-                            <td style="width:15%;">
+                            <td>
                            <div class="toggle-btn">
                            <input class='input-switch' type="checkbox" id="demo1"/>
                             <label class="label-switch" for="demo1"></label>
@@ -181,7 +129,7 @@ input[type="search"] {
                             <td>Test Name</td>
                             <td>ABC456</td>
                             <td>test@gmail.com</td>
-                            <td style="width:15%;">
+                            <td>
                            <div class="toggle-btn">
                            <input class='input-switch' type="checkbox" id="demo2"/>
                             <label class="label-switch" for="demo2"></label>
@@ -193,7 +141,7 @@ input[type="search"] {
                             <td>Test Name</td>
                             <td>ABC456</td>
                             <td>test@gmail.com</td>
-                            <td style="width:15%;">
+                            <td>
                            <div class="toggle-btn">
                            <input class='input-switch' type="checkbox" id="demo3"/>
                             <label class="label-switch" for="demo3"></label>
