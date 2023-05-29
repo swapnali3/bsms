@@ -110,10 +110,10 @@
 </li>
 
 
-
+<!-- 
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-file-invoice  nav-icon"></i><p>RFQs</p>'), ['controller' => 'rfqs', 'action' => 'index'], ['class' => "nav-link $rfqactive", 'escape' => false]) ?>
-</li>
+</li> -->
 
 <!-- <li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-file nav-icon"></i><p>Purchase Requisitions</p>'), ['controller' => 'purchase-requisitions', 'action' => 'index'], ['class' => "nav-link $prlickActive", 'escape' => false]) ?>

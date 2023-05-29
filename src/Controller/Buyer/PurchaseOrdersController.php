@@ -64,7 +64,7 @@ class PurchaseOrdersController extends BuyerAppController
         $session = $this->getRequest()->getSession();
 
         $data = $this->PoHeaders->find('all')
-            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text'])
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code', 'PoFooters.item'])
             ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->join([
