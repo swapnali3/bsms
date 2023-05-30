@@ -285,7 +285,7 @@ class VendorTempsController extends BuyerAppController
             $data['DATA']['KTOKK'] = 'ZZ01';//$vendor->account_group_id;
             $data['DATA']['TITLE_MEDI'] = 'MR.';
             $data['DATA']['NAME1'] = $vendor->name;
-            // $data['DATA']['NAME2'] = $vendor->name;
+            $data['DATA']['NAME2'] = $vendor->name;
 
             $data['DATA']['SORT1'] = 'Sort';
             $data['DATA']['STREET'] = $vendor->city;
@@ -328,7 +328,7 @@ class VendorTempsController extends BuyerAppController
                         
                         $data = array();
                         $data['first_name'] = $vendor->name;
-                        // $data['last_name'] = $vendor->name;
+                        $data['last_name'] = $vendor->name;
                         $data['username'] = $vendor->email;
                         $data['mobile'] = $vendor->mobile;
                         $data['password'] = $vendor->mobile;
