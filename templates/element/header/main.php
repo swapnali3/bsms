@@ -146,7 +146,7 @@
                 <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle" alt=""></span>
                     <div class="user-info text-left">
                         <h6 class="mb-0 text-info">
-                        <?php echo $this->getRequest()->getSession()->read('full_name'); ?></h6>
+                        <?php echo $this->getRequest()->getSession()->read('first_name'); ?></h6>
                     </div>
                 </div>
                 <!-- <p class="unm">Snehal</p>
