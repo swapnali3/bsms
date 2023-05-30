@@ -51,6 +51,7 @@
     text-transform: uppercase;
     font-size: 20px;
     letter-spacing: 0.04rem;
+    margin-bottom: 0px;
     }
     .nav-sidebar .nav-item .nav-link p {
     font-size: 13px;
@@ -146,7 +147,7 @@
                 <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle" alt=""></span>
                     <div class="user-info text-left">
                         <h6 class="mb-0 text-info">
-                        <?php echo $this->getRequest()->getSession()->read('full_name'); ?></h6>
+                            <?php echo $this->getRequest()->getSession()->read('first_name'); ?></h6>
                     </div>
                 </div>
                 <!-- <p class="unm">Snehal</p>
