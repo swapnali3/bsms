@@ -718,3 +718,6 @@ input.form-control.search {
 .btn-custom-2:hover {
     color: #fff;
 }
+p.po-no {
+    color: #444;
+}
