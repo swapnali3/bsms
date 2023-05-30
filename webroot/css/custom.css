@@ -720,4 +720,9 @@ input.form-control.search {
 }
 p.po-no {
     color: #444;
+    font-weight: 600;
+}
+.create-asn .card-header h5 {
+    font-size: 17px;
+    margin-bottom: 5px;
 }

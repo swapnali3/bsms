@@ -233,7 +233,7 @@
                     if (response.status == 'success') {
                         $.each(response.message, function(key, val) {
                             $("#poItemss").append(`<div class="po-box details-control  ponum" header-id="` + val.id + `">
-                                    <p class="po-no mb-0">PO No</p>
+                                    <p class="po-no mb-0">PO No.</p>
                                     <b class="text-info">
                                     ` + val.po_no + `
                                     </b>

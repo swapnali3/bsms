@@ -35,6 +35,7 @@
 <?= $this->Html->css('custom') ?>
 <?= $this->Form->create(null, ['url' => '/vendor/purchase-orders/view/' . $poHeader[0]->id, 'type' => 'file', 'id' => 'asnForm']) ?>
 <?= $this->form->control('po_header_id', ['label' => false, 'type' => 'hidden', 'value' => $poHeader[0]->id]) ?>
+<div class="create-asn">
 <div class="card">
   <div class="card-header p-2">
     <div class="d-flex">
@@ -43,80 +44,17 @@
           <h6 class="mb-0"><small>PO NO :</small>
             <b><?= h($poHeader[0]->po_no) ?></b>
           </h6>
-          <h6 class="mb-0"><small>Vendor Name: </small><b><?php echo $this->getRequest()->getSession()->read('full_name'); ?></b></h6>
+          <h6 class="mb-0"><small>Vendor Name: </small><b><?php echo $this->getRequest()->getSession()->read('first_name'); ?></b></h6>
 
         </div>
       </div>
       <div class="col-md-8 d-flex justify-content-end">
         <!-- <h6 class="text-right">Expected Delivery Date <br> <b>May 28, 2022</b></h6> -->
-        <a href="javascript:history.back()" class=" back-btn d-block"><i class="fas fa-angle-double-left"></i> BACK</a>
+        <a href="#" class=" back-btn d-block" data-toggle="modal" data-target="#modal-default"><i class="fas fa-angle-double-left"></i> BACK</a>
         <button type="submit" class="btn btn-custom mb-0 ml-2">Create ASN</button>
       </div>
     </div>
-
   </div>
-  <!-- <div class="card-body">
-    <table class="table" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
-      <tr style="background-color: #d3d3d36e;">
-        <th>
-          <?= __('Vendor Code') ?>
-        </th>
-        <th>
-          <?= __('Po No') ?>
-        </th>
-        <th>
-          <?= __('Document Type') ?>
-        </th>
-        <th>
-          <?= __('Created By') ?>
-        </th>
-        <th>
-          <?= __('Pay Terms') ?>
-        </th>
-        <th>
-          <?= __('Currency') ?>
-        </th>
-        <th>
-          <?= __('Exchange Rate') ?>
-        </th>
-        <th>
-          <?= __('Created On') ?>
-        </th>
-        <th>
-          <?= __('Added Date') ?>
-        </th>
-      </tr>
-      <tr>
-        <td>
-          <?= h($poHeader->sap_vendor_code) ?>
-        </td>
-        <td>
-          <?= h($poHeader->po_no) ?>
-        </td>
-        <td>
-          <?= h($poHeader->document_type) ?>
-        </td>
-        <td>
-          <?= h($poHeader->created_by) ?>
-        </td>
-        <td>
-          <?= h($poHeader->pay_terms) ?>
-        </td>
-        <td>
-          <?= h($poHeader->currency) ?>
-        </td>
-        <td>
-          <?= $this->Number->format($poHeader->exchange_rate) ?>
-        </td>
-        <td>
-          <?= h($poHeader->created_on) ?>
-        </td>
-        <td>
-          <?= h($poHeader->added_date) ?>
-        </td>
-      </tr>
-    </table>
-  </div> -->
 </div>
 
 
@@ -127,15 +65,6 @@
   <div class="card-body invoice-details p-0">
 
     <div class="row dgf m-0" style="background-color:#f1f1f1 !important;width:100%">
-      <!-- <div class="col-sm-8 col-md-2">
-               <label>VENDOR</label>
-               <p>Dharti Enterprise</p>
-            </div>
-            <div class="col-sm-8 col-md-2">
-                <label>VENDOR CODE</label>
-                <p>LARET0</p>
-                
-            </div> -->
       <div class="col-sm-8  col-md-2">
         <div class="form-group">
 
@@ -197,7 +126,7 @@
 </div>
 
 <div class="card">
-  <div class="card-header pb-1 pt-2">
+  <div class="card-header pb-1 pt-2 pl-2">
     <h5><b>
         <?= __('Material List') ?>
       </b></h5>
@@ -291,6 +220,32 @@
 
     <?php endif; ?>
   </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modal-default">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header border-0 pt-2 pb-2">
+              <!-- <h4 class="modal-title">Default Modal</h4> -->
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center">
+            <i class="fas fa-question-circle text-warning" style="font-size: 55px;"></i>
+              <h5 class="mb-0 pt-2 fw-bold">Are You Sure ?</h5>
+              <small>Your data will be lost!</small>
+            </div>
+            <div class="modal-footer border-0 justify-content-between">
+              <button type="button" onclick="history.back()" class="btn btn-link text-danger" >Leave</button>
+              <button type="button" class="btn btn-link text-info" data-dismiss="modal">Stay</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
 </div>
 <?= $this->form->end() ?>
 
@@ -475,4 +430,14 @@
   $(window).on('popstate', function(event) {
     alert("pop");
   });
+  $(window).on('beforeunload', function(){
+    
+     //var c=$("#modal-default").modal('show');
+var c=confirm();
+if(c){
+  return true;
+}
+else
+return false;
+});
 </script>
