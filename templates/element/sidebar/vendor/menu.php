@@ -1,7 +1,7 @@
 <!-- Add icons to the links using the .nav-icon class
      with font-awesome or any other icon font library -->
      <?php $polickActive = ($controller == 'PurchaseOrders' && $action == 'index') ? 'active' : ''; ?>
-     <?php $createAsnActive = ($controller == 'PurchaseOrders' && $action == 'create-asn') ? 'active' : ''; ?>
+     <?php $createAsnActive = ($controller == 'PurchaseOrders' && $action == 'createAsn' || $action == 'asnMaterials') ? 'active' : ''; ?>
      <?php $dashactive = ($controller == 'Dashboard') ? 'active' : ''; ?>
      <?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
      <?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : ''; ?>
