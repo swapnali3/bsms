@@ -190,7 +190,6 @@ class UsersController extends AppController
                         $session->write('username', $result[0]->username);
                         $session->write('group_name', $result[0]->group_name);
                         $session->write('full_name', $result[0]->first_name . ' ' . $result[0]->last_name);
-                        $session->write('first_name', $result[0]->first_name);
                         $session->write('id', $result[0]->id);
                         $session->write('role', $result[0]->group_id);
                         if ($result[0]->group_id == 1) {
@@ -251,7 +250,7 @@ class UsersController extends AppController
                     $mailer
                         ->setTransport('smtp')
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                        ->setTo($result[0]->username)
+                        ->setTo('deepaksingh@fts-pl.com')
                         ->setEmailFormat('html')
                         ->setSubject('Login OTP')
                         ->deliver('Hi ' . $result[0]->username . '<br/> OTP :: ' . $otp);
