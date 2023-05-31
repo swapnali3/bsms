@@ -7,8 +7,26 @@
   <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
 
   <style type="text/css">
+    input[type='radio'] {
+      accent-color: #5ba10a;
+    border: 0px;
+    width: 1.3em;
+    height: 1.3em;
+}
+
+    span#otp_error {
+      display: inline-block;
+      padding-bottom: 10px;
+    }
+
+    button#otploginclick {
+      margin-bottom: 30px !important;
+      margin-top: 0px !important;
+    }
+
     div#email_login {
       margin-top: 20px;
+      width: 95%;
     }
 
     .error {
@@ -37,12 +55,22 @@
       font-style: italic;
     }
 
+    .custom-radio label {
+      font-size: 18px;
+
+    }
+
     .signupcard .signupform__signin {
       justify-content: center;
       flex-direction: column;
       align-items: center;
-      padding: 5% 15% 5% !important;
-      /* height: 600px; */
+      padding: 8% 15% 5% !important
+        /* height: 600px; */
+    }
+
+    #mobile_login_otp {
+      padding: 0% 15% 5% !important;
+      margin-top: -30px;
     }
 
     .ant-card-body {
@@ -65,7 +93,7 @@
 
     div#mobile_login {
       width: 100%;
-      padding: 0px 16%;
+
     }
 
     canvas.particles-js-canvas-el {
@@ -111,7 +139,7 @@
     }
 
     .s-logo {
-      width: 60%;
+      width: 50%;
     }
 
     .sub-btn {
@@ -176,6 +204,14 @@
       animation: loadingCircle 1s infinite linear;
     }
 
+    .forget-pwd {
+      font-size: 14px;
+      margin-bottom: 10px !important;
+    }
+    .material-textfield .material-label,.material-textfield .material-input{
+      font-size: 1.2rem !important;
+    }
+
     @-webkit-keyframes loadingCircle {
       100% {
         -webkit-transform: rotate(360deg);
@@ -189,16 +225,21 @@
         transform: rotate(360deg);
       }
     }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+    }
   </style>
   <meta charset="utf-8">
   <link rel="icon" href="./favicon.ico">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#000000">
-  <meta name="description" content="Sign up now! Unlock the best platform to discover freight rates, execute your shipments &amp; track containers">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+  <meta name="description"
+    content="Sign up now! Unlock the best platform to discover freight rates, execute your shipments &amp; track containers">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Lato&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="<?= $this->Url->build('/') ?>css/all.min.css">
   <link href="<?= $this->Url->build('/') ?>css/5.7cec8de0.chunk.css" rel="stylesheet">
   <link href="<?= $this->Url->build('/') ?>css/main.26d266c0.chunk.css" rel="stylesheet">
@@ -218,40 +259,13 @@
 
       <div class="v2container" id="particles-js">
         <div class="ant-row">
-          <div class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
-
-            <!--            
-
-            <div class="faq">
-              <h4 class="faq__header">Welcome to FTSPL Supplier Portal</h4>
-              <div>
-
-                <p><span class="faq__question" style="margin-left: 0px;font-size: x-large; font-weight: 500;">A single
-                    window
-                    digital interface and communication platform for supplier assessment and onboarding- Towards Co-creating Governance.
-                  </span>
-                </p>
-                <p class="faq__answer" style="display: none;">ftspl unifies information about your shipments served by
-                  multiple carriers and
-                  forwarders into a single window, giving you a holistic picture of your shipments instantly.</p>
-               
-              </div>
-              <div>
-              <div class="row" style="padding-top: 11.5vh;">
-              <div class="col-12" style="text-align-last: center;">
-                <img  class="flow-img" src="<?= $this->Url->build('/')  ?>img/1234.png">
-              </div>
-            </div>
-              </div>
-              <div>
-                <p><span class="faq__question">&nbsp;</span></p>
-              </div>
-              <div></div>
-            </div> -->
+          <div
+            class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
             <div class="left-content animate__animated animate__backInLeft">
               <h1>Welcome to FTSPL Supplier Portal</h1>
-              <p>A single window digital interface and communication platform for supplier assessment and onboarding- Towards Co-creating Governance.</p>
-              <img class="flow-img" src="<?= $this->Url->build('/')  ?>img/login-img.png">
+              <p>A single window digital interface and communication platform for supplier assessment and onboarding-
+                Towards Co-creating Governance.</p>
+              <img class="flow-img" src="<?= $this->Url->build('/') ?>img/login-img.png">
             </div>
           </div>
           <div class="ant-col content-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
@@ -260,8 +274,6 @@
 
                 <div class="signupform signupform__signin">
                   <p class="signupform__signin--signinText">
-                    <!-- <img src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px"> -->
-
                     <img src="<?= $this->Url->build('/') ?>img/logo_s.png" class="s-logo">
                   </p>
 
@@ -276,14 +288,12 @@
                       <label class="custom-control-label" for="approver"><span>Login with Email</span></label>
                     </div>
                   </div>
-
-
                   <?= $this->Flash->render('auth') ?>
 
                   <div id="email_login">
                     <?= $this->Form->create(null, ['id' => 'loginForm']) ?>
                     <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'email', 'id' => 'loginby']); ?>
-                    <span class="error userpassError"  style="margin-bottom:20px;margin-top: -20px;"></span>
+                    <span class="error userpassError" style="margin-bottom:20px;margin-top: -20px;"></span>
                     <!-- <div style="width: 100%;">
                       <div class="material-textfield">
                         <div
@@ -299,44 +309,57 @@
                     </div> -->
                     <div style="width: 100%;">
                       <div class="material-textfield mb-0 form-group">
-                        <input class="material-input sentence form-control" placeholder="Enter Username/Email" required="required" type="text" name="username" value="">
+                        <input class="material-input sentence form-control" placeholder="Enter Username/Email"
+                          required="required" type="text" name="username" value="">
                         <label class="material-label" style="left: 0px;">Username/Email</label>
                       </div>
 
                     </div>
                     <div style="width: 100%;">
-                      <div class="material-textfield signin-textfield form-group"><input class="material-input form-control" placeholder="Enter Password" type="password" id="password" name="password" required="required" value=""><label class="material-label" style="left: 0px;">Password</label>
+                      <div class="material-textfield signin-textfield form-group"><input
+                          class="material-input form-control" placeholder="Enter Password" type="password" id="password"
+                          name="password" required="required" value=""><label class="material-label"
+                          style="left: 0px;">Password</label>
 
-                        <p class="material-rightLabel"><i class="fa fa-eye-slash" id="eye" aria-hidden="true" style="cursor: pointer;"></i></p>
+                        <p class="material-rightLabel"><i class="fa fa-eye-slash" id="eye" aria-hidden="true"
+                            style="cursor: pointer;"></i></p>
 
-                        <p class="material-rightBottomLabel" style="text-decoration:none !important;"><a href="#">Forgot Password ?</a></p>
+                        <p class="material-rightBottomLabel" style="text-decoration:none !important;"><a href="#"
+                            class="forget-pwd">Forgot
+                            Password ?</a></p>
                       </div>
 
-                    </div><button type="button" id="loginclick" class="ant-btn btn btn__get-started-btn sub-btn">SUBMIT</button>
+                    </div><button type="button" id="loginclick"
+                      class="ant-btn btn btn__get-started-btn sub-btn">SUBMIT</button>
                     <!-- <p class="signupform__signin--dontHaveAccount">Don't have an account?<a
                         style="cursor: pointer;">Create An Account</a></p> -->
                     <?= $this->Form->end() ?>
-                    <p style="text-align: center;font-weight: 500;margin-top:10px;"><a href="mailto: support@fts-pl.com" style="margin-right: 5px;border-right: 1px solid;padding-right: 10px;">Help</a> <a href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a></p>
-                    <p class="text-center" style="text-align:center"> <img src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px"></p>
+                    <p style="text-align: center;font-weight: 500;margin-top:10px;"><a href="mailto: support@fts-pl.com"
+                        style="margin-right: 5px;border-right: 1px solid;padding-right: 10px;">Help</a> <a
+                        href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a></p>
+                    <p class="text-center" style="text-align:center"> <img
+                        src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px"></p>
 
                   </div>
                   <div class="row" id="mobile_login" style="width:100%; display: none;">
                     <?= $this->Form->create() ?>
                     <span class="error userpassError" style="margin-bottom:20px;"></span>
                     <div class="input-group mb-3">
-                      <div class="material-textfield">
-                        <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10" name="mobile" pattern="[0-9]{10}" value="">
+                      <div class="material-textfield" style="margin-bottom:10px;">
+                        <input class="material-input " placeholder="Mobile" id="mobile" type="tel" maxlength="10"
+                          name="mobile" pattern="[0-9]{10}" value="">
                         <label class="material-label" style="left: 0px;">Mobile +91</label>
-                        <!-- <p class="error-msg mb-0">Please enter valid mobile number</p> -->
-
                       </div>
                     </div>
                     <button type="button" class="sub-btn ant-btn btn btn__get-started-btn mb-4" id="getotp">
                       <span>Get OTP</span>
                     </button>
                     <?= $this->Form->end() ?>
-                    <p style="text-align: center;font-weight: 500;margin-top:20px;"><a href="mailto: support@fts-pl.com" style="margin-right: 5px;border-right: 1px solid;padding-right: 10px;">Help</a> <a href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a></p>
-                    <p class="text-center" style="text-align:center"> <img src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px"></p>
+                    <p style="text-align: center;font-weight: 500;margin-top:20px;"><a href="mailto: support@fts-pl.com"
+                        style="margin-right: 5px;border-right: 1px solid;padding-right: 10px;">Help</a> <a
+                        href="https://www.fts-pl.com/privacy-policy/">Privacy Terms</a></p>
+                    <p class="text-center" style="text-align:center"> <img
+                        src="<?= $this->Url->build('/') ?>img/ftspl.png" width="120px"></p>
                   </div>
                 </div>
 
@@ -345,20 +368,21 @@
                   <?= $this->Form->create(null, ['id' => 'otpForm']) ?>
                   <?= $this->Form->control('mobile', ['type' => 'hidden', 'id' => 'user_mobile']); ?>
                   <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'mobile', 'id' => 'loginby']); ?>
+                  <span style="color:red;" id="otp_error"></span>
                   <div class="input-group mb-3">
-                    <input type="tel" class="form-control" name="otp" id="otp" placeholder="OTP" maxlength="6" pattern="[0-9]{6}">
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                        <span class="fas fa-password"></span>
-                      </div>
+                    <div class="material-textfield">
+                      <input class="material-input " placeholder="Enter OTP" id="otp" type="tel" maxlength="10"
+                        name="otp" maxlength="6" pattern="[0-9]{6}">
+                      <label class="material-label" style="left: 0px;">OTP</label>
                     </div>
                   </div>
-                  <span style="text-color:red;" id="otp_error"></span>
+
                   <div class="row">
                     <!-- /.col -->
                     <div class="col-4">
                       <!-- <?= $this->Form->button(__('Sign in'), ['class' => 'btn btn-primary btn-block', 'id' => 'loginclick']); ?> -->
-                      <button class="btn btn-primary btn-block" id="otploginclick" type="button">Sign in</button>
+                      <button class="sub-btn ant-btn btn btn__get-started-btn mb-4" id="otploginclick"
+                        type="button">Sign in</button>
                     </div>
                     <!-- /.col -->
                   </div>
@@ -491,19 +515,19 @@
     });
 
 
-    $('#loginclick').click(function(e) {
+    $('#loginclick').click(function (e) {
       e.preventDefault(); // Prevent the form from submitting normally
       // var formData = $(this).serialize();
 
       $.ajax({
         type: "POST",
-        url: "<?php echo \Cake\Routing\Router::url(array('/controller' => 'users-controller', 'action' =>'api-login'));?>",
+        url: "<?php echo \Cake\Routing\Router::url(array('/controller' => 'users-controller', 'action' => 'api-login')); ?>",
         data: $("#loginForm").serialize(),
         dataType: 'json',
-        success: function(response) { 
+        success: function (response) {
           if (response.status == '1') {
             window.location.href = response.redirect.controller;
-          } else { 
+          } else {
             $('span.userpassError').empty().append(response.message);
           }
 
@@ -511,19 +535,19 @@
       });
     });
 
-    
 
-    $('#otploginclick').click(function(e) {
+
+    $('#otploginclick').click(function (e) {
       e.preventDefault(); // Prevent the form from submitting normally
       $.ajax({
         type: "POST",
-        url: "<?php echo \Cake\Routing\Router::url(array('/controller' => 'users-controller', 'action' =>'api-login'));?>",
+        url: "<?php echo \Cake\Routing\Router::url(array('/controller' => 'users-controller', 'action' => 'api-login')); ?>",
         data: $("#otpForm").serialize(),
         dataType: 'json',
-        success: function(response) { 
+        success: function (response) {
           if (response.status == '1') {
             window.location.href = response.redirect.controller;
-          } else { 
+          } else {
             $('#otp_error').empty().append(response.message);
           }
 
@@ -532,8 +556,8 @@
     });
 
     //end
-    $(document).ready(function() {
-      $(document).on("change", "#mobile_btn", function() {
+    $(document).ready(function () {
+      $(document).on("change", "#mobile_btn", function () {
         $('span.userpassError').empty();
         $('#email_login').hide();
         $('#mobile_login').show();
@@ -542,7 +566,7 @@
 
       });
 
-      $(document).on("change", "#email_btn", function() {
+      $(document).on("change", "#email_btn", function () {
         $('span.userpassError').empty();
         $('#email_login').show();
         $('#mobile_login').hide();
@@ -550,11 +574,11 @@
         $('#loginby').val('email');
       });
 
-      $(document).on("change, keyup", ".sentence", function() {
+      $(document).on("change, keyup", ".sentence", function () {
         $(this).val($(this).val().toLowerCase())
       });
 
-      $("#getotp").click(function() {
+      $("#getotp").click(function () {
         var request = $.ajax({
           url: "users/get-otp",
           method: "POST",
@@ -565,17 +589,17 @@
             mobile: $("#mobile").val()
           },
           dataType: "json",
-          success: function(response) { 
-          if (response.status == '1') {
-           // window.location.href = response.redirect.controller;
-          } else { 
-            $('span.userpassError').empty().append(response.message);
-          }
+          success: function (response) {
+            if (response.status == '1') {
+              // window.location.href = response.redirect.controller;
+            } else {
+              $('span.userpassError').empty().append(response.message);
+            }
 
-        }
+          }
         });
 
-        request.done(function(response) {
+        request.done(function (response) {
           if (response.status == '1') {
             $("#mobile_login_otp").show();
             $("#mobile_login").hide();
@@ -585,7 +609,7 @@
           }
         });
 
-        request.fail(function(jqXHR, textStatus) {
+        request.fail(function (jqXHR, textStatus) {
           console.log("Request failed: " + textStatus);
         });
       });
@@ -610,17 +634,17 @@
           }
         },
         errorElement: 'span',
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
           error.addClass('invalid-feedback');
           element.closest('.form-group').append(error);
         },
-        highlight: function(element, errorClass, validClass) {
+        highlight: function (element, errorClass, validClass) {
           $(element).addClass('is-invalid');
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
           $(element).removeClass('is-invalid');
         },
-        submitHandler: function(form, event) {
+        submitHandler: function (form, event) {
           event.preventDefault();
           $('#loginForm')[0].submit();
           return false;
@@ -628,7 +652,7 @@
       });
     });
     // for password hide/show
-    $('#eye').click(function() {
+    $('#eye').click(function () {
 
       if ($(this).hasClass('fa-eye-slash')) {
 

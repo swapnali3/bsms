@@ -304,3 +304,9 @@ a.page-link,.dataTables_info {
   .btn-custom-2:hover {
     color: #fff;
 }
+.c-msg p {
+    font-size: 12px;
+}
+.paymnt-cal table td,.paymnt-cal table th {
+    cursor: unset !important;
+}
