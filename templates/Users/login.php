@@ -342,7 +342,7 @@
 
 
                 <div class="row" id="mobile_login_otp" style="display:none;">
-                  <?= $this->Form->create() ?>
+                  <?= $this->Form->create(null, ['id' => 'otpForm']) ?>
                   <?= $this->Form->control('mobile', ['type' => 'hidden', 'id' => 'user_mobile']); ?>
                   <?= $this->Form->control('logged_by', ['type' => 'hidden', 'value' => 'mobile', 'id' => 'loginby']); ?>
                   <div class="input-group mb-3">
@@ -357,7 +357,8 @@
                   <div class="row">
                     <!-- /.col -->
                     <div class="col-4">
-                      <?= $this->Form->button(__('Sign in'), ['class' => 'btn btn-primary btn-block']); ?>
+                      <!-- <?= $this->Form->button(__('Sign in'), ['class' => 'btn btn-primary btn-block', 'id' => 'loginclick']); ?> -->
+                      <button class="btn btn-primary btn-block" id="otploginclick" type="button">Sign in</button>
                     </div>
                     <!-- /.col -->
                   </div>
@@ -510,9 +511,30 @@
       });
     });
 
+    
+
+    $('#otploginclick').click(function(e) {
+      e.preventDefault(); // Prevent the form from submitting normally
+      $.ajax({
+        type: "POST",
+        url: "<?php echo \Cake\Routing\Router::url(array('/controller' => 'users-controller', 'action' =>'api-login'));?>",
+        data: $("#otpForm").serialize(),
+        dataType: 'json',
+        success: function(response) { 
+          if (response.status == '1') {
+            window.location.href = response.redirect.controller;
+          } else { 
+            $('#otp_error').empty().append(response.message);
+          }
+
+        }
+      });
+    });
+
     //end
     $(document).ready(function() {
       $(document).on("change", "#mobile_btn", function() {
+        $('span.userpassError').empty();
         $('#email_login').hide();
         $('#mobile_login').show();
         $("#mobile_login_otp").hide();
@@ -521,6 +543,7 @@
       });
 
       $(document).on("change", "#email_btn", function() {
+        $('span.userpassError').empty();
         $('#email_login').show();
         $('#mobile_login').hide();
         $("#mobile_login_otp").hide();
