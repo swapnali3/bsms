@@ -52,7 +52,11 @@
     font-size: 20px;
     letter-spacing: 0.04rem;
     margin-bottom: 0px;
+    margin-top: 0px;
     }
+    .navbar-nav .nav-item i.fas.fa-bars {
+    line-height: 1.6rem;
+}
     .nav-sidebar .nav-item .nav-link p {
     font-size: 13px;
 }
