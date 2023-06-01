@@ -56,7 +56,7 @@
     }
 
     .custom-radio label {
-      font-size: 18px;
+      font-size: 1rem;
 
     }
 

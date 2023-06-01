@@ -136,7 +136,7 @@ class SettingsController extends BuyerAppController
 
     public function supplierCapacity($id = null)
     {
-        
+        $this->set('headTitle', 'Supplier Capacity');
     }
 
 }

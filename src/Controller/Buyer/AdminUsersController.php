@@ -95,7 +95,7 @@ class AdminUsersController extends BuyerAppController
         $adminUser = $this->Users->get($session->read('id'), [
             'contain' => [],
         ]);
-
+        $this->set('headTitle', 'Profile');
         $this->set(compact('adminUser'));
     }
 

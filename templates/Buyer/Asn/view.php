@@ -18,7 +18,7 @@
             <div class="d-flex justify-content-between">
 
                 <div class="head-t">
-                    <h5 class="text-info pt-2"><b>Gate Entry (GE)</b></h5>
+                    <h5 class="text-info pt-2"><b>Details</b></h5>
                 </div>
                 <div class="actionbtn">
                 <?php

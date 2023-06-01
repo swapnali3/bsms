@@ -84,7 +84,7 @@ class VendorTempsController extends BuyerAppController
         $vendorTemp = $this->VendorTemps->get($id, [
             'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
         ]);
-
+        $this->set('headTitle', 'Vendor Details');
         $this->set(compact('vendorTemp'));
     }
 

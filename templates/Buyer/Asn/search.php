@@ -25,15 +25,19 @@
                        <div class="content-box">
                       
                         <!-- <h5 class="mb-2 gate-entry-haed font-weight-bold">ENTER ASN NO :</h5> -->
+                        
+                            
+                           <img  class="scanner-img" src="<?= $this->Url->build('/')  ?>img/barcode.gif"> 
+                        
+                           
+                        <span>Scan your ASN barcode</span>  
+                        <p><b>OR</b></p>
+                        <br>
                            <div class="s-box">
                            <?php echo $this->Form->control('asn_no', array('label' => false, 'class' => 'form-control rounded-0', "placeholder"=>"Start entering ASN or Invoice Number",'div' => 'form-group', 'required')); ?>
                             <?= $this->Form->button(__('GO'), ['class' => 'btn btn-custom mt-3']) ?>
                            </div>
-                           <br> 
-                           <p><b>OR</b></p>
-                           <img  class="scanner-img" src="<?= $this->Url->build('/')  ?>img/barcode.jpg"> 
-                        
-                        <span>Scan your ASN barcode</span>  
+                           
                        
                        </div>
                     </div>

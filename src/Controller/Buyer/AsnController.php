@@ -85,6 +85,7 @@ class AsnController extends BuyerAppController
         //$record = $deliveryDetails->first();
         //$this->set('deliveryDetailw', $record);
         $this->set('deliveryDetails', $deliveryDetails->all());
+        $this->set('headTitle', 'GATE ENTRY(GE)');
     }
 
     public function update($id = null)

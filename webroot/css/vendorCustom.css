@@ -51,7 +51,7 @@ table th,table td{
     font-size: 16px;
 }
 .btn-custom {
-    background-color: #112A68;
+    background-color: #8E9B2C;
     color: #fff;
     font-size: 14px;
     line-height: 1.1rem;
@@ -309,4 +309,11 @@ a.page-link,.dataTables_info {
 }
 .paymnt-cal table td,.paymnt-cal table th {
     cursor: unset !important;
+}
+.btn-custom-2 {
+    background-color: #08132F;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.1rem;
+    padding: 10px 20px;
 }

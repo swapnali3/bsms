@@ -170,6 +170,9 @@ table#example1 tr th,table#example1 tr td{
 .setting-fm {
     padding: 30px;
 }
+.settings .search {
+    border-radius: 30px;
+}
 .setting-fm h5{
     color: #004d87;
     text-transform: uppercase;
