@@ -317,8 +317,12 @@
         type: "GET",
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-po-Footers')); ?>/" + poid,
-        dataType: 'json',
-        async:false,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        dataType: "json",
+        // async: false,
+        beforeSend: function() {
+          $("#loaderss").show();
+        },
         success: function(response) {
           $("#id_potableresp").empty().hide().append(`<table class="table" id="example1"></table>`);
           if (response.status == 'success') {
@@ -383,6 +387,9 @@
               });
             }, 500);
           }
+        },
+        complete: function() {
+          $("#loaderss").hide();
         }
       });
 

@@ -41,6 +41,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 9999;
+    transition: 0.5s ease-in-out;
 }
 
 </style>

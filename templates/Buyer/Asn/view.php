@@ -21,19 +21,19 @@
                     <h5 class="text-info pt-2"><b>Details</b></h5>
                 </div>
                 <div class="actionbtn">
-                <?php
-                            $files = json_decode($deliveryDetails->toArray()[0]->invoice_path, true);
+                    <?php
+                    $files = json_decode($deliveryDetails->toArray()[0]->invoice_path, true);
 
-                            if (!empty($files) && isset($files[0])) {
-                                echo $this->Html->link('View invoice', '/' . $files[0], ['target' => '_blank', 'class' => 'btn mb-1 view-invoice btn-custom-2']);
-                            }
-                            ?>
-                <?php if($deliveryDetails->toArray()[0]->status == 2) { ?>
-                
-                    <button type="button" class="btn btn-custom mark_delivered mb-1" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">Mark Entry</button>
+                    if (!empty($files) && isset($files[0])) {
+                        echo $this->Html->link('View invoice', '/' . $files[0], ['target' => '_blank', 'class' => 'btn mb-1 view-invoice btn-custom-2']);
+                    }
+                    ?>
+                    <?php if ($deliveryDetails->toArray()[0]->status == 2) { ?>
 
-               
-                <?php } ?>
+                        <button type="button" class="btn btn-custom mark_delivered mb-1" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">Mark Entry</button>
+
+
+                    <?php } ?>
                 </div>
 
             </div>
@@ -86,7 +86,7 @@
                         <div class="col-md-2">
                             <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
                         </div>
-                       
+
                     </div>
 
                 </div>
@@ -131,7 +131,7 @@
             "autoWidth": false,
             "searching": false,
             "sorting": false,
-            "ordering":true,
+            "ordering": true,
         });
     });
 
@@ -141,16 +141,24 @@
         $.ajax({
             type: "GET",
             url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'update')); ?>/" + dataId,
-            dataType: 'json',
-            success: function (response) {
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            dataType: "json",
+            // async: false,
+            beforeSend: function() {
+                $("#loaderss").show();
+            },
+            success: function(response) {
                 if (response.status == 'success') {
-                    
+
                     $(".mark_delivered").hide();
                     $(".asnstatus").html('Received');
                 } else {
                     alert('Please try again...');
                 }
-                }
+            },
+            complete: function() {
+                $("#loaderss").hide();
+            }
         });
     });
 </script>

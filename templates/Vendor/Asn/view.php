@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\DeliveryDetail $deliveryDetail
@@ -152,7 +153,7 @@
 </div>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         var table = $("#example1").DataTable({
             "paging": true,
             "responsive": false, "lengthChange": false, "autoWidth": false,
@@ -160,12 +161,17 @@
             "searching": false, "sorting": false,
         });
 
-        $(".mark_delivered").on('click', function () {
+        $(".mark_delivered").on('click', function() {
             $.ajax({
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'mark-delivered', $deliveryDetails[0]->id)); ?>",
-                dataType: 'json',
-                success: function (response) {
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                // async: false,
+                beforeSend: function() {
+                    $("#loaderss").show();
+                },
+                success: function(response) {
                     if (response.status == 'success') {
                         //location.reload(true);
                         $(".mark_delivered").hide();
@@ -173,6 +179,9 @@
                     } else {
                         alert('Please try again...');
                     }
+                },
+                complete: function() {
+                    $("#loaderss").hide();
                 }
             });
         });
@@ -180,5 +189,4 @@
 
 
     });
-
 </script>
