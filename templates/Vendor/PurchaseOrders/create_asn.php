@@ -160,6 +160,8 @@
                 .addClass('loading')
                 .text('Loading...');
 
+                $('#loaderss').show();
+
             if (!rowData) {
                 rowData = $('div.details-control:first').attr('header-id');
             }
@@ -174,6 +176,7 @@
                         div
                             .html(response.html)
                             .removeClass('loading');
+                            $('#loaderss').hide();
                     } else {
                         div
                             .html(response.message)
@@ -217,13 +220,13 @@
 
         poform();
 
-        function poform(search = "") {
+        function poform(search = "",createAsn="as") {
 
-            $("#poItemss").empty();
-            $(".right-side tbody:first").show();
+             $("#poItemss").empty();
+             $(".right-side tbody:first").show();
             var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
             if (search != "") {
-                uri += "/" + search
+                uri += "/" + search + "/" +createAsn
             }
             $.ajax({
                 type: "GET",
@@ -238,8 +241,9 @@
                                     ` + val.po_no + `
                                     </b>
                                 </div>`);
-                            $('div.details-control:first').click();
+                        
                         });
+                        $('div.details-control:first').click();
                     } else {
                         // $("#poItemss").empty().hide().append(`No data Found`);
                         // $(".right-side").hide();

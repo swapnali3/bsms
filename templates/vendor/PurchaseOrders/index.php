@@ -109,6 +109,7 @@
       if (!rowData) {
         rowData = $('div.details-control:first').attr('data-id');
       }
+      $('#loaderss').show();
 
       $.ajax({
         type: "GET",
@@ -120,6 +121,7 @@
             div
               .html(response.html)
               .removeClass('loading');
+              $('#loaderss').hide();
           } else {
             div
               .html(response.message)
