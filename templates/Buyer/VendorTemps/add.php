@@ -7,6 +7,14 @@
  * @var \Cake\Collection\CollectionInterface|string[] $schemaGroups
  */
 ?>
+<style>
+    .errorm .message {
+    text-align: left !important;
+    font-weight: 200 !important;
+    padding: 0px !important;
+    font-size: 14px;
+}
+</style>
 <?= $this->Html->css('custom') ?>
 <div class="add-vendor">
     
@@ -16,8 +24,11 @@
             <?= $this->Form->create($vendorTemp) ?>
             <div class="card-body fm">
                 <div class="row">
+            <span class="errorm"><?= $this->Flash->render() ?></span>
+                
+
                 <div class="col-sm-12 col-lg-3 mt-2 col-md-6">
-                        <?php echo $this->Form->control('name', array('class' => 'form-control rounded-0','placeholder'=>'please enter name','div' => 'form-group'));?>
+                        <?php echo $this->Form->control('name', array('class' => 'form-control rounded-0','placeholder'=>'Please Enter Name','div' => 'form-group'));?>
                     </div>
                     <div class="col-sm-12 col-lg-3 mt-2 col-md-6">
                         <?php echo $this->Form->control('mobile', array('class' => 'form-control rounded-0','placeholder'=>'please enter mobile number','div' => 'form-group'));?>

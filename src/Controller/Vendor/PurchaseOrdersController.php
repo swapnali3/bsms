@@ -33,7 +33,7 @@ class PurchaseOrdersController extends VendorAppController
         $this->set(compact('poHeaders'));
     }
 
-    public function poApi($search = null)
+    public function poApi($search = null, $createAsn = null)
     {
         $response = array();
         $response['status'] = 'fail';
@@ -46,7 +46,27 @@ class PurchaseOrdersController extends VendorAppController
 
         $session = $this->getRequest()->getSession();
 
-        $data = $this->PoHeaders->find('all')
+        if(!empty($createAsn)){
+            
+            $data = $this->PoHeaders->find('all')
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+            ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+            ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
+            ->where([
+                'sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
+                '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',   
+                'OR' => [
+                    ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
+                    ['PoFooters.material LIKE' => '%' . $search . '%'],
+                    ['PoFooters.short_text LIKE' => '%' . $search . '%'],
+                ]
+            ]);
+
+        }
+        else{
+            
+            $data = $this->PoHeaders->find('all')
             ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
             ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
@@ -57,9 +77,10 @@ class PurchaseOrdersController extends VendorAppController
                     ['PoFooters.material LIKE' => '%' . $search . '%'],
                     ['PoFooters.short_text LIKE' => '%' . $search . '%'],
                 ]
-            ]);
+                ]);
+        }
 
-        //    print_r($data);exit;
+         //  print_r($data);exit;
 
         if ($data->count() > 0) {
             $response['status'] = 'success';
