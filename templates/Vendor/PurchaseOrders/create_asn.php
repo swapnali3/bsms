@@ -160,7 +160,6 @@
                 .addClass('loading')
                 .text('Loading...');
 
-                $('#loaderss').show();
 
             if (!rowData) {
                 rowData = $('div.details-control:first').attr('header-id');
@@ -170,18 +169,26 @@
                 type: "GET",
                 //url: '../getDeliveryDetails/' + rowData,
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-items')); ?>/" + rowData,
-                dataType: 'json',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                //async: false,
+                beforeSend: function() {
+                    $("#loaderss").show();
+                },
                 success: function(response) {
                     if (response.status == 'success') {
                         div
                             .html(response.html)
                             .removeClass('loading');
-                            $('#loaderss').hide();
+
                     } else {
                         div
                             .html(response.message)
                             .removeClass('loading');
                     }
+                },
+                complete: function() {
+                    $("#loaderss").hide();
                 }
             });
 
@@ -220,13 +227,13 @@
 
         poform();
 
-        function poform(search = "",createAsn="as") {
+        function poform(search = "", createAsn = "as") {
 
-             $("#poItemss").empty();
-             $(".right-side tbody:first").show();
+            $("#poItemss").empty();
+            $(".right-side tbody:first").show();
             var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
             if (search != "") {
-                uri += "/" + search + "/" +createAsn
+                uri += "/" + search + "/" + createAsn
             }
             $.ajax({
                 type: "GET",
@@ -241,7 +248,7 @@
                                     ` + val.po_no + `
                                     </b>
                                 </div>`);
-                        
+
                         });
                         $('div.details-control:first').click();
                     } else {

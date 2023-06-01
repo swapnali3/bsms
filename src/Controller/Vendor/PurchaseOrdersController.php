@@ -497,8 +497,6 @@ class PurchaseOrdersController extends VendorAppController
 
 
         //echo '<pre>'; print_r($data); exit;
-
-
         echo json_encode($response);
     }
 

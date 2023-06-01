@@ -67,10 +67,10 @@
 </div>
 
 <script>
-  $(document).on("click", ".redirect", function () {
+  $(document).on("click", ".redirect", function() {
     window.location.href = $(this).data("href");
   });
-  $(document).ready(function () {
+  $(document).ready(function() {
     $("#example1").DataTable({
       "paging": true,
       "responsive": false,
@@ -85,11 +85,11 @@
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('div.details-control').click();
     });
 
-    $(document).on('click', 'div.details-control', function () {
+    $(document).on('click', 'div.details-control', function() {
 
       $('div.details-control').removeClass('active');
 
@@ -109,24 +109,30 @@
       if (!rowData) {
         rowData = $('div.details-control:first').attr('data-id');
       }
-      $('#loaderss').show();
 
       $.ajax({
         type: "GET",
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'getPurchaseItem')); ?> /" + rowData,
-        dataType: 'json',
-        success: function (response) {
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        dataType: "json",
+        //async: false,
+        beforeSend: function() {
+          $("#loaderss").show();
+        },
+        success: function(response) {
           if (response.status == 'success') {
             div
               .html(response.html)
               .removeClass('loading');
-              $('#loaderss').hide();
           } else {
             div
               .html(response.message)
               .removeClass('loading');
           }
+        },
+        complete: function() {
+          $("#loaderss").hide();
         }
       });
 
@@ -134,9 +140,9 @@
     }
 
 
-    $('.search-box').on('keypress', function (event) {
-      if (event.which === 13) { 
-        var searchName = $(this).closest('.search-bar').find('.search-box').val();   
+    $('.search-box').on('keypress', function(event) {
+      if (event.which === 13) {
+        var searchName = $(this).closest('.search-bar').find('.search-box').val();
         $(".related tbody:first").empty().hide().append(`<tr>
           <td colspan="6" class="text-center">
             <p>No data found !</p>
@@ -147,8 +153,8 @@
       }
     });
 
-    $('.search-box').on('keydown', function (event) {
-    
+    $('.search-box').on('keydown', function(event) {
+
       if (event.which === 8) { // Check if Backspace key is pressed 
         var searchName = $(this).closest('.search-bar').find('.search-box').val();
         if (searchName.length === 1) {
@@ -166,7 +172,7 @@
         .text('Loading...');
       $("#poItes").empty();
 
-       $(".related tbody:first").show();
+      $(".related tbody:first").show();
       var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
       if (search != "") {
         uri += "/" + search
@@ -175,9 +181,9 @@
         type: "GET",
         url: uri,
         dataType: 'json',
-        success: function (response) {
+        success: function(response) {
           if (response.status == 'success') {
-            $.each(response.message, function (key, val) {
+            $.each(response.message, function(key, val) {
               $("#poItes").append(`<div class="po-box details-control" data-id="` + val.id + `"> <div class="pono"><small class="mb-0">
                     <?= h('PO No ') ?>
                     <br>
@@ -198,12 +204,12 @@
 
             });
           } else {
-        //     $(".related tbody:first").empty().hide().append(`<tr>
-        //   <td colspan="6" class="text-center">
-        //     <p>No data found !</p>
-        //   </td>
-        // </tr>`);
-           
+            //     $(".related tbody:first").empty().hide().append(`<tr>
+            //   <td colspan="6" class="text-center">
+            //     <p>No data found !</p>
+            //   </td>
+            // </tr>`);
+
 
           }
         }
@@ -212,6 +218,6 @@
     $(document).ready(function() {
       $('div.details-control').click();
     });
-  
+
   });
 </script>
