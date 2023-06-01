@@ -34,11 +34,13 @@ body {
     width: 100%;
     height: 100vh;
     overflow: hidden;
+    background-color: #fff;
+    opacity: 0.9;
     background: linear-gradient(to right, rgb(255, 255, 255, .9), rgb(255, 255, 255, .9));
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 9999;
 }
 
 </style>

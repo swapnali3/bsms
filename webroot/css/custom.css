@@ -357,7 +357,7 @@ div#past_messages  .past-msg:last-child{
 .content-box {
     padding-top: 100px !important;
 }
-.gate-entry .form-control {
+.gate-entry .s-box .form-control {
     border-radius: 30px !important;
     padding: 20px !important;
     height: 50px;
