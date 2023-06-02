@@ -83,7 +83,12 @@ class DashboardController extends VendorAppController
 
         $totalRfqDetails = $this->RfqDetails->find('all', array('conditions' => array('status' => 1)))->count();
 
-        $this->set(compact('totalPos', 'totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested'));
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule'")->fetchAll('assoc');
+
+       // print_r($notificationCount);exit; 
+        
+        $this->set(compact('totalPos', 'totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested', 'notificationCount'));
     }
 
     public function rfqView($id = null)

@@ -202,15 +202,17 @@ class PurchaseOrdersController extends BuyerAppController
         $response['message'] = '';
         $this->autoRender = false;
         $this->loadModel("PoItemSchedules");
+        $this->loadModel("Notifications");
         //echo '<pre>'; print_r($this->request->getData()); exit;
         if ($this->request->is(['patch', 'post', 'put'])) {
             try {
                 $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
                 $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $this->request->getData());
-                //echo '<pre>'; print_r($PoItemSchedule); exit();
+                // echo '<pre>'; print_r($PoItemSchedule); exit();
+                
                 if ($this->PoItemSchedules->save($PoItemSchedule)) {
                     $response['status'] = 'success';
-                    $response['message'] = 'Record save successfully';
+                    $response['message'] = 'Record save successfully';        
                 }
             } catch (\Exception $e) {
                 $response['status'] = 'fail';

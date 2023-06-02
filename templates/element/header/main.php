@@ -109,21 +109,23 @@
       <i class="fas fa-expand-arrows-alt"></i>
     </a> -->
     </li>
-
+    <?php foreach ($notificationCount as $key => $val): 
+                    
+                    ?>
     <li class="nav-item dropdown show">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge custom-i">15</span>
+            <span class="badge badge-warning navbar-badge custom-i"><?= $val['message_count'] ?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
-            <span class="dropdown-header">15 Notifications</span>
+            <span class="dropdown-header"> <?= $val['message_count'] ?> Notifications</span>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope text-info mr-2"></i> 4 new messages
+                <i class="fas fa-envelope text-info mr-2"></i> <?= $val['message_count'] ?> create Schedule
                 <span class="float-right text-muted text-sm">3 mins</span>
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
+            <!-- <a href="#" class="dropdown-item">
                 <i class="fas fa-users text-danger mr-2"></i> 8 friend requests
                 <span class="float-right text-muted text-sm">12 hours</span>
             </a>
@@ -132,10 +134,11 @@
                 <i class="fas fa-file text-warning mr-2"></i> 3 new reports
                 <span class="float-right text-muted text-sm">2 days</span>
             </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+            <div class="dropdown-divider"></div> -->
+            <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
         </div>
     </li>
+    <?php endforeach; ?>
     <li class="nav-item dropdown show">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <div class="user-panel d-flex">
@@ -193,3 +196,10 @@
       </div> -->
 
 </ul>
+
+
+<script>
+
+
+
+</script>
