@@ -15,7 +15,7 @@
         "phpoffice/phpspreadsheet": "^1.27"
     },
     "require-dev": {
-        "cakephp/bake": "^2.6",
+        "cakephp/bake": "*",
         "cakephp/cakephp-codesniffer": "^4.5",
         "cakephp/debug_kit": "^4.5",
         "josegonzalez/dotenv": "^3.2",
