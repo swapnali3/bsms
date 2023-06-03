@@ -127,10 +127,21 @@ class SettingsController extends BuyerAppController
     public function buyerManagement() {
         $this->set('headTitle', 'Buyer Management');
 
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+
+        $this->set(compact('notificationCount','count'));
+
     }
 
     public function vendorManagement() {
         $this->set('headTitle', 'Vendor Management');
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+
+        $this->set(compact('notificationCount','count'));
      
     }
 

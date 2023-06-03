@@ -307,7 +307,6 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
                 </thead>
                 <tbody>
                     <?php foreach ($rfqRequested as $key => $val): 
-                    
                     ?>
                     <tr redirect="<?= $this->Url->build('/') ?>vendor/dashboard/rfq-view/<?= $val['id'] ?>">
                         <td>
@@ -368,4 +367,7 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
         });
 
     });
+
+  
+  
 </script>

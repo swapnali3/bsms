@@ -2,9 +2,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <style>
-    body,h5,h6,p,h4,h3,label{
+    body,
+    h5,
+    h6,
+    p,
+    h4,
+    h3,
+    label {
         font-family: 'Roboto', sans-serif !important;
     }
+
     .custom-i {
         background-color: #ffc107 !important;
     }
@@ -20,6 +27,7 @@
     .user-panel img {
         width: 1.5rem
     }
+
     /* aside.main-sidebar:hover {
     width: 210px !important;
 } */
@@ -48,18 +56,21 @@
 
     .navbar.card-header h4 {
         color: #004d87;
-    text-transform: uppercase;
-    font-size: 20px;
-    letter-spacing: 0.04rem;
-    margin-bottom: 0px;
-    margin-top: 0px;
+        text-transform: uppercase;
+        font-size: 20px;
+        letter-spacing: 0.04rem;
+        margin-bottom: 0px;
+        margin-top: 0px;
     }
+
     .navbar-nav .nav-item i.fas.fa-bars {
-    line-height: 1.6rem;
-}
+        line-height: 1.6rem;
+    }
+
     .nav-sidebar .nav-item .nav-link p {
-    font-size: 13px;
-}
+        font-size: 13px;
+    }
+
     .user .thumb {
         margin-right: 10px;
         height: 35px;
@@ -83,9 +94,10 @@
         max-width: 250px;
         min-width: 200px;
     }
+
     .user-info h6 {
-    white-space: initial;
-}
+        white-space: initial;
+    }
 </style>
 
 <ul class="navbar-nav">
@@ -109,34 +121,39 @@
       <i class="fas fa-expand-arrows-alt"></i>
     </a> -->
     </li>
-    <?php foreach ($notificationCount as $key => $val): ?>
-    <li class="nav-item dropdown show">
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge custom-i"><?= $val['message_count'] ?></span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
-            <span class="dropdown-header"> <?= $val['message_count'] ?> Notifications</span>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope text-info mr-2"></i> <?= $val['message_count'] ?> create Schedule
-                <span class="float-right text-muted text-sm">3 mins</span>
+    <?php if ($count > 0) : ?>
+        <li class="nav-item dropdown show">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+                <i class="far fa-bell"></i>
+                <span class="badge badge-warning navbar-badge custom-i"><?= $count ?></span>
             </a>
-            <div class="dropdown-divider"></div>
-            <!-- <a href="#" class="dropdown-item">
-                <i class="fas fa-users text-danger mr-2"></i> 8 friend requests
-                <span class="float-right text-muted text-sm">12 hours</span>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
+                <div class="d-flex justify-content-between">
+                    <span class="dropdown-header"><?= $count ?> Notifications</span>
+                    <span class="dropdown-header clearNotifications" style="color:#004d87">Clear</span>
+                </div>
+
+                <div class="dropdown-divider"></div>
+                <?php foreach ($notificationCount as $key => $val) : ?>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-envelope text-info mr-2"></i> <?= $val['message_count'] ?> create Schedule
+                        <span class="float-right text-muted text-sm">3 mins</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                <?php endforeach; ?>
+            </div>
+        </li>
+    <?php else : ?>
+        <li class="nav-item dropdown show">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+                <i class="far fa-bell"></i>
+                <span class="badge badge-warning navbar-badge custom-i">0</span>
             </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-                <i class="fas fa-file text-warning mr-2"></i> 3 new reports
-                <span class="float-right text-muted text-sm">2 days</span>
-            </a>
-            <div class="dropdown-divider"></div> -->
-            <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
-        </div>
-    </li>
-    <?php endforeach; ?>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
+                <span class="dropdown-header">No Notifications</span>
+            </div>
+        </li>
+    <?php endif; ?>
     <li class="nav-item dropdown show">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <div class="user-panel d-flex">
@@ -152,7 +169,7 @@
                 <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle" alt=""></span>
                     <div class="user-info text-left">
                         <h6 class="mb-0 text-info">
-                        <?php echo $this->getRequest()->getSession()->read('first_name'); ?></h6>
+                            <?php echo $this->getRequest()->getSession()->read('first_name'); ?></h6>
                     </div>
                 </div>
                 <!-- <p class="unm">Snehal</p>
@@ -160,18 +177,18 @@
             </span>
             <div class="dropdown-divider"></div>
 
-            <?php if($role == 2) :?>
-            <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>" class="dropdown-item">
-                <i class="fas fa-user-cog text-info mr-2"></i>
-                <span>Profile</span>
-            </a>
-            <?php endif;?>
-            <?php if($role == 3) :?>
-            <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>" class="dropdown-item">
-                <i class="fas fa-user-cog text-info mr-2"></i>
-                <span>Profile</span>
-            </a>
-            <?php endif;?>
+            <?php if ($role == 2) : ?>
+                <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>" class="dropdown-item">
+                    <i class="fas fa-user-cog text-info mr-2"></i>
+                    <span>Profile</span>
+                </a>
+            <?php endif; ?>
+            <?php if ($role == 3) : ?>
+                <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>" class="dropdown-item">
+                    <i class="fas fa-user-cog text-info mr-2"></i>
+                    <span>Profile</span>
+                </a>
+            <?php endif; ?>
             <div class="dropdown-divider"></div>
             <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>" class="dropdown-item">
                 <i class="fas fa-power-off text-danger mr-2"></i>
@@ -197,7 +214,26 @@
 
 
 <script>
+    $(document).ready(function() {
+        $('.clearNotifications').click(function(event) {
+            event.stopPropagation();
+            $.ajax({
+                type: "GET",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'dashboard', 'action' => 'clear-message-count')); ?>",
+                dataType: 'json',
+                success: function(response) {
 
+                    $('.navbar-badge.custom-i').text('0');
+                    $('.notification-list').empty();
 
+                    $('.notification-list').append('<div class="dropdown-item">No Notifications</div>');
 
-</script>   
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+
+    })
+</script>

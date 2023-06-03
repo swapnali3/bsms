@@ -44,8 +44,11 @@ class PurchaseOrdersController extends BuyerAppController
 
 
         //print_r($poHeader); exit;
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
 
-        $this->set(compact('poHeaders'));
+        $this->set(compact('poHeaders','notificationCount','count'));
     }
 
 
