@@ -39,7 +39,11 @@ class RfqsController extends VendorAppController
         $rfqs = $this->paginate($this->Rfqs);
         */
 
-        $this->set(compact('rfqs'));
+        
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule'")->fetchAll('assoc');
+
+        $this->set(compact('rfqs','notificationCount'));
     }
 
     /**

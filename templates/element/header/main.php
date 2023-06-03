@@ -109,9 +109,7 @@
       <i class="fas fa-expand-arrows-alt"></i>
     </a> -->
     </li>
-    <?php foreach ($notificationCount as $key => $val): 
-                    
-                    ?>
+    <?php foreach ($notificationCount as $key => $val): ?>
     <li class="nav-item dropdown show">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <i class="far fa-bell"></i>
@@ -202,4 +200,4 @@
 
 
 
-</script>
+</script>   

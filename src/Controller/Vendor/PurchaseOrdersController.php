@@ -30,7 +30,10 @@ class PurchaseOrdersController extends VendorAppController
         $poHeaders = $this->paginate($this->PoHeaders->find()
             ->where(['sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id) > 0']));
 
-        $this->set(compact('poHeaders'));
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule'")->fetchAll('assoc');
+
+        $this->set(compact('poHeaders', 'notificationCount'));
     }
 
     public function poApi($search = null, $createAsn = null)
@@ -46,41 +49,39 @@ class PurchaseOrdersController extends VendorAppController
 
         $session = $this->getRequest()->getSession();
 
-        if(!empty($createAsn)){
-            
-            $data = $this->PoHeaders->find('all')
-            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
-            ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
-            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
-            ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
-            ->where([
-                'sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
-                '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',   
-                'OR' => [
-                    ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
-                    ['PoFooters.material LIKE' => '%' . $search . '%'],
-                    ['PoFooters.short_text LIKE' => '%' . $search . '%'],
-                ]
-            ]);
+        if (!empty($createAsn)) {
 
-        }
-        else{
-            
             $data = $this->PoHeaders->find('all')
-            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
-            ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
-            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
-            ->where([
-                'sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
-                'OR' => [
-                    ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
-                    ['PoFooters.material LIKE' => '%' . $search . '%'],
-                    ['PoFooters.short_text LIKE' => '%' . $search . '%'],
-                ]
+                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+                ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+                ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+                ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
+                ->where([
+                    'sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
+                    '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',
+                    'OR' => [
+                        ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
+                        ['PoFooters.material LIKE' => '%' . $search . '%'],
+                        ['PoFooters.short_text LIKE' => '%' . $search . '%'],
+                    ]
+                ]);
+        } else {
+
+            $data = $this->PoHeaders->find('all')
+                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+                ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+                ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+                ->where([
+                    'sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
+                    'OR' => [
+                        ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
+                        ['PoFooters.material LIKE' => '%' . $search . '%'],
+                        ['PoFooters.short_text LIKE' => '%' . $search . '%'],
+                    ]
                 ]);
         }
 
-         //  print_r($data);exit;
+        //  print_r($data);exit;
 
         if ($data->count() > 0) {
             $response['status'] = 'success';
@@ -101,7 +102,10 @@ class PurchaseOrdersController extends VendorAppController
         $poHeaders = $this->paginate($this->PoHeaders->find()
             ->where(['sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id) > 0']));
 
-        $this->set(compact('poHeaders'));
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule'")->fetchAll('assoc');
+
+        $this->set(compact('poHeaders', 'notificationCount'));
     }
 
     /**
@@ -606,7 +610,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->toArray();
 
 
-           //echo '<pre>'; print_r($poHeader); exit;
+            //echo '<pre>'; print_r($poHeader); exit;
 
 
             foreach ($poHeader as &$row) {
@@ -617,12 +621,13 @@ class PurchaseOrdersController extends VendorAppController
                 }
                 //echo '<pre>';print_r($row); exit;
             }
-        
-            $this->set(compact('poHeader'));
-        }
-        else {
+
+            $this->loadModel('Notifications');
+            $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule'")->fetchAll('assoc');
+
+            $this->set(compact('poHeader','notificationCount'));
+        } else {
             return $this->redirect(['action' => 'create-asn']);
         }
-
     }
 }
