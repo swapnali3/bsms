@@ -167,6 +167,9 @@ label{
 
 <script>
     $(document).ready(function () {
+        setTimeout(function () {
+            $('.success').fadeOut('slow');
+        }, 2000); // <-- time in milliseconds
         $("#example1").DataTable({
             "responsive": false, "lengthChange": false, "autoWidth": true,
             "ordering":false,
@@ -181,5 +184,6 @@ label{
             window.location = $(this).closest('tr').attr('redirect');
         });
         // $('.row').attr('style','width:110vw;')
+        
     });
 </script>

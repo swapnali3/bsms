@@ -374,7 +374,9 @@ class VendorTempsController extends BuyerAppController
                     $vendor->status = 3; //Approved by SAP
                     $vendor->sap_vendor_code = $newVendorCode;
                     $this->VendorTemps->save($vendor);
-                    $this->Flash->success(__('The Vendor successfully approved'));
+                    $this->redirect(['action' => 'index',]);
+                    $this->Flash->success(__('The Vendor successfully approved', array('action' => 'index'), 30));
+
                 }
                 //echo '<pre>'; print_r($result->RESPONSE); exit;
                 //echo '<pre>'; print_r($response->getStringBody()); exit;

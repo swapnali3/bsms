@@ -49,7 +49,36 @@ switch ($vendorTemp->status) {
                     <div class="">
                         <div class="text">
                             <?php if ($vendorTemp->status == 1): ?>
-                                <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
+
+                                <button type="button" class="btn btn-success btn-sm mb-0" data-toggle="modal"
+                                    data-target="#modal-sm">
+                                    Approve
+                                </button>
+                                <!-- modal -->
+                                <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <!-- <div class="modal-header">
+                                                <h4 class="modal-title">Small Modal</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div> -->
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to aprrove?</p>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-link"
+                                                    data-dismiss="modal">Cancel</button>
+                                                <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <!-- end modal -->
+
                                 <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject mb-0 btn-sm', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
                             <?php endif; ?>
                         </div>
@@ -170,33 +199,39 @@ switch ($vendorTemp->status) {
                             </table>
                         </div>
                         <div class="row">
-                    <div class="col-md-12">
-                        <h6 class="text-info mb-2 pl-2">Uploaded Documnets</h6>
-                        <table class="table docs-list vendor-info table-bordered">
-                            <tbody>
-                                <?php if($vendorTemp->gst_file) : ?>
-                                <tr>
-                                    <td>GST NO</td>
-                                    </td>
-                                    <td><?= $this->Html->link('<i class="fas fa-download"></i>','/'.$vendorTemp->gst_file, array('escape' => false));?></td>
-                                </tr>
-                                <?php endif; ?>
-                                <?php if($vendorTemp->pan_file) : ?>
-                                <tr>
-                                    <td>Pan card</td>
-                                    <td><?= $this->Html->link('<i class="fas fa-download"></i>','/'.$vendorTemp->pan_file, array('escape' => false));?></td>
-                                </tr>
-                                <?php endif ?>
-                                <?php if($vendorTemp->bank_file) : ?>
-                                <tr>
-                                    <td>Bank Documents</td>
-                                    <td><?= $this->Html->link('<i class="fas fa-download"></i>','/'.$vendorTemp->bank_file, array('escape' => false));?></td>
-                                </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                            <div class="col-md-12">
+                                <h6 class="text-info mb-2 pl-2">Uploaded Documnets</h6>
+                                <table class="table docs-list vendor-info table-bordered">
+                                    <tbody>
+                                        <?php if ($vendorTemp->gst_file): ?>
+                                            <tr>
+                                                <td>GST NO</td>
+                                                </td>
+                                                <td>
+                                                    <?= $this->Html->link('<i class="fas fa-download"></i>', '/' . $vendorTemp->gst_file, array('escape' => false)); ?>
+                                                </td>
+                                            </tr>
+                                        <?php endif; ?>
+                                        <?php if ($vendorTemp->pan_file): ?>
+                                            <tr>
+                                                <td>Pan card</td>
+                                                <td>
+                                                    <?= $this->Html->link('<i class="fas fa-download"></i>', '/' . $vendorTemp->pan_file, array('escape' => false)); ?>
+                                                </td>
+                                            </tr>
+                                        <?php endif ?>
+                                        <?php if ($vendorTemp->bank_file): ?>
+                                            <tr>
+                                                <td>Bank Documents</td>
+                                                <td>
+                                                    <?= $this->Html->link('<i class="fas fa-download"></i>', '/' . $vendorTemp->bank_file, array('escape' => false)); ?>
+                                                </td>
+                                            </tr>
+                                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-6">
                         <div class="card">
@@ -318,7 +353,7 @@ switch ($vendorTemp->status) {
                         </div>
                     </div>
                 </div>
-                
+
             </div>
 
         </div>
@@ -356,8 +391,11 @@ switch ($vendorTemp->status) {
 </div>
 <script>
     $(document).ready(function () {
+       
         $(".reject").onClick(function () {
 
         });
+        // var interval = $("#flashMessage").attr("data-timeout");
+
     });
 </script>
