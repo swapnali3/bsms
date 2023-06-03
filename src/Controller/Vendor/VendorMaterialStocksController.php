@@ -25,9 +25,10 @@ class VendorMaterialStocksController extends VendorAppController
         $vendorMaterialStocks = $this->paginate($this->VendorMaterialStocks->find()->where(['sap_vendor_code' => $session->read('vendor_code')]));
 
         $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule'")->fetchAll('assoc');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
+        $count = $notificationCount->rowCount();
 
-        $this->set(compact('vendorMaterialStocks','notificationCount'));
+        $this->set(compact('vendorMaterialStocks','notificationCount','count'));
     }
 
     /**

@@ -81,7 +81,14 @@ class DashboardController extends BuyerAppController
         $totalVendorTemps = $this->VendorTemps->find('all', array('conditions'=>array('status'=>0)))->count();
         $totalRfqDetails = $this->RfqDetails->find('all', array('conditions'=>array('status'=>1, 'buyer_seller_user_id' =>$session->read('id') )))->count();
 
-        $this->set(compact('totalPos','totalIntransit','totalVendorTemps', 'totalRfqDetails'));
+
+        
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+    
+
+        $this->set(compact('totalPos','totalIntransit','totalVendorTemps', 'totalRfqDetails','notificationCount','count'));
         
     }
 
@@ -153,5 +160,21 @@ class DashboardController extends BuyerAppController
         $this->set(compact('buyerSellerUser'));
         $this->set('rfqList', $rfqDetailsList);
 
+    }
+
+    public function clearMessageCount()
+    {
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = '';
+    
+        $this->loadModel('Notifications');
+        $this->Notifications->updateAll(['message_count' => 0], ['notification_type' => 'asn_material']);
+    
+        $response['status'] = 1;
+        $response['message'] = 'clear Notification';
+    
+        echo json_encode($response);
+        exit();
     }
 }

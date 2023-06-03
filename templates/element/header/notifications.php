@@ -110,32 +110,39 @@
     </a> -->
     </li>
    
-    <li class="nav-item dropdown show">
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge custom-i">2</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
-            <span class="dropdown-header">  Notifications</span>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-                <i class="fas fa-envelope text-info mr-2"></i>  create Schedule
-                <span class="float-right text-muted text-sm">3 mins</span>
+    <?php if ($count > 0) : ?>
+        <li class="nav-item dropdown show">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+                <i class="far fa-bell"></i>
+                <span class="badge badge-warning navbar-badge custom-i"><?= $count ?></span>
             </a>
-            <div class="dropdown-divider"></div>
-            <!-- <a href="#" class="dropdown-item">
-                <i class="fas fa-users text-danger mr-2"></i> 8 friend requests
-                <span class="float-right text-muted text-sm">12 hours</span>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
+                <div class="d-flex justify-content-between">
+                <span class="dropdown-header"><?= $count ?> Notifications</span>
+                    <span class="dropdown-header clearNotifications" style="color:#004d87">Clear</span>
+                </div>
+
+                <div class="dropdown-divider"></div>
+                <?php foreach ($notificationCount as $key => $val) : ?>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-envelope text-info mr-2"></i> <?= $val['message_count'] ?> Asn Material
+                        <span class="float-right text-muted text-sm">3 mins</span>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                <?php endforeach; ?>
+            </div>
+        </li>
+    <?php else : ?>
+        <li class="nav-item dropdown show">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+                <i class="far fa-bell"></i>
+                <span class="badge badge-warning navbar-badge custom-i">0</span>
             </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-                <i class="fas fa-file text-warning mr-2"></i> 3 new reports
-                <span class="float-right text-muted text-sm">2 days</span>
-            </a>
-            <div class="dropdown-divider"></div> -->
-            <!-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
-        </div>
-    </li>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
+                <span class="dropdown-header">No Notifications</span>
+            </div>
+        </li>
+    <?php endif; ?>
     <li class="nav-item dropdown show">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <div class="user-panel d-flex">
@@ -196,7 +203,26 @@
 
 
 <script>
+    $(document).ready(function() {
+        $('.clearNotifications').click(function(event) {
+            event.stopPropagation();
+            $.ajax({
+                type: "GET",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'dashboard', 'action' => 'clear-message-count')); ?>",
+                dataType: 'json',
+                success: function(response) {
 
+                    $('.navbar-badge.custom-i').text('0');
+                    $('.notification-list').empty();
 
+                    $('.notification-list').append('<div class="dropdown-item">No Notifications</div>');
 
+                },
+                error: function(xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+
+    })
 </script>   

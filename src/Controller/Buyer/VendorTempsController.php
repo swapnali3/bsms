@@ -31,8 +31,14 @@ class VendorTempsController extends BuyerAppController
             'order' => array('VendorTemps.added_date' => 'DESC'),
         ];
         $vendorTemps = $this->paginate($this->VendorTemps);
+                
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+    
 
-        $this->set(compact('vendorTemps'));
+        $this->set(compact('vendorTemps','notificationCount','count'));
+
     }
 
 
@@ -85,7 +91,12 @@ class VendorTempsController extends BuyerAppController
             'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
         ]);
         $this->set('headTitle', 'Vendor Details');
-        $this->set(compact('vendorTemp'));
+
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+    
+        $this->set(compact('vendorTemp','notificationCount','count'));
     }
 
     /**
@@ -95,6 +106,12 @@ class VendorTempsController extends BuyerAppController
      */
     public function add()
     {
+
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+        
+        $this->set(compact('notificationCount','count'));
         $this->set('headTitle', 'Create Vendor');
         $this->loadModel("VendorTemps");
         $this->loadModel("PaymentTerms");
@@ -134,6 +151,8 @@ class VendorTempsController extends BuyerAppController
              }
  
              $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
+                     
+       
             
         }
     
@@ -150,6 +169,13 @@ class VendorTempsController extends BuyerAppController
 
     public function sapAdd()
     {
+
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+        
+        $this->set(compact('notificationCount','count'));
+
         $this->set('headTitle', 'Import SAP Vendor');
         $this->loadModel("VendorTemps");
         
