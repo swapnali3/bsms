@@ -1,103 +1,223 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
 <?= $this->Html->css('vendorCustom') ?>
-<div class="poHeaders index content card">
-    <!-- <div class="card-header">
-        <h5>
-            <b>
-                <?= __('PURCHASE ORDER LISTS') ?>
-            </b>
-        </h5>
-    </div> -->
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-hover" id="example1">
-                <thead>
-                    <tr style="background-color: #d3d3d36e;">
-                        <th>
-                            <?= h('Vendor Code') ?>
-                        </th>
-                        <th>
-                            <?= h('PO No.') ?>
-                        </th>
-                        <th>
-                            <?= h('Document Type') ?>
-                        </th>
-                        <th>
-                            <?= h('Created On') ?>
-                        </th>
-                        <th>
-                            <?= h('Created By') ?>
-                        </th>
-                        <th>
-                            <?= h('Pay Terms') ?>
-                        </th>
-                        <th>
-                            <?= h('Currency') ?>
-                        </th>
-                        <th>
-                            <?= h('Exchange Rate') ?>
-                        </th>
-                        <!-- <th><?= h('Release Status') ?></th> -->
-                        <!-- <th><?= h('Added Date') ?></th> -->
-                        <th>
-                            <?= h('Updated Date') ?>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($poHeaders as $poHeader): ?>
-                    <tr  data-href="<?= $this->Url->build('/') ?>vendor/purchase-orders/view/<?= $poHeader->id ?>">
-                        <td><?= h($poHeader->sap_vendor_code) ?></td>
-                        <td><?= h($poHeader->po_no) ?></td>
-                        <td><?= h($poHeader->document_type) ?></td>
-                        <td><?= h($poHeader->created_on) ?></td>
-                        <td><?= h($poHeader->created_by) ?></td>
-                        <td><?= h($poHeader->pay_terms) ?></td>
-                        <td><?= h($poHeader->currency) ?></td>
-                        <td><?= $this->Number->format($poHeader->exchange_rate) ?> </td>
-                        <!-- <td><?= h($poHeader->release_status) ?></td> -->
-                        <!-- <td><?= h($poHeader->added_date) ?></td> -->
-                        <td>
-                            <?= h($poHeader->updated_date) ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+<div class="poHeaders index content card purchase-order">
+  <div class="card-body">
+    <div class="table-responsive">
+      <div class="table-responsive" id="purViewId">
+        <div class="search-bar d-flex mb-2">
+          <input type="search" placeholder="Search all orders, meterials.." class="form-control search-box">
+          <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
         </div>
+        <div class="po-list">
+          <div class="d-flex" id="poItes">
+            <!-- <?php foreach ($poHeaders as $poHeader) : ?>
+              <div class="po-box details-control" data-id="<?= $poHeader->id ?>">
+                <div class="pono">
+                  <small class="mb-0">
+                    <?= h('PO No ') ?>
+                    <br>
+                  </small>
+                  <b>
+                    <?= h($poHeader->po_no) ?>
+                  </b>
+                </div>
+                <div class="po-code">
+                  <small class="mb-0">
+                    <?= h('Vendor Code:') ?>
+                  </small>
+                  <br> <small><b>
+                      <?= h($poHeader->sap_vendor_code) ?>
+                    </b></small>
+                </div>
+              </div>
+            <?php endforeach; ?> -->
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div> -->
+  </div>
+</div>
+<div class="related card">
+  <div class="right-side">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Material</th>
+          <th>Short Text</th>
+          <th>Pending Qty</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="4" class="text-center">
+            <p>No data found !</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 
-
 <script>
-    $(document).on("click", ".redirect", function () {
-        window.location.href = $(this).data("href");
-    });
-    $(document).ready(function () {
-        $("#example1").DataTable({
-            "paging": true,
-            "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
-            "ordering":false,
-            language: {
-          search: "_INPUT_",
+  $(document).on("click", ".redirect", function() {
+    window.location.href = $(this).data("href");
+  });
+  $(document).ready(function() {
+    $("#example1").DataTable({
+      "paging": true,
+      "responsive": false,
+      "lengthChange": false,
+      "autoWidth": false,
+      "searching": true,
+      "ordering": false,
+      language: {
+        search: "_INPUT_",
         searchPlaceholder: "Search..."
-    },
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+      },
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+    $(document).ready(function() {
+      $('div.details-control').click();
     });
+
+    $(document).on('click', 'div.details-control', function() {
+
+      $('div.details-control').removeClass('active');
+
+      $(this).addClass('active');
+      $(".right-side").html(format($(this).attr('data-id')));
+    });
+
+
+
+    function format(rowData) {
+
+      $(".related").show();
+      var div = $('<div/>')
+        .addClass('loading')
+        .text('Loading...');
+
+      if (!rowData) {
+        rowData = $('div.details-control:first').attr('data-id');
+      }
+
+      $.ajax({
+        type: "GET",
+        //url: '../getDeliveryDetails/' + rowData,
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'getPurchaseItem')); ?> /" + rowData,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        dataType: "json",
+        //async: false,
+        beforeSend: function() {
+          $("#loaderss").show();
+        },
+        success: function(response) {
+          if (response.status == 'success') {
+            div
+              .html(response.html)
+              .removeClass('loading');
+          } else {
+            div
+              .html(response.message)
+              .removeClass('loading');
+          }
+        },
+        complete: function() {
+          $("#loaderss").hide();
+        }
+      });
+
+      return div;
+    }
+
+
+    $('.search-box').on('keypress', function(event) {
+      if (event.which === 13) {
+        var searchName = $(this).closest('.search-bar').find('.search-box').val();
+        $(".related tbody:first").empty().hide().append(`<tr>
+          <td colspan="6" class="text-center">
+            <p>No data found !</p>
+          </td>
+        </tr>`);
+        poform(searchName);
+        return false;
+      }
+    });
+
+    $('.search-box').on('keydown', function(event) {
+
+      if (event.which === 8) { // Check if Backspace key is pressed 
+        var searchName = $(this).closest('.search-bar').find('.search-box').val();
+        if (searchName.length === 1) {
+          $(".related tbody:first").empty().hide();
+          poform(searchName);
+        }
+      }
+    });
+
+    poform();
+
+    function poform(search = "") {
+      var div = $('<div/>')
+        .addClass('loading')
+        .text('Loading...');
+      $("#poItes").empty();
+
+      $(".related tbody:first").show();
+      var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
+      if (search != "") {
+        uri += "/" + search
+      }
+      $.ajax({
+        type: "GET",
+        url: uri,
+        dataType: 'json',
+        success: function(response) {
+          if (response.status == 'success') {
+            $.each(response.message, function(key, val) {
+              $("#poItes").append(`<div class="po-box details-control" data-id="` + val.id + `"> <div class="pono"><small class="mb-0">
+                    <?= h('PO No ') ?>
+                    <br>
+                  </small>
+                  <b>` + val.po_no + `</b>
+                </div>
+                <div class="po-code">
+                  <small class="mb-0">
+                    <?= h('Vendor Code:') ?>
+                  </small>
+                  <br> <small><b>
+                     ` + val.sap_vendor_code + `
+                    </b></small>
+                </div>
+              </div>`);
+
+              $('div.details-control:first').click();
+
+            });
+          } else {
+            //     $(".related tbody:first").empty().hide().append(`<tr>
+            //   <td colspan="6" class="text-center">
+            //     <p>No data found !</p>
+            //   </td>
+            // </tr>`);
+
+
+          }
+        }
+      });
+    }
+    $(document).ready(function() {
+      $('div.details-control').click();
+    });
+
+  });
 </script>

@@ -10,23 +10,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-.brand-link{
-padding: 0.5rem 0.5rem;
+.brand-link {
+    padding: 0.5rem 0.5rem;
 }
-.nav-link.active{
-    background-color: #0C1D49 !important;
+
+.nav-link.active {
+    background-color: #8E9B2C !important;
 
 }
+
 aside.main-sidebar {
-    background-color: #112A68 !important;
+    background-color: #08132F !important;
 }
-body{
-        
-        font-family: 'Source Sans Pro', sans-serif;
-    }
 
+body {
+
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.loader-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #fff;
+    opacity: 0.9;
+    background: linear-gradient(to right, rgb(255, 255, 255, .9), rgb(255, 255, 255, .9));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: 0.5s ease-in-out;
+}
 
 </style>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +56,7 @@ body{
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
-    
+
     <?= $this->Html->css('listing.css') ?>
     <?= $this->Html->css('cstyle.css') ?>
     <?= $this->Html->css('table.css') ?>
@@ -79,7 +98,12 @@ body{
 
 </head>
 
+
+
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
+    <div class="loader-container" id="loaderss">
+        <img src="<?= $this->Url->build('/') ?>img/loaders.gif" alt="Loader" class="loader">
+    </div>
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">
@@ -93,7 +117,8 @@ body{
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
                 style="background-color:#ffffff; text-align-last:center;">
                 <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '2']) ?>
-                <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
+                <span
+                    class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
 
             <div class="sidebar">
@@ -105,7 +130,7 @@ body{
                     </div>
                 </div> -->
                 <?= $this->element('sidebar/vendor/main') ?>
-            
+
             </div>
         </aside>
 
@@ -138,7 +163,7 @@ body{
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
-        <footer class="main-footer"  style="margin-top:0px;text-align: center;">
+        <footer class="main-footer" style="margin-top:0px;text-align: center;">
             <?= $this->element('footer/main') ?>
         </footer>
     </div>
@@ -164,7 +189,11 @@ body{
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>
     <script>
-        var baseurl = "<?= $this->Url->build('/') ?>";
+    var baseurl = "<?= $this->Url->build('/') ?>";
+    $(document).ready(function() {});
+    $(window).on('load', function() {
+        $('#loaderss').hide();
+    });
     </script>
 </body>
 

@@ -88,24 +88,40 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+
     public function login()
     {
         //$this->viewBuilder()->setLayout('admin/login'); 
+
+    }
+
+    public function apiLogin()
+    {
+        //$this->viewBuilder()->setLayout('admin/login'); 
+
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = 'Empty request';
+        $response['redirect'] = '';
+        $this->autoRender = false;
+
+
         $this->loadModel("Users");
         $this->loadModel("VendorTemps");
 
         $session = $this->getRequest()->getSession();
+        
 
-        if ($session->check('id')) {
-            $role = $session->read('role');
-            if ($role == 1) {
-                $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
-            } else if ($role == 2) {
-                $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
-            } else if ($role == 3) {
-                $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
-            }
-        }
+        // if ($session->check('id')) {
+        //     $role = $session->read('role');
+        //     if ($role == 1) {
+        //         $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
+        //     } else if ($role == 2) {
+        //         $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
+        //     } else if ($role == 3) {
+        //         $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
+        //     }
+        // }
 
 
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -133,23 +149,30 @@ class UsersController extends AppController
                         $session->write('id', $result[0]->id);
                         $session->write('role', $result[0]->group_id);
                         if ($result[0]->group_id == 1) {
-                            $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
+
+                            $response['status'] = 1;
+                            $response['message'] = '';
+                            $response['redirect'] = ['controller' => 'admin/dashboard', 'action' => 'index'];
+                          
                         } else if ($result[0]->group_id == 2) {
-                           
-                            $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
+                            $response['status'] = 1;
+                            $response['message'] = '';
+                            $response['redirect'] = ['controller' => 'buyer/dashboard', 'action' => 'index'];
                         } else if ($result[0]->group_id == 3) {
                             $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();
                             $session->write('vendor_code', $result[0]->sap_vendor_code);
                             $session->write('vendor_id', $result[0]->id);
                            
-
-                            $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
+                            $response['status'] = 1;
+                            $response['message'] = '';
+                            $response['redirect'] = ['controller' => 'vendor/dashboard', 'action' => 'index'];
                         }
                     } else {
-                        $this->Flash->error("Invalid password");
+                        // $this->Flash->error("Invalid password");
+                        $response['message'] = 'Invalid password';
                     }
                 } else {
-                    $this->Flash->error("Invalid username");
+                    $response['message'] = 'Invalid username';
                 }
             } else {
                 $result = $this->Users->find()
@@ -167,28 +190,43 @@ class UsersController extends AppController
                         $session->write('username', $result[0]->username);
                         $session->write('group_name', $result[0]->group_name);
                         $session->write('full_name', $result[0]->first_name . ' ' . $result[0]->last_name);
+                        $session->write('first_name', $result[0]->first_name);
                         $session->write('id', $result[0]->id);
                         $session->write('role', $result[0]->group_id);
                         if ($result[0]->group_id == 1) {
-                            $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
+
+                            $response['status'] = 1;
+                            $response['message'] = '';
+                            $response['redirect'] = ['controller' => 'admin/dashboard', 'action' => 'index'];
+                          
                         } else if ($result[0]->group_id == 2) {
-                            $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
+                            $response['status'] = 1;
+                            $response['message'] = '';
+                            $response['redirect'] = ['controller' => 'buyer/dashboard', 'action' => 'index'];
+                          
                         } else if ($result[0]->group_id == 3) {
 
                             $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();
                             $session->write('vendor_code', $result[0]->sap_vendor_code);
                             $session->write('vendor_id', $result[0]->id);
 
-                            $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
+                            $response['status'] = 1;
+                            $response['message'] = '';
+                            $response['redirect'] = ['controller' => 'vendor/dashboard', 'action' => 'index'];
+
                         }
                     } else {
-                        $this->Flash->error("Invalid OTP");
+                        // $this->Flash->error("Invalid OTP");
+                        $response['message'] = 'Invalid OTP';
                     }
                 } else {
-                    $this->Flash->error("Invalid mobile");
+                    // $this->Flash->error("Invalid mobile");
+                    $response['message'] = 'Invalid mobile';
+                    
                 }
             }
         }
+        echo json_encode($response);
     }
 
 
@@ -213,17 +251,17 @@ class UsersController extends AppController
                     $mailer
                         ->setTransport('smtp')
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                        ->setTo('deepaksingh@fts-pl.com')
+                        ->setTo($result[0]->username)
                         ->setEmailFormat('html')
                         ->setSubject('Login OTP')
                         ->deliver('Hi ' . $result[0]->username . '<br/> OTP :: ' . $otp);
                 }
 
 
-                $response['status'] = 'success';
+                $response['status'] = 1;
                 $response['message'] = 'OTP sent to register email Id';
             } else {
-                $response['status'] = 'fail';
+                $response['status'] = 0;
                 $response['message'] = 'Mobile number not found';
             }
         }

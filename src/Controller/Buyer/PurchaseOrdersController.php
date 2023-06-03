@@ -44,8 +44,56 @@ class PurchaseOrdersController extends BuyerAppController
 
 
         //print_r($poHeader); exit;
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
 
-        $this->set(compact('poHeaders'));
+        $this->set(compact('poHeaders','notificationCount','count'));
+    }
+
+
+       public function poApi($search = null)
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->set('headTitle', 'Purchase Order List');
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoItemSchedules');
+        $this->loadModel("VendorTemps");
+
+        $session = $this->getRequest()->getSession();
+
+        $data = $this->PoHeaders->find('all')
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code', 'PoFooters.item'])
+            ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+            ->join([
+                'table' => 'vendor_temps',
+                'alias' => 'V',
+                'type' => 'INNER',
+                'conditions' => ['V.sap_vendor_code = PoHeaders.sap_vendor_code', 'V.buyer_id' => $session->read('id'), 'status' => '3']
+            ])
+            ->where([ 
+                'OR' => [
+                    ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
+                    ['PoFooters.material LIKE' => '%' . $search . '%'],
+                    ['PoFooters.short_text LIKE' => '%' . $search . '%'],
+                ]
+            ]);
+
+        //print_r($data);exit;
+
+        if ($data->count() > 0) {
+            $response['status'] = 'success';
+            $response['message'] = $data;
+        } else {
+            $response['status'] = 'fail';
+            $response['message'] = 'Order not found';
+        }
+        echo json_encode($response);
     }
 
     public function getPoFooters($id = null)
@@ -157,15 +205,17 @@ class PurchaseOrdersController extends BuyerAppController
         $response['message'] = '';
         $this->autoRender = false;
         $this->loadModel("PoItemSchedules");
+        $this->loadModel("Notifications");
         //echo '<pre>'; print_r($this->request->getData()); exit;
         if ($this->request->is(['patch', 'post', 'put'])) {
             try {
                 $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
                 $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $this->request->getData());
-                //echo '<pre>'; print_r($PoItemSchedule); exit();
+                // echo '<pre>'; print_r($PoItemSchedule); exit();
+                
                 if ($this->PoItemSchedules->save($PoItemSchedule)) {
                     $response['status'] = 'success';
-                    $response['message'] = 'Record save successfully';
+                    $response['message'] = 'Record save successfully';        
                 }
             } catch (\Exception $e) {
                 $response['status'] = 'fail';
@@ -222,6 +272,7 @@ class PurchaseOrdersController extends BuyerAppController
             $response['html'] = '';
             $response['status'] = 'fail';
             $response['message'] = 'No schedule data';
+            $response['totalQty'] = '0';
         }
 
 

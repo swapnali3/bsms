@@ -7,6 +7,20 @@
 ?>
 <?= $this->Html->css('custom') ?>
 <style>
+    .table-responsive::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+  }
+   
+  .table-responsive::-webkit-scrollbar-thumb {
+    background: #BEBEFF;
+    border-radius: 20px;
+  }
+  
+  .table-responsive::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 20px;
+  }
 /* .card-body{
     padding:0.1rem;
     background-Color:WHITE
@@ -153,6 +167,9 @@ label{
 
 <script>
     $(document).ready(function () {
+        setTimeout(function () {
+            $('.success').fadeOut('slow');
+        }, 2000); // <-- time in milliseconds
         $("#example1").DataTable({
             "responsive": false, "lengthChange": false, "autoWidth": true,
             "ordering":false,
@@ -167,5 +184,6 @@ label{
             window.location = $(this).closest('tr').attr('redirect');
         });
         // $('.row').attr('style','width:110vw;')
+        
     });
 </script>

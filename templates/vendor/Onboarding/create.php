@@ -11,7 +11,13 @@
 
 
 ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
 <style>
     .label {
         font-size: 10px
@@ -25,7 +31,10 @@
     img.vekpro-logo {
         width: 100px;
     }
-
+    .info-msg {
+    padding-left: 5px;
+    font-size: 12px;
+}
     img.ft-icon {
         width: 40px;
         margin-right: -5px;
@@ -54,7 +63,7 @@
                 <div class="h">
                     <h4 class="text-info">
                         <legend>
-                            <?= __('Purchase Details') ?>
+                            <?= __('Onboarding') ?>
                         </legend>
                     </h4>
                 </div>
@@ -68,7 +77,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <?= $this->Form->create($vendorTemp) ?>
+                    <?= $this->Form->create($vendorTemp, ['type' => 'file']) ?>
                     <div class="row">
 
                         <div class="col-3 mt-3 col-md-4">
@@ -110,7 +119,8 @@
                         </div>
 
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                            
                         </div>
 
 
@@ -118,7 +128,10 @@
 
                     <div class="row">
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('country', ['class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
+                        </div>
+                        <div class="col-3 mt-3 col-md-3">
+                        <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                         </div>
                         <div class="col-3 mt-3">
                             <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
@@ -166,9 +179,23 @@
                         <div class="col-3 mt-3">
                             <?php echo $this->Form->control('contact_designation', ['class' => 'form-control']); ?>
                         </div>
+
+                    </div>
+                    <div class="row">
                         <div class="col-4 mt-3">
-                        <label for="formFileMultiple" class="form-label">Upload Documents</label>
-                        <input class="form-control" type="file" id="formFileMultiple" multiple>
+                            <label for="formFileMultiple" class="form-label">Upload GST no</label>
+                            <input class="form-control" type="file" accept=".pdf" name="gst_file" id="formFileMultiple">
+                            <small class="text-warning info-msg">Upload only PDF file</small>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <label for="formFileMultiple" class="form-label">Upload pan card</label>
+                            <input class="form-control" accept=".pdf" type="file" name="pan_file" id="formFileMultiple">
+                            <small class="text-warning info-msg">Upload only PDF file</small>
+                        </div>
+                        <div class="col-4 mt-3">
+                            <label for="formFileMultiple" accept=".pdf" class="form-label">Upload bank details</label>
+                            <input class="form-control" type="file" name="bank_file" id="formFileMultiple">
+                            <small class="text-warning info-msg">Upload only PDF file</small>
                         </div>
                     </div>
                 </div>
@@ -182,3 +209,8 @@
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $('.my-select').selectpicker();
+    });
+</script>

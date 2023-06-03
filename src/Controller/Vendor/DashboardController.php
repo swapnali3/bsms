@@ -83,7 +83,15 @@ class DashboardController extends VendorAppController
 
         $totalRfqDetails = $this->RfqDetails->find('all', array('conditions' => array('status' => 1)))->count();
 
-        $this->set(compact('totalPos', 'totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested'));
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+    
+
+       //print_r($notificationCount);exit; 
+        
+       $this->set(compact('totalPos', 'totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested', 'notificationCount', 'count'));
+
     }
 
     public function rfqView($id = null)
@@ -135,5 +143,21 @@ class DashboardController extends VendorAppController
 
 
         print_r($query);
+    }
+
+    public function clearMessageCount()
+    {
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = '';
+    
+        $this->loadModel('Notifications');
+        $this->Notifications->updateAll(['message_count' => 0], ['notification_type' => 'create_schedule']);
+    
+        $response['status'] = 1;
+        $response['message'] = 'clear Notification';
+    
+        echo json_encode($response);
+        exit();
     }
 }

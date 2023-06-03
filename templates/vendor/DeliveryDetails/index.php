@@ -76,7 +76,7 @@
         var table = $("#example1").DataTable({
             "paging": true,
             "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
-            "ordering":false,
+            "ordering":true,
             language: {
           search: "_INPUT_",
         searchPlaceholder: "Search..."

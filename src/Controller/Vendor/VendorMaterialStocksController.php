@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
@@ -23,7 +24,11 @@ class VendorMaterialStocksController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $vendorMaterialStocks = $this->paginate($this->VendorMaterialStocks->find()->where(['sap_vendor_code' => $session->read('vendor_code')]));
 
-        $this->set(compact('vendorMaterialStocks'));
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+
+        $this->set(compact('vendorMaterialStocks','notificationCount','count'));
     }
 
     /**
@@ -112,12 +117,12 @@ class VendorMaterialStocksController extends VendorAppController
         $session = $this->getRequest()->getSession();
 
         if ($this->request->is('post')) {
-            if(isset($_FILES['Upload_Stocks']['name'])) {
+            if (isset($_FILES['Upload_Stocks']['name'])) {
                 //print_r($_FILES); exit;
                 $destination = "uploads/";
                 $ext = substr($_FILES['Upload_Stocks']['name'], strrpos($_FILES['Upload_Stocks']['name'], '.') + 1);
-                
-                $path = $destination.$_FILES['Upload_Stocks']['name'];
+
+                $path = $destination . $_FILES['Upload_Stocks']['name'];
                 move_uploaded_file($_FILES['Upload_Stocks']['tmp_name'], $path);
 
                 $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($path);
@@ -129,10 +134,10 @@ class VendorMaterialStocksController extends VendorAppController
 
                 $data = array();
 
-                if(count($schdeules) > 1) {
-                    foreach($schdeules as $key => $row) {
-                        if($key == 0) {
-                                continue;
+                if (count($schdeules) > 1) {
+                    foreach ($schdeules as $key => $row) {
+                        if ($key == 0) {
+                            continue;
                         }
                         $tmp = array();
                         $tmp['sap_vendor_code'] = $session->read('vendor_code');
@@ -154,7 +159,6 @@ class VendorMaterialStocksController extends VendorAppController
                         $this->Flash->success(__('The material stock has been saved.'));
                         return $this->redirect(['action' => 'index']);
                     }
-
                 } else {
                     $this->Flash->error(__('Please upload correct file.'));
                     return $this->redirect(['action' => 'index']);
@@ -162,7 +166,7 @@ class VendorMaterialStocksController extends VendorAppController
             }
 
             //exit;
-            
+
             $this->Flash->error(__('The  material stock could not be saved. Please, try again.'));
         }
     }

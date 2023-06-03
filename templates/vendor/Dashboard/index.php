@@ -65,7 +65,7 @@
   } */
   </style>
   <?= $this->Html->css('custom') ?>
-<div class="row">
+<div class="row pt-3">
 
   <!-- <div class="col-sm-12 col-lg-3">
     <div class="card mb-2" style="border-radius:1rem;">
@@ -133,7 +133,7 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
       </div>
     </div>
   </div> -->
-  <div class="col-md-3">
+  <div class="col-md-4 col-lg-4">
     <div class="d-box">
       <div class="d-flex justify-content-between text-right">
         <div class="i">
@@ -149,7 +149,7 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
         </div>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4 col-lg-4">
     <div class="d-box">
       <div class="d-flex justify-content-between text-right">
         <div class="i">
@@ -307,7 +307,6 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
                 </thead>
                 <tbody>
                     <?php foreach ($rfqRequested as $key => $val): 
-                    
                     ?>
                     <tr redirect="<?= $this->Url->build('/') ?>vendor/dashboard/rfq-view/<?= $val['id'] ?>">
                         <td>
@@ -368,4 +367,7 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
         });
 
     });
+
+  
+  
 </script>

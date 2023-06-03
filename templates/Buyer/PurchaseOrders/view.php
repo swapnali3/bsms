@@ -19,10 +19,11 @@
       <div class="table-responsive p-2" id="purViewId">
         <div class="search-bar mb-2">
           <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
+          <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
         </div>
         <div class="po-list">
-          <div class="d-flex">
-            <?php foreach ($poHeaders as $poHeader) : ?>
+          <div class="d-flex" id="poItemss">
+            <!-- <?php foreach ($poHeaders as $poHeader) : ?>
               <div class="po-box" data-id="<?= $poHeader->id ?>">
                 <div class="pono">
                   <small class="mb-0">
@@ -42,7 +43,7 @@
                     </b></small>
                 </div>
               </div>
-            <?php endforeach; ?>
+            <?php endforeach; ?> -->
           </div>
         </div>
       </div>
@@ -165,16 +166,25 @@
         <?php
         echo $this->Form->control('po_header_id', ['id' => 'po_header_id', 'type' => 'hidden', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
         echo $this->Form->control('po_footer_id', ['id' => 'po_footer_id', 'type' => 'hidden', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
-        echo $this->Form->control('actual_qty', ['id' => 'actual_qty', 'type' => 'number', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
-        echo $this->Form->control('delivery_date', ['type' => 'date', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
         ?>
+
+        <div class="form-group">
+          <?php
+          echo $this->Form->control('actual_qty', ['id' => 'actual_qty', 'type' => 'number', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
+          ?>
+        </div>
+        <div class="form-group">
+          <?php
+          echo $this->Form->control('delivery_date', ['type' => 'date', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
+          ?>
+        </div>
 
         <span class="actualTotalValue d-none"></span>
 
       </div>
       <div id="error_msg"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary p-1" style="font-size:14px;" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-custom">Submit</button>
       </div>
       </form>
@@ -202,7 +212,7 @@
 
       <div class="modal-body">
 
-        <!-- <div id="past_messages"></div> -->
+        <div id="past_messages"></div>
         <?php
         echo $this->Form->control('schedule_id', ['type' => 'hidden', 'id' => 'schedule_id']);
         echo $this->Form->control('message', ['type' => 'textarea', 'class' => 'form-control rounded-0']);
@@ -211,8 +221,8 @@
       </div>
       <div id="error_msg"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="padding: 9px 15px;">Close</button>
+        <button type="submit" class="btn btn-custom-2">Submit</button>
       </div>
       </form>
     </div>
@@ -296,7 +306,6 @@
       }
     });
 
-
     $('#purViewId').on('click', '.po-box', function() {
       $("#id_pofooter").empty();
       $('.po-box').removeClass("active");
@@ -308,11 +317,16 @@
         type: "GET",
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-po-Footers')); ?>/" + poid,
-        dataType: 'json',
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        dataType: "json",
+        // async: false,
+        beforeSend: function() {
+          $("#loaderss").show();
+        },
         success: function(response) {
+          $("#id_potableresp").empty().hide().append(`<table class="table" id="example1"></table>`);
           if (response.status == 'success') {
-            $("#id_potableresp").empty().show().append(`<table class="table" id="example1"></table>`);
-            $("#example1").empty().append(`<thead>
+            $("#example1").append(`<thead>
               <tr>
                 <th width="5%"></th>
                 <th><?= __('Item') ?></th>
@@ -335,7 +349,7 @@
               var poHeaderId = response.data.po_header;
               $("#id_pofooter").append(`<tr class="odd" data-trid="id_tr` + val.id + `">
               <td class="details-control" data-id="` + val.id + `" footer-id="` + val.id + `">
-                <span class="material-symbols-outlined flu" data-id="` + val.id + `" data-alt="+">add</span></td>
+                <span class="material-symbols-outlined flu" id="id_st` + val.id + `" data-id="` + val.id + `" data-alt="+">add</span></td>
               <td>` + val.item + `</td>
               <td>` + val.material + `</td>
               <td>` + val.short_text + `</td>
@@ -362,17 +376,20 @@
             });
             setTimeout(function() {
               //your code to be executed after 1 second
+              $("#id_potableresp").show();
               $("#example1").DataTable({
                 "paging": true,
                 "responsive": false,
                 "lengthChange": false,
                 "autoWidth": false,
+                "ordering": false,
                 "searching": false
               });
-            }, 50);
-          } else {
-            $("#id_potableresp").empty().hide().append(`<table class="table" id="example1"></table>`);
+            }, 500);
           }
+        },
+        complete: function() {
+          $("#loaderss").hide();
         }
       });
 
@@ -382,6 +399,9 @@
       $("#po_header_id").val($(this).attr('header-id'));
       $("#po_footer_id").val($(this).attr('footer-id'));
       $("#item_title").html('<b>Item : </b>' + $(this).attr('item-no'));
+
+      $('#id_st' + $(this).attr('footer-id')).click();
+
     });
 
     $('#scheduleModal').on('hidden.bs.modal', function(e) {
@@ -428,9 +448,9 @@
 
       if (actualTotalqty >= userqtyvalues) {
         $('#scheduleForm').valid(); // Trigger form validation
-      
+
       } else {
-        $('#scheduleForm').find('input[name="actual_qty"]').val(''); // Clear the input value
+        //$('#scheduleForm').find('input[name="actual_qty"]').val(''); // Clear the input value
       }
 
     });
@@ -440,7 +460,8 @@
       rules: {
         actual_qty: {
           required: true,
-          number: true
+          number: true,
+          checkQty: true
         },
         delivery_date: {
           required: true
@@ -449,7 +470,8 @@
       messages: {
         actual_qty: {
           required: "Please provide a quantity",
-          number: "Please enter a valid number"
+          number: "Please enter a valid number",
+          checkQty: "Do not exceed PO qty value"
         },
         delivery_date: {
           required: "Please select a date"
@@ -468,6 +490,20 @@
         $(element).removeClass('is-invalid');
       }
     });
+
+
+    $.validator.addMethod('checkQty', function(value, element) {
+
+      var totalvalueqty = parseInt($('.poqtyvalu').text());
+      var totallistqty = parseInt($('.actualTotalValue').text());
+      var actualTotalqty = totalvalueqty - totallistqty;
+      var userqtyvalues = parseInt($('#actual_qty').val());
+
+      if (actualTotalqty >= userqtyvalues) {
+        return true;
+      }
+      return false;
+    }, 'message');
 
 
     var table = $("#example2").DataTable({
@@ -528,6 +564,78 @@
       });
 
     });
+
+
+    $('.search-box').on('keypress', function(event) {
+      if (event.which === 13) {
+        var searchName = $(this).closest('.search-bar').find('.search-box').val();
+        $(".related tbody:first").empty().hide().append(`<tr>
+          <td colspan="13" class="text-center">
+            <p>No data found !</p>
+          </td>
+        </tr>`);
+        poform(searchName);
+        return false;
+      }
+    });
+
+    $('.search-box').on('keydown', function(event) {
+
+      if (event.which === 8) { // Check if Backspace key is pressed 
+        var searchName = $(this).closest('.search-bar').find('.search-box').val();
+        if (searchName.length === 1) {
+          $(".related tbody:first").empty().hide();
+          poform(searchName);
+        }
+      }
+    });
+
+
+    poform();
+
+    function poform(search = "") {
+
+      $("#poItemss").empty();
+
+      $(".related tbody:first").show();
+
+      var uri = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
+      if (search != "") {
+        uri += "/" + search
+      }
+      $.ajax({
+        type: "GET",
+        url: uri,
+        dataType: 'json',
+        success: function(response) {
+          if (response.status == 'success') {
+            $.each(response.message, function(key, val) {
+              $("#poItemss").append(`<div class="po-box details-control" data-id="` + val.id + `"> <div class="pono"><small class="mb-0">
+                    <?= h('PO No ') ?>
+                    <br>
+                  </small>
+                  <b>` + val.po_no + `</b>
+                </div>
+                <div class="po-code">
+                  <small class="mb-0">
+                    <?= h('Vendor Code:') ?>
+                  </small>
+                  <br> <small><b>
+                     ` + val.sap_vendor_code + `
+                    </b></small>
+                </div>
+              </div>`);
+            });
+            $('div.details-control:first').click();
+          } else {
+            // $("#poItemss").empty().hide().append(`No data Found`);
+            // $(".related").hide();
+
+          }
+        }
+      });
+    }
+
 
 
     $('#notifyForm').validate({

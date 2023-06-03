@@ -1,36 +1,64 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\AdminUser $adminUser
- */
-?>
+<style>
+    .vendor-profile table {
+    font-size: 14px;
+}
+.vendor-profile tr {
+    display: block;
+    padding: 5px 10px;
+}
+</style>
+<div class="buyer-profile">
 <div class="row">
-    <div class="column-responsive column-80">
-        <div class="adminUsers view content">
-            <h3><?= h($adminUser->first_name . ' '. $adminUser->last_name) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Email') ?></th>
-                    <td><?= h($adminUser->username) ?></td>
-                </tr>
-                
-                <tr>
-                    <th><?= __('Status') ?></th>
-                    <td><?= $adminUser->status ? __('Yes') : __('No'); ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Last Login') ?></th>
-                    <td><?= h($adminUser->last_login) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Added Date') ?></th>
-                    <td><?= h($adminUser->added_date) ?></td>
-                </tr>
-                <tr>
-                    <th><?= __('Updated Date') ?></th>
-                    <td><?= h($adminUser->updated_date) ?></td>
-                </tr>
-            </table>
+    <div class="col-12">
+        <div class="vendorTemps view content card">
+            <div class="card-header">
+                <h6 class="mt-2 ml-2 text-info">
+                    <b>
+                        <?= $adminUser->first_name .' '. $adminUser->last_name ?>
+                    </b>
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="vendor-profile">
+                            <table class="mb-0">
+
+                                <tr>
+                                    <th>
+                                        <?= __('Mobile No :') ?>
+                                    </th>
+                                    <td>
+                                       <?= $adminUser->mobile?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <?= __('Email Id :') ?>
+                                    </th>
+                                    <td>
+                                    <?= $adminUser->username?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <?= __('Address :') ?>
+                                    </th>
+                                    <td>
+                                        Mumbai
+                                    </td>
+                                </tr>
+
+
+
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+</div>
 </div>

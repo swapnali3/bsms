@@ -16,6 +16,14 @@ class AsnController extends BuyerAppController
 
     public function search()
     {
+
+            
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+
+        $this->set(compact('notificationCount','count'));
+
         $this->set('headTitle', 'Gate Entry(GE)');
         $this->loadModel('AsnHeaders');
         $session = $this->getRequest()->getSession();
@@ -84,7 +92,16 @@ class AsnController extends BuyerAppController
 
         //$record = $deliveryDetails->first();
         //$this->set('deliveryDetailw', $record);
+
+            
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+
+        $this->set(compact('notificationCount','count'));
+
         $this->set('deliveryDetails', $deliveryDetails->all());
+        $this->set('headTitle', 'GATE ENTRY(GE)');
     }
 
     public function update($id = null)

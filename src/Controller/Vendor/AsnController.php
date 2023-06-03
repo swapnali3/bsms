@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
@@ -28,17 +29,20 @@ class AsnController extends VendorAppController
 
 
         $query = $this->AsnHeaders->find()
-            ->select(['AsnHeaders.id','AsnHeaders.asn_no','AsnHeaders.invoice_no','AsnHeaders.invoice_date','PoHeaders.po_no', 'AsnHeaders.added_date','AsnHeaders.status'])
+            ->select(['AsnHeaders.id', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'PoHeaders.po_no', 'AsnHeaders.added_date', 'AsnHeaders.status'])
             ->contain(['PoHeaders'])
             ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code')]);
 
-            //echo '<pre>'; print_r($query); exit;
-    $deliveryDetails = $this->paginate($query);
-    
+        //echo '<pre>'; print_r($query); exit;
+        $deliveryDetails = $this->paginate($query);
+
+             $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
+        $count = $notificationCount->rowCount();
 
         //echo '<pre>'; print_r($rfqDetails); exit;
 
-        $this->set(compact('deliveryDetails'));
+        $this->set(compact('deliveryDetails','notificationCount','count'));
     }
 
     /**
@@ -54,14 +58,16 @@ class AsnController extends VendorAppController
         $this->loadModel('AsnHeaders');
 
         $deliveryDetails = $this->AsnHeaders->find('all')
-        ->select(['AsnHeaders.id', 'AsnHeaders.status', 'AsnHeaders.asn_no','AsnHeaders.invoice_path','AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value','AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact','AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material','PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])
-        ->innerJoin(['PoHeaders' => 'po_headers'],['AsnHeaders.po_header_id = PoHeaders.id'])
-        ->innerJoin(['PoFooters' => 'po_footers'],['PoFooters.po_header_id = PoHeaders.id'])
-        ->innerJoin(['PoItemSchedules' => 'po_item_schedules'],['PoItemSchedules.po_header_id = PoHeaders.id', 'PoItemSchedules.po_footer_id = PoFooters.id'])
-        ->innerJoin(['AsnFooters' => 'asn_footers'],['AsnFooters.asn_header_id = AsnHeaders.id', 'AsnFooters.po_footer_id = PoFooters.id'])
-        ->innerJoin(['AsnFooters' => 'asn_footers'],['AsnFooters.asn_header_id = AsnHeaders.id', 'AsnFooters.po_footer_id = PoFooters.id', 'AsnFooters.po_schedule_id = PoItemSchedules.id'])
-        
-        ->where(['AsnHeaders.id' => $id])->toArray();
+            ->select(['AsnHeaders.id', 'AsnHeaders.status', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_path', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value', 'AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact', 'AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material', 'PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])
+            ->innerJoin(['PoHeaders' => 'po_headers'], ['AsnHeaders.po_header_id = PoHeaders.id'])
+            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+            ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_header_id = PoHeaders.id', 'PoItemSchedules.po_footer_id = PoFooters.id'])
+            ->innerJoin(['AsnFooters' => 'asn_footers'], ['AsnFooters.asn_header_id = AsnHeaders.id', 'AsnFooters.po_footer_id = PoFooters.id'])
+            ->innerJoin(['AsnFooters' => 'asn_footers'], ['AsnFooters.asn_header_id = AsnHeaders.id', 'AsnFooters.po_footer_id = PoFooters.id', 'AsnFooters.po_schedule_id = PoItemSchedules.id'])
+
+            ->where(['AsnHeaders.id' => $id])->toArray();
+
+
 
         //echo '<pre>';  print_r($deliveryDetails); exit;
         /*$deliveryDetail = $this->AsnHeaders->get($id, [
@@ -70,6 +76,12 @@ class AsnController extends VendorAppController
 
         //$record = $deliveryDetails->first();
         //$this->set('deliveryDetailw', $record);
+
+       $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+        $this->set(compact('notificationCount','count'));
+
         $this->set('deliveryDetails', $deliveryDetails);
     }
 
@@ -154,7 +166,7 @@ class AsnController extends VendorAppController
         $deliveryDetail = $this->AsnHeaders->get($id, [
             'contain' => [],
         ]);
-    
+
         $deliveryDetail = $this->AsnHeaders->patchEntity($deliveryDetail, ['status' => 2]);
         if ($this->AsnHeaders->save($deliveryDetail)) {
             $response['status'] = 'success';
@@ -163,9 +175,8 @@ class AsnController extends VendorAppController
             $response['status'] = 'fail';
             $response['message'] = 'mark entry';
         }
-        
+
 
         echo json_encode($response);
-
     }
 }

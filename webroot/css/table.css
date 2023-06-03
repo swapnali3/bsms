@@ -2,6 +2,11 @@
 .table th {
 	padding: 0rem
 }
+.vendor-list .badge {
+    padding: 6px 8px !important;
+    font-size: 0.6rem !important;
+    border-radius: 3px !important;
+}
 
 .hr {
 	margin-top: 10rem;
@@ -11,7 +16,7 @@
 
 .table thead th {
     font-weight: 500;
-    color: #696969 !important;
+    color: #fff !important;
     font-size: 12px !important;
 }
 
@@ -22,7 +27,7 @@ hr {
 
 .table>thead{
 
-    background-color: #d4ddf7 !important;
+    background-color: #527195  !important;
 }
 .table>tbody{
 	background-color: #f5f7fd !important;
@@ -47,7 +52,7 @@ hr {
 }
 .table-hover tbody tr:hover {
    
-    background-color: #B4F2FB !important;
+    background-color:#E7EAF0!important;
 }
 
 

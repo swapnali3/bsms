@@ -157,6 +157,8 @@ class OnboardingController extends VendorAppController
     public function create($request = null)
     {
         $this->loadModel("VendorTemps");
+        $this->loadModel("Countries");
+        $this->loadModel("States");
         $request = explode('||', base64_decode($request));
 
         //print_r($request); exit;
@@ -179,6 +181,68 @@ class OnboardingController extends VendorAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
             $data['status'] = 1;
+
+            //echo '<pre>'; print_r($data); exit;
+
+            if($data["gst_file"]) {
+                $gstUpload = $data["gst_file"];
+                if (
+                    $gstUpload !== null &&
+                    $gstUpload->getError() !== \UPLOAD_ERR_NO_FILE
+                ) {
+                    $fileName = $id.'_'.$gstUpload->getClientFilename();
+                    $fileType = $gstUpload->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
+                        $imagePath = WWW_ROOT . "uploads/kyc/" . $fileName;
+                        $gstUpload->moveTo($imagePath);
+                        $data["gst_file"]= "uploads/kyc/" . $fileName;
+                    }
+                } else {
+                    $data["gst_file"] = "";
+                }
+            }
+
+            if($data["pan_file"]) {
+                $panUpload = $data["pan_file"];
+                if (
+                    $panUpload !== null &&
+                    $panUpload->getError() !== \UPLOAD_ERR_NO_FILE
+                ) {
+                    $fileName = $id.'_'.$panUpload->getClientFilename();
+                    $fileType = $panUpload->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
+                        $imagePath = WWW_ROOT . "uploads/kyc/" . $fileName;
+                        $panUpload->moveTo($imagePath);
+                        $data["pan_file"] = "uploads/kyc/" . $fileName;
+                    }
+                } else {
+                    $data["pan_file"] = "";
+                }
+            }
+
+
+            if($data["bank_file"]) {
+                $bankUpload = $data["bank_file"];
+                if (
+                    $bankUpload !== null &&
+                    $bankUpload->getError() !== \UPLOAD_ERR_NO_FILE
+                ) {
+                    $fileName = $id.'_'.$bankUpload->getClientFilename();
+                $fileType = $bankUpload->getClientMediaType();
+
+                if ($fileType == "application/pdf" || $fileType == "image/*") {
+                    $imagePath = WWW_ROOT . "uploads/kyc/" . $fileName;
+                    $bankUpload->moveTo($imagePath);
+                    $data["bank_file"] = "uploads/kyc/" . $fileName;
+                }
+                } else {
+                    $data["bank_file"] = "";
+                }
+                
+            }
+
             //echo '<pre>'; print_r($data); exit;
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
             if ($this->VendorTemps->save($vendorTemp)) {
@@ -191,7 +255,11 @@ class OnboardingController extends VendorAppController
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups'));
+
+        $countries = $this->Countries->find('list', ['keyField' => 'country_name', 'valueField' => 'country_name'])->all();
+        $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
+
+        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));
     }
 
     /**

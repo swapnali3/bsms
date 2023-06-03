@@ -110,21 +110,21 @@
 </li>
 
 
-
+<!-- 
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-file-invoice  nav-icon"></i><p>RFQs</p>'), ['controller' => 'rfqs', 'action' => 'index'], ['class' => "nav-link $rfqactive", 'escape' => false]) ?>
-</li>
+</li> -->
 
 <!-- <li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-file nav-icon"></i><p>Purchase Requisitions</p>'), ['controller' => 'purchase-requisitions', 'action' => 'index'], ['class' => "nav-link $prlickActive", 'escape' => false]) ?>
 </li> -->
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link $polickActive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'view'], ['class' => "nav-link $polickActive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit ASN</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
 </li>
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-universal-access nav-icon"></i><p>Gate Entry</p>'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
@@ -144,6 +144,7 @@
   </ul>
 </li>
 
+<!--
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-power-off nav-icon"></i><p>Logout</p>'), ['prefix' => false, 'controller' => 'users', 'action' => 'logout'], ['class' => "nav-link", 'escape' => false]) ?>
-</li>
+</li> -->

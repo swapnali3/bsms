@@ -62,6 +62,7 @@ class VendorTemp extends Entity
         'mobile' => true,
         'email' => true,
         'country' => true,
+        'state' => true,
         'payment_term' => true,
         'order_currency' => true,
         'gst_no' => true,
@@ -81,6 +82,9 @@ class VendorTemp extends Entity
         'purchasing_organization' => true,
         'account_group' => true,
         'schema_group' => true,
-        'remark' => true
+        'remark' => true,
+        'gst_file' => true,
+        'pan_file' => true,
+        'bank_file' => true
     ];
 }

@@ -2221,3 +2221,48 @@ Stack Trace:
 - /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:172
 - /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
 
+2023-06-02 12:13:10 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in C:\wamp64\www\bsms\vendor\cakephp\bake\src\Command\ModelCommand.php on line 1195
+Stack Trace:
+- C:\wamp64\www\bsms\vendor\cakephp\bake\src\Command\ModelCommand.php:113
+- C:\wamp64\www\bsms\vendor\cakephp\bake\src\Command\ModelCommand.php:94
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\BaseCommand.php:189
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\CommandRunner.php:334
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
+- C:\wamp64\www\bsms\bin\cake.php:12
+
+2023-06-02 12:14:25 error: [Cake\Database\Exception\DatabaseException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_bsms.notification' doesn't exist in C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Schema\Collection.php on line 160
+Stack Trace:
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Schema\Collection.php:118
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Table.php:521
+- C:\wamp64\www\bsms\vendor\cakephp\bake\src\Command\ModelCommand.php:111
+- C:\wamp64\www\bsms\vendor\cakephp\bake\src\Command\ModelCommand.php:94
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\BaseCommand.php:189
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\CommandRunner.php:334
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
+- C:\wamp64\www\bsms\bin\cake.php:12
+
+Caused by: [PDOException] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'db_bsms.notification' doesn't exist in C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Statement\MysqlStatement.php on line 39
+Stack Trace:
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Statement\MysqlStatement.php:39
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Connection.php:329
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Core\Retry\CommandRetry.php:70
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Connection.php:332
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Schema\Collection.php:158
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Database\Schema\Collection.php:118
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\ORM\Table.php:521
+- C:\wamp64\www\bsms\vendor\cakephp\bake\src\Command\ModelCommand.php:111
+- C:\wamp64\www\bsms\vendor\cakephp\bake\src\Command\ModelCommand.php:94
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\BaseCommand.php:189
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\CommandRunner.php:334
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
+- C:\wamp64\www\bsms\bin\cake.php:12
+
+2023-06-02 12:14:30 error: [Error] Class 'Bake\CodeGen\FileBuilder' not found in C:\wamp64\www\bsms\vendor\cakephp\bake\src\Command\ModelCommand.php on line 1195
+Stack Trace:
+- C:\wamp64\www\bsms\vendor\cakephp\bake\src\Command\ModelCommand.php:113
+- C:\wamp64\www\bsms\vendor\cakephp\bake\src\Command\ModelCommand.php:94
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\BaseCommand.php:189
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\CommandRunner.php:334
+- C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
+- C:\wamp64\www\bsms\bin\cake.php:12
+
