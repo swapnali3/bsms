@@ -55,9 +55,9 @@
                                     <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
                                             <div class="modal-body text-center">
-                                                <p>Are you sure you want to mark delivered ?</p>
+                                                <h6>Are you sure you want to mark delivered ?</h6>
                                             </div>
-                                            <div class="modal-footer justify-content-between">
+                                            <div class="modal-footer justify-content-between p-1">
                                                 <button type="button" class="btn btn-sm btn-link"
                                                     data-dismiss="modal">Cancel</button>
                                                 <button class="btn btn-success mark_delivered btn-sm mb-0">OK</button>
