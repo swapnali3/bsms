@@ -41,11 +41,13 @@ class PurchaseOrdersController extends BuyerAppController
         $poHeaders = $this->PoHeaders->find()
             ->select(['id', 'po_no', 'sap_vendor_code'])->toArray();
 
-
+       $session = $this->getRequest()->getSession();
 
         //print_r($poHeader); exit;
+        $userId =  $session->read('id');
+ 
         $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
         $count = $notificationCount->rowCount();
 
         $this->set(compact('poHeaders','notificationCount','count'));

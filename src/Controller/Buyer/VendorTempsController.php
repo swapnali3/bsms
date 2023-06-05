@@ -31,9 +31,13 @@ class VendorTempsController extends BuyerAppController
             'order' => array('VendorTemps.added_date' => 'DESC'),
         ];
         $vendorTemps = $this->paginate($this->VendorTemps);
+
+        $session = $this->getRequest()->getSession();
                 
+        $userId =  $session->read('id');
+ 
         $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
         $count = $notificationCount->rowCount();
     
 
@@ -92,8 +96,12 @@ class VendorTempsController extends BuyerAppController
         ]);
         $this->set('headTitle', 'Vendor Details');
 
+        $session = $this->getRequest()->getSession();
+
+        $userId =  $session->read('id');
+ 
         $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
         $count = $notificationCount->rowCount();
     
         $this->set(compact('vendorTemp','notificationCount','count'));
@@ -106,9 +114,12 @@ class VendorTempsController extends BuyerAppController
      */
     public function add()
     {
+        $session = $this->getRequest()->getSession();
 
+        $userId =  $session->read('id');
+ 
         $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
         $count = $notificationCount->rowCount();
         
         $this->set(compact('notificationCount','count'));
@@ -170,8 +181,12 @@ class VendorTempsController extends BuyerAppController
     public function sapAdd()
     {
 
+        $session = $this->getRequest()->getSession();
+
+        $userId =  $session->read('id');
+ 
         $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
         $count = $notificationCount->rowCount();
         
         $this->set(compact('notificationCount','count'));
