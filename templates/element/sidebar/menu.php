@@ -2,19 +2,32 @@
   <?= $this->Html->link(__('<i class="fas fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fas fa-user-alt nav-icon"></i><p>User Management</p>'), ['controller' => 'purchase-orders', 'action' => 'view'], ['class' => "nav-link", 'escape' => false]) ?>
+<li class="nav-item has-treeview">
+  <a href="#" class="nav-link active">
+    <i class="nav-icon fas fa-user-alt"></i>
+    <p>
+      User Management
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>SAP Users</p>'), ['controller' => 'admin-users', 'action' => 'index', 'sap'], ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Portal Users</p>'), ['controller' => 'admin-users', 'action' => 'index', 'portal'], ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Role</p>'), '#', ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Profile</p>'), '#', ['class' => 'nav-link', 'escape' => false]) ?></li>
+    <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Users</p>'), '#', ['class' => 'nav-link', 'escape' => false]) ?></li>
+  </ul>
 </li>
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Role Management</p>'), ['controller' => 'purchase-orders', 'action' => 'view'], ['class' => "nav-link", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-tachometer-alt nav-icon"></i><p>User Role Management</p>'), ['controller' => 'UsersAcl', 'action' => 'index'], ['class' => "nav-link", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
-      Vendor Management
+      Vendor
       <i class="right fas fa-angle-left"></i>
     </p>
   </a>
@@ -83,9 +96,6 @@
 
   </ul>
 </li>
-
-
-
 
 <li class="nav-item">
   <a href="#" class="nav-link">

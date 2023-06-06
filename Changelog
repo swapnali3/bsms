@@ -1,0 +1,39 @@
+=============== CAKE PAGE CREATION ===============\
+cake bake all <tablename>
+=============== CAKE PAGE CREATION ===============
+
+=============== CAKE MODAL CREATION ===============
+cake bake modal <tablename>
+=============== CAKE MODAL CREATION ===============
+
+CREATE TABLE `users_acl` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `permission` int NOT NULL,
+  `users` int NOT NULL,
+  `controller` varchar(250) NOT NULL,
+  `action` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_permissions_idx` (`permission`),
+  KEY `fk_users_idx` (`users`),
+  CONSTRAINT `fk_permissions` FOREIGN KEY (`permission`) REFERENCES `users_permissions` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_users` FOREIGN KEY (`users`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `users_permissions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `permissionsName` varchar(250) NOT NULL,
+  `permissionsLevel` varchar(45) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `permissionsName_UNIQUE` (`permissionsName`),
+  UNIQUE KEY `permissionsLevel_UNIQUE` (`permissionsLevel`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VALUES ('1', 'View', '1');
+INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VALUES ('2', 'Create', '2');
+INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VALUES ('3', 'View_Create', '3');
+INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VALUES ('4', 'Update', '4');
+INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VALUES ('5', 'View_Update', '5');
+INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VALUES ('6', 'Create_Update', '6');
+INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VALUES ('7', 'View_Create_Update', '7');
+
+you are not auth
