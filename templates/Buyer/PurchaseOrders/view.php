@@ -158,7 +158,12 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      
       <div class="modal-body">
+      <div class="alert-body text-center d-none">
+      <h6>Are you sure you want to create schedule ?</h6>
+      </div>
+        <div class="a-data">
         <div><b>PO : </b>
           <?= $poHeader->po_no ?>
         </div>
@@ -175,17 +180,21 @@
         </div>
         <div class="form-group">
           <?php
-          echo $this->Form->control('delivery_date', ['type' => 'date', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
+          echo $this->Form->control('delivery_date', ['id' => 'delivery_date','type' => 'date', 'class' => 'form-control rounded-0', 'div' => 'form-group']);
           ?>
         </div>
 
         <span class="actualTotalValue d-none"></span>
+        </div>
 
       </div>
       <div id="error_msg"></div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-custom">Submit</button>
+        <button type="button" class="btn btn-secondary dismiss-btn"  data-dismiss="modal" >Close</button>
+        <button type="button" class="btn btn-secondary d-none"  id="btnClose" >Close</button>
+        <button type="button" class="btn btn-custom btnSub">Submit</button>
+        <button type="submit" class="btn btn-success btn-sm d-none">Ok</button>
+        
       </div>
       </form>
     </div>
@@ -266,6 +275,13 @@
     return resp;
   }
   $(document).ready(function() {
+    // create schedule popup
+    $(".btnSub").on("click",function(e) {
+      e.preventDefault();
+      
+      
+      
+    })
 
     var Toast = Swal.mixin({
       toast: true,
@@ -363,7 +379,7 @@
               <td>` + val.gross_value + `</td>
               <td class="actions">
                   <div class="btn-group">
-                  <a href="#" class="schedule_item btn-warning btn btn-default" data-toggle="modal" data-target="#scheduleModal" header-id="` + val.po_header_id + `" footer-id="` + val.id + `" item-no=` + val.item + `>Schedule</a>
+                  <a href="#" class="schedule_item btn-warning btn btn-default" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#scheduleModal" header-id="` + val.po_header_id + `" footer-id="` + val.id + `" item-no=` + val.item + `>Schedule</a>
                     <button type="button" class="btn btn-default btn-success view-btn dropdown-toggle dropdown-icon" data-toggle="dropdown">
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
@@ -455,41 +471,41 @@
 
     });
 
-    $('#scheduleForm').validate({
+      $('#scheduleForm').validate({
 
-      rules: {
-        actual_qty: {
-          required: true,
-          number: true,
-          checkQty: true
+        rules: {
+          actual_qty: {
+            required: true,
+            number: true,
+            checkQty: true
+          },
+          delivery_date: {
+            required: true
+          }
         },
-        delivery_date: {
-          required: true
-        }
-      },
-      messages: {
-        actual_qty: {
-          required: "Please provide a quantity",
-          number: "Please enter a valid number",
-          checkQty: "Do not exceed PO qty value"
+        messages: {
+          actual_qty: {
+            required: "Please provide a quantity",
+            number: "Please enter a valid number",
+            checkQty: "Do not exceed PO qty value"
+          },
+          delivery_date: {
+            required: "Please select a date"
+          }
         },
-        delivery_date: {
-          required: "Please select a date"
-        }
-      },
 
-      errorElement: 'span',
-      errorPlacement: function(error, element) {
-        error.addClass('invalid-feedback');
-        element.closest('.form-group').append(error);
-      },
-      highlight: function(element, errorClass, validClass) {
-        $(element).addClass('is-invalid');
-      },
-      unhighlight: function(element, errorClass, validClass) {
-        $(element).removeClass('is-invalid');
-      }
-    });
+        errorElement: 'span',
+        errorPlacement: function(error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function(element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
 
 
     $.validator.addMethod('checkQty', function(value, element) {
@@ -689,4 +705,51 @@
       }
     });
   });
+  $(document).ready(function() {
+
+  // Form submission
+  $('.btnSub').click(function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    // Perform form validation
+    var actualQty = $('#actual_qty').val();
+    var deliveryDate = $('#delivery_date').val();
+
+    console.log(deliveryDate + "sdf  "  +actualQty);
+
+    if (actualQty === '') {
+      $('#actual_qty').valid();
+      return true;
+
+    }
+
+    if (deliveryDate == '') {
+      $('#delivery_date').valid();
+      return true;
+    }
+
+    // Display alert body and OK button
+    $('.a-data').addClass('d-none');
+    $('.alert-body').removeClass('d-none');
+    $('.btnSub').addClass('d-none');
+    $('#btnClose').removeClass('d-none');
+    $('#error_msg').hide();
+    $('.dismiss-btn').hide();
+    $('.btn-success').removeClass('d-none');
+   
+	
+  });
+  $('#btnClose').click(function() {
+    $('.a-data').addClass('d-block');
+    $('.dismiss-btn').show();
+    $('.btnSub').addClass('d-block');
+    $('.alert-body').hide();
+    $('.btn-success').hide();
+    $('#btnClose').hide();
+    $('#btnClose').removeClass('d-none');
+    
+    
+  });
+});
+
 </script>
