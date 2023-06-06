@@ -30,9 +30,25 @@
                     ?>
                     <?php if ($deliveryDetails->toArray()[0]->status == 2) { ?>
 
-                        <button type="button" class="btn btn-custom mark_delivered mb-1" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">Mark Entry</button>
+                        <button  class="btn btn-custom mrk mb-1" data-toggle="modal" data-target="#modal-confirm">Mark Entry</button>
 
+                        <!-- modal -->
+                        <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
+                            <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        <h6>Are you sure you want to mark entry ?</h6>
+                                    </div>
+                                    <div class="modal-footer p-1 justify-content-between">
+                                        <button type="button" class="btn btn-sm btn-link"
+                                            data-dismiss="modal">Cancel</button>
+                                        <button class="btn btn-success btnOk mark_entry btn-sm mb-0" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">OK</button>
+                                    </div>
+                                </div>
+                            </div>
 
+                        </div>
+                        <!-- end modal -->
                     <?php } ?>
                 </div>
 
@@ -47,30 +63,42 @@
                     <div class="row">
                         <div class="col-md-2">
                             <label>ASN No.</label>
-                            <p><b><?= h($deliveryDetails->toArray()[0]->asn_no) ?></b></p>
+                            <p><b>
+                                    <?= h($deliveryDetails->toArray()[0]->asn_no) ?>
+                                </b></p>
                         </div>
                         <div class="col-md-2">
                             <label>PO No.</label>
-                            <p><b><?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?></b></p>
+                            <p><b>
+                                    <?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?>
+                                </b></p>
                         </div>
                         <div class="col-md-2">
                             <label>Invoice No</label>
-                            <p><b><?= h($deliveryDetails->toArray()[0]->invoice_no) ?></b></p>
+                            <p><b>
+                                    <?= h($deliveryDetails->toArray()[0]->invoice_no) ?>
+                                </b></p>
                         </div>
                         <div class="col-md-2">
                             <label> Invoice Date :</label>
-                            <p><b><?= h($deliveryDetails->toArray()[0]->invoice_date) ?></b></p>
+                            <p><b>
+                                    <?= h($deliveryDetails->toArray()[0]->invoice_date) ?>
+                                </b></p>
                         </div>
                         <div class="col-md-2">
                             <label> Invoice Value :</label>
-                            <p><b><?= h($deliveryDetails->toArray()[0]->invoice_value) ?></b></p>
+                            <p><b>
+                                    <?= h($deliveryDetails->toArray()[0]->invoice_value) ?>
+                                </b></p>
                         </div>
                         <div class="col-md-2">
                             <label> Status :</label>
 
                             </td>
 
-                            <p> <?= $deliveryDetails->toArray()[0]->status == 2 ? '<span class="badge bg-success asnstatus">In Transit</span>' : '<span class="badge bg-warning">Received</span>' ?></p>
+                            <p>
+                                <?= $deliveryDetails->toArray()[0]->status == 2 ? '<span class="badge bg-success asnstatus">In Transit</span>' : '<span class="badge bg-warning">Received</span>' ?>
+                            </p>
                             </td>
                         </div>
 
@@ -105,14 +133,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($deliveryDetails as $deliveryDetail) : ?>
+                        <?php foreach ($deliveryDetails as $deliveryDetail): ?>
                             <tr>
-                                <td><?= $deliveryDetail->has('PoFooters') ? $deliveryDetail->PoFooters['item'] : '' ?></td>
-                                <td><?= $deliveryDetail->has('PoFooters') ? $deliveryDetail->PoFooters['material'] : '' ?></td>
-                                <td><?= $deliveryDetail->has('PoFooters') ? $deliveryDetail->PoFooters['order_unit'] : '' ?></td>
-                                <td><?= $deliveryDetail->has('AsnFooters') ? $deliveryDetail->AsnFooters['qty'] : '' ?></td>
-                                <td><?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['actual_qty'] : '' ?></td>
-                                <td><?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['delivery_date'] : '' ?></td>
+                                <td>
+                                    <?= $deliveryDetail->has('PoFooters') ? $deliveryDetail->PoFooters['item'] : '' ?>
+                                </td>
+                                <td>
+                                    <?= $deliveryDetail->has('PoFooters') ? $deliveryDetail->PoFooters['material'] : '' ?>
+                                </td>
+                                <td>
+                                    <?= $deliveryDetail->has('PoFooters') ? $deliveryDetail->PoFooters['order_unit'] : '' ?>
+                                </td>
+                                <td>
+                                    <?= $deliveryDetail->has('AsnFooters') ? $deliveryDetail->AsnFooters['qty'] : '' ?>
+                                </td>
+                                <td>
+                                    <?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['actual_qty'] : '' ?>
+                                </td>
+                                <td>
+                                    <?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['delivery_date'] : '' ?>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -123,7 +163,7 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         var table = $("#example1").DataTable({
             "paging": true,
             "responsive": false,
@@ -135,8 +175,8 @@
         });
     });
 
-    $('.actionbtn').click(function() {
-        var dataId = $('.btn-custom').data('id');
+    $('.mark_entry').click(function () {
+        var dataId = $('.btnOk').data('id');
 
         $.ajax({
             type: "GET",
@@ -144,19 +184,20 @@
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             dataType: "json",
             // async: false,
-            beforeSend: function() {
+            beforeSend: function () {
                 $("#loaderss").show();
             },
-            success: function(response) {
+            success: function (response) {
                 if (response.status == 'success') {
 
-                    $(".mark_delivered").hide();
+                    $("#modal-confirm").modal('hide');
+                    $(".mrk").hide();
                     $(".asnstatus").html('Received');
                 } else {
                     alert('Please try again...');
                 }
             },
-            complete: function() {
+            complete: function () {
                 $("#loaderss").hide();
             }
         });

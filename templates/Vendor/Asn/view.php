@@ -41,7 +41,7 @@
                         if ($deliveryDetails[0]->status == '1') { ?>
                             <div class="col-sm-12 col-lg-6">
                                <div class="d-flex justify-content-end">
-                               <button class="btn btn-custom-2 mb-0 mark_delivered mr-2">Mark Delivered</button>
+                               <button class="btn btn-custom-2 mb-0 mrk mr-2" data-toggle="modal" data-target="#modal-confirm">Mark Delivered</button>
                                 <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
 
                                 if (!empty($files)) {
@@ -50,6 +50,24 @@
                                 ?>
                                </div>
                             </div>
+                             <!-- modal -->
+                             <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <h6>Are you sure you want to mark delivered ?</h6>
+                                            </div>
+                                            <div class="modal-footer justify-content-between p-1">
+                                                <button type="button" class="btn btn-sm btn-link"
+                                                    data-dismiss="modal">Cancel</button>
+                                                <button class="btn btn-success mark_delivered btn-sm mb-0">OK</button>
+                                                <!-- <?= $this->Html->link(__('Ok'), ['class' => 'btn btn-success mark_delivered btn-sm mb-0']) ?> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- end modal -->
                         <?php } ?>
                     </div>
 
@@ -162,6 +180,7 @@
         });
 
         $(".mark_delivered").on('click', function() {
+           
             $.ajax({
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'mark-delivered', $deliveryDetails[0]->id)); ?>",
@@ -174,7 +193,9 @@
                 success: function(response) {
                     if (response.status == 'success') {
                         //location.reload(true);
-                        $(".mark_delivered").hide();
+                        $("#modal-confirm").modal('hide');
+                        $(".mrk").hide();
+
                         $(".asnstatus").html('Delivered');
                     } else {
                         alert('Please try again...');

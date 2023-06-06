@@ -65,7 +65,8 @@ class PurchaseOrdersController extends VendorAppController
                         ['PoFooters.material LIKE' => '%' . $search . '%'],
                         ['PoFooters.short_text LIKE' => '%' . $search . '%'],
                     ]
-                ]);
+                ])
+                ->order(['PoHeaders.id' => 'DESC']);
         } else {
 
             $data = $this->PoHeaders->find('all')
@@ -79,7 +80,8 @@ class PurchaseOrdersController extends VendorAppController
                         ['PoFooters.material LIKE' => '%' . $search . '%'],
                         ['PoFooters.short_text LIKE' => '%' . $search . '%'],
                     ]
-                ]);
+                ])
+                ->order(['PoHeaders.id' => 'DESC']);
         }
 
         //  print_r($data);exit;

@@ -58,22 +58,15 @@ switch ($vendorTemp->status) {
                                 <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
                                     <div class="modal-dialog modal-sm">
                                         <div class="modal-content">
-                                            <!-- <div class="modal-header">
-                                                <h4 class="modal-title">Small Modal</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">×</span>
-                                                </button>
-                                            </div> -->
-                                            <div class="modal-body">
-                                                <p>Are you sure you want to aprrove?</p>
+                                            <div class="modal-body text-center">
+                                                <h6>Are you sure you want to aprrove?</h6>
                                             </div>
-                                            <div class="modal-footer justify-content-between">
+                                            <div class="modal-footer justify-content-between p-1">
                                                 <button type="button" class="btn btn-link"
                                                     data-dismiss="modal">Cancel</button>
                                                 <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
                                             </div>
                                         </div>
-
                                     </div>
 
                                 </div>

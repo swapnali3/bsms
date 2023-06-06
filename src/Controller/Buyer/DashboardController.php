@@ -81,10 +81,10 @@ class DashboardController extends BuyerAppController
         $totalVendorTemps = $this->VendorTemps->find('all', array('conditions'=>array('status'=>0)))->count();
         $totalRfqDetails = $this->RfqDetails->find('all', array('conditions'=>array('status'=>1, 'buyer_seller_user_id' =>$session->read('id') )))->count();
 
-
-        
+        $userId =  $session->read('id');
+ 
         $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0");
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
         $count = $notificationCount->rowCount();
     
 

@@ -34,7 +34,7 @@
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">
-            <?= $this->element('header/main') ?>
+            <?= $this->element('header/notifications_admin') ?>
         </nav>
         <!-- /.navbar -->
 
