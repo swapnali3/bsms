@@ -1,0 +1,10 @@
+.accordion-item {
+    border: 0px !important;
+}
+.accordion-button {
+    border: 0px !important;
+    padding: 0px !important;
+    background-color: #fff !important;
+    color: #000 !important;
+    box-shadow: unset !important;
+}

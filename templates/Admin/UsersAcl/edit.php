@@ -4,94 +4,22 @@
  * @var iterable<\App\Model\Entity\UsersAcl> $usersAcl
  */
 ?>
+<style>
+
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <?= $this->Html->css('admin-style') ?>
-<div class="role-mgmt">
+<div class="role-mgmt-setting">
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>User Role Managment</h5>
+                    <h5>Role Managment</h5>
                 </div>
                 <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                        <div class="search-bar mb-2">
-                            <input type="search" placeholder="Search all users" class="form-control search-box">
-                        </div>
-                        <div class="">
-                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-xl">Set Permissions</button>
-                        </div>
-                    </div>
-                    <div class="user-list-tbl">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <input class="" type="checkbox" value="" id="all">
-                                    </th>
-                                    <th>Username</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="checkbox-1">
-                                        </div>
-                                    </td>
-                                    <td>Snehal</td>
-                                    <td>Buyer</td>
-                                    <td>Active</td>
-                                    <td><a href="users-acl/edit/1">
-                                            <i class="fas fa-edit"></i>
-                                        </a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="checkbox-1">
-                                        </div>
-                                    </td>
-                                    <td>Abhishek</td>
-                                    <td>Buyer</td>
-                                    <td>Active</td>
-                                    <td><a href="#">
-                                            <i class="fas fa-edit"></i>
-                                        </a></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="checkbox-1">
-                                        </div>
-                                    </td>
-                                    <td>Dipak</td>
-                                    <td>Buyer</td>
-                                    <td>Active</td>
-                                    <td><a href="" data-toggle="tooltip" data-placement="bottom" title="Edit user"><i
-                                                class="fas fa-edit"></i></a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- modal -->
-    <div class="modal fade" id="modal-xl" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header p-2">
-                    <h5 class="modal-title p-2">Role Management</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                <div class="row">
+
+                    <div class="row">
                         <div class="col-md-12">
                             <div class="top-head">
                                 <div class="row">
@@ -176,20 +104,16 @@
                                
                             </div>
                            
-                            
+                            <div class="submit-btn mt-2">
+                                <button type="button" class="btn btn-primary">Save</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer text-right">
-                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-                    <button type="button" class="btn btn-primary">Save</button>
+
                 </div>
             </div>
-
         </div>
-
     </div>
-    <!-- end modal -->
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
