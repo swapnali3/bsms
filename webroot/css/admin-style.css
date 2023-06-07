@@ -8,3 +8,16 @@
     color: #000 !important;
     box-shadow: unset !important;
 }
+.btn-custom {
+    background-color: #8E9B2C;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.1rem;
+    padding: 10px 20px;
+}
+.setting-update .card-body .row {
+    background-color: #f5f7fd;
+    border-radius: 0px;
+    padding: 20px;
+    margin: 0 auto;
+}
