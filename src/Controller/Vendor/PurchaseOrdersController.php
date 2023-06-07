@@ -212,7 +212,8 @@ class PurchaseOrdersController extends VendorAppController
                     if ($this->AsnFooters->saveMany($asnFooter)) {
                         $response['status'] = 'success';
                         $response['message'] = 'Record save successfully';
-                        $this->Flash->success("ASN-$asnNo has been created successfully");
+                       // $this->Flash->success("ASN-$asnNo has been created successfully");
+                        $this->Flash->success(__("ASN-$asnNo has been created successfully", 30));
                         return $this->redirect(['controller' => 'asn', 'action' => 'index']);
                     } else {
                     }

@@ -63,6 +63,10 @@
 
 <script>
     $(document).ready(function () {
+        setTimeout(function () {
+            $('.success').fadeOut('slow');
+        }, 2000); // <-- time in milliseconds
+        
         $(document).on("click", ".redirect", function () {
             window.location.href = $(this).data("href");
         });
