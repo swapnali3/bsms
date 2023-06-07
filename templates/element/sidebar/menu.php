@@ -132,3 +132,6 @@
     </li>
   </ul>
 </li>
+<li class="nav-item menu-open">
+  <?= $this->Html->link(__('<i class="far fa-cog nav-icon"></i><p>Settings</p>'), ['controller' => 'settings', 'action' => 'update'], ['class' => 'nav-link', 'escape' => false]) ?>
+</li>
