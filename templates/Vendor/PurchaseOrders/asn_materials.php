@@ -58,7 +58,25 @@
           <!-- <h6 class="text-right">Expected Delivery Date <br> <b>May 28, 2022</b></h6> -->
           <a href="/bsms/vendorpurchase-orders/create-asn" id="id_backmodal" class=" back-btn d-block nav-link"><i
               class="fas fa-angle-double-left"></i> BACK</a>
-          <button type="submit" class="btn btn-custom mb-0 ml-2">Create ASN</button>
+          <button type="button" class="btn btn-custom mb-0 ml-2" id="Create-btn">Create ASN</button>
+           <!-- modal -->
+           <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-body text-center">
+                                                <h6>Are you sure you want to create asn ?</h6>
+                                            </div>
+                                            <div class="modal-footer justify-content-between p-1">
+                                                <button type="button" class="btn btn-sm btn-link"
+                                                    data-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-success btn-sm mb-0">OK</button>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- end modal -->
         </div>
       </div>
     </div>
@@ -406,11 +424,24 @@
       },
       submitHandler: function (form, event) {
         event.preventDefault();
-        $('#asnForm')[0].submit();
+        // $('#asnForm')[0].submit();
+        $('#modal-confirm').modal('show');
         return false;
       }
     });
 
+    $("#Create-btn").click(function () {
+  if ($("#asnForm").valid()) { // Check form validation
+    $('#modal-confirm').modal('show'); // Show the modal
+  }
+});
+// 
+$('#modal-confirm').on('click', '.btn-success', function () {
+  if ($("#asnForm").valid()) { // Check form validation again before submitting
+    $('#modal-confirm').modal('hide'); // Hide the modal
+    $('#asnForm')[0].submit(); // Submit the form
+  }
+});
     $.validator.addMethod('checkQty', function (value, element) {
       if (parseInt(value) == 0) {
         return false;
