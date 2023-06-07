@@ -2266,3 +2266,103 @@ Stack Trace:
 - C:\wamp64\www\bsms\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
 - C:\wamp64\www\bsms\bin\cake.php:12
 
+2023-06-07 15:32:31 error: [ReflectionException] Class App\Controller\Buyer\ProductAttributesController does not exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php on line 324
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:324
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:228
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:176
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:161
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclExtrasShell.php:88
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-06-07 15:35:55 error: [ReflectionException] Class App\Controller\Buyer\RfqInquiriesController does not exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php on line 324
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:324
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:228
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:176
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:161
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclExtrasShell.php:88
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-06-07 15:39:51 error: [ReflectionException] Class App\Controller\Buyer\RfqInquiriesController does not exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php on line 324
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:324
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:228
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:176
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:161
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclExtrasShell.php:88
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-06-07 15:41:11 error: [Error] Class 'App\Controller\Admin\BuyerAppController' not found in /Users/deepaksingh/source_code/htdocs/bsms/src/Controller/Buyer/RfqInquiriesController.php on line 12
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/composer/ClassLoader.php:571
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/composer/ClassLoader.php:428
+- [internal]:??
+- [internal]:??
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:324
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:228
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:176
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:161
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclExtrasShell.php:88
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-06-07 15:41:42 error: [ReflectionException] Class App\Controller\Buyer\SchemaGroupsController does not exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php on line 324
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:324
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:228
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:176
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:161
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclExtrasShell.php:88
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-06-07 15:42:07 error: [ReflectionException] Class App\Controller\Buyer\ProductsController does not exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php on line 324
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:324
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:228
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:176
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:161
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclExtrasShell.php:88
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-06-07 15:42:23 error: [ReflectionException] Class App\Controller\Buyer\BuyerSellerUsersController does not exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php on line 324
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:324
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:228
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:176
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:161
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclExtrasShell.php:88
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
+2023-06-07 15:42:39 error: [ReflectionException] Class App\Controller\Buyer\PagesController does not exist in /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php on line 324
+Stack Trace:
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:324
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:228
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:176
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/AclExtras.php:161
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/acl/src/Shell/AclExtrasShell.php:88
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/Shell.php:500
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:352
+- /Users/deepaksingh/source_code/htdocs/bsms/vendor/cakephp/cakephp/src/Console/CommandRunner.php:169
+- /Users/deepaksingh/source_code/htdocs/bsms/bin/cake.php:12
+
