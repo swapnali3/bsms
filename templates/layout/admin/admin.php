@@ -109,7 +109,7 @@ body,
                 <div class="container-fluid">
                     <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
-                    <?= $this->Html->script('/js/cscript.js') ?>
+                   
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content -->
@@ -139,6 +139,7 @@ body,
 
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?>
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
+    <?= $this->Html->script('/js/cscript.js') ?>
 
 
     <?= $this->element('layout/script') ?>
