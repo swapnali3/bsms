@@ -22,6 +22,7 @@ use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\ORM\TableRegistry;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\Datasource\ConnectionManager;
 
@@ -34,6 +35,25 @@ use Cake\Datasource\ConnectionManager;
  */
 class DashboardController extends VendorAppController
 {
+
+    public function initialize(): void
+    {
+        parent::initialize();
+
+    //     $session = $this->getRequest()->getSession();
+
+    //     $permissionsTable = $this->getTableLocator()->get('Permissions');
+    //     $query = $permissionsTable->find()
+    //         ->select(['permission'])
+    //         ->where([
+    //             'controller' => ':controller', 
+    //             'action' => 'index',
+    //             'users' => $session->read('id') 
+    //         ])->toArray();
+            
+    //    print_r($query);exit;    
+     
+    }
     public function index()
     {
 

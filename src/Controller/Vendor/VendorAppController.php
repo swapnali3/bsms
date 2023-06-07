@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -14,12 +15,15 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller\Vendor;
 
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
 use Cake\Core\Configure;
 use Cake\Http\Exception;
+use Cake\Http\Exception\ForbiddenException;
+use Cake\Datasource\ConnectionManager;
 
 
 /**
@@ -45,14 +49,14 @@ class VendorAppController extends Controller
     {
         parent::initialize();
 
-        date_default_timezone_set('Asia/Kolkata'); 
-        
+        date_default_timezone_set('Asia/Kolkata');
+
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
         $this->loadComponent('Sms');
-        
+
         $this->set('title', 'VeKPro');
 
         /*
@@ -67,29 +71,46 @@ class VendorAppController extends Controller
         $group_name = $session->read('group_name');
 
         $this->set(compact('full_name', 'role', 'group_name'));
-        
+
         //echo '<pre>'; print_r($session); exit;
-        
-        if(($this->request->getParam('action') == 'verify' || $this->request->getParam('action') == 'create')) {
-           // $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
-        } else if($session->check('id') && $session->read('role') != 3) {
-            $this->Flash->error("You are not authrized");
+
+        if (($this->request->getParam('action') == 'verify' || $this->request->getParam('action') == 'create')) {
+            // $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+        } else if ($session->check('id') && $session->read('role') != 3) {
+            //$this->Flash->error("You are not authrized");
             $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
-        } else if(!$session->check('id')) {
+            
+        } else if (!$session->check('id')) {
             $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
-        }else {
+        } else {
             $this->set('logged_in', $session->read('id'));
             $this->set('username', $session->read('username'));
         }
-
-        
     }
 
-    public function beforeFilter(EventInterface $event) {
+    public function beforeFilter(EventInterface $event)
+    {
         parent::beforeFilter($event);
         //$this->viewBuilder()->setLayout('vendor_default');  //admin is our new layout name
         $this->viewBuilder()->setLayout('vendor/admin');  //admin is our new layout name
         $this->set('controller', $this->request->getParam('controller'));
         $this->set('action', $this->request->getParam('action'));
+        //$this->permission();
+    }
+    public function permission()
+    {
+        $conn = ConnectionManager::get('default');
+
+        $session = $this->getRequest()->getSession();
+        $permissionQuary = $conn->execute("SELECT permission FROM users_acl WHERE controller=:controller AND action=:action AND users=:id", [
+            'controller' => $this->request->getParam('controller'),
+            'action' => $this->request->getParam('action'),
+            'id' => $session->read('id')
+        ]);
+
+
+        if ($permissionQuary->count() === 0) {
+            throw new ForbiddenException('Permission Denied');
+        }
     }
 }

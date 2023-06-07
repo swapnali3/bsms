@@ -91,7 +91,19 @@ class UsersController extends AppController
 
     public function login()
     {
-        //$this->viewBuilder()->setLayout('admin/login'); 
+        $session = $this->getRequest()->getSession();
+      
+        
+        if ($session->check('id')) {
+            $role = $session->read('role');
+            if ($role == 1) {
+                $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
+            } else if ($role == 2) {
+                $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
+            } else if ($role == 3) {
+                $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
+            }
+        }
 
     }
 
@@ -112,16 +124,6 @@ class UsersController extends AppController
         $session = $this->getRequest()->getSession();
         
 
-        // if ($session->check('id')) {
-        //     $role = $session->read('role');
-        //     if ($role == 1) {
-        //         $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
-        //     } else if ($role == 2) {
-        //         $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
-        //     } else if ($role == 3) {
-        //         $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
-        //     }
-        // }
 
 
         if ($this->request->is(['patch', 'post', 'put'])) {
