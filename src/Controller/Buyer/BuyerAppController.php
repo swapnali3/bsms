@@ -71,7 +71,7 @@ class BuyerAppController extends Controller
         $this->set(compact('full_name', 'role', 'group_name'));
 
         if($session->check('id') && $session->read('role') != 2) {
-             $this->Flash->error("You are not authrized");
+            // $this->Flash->error("You are not authrized");
              $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
          } else if(!$session->check('id')) {
              $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
