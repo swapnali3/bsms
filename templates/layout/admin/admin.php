@@ -109,6 +109,7 @@ body,
                 <div class="container-fluid">
                     <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
+                    <?= $this->Html->script('/js/cscript.js') ?>
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content -->
