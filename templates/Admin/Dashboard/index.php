@@ -129,7 +129,7 @@
                   </div>
                 </div>
                 <div class="col-4">
-                  <div class="card switchcard pointer" data-prd="1">
+                  <div class="card switchcard pointer" data-prd="0">
                    
                     <div class="card-body rounded">
                       <div class="main-data">
