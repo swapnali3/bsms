@@ -59,7 +59,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -81,7 +81,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -103,7 +103,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -114,7 +114,7 @@
                             <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false"></i>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" id="settings" href="#"><i class="fas fa-cog"></i> Settings</a>
+                              <a class="dropdown-item settings" id="settings" href="#"  data-prd="0"><i class="fas fa-cog"></i> Settings</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
                               <div class="dropdown-divider"></div>
@@ -156,7 +156,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -178,7 +178,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -200,7 +200,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -211,7 +211,7 @@
                             <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false"></i>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#" id="settings"><i class="fas fa-cog"></i> Settings</a>
+                              <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i class="fas fa-cog"></i> Settings</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i>
                                 Activation</a>
@@ -413,7 +413,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-12">
-              <div class="card switchcard pointer" data-prd="1">
+              <div class="card switchcard pointer">
                 <div class="card-body rounded">
                   <div class="main-data">
                     <div class="row">
@@ -437,7 +437,7 @@
                           </div>
                           <div class="d-flex text-success">
                             <i class="fas fa-check-circle pt-1"></i>
-                            <p>submmited</p>
+                            <p>submitted</p>
                           </div>
 
                         </div>
@@ -459,7 +459,7 @@
                           </div>
                           <div class="d-flex text-success">
                             <i class="fas fa-check-circle pt-1"></i>
-                            <p>submmited</p>
+                            <p>submitted</p>
                           </div>
 
                         </div>
@@ -481,7 +481,7 @@
                           </div>
                           <div class="d-flex text-success">
                             <i class="fas fa-check-circle pt-1"></i>
-                            <p>submmited</p>
+                            <p>submitted</p>
                           </div>
 
                         </div>
@@ -492,7 +492,7 @@
                         <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                           aria-expanded="false"></i>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" id="settings" href="#"><i class="fas fa-cog"></i> Settings</a>
+                          <a class="dropdown-item settings" id="settings" href="#" data-prd="0"><i class="fas fa-cog"></i> Settings</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i> Activation</a>
                           <div class="dropdown-divider"></div>
@@ -532,7 +532,7 @@
                           </div>
                           <div class="d-flex text-success">
                             <i class="fas fa-check-circle pt-1"></i>
-                            <p>submmited</p>
+                            <p>submitted</p>
                           </div>
 
                         </div>
@@ -554,7 +554,7 @@
                           </div>
                           <div class="d-flex text-success">
                             <i class="fas fa-check-circle pt-1"></i>
-                            <p>submmited</p>
+                            <p>submitted</p>
                           </div>
 
                         </div>
@@ -576,7 +576,7 @@
                           </div>
                           <div class="d-flex text-success">
                             <i class="fas fa-check-circle pt-1"></i>
-                            <p>submmited</p>
+                            <p>submitted</p>
                           </div>
 
                         </div>
@@ -587,7 +587,7 @@
                         <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                           aria-expanded="false"></i>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#" id="settings"><i class="fas fa-cog"></i> Settings</a>
+                          <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i class="fas fa-cog"></i> Settings</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
                           <div class="dropdown-divider"></div>

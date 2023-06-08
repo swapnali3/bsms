@@ -28,7 +28,7 @@
     <!-- Theme style -->
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
     <?= $this->Html->css('CakeLte.style') ?>
-    <?= $this->Html->css('ccss') ?>
+    <?= $this->Html->css('admincsssubmmited') ?>
     <?= $this->element('layout/css') ?>
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
