@@ -106,7 +106,8 @@
                             <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false"></i>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item settings" id="settings" href="#"  data-prd="0"><i class="fas fa-cog"></i> Settings</a>
+                              <a class="dropdown-item settings" id="settings" href="#" data-prd="0"><i
+                                  class="fas fa-cog"></i> Settings</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
                               <div class="dropdown-divider"></div>
@@ -196,7 +197,8 @@
                             <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false"></i>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i class="fas fa-cog"></i> Settings</a>
+                              <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i
+                                  class="fas fa-cog"></i> Settings</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i>
                                 Activation</a>
@@ -287,23 +289,20 @@
       </div>
     </div>
     <div class="col-8 usermgm hide">
-      <div class="card" style="height: 88vh;">
+      <div class="card">
         <div class="card-header" style="background-color:#f5f7fd;">
           <h5 class="mb-0">USER ADMINISTRATION</h5>
         </div>
         <div class="card-body">
           <div class="d-flex justify-content-between">
-            <div class="search-bar mb-2">
-              <input type="search" placeholder="Search all users" class="form-control search-box">
-            </div>
             <div class="">
-              <button type="button" class="btn btn-primary">Add</button>
+              <!-- <button type="button" class="btn btn-primary">Add</button> -->
             </div>
 
 
           </div>
-          <div class="user-list-tbl">
-            <table class="table" id="example">
+          <div class="user-list-tbl table-reponsive">
+            <table class="table" id="adminuserview" style="width: 100%;">
               <thead>
                 <tr>
                   <th>First Name</th>
@@ -357,24 +356,24 @@
                     <label for="">Password</label>
                     <input type="password" class="form-control" id="password" placeholder="Password">
                   </div>
-  
+
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Confirm Password</label>
                     <input type="password" class="form-control" id="confpassword" placeholder="Password">
                   </div>
-  
+
                 </div>
               </div>
-  
+
               <div class="">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-  
+
             </div>
-  
-  
+
+
           </form>
         </div>
       </div>
@@ -457,7 +456,8 @@
                         <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                           aria-expanded="false"></i>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item settings" id="settings" href="#" data-prd="0"><i class="fas fa-cog"></i> Settings</a>
+                          <a class="dropdown-item settings" id="settings" href="#" data-prd="0"><i
+                              class="fas fa-cog"></i> Settings</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i> Activation</a>
                           <div class="dropdown-divider"></div>
@@ -545,7 +545,8 @@
                         <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                           aria-expanded="false"></i>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i class="fas fa-cog"></i> Settings</a>
+                          <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i
+                              class="fas fa-cog"></i> Settings</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
                           <div class="dropdown-divider"></div>
@@ -566,4 +567,3 @@
     </div>
   </div>
 </div>
-<?= $this->Html->script('/js/adminjs.js') ?>

@@ -37,8 +37,22 @@ function hideframes() {
     $(".landing, .setting, .usermgm, .useradd, .sidecard").hide();
 }
 
-$('#example').DataTable({
-    ajax: 'http://localhost/bsms/admin/dashboard/userView',
+// $('#example').DataTable({
+//     ajax: 'http://localhost/bsms/admin/dashboard/userView',
+//     columns: [
+//         { data: 'first_name' },
+//         { data: 'last_name' },
+//         { data: 'username' },
+//         { data: 'mobile' },
+//         { data: 'group_id' },
+//     ],
+// });
+
+$('#adminuserview').DataTable({
+    ajax: {
+        url: 'http://localhost/bsms/admin/dashboard/userView',
+        dataSrc: '',
+    },
     columns: [
         { data: 'first_name' },
         { data: 'last_name' },
@@ -47,3 +61,4 @@ $('#example').DataTable({
         { data: 'group_id' },
     ],
 });
+

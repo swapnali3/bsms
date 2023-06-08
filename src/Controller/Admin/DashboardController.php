@@ -159,7 +159,7 @@ class DashboardController extends AdminAppController
 
         if ($data->count() > 0) {
             // $response['status'] = 'success';
-            $response['data'] = $data;
+            $response = $data;
         } else {
             // $response['status'] = 'fail';
             $response = [];
