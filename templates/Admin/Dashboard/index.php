@@ -11,7 +11,7 @@
     <div class="col-12 landing">
       <div class="card">
         <div class="card-header">
-         <h5><b> Administration Console</b></h5>
+          <h5><b> Administration Console</b></h5>
         </div>
         <div class="card-body">
           <div class="row">
@@ -59,7 +59,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -68,7 +68,7 @@
                         <div class="row">
                           <div class="col-md-2 align-self-center text-center">
                             <div class="img">
-                            <i class="far fa-comment-alt"></i>
+                              <i class="far fa-comment-alt"></i>
                             </div>
                           </div>
                           <div class="col-md-10" style="border-bottom:2px solid #ddd">
@@ -81,7 +81,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -90,7 +90,7 @@
                         <div class="row">
                           <div class="col-md-2 align-self-center text-center">
                             <div class="img">
-                            <i class="fas fa-upload"></i>
+                              <i class="fas fa-upload"></i>
                             </div>
                           </div>
                           <div class="col-md-10">
@@ -103,7 +103,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -111,13 +111,15 @@
                         </div>
                         <div class="row">
                           <div class="col-md-12 text-right">
-                            <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false"></i>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" id="settings" href="#"><i class="fas fa-cog"></i> Settings</a>
+                              <a class="dropdown-item settings" id="settings" href="#"  data-prd="0"><i class="fas fa-cog"></i> Settings</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item disabled" href="#" style><i class="fas fa-times-circle"></i> Deactivation</a>
+                              <a class="dropdown-item disabled" href="#" style><i class="fas fa-times-circle"></i>
+                                Deactivation</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Publish</a>
                             </div>
@@ -130,7 +132,7 @@
                 </div>
                 <div class="col-4">
                   <div class="card switchcard pointer" data-prd="0">
-                   
+
                     <div class="card-body rounded">
                       <div class="main-data">
                         <div class="row">
@@ -154,7 +156,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -163,7 +165,7 @@
                         <div class="row">
                           <div class="col-md-2 align-self-center text-center">
                             <div class="img">
-                            <i class="far fa-comment-alt"></i>
+                              <i class="far fa-comment-alt"></i>
                             </div>
                           </div>
                           <div class="col-md-10" style="border-bottom:2px solid #ddd">
@@ -176,7 +178,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -185,7 +187,7 @@
                         <div class="row">
                           <div class="col-md-2 align-self-center text-center">
                             <div class="img">
-                            <i class="fas fa-upload"></i>
+                              <i class="fas fa-upload"></i>
                             </div>
                           </div>
                           <div class="col-md-10">
@@ -198,7 +200,7 @@
                               </div>
                               <div class="d-flex text-success">
                                 <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
+                                <p>submitted</p>
                               </div>
 
                             </div>
@@ -206,11 +208,13 @@
                         </div>
                         <div class="row">
                           <div class="col-md-12 text-right">
-                            <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                            <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                              aria-expanded="false"></i>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#" id="settings"><i class="fas fa-cog"></i> Settings</a>
+                              <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i class="fas fa-cog"></i> Settings</a>
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i> Activation</a>
+                              <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i>
+                                Activation</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item"><i class="fas fa-times-circle"></i> Deactivation</a>
                               <div class="dropdown-divider"></div>
@@ -300,9 +304,108 @@
     <div class="col-8 usermgm hide">
       <div class="card" style="height: 88vh;">
         <div class="card-header" style="background-color:#f5f7fd;">
-          <h5 class="mb-0">SETTINGS</h5>
+          <h5 class="mb-0">USER ADMINISTRATION</h5>
         </div>
-        <div class="card-body"></div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class="search-bar mb-2">
+              <input type="search" placeholder="Search all users" class="form-control search-box">
+            </div>
+            <div class="">
+              <button type="button" class="btn btn-primary">Add</button>
+            </div>
+
+
+          </div>
+          <div class="user-list-tbl">
+            <table class="table" id="example">
+              <thead>
+                <tr>
+                  <th>Full Name</th>
+                  <th>Username</th>
+                  <th>Mobile No</th>
+                  <th>Role</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Abhishek Yadav
+                  </td>
+                  <td>ay@gmail.com</td>
+                  <td>1234567890</td>
+                  <td>Buyer</td>
+                  <td>1</td>
+                  <td><a href="users-acl/edit/1">
+                      <i class="fas fa-edit"></i>
+                    </a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8 useradd hide">
+      <div class="card" style="height: 88vh;">
+        <div class="card-header" style="background-color:#f5f7fd;">
+          <h5 class="mb-0">USER ADMINISTRATION</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-6 mt-3">
+                  <div class="form-group">
+                    <label for="">First Name</label>
+                    <input type="text" class="form-control" id="" placeholder="Enter First Name">
+                  </div>
+                </div>
+                <div class="col-6 mt-3">
+                  <div class="form-group">
+                    <label for="">Last Name</label>
+                    <input type="text" class="form-control" id="" placeholder="Enter Last Name">
+                  </div>
+                </div>
+                <div class="col-6 mt-3">
+                  <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="email" class="form-control" id="" placeholder="Enter email">
+                  </div>
+                </div>
+                <div class="col-6 mt-3">
+                  <div class="form-group">
+                    <label for="">Mobile No</label>
+                    <input type="number" class="form-control" id="" placeholder="Enter Mobile No">
+                  </div>
+                </div>
+                <div class="col-6 mt-3">
+                  <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="password" class="form-control" id="" placeholder="Password">
+                  </div>
+  
+                </div>
+                <div class="col-6 mt-3">
+                  <div class="form-group">
+                    <label for="">Confirm Password</label>
+                    <input type="password" class="form-control" id="" placeholder="Password">
+                  </div>
+  
+                </div>
+              </div>
+  
+              <div class="">
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+  
+            </div>
+  
+  
+          </form>
+        </div>
       </div>
     </div>
     <div class="col-4 sidecard hide">
@@ -310,191 +413,193 @@
         <div class="card-body">
           <div class="row">
             <div class="col-12">
-              <div class="card switchcard pointer" data-prd="1">
-              <div class="card-body rounded">
-                      <div class="main-data">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h5 class="text-bold">DEV</h5>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 align-self-center text-center">
-                            <div class="img">
-                              <i class="fas fa-check-circle"></i>
-                            </div>
-                          </div>
-                          <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                            <h6 class="pt-2"><b>Status</b></h6>
-                            <div class="d-flex btm-d">
-
-                              <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
-                              </div>
-                              <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 align-self-center text-center">
-                            <div class="img">
-                            <i class="far fa-comment-alt"></i>
-                            </div>
-                          </div>
-                          <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                            <h6 class="pt-2"><b>Development Server</b></h6>
-                            <div class="d-flex btm-d">
-
-                              <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
-                              </div>
-                              <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 align-self-center text-center">
-                            <div class="img">
-                            <i class="fas fa-upload"></i>
-                            </div>
-                          </div>
-                          <div class="col-md-10">
-                            <h6 class="pt-2"><b>Publish</b></h6>
-                            <div class="d-flex btm-d">
-
-                              <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
-                              </div>
-                              <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 text-right">
-                            <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" id="settings" href="#"><i class="fas fa-cog"></i> Settings</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i> Activation</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#" style><i class="fas fa-times-circle"></i> Deactivation</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Publish</a>
-                            </div>
-                          </div>
-                        </div>
-
+              <div class="card switchcard pointer">
+                <div class="card-body rounded">
+                  <div class="main-data">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h5 class="text-bold">DEV</h5>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-2 align-self-center text-center">
+                        <div class="img">
+                          <i class="fas fa-check-circle"></i>
+                        </div>
+                      </div>
+                      <div class="col-md-10" style="border-bottom:2px solid #ddd">
+                        <h6 class="pt-2"><b>Status</b></h6>
+                        <div class="d-flex btm-d">
+
+                          <div class="d-flex text-secondary mr-2">
+                            <i class="far fa-clock pt-1"></i>
+                            <p>12 hours ago</p>
+                          </div>
+                          <div class="d-flex text-success">
+                            <i class="fas fa-check-circle pt-1"></i>
+                            <p>submitted</p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2 align-self-center text-center">
+                        <div class="img">
+                          <i class="far fa-comment-alt"></i>
+                        </div>
+                      </div>
+                      <div class="col-md-10" style="border-bottom:2px solid #ddd">
+                        <h6 class="pt-2"><b>Development Server</b></h6>
+                        <div class="d-flex btm-d">
+
+                          <div class="d-flex text-secondary mr-2">
+                            <i class="far fa-clock pt-1"></i>
+                            <p>12 hours ago</p>
+                          </div>
+                          <div class="d-flex text-success">
+                            <i class="fas fa-check-circle pt-1"></i>
+                            <p>submitted</p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2 align-self-center text-center">
+                        <div class="img">
+                          <i class="fas fa-upload"></i>
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <h6 class="pt-2"><b>Publish</b></h6>
+                        <div class="d-flex btm-d">
+
+                          <div class="d-flex text-secondary mr-2">
+                            <i class="far fa-clock pt-1"></i>
+                            <p>12 hours ago</p>
+                          </div>
+                          <div class="d-flex text-success">
+                            <i class="fas fa-check-circle pt-1"></i>
+                            <p>submitted</p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 text-right">
+                        <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false"></i>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item settings" id="settings" href="#" data-prd="0"><i class="fas fa-cog"></i> Settings</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i> Activation</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#" style><i class="fas fa-times-circle"></i> Deactivation</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Publish</a>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-12">
               <div class="card switchcard pointer" data-prd="1">
-              <div class="card-body rounded">
-                      <div class="main-data">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <h5 class="text-bold">PRD</h5>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 align-self-center text-center">
-                            <div class="img">
-                              <i class="fas fa-check-circle"></i>
-                            </div>
-                          </div>
-                          <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                            <h6 class="pt-2"><b>Status</b></h6>
-                            <div class="d-flex btm-d">
-
-                              <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
-                              </div>
-                              <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 align-self-center text-center">
-                            <div class="img">
-                            <i class="far fa-comment-alt"></i>
-                            </div>
-                          </div>
-                          <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                            <h6 class="pt-2"><b>Production Server</b></h6>
-                            <div class="d-flex btm-d">
-
-                              <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
-                              </div>
-                              <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-2 align-self-center text-center">
-                            <div class="img">
-                            <i class="fas fa-upload"></i>
-                            </div>
-                          </div>
-                          <div class="col-md-10">
-                            <h6 class="pt-2"><b>Publish</b></h6>
-                            <div class="d-flex btm-d">
-
-                              <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
-                              </div>
-                              <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submmited</p>
-                              </div>
-
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 text-right">
-                            <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-                            <div class="dropdown-menu">
-                              <a class="dropdown-item" href="#" id="settings"><i class="fas fa-cog"></i> Settings</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item disabled"><i class="fas fa-times-circle"></i> Deactivation</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Publish</a>
-                            </div>
-                          </div>
-                        </div>
-
+                <div class="card-body rounded">
+                  <div class="main-data">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h5 class="text-bold">PRD</h5>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-2 align-self-center text-center">
+                        <div class="img">
+                          <i class="fas fa-check-circle"></i>
+                        </div>
+                      </div>
+                      <div class="col-md-10" style="border-bottom:2px solid #ddd">
+                        <h6 class="pt-2"><b>Status</b></h6>
+                        <div class="d-flex btm-d">
+
+                          <div class="d-flex text-secondary mr-2">
+                            <i class="far fa-clock pt-1"></i>
+                            <p>12 hours ago</p>
+                          </div>
+                          <div class="d-flex text-success">
+                            <i class="fas fa-check-circle pt-1"></i>
+                            <p>submitted</p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2 align-self-center text-center">
+                        <div class="img">
+                          <i class="far fa-comment-alt"></i>
+                        </div>
+                      </div>
+                      <div class="col-md-10" style="border-bottom:2px solid #ddd">
+                        <h6 class="pt-2"><b>Production Server</b></h6>
+                        <div class="d-flex btm-d">
+
+                          <div class="d-flex text-secondary mr-2">
+                            <i class="far fa-clock pt-1"></i>
+                            <p>12 hours ago</p>
+                          </div>
+                          <div class="d-flex text-success">
+                            <i class="fas fa-check-circle pt-1"></i>
+                            <p>submitted</p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-2 align-self-center text-center">
+                        <div class="img">
+                          <i class="fas fa-upload"></i>
+                        </div>
+                      </div>
+                      <div class="col-md-10">
+                        <h6 class="pt-2"><b>Publish</b></h6>
+                        <div class="d-flex btm-d">
+
+                          <div class="d-flex text-secondary mr-2">
+                            <i class="far fa-clock pt-1"></i>
+                            <p>12 hours ago</p>
+                          </div>
+                          <div class="d-flex text-success">
+                            <i class="fas fa-check-circle pt-1"></i>
+                            <p>submitted</p>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 text-right">
+                        <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false"></i>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i class="fas fa-cog"></i> Settings</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item disabled"><i class="fas fa-times-circle"></i> Deactivation</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Publish</a>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
               </div>
             </div>
           </div>

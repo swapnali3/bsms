@@ -1,5 +1,5 @@
-$(document).on("click", "#settings", function () {
-    $(".landing, .usermgm").hide();
+$(document).on("click", ".settings", function () {
+    hideframes()
     if($(this).data('prd') == 1){
         $(".prd_menu_setting, .prd_label").show();
         $(".dev_menu_setting, .dev_label").hide();
@@ -13,7 +13,26 @@ $(document).on("click", "#settings", function () {
 });
 
 $(document).on("click", ".usermgm", function () {
-    $(".landing, .setting").hide();
-
+    hideframes()
     $(".usermgm, .sidecard").show();
 });
+
+$(document).on("click", ".prd_user_view", function () {
+    hideframes()
+    $(".usermgm, .sidecard").show();
+});
+
+
+$(document).on("click", ".prd_user_add", function () {
+    hideframes()
+    $(".useradd, .sidecard").show();
+});
+
+$(document).on("click", ".menu_dashboard", function () {
+    hideframes()
+    $(".landing").show();
+});
+
+function hideframes(){
+    $(".landing, .setting, .usermgm, .useradd, .sidecard").hide();
+}
