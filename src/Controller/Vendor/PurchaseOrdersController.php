@@ -212,7 +212,8 @@ class PurchaseOrdersController extends VendorAppController
                     if ($this->AsnFooters->saveMany($asnFooter)) {
                         $response['status'] = 'success';
                         $response['message'] = 'Record save successfully';
-                        $this->Flash->success("ASN-$asnNo has been created successfully");
+                       // $this->Flash->success("ASN-$asnNo has been created successfully");
+                        $this->Flash->success(__("ASN-$asnNo has been created successfully", 30));
                         return $this->redirect(['controller' => 'asn', 'action' => 'index']);
                     } else {
                     }
@@ -458,7 +459,8 @@ class PurchaseOrdersController extends VendorAppController
             ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
             ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
 
-            ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0']);
+            ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0'])
+            ->limit(1);
 
         //echo '<pre>'; print_r($data); exit;
 
@@ -611,6 +613,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
                 ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
                 ->where($conditions)
+                ->limit(1)
                 ->toArray();
 
 
