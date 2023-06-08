@@ -1,0 +1,30 @@
+.box {
+width: 30%;
+box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+position: relative;
+}
+
+.btn-info {
+background-color: #08132F !important;
+color: #fff !important;
+border-color: #08132F !important;
+}
+
+.btn-info:hover {
+background-color: #fff !important;
+color: #08132F !important;
+}
+
+.btn-info {
+position: absolute;
+left: 9px;
+top: 0;
+}
+
+.pointer {
+cursor: pointer;
+}
+
+.hide {
+display: none;
+}
