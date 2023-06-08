@@ -53,6 +53,7 @@
 <div class="user-panel pb-3 d-flex side_label" style="align-self: center;" >
 </div>
 
+
 <li class="nav-item menu_license">
   <a class="nav-link active">
     <i class="fas fa-tachometer-alt nav-icon"></i>

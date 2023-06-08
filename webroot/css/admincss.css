@@ -141,3 +141,34 @@ li.unmli:hover {
 .admin-console .dropdown-menu {
     width: 210px;
 }
+/* .main-sidebar li.nav-item.menu_license::after {
+    content: "DEV";
+    width: 50px;
+    height: 20px;
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 12px;
+}
+.main-sidebar:hover li.nav-item.menu_license::after {
+    content: "";
+    width: 50px;
+    height: 20px;
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 12px;
+} */
+.user-panel.pb-3.d-flex.side_label::after {
+    content: "DEV";
+    width: 50px;
+    height: 20px;
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 12px;
+}
+.main-sidebar:hover .user-panel.pb-3.d-flex.side_label::after {
+    content: unset;
+    opacity: 0;
+}
