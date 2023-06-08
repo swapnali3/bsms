@@ -33,6 +33,8 @@
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <?= $this->fetch('css') ?>
+    <!-- jQuery -->
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <style>
          aside.main-sidebar {
         background-color: #08132F !important;

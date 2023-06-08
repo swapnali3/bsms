@@ -1,4 +1,4 @@
-$(document).on("click", ".switchcard", function () {
+$(document).on("click", "#settings", function () {
     $(".landing, .usermgm").hide();
     $(".setting, .sidecard").show();
 });

@@ -1,30 +1,140 @@
 .box {
-width: 30%;
-box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-position: relative;
+    width: 30%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    position: relative;
 }
 
 .btn-info {
-background-color: #08132F !important;
-color: #fff !important;
-border-color: #08132F !important;
+    background-color: #08132F !important;
+    color: #fff !important;
+    border-color: #08132F !important;
 }
 
 .btn-info:hover {
-background-color: #fff !important;
-color: #08132F !important;
+    background-color: #fff !important;
+    color: #08132F !important;
 }
 
 .btn-info {
-position: absolute;
-left: 9px;
-top: 0;
+    position: absolute;
+    left: 9px;
+    top: 0;
 }
 
 .pointer {
-cursor: pointer;
+    cursor: pointer;
 }
 
 .hide {
-display: none;
+    display: none;
+}
+.accordion-item {
+    border: 0px !important;
+}
+.accordion-button {
+    border: 0px !important;
+    padding: 0px !important;
+    background-color: #fff !important;
+    color: #000 !important;
+    box-shadow: unset !important;
+}
+.btn-custom {
+    background-color: #8E9B2C;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.1rem;
+    padding: 10px 20px;
+}
+.setting-update .card-body .row {
+    background-color: #f5f7fd;
+    border-radius: 0px;
+    padding: 20px;
+    margin: 0 auto;
+}
+.usernm-listing {
+    border: 1px solid #ddd;
+    padding: 10px !important;
+    border-radius: 5px;
+    margin-top: 13px;
+    background-color: #527195;
+    color: #fff;
+}
+li.unmli {
+    border-bottom: 1px solid #fff;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+.usernm-listing {
+    border: 1px solid #ddd;
+    padding: 10px !important;
+    border-radius: 5px;
+    margin-top: 13px;
+    background-color: #527195;
+    color: #fff;
+    height: 434px;
+    margin-bottom: 0px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.usernm-listing::-webkit-scrollbar {
+    width: 12px;
+}
+
+.usernm-listing::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #cacaca;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+}
+
+.usernm-listing::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #bdbfc7;
+}
+li.unmli:hover {
+    background-color: #ddd;
+    color: #000;
+    transition: 0.5s all ease-out;
+}
+.right-data {
+    background-color: #f5f7fd;
+}
+.btn-custom-2 {
+    background-color: #08132F;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.1rem;
+    padding: 10px 20px;
+}
+.btn-custom-2:hover {
+    color: #fff;
+}
+.search-box .fas.fa-search {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+.img i {
+    font-size: 30px;
+}
+.btm-d i {
+    font-size: 11px;
+    padding-top: 6px !important;
+    padding-right: 5px;
+}
+.switchcard .dropdown-toggle::after{
+    content: unset !important;
+}
+.card.switchcard {
+    background-color: #F3F5F9;
+    border-radius: 10px;
+}
+.sidecard h6 {
+    font-size: 14px;
+}
+.sidecard .btm-d p {
+    margin-bottom: 10px;
+}
+.landing .card-header,.setting .card-header {
+    background-color: #F8FBF8;
 }
