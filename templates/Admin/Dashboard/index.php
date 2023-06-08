@@ -6,7 +6,7 @@
 ?>
 
 <?= $this->Html->css('admincss') ?>
-<div class="content">
+<div class="content admin-console">
   <div class="row">
     <div class="col-12 landing">
       <div class="card">
@@ -114,8 +114,11 @@
                             <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             <div class="dropdown-menu">
                               <a class="dropdown-item" id="settings" href="#"><i class="fas fa-cog"></i> Settings</a>
+                              <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
-                              <a class="dropdown-item" href="#" style><i class="fas fa-times-circle"></i> Deactivation</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item disabled" href="#" style><i class="fas fa-times-circle"></i> Deactivation</a>
+                              <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Publish</a>
                             </div>
                           </div>
@@ -206,8 +209,11 @@
                             <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             <div class="dropdown-menu">
                               <a class="dropdown-item" href="#" id="settings"><i class="fas fa-cog"></i> Settings</a>
-                              <a class="dropdown-item text-secondary" href="#"><i class="fas fa-check-square"></i> Activation</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i> Activation</a>
+                              <div class="dropdown-divider"></div>
                               <a class="dropdown-item"><i class="fas fa-times-circle"></i> Deactivation</a>
+                              <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Publish</a>
                             </div>
                           </div>
@@ -226,7 +232,7 @@
     <div class="col-8 setting hide">
       <div class="card" style="height: 88vh;">
         <div class="card-header">
-          <h5 class="mb-0">SETTINGS</h5>
+          <h5 class="mb-0"><b>SETTINGS</b></h5>
         </div>
         <div class="card-body">
           <div class="col-md-12">
@@ -383,8 +389,11 @@
                             <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             <div class="dropdown-menu">
                               <a class="dropdown-item" id="settings" href="#"><i class="fas fa-cog"></i> Settings</a>
-                              <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i> Activation</a>
+                              <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#" style><i class="fas fa-times-circle"></i> Deactivation</a>
+                              <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Publish</a>
                             </div>
                           </div>
@@ -474,8 +483,11 @@
                             <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
                             <div class="dropdown-menu">
                               <a class="dropdown-item" href="#" id="settings"><i class="fas fa-cog"></i> Settings</a>
-                              <a class="dropdown-item text-secondary" href="#"><i class="fas fa-check-square"></i> Activation</a>
-                              <a class="dropdown-item"><i class="fas fa-times-circle"></i> Deactivation</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item disabled"><i class="fas fa-times-circle"></i> Deactivation</a>
+                              <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Publish</a>
                             </div>
                           </div>

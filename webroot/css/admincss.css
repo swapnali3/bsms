@@ -138,3 +138,6 @@ li.unmli:hover {
 .landing .card-header,.setting .card-header {
     background-color: #F8FBF8;
 }
+.admin-console .dropdown-menu {
+    width: 210px;
+}
