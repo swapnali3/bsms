@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller\Buyer;
+namespace App\Controller\Admin;
 
 /**
  * RfqInquiries Controller
@@ -9,7 +9,7 @@ namespace App\Controller\Buyer;
  * @property \App\Model\Table\RfqInquiriesTable $RfqInquiries
  * @method \App\Model\Entity\RfqInquiry[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class RfqInquiriesController extends BuyerAppController
+class RfqInquiriesController extends AdminAppController
 {
     /**
      * Index method
