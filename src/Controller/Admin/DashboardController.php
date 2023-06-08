@@ -104,4 +104,58 @@ class DashboardController extends AdminAppController
         $this->set('rfqList', $rfqDetailsList);
 
     }
+
+    public function userAdd(){
+
+        $response = array();
+        $response['status'] = '0';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+
+        $this->loadModel('Users');
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            try {
+                $User = $this->Users->newEmptyEntity();
+                $User = $this->Users->patchEntity($User, $this->request->getData());
+                if ($this->Users->save($User)) {
+                    $response['status'] = '1';
+                    $response['message'] = 'Buyer Add successfully';
+                }
+            } catch (\Exception $e) {
+                $response['status'] = '0';
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+        echo json_encode($response);
+
+    }
+
+
+    public function userView(){
+
+        $response = array();
+        // $response['status'] = '0';
+        // $response['message'] = '';
+        $this->autoRender = false;
+
+
+        $this->loadModel('Users');
+
+       // $session = $this->getRequest()->getSession();
+
+       
+        $data = $this->Users->find('all');
+
+        if ($data->count() > 0) {
+            // $response['status'] = 'success';
+            $response['data'] = $data;
+        } else {
+            // $response['status'] = 'fail';
+            $response = [];
+        }
+        echo json_encode($response);
+
+    }
 }

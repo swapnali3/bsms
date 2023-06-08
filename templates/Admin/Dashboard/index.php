@@ -52,14 +52,8 @@
                           <div class="col-md-10" style="border-bottom:2px solid #ddd">
                             <h6 class="pt-2"><b>Status</b></h6>
                             <div class="d-flex btm-d">
-
-                              <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
-                              </div>
-                              <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submitted</p>
+                              <div class="d-flex text-warning">
+                                <p>Deactivated</p>
                               </div>
 
                             </div>
@@ -72,16 +66,14 @@
                             </div>
                           </div>
                           <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                            <h6 class="pt-2"><b>Development Server</b></h6>
+                            <h6 class="pt-2"><b>Server Configuration</b></h6>
                             <div class="d-flex btm-d">
 
                               <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
+                                <p>192.168.5.59</p>
                               </div>
                               <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submitted</p>
+                                <p>10% Utilization</p>
                               </div>
 
                             </div>
@@ -150,13 +142,8 @@
                             <h6 class="pt-2"><b>Status</b></h6>
                             <div class="d-flex btm-d">
 
-                              <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
-                              </div>
                               <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submitted</p>
+                                <p>Activated</p>
                               </div>
 
                             </div>
@@ -169,16 +156,14 @@
                             </div>
                           </div>
                           <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                            <h6 class="pt-2"><b>Production Server</b></h6>
+                            <h6 class="pt-2"><b>Server </b></h6>
                             <div class="d-flex btm-d">
 
                               <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
+                                <p>192.168.4.59</p>
                               </div>
                               <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submitted</p>
+                                <p>10% Utilization</p>
                               </div>
 
                             </div>
@@ -321,28 +306,14 @@
             <table class="table" id="example">
               <thead>
                 <tr>
-                  <th>Full Name</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
                   <th>Username</th>
                   <th>Mobile No</th>
                   <th>Role</th>
-                  <th>Status</th>
-                  <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Abhishek Yadav
-                  </td>
-                  <td>ay@gmail.com</td>
-                  <td>1234567890</td>
-                  <td>Buyer</td>
-                  <td>1</td>
-                  <td><a href="users-acl/edit/1">
-                      <i class="fas fa-edit"></i>
-                    </a></td>
-                </tr>
-              </tbody>
+              <tbody></tbody>
             </table>
           </div>
         </div>
@@ -431,13 +402,8 @@
                         <h6 class="pt-2"><b>Status</b></h6>
                         <div class="d-flex btm-d">
 
-                          <div class="d-flex text-secondary mr-2">
-                            <i class="far fa-clock pt-1"></i>
-                            <p>12 hours ago</p>
-                          </div>
-                          <div class="d-flex text-success">
-                            <i class="fas fa-check-circle pt-1"></i>
-                            <p>submitted</p>
+                          <div class="d-flex text-warning">
+                            <p>Deactivated</p>
                           </div>
 
                         </div>
@@ -450,16 +416,15 @@
                         </div>
                       </div>
                       <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                        <h6 class="pt-2"><b>Development Server</b></h6>
+                        <h6 class="pt-2"><b>Server Configuration</b></h6>
                         <div class="d-flex btm-d">
 
                           <div class="d-flex text-secondary mr-2">
                             <i class="far fa-clock pt-1"></i>
-                            <p>12 hours ago</p>
+                            <p>192.168.5.59</p>
                           </div>
                           <div class="d-flex text-success">
-                            <i class="fas fa-check-circle pt-1"></i>
-                            <p>submitted</p>
+                            <p>10% Utilization</p>
                           </div>
 
                         </div>
@@ -525,14 +490,8 @@
                       <div class="col-md-10" style="border-bottom:2px solid #ddd">
                         <h6 class="pt-2"><b>Status</b></h6>
                         <div class="d-flex btm-d">
-
-                          <div class="d-flex text-secondary mr-2">
-                            <i class="far fa-clock pt-1"></i>
-                            <p>12 hours ago</p>
-                          </div>
                           <div class="d-flex text-success">
-                            <i class="fas fa-check-circle pt-1"></i>
-                            <p>submitted</p>
+                            <p>Activated</p>
                           </div>
 
                         </div>
@@ -545,7 +504,7 @@
                         </div>
                       </div>
                       <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                        <h6 class="pt-2"><b>Production Server</b></h6>
+                        <h6 class="pt-2"><b>Server Configuration</b></h6>
                         <div class="d-flex btm-d">
 
                           <div class="d-flex text-secondary mr-2">
@@ -553,8 +512,7 @@
                             <p>12 hours ago</p>
                           </div>
                           <div class="d-flex text-success">
-                            <i class="fas fa-check-circle pt-1"></i>
-                            <p>submitted</p>
+                            <p>10% Utilization</p>
                           </div>
 
                         </div>
