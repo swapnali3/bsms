@@ -159,7 +159,17 @@ li.unmli:hover {
     top: 5px;
     left: 12px;
 } */
-.user-panel.pb-3.d-flex.side_label::after {
+.sidebar-collapse .user-panel.pb-3.d-flex.side_label .hello::after {
+    content: "PRD";
+    width: 50px;
+    height: 20px;
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 12px;
+    font-weight: 700;
+}
+.sidebar-collapse .user-panel.pb-3.d-flex.side_label .world::after {
     content: "DEV";
     width: 50px;
     height: 20px;
@@ -167,8 +177,20 @@ li.unmli:hover {
     position: absolute;
     top: 5px;
     left: 12px;
+    font-weight: 700;
 }
-.main-sidebar:hover .user-panel.pb-3.d-flex.side_label::after {
+.sidebar-collapse .main-sidebar:hover .user-panel.pb-3.d-flex.side_label .hello::after,
+.sidebar-collapse .main-sidebar:hover .user-panel.pb-3.d-flex.side_label .world::after {
     content: unset;
-    opacity: 0;
+    opacity: 1;
 }
+/* .sidebar-collapse .user-panel.pb-3.d-flex.side_label .info.info-prd-s::after {
+    content: "PRD";
+    width: 50px;
+    height: 20px;
+    color: #fff;
+    position: absolute;
+    top: 5px;
+    left: 12px;
+    font-weight: 700;
+} */
