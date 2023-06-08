@@ -50,6 +50,9 @@
   }
 </style>
 
+<div class="user-panel pb-3 d-flex side_label" style="align-self: center;" >
+</div>
+
 <li class="nav-item menu_license">
   <a class="nav-link active">
     <i class="fas fa-tachometer-alt nav-icon"></i>
@@ -59,7 +62,7 @@
 
 <li class="nav-item has-treeview">
   <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-user-alt"></i>
+    <i class="fas fa-users-cog"></i>
     <p>
       User Administration
       <i class="right fas fa-angle-left"></i>
@@ -68,24 +71,24 @@
   <ul class="nav nav-treeview">
     <li class="nav-item">
       <a class="nav-link">
-        <i class="fas fa-tachometer-alt nav-icon"></i>
+        <i class="nav-icon fas fa-user-alt"></i>
         <p>Users</p>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link">
-        <i class="fas fa-tachometer-alt nav-icon"></i>
+        <i class="nav-icon fas fa-user-tie"></i>
         <p>Admin/Buyer Creation</p>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link">
-        <i class="fas fa-tachometer-alt nav-icon"></i>
+        <i class="nav-icon fas fa-id-badge"></i>
         <p>User License</p>
       </a>
     </li>
   </ul>
-</li> 
+</li>
 
 <li class="nav-item menu_license hide">
   <a class="nav-link">
@@ -96,56 +99,56 @@
 
 <li class="nav-item prd_menu_setting hide">
   <a class="nav-link">
-    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <i class="fas fa-tools nav-icon"></i>
     <p>Setting</p>
   </a>
 </li>
 
 <li class="nav-item prd_menu_setting hide">
   <a class="nav-link">
-    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <i class="fas fa-toggle-on nav-icon"></i>
     <p>Activation</p>
   </a>
 </li>
 
 <li class="nav-item prd_menu_setting hide">
   <a class="nav-link">
-    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <i class="fas fa-toggle-on nav-icon"></i>
     <p>Deactivation</p>
   </a>
 </li>
 
 <li class="nav-item prd_menu_setting hide">
   <a class="nav-link">
-    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <i class="fas fa-shapes nav-icon"></i>
     <p>Publish</p>
   </a>
 </li>
 
 <li class="nav-item dev_menu_setting hide">
   <a class="nav-link">
-    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <i class="fas fa-tools nav-icon"></i>
     <p>Setting</p>
   </a>
 </li>
 
 <li class="nav-item dev_menu_setting hide">
   <a class="nav-link">
-    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <i class="fas fa-toggle-on nav-icon"></i>
     <p>Activation</p>
   </a>
 </li>
 
 <li class="nav-item dev_menu_setting hide">
   <a class="nav-link">
-    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <i class="fas fa-toggle-on nav-icon"></i>
     <p>Deactivation</p>
   </a>
 </li>
 
 <li class="nav-item dev_menu_setting hide">
   <a class="nav-link">
-    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <i class="fas fa-shapes nav-icon"></i>
     <p>Publish</p>
   </a>
 </li>

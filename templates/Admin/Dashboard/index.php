@@ -41,7 +41,7 @@
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="card switchcard pointer" data-prd="1">
+                  <div class="card switchcard pointer" data-prd="0">
                     <div class="card-header">
                       <h5>QUALITY SERVER</h5>
                     </div>
