@@ -28,10 +28,13 @@
     <!-- Theme style -->
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
     <?= $this->Html->css('CakeLte.style') ?>
+    <?= $this->Html->css('ccss') ?>
     <?= $this->element('layout/css') ?>
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <?= $this->fetch('css') ?>
+    <!-- jQuery -->
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <style>
          aside.main-sidebar {
         background-color: #08132F !important;
@@ -85,7 +88,7 @@ body,
                 <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
             <!-- Sidebar -->
-            <div class="sidebar">
+            <div class="sidebar" id="id_sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               

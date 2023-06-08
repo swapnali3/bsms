@@ -108,6 +108,12 @@
     label {
         font-family: 'Roboto', sans-serif !important;
     }
+    div#id_sidebar {
+    transition: 0.5s ease all;
+}
+div#id_sidebar:hover {
+    transition: 0.5s ease all;
+}
 </style>
 
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
@@ -129,7 +135,7 @@
                 <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '1']) ?>
                 <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
-            <div class="sidebar">
+            <div class="sidebar" id="id_sidebar">
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="text-align-last: center;">
                     <div class="text-light">
                         Welcome,

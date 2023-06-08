@@ -7,3 +7,9 @@
 //   }
 // });
 $(".ftimage").trigger("click");
+let parent = document.getElementById('id_sidebar');
+parent.onmouseover = parent.onmouseout = handler;
+
+function handler(event) {
+    $(".ftimage").trigger("click");
+}
