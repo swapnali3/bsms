@@ -121,6 +121,14 @@
         <div class="card-body"></div>
       </div>
     </div>
+    <div class="col-8 usermgm hide">
+      <div class="card" style="height: 85vh;">
+        <div class="card-header">
+          <h5>SETTINGS</h5>
+        </div>
+        <div class="card-body"></div>
+      </div>
+    </div>
     <div class="col-4 sidecard hide">
       <div class="card" style="height: 85vh;">
         <div class="card-body">
@@ -163,12 +171,12 @@
 </div>
 <script>
   $(document).on("click", ".switchcard", function () {
-    $(".landing").hide();
-    $(".setting").show();
-    $(".sidecard").show();
+    $(".landing, .usermgm").hide();
+    $(".setting, .sidecard").show();
   });
 
-  $(document).on("click", ".myorder", function () {
-
+  $(document).on("click", ".usermgm", function () {
+    $(".landing, .setting").hide();
+    $(".usermgm, .sidecard").show();
   });
 </script>
