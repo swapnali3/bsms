@@ -53,9 +53,15 @@
 <div class="user-panel pb-3 d-flex side_label" style="align-self: center;" >
 </div>
 
+<li class="nav-item menu_dashboard">
+  <a class="nav-link active">
+    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <p>Dashboard</p>
+  </a>
+</li>
 
 <li class="nav-item menu_license">
-  <a class="nav-link active">
+  <a class="nav-link">
     <i class="fas fa-tachometer-alt nav-icon"></i>
     <p>License</p>
   </a>
@@ -71,13 +77,13 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a class="nav-link">
+      <a class="nav-link prd_user_view" >
         <i class="nav-icon fas fa-user-alt"></i>
         <p>Users</p>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link">
+      <a class="nav-link prd_user_add">
         <i class="nav-icon fas fa-user-tie"></i>
         <p>Admin/Buyer Creation</p>
       </a>

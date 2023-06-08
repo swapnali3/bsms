@@ -17,3 +17,19 @@ $(document).on("click", ".usermgm", function () {
 
     $(".usermgm, .sidecard").show();
 });
+
+$(document).on("click", ".prd_user_view", function () {
+    $(".landing, .setting").hide();
+    $(".usermgm, .sidecard").show();
+});
+
+
+$(document).on("click", ".prd_user_add", function () {
+    $(".landing, .usermgm, .setting").hide();
+    $(".useradd, .sidecard").show();
+});
+
+$(document).on("click", ".menu_dashboard", function () {
+    $(".landing, .setting, .usermgm, .sidecard").hide();
+    $(".landing").show();
+});
