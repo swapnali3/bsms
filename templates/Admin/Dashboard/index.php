@@ -360,38 +360,38 @@
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">First Name</label>
-                    <input type="text" class="form-control" id="" placeholder="Enter First Name">
+                    <input type="text" class="form-control" id="fname" placeholder="Enter First Name">
                   </div>
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Last Name</label>
-                    <input type="text" class="form-control" id="" placeholder="Enter Last Name">
+                    <input type="text" class="form-control" id="lname" placeholder="Enter Last Name">
                   </div>
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Email</label>
-                    <input type="email" class="form-control" id="" placeholder="Enter email">
+                    <input type="email" class="form-control" id="email" placeholder="Enter email">
                   </div>
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Mobile No</label>
-                    <input type="number" class="form-control" id="" placeholder="Enter Mobile No">
+                    <input type="number" class="form-control" id="mobileno" placeholder="Enter Mobile No">
                   </div>
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Password</label>
-                    <input type="password" class="form-control" id="" placeholder="Password">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
                   </div>
   
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Confirm Password</label>
-                    <input type="password" class="form-control" id="" placeholder="Password">
+                    <input type="password" class="form-control" id="confpassword" placeholder="Password">
                   </div>
   
                 </div>
