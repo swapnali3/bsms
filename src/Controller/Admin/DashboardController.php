@@ -145,8 +145,8 @@ class DashboardController extends AdminAppController
     public function userView(){
 
         $response = array();
-        $response['status'] = '0';
-        $response['message'] = '';
+        // $response['status'] = '0';
+        // $response['message'] = '';
         $this->autoRender = false;
 
 
@@ -159,7 +159,7 @@ class DashboardController extends AdminAppController
 
         if ($data->count() > 0) {
             // $response['status'] = 'success';
-            $response = $data;
+            $response['data'] = $data;
         } else {
             // $response['status'] = 'fail';
             $response = [];
