@@ -32,57 +32,143 @@
   </div>
 </section> -->
 <style>
-  .box{
+  .box {
     width: 30%;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     position: relative;
   }
-  .btn-info{
+
+  .btn-info {
     background-color: #08132F !important;
-    color:#fff !important;
+    color: #fff !important;
     border-color: #08132F !important;
   }
-  .btn-info:hover{
+
+  .btn-info:hover {
     background-color: #fff !important;
-    color:#08132F !important;
+    color: #08132F !important;
   }
+
   .btn-info {
     position: absolute;
     left: 9px;
     top: 0;
-}
+  }
+
+  .pointer {
+    cursor: pointer;
+  }
+
+  .hide {
+    display: none;
+  }
 </style>
 <div class="content">
   <div class="row">
-    <div class="col-md-12">
-    <div class="card">
-      <div class="card-header">
-          <h5>Master Login</h5>
-      </div>
-      <div class="card-body">
-          <div class="d-flex justify-content-start">
-          <div class="box p-4 border rounded text-center ">
-           <a href="#">
-           <div class="btn btn-info mt-2">DEV</div>
-                <img class="flow-img" src="<?= $this->Url->build('/') ?>img/login.gif" width="120">
-                <br>
-                <p class="text-dark">Development testing server</p>
-           </a>
+    <div class="col-12 landing">
+      <div class="card">
+        <div class="card-header">
+          Vekpro Administration Console
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-3">
+              <input type="text" class="form-control" id="id_search" placeholder="Search">
             </div>
-            
-            <div class="box p-4 border rounded text-center ml-4">
-             <a href="#">
-             <div class="btn btn-info mt-2">PRD</div>
-                <img class="flow-img" src="<?= $this->Url->build('/') ?>img/login.gif" width="120">
-                <br>
-                <p class="text-dark">Production Live server</p>
-             </a>
+            <div class="col-3">
+              <button type="button" class="btn btn-info">Delete Trail Account</button>
             </div>
-            
+            <div class="col-3">
+
+            </div>
+            <div class="col-3">
+            </div>
           </div>
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-6">
+                  <div class="card switchcard pointer" data-prd="1">
+                    <div class="card-header">
+                      <h5>PRODUCTION SERVER</h5>
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="card switchcard pointer" data-prd="1">
+                    <div class="card-header">
+                      <h5>QUALITY SERVER</h5>
+                    </div>
+                    <div class="card-body">
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="col-8 setting hide">
+      <div class="card" style="height: 85vh;">
+        <div class="card-header">
+          <h5>SETTINGS</h5>
+        </div>
+        <div class="card-body"></div>
+      </div>
     </div>
-    
+    <div class="col-4 sidecard hide">
+      <div class="card" style="height: 85vh;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12">
+              <div class="card switchcard pointer" data-prd="1">
+                <div class="card-header">
+                  <h5>PRODUCTION SERVER</h5>
+                </div>
+                <div class="card-body">
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card switchcard pointer" data-prd="1">
+                <div class="card-header">
+                  <h5>QUALITY SERVER</h5>
+                </div>
+                <div class="card-body">
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+<script>
+  $(document).on("click", ".switchcard", function () {
+    $(".landing").hide();
+    $(".setting").show();
+    $(".sidecard").show();
+  });
+
+  $(document).on("click", ".myorder", function () {
+
+  });
+</script>

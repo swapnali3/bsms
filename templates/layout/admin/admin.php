@@ -29,6 +29,8 @@
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
     <?= $this->Html->css('CakeLte.style') ?>
     <?= $this->element('layout/css') ?>
+    <!-- jQuery -->
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <?= $this->fetch('css') ?>
     <style>
          aside.main-sidebar {
@@ -130,8 +132,7 @@ body,
     </div>
     <!-- ./wrapper -->
 
-    <!-- jQuery -->
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
+    
     <!-- Bootstrap 4 -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
     <!-- AdminLTE App -->
