@@ -40,6 +40,7 @@
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <style>
+        
         aside.main-sidebar {
             background-color: #08132F !important;
         }
@@ -77,7 +78,7 @@
 </head>
 
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
-    <div class="wrapper">
+    <div class="wrapper" id="main-content">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">
             <?= $this->element('header/notifications_admin') ?>
@@ -85,7 +86,7 @@
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
+        <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>" id="id_sidebar" onmouseover="toggleSidebar()" onmouseout="toggleSidebar()">
             <!-- Brand Logo -->
             <!-- <a href="<?= $this->Url->build('dashboard') ?>" class="brand-link" style="background-color:#ffffff;text-align-last:center;">
             <?= $this->Html->image('ft_rect_logo.png', ['width' => '175', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
@@ -95,7 +96,7 @@
                 <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
             <!-- Sidebar -->
-            <div class="sidebar" id="id_sidebar">
+            <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               
@@ -158,6 +159,9 @@
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
     <?= $this->Html->script('/js/adminjs.js') ?>
+    <?= $this->Html->script('/js/prd_adminjs.js') ?>
+    <?= $this->Html->script('/js/dev_adminjs.js') ?>
+    <?= $this->Html->script('/js/admindashjs.js') ?>
 
 
 

@@ -48,6 +48,9 @@
   .nav-sidebar>.nav-item .nav-icon.svg-inline--fa {
     font-size: 0.8rem;
   }
+  .nav-item a.nav-link {
+    cursor: pointer;
+}
 </style>
 
 <div class="user-panel pb-3 d-flex side_label" style="align-self: center;" >

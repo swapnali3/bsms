@@ -13,3 +13,18 @@
 // function handler(event) {
 //     $(".ftimage").trigger("click");
 // }
+// var mini = true;
+// function toggleSidebar() {
+//     if (mini) {
+//         console.log("opening sidebar");
+//     document.getElementById('id_sidebar').style.width = "250px";
+//     document.getElementById('main-content').style.marginLeft = "250px";
+//     this.mini = false;
+//     } else {
+//         console.log("closing sidebar");
+//     document.getElementById('id_sidebar').style.width = "74px";
+//     document.getElementById('main-content').style.marginLeft = "74px";
+    
+//     this.mini = true;
+//      }
+//     }
