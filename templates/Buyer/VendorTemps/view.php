@@ -193,7 +193,7 @@ switch ($vendorTemp->status) {
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <h6 class="text-info mb-2 pl-2">Uploaded Documnets</h6>
+                                <h6 class="text-info mb-2 pl-2">Uploaded Documents</h6>
                                 <table class="table docs-list vendor-info table-bordered">
                                     <tbody>
                                         <?php if ($vendorTemp->gst_file): ?>
