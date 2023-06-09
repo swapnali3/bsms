@@ -21,6 +21,7 @@ use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Static content controller
@@ -143,28 +144,10 @@ class DashboardController extends AdminAppController
 
 
     public function userView(){
-
-        $response = array();
-        // $response['status'] = '0';
-        // $response['message'] = '';
         $this->autoRender = false;
-
-
-        $this->loadModel('Users');
-
-       // $session = $this->getRequest()->getSession();
-
-       
-        $data = $this->Users->find('all');
-
-        if ($data->count() > 0) {
-            // $response['status'] = 'success';
-            $response = $data;
-        } else {
-            // $response['status'] = 'fail';
-            $response = [];
-        }
-        echo json_encode($response);
-
+        $data=[];
+        $conn = ConnectionManager::get('default');
+        $data=$conn->execute('SELECT *, CONCAT(u.first_name, " ", u.last_name) as fullname FROM users u inner join user_groups ug on u.group_id = ug.id')->fetchAll('assoc');
+        echo json_encode($data);
     }
 }

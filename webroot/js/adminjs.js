@@ -54,11 +54,10 @@ $('#adminuserview').DataTable({
         dataSrc: '',
     },
     columns: [
-        { data: 'first_name' },
-        { data: 'last_name' },
+        { data: 'fullname' },
         { data: 'username' },
         { data: 'mobile' },
-        { data: 'group_id' },
+        { data: 'name' },
     ],
 });
 

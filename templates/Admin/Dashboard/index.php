@@ -11,7 +11,7 @@
     <div class="col-12 landing">
       <div class="card">
         <div class="card-header">
-          <h5><b> Administration Console</b></h5>
+          <h5><b> YOUR ACCOUNT</b></h5>
         </div>
         <div class="card-body">
           <div class="row">
@@ -305,9 +305,8 @@
             <table class="table" id="adminuserview" style="width: 100%;">
               <thead>
                 <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Username</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
                   <th>Mobile No</th>
                   <th>Role</th>
                 </tr>
@@ -370,10 +369,7 @@
               <div class="">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-
             </div>
-
-
           </form>
         </div>
       </div>
