@@ -6,7 +6,7 @@
 //     $(".ft_rect_logo").attr('src', baseurl+'img/icon.png').attr('style','width: 2.6vw;').data('image', '1');
 //   }
 // });
-$(".ftimage").trigger("click");
+// $(".ftimage").trigger("click");
 // let parent = document.getElementById('id_sidebar');
 // parent.onmouseover = parent.onmouseout = handler;
 

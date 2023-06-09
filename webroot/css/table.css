@@ -27,7 +27,7 @@ hr {
 
 .table>thead{
 
-    background-color: #527195  !important;
+    background-color: #7b99bc!important
 }
 .table>tbody{
 	background-color: #f5f7fd !important;
@@ -44,11 +44,11 @@ hr {
 }
 .page-item.active .page-link {
    color: #fff !important;
-    background-color: #112a68 !important;
-    border-color: #112a68 !important;
+    background-color: #7b99bc  !important;
+    border-color: #7b99bc  !important;
 }
 .page-link{
-	color: #112a68 !important;
+	color: #7b99bc  !important;
 }
 .table-hover tbody tr:hover {
    

@@ -21,49 +21,21 @@
     background: #ddd;
     border-radius: 20px;
   }
-/* .card-body{
-    padding:0.1rem;
-    background-Color:WHITE
-}
-.table td, .table th{font-size:small;}
-.card-header{
-    padding:0.3rem
-}
-label{
-    margin-top:0.5rem
-}
-.table td, .table th{
-    padding:0rem
-}
-.table> :not(caption)>*>*{
-    padding:0.3rem 0.3rem
-}
-.mb-2, .my-2{
-    margin-bottom:0.5rem
-} */
 
 </style>
-<!-- <div class="card">
-<div class="card-header" style="
-    background-color: #cbcbcb;
-">
-        <div class="row" style="width:90vw;">
-            <div class="col-sm-12 col-lg-9">
-                <h5 style="color:white;" class="mb-0"><b>VENDOR LIST</b></h5>
-            </div>
-            <div class="col-sm-12 col-lg-3">
-                <h4 class="float-right mb-0">
-                    <b>
-                        <a href="/bsms/buyervendor-temps/add/" style="color: navy;pointer:cursor;">
-                            ADD VENDOR
-                            <i class="material-icons opacity-10">add</i>
-                        </a>
-                    </b>
-                </h4>
-            </div> -->
-        </div>
-    </div>
+
+<?php $createvendactive = ($controller == 'VendorTemps' && $action == 'add') ? 'active' : ''; ?>
+<?php $creatsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'active' : ''; ?>
+
     <div class="card-body vendor-list">
+        <div class="row">
+            <div class="col-md-12 text-right">
+               <div class="btn-adding">
+               <a href="<?= $this->Url->build('/') ?>buyervendor-temps/add"><button type="button" class="btn btn-custom-2 ">Add Vendor</button></a>
+              <a href="<?= $this->Url->build('/') ?>buyervendor-temps/sap-add"> <button type="button" class="btn btn-custom-2 ">Add SAP Vendor</button></a>
+               </div>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-hover" id="example1">
                 <thead>

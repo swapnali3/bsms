@@ -86,22 +86,55 @@
     .user-info h6 {
     white-space: initial;
 }
+.main-nav-head .nav-link {
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-bottom: 0px !important;
+    font-size: 14px !important;
+
+}
+    .main-nav-head .nav-link.active {
+    background-color: transparent !important;
+    color: #004d87 !important;
+    border-bottom: 3px solid #004d87;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding-bottom: 0px !important;
+}
+
+
 </style>
 
-<ul class="navbar-nav">
+<ul class="navbar-nav main-nav-head">
     <li class="nav-item">
-        <a class="nav-link ftimage" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+    <a class="nav-link ftimage" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+       
+    </li>
+    <li class="nav-item">
+            <a href="/bsms/buyer" class="nav-link active">Dashbaord</a>
+    </li>
+    <li class="nav-item">
+            <a href="/bsms/buyer/vendor-temps/" class="nav-link">Vendor Management</a>
+    </li>
+    <li class="nav-item">
+            <a href="/bsms/buyer/purchase-orders/view/" class="nav-link">Purchase Order</a>
+    </li>
+    <li class="nav-item">
+            <a href="/bsms/buyer/delivery-details" class="nav-link">Instransit ASN</a>
+    </li>
+    <li class="nav-item">
+            <a href="/bsms/buyerasn/search" class="nav-link">Gate Entry</a>
+    </li>
+    <li class="nav-item">
+            <a href="/bsms/buyer/settings/buyer-management" class="nav-link">Settings</a>
     </li>
     <?= $this->element('header/menu') ?>
 </ul>
 
-<div class="navbar card-header" style="margin-top:0.3vw;border-bottom:none;">
+<!-- <div class="navbar card-header" style="margin-top:0.3vw;border-bottom:none;">
     <h4><b><?= (isset($headTitle)) ? $headTitle : '' ?></b></h4>
-    <!-- <b>
-    <img src="<?= $this->Url->build('/') ?>img/rect_logo.png" alt="vekpro" style="width: 8vw;">
-  </b> -->
-    <!-- </span> - &nbsp; <b>Vendor Customer Procurement</b> -->
-</div>
+    
+</div> -->
 
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
@@ -186,19 +219,6 @@
 
         </div>
     </li>
-
-
-
-
-    <!-- <div style="font-size: small; color: darkcyan; padding: 0vw .5vw;">
-        <b><?= $full_name ?></b>
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-          <i class="far fa-bell"></i>
-          <b class="badge badge-warning navbar-badge">15</b>
-          
-        </a>
-      </div> -->
-
 </ul>
 
 

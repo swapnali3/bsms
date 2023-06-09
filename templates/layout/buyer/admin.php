@@ -108,11 +108,35 @@
     label {
         font-family: 'Roboto', sans-serif !important;
     }
+
     div#id_sidebar {
-    transition: 0.5s ease all;
+        transition: 0.5s ease all;
+    }
+
+    div#id_sidebar:hover {
+        transition: 0.5s ease all;
+    }
+    a.top-brand-logo {
+    margin-left: 60px;
+    margin-top: 10px;
 }
-div#id_sidebar:hover {
-    transition: 0.5s ease all;
+img.ft-icon {
+    width: 50px;
+    margin-right: -7px;
+}
+.v-logo{
+    width: 100px;
+}
+.close-sidebar {
+    color: #000;
+    background-color: #fff;
+    padding: 10px 15px;
+    display: block;
+    text-align: right;
+}
+aside.main-sidebar {
+    position: absolute;
+    top: -48px !important;
 }
 </style>
 
@@ -120,21 +144,43 @@ div#id_sidebar:hover {
     <div class="loader-container" id="loaderss">
         <img src="<?= $this->Url->build('/') ?>img/loaders.gif" alt="Loader" class="loader">
     </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <a class="top-brand-logo">
+               
+                <!-- <img src="<?= $this->Url->build('/') ?>img/icon.png" alt="Logo" class="ft-icon"> -->
+                    <img src="https://apar.com/wp-content/uploads/2020/11/brand-logo.png" alt="Logo" class="v-logo">
+
+                </a>
+            </div>
+            <div class="col-md-6"></div>
+
+        </div>
+    </div>
     <div class="wrapper">
+
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">
-            
-            <?= $this->element('header/notifications') ?>
+        <nav
+            class="main-header navbar navbar-expand-md navbar-light navbar-white <?= $this->CakeLte->getHeaderClass() ?>">
+            <div class="container-fluid pl-5 pr-4">
+
+                <?= $this->element('header/notifications') ?>
+            </div>
         </nav>
         <!-- /.navbar -->
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
-            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="text-align-last:center;background-color:#fff;">
+            <!-- <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
+                style="text-align-last:center;background-color:#fff;">
                 <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '1']) ?>
-                <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
-            </a>
+                <span class="brand-text">
+                    <?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?>
+                </span>
+            </a> -->
+            <a class="close-sidebar"><i class="fas fa-times"></i></a>
             <div class="sidebar" id="id_sidebar">
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="text-align-last: center;">
                     <div class="text-light">
@@ -153,13 +199,14 @@ div#id_sidebar:hover {
             <!-- <div class="content-header"> -->
             <!-- <div class="container-fluid"> -->
             <?= $this->element('content/header') ?>
+
             <!-- </div> -->
             <!-- /.container-fluid -->
             <!-- </div> -->
 
             <!-- Main content -->
             <div class="content">
-                <div class="container-fluid">
+                <div class="container-fluid pr-3 pl-3">
                     <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
                 </div><!-- /.container-fluid -->
@@ -200,10 +247,22 @@ div#id_sidebar:hover {
     <?= $this->fetch('script') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
     <script>
-    $(document).ready(function() {});
-    $(window).on('load', function() {
-        $('#loaderss').hide();
-    });
+        $(document).ready(function () { });
+        $(window).on('load', function () {
+            $('#loaderss').hide();
+        });
+        // $(".close-sidebar").hiclcide();
+        // $(".main-sidebar").show();
+        $(".close-sidebar").click(function(){
+            // $(".main-sidebar").show().hide();
+            $("body").addClass("sidebar-collapse");
+
+        
+});
+        // $(".ftimage").click(function(){
+        //             $(".main-sidebar").show();
+                
+        // });
     </script>
 </body>
 

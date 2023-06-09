@@ -10,21 +10,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
 <style>
     aside.main-sidebar {
-    background-color: #08132F !important;
+    background-color: #232352 !important
     }
     .nav-link.active {
-        background-color: #8E9B2C !important;
-    }
-    .content-wrapper{
-      min-height: 780px !important;
-    }
+    background-color: #f7f7f7 !important;
+    color: #000 !important;
+}
+    .content-wrapper {
+    min-height: 835px !important;
+}
   
 </style>
 <?= $this->Html->css('custom') ?>
 <div class="buyer-dash">
+  <div class="row mx-1">
+    <div class="col-md-8">
+      <div class="search-b position-relative pb-2 pt-2">
+        <input type="text" class="form-control" placeholder="search here">
+        <i class="fas fa-search position-absolute"></i>
+      </div>
+    </div>
+    <div class="col-md-4 text-right pt-2 ">
+      <button type="button" class="btn mb-0" onClick="window.location.reload()"><i class="fas fa-sync-alt"></i></button>
+    </div>
+  </div>
 <div class="row mt-4 mx-1 mb-1 first-row">
-  
-
   <div class="col-sm-12 col-lg-3">
     <div class="card">
       <div class="card-header">
