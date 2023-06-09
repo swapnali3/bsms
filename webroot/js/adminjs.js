@@ -1,6 +1,6 @@
 $(document).on("click", ".settings", function () {
     hideframes()
-    if($(this).data('prd') == 1){
+    if ($(this).data('prd') == 1) {
         $(".prd_menu_setting, .prd_label").show();
         $(".dev_menu_setting, .dev_label").hide();
         $(".user-panel").html(`<div class="hello"></div><div class="info"><a class="d-block">PRODUCTION</a></div>`);
@@ -33,6 +33,32 @@ $(document).on("click", ".menu_dashboard", function () {
     $(".landing").show();
 });
 
-function hideframes(){
+function hideframes() {
     $(".landing, .setting, .usermgm, .useradd, .sidecard").hide();
 }
+
+// $('#example').DataTable({
+//     ajax: 'http://localhost/bsms/admin/dashboard/userView',
+//     columns: [
+//         { data: 'first_name' },
+//         { data: 'last_name' },
+//         { data: 'username' },
+//         { data: 'mobile' },
+//         { data: 'group_id' },
+//     ],
+// });
+
+$('#adminuserview').DataTable({
+    ajax: {
+        url: 'http://localhost/bsms/admin/dashboard/userView',
+        dataSrc: '',
+    },
+    columns: [
+        { data: 'first_name' },
+        { data: 'last_name' },
+        { data: 'username' },
+        { data: 'mobile' },
+        { data: 'group_id' },
+    ],
+});
+

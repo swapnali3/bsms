@@ -52,14 +52,8 @@
                           <div class="col-md-10" style="border-bottom:2px solid #ddd">
                             <h6 class="pt-2"><b>Status</b></h6>
                             <div class="d-flex btm-d">
-
-                              <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
-                              </div>
-                              <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submitted</p>
+                              <div class="d-flex text-warning">
+                                <p>Deactivated</p>
                               </div>
 
                             </div>
@@ -72,16 +66,14 @@
                             </div>
                           </div>
                           <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                            <h6 class="pt-2"><b>Development Server</b></h6>
+                            <h6 class="pt-2"><b>Server Configuration</b></h6>
                             <div class="d-flex btm-d">
 
                               <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
+                                <p>192.168.5.59</p>
                               </div>
                               <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submitted</p>
+                                <p>10% Utilization</p>
                               </div>
 
                             </div>
@@ -114,7 +106,8 @@
                             <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false"></i>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item settings" id="settings" href="#"  data-prd="0"><i class="fas fa-cog"></i> Settings</a>
+                              <a class="dropdown-item settings" id="settings" href="#" data-prd="0"><i
+                                  class="fas fa-cog"></i> Settings</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
                               <div class="dropdown-divider"></div>
@@ -150,13 +143,8 @@
                             <h6 class="pt-2"><b>Status</b></h6>
                             <div class="d-flex btm-d">
 
-                              <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
-                              </div>
                               <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submitted</p>
+                                <p>Activated</p>
                               </div>
 
                             </div>
@@ -169,16 +157,14 @@
                             </div>
                           </div>
                           <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                            <h6 class="pt-2"><b>Production Server</b></h6>
+                            <h6 class="pt-2"><b>Server </b></h6>
                             <div class="d-flex btm-d">
 
                               <div class="d-flex text-secondary mr-2">
-                                <i class="far fa-clock pt-1"></i>
-                                <p>12 hours ago</p>
+                                <p>192.168.4.59</p>
                               </div>
                               <div class="d-flex text-success">
-                                <i class="fas fa-check-circle pt-1"></i>
-                                <p>submitted</p>
+                                <p>10% Utilization</p>
                               </div>
 
                             </div>
@@ -211,7 +197,8 @@
                             <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                               aria-expanded="false"></i>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i class="fas fa-cog"></i> Settings</a>
+                              <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i
+                                  class="fas fa-cog"></i> Settings</a>
                               <div class="dropdown-divider"></div>
                               <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i>
                                 Activation</a>
@@ -302,47 +289,30 @@
       </div>
     </div>
     <div class="col-8 usermgm hide">
-      <div class="card" style="height: 88vh;">
+      <div class="card">
         <div class="card-header" style="background-color:#f5f7fd;">
           <h5 class="mb-0">USER ADMINISTRATION</h5>
         </div>
         <div class="card-body">
           <div class="d-flex justify-content-between">
-            <div class="search-bar mb-2">
-              <input type="search" placeholder="Search all users" class="form-control search-box">
-            </div>
             <div class="">
-              <button type="button" class="btn btn-primary">Add</button>
+              <!-- <button type="button" class="btn btn-primary">Add</button> -->
             </div>
 
 
           </div>
-          <div class="user-list-tbl">
-            <table class="table" id="example">
+          <div class="user-list-tbl table-reponsive">
+            <table class="table" id="adminuserview" style="width: 100%;">
               <thead>
                 <tr>
-                  <th>Full Name</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
                   <th>Username</th>
                   <th>Mobile No</th>
                   <th>Role</th>
-                  <th>Status</th>
-                  <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    Abhishek Yadav
-                  </td>
-                  <td>ay@gmail.com</td>
-                  <td>1234567890</td>
-                  <td>Buyer</td>
-                  <td>1</td>
-                  <td><a href="users-acl/edit/1">
-                      <i class="fas fa-edit"></i>
-                    </a></td>
-                </tr>
-              </tbody>
+              <tbody></tbody>
             </table>
           </div>
         </div>
@@ -360,50 +330,50 @@
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">First Name</label>
-                    <input type="text" class="form-control" id="" placeholder="Enter First Name">
+                    <input type="text" class="form-control" id="fname" placeholder="Enter First Name">
                   </div>
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Last Name</label>
-                    <input type="text" class="form-control" id="" placeholder="Enter Last Name">
+                    <input type="text" class="form-control" id="lname" placeholder="Enter Last Name">
                   </div>
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Email</label>
-                    <input type="email" class="form-control" id="" placeholder="Enter email">
+                    <input type="email" class="form-control" id="email" placeholder="Enter email">
                   </div>
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Mobile No</label>
-                    <input type="number" class="form-control" id="" placeholder="Enter Mobile No">
+                    <input type="number" class="form-control" id="mobileno" placeholder="Enter Mobile No">
                   </div>
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Password</label>
-                    <input type="password" class="form-control" id="" placeholder="Password">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
                   </div>
-  
+
                 </div>
                 <div class="col-6 mt-3">
                   <div class="form-group">
                     <label for="">Confirm Password</label>
-                    <input type="password" class="form-control" id="" placeholder="Password">
+                    <input type="password" class="form-control" id="confpassword" placeholder="Password">
                   </div>
-  
+
                 </div>
               </div>
-  
+
               <div class="">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>
-  
+
             </div>
-  
-  
+
+
           </form>
         </div>
       </div>
@@ -431,13 +401,8 @@
                         <h6 class="pt-2"><b>Status</b></h6>
                         <div class="d-flex btm-d">
 
-                          <div class="d-flex text-secondary mr-2">
-                            <i class="far fa-clock pt-1"></i>
-                            <p>12 hours ago</p>
-                          </div>
-                          <div class="d-flex text-success">
-                            <i class="fas fa-check-circle pt-1"></i>
-                            <p>submitted</p>
+                          <div class="d-flex text-warning">
+                            <p>Deactivated</p>
                           </div>
 
                         </div>
@@ -450,16 +415,15 @@
                         </div>
                       </div>
                       <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                        <h6 class="pt-2"><b>Development Server</b></h6>
+                        <h6 class="pt-2"><b>Server Configuration</b></h6>
                         <div class="d-flex btm-d">
 
                           <div class="d-flex text-secondary mr-2">
                             <i class="far fa-clock pt-1"></i>
-                            <p>12 hours ago</p>
+                            <p>192.168.5.59</p>
                           </div>
                           <div class="d-flex text-success">
-                            <i class="fas fa-check-circle pt-1"></i>
-                            <p>submitted</p>
+                            <p>10% Utilization</p>
                           </div>
 
                         </div>
@@ -492,7 +456,8 @@
                         <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                           aria-expanded="false"></i>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item settings" id="settings" href="#" data-prd="0"><i class="fas fa-cog"></i> Settings</a>
+                          <a class="dropdown-item settings" id="settings" href="#" data-prd="0"><i
+                              class="fas fa-cog"></i> Settings</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item disabled" href="#"><i class="fas fa-check-square"></i> Activation</a>
                           <div class="dropdown-divider"></div>
@@ -525,14 +490,8 @@
                       <div class="col-md-10" style="border-bottom:2px solid #ddd">
                         <h6 class="pt-2"><b>Status</b></h6>
                         <div class="d-flex btm-d">
-
-                          <div class="d-flex text-secondary mr-2">
-                            <i class="far fa-clock pt-1"></i>
-                            <p>12 hours ago</p>
-                          </div>
                           <div class="d-flex text-success">
-                            <i class="fas fa-check-circle pt-1"></i>
-                            <p>submitted</p>
+                            <p>Activated</p>
                           </div>
 
                         </div>
@@ -545,7 +504,7 @@
                         </div>
                       </div>
                       <div class="col-md-10" style="border-bottom:2px solid #ddd">
-                        <h6 class="pt-2"><b>Production Server</b></h6>
+                        <h6 class="pt-2"><b>Server Configuration</b></h6>
                         <div class="d-flex btm-d">
 
                           <div class="d-flex text-secondary mr-2">
@@ -553,8 +512,7 @@
                             <p>12 hours ago</p>
                           </div>
                           <div class="d-flex text-success">
-                            <i class="fas fa-check-circle pt-1"></i>
-                            <p>submitted</p>
+                            <p>10% Utilization</p>
                           </div>
 
                         </div>
@@ -587,7 +545,8 @@
                         <i class="fas fa-ellipsis-v dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                           aria-expanded="false"></i>
                         <div class="dropdown-menu">
-                          <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i class="fas fa-cog"></i> Settings</a>
+                          <a class="dropdown-item settings" href="#" id="settings" data-prd="1"><i
+                              class="fas fa-cog"></i> Settings</a>
                           <div class="dropdown-divider"></div>
                           <a class="dropdown-item" href="#"><i class="fas fa-check-square"></i> Activation</a>
                           <div class="dropdown-divider"></div>
@@ -608,4 +567,3 @@
     </div>
   </div>
 </div>
-<?= $this->Html->script('/js/adminjs.js') ?>
