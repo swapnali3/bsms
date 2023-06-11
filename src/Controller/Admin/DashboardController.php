@@ -15,6 +15,7 @@ declare(strict_types=1);
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace App\Controller\Admin;
+use Cake\Utility\Security;
 
 use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
@@ -22,6 +23,8 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\Datasource\ConnectionManager;
+use Cake\Routing\Router;
+use Cake\Mailer\Mailer;
 
 /**
  * Static content controller
@@ -122,24 +125,49 @@ class DashboardController extends AdminAppController
         $response['message'] = '';
         $this->autoRender = false;
 
-
         $this->loadModel('Users');
         if ($this->request->is(['patch', 'post', 'put'])) {
+           
             try {
                 $User = $this->Users->newEmptyEntity();
-                $User = $this->Users->patchEntity($User, $this->request->getData());
+                $data = $this->request->getData();
+                $data['password'] = Security::randomString(10); 
+                
+                $groupName = "";
+                if($data['group_id'] === '1'){
+                    $groupName = "Admin";
+                }else{
+                    $groupName = "Buyer";
+                }
+
+                $User = $this->Users->patchEntity($User, $data); 
                 if ($this->Users->save($User)) {
+                    $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                    $mailer = new Mailer('default');
+                    $mailer
+                        ->setTransport('smtp')
+                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                        ->setTo($data['username'])
+                        ->setEmailFormat('html')
+                        ->setSubject(''.$groupName.' Portal - Account created')
+                        ->deliver('Hi '.$data['first_name'].' <br/>Welcome to '.$groupName.' portal. <br/> <br/> Username: '.$data['username'].
+                        '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
                     $response['status'] = '1';
-                    $response['message'] = 'Buyer Add successfully';
+                    $response['message'] = 'User Added successfully';
+                } else {
+                    throw new \Exception('Failed to Add User'); // Throw exception if the 
+                    
                 }
             } catch (\Exception $e) {
                 $response['status'] = '0';
                 $response['message'] = $e->getMessage();
             }
+            
         }
 
-        echo json_encode($response);
 
+         echo json_encode($response);
+      
     }
 
 
