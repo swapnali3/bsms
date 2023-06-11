@@ -57,6 +57,12 @@ $("#adminuserview").DataTable({
         dataSrc: "",
     },
     columns: [
+        {
+            data: null,
+            render: function (data, type, row) {
+                return '<input type="checkbox" value="' + row.id + '">';
+            },
+        },
         { data: "first_name" },
         { data: "last_name" },
         { data: "username" },
@@ -82,7 +88,7 @@ $(document).ready(function () {
                 required: true,
                 number: true,
                 minlength: 10,
-                maxlength: 10
+                maxlength: 10,
             },
             group_id: {
                 required: true,
@@ -118,51 +124,46 @@ $(document).ready(function () {
         unhighlight: function (element, errorClass, validClass) {
             $(element).removeClass("is-invalid");
         },
-        submitHandler: function (form, event) {
-            event.preventDefault();
-            //$("#userForm")[0].submit();
-
-            return false;
+        submitHandler: function (form) {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost/bsms/admin/dashboard/userAdd",
+                data: $("#userForm").serialize(),
+                dataType: "json",
+                success: function(response) {
+                  console.log(response);
+                  if (response.status == "1") {
+                    Toast.fire({
+                      icon: "success",
+                      title: response.message,
+                    });
+                    form.submit(); // Submit the form without referencing the current page
+                  } else {
+                    Toast.fire({
+                      icon: "error",
+                      title: response.message,
+                    });
+                  }
+                },
+              });
         },
     });
 
     var Toast = Swal.mixin({
         toast: true,
-        position: 'top-end',
+        position: "top-end",
         showConfirmButton: false,
-        timer: 3000
-      });
-
-    $("#userForm").submit(function (e) {
-        e.preventDefault();
-    //   $.validator.setDefaults({
-    //         submitHandler: function () {
-        var formdatas = new FormData($("#userForm")[0]);
-
-        $.ajax({
-            type: "POST",
-            url: "http://localhost/bsms/admin/dashboard/userAdd",
-            data: $("#userForm").serialize(),
-            dataType: "json",
-            success: function (response) {
-                console.log(response);
-                if (response.status == "1") {
-
-
-                    Toast.fire({
-                        icon: "success",
-                        title: response.message,
-                    });
-                } else {
-                    Toast.fire({
-                        icon: "error",
-                        title: response.message,
-                    });
-                }
-            },
-        });
-   
-    //      },
-    //  });
+        timer: 3000,
     });
+
+    // $("#userForm").submit(function (e) {
+    //     e.preventDefault();
+    //     $.validator.setDefaults({
+    //         submitHandler: function () {
+    //             var formdatas = new FormData($("#userForm")[0]);
+
+
+    //         },
+    //     });
+    // });
 });

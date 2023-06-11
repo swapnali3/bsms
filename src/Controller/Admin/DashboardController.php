@@ -125,7 +125,6 @@ class DashboardController extends AdminAppController
         $response['message'] = '';
         $this->autoRender = false;
 
-
         $this->loadModel('Users');
         if ($this->request->is(['patch', 'post', 'put'])) {
            
@@ -154,19 +153,21 @@ class DashboardController extends AdminAppController
                         ->deliver('Hi '.$data['first_name'].' <br/>Welcome to '.$groupName.' portal. <br/> <br/> Username: '.$data['username'].
                         '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
                     $response['status'] = '1';
-                    $response['message'] = 'User Add successfully';
+                    $response['message'] = 'User Added successfully';
+                } else {
+                    throw new \Exception('Failed to Add User'); // Throw exception if the 
                     
                 }
             } catch (\Exception $e) {
                 $response['status'] = '0';
-                $response['message'] = 'failed to Add User';
+                $response['message'] = $e->getMessage();
             }
             
         }
 
-    //print_r($response['message']);exit;
-         echo json_encode($response);
 
+         echo json_encode($response);
+      
     }
 
 

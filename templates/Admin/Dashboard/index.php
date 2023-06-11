@@ -286,6 +286,9 @@
             <table class="table" id="adminuserview" style="width: 100%;">
               <thead>
                 <tr>
+                  <th>
+                    <input class="" type="checkbox" value="" id="all">
+                  </th>
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Username</th>
@@ -309,7 +312,7 @@
         <?= $this->Form->create(null, ['id' => 'userForm']) ?>
         <div class="card-body">
           <div class="row">
-          <div class="col-4 mt-3">
+            <div class="col-4 mt-3">
               <label for="mobileno">Role</label>
               <select class="custom-select" id="myCustomSelect" name="group_id" required>
                 <option disabled selected>Please Select</option>
@@ -341,7 +344,7 @@
                 <input type="number" class="form-control" id="mobileno" name="mobile" placeholder="Enter Mobile No" required>
               </div>
             </div>
-          
+
           </div>
           <div>
             <button type="buuton" class="btn btn-primary">Submit</button>

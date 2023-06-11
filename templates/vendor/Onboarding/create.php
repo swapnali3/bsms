@@ -252,108 +252,111 @@
                 address: {
                     required: true
                 },
-                address_2: {
+                // address_2: {
+                //     required: true
+                // },
+                city: {
                     required: true
                 },
-                  city: {
+                state: {
                     required: true
-                  },
-                  state: {
-                    required: true
-                  },
-                  pincode: {
+                },
+                pincode: {
                     required: true,
                     digits: true
-                  },
-                  country: {
+                },
+                country: {
                     required: true
-                  },
-                  payment_term: {
+                },
+                payment_term: {
                     required: true
-                  },
-                  order_currency: {
+                },
+                order_currency: {
                     required: true
-                  },
-                  tan_no: {
+                },
+                tan_no: {
                     required: true
-                  },
-                  cin_no: {
+                },
+                cin_no: {
                     required: true
-                  },
-                  gst_no: {
+                },
+                gst_no: {
                     required: true
-                  },
-                  pan_no: {
+                },
+                pan_no: {
                     required: true
-                  },
-                  contact_person: {
+                },
+                contact_person: {
                     required: true
-                  },
-                  contact_email: {
+                },
+                contact_email: {
                     required: true,
-                    email: true
-                  },
-                  contact_mobile: {
+                    email: true,
+                },
+                contact_mobile: {
                     required: true,
-                    digits: true
-                  },
-                  contact_department: {
+                    number: true,
+                    minlength: 10,
+                    maxlength: 10
+
+                },
+                contact_department: {
                     required: true
-                  },
-                  contact_designation: {
+                },
+                contact_designation: {
                     required: true
-                  }
+                }
             },
 
             messages: {
                 address: {
                     required: "Please enter a Address",
                 },
-                address_2: {
-                    required: "Please enter a Address2",
-                },
+                // address_2: {
+                //     required: "Please enter a Address2",
+                // },
                 city: {
                     required: "Please enter a city",
-                  },
+                },
                 state: {
                     required: "Please enter a state",
-                  },
-                  pincode: {
+                },
+                pincode: {
                     required: "Please enter a pincode",
                     digits: true,
-                  },
-                  country: {
+                },
+                country: {
                     required: "Please enter a country",
-                  },
-                  tan_no: {
+                },
+                tan_no: {
                     required: "Please enter a tan no",
-                  },
-                  cin_no: {
+                },
+                cin_no: {
                     required: "Please enter a cin no",
-                  },
-                  gst_no: {
+                },
+                gst_no: {
                     required: "Please enter a gst no",
-                  },
-                  pan_no: {
-                    required: "Please enter a gst no",
-                  },
-                  contact_person: {
+                },
+                pan_no: {
+                    required: "Please enter a pam no",
+                },
+                contact_person: {
                     required: "Please enter a contact person",
-                  },
-                  contact_email: {
+                },
+                contact_email: {
                     required: "Please enter a contact email",
-                    email: true
-                  },
-                  contact_mobile: {
+                    email: "Please enter a valid email address",
+                },
+                contact_mobile: {
                     required: "Please enter a contact mobile",
-                    digits: true
-                  },
-                  contact_department: {
+                    number: "Please enter a valid mobile number",
+                },
+                contact_department: {
                     required: "Please enter a contact department",
-                  },
-                  contact_designation: {
+                },
+                contact_designation: {
                     required: "Please enter a contact designation",
-                  },
+                },
             },
             errorElement: "span",
             errorPlacement: function(error, element) {
