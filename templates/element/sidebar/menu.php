@@ -1,38 +1,174 @@
 <style>
-   .layout-fixed .brand-link{
-    width:218px
+  .layout-fixed .brand-link {
+    width: 218px
   }
 
-  .brand-link{
-    padding:0.5rem 0.5rem
+  .brand-link {
+    padding: 0.5rem 0.5rem
   }
-  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header{
-    margin-left:210px
+
+  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+    margin-left: 210px
   }
-  .sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link{
-    width:calc(235px - 1.1rem * 2)
+
+  .sidebar-mini .main-sidebar .nav-link,
+  .sidebar-mini-md .main-sidebar .nav-link,
+  .sidebar-mini-xs .main-sidebar .nav-link {
+    width: calc(235px - 1.1rem * 2)
   }
-  .nav-sidebar .nav-link>.right, .nav-sidebar .nav-link>p>.right{
-    top:0.9rem
+
+  .nav-sidebar .nav-link>.right,
+  .nav-sidebar .nav-link>p>.right {
+    top: 0.9rem
   }
-  .main-sidebar, .main-sidebar::before{
-    width:218px
+
+  .main-sidebar,
+  .main-sidebar::before {
+    width: 218px
   }
-  p, .p{
-    font-size:14px
+
+  p,
+  .p {
+    font-size: 14px
   }
-  .sidebar{
-    padding-left:0.6rem
+
+  .sidebar {
+    padding-left: 0.6rem
   }
-  .nav-sidebar>.nav-item .nav-icon.fa, .nav-sidebar>.nav-item .nav-icon.fab, .nav-sidebar>.nav-item .nav-icon.fad, .nav-sidebar>.nav-item .nav-icon.fal, .nav-sidebar>.nav-item .nav-icon.far, .nav-sidebar>.nav-item .nav-icon.fas, .nav-sidebar>.nav-item .nav-icon.ion, .nav-sidebar>.nav-item .nav-icon.svg-inline--fa {
-    font-size:0.8rem;
-    }
+
+  .nav-sidebar>.nav-item .nav-icon.fa,
+  .nav-sidebar>.nav-item .nav-icon.fab,
+  .nav-sidebar>.nav-item .nav-icon.fad,
+  .nav-sidebar>.nav-item .nav-icon.fal,
+  .nav-sidebar>.nav-item .nav-icon.far,
+  .nav-sidebar>.nav-item .nav-icon.fas,
+  .nav-sidebar>.nav-item .nav-icon.ion,
+  .nav-sidebar>.nav-item .nav-icon.svg-inline--fa {
+    font-size: 0.8rem;
+  }
 </style>
-<li class="nav-item">
-  <?= $this->Html->link(__('<i class="fas fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link", 'escape' => false]) ?>
+
+<div class="user-panel pb-3 d-flex side_label" style="align-self: center;" >
+</div>
+
+<li class="nav-item menu_dashboard">
+  <a class="nav-link active">
+    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <p>Dashboard</p>
+  </a>
+</li>
+
+<li class="nav-item menu_license">
+  <a class="nav-link">
+    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <p>License</p>
+  </a>
 </li>
 
 <li class="nav-item has-treeview">
+  <a href="#" class="nav-link">
+    <i class="fas fa-users-cog"></i>
+    <p>
+      User Administration
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a class="nav-link prd_user_view" >
+        <i class="nav-icon fas fa-user-alt"></i>
+        <p>Users</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link prd_user_add">
+        <i class="nav-icon fas fa-user-tie"></i>
+        <p>Admin/Buyer Creation</p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link">
+        <i class="nav-icon fas fa-id-badge"></i>
+        <p>User License</p>
+      </a>
+    </li>
+  </ul>
+</li>
+
+<li class="nav-item menu_license hide">
+  <a class="nav-link">
+    <i class="fas fa-tachometer-alt nav-icon"></i>
+    <p>Role Management</p>
+  </a>
+</li>
+
+<li class="nav-item prd_menu_setting hide">
+  <a class="nav-link">
+    <i class="fas fa-tools nav-icon"></i>
+    <p>Setting</p>
+  </a>
+</li>
+
+<li class="nav-item prd_menu_setting hide">
+  <a class="nav-link">
+    <i class="fas fa-toggle-on nav-icon"></i>
+    <p>Activation</p>
+  </a>
+</li>
+
+<li class="nav-item prd_menu_setting hide">
+  <a class="nav-link">
+    <i class="fas fa-toggle-on nav-icon"></i>
+    <p>Deactivation</p>
+  </a>
+</li>
+
+<li class="nav-item prd_menu_setting hide">
+  <a class="nav-link">
+    <i class="fas fa-shapes nav-icon"></i>
+    <p>Publish</p>
+  </a>
+</li>
+
+<li class="nav-item dev_menu_setting hide">
+  <a class="nav-link">
+    <i class="fas fa-tools nav-icon"></i>
+    <p>Setting</p>
+  </a>
+</li>
+
+<li class="nav-item dev_menu_setting hide">
+  <a class="nav-link">
+    <i class="fas fa-toggle-on nav-icon"></i>
+    <p>Activation</p>
+  </a>
+</li>
+
+<li class="nav-item dev_menu_setting hide">
+  <a class="nav-link">
+    <i class="fas fa-toggle-on nav-icon"></i>
+    <p>Deactivation</p>
+  </a>
+</li>
+
+<li class="nav-item dev_menu_setting hide">
+  <a class="nav-link">
+    <i class="fas fa-shapes nav-icon"></i>
+    <p>Publish</p>
+  </a>
+</li>
+
+
+
+
+
+<!-- <li class="nav-item">
+  <?= $this->Html->link(__('<i class="fas fa-tachometer-alt nav-icon"></i><p>Dashboardsss</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link", 'escape' => false]) ?>
+</li> -->
+
+<!-- <li class="nav-item has-treeview">
   <a href="#" class="nav-link active">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
@@ -47,13 +183,13 @@
     <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Profile</p>'), '#', ['class' => 'nav-link', 'escape' => false]) ?></li>
     <li class="nav-item"><?= $this->Html->link(__('<i class="far fa-circle nav-icon"></i><p>Users</p>'), '#', ['class' => 'nav-link', 'escape' => false]) ?></li>
   </ul>
-</li>
+</li> -->
 
-<li class="nav-item">
+<!-- <li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-tachometer-alt nav-icon"></i><p>User Role Management</p>'), ['controller' => 'UsersAcl', 'action' => 'index'], ['class' => "nav-link", 'escape' => false]) ?>
-</li>
+</li> -->
 
-<li class="nav-item">
+<!-- <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
@@ -64,7 +200,6 @@
   <ul class="nav nav-treeview">
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link">
-        <!-- <i class="fa fa-bars nav-icon"></i> -->
         <i class="fa fa-solid fa-list nav-icon"></i>
         <p>vendor List</p>
       </a>
@@ -79,7 +214,6 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/add" class="nav-link">
-            <!-- <i class="fa fa-bars nav-icon"></i> -->
             <i class="fa fa-solid fa-plus nav-icon"></i>
             <p>New Vendor</p>
           </a></li>
@@ -91,21 +225,18 @@
     </li>
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link">
-        <!-- <i class="fa fa-bars nav-icon"></i> -->
         <i class="fa fa-solid fa-list nav-icon"></i>
         <p>Purchase Orders</p>
       </a>
     </li>
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link">
-        <!-- <i class="fa fa-bars nav-icon"></i> -->
         <i class="fa fa-solid fa-list nav-icon"></i>
         <p>Intransit ASN</p>
       </a>
     </li>
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link">
-        <!-- <i class="fa fa-bars nav-icon"></i> -->
         <i class="fa fa-solid fa-list nav-icon"></i>
         <p>Gate Entry</p>
       </a>
@@ -125,9 +256,9 @@
     </li>
 
   </ul>
-</li>
+</li> -->
 
-<li class="nav-item">
+<!-- <li class="nav-item">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
@@ -161,7 +292,8 @@
       <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link ", 'escape' => false]) ?>
     </li>
   </ul>
-</li>
-<li class="nav-item menu-open">
+</li> -->
+
+<!-- <li class="nav-item menu-open">
   <?= $this->Html->link(__('<i class="fas fa-cog nav-icon"></i><p>Settings</p>'), ['controller' => 'settings', 'action' => 'update'], ['class' => 'nav-link', 'escape' => false]) ?>
-</li>
+</li> -->

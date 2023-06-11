@@ -121,7 +121,7 @@ body {
                     class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
 
-            <div class="sidebar">
+            <div class="sidebar" id="id_sidebar">
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="text-light">
                         Welcome,

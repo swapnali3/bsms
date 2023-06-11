@@ -21,6 +21,7 @@ use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Static content controller
@@ -32,6 +33,15 @@ use Cake\View\Exception\MissingTemplateException;
 class DashboardController extends AdminAppController
 {
     public function index() {
+
+        // $this->loadModel('Users');
+        // $users = $this->paginate($this->Users);
+
+        // echo "Prv" .print_r($users);exit;
+  
+        
+
+        // $this->set(compact('Users'));
         
     }
 
@@ -103,5 +113,41 @@ class DashboardController extends AdminAppController
         $this->set(compact('buyerSellerUser'));
         $this->set('rfqList', $rfqDetailsList);
 
+    }
+
+    public function userAdd(){
+
+        $response = array();
+        $response['status'] = '0';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+
+        $this->loadModel('Users');
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            try {
+                $User = $this->Users->newEmptyEntity();
+                $User = $this->Users->patchEntity($User, $this->request->getData());
+                if ($this->Users->save($User)) {
+                    $response['status'] = '1';
+                    $response['message'] = 'Buyer Add successfully';
+                }
+            } catch (\Exception $e) {
+                $response['status'] = '0';
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+        echo json_encode($response);
+
+    }
+
+
+    public function userView(){
+        $this->autoRender = false;
+        $data=[];
+        $conn = ConnectionManager::get('default');
+        $data=$conn->execute('SELECT *, CONCAT(u.first_name, " ", u.last_name) as fullname FROM users u inner join user_groups ug on u.group_id = ug.id')->fetchAll('assoc');
+        echo json_encode($data);
     }
 }

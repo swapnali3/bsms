@@ -21,3 +21,81 @@
     padding: 20px;
     margin: 0 auto;
 }
+.usernm-listing {
+    border: 1px solid #ddd;
+    padding: 10px !important;
+    border-radius: 5px;
+    margin-top: 13px;
+    background-color: #527195;
+    color: #fff;
+}
+li.unmli {
+    border-bottom: 1px solid #fff;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+.usernm-listing {
+    border: 1px solid #ddd;
+    padding: 10px !important;
+    border-radius: 5px;
+    margin-top: 13px;
+    background-color: #527195;
+    color: #fff;
+    height: 434px;
+    margin-bottom: 0px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.usernm-listing::-webkit-scrollbar {
+    width: 12px;
+}
+
+.usernm-listing::-webkit-scrollbar-track {
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #cacaca;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+}
+
+.usernm-listing::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #bdbfc7;
+}
+li.unmli:hover {
+    background-color: #ddd;
+    color: #000;
+    transition: 0.5s all ease-out;
+}
+.right-data {
+    background-color: #f5f7fd;
+}
+.btn-custom-2 {
+    background-color: #08132F;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.1rem;
+    padding: 10px 20px;
+}
+.btn-custom-2:hover {
+    color: #fff;
+}
+.search-box .fas.fa-search {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+.img i {
+    font-size: 30px;
+}
+.btm-d i {
+    font-size: 11px;
+    padding-top: 6px !important;
+    padding-right: 5px;
+}
+.switchcard .dropdown-toggle::after{
+    content: unset !important;
+}
+.card.switchcard {
+    background-color: #F3F5F9;
+    border-radius: 10px;
+}
