@@ -63,11 +63,10 @@ $("#adminuserview").DataTable({
                 return '<input type="checkbox" value="' + row.id + '">';
             },
         },
-        { data: "first_name" },
-        { data: "last_name" },
+        { data: "fullname" },
         { data: "username" },
         { data: "mobile" },
-        { data: "group_id" },
+        { data: "name" },
     ],
 });
 
