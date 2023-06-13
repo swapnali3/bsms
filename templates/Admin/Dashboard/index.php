@@ -289,8 +289,7 @@
                   <th>
                     <input class="" type="checkbox" value="" id="all">
                   </th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
+                  <th>Full Name</th>
                   <th>Username</th>
                   <th>Mobile No</th>
                   <th>Role</th>

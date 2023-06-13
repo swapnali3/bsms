@@ -385,9 +385,9 @@ switch ($vendorTemp->status) {
 <script>
     $(document).ready(function () {
        
-        $(".reject").onClick(function () {
+        // $(".reject").onClick(function () {
 
-        });
+        // });
         // var interval = $("#flashMessage").attr("data-timeout");
 
     });
