@@ -628,7 +628,7 @@
         submitHandler: function (form) {
             $.ajax({
                 type: "POST",
-                url: "http://localhost/bsms/admin/dashboard/userAdd",
+                 url :"<?php echo \Cake\Routing\Router::url(array('controller' => '/dashboard', 'action' => 'user-add')); ?>",
                 data: $("#userForm").serialize(),
                 dataType: "json",
                 success: function(response) {
