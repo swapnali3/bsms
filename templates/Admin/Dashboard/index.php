@@ -563,3 +563,6 @@
     </div>
   </div>
 </div>
+<script>
+  var userurl = '<?= $this->Url->build(['controller' => 'dashboard','action' => 'userView']); ?>';
+</script>

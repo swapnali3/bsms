@@ -50,8 +50,8 @@ function hideframes() {
 
 $('#adminuserview').DataTable({
     ajax: {
-        url: 'http://localhost/bsms/admin/dashboard/userView',
-        dataSrc: '',
+        url: userurl,
+        dataSrc: "",
     },
     columns: [
         { data: 'fullname' },
