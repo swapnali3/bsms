@@ -36,4 +36,54 @@ INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VA
 INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VALUES ('6', 'Create_Update', '6');
 INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VALUES ('7', 'View_Create_Update', '7');
 
-you are not auth
+========= Notification Trigger for create schedule =========
+CREATE DEFINER=`root`@`localhost` TRIGGER `po_item_schedules_AFTER_INSERT` AFTER INSERT ON `po_item_schedules` FOR EACH ROW BEGIN
+    DECLARE v_buyer_id INT;
+    
+    -- Retrieve the buyer_id from the vendor_temp table based on sap_vendor_code
+    SELECT buyer_id INTO v_buyer_id FROM vendor_temps a
+    LEFT JOIN po_headers b ON a.sap_vendor_code = b.sap_vendor_code
+    WHERE b.id = NEW.po_header_id
+    LIMIT 1;
+    
+    IF v_buyer_id IS NOT NULL THEN
+        -- Check if a record exists in notifications table for the given user_id and notification_type
+        IF EXISTS (SELECT 1 FROM notifications WHERE user_id = v_buyer_id AND notification_type = 'create_schedule') THEN
+            -- Update the existing record with the incremented message_count
+            UPDATE notifications
+            SET message_count = message_count + 1
+            WHERE user_id = v_buyer_id AND notification_type = 'create_schedule';
+        ELSE
+            -- Insert a new record with message_count = 1
+            INSERT INTO notifications (message_count, user_id, notification_type, created_at)
+            VALUES (1, v_buyer_id, 'create_schedule', NOW());
+        END IF;
+    END IF;
+END
+
+
+// ========== Notificatio trigger for create asn ========================
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `asn_headers_AFTER_IN` AFTER INSERT ON `asn_headers` FOR EACH ROW BEGIN
+    DECLARE v_buyer_id INT;
+    
+    -- Retrieve the buyer_id from the vendor_temp table based on sap_vendor_code
+    SELECT buyer_id INTO v_buyer_id FROM vendor_temps a
+    LEFT JOIN po_headers b ON a.sap_vendor_code = b.sap_vendor_code
+    WHERE b.id = NEW.po_header_id
+    LIMIT 1;
+    
+    IF v_buyer_id IS NOT NULL THEN
+        -- Check if a record exists in notifications table for the given user_id and notification_type
+        IF EXISTS (SELECT 1 FROM notifications WHERE user_id = v_buyer_id AND notification_type = 'asn_material') THEN
+            -- Update the existing record with the incremented message_count
+            UPDATE notifications
+            SET message_count = message_count + 1
+            WHERE user_id = v_buyer_id AND notification_type = 'asn_material';
+        ELSE
+            -- Insert a new record with message_count = 1
+            INSERT INTO notifications (message_count, user_id, notification_type, created_at)
+            VALUES (1, v_buyer_id, 'asn_material', NOW());
+        END IF;
+    END IF;
+END

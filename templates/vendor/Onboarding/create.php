@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\VendorTemp $vendorTemp
+ * @var \App\Model\Entity\vendorTemp $vendorTemp
  * @var string[]|\Cake\Collection\CollectionInterface $purchasingOrganizations
  * @var string[]|\Cake\Collection\CollectionInterface $accountGroups
  * @var string[]|\Cake\Collection\CollectionInterface $schemaGroups
@@ -31,10 +32,12 @@
     img.vekpro-logo {
         width: 100px;
     }
+
     .info-msg {
-    padding-left: 5px;
-    font-size: 12px;
-}
+        padding-left: 5px;
+        font-size: 12px;
+    }
+
     img.ft-icon {
         width: 40px;
         margin-right: -5px;
@@ -77,7 +80,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <?= $this->Form->create($vendorTemp, ['type' => 'file']) ?>
+                    <?= $this->Form->create($vendorTemp, ['type' => 'file', 'id' => 'onbordingSubmit']) ?>
                     <div class="row">
 
                         <div class="col-3 mt-3 col-md-4">
@@ -108,19 +111,27 @@
                     </div>
                     <div class="row">
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('address', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('address', ['class' => 'form-control']); ?>
+                            </div>
+
                         </div>
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('address_2', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('address_2', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
 
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('city', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('city', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
 
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
-                            
+                            <div class="form-group">
+                                <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                            </div>
                         </div>
 
 
@@ -128,10 +139,14 @@
 
                     <div class="row">
                         <div class="col-3 mt-3 col-md-3">
-                            <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
                         <div class="col-3 mt-3 col-md-3">
-                        <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                            </div>
                         </div>
                         <div class="col-3 mt-3">
                             <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
@@ -147,37 +162,55 @@
                     </div>
                     <div class="row">
                         <div class="col-3 mt-3">
-                            <?php echo $this->Form->control('tan_no', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('tan_no', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
 
                         <div class="col-3 mt-3">
-                            <?php echo $this->Form->control('cin_no', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('cin_no', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
                         <div class="col-3 mt-3">
-                            <?php echo $this->Form->control('gst_no', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('gst_no', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
 
                         <div class="col-3 mt-3">
-                            <?php echo $this->Form->control('pan_no', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('pan_no', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-3 mt-3">
-                            <?php echo $this->Form->control('contact_person', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('contact_person', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
 
                         <div class="col-3 mt-3">
-                            <?php echo $this->Form->control('contact_email', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('contact_email', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
 
                         <div class="col-3 mt-3">
-                            <?php echo $this->Form->control('contact_mobile', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('contact_mobile', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
                         <div class="col-3 mt-3">
-                            <?php echo $this->Form->control('contact_department', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('contact_department', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
                         <div class="col-3 mt-3">
-                            <?php echo $this->Form->control('contact_designation', ['class' => 'form-control']); ?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('contact_designation', ['class' => 'form-control']); ?>
+                            </div>
                         </div>
 
                     </div>
@@ -210,7 +243,138 @@
     </div>
 </div>
 <script>
-    $(function () {
+    $(function() {
         $('.my-select').selectpicker();
+    });
+    $(document).ready(function() {
+        $("#onbordingSubmit").validate({
+            rules: {
+                address: {
+                    required: true
+                },
+                // address_2: {
+                //     required: true
+                // },
+                city: {
+                    required: true
+                },
+                state: {
+                    required: true
+                },
+                pincode: {
+                    required: true,
+                    digits: true
+                },
+                country: {
+                    required: true
+                },
+                payment_term: {
+                    required: true
+                },
+                order_currency: {
+                    required: true
+                },
+                tan_no: {
+                    required: true
+                },
+                cin_no: {
+                    required: true
+                },
+                gst_no: {
+                    required: true
+                },
+                pan_no: {
+                    required: true
+                },
+                contact_person: {
+                    required: true
+                },
+                contact_email: {
+                    required: true,
+                    email: true,
+                },
+                contact_mobile: {
+                    required: true,
+                    number: true,
+                    minlength: 10,
+                    maxlength: 10
+
+                },
+                contact_department: {
+                    required: true
+                },
+                contact_designation: {
+                    required: true
+                }
+            },
+
+            messages: {
+                address: {
+                    required: "Please enter a Address",
+                },
+                // address_2: {
+                //     required: "Please enter a Address2",
+                // },
+                city: {
+                    required: "Please enter a city",
+                },
+                state: {
+                    required: "Please enter a state",
+                },
+                pincode: {
+                    required: "Please enter a pincode",
+                    digits: true,
+                },
+                country: {
+                    required: "Please enter a country",
+                },
+                tan_no: {
+                    required: "Please enter a tan no",
+                },
+                cin_no: {
+                    required: "Please enter a cin no",
+                },
+                gst_no: {
+                    required: "Please enter a gst no",
+                },
+                pan_no: {
+                    required: "Please enter a pam no",
+                },
+                contact_person: {
+                    required: "Please enter a contact person",
+                },
+                contact_email: {
+                    required: "Please enter a contact email",
+                    email: "Please enter a valid email address",
+                },
+                contact_mobile: {
+                    required: "Please enter a contact mobile",
+                    number: "Please enter a valid mobile number",
+                },
+                contact_department: {
+                    required: "Please enter a contact department",
+                },
+                contact_designation: {
+                    required: "Please enter a contact designation",
+                },
+            },
+            errorElement: "span",
+            errorPlacement: function(error, element) {
+                error.addClass("invalid-feedback");
+                element.closest(".form-group").append(error);
+            },
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).removeClass("is-invalid");
+            },
+            submitHandler: function(form, event) {
+                event.preventDefault();
+                $("#onbordingSubmit")[0].submit();
+
+                return false;
+            },
+        });
     });
 </script>
