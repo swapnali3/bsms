@@ -59,35 +59,47 @@
                     <th><?= h('Email') ?></th>
                     <th><?= h('Mobile') ?></th>
                     <th><?= h('Status') ?></th>
-                    <th><?= h('Action') ?></th>     
+                    <th><?= h('Action') ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($vendorData as $vendorTemp) :
-                 if($vendorTemp->status == "1"){
-                    $action = '<span class="badge bg-info">Notification</span>';
-                 }else {
-                    $action = '<span class="badge bg-warning">Notification</span>';
-                 }
+                <?php if (isset($vendorData)) : ?>
+                    <?php foreach ($vendorData as $vendorTemp) :
+                        if ($vendorTemp->status == "1") {
+                            $action = '<span class="badge bg-info">Notification</span>';
+                        } else {
+                            $action = '<span class="badge bg-warning">Notification</span>';
+                        }
 
-                 switch($vendorTemp->status) {
-                    case 0 : $status = 'Sent to Vendor'; break;
-                    case 1 : $status = 'Pending for approval'; break;
-                    case 2 : $status = 'Sent to SAP'; break;
-                    case 3 : $status = 'Approved'; break;
-                    case 4 : $status = 'Rejected'; break;
-                }
-                  
-                ?>
-                    <tr>
-                        <td><?= h($vendorTemp->name) ?></td>
-                        <td><?= h($vendorTemp->email) ?></td>
-                        <td><?= h($vendorTemp->mobile) ?></td>
-                        <td><?= $status ?></td>
-                        <td><?= $action ?></td>
-                        
-                    </tr>
-                <?php endforeach; ?>
+                        switch ($vendorTemp->status) {
+                            case 0:
+                                $status = 'Sent to Vendor';
+                                break;
+                            case 1:
+                                $status = 'Pending for approval';
+                                break;
+                            case 2:
+                                $status = 'Sent to SAP';
+                                break;
+                            case 3:
+                                $status = 'Approved';
+                                break;
+                            case 4:
+                                $status = 'Rejected';
+                                break;
+                        }
+
+                    ?>
+                        <tr>
+                            <td><?= h($vendorTemp->name) ?></td>
+                            <td><?= h($vendorTemp->email) ?></td>
+                            <td><?= h($vendorTemp->mobile) ?></td>
+                            <td><?= $status ?></td>
+                            <td><?= $action ?></td>
+
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </tbody>
         </table>
     </div>
@@ -116,8 +128,8 @@
         //     window.location = $(this).closest('tr').attr('redirect');
         // });
 
-        
 
-        
+
+
     });
 </script>
