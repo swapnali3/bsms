@@ -548,27 +548,18 @@
   $(document).ready(function() {
     $("#adminuserview").DataTable({
       ajax: {
-        url: '<?php echo \Cake\Routing\Router::url(array('controller' => '/dashboard', 'action' => 'user-view')); ?>',
+        url: '<?php echo \Cake\Routing\Router::url(array('controller' => '/dashboard', 'action' => 'user-view'));?>',
         dataSrc: "",
       },
-      columns: [{
-          data: null,
+      columns: [
+        {data: null,
           render: function(data, type, row) {
             return '<input type="checkbox" value="' + row.id + '">';
-          },
-        },
-        {
-          data: "fullname"
-        },
-        {
-          data: "username"
-        },
-        {
-          data: "mobile"
-        },
-        {
-          data: "name"
-        },
+          },},
+        {data: "fullname"},
+        {data: "username"},
+        {data: "mobile"},
+        {data: "name"},
       ],
     });
 

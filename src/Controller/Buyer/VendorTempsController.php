@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Buyer;
@@ -8,6 +9,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Http\Client;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
  * VendorTemps Controller
@@ -33,16 +35,15 @@ class VendorTempsController extends BuyerAppController
         $vendorTemps = $this->paginate($this->VendorTemps);
 
         $session = $this->getRequest()->getSession();
-                
+
         $userId =  $session->read('id');
- 
+
         $this->loadModel('Notifications');
         $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
         $count = $notificationCount->rowCount();
-    
 
-        $this->set(compact('vendorTemps','notificationCount','count'));
 
+        $this->set(compact('vendorTemps', 'notificationCount', 'count'));
     }
 
 
@@ -54,25 +55,25 @@ class VendorTempsController extends BuyerAppController
 
         $response['status'] = 0;
         $response['message'] = 'no records';
-        if($term != null) {
+        if ($term != null) {
             $this->loadModel("VendorTemps");
 
             $vendors = $this->VendorTemps->find()
-            ->select(['id', 'name', 'city', 'email', 'mobile'])
-            ->where(["name like '%$term%'"])
-            ->order(['name asc'])->all();
+                ->select(['id', 'name', 'city', 'email', 'mobile'])
+                ->where(["name like '%$term%'"])
+                ->order(['name asc'])->all();
 
-            foreach($vendors as $vendor) {
+            foreach ($vendors as $vendor) {
                 $tmp = array();
                 $tmp['id'] = $vendor->id;
-                $tmp['value'] = $vendor->name .' ('. $vendor->city.')';
+                $tmp['value'] = $vendor->name . ' (' . $vendor->city . ')';
                 //$tmp['email'] = $vendor->email;
                 //$tmp['mobile'] = $vendor->mobile;
                 $list[] = $tmp;
             }
         }
 
-        if(count($list)) {
+        if (count($list)) {
             $response['status'] = 1;
             $response['message'] = 'success';
             $response['data'] = $list;
@@ -99,12 +100,12 @@ class VendorTempsController extends BuyerAppController
         $session = $this->getRequest()->getSession();
 
         $userId =  $session->read('id');
- 
+
         $this->loadModel('Notifications');
         $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
         $count = $notificationCount->rowCount();
-    
-        $this->set(compact('vendorTemp','notificationCount','count'));
+
+        $this->set(compact('vendorTemp', 'notificationCount', 'count'));
     }
 
     /**
@@ -117,12 +118,12 @@ class VendorTempsController extends BuyerAppController
         $session = $this->getRequest()->getSession();
 
         $userId =  $session->read('id');
- 
+
         $this->loadModel('Notifications');
         $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
         $count = $notificationCount->rowCount();
-        
-        $this->set(compact('notificationCount','count'));
+
+        $this->set(compact('notificationCount', 'count'));
         $this->set('headTitle', 'Create Vendor');
         $this->loadModel("VendorTemps");
         $this->loadModel("PaymentTerms");
@@ -133,41 +134,35 @@ class VendorTempsController extends BuyerAppController
             $data['valid_date'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +1 day'));;
 
             $existingVendor = $this->VendorTemps->find()
-            ->where(['OR' => ['email' => $data['email'], 'mobile' => $data['mobile']]])
-            ->first();
-    
-        if ($existingVendor) {
-            $this->Flash->error(__('Email or mobile number already exists'));
-            //return $this->redirect(['action' => 'add']);
-        }
-        else{
-            $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
-            //echo '<pre>'; print_r($data); exit;
-             if ($this->VendorTemps->save($vendorTemp)) {
-                 $quryString = $data['email'].'||'.$vendorTemp->id;
-                 $link = Router::url(['controller' => '../vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
- 
-                 $mailer = new Mailer('default');
-                 $mailer
-                     ->setTransport('smtp')
-                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                     ->setTo($data['email'])
-                     ->setEmailFormat('html')
-                     ->setSubject('Verify New Account')
-                     ->deliver('Hi '.$data['name'].'<br/>Welcome to Vendor portal. <br/>' . $link);
- 
-                 $this->Flash->success(__('The vendor has been initiated'));
- 
-                 return $this->redirect(['action' => 'index']);
-             }
- 
-             $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
-                     
-       
-            
-        }
-    
-          
+                ->where(['OR' => ['email' => $data['email'], 'mobile' => $data['mobile']]])
+                ->first();
+
+            if ($existingVendor) {
+                $this->Flash->error(__('Email or mobile number already exists'));
+                //return $this->redirect(['action' => 'add']);
+            } else {
+                $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
+                //echo '<pre>'; print_r($data); exit;
+                if ($this->VendorTemps->save($vendorTemp)) {
+                    $quryString = $data['email'] . '||' . $vendorTemp->id;
+                    $link = Router::url(['controller' => '../vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+
+                    $mailer = new Mailer('default');
+                    $mailer
+                        ->setTransport('smtp')
+                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                        ->setTo($data['email'])
+                        ->setEmailFormat('html')
+                        ->setSubject('Verify New Account')
+                        ->deliver('Hi ' . $data['name'] . '<br/>Welcome to Vendor portal. <br/>' . $link);
+
+                    $this->Flash->success(__('The vendor has been initiated'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+
+                $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
+            }
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
@@ -184,23 +179,55 @@ class VendorTempsController extends BuyerAppController
         $session = $this->getRequest()->getSession();
 
         $userId =  $session->read('id');
- 
+
         $this->loadModel('Notifications');
         $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
         $count = $notificationCount->rowCount();
-        
-        $this->set(compact('notificationCount','count'));
+
+        $this->set(compact('notificationCount', 'count'));
 
         $this->set('headTitle', 'Import SAP Vendor');
         $this->loadModel("VendorTemps");
-        
+
         if ($this->request->is('post')) {
 
             $vendorCode = trim($this->request->getData('sap_vendor_code'));
+            $importFile = $this->request->getData('vendor_code');
+            if ($importFile !== null && isset($_FILES['vendor_code']['name'])) {
 
-            if(!empty($vendorCode)) {
+                $destination = "uploads/";
+                $filename = $_FILES['vendor_code']['name'];
+                $path = $destination . $filename;
 
-                if(!$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $vendorCode])) {
+                move_uploaded_file($_FILES['vendor_code']['tmp_name'], $path);
+
+                $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($path);
+                $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                $spreadsheet = $reader->load($path);
+
+                $worksheet = $spreadsheet->getActiveSheet();
+                $vendorCodes = [];
+
+                foreach ($worksheet->getRowIterator() as $row) {
+                    foreach ($row->getCellIterator() as $cell) {
+                        $vendorCode1 = $cell->getValue();
+                        $vendorCodes[] = $vendorCode1;
+                    }
+                }
+
+
+                $query = $this->VendorTemps->find()
+                    ->where(['VendorTemps.sap_vendor_code IN' => $vendorCodes]);
+                $VendorTemps = $this->paginate($query);
+                       
+                $this->set('vendorData', $VendorTemps);
+            }
+
+
+
+            if (!empty($vendorCode) == "") {
+
+                if (!$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $vendorCode])) {
                     $data['DATA'] = array();
                     $data['DATA']['LIFNR'] = $vendorCode;
 
@@ -211,12 +238,12 @@ class VendorTempsController extends BuyerAppController
                         ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
                     );
 
-                    if($response->isOk()) {
+                    if ($response->isOk()) {
                         $result = json_decode($response->getStringBody());
 
                         //print_r($result);
 
-                        if($result->RESPONSE->SUCCESS) {
+                        if ($result->RESPONSE->SUCCESS) {
                             $vendorTemp = $this->VendorTemps->newEmptyEntity();
                             $resultResponse = json_decode($result->RESPONSE->DATA);
 
@@ -237,7 +264,7 @@ class VendorTempsController extends BuyerAppController
                             $data['status'] = 3;
 
                             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
-                            
+
                             try {
                                 if ($this->VendorTemps->save($vendorTemp)) {
                                     $this->Flash->success(__('The Vendor successfully added'));
@@ -248,9 +275,8 @@ class VendorTempsController extends BuyerAppController
                         }
                     }
                 } else {
-                    $this->Flash->error(__('Vendor Already Exists for SAP code - '.$vendorCode));
+                    $this->Flash->error(__('Vendor Already Exists for SAP code - ' . $vendorCode));
                 }
-
             } else {
                 $this->Flash->error(__('Please enter valid SAP Vendor Code'));
             }
@@ -306,11 +332,11 @@ class VendorTempsController extends BuyerAppController
     }
 
     public function approveVendor($id = null, $action = null)
-    {   
+    {
         $this->loadModel("VendorTemps");
         $vendor = $this->VendorTemps->get($id);
 
-        if($action == 'rej') {
+        if ($action == 'rej') {
             if ($this->request->is(['patch', 'post', 'put'])) {
                 $remarks = $this->request->getData('remarks');
                 $vendor->status = 4;
@@ -320,14 +346,14 @@ class VendorTempsController extends BuyerAppController
             } else {
                 $this->Flash->success(__('Issue in vendor rejection'));
             }
-            
+
             return $this->redirect(['action' => 'view', $id]);
         }
 
-        if($action == 'app') {
+        if ($action == 'app') {
             $vendor->status = 2;
         }
-        
+
         if ($this->VendorTemps->save($vendor)) {
 
             //echo '<pre>'; print_r($vendor);
@@ -336,8 +362,8 @@ class VendorTempsController extends BuyerAppController
 
             $data['DATA']['LIFNR'] = $vendor->sap_vendor_code;
             $data['DATA']['BUKRS'] = '1000';
-            $data['DATA']['EKORG'] = '1000';//$vendor->purchasing_organization_id;
-            $data['DATA']['KTOKK'] = 'ZZ01';//$vendor->account_group_id;
+            $data['DATA']['EKORG'] = '1000'; //$vendor->purchasing_organization_id;
+            $data['DATA']['KTOKK'] = 'ZZ01'; //$vendor->account_group_id;
             $data['DATA']['TITLE_MEDI'] = 'MR.';
             $data['DATA']['NAME1'] = $vendor->name;
             $data['DATA']['NAME2'] = $vendor->name;
@@ -359,28 +385,29 @@ class VendorTempsController extends BuyerAppController
 
             $http = new Client();
             $response = $http->post(
-                    'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
-                    json_encode($data),
-                    ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
+                'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
+                json_encode($data),
+                ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
             );
 
             //echo '<pre>'; print_r($data);
             //echo '<pre>'; print_r($response->isOk()); 
-            
 
-            if($response->isOk()) {
+
+            if ($response->isOk()) {
                 $result = json_decode($response->getStringBody());
 
-                if($result->RESPONSE->SUCCESS) {
+                if ($result->RESPONSE->SUCCESS) {
 
                     $resultResponse = json_decode($result->RESPONSE->DATA);
                     $newVendorCode = trim($resultResponse->DATA->LIFNR);
 
-                    if(!empty($newVendorCode)) {
+                    if (!empty($newVendorCode)) {
                         $this->loadModel("Users");
                         $adminUser = $this->Users->newEmptyEntity();
-                        echo '<pre>'; print_r($adminUser);
-                        
+                        echo '<pre>';
+                        print_r($adminUser);
+
                         $data = array();
                         $data['first_name'] = $vendor->name;
                         $data['last_name'] = $vendor->name;
@@ -389,12 +416,12 @@ class VendorTempsController extends BuyerAppController
                         $data['password'] = $vendor->mobile;
                         $data['group_id'] = 3;
 
-                         
-                        
+
+
                         $adminUser = $this->Users->patchEntity($adminUser, $data);
 
                         // echo '<pre>'; print_r($adminUser);exit;
-                        
+
 
                         if ($this->Users->save($adminUser)) {
                             $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
@@ -405,10 +432,9 @@ class VendorTempsController extends BuyerAppController
                                 ->setTo($data['username'])
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Account created')
-                                ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
-                                '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
-                            
-                        } 
+                                ->deliver('Hi ' . $data['first_name'] . ' <br/>Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
+                                    '<br/>Password:' . $data['password'] . '<br/> <a href="' . $link . '">Click here</a>');
+                        }
                     }
 
                     //echo '<pre>'; print_r($resultResponse); exit;
@@ -417,7 +443,6 @@ class VendorTempsController extends BuyerAppController
                     $this->VendorTemps->save($vendor);
                     $this->redirect(['action' => 'index',]);
                     $this->Flash->success(__('The Vendor successfully approved', array('action' => 'index'), 30));
-
                 }
                 //echo '<pre>'; print_r($result->RESPONSE); exit;
                 //echo '<pre>'; print_r($response->getStringBody()); exit;
@@ -430,6 +455,4 @@ class VendorTempsController extends BuyerAppController
 
         return $this->redirect(['action' => 'view', $id]);
     }
-
-
 }
