@@ -546,4 +546,5 @@
 
 <script>
   var userurl = '<?= $this->Url->build(['controller' => 'dashboard','action' => 'userView']); ?>';
+  var useraddurl = '<?= $this->Url->build(['controller' => 'dashboard','action' => 'userAdd']); ?>';
 </script>

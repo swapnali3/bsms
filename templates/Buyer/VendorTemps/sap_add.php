@@ -39,10 +39,6 @@
                     <div class="col-sm-2 col-md-2 mt-3">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom']) ?>
                     </div>
-
-
-
-
                 </div>
                 <?= $this->Form->end() ?>
             </div>
@@ -66,7 +62,7 @@
                 <?php if (isset($vendorData)) : ?>
                     <?php foreach ($vendorData as $vendorTemp) :
                         if ($vendorTemp->status == "1") {
-                            $action = '<span class="badge bg-info">Notification</span>';
+                            $action = '<span class="badge bg-info">View</span>';
                         } else {
                             $action = '<span class="badge bg-warning">Notification</span>';
                         }
@@ -90,7 +86,7 @@
                         }
 
                     ?>
-                        <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">
+                           <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp->id) ?>">
                             <td><?= h($vendorTemp->name) ?></td>
                             <td><?= h($vendorTemp->email) ?></td>
                             <td><?= h($vendorTemp->mobile) ?></td>

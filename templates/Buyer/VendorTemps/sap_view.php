@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp $vendorTemp
@@ -6,6 +7,7 @@
 
 
 switch ($vendorTemp->status) {
+
     case 0:
         $status = '<span class="badge bg-warning">Sent to Vendor</span>';
         break;
@@ -21,7 +23,6 @@ switch ($vendorTemp->status) {
     case 4:
         $status = '<span class="badge bg-danger">Rejected</span>';
         break;
-
 }
 
 ?>
@@ -48,11 +49,15 @@ switch ($vendorTemp->status) {
                     </h5>
                     <div class="">
                         <div class="text">
-                            <?php if ($vendorTemp->status == 1): ?>
 
-                                <button type="button" class="btn btn-success btn-sm mb-0" data-toggle="modal"
-                                    data-target="#modal-sm">
-                                    Approve
+                            <?= $this->Html->link(__('Edit'), '#', ['class' => 'btn btn-info edit-button mb-0 btn-sm']) ?>
+
+                            <?= $this->Html->link(__('Update'), '#', ['class' => 'btn btn-info update-button mb-0 btn-sm', 'style' => 'display:none', 'id' => $vendorTemp->id]) ?>
+
+                            <?php if ($vendorTemp->status == 1) : ?>
+
+                                <button type="button" class="btn btn-success btn-sm mb-0" data-toggle="modal" data-target="#modal-sm">
+                                Approve
                                 </button>
                                 <!-- modal -->
                                 <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
@@ -62,23 +67,25 @@ switch ($vendorTemp->status) {
                                                 <h6>Are you sure you want to aprrove?</h6>
                                             </div>
                                             <div class="modal-footer justify-content-between p-1">
-                                                <button type="button" class="btn btn-link"
-                                                    data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                                                 <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
                                             </div>
                                         </div>
                                     </div>
 
                                 </div>
+                                <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject mb-0 btn-sm', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
                                 <!-- end modal -->
 
-                                <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject mb-0 btn-sm', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
                             <?php endif; ?>
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            <?= $this->Form->create(null, ['id' => 'userForm']) ?>
+            <input type="hidden" name="">
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
@@ -137,7 +144,11 @@ switch ($vendorTemp->status) {
                                         <?= __('Email Id') ?>
                                     </th>
                                     <td>
-                                        <?= h($vendorTemp->email) ?>
+
+                                        <span class="email-text"><?= h($vendorTemp->email) ?></span>
+
+                                        <input type="email" style="display: none;" name="email" required value="<?= h($vendorTemp->email) ?>" placeholder="Enter email">
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -196,7 +207,7 @@ switch ($vendorTemp->status) {
                                 <h6 class="text-info mb-2 pl-2">Uploaded Documents</h6>
                                 <table class="table docs-list vendor-info table-bordered">
                                     <tbody>
-                                        <?php if ($vendorTemp->gst_file): ?>
+                                        <?php if ($vendorTemp->gst_file) : ?>
                                             <tr>
                                                 <td>GST NO</td>
                                                 </td>
@@ -205,7 +216,7 @@ switch ($vendorTemp->status) {
                                                 </td>
                                             </tr>
                                         <?php endif; ?>
-                                        <?php if ($vendorTemp->pan_file): ?>
+                                        <?php if ($vendorTemp->pan_file) : ?>
                                             <tr>
                                                 <td>Pan card</td>
                                                 <td>
@@ -213,7 +224,7 @@ switch ($vendorTemp->status) {
                                                 </td>
                                             </tr>
                                         <?php endif ?>
-                                        <?php if ($vendorTemp->bank_file): ?>
+                                        <?php if ($vendorTemp->bank_file) : ?>
                                             <tr>
                                                 <td>Bank Documents</td>
                                                 <td>
@@ -258,7 +269,12 @@ switch ($vendorTemp->status) {
                                         <?= __('Mobile') ?>
                                     </th>
                                     <td>
-                                        <?= h($vendorTemp->mobile) ?>
+
+                                        <span class="mobile-text"><?= h($vendorTemp->mobile) ?></span>
+
+                                        <input type="text" style="display: none;" name="mobile" required value="<?= h($vendorTemp->mobile) ?>">
+
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -348,14 +364,14 @@ switch ($vendorTemp->status) {
                 </div>
 
             </div>
+            <?= $this->Form->end() ?>
 
         </div>
     </div>
 </div>
 
 <!-- Modal Reject remarks-->
-<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
 
         <div class="modal-content">
@@ -383,12 +399,76 @@ switch ($vendorTemp->status) {
     </div>
 </div>
 <script>
-    $(document).ready(function () {
-       
-        // $(".reject").onClick(function () {
+    $(document).ready(function() {
 
-        // });
-        // var interval = $("#flashMessage").attr("data-timeout");
+
+        $('.edit-button').click(function() {
+
+
+            var $editButton = $(this);
+            var $emailText = $('.email-text');
+            var $mobileText = $('.mobile-text');
+            var $emailInput = $('input[name="email"]');
+            var $mobileInput = $('input[name="mobile"]');
+
+            if ($editButton.text() === 'Edit') {
+                $emailText.hide();
+                $mobileText.hide();
+                $emailInput.val($emailText.text()).show();
+                $mobileInput.val($mobileText.text()).show();
+                $editButton.hide();
+                $('.update-button').show();
+            } else {
+
+
+                $emailText.text($emailInput.val()).show();
+                $mobileText.text($mobileInput.val()).show();
+                $emailInput.hide();
+                $mobileInput.hide();
+                $editButton.text('Edit');
+            }
+        });
+
+        var Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+        });
+
+        $('.update-button').click(function() {
+            $vendorId = $('.update-button').attr('id');
+            $.ajax({
+                type: "POST",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/vendorTemps', 'action' => 'sap-edit')); ?>/" + $vendorId,
+                data: $("#userForm").serialize(),
+
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                    if (response.status == "1") {
+                        Toast.fire({
+                            icon: "success",
+                            title: response.message,
+                        });
+                        // form.submit();
+                        $('.email-text').show();
+                        $('.mobile-text').show();
+                        $('input[name="email"]').val($('.email-text').text()).hide();
+                        $('input[name="mobile"]').val($('.mobile-text').text()).hide();
+                        $('.edit-button').show();
+                        $('.update-button').hide();
+                    } else {
+                        Toast.fire({
+                            icon: "error",
+                            title: response.message,
+                        });
+                    }
+                },
+            });
+
+
+        });
 
     });
 </script>
