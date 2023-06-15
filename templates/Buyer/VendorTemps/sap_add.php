@@ -90,7 +90,7 @@
                         }
 
                     ?>
-                        <tr>
+                        <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">
                             <td><?= h($vendorTemp->name) ?></td>
                             <td><?= h($vendorTemp->email) ?></td>
                             <td><?= h($vendorTemp->mobile) ?></td>
@@ -124,9 +124,9 @@
             },
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         });
-        // $('#example1').on('click', 'tbody tr', function() {
-        //     window.location = $(this).closest('tr').attr('redirect');
-        // });
+        $('#example1').on('click', 'tbody tr', function() {
+            window.location = $(this).closest('tr').attr('redirect');
+        });
 
 
 
