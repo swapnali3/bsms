@@ -39,10 +39,6 @@
                     <div class="col-sm-2 col-md-2 mt-3">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom']) ?>
                     </div>
-
-
-
-
                 </div>
                 <?= $this->Form->end() ?>
             </div>
@@ -59,14 +55,14 @@
                     <th><?= h('Email') ?></th>
                     <th><?= h('Mobile') ?></th>
                     <th><?= h('Status') ?></th>
-                    <th><?= h('Action') ?></th>
+                    <!-- <th><?= h('Action') ?></th> -->
                 </tr>
             </thead>
             <tbody>
                 <?php if (isset($vendorData)) : ?>
                     <?php foreach ($vendorData as $vendorTemp) :
                         if ($vendorTemp->status == "1") {
-                            $action = '<span class="badge bg-info">Notification</span>';
+                            $action = '<span class="badge bg-info">View</span>';
                         } else {
                             $action = '<span class="badge bg-warning">Notification</span>';
                         }
@@ -90,12 +86,12 @@
                         }
 
                     ?>
-                        <tr>
+                           <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp->id) ?>">
                             <td><?= h($vendorTemp->name) ?></td>
                             <td><?= h($vendorTemp->email) ?></td>
                             <td><?= h($vendorTemp->mobile) ?></td>
                             <td><?= $status ?></td>
-                            <td><?= $action ?></td>
+                            <!-- <td><?= $action ?></td> -->
 
                         </tr>
                     <?php endforeach; ?>
@@ -124,9 +120,9 @@
             },
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         });
-        // $('#example1').on('click', 'tbody tr', function() {
-        //     window.location = $(this).closest('tr').attr('redirect');
-        // });
+        $('#example1').on('click', 'tbody tr', function() {
+            window.location = $(this).closest('tr').attr('redirect');
+        });
 
 
 

@@ -51,18 +51,101 @@ function hideframes() {
 //     ],
 // });
 
-
-$(document).ready(function () {
-
-
-    // $("#userForm").submit(function (e) {
-    //     e.preventDefault();
-    //     $.validator.setDefaults({
-    //         submitHandler: function () {
-    //             var formdatas = new FormData($("#userForm")[0]);
-
-
-    //         },
-    //     });
-    // });
+$('#adminuserview').DataTable({
+    ajax: {
+        url: userurl,
+        dataSrc: "",
+    },
+    columns: [
+        { data: 'fullname' },
+        { data: 'username' },
+        { data: 'mobile' },
+        { data: 'name' },
+    ],
 });
+
+$(document).ready(function() {
+    $("#userForm").validate({
+        rules: {
+            first_name: {
+                required: true,
+            },
+            last_name: {
+                required: true,
+            },
+            username: {
+                required: true,
+                email: true,
+            },
+            mobile: {
+                required: true,
+                number: true,
+                minlength: 10,
+                maxlength: 10,
+            },
+            group_id: {
+                required: true,
+            },
+        },
+        messages: {
+            first_name: {
+                required: "Please enter a first name",
+            },
+            last_name: {
+                required: "Please enter a last name",
+            },
+            username: {
+                required: "Please enter an email",
+                email: "Please enter a valid email address",
+            },
+            mobile: {
+                required: "Please enter a mobile number",
+                number: "Please enter a valid mobile number",
+            },
+            group_id: {
+                required: "Please select a user group",
+            },
+        },
+        errorElement: "span",
+        errorPlacement: function (error, element) {
+            error.addClass("invalid-feedback");
+            element.closest(".form-group").append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass("is-invalid");
+        },
+        submitHandler: function (form) {
+            $.ajax({
+                type: "POST",
+                url: useraddurl,
+                data: $("#userForm").serialize(),
+                dataType: "json",
+                success: function(response) {
+                  console.log(response);
+                  if (response.status == "1") {
+                    Toast.fire({
+                      icon: "success",
+                      title: response.message,
+                    });
+                    form.submit(); // Submit the form without referencing the current page
+                  } else {
+                    Toast.fire({
+                      icon: "error",
+                      title: response.message,
+                    });
+                  }
+                },
+              });
+        },
+    });
+
+    var Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+    });
+  });
