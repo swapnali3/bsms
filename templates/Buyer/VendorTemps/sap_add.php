@@ -55,7 +55,7 @@
                     <th><?= h('Email') ?></th>
                     <th><?= h('Mobile') ?></th>
                     <th><?= h('Status') ?></th>
-                    <th><?= h('Action') ?></th>
+                    <!-- <th><?= h('Action') ?></th> -->
                 </tr>
             </thead>
             <tbody>
@@ -91,7 +91,7 @@
                             <td><?= h($vendorTemp->email) ?></td>
                             <td><?= h($vendorTemp->mobile) ?></td>
                             <td><?= $status ?></td>
-                            <td><?= $action ?></td>
+                            <!-- <td><?= $action ?></td> -->
 
                         </tr>
                     <?php endforeach; ?>
