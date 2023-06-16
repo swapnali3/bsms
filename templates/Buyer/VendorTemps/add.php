@@ -28,7 +28,7 @@
                 
 
                 <div class="col-sm-12 col-lg-3 mt-2 col-md-6">
-                        <?php echo $this->Form->control('name', array('class' => 'form-control rounded-0','placeholder'=>'Please Enter Name','div' => 'form-group'));?>
+                        <?php echo $this->Form->control('name', array('class' => 'form-control rounded-0','label'=>'Full Name','placeholder'=>'Please Enter Full Name','div' => 'form-group'));?>
                     </div>
                     <div class="col-sm-12 col-lg-3 mt-2 col-md-6">
                         <?php echo $this->Form->control('mobile', array('class' => 'form-control rounded-0','placeholder'=>'please enter mobile number','div' => 'form-group'));?>
