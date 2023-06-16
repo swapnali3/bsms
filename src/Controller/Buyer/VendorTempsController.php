@@ -108,11 +108,33 @@ class VendorTempsController extends BuyerAppController
         $this->set(compact('vendorTemp', 'notificationCount', 'count'));
     }
 
+
+
     /**
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
+
+    public function sapView($id = null)
+    {
+        $this->loadModel("VendorTemps");
+        $vendorTemp = $this->VendorTemps->get($id, [
+            'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
+        ]);
+        $this->set('headTitle', 'Vendor Details');
+
+        $session = $this->getRequest()->getSession();
+
+        $userId =  $session->read('id');
+
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
+        $count = $notificationCount->rowCount();
+
+        $this->set(compact('vendorTemp', 'notificationCount', 'count'));
+    }
+
     public function add()
     {
         $session = $this->getRequest()->getSession();
@@ -124,6 +146,7 @@ class VendorTempsController extends BuyerAppController
         $count = $notificationCount->rowCount();
 
         $this->set(compact('notificationCount', 'count'));
+
         $this->set('headTitle', 'Create Vendor');
         $this->loadModel("VendorTemps");
         $this->loadModel("PaymentTerms");
@@ -219,7 +242,7 @@ class VendorTempsController extends BuyerAppController
                 $query = $this->VendorTemps->find()
                     ->where(['VendorTemps.sap_vendor_code IN' => $vendorCodes]);
                 $VendorTemps = $this->paginate($query);
-                       
+
                 $this->set('vendorData', $VendorTemps);
             }
 
@@ -454,5 +477,46 @@ class VendorTempsController extends BuyerAppController
         }
 
         return $this->redirect(['action' => 'view', $id]);
+    }
+
+    public function sapEdit($id = null)
+    {
+
+        $response = array();
+        $response['status'] = '0';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+
+        $this->loadModel("VendorTemps");
+        $vendorTemp = $this->VendorTemps->get($id, [
+            'contain' => [],
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+
+            try {
+                // $vendorTemp = $this->VendorTemps->newEmptyEntity();
+
+                $data = $this->request->getData();
+
+                $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
+
+                if ($this->VendorTemps->save($vendorTemp)) {
+                    
+                    $response['status'] = '1';
+                    $response['message'] = 'Update Successfully';
+                } else {
+                    throw new \Exception('Failed to Add User'); // Throw exception if the 
+                }
+                // print_r($response);exit;
+            } catch (\Exception $e) {
+                $response['status'] = '0';
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+
+        echo json_encode($response);
     }
 }

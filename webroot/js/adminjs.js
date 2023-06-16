@@ -120,7 +120,7 @@ $(document).ready(function() {
         submitHandler: function (form) {
             $.ajax({
                 type: "POST",
-                url: "http://localhost/bsms/admin/dashboard/userAdd",
+                url: useraddurl,
                 data: $("#userForm").serialize(),
                 dataType: "json",
                 success: function(response) {
