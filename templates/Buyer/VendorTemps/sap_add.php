@@ -61,13 +61,13 @@
             <tbody>
                 <?php if (isset($vendorData)) : ?>
                     <?php foreach ($vendorData as $vendorTemp) :
-                        if ($vendorTemp->status == "1") {
-                            $action = '<span class="badge bg-info">View</span>';
-                        } else {
-                            $action = '<span class="badge bg-warning">Notification</span>';
-                        }
+                        if ($vendorTemp[1]->status == "1") { $action = '<span class="badge bg-info">View</span>'; }
+                        else { 
+                            // $action = '<span class="badge bg-warning">Notification</span>';
+                            $action = '';
+                         }
 
-                        switch ($vendorTemp->status) {
+                        switch ($vendorTemp[1]->status) {
                             case 0:
                                 $status = 'Sent to Vendor';
                                 break;
@@ -83,16 +83,28 @@
                             case 4:
                                 $status = 'Rejected';
                                 break;
+                            default:
+                                $status = $vendorTemp[0];
+                                break;
                         }
 
                     ?>
-                           <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp->id) ?>">
-                            <td><?= h($vendorTemp->name) ?></td>
-                            <td><?= h($vendorTemp->email) ?></td>
-                            <td><?= h($vendorTemp->mobile) ?></td>
-                            <td><?= $status ?></td>
-                            <!-- <td><?= $action ?></td> -->
-
+                        <tr>
+                            <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp[1]->id) ?>">
+                                <?= h($vendorTemp->name) ?>
+                            </td>
+                            <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp[1]->id) ?>">
+                                <?= h($vendorTemp->email) ?>
+                            </td>
+                            <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp[1]->id) ?>">
+                                <?= h($vendorTemp->mobile) ?>
+                            </td>
+                            <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp[1]->id) ?>">
+                                <?= $status ?>
+                            </td>
+                            <td>
+                                <?= $action ?>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>

@@ -95,12 +95,12 @@
         </p>
       </a>
       <ul class="nav nav-treeview">
-        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/add" class="nav-link <?= $createvendactive ?>">
+        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/add" class="nav-link <?= $createvendactive ?>">
         <!-- <i class="fa fa-bars nav-icon"></i> -->
         <i class="fa fa-solid fa-plus nav-icon"></i>
             <p>New Vendor</p>
           </a></li>
-        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyervendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>">
+        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>">
         <i class="fa fa-solid fa-plus nav-icon"></i>
             <p>SAP Vendor</p>
           </a></li>
