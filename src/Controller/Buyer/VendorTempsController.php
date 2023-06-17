@@ -274,6 +274,7 @@ class VendorTempsController extends BuyerAppController
                                 array_push($minivendor, $cellval);
                             }
                             if (count($minivendor) > 1){
+                                // print_r($minivendor);exit;
                                 if (!$this->VendorTemps->exists(['VendorTemps.email' => $minivendor[3]]) && !$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $minivendor[0]]) && !$this->VendorTemps->exists(['VendorTemps.mobile' => $minivendor[2]])){
                                     $vendorTemp = $this->VendorTemps->newEmptyEntity();
                                     $vendorTemp->buyer_id = $this->getRequest()->getSession()->read('id');
@@ -501,6 +502,7 @@ class VendorTempsController extends BuyerAppController
                     $vendor->status = 3; //Approved by SAP
                     $vendor->sap_vendor_code = $newVendorCode;
                     $this->VendorTemps->save($vendor);
+                    
                     $this->redirect(['action' => 'index',]);
                     $this->Flash->success(__('The Vendor successfully approved', array('action' => 'index'), 30));
                 }
@@ -553,11 +555,16 @@ class VendorTempsController extends BuyerAppController
 
         echo json_encode($response);
     }
+ 
 }
 
 
+
+
+
+
 function importVendor($vendorCode){
-    $result = false;
+   // $result = false;
     if (!empty($vendorCode) == "") {
         $data['DATA'] = array();
         $data['DATA']['LIFNR'] = $vendorCode;
