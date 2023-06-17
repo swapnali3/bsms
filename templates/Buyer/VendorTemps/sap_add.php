@@ -24,21 +24,23 @@
                     <div class="col-sm-12 col-md-6">
                         <?php echo $this->Form->control('sap_vendor_code', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'autocomplete' => "off")); ?>
                     </div>
+                    <div class="col-sm-2 col-md-2 mt-2">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom mt-4', 'id' => 'cform']) ?>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2 col-md-2 mt-3">
                         <?= $this->Form->control('vendor_code', [
-                            'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'required' => true, 'id' => 'vendorCodeInput'
+                            'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput'
                         ]); ?>
                         <?= $this->Form->button('Import File', [
                             'id' => 'OpenImgUpload',
                             'type' => 'button',
                             'class' => 'd-block btn btn-secondary mb-0 file-upld-btn'
                         ]); ?>
+                        <span id="filessnames"></span>
                     </div>
-                    <div class="col-sm-2 col-md-2 mt-3">
-                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom']) ?>
-                    </div>
+
                 </div>
                 <?= $this->Form->end() ?>
             </div>
@@ -51,48 +53,67 @@
         <table class="table table-hover" id="example1">
             <thead>
                 <tr>
-                    <th><?= h('Name') ?></th>
-                    <th><?= h('Email') ?></th>
-                    <th><?= h('Mobile') ?></th>
-                    <th><?= h('Status') ?></th>
-                    <!-- <th><?= h('Action') ?></th> -->
+                    <th>Vendor Code</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (isset($vendorData)) : ?>
+                   
                     <?php foreach ($vendorData as $vendorTemp) :
-                        if ($vendorTemp->status == "1") {
-                            $action = '<span class="badge bg-info">View</span>';
-                        } else {
-                            $action = '<span class="badge bg-warning">Notification</span>';
+                    //  print_r($vendorTemp[2]["status"]);exit;
+                    
+                        
+                        switch($vendorTemp[2]["status"]) {
+                            case 0 : $status = '<span class="badge bg-warning">Sent to Vendor</span>'; break;
+                            case 1 : $status = '<span class="badge bg-info">Pending for approval</span>'; break;
+                            case 2 : $status = '<span class="badge bg-info">Sent to SAP</span>'; break;
+                            case 3 : $status = '<span class="badge bg-success">Approved</span>'; break;
+                            case 4 : $status = '<span class="badge bg-danger">Rejected</span>'; break;
                         }
+                        ?>
+                        <tr>
+                            <?php if ($vendorTemp[0] == 1) : ?>
+                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp[2]["id"]) ?>">
+                                    <?= h($vendorTemp[2]["sap_vendor_code"]) ?>
+                                </td>
+                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp[2]["id"]) ?>">
+                                    <?= h($vendorTemp[2]["name"]) ?>
+                                </td>
+                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp[2]["id"]) ?>">
+                                    <?= h($vendorTemp[2]["email"]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorTemp[2]["mobile"]) ?>
+                                </td>
+                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp[2]["id"]) ?>">
+                                   <?= $status ?>
+                             
+                                </td>
 
-                        switch ($vendorTemp->status) {
-                            case 0:
-                                $status = 'Sent to Vendor';
-                                break;
-                            case 1:
-                                $status = 'Pending for approval';
-                                break;
-                            case 2:
-                                $status = 'Sent to SAP';
-                                break;
-                            case 3:
-                                $status = 'Approved';
-                                break;
-                            case 4:
-                                $status = 'Rejected';
-                                break;
-                        }
-
-                    ?>
-                           <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp->id) ?>">
-                            <td><?= h($vendorTemp->name) ?></td>
-                            <td><?= h($vendorTemp->email) ?></td>
-                            <td><?= h($vendorTemp->mobile) ?></td>
-                            <td><?= $status ?></td>
-                            <!-- <td><?= $action ?></td> -->
-
+                                <td>  <?= $this->Html->link(__('Notification'), ['action' => 'approve-vendor', $vendorTemp[2]["id"], 'app'], ['class' => 'btn btn-info btn-sm mb-0']) ?></td>
+                            <?php else : ?>
+                                <td>
+                                    <?= h($vendorTemp[2][0]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorTemp[2][1]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorTemp[2][2]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorTemp[2][3]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorTemp[1]) ?>
+                                </td>
+                                <td><span class="badge bg-info">Notification</span></td>
+                            <?php endif; ?>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -109,6 +130,21 @@
             $('#vendorCodeInput').trigger('click');
         });
 
+        $('.onbording').click(function() {
+            alert("sdcf");
+
+
+
+
+        });
+
+
+
+        $('#vendorCodeInput').change(function() {
+            var file = $(this).prop('files')[0].name;
+            $("#filessnames").append(file);
+        });
+
         $("#example1").DataTable({
             "responsive": false,
             "lengthChange": false,
@@ -120,9 +156,22 @@
             },
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         });
-        $('#example1').on('click', 'tbody tr', function() {
-            window.location = $(this).closest('tr').attr('redirect');
+        $('#example1').on('click', 'tbody tr td', function() {
+            var redirectUrl = $(this).closest('td').attr('redirect');
+            var isDraftButton = $(this).find('.badge').hasClass('bg-info');
+
+            if (!isDraftButton) {
+                window.location = redirectUrl;
+            }
         });
+
+        // $('#example1').on('click', 'tbody tr', function() {
+        //     window.location = $(this).closest('tr').attr('redirect');
+
+        // });
+
+
+        
 
 
 
