@@ -90,7 +90,7 @@ class DashboardController extends VendorAppController
         $totalPos = $query->count();
 
         $this->loadModel('AsnHeaders');
-        $session = $this->getRequest()->getSession();
+        
         $intraQry = $this->AsnHeaders->find()
             ->select(['AsnHeaders.id', 'AsnHeaders.invoice_no', 'AsnHeaders.status', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_value', 'PoHeaders.po_no', 'AsnHeaders.added_date', 'AsnHeaders.updated_date'])
             ->contain(['PoHeaders'])
