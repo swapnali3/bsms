@@ -69,8 +69,8 @@
   <?= $this->Html->link(__('<i class="fas fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
 
-<li class="nav-item <?= $temvenmenuopen ?>">
-  <a href="#" class="nav-link <?= $tempindctive ?> <?= $createvendactive ?>">
+<li class="nav-item <?= $temvenmenuopen ?> <?= $buyvendaddactive ?>">
+  <a href="#" class="nav-link <?= $tempindctive ?> <?= $createvendactive ?> <?= $creatsaevendactive ?>">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
       Vendor Management
@@ -80,13 +80,23 @@
   <ul class="nav nav-treeview">
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link <?= $tempindctive ?>">
-        <!-- <i class="fa fa-bars nav-icon"></i> -->
-        <i class="fa fa-solid fa-list nav-icon"></i>
-        <p>Vendor List</p>
+      <i class="nav-icon fas fa-users"></i>
+        <p>Vendors</p>
       </a>
     </li>
-    <li class="nav-item <?= $buyvendaddactive ?>">
-    
+    <li class="nav-item ">
+      <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/add" class="nav-link <?= $createvendactive ?>">
+      <i class="fa fa-solid fa-plus nav-icon"></i>
+        <p>Add Vendor</p>
+      </a>
+    </li>
+    <li class="nav-item ">
+      <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>">
+      <i class="fas fa-file-import nav-icon"></i>
+        <p>SAP Vendor Import</p>
+      </a>
+    </li>
+    <!-- <li class="nav-item <?= $buyvendaddactive ?>">
       <a href="#" class="nav-link <?= $createvendactive ?>">
         <i class="nav-icon fas fa-user-alt"></i>
         <p>
@@ -96,7 +106,6 @@
       </a>
       <ul class="nav nav-treeview">
         <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/add" class="nav-link <?= $createvendactive ?>">
-        <!-- <i class="fa fa-bars nav-icon"></i> -->
         <i class="fa fa-solid fa-plus nav-icon"></i>
             <p>New Vendor</p>
           </a></li>
@@ -105,7 +114,7 @@
             <p>SAP Vendor</p>
           </a></li>
       </ul>
-    </li>
+    </li> -->
   </ul>
 </li>
 

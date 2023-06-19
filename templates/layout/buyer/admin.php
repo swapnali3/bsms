@@ -6,36 +6,6 @@
  */
 
 ?>
-<style>
-    .content-wrapper {
-        min-height: 750px !important;
-    }
-
-    aside.main-sidebar {
-        background-color: #08132F !important;
-    }
-
-    .nav-link.active {
-        background-color: #8E9B2C !important;
-        color: #fff !important;
-    }
-
-    .loader-container {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-        background-color: #fff;
-        opacity: 0.9;
-        background: linear-gradient(to right, rgb(255, 255, 255, .9), rgb(255, 255, 255, .9));
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-</style>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,9 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->assign('title', $title); ?>
-    <title>
-        <?= $this->fetch('title') ?>
-    </title>
+    <title><?= $this->fetch('title') ?></title>
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
@@ -55,14 +23,24 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
+    
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
+    
+    <!-- jQuery -->
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
 
+    <!-- DataTables  & Plugins -->
     <?= $this->Html->css('CakeLte./AdminLTE//plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
 
 
     <!-- Ionicons -->
@@ -74,47 +52,70 @@
     <?= $this->Html->css('CakeLte.style') ?>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
-    <?= $this->Html->css('CakeLte./AdminLTE/plugins/toastr/toastr.min.css') ?>
-    <?= $this->Html->css('CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.css') ?>
-
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
     <?= $this->Html->css('table.css') ?>
     <?= $this->Html->css('listing.css') ?>
 
-
-    <!-- jQuery -->
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <!-- Bootstrap 4 -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
+    
     <!-- AdminLTE App -->
     <?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
-
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.js") ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
-    <script>
-        var baseurl = "<?= $this->Url->build('/') ?>";
-    </script>
+        
+    <style>
+        .content-wrapper {
+            min-height: 750px !important;
+        }
+        
+        aside.main-sidebar {
+            background-color: #08132F !important;
+        }
 
+        .nav-link.active {
+            background-color: #8E9B2C !important;
+            color: #fff !important;
+        }
+        
+        .loader-container {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #fff;
+            opacity: 0.9;
+            background: linear-gradient(to right, rgb(255, 255, 255, .9), rgb(255, 255, 255, .9));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        body,
+        h5,
+        h6,
+        p,
+        h4,
+        h3,
+        label {
+            font-family: 'Roboto', sans-serif !important;
+        }
+
+        div#id_sidebar {
+            transition: 0.5s ease all;
+        }
+
+        div#id_sidebar:hover {
+            transition: 0.5s ease all;
+        }
+    </style>
+
+    <script>var baseurl = "<?= $this->Url->build('/') ?>";</script>
 </head>
-<style>
-    body,
-    h5,
-    h6,
-    p,
-    h4,
-    h3,
-    label {
-        font-family: 'Roboto', sans-serif !important;
-    }
-    div#id_sidebar {
-    transition: 0.5s ease all;
-}
-div#id_sidebar:hover {
-    transition: 0.5s ease all;
-}
-</style>
 
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
     <div class="loader-container" id="loaderss">
@@ -123,7 +124,7 @@ div#id_sidebar:hover {
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">
-            
+
             <?= $this->element('header/notifications') ?>
         </nav>
         <!-- /.navbar -->
@@ -131,9 +132,12 @@ div#id_sidebar:hover {
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
-            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="text-align-last:center;background-color:#fff;">
+            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
+                style="text-align-last:center;background-color:#fff;">
                 <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '1']) ?>
-                <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
+                <span class="brand-text">
+                    <?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?>
+                </span>
             </a>
             <div class="sidebar" id="id_sidebar">
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex" style="text-align-last: center;">
@@ -181,29 +185,16 @@ div#id_sidebar:hover {
         </footer>
     </div>
     <!-- ./wrapper -->
-
-
-
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?>
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
-
-
-    <!-- DataTables  & Plugins -->
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
-
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
     <script>
-    $(document).ready(function() {});
-    $(window).on('load', function() {
-        $('#loaderss').hide();
-    });
+        // $(document).ready(function() {});
+        $(window).on('load', function () {
+            $('#loaderss').hide();
+        });
     </script>
 </body>
 

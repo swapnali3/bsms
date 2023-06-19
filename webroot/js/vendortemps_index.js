@@ -3,14 +3,11 @@ $(document).ready(function () {
         $('.success').fadeOut('slow');
     }, 2000); // <-- time in milliseconds
     $("#example1").DataTable({
-        "responsive": false, "lengthChange": false, "autoWidth": true,
-        "ordering": false,
-        'order': [[10, 'desc']],
-        language: {
-            search: "_INPUT_",
-            searchPlaceholder: "Search..."
-        },
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        "responsive": false,
+        "lengthChange": false,
+        "autoWidth": true,
+        "searching": false,
+        "ordering": false
     });
     $('#example1').on('click', 'tbody tr', function () {
         window.location = $(this).closest('tr').attr('redirect');
