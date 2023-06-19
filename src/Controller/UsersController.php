@@ -252,7 +252,7 @@ class UsersController extends AppController
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
-                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                         ->setTo($result[0]->username)
                         ->setEmailFormat('html')
                         ->setSubject('Login OTP')
@@ -261,7 +261,7 @@ class UsersController extends AppController
 
 
                 $response['status'] = 1;
-                $response['message'] = 'OTP sent to register email Id';
+                $response['message'] = 'OTP sent to register Mobile';
             } else {
                 $response['status'] = 0;
                 $response['message'] = 'Mobile number not found';
