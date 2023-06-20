@@ -308,7 +308,8 @@ class VendorTempsController extends BuyerAppController
                         $data['sap_vendor_code'] = $vendorCode;
 
                         $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
-                   
+                     //   print_r($data['email']);exit;
+
                         try {
                             if (!$this->VendorTemps->exists(['VendorTemps.email' => $data['email']]) && !$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $data['sap_vendor_code']]) && !$this->VendorTemps->exists(['VendorTemps.mobile' => $data['mobile']])){
 
