@@ -369,3 +369,4 @@ switch ($vendorTemp->status) {
         </div>
     </div>
 </div>
+<?= $this->Html->script('vendortemps_view') ?>
