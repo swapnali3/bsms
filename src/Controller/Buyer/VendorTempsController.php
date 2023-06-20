@@ -210,16 +210,16 @@ class VendorTempsController extends BuyerAppController
 
         if ($this->request->is('post')) {
 
-            $inputCode = trim($this->request->getData('sap_vendor_code')); 
+            $inputCode = trim($this->request->getData('sap_vendor_code'));
             $vendorCodes = [$inputCode];
 
-            if($inputCode == ""){           
+            if ($inputCode == "") {
                 $vendorCodes = [];
             }
 
-             $vendorView = [];
+            $vendorView = [];
 
-        
+
             $importFile = $this->request->getData('vendor_code');
 
             if ($_FILES['vendor_code']['name'] != "") {
@@ -241,94 +241,96 @@ class VendorTempsController extends BuyerAppController
                     foreach ($worksheet->getRowIterator(2) as $row) {
                         foreach ($row->getCellIterator() as $cell) {
                             $cellval = $cell->getValue();
-                           
-                            array_push($vendorCodes, $cellval);   
+
+                            array_push($vendorCodes, $cellval);
                             break;
-                         
                         }
                     }
                 }
             }
-           foreach ($vendorCodes as $vendorCode) {
-               if (!empty($vendorCode)) {
-                   if (!$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $vendorCode])) {
+            foreach ($vendorCodes as $vendorCode) {
+                if (!empty($vendorCode)) {
+                    if (!$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $vendorCode])) {
+
+                        $data['DATA'] = array();
+                        $data['DATA']['LIFNR'] = $vendorCode;
+
+
+
+                        // $http = new Client();
+                        // $response = $http->post(
+                        //     'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
+                        //     json_encode($data),
+                        //     ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
+                        // );
+
+
+
+
+
+                        // $jsonData = json_encode($response);
+
+                        // if ($response->isOk()) {
+                        //     $result = json_decode($response->getStringBody());
+
+                        //     //print_r($result);
+
+                        //     if ($result->RESPONSE->SUCCESS) {
+                        $vendorTemp = $this->VendorTemps->newEmptyEntity();
+                        // $resultResponse = json_decode($result->RESPONSE->DATA);
+
+                        $data = array();
+                        $response = array(
+                            "NAME1" => "Abhishek Yadav",
+                            "STREET" => "123 Main St",
+                            "CITY1" => "mumbai",
+                            "POST_CODE1" => "12345",
+                            "COUNTRY" => "india",
+                            "SMTP_ADDR" => "vendor1@example.com",
+                            "MOB_NUMBER" => "1234567890",
+                            "ZTERM" => "0001"
+                        );
+                        $data['DATA']['LIFNR'] = $vendorCode;
+                        $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
+                        $data['purchasing_organization_id'] = 1;
+                        $data['account_group_id'] = 1;
+                        $data['schema_group_id'] = 1;
+                        $data['name'] = $response['NAME1'];
+                        $data['address'] = $response['STREET'];
+                        $data['city'] = $response['CITY1'];
+                        $data['pincode'] = $response['POST_CODE1'];
+                        $data['country'] = $response['COUNTRY'];
+                        $data['email'] = $response['SMTP_ADDR'];
+                        $data['mobile'] = $response['MOB_NUMBER'];
+                        $data['payment_term'] = $response['ZTERM'];
+                        $data['valid_date'] = date('Y-m-d h:i:s');
+                        $data['status'] = 3;
+                        $data['sap_vendor_code'] = $vendorCode;
+
+                        $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
                    
-                       $data['DATA'] = array();
-                       $data['DATA']['LIFNR'] = $vendorCode;
+                        try {
+                            if (!$this->VendorTemps->exists(['VendorTemps.email' => $data['email']]) && !$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $data['sap_vendor_code']]) && !$this->VendorTemps->exists(['VendorTemps.mobile' => $data['mobile']])){
 
-                       
+                                if ($this->VendorTemps->save($vendorTemp)) {
 
-                      // $http = new Client();
-                       // $response = $http->post(
-                       //     'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
-                       //     json_encode($data),
-                       //     ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
-                       // );
-
-
-
-
-
-                       // $jsonData = json_encode($response);
-
-                       // if ($response->isOk()) {
-                       //     $result = json_decode($response->getStringBody());
-
-                       //     //print_r($result);
-
-                       //     if ($result->RESPONSE->SUCCESS) {
-                               $vendorTemp = $this->VendorTemps->newEmptyEntity();
-                              // $resultResponse = json_decode($result->RESPONSE->DATA);
-
-                               $data = array();
-                               $response = array(
-                                   "NAME1" => "Abhishek Yadav",
-                                   "STREET" => "123 Main St",
-                                   "CITY1" => "mumbai",
-                                   "POST_CODE1" => "12345",
-                                   "COUNTRY" => "india",
-                                   "SMTP_ADDR" => "vendor1@example.com",
-                                   "MOB_NUMBER" => "1234567890",
-                                   "ZTERM" => "0001"
-                               );
-                               $data['DATA']['LIFNR'] = $vendorCode;
-                               $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
-                               $data['purchasing_organization_id'] = 1;
-                               $data['account_group_id'] = 1;
-                               $data['schema_group_id'] = 1;
-                               $data['name'] = $response['NAME1'];
-                               $data['address'] = $response['STREET'];
-                               $data['city'] = $response['CITY1'];
-                               $data['pincode'] = $response['POST_CODE1'];
-                               $data['country'] = $response['COUNTRY'];
-                               $data['email'] = $response['SMTP_ADDR'];
-                               $data['mobile'] = $response['MOB_NUMBER'];
-                               $data['payment_term'] = $response['ZTERM'];
-                               $data['valid_date'] = date('Y-m-d h:i:s');
-                               $data['status'] = 3;
-                               $data['sap_vendor_code'] = $vendorCode;
-
-                               $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
-
-
-                               try {
-                                   if ($this->VendorTemps->save($vendorTemp)) {
-                                       $id = $vendorTemp->toArray();
-                                       array_push($vendorView, [true, "The Vendor successfully added", $id]);
-                                   }
-                               } catch (\Exception $e) {
-                                   $this->Flash->error(__($e->getMessage()));
-                               }
-                       //     }
-                       // }
-                   } else {
-                       $this->Flash->error(__('Vendor Already Exists for SAP code - ' . $vendorCode));
-                   }
-               } else {
-                   $this->Flash->error(__('Please enter valid SAP Vendor Code'));
-               }
-           }
-           $this->set('vendorData', $vendorView);
+                                    $id = $vendorTemp->toArray();
+                                    array_push($vendorView, [true, "The Vendor Successfully Added", $id]);
+                                }
+                            }
+                        } catch (\Exception $e) {
+                            $this->Flash->error(__($e->getMessage()));
+                        }
+                        //     }
+                        // }
+                    } else {
+                        $this->Flash->error(__('Vendor Already Exists for SAP code - ' . $vendorCode));
+                    }
+                } else {
+                    $this->Flash->error(__('Please enter valid SAP Vendor Code'));
+                }
+            }
+            $this->set('vendorData', $vendorView);
         }
     }
 
