@@ -64,28 +64,7 @@ class VendorAppController extends Controller
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
-
-        $session = $this->getRequest()->getSession();
-        $full_name = $session->read('full_name');
-        $role = $session->read('role');
-        $group_name = $session->read('group_name');
-
-        $this->set(compact('full_name', 'role', 'group_name'));
-
-        //echo '<pre>'; print_r($session); exit;
-
-        if (($this->request->getParam('action') == 'verify' || $this->request->getParam('action') == 'create')) {
-            // $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
-        } else if ($session->check('id') && $session->read('role') != 3) {
-            //$this->Flash->error("You are not authrized");
-            $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
-            
-        } else if (!$session->check('id')) {
-            $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
-        } else {
-            $this->set('logged_in', $session->read('id'));
-            $this->set('username', $session->read('username'));
-        }
+        
     }
 
     public function beforeFilter(EventInterface $event)
@@ -95,6 +74,29 @@ class VendorAppController extends Controller
         $this->viewBuilder()->setLayout('vendor/admin');  //admin is our new layout name
         $this->set('controller', $this->request->getParam('controller'));
         $this->set('action', $this->request->getParam('action'));
+
+        $session = $this->getRequest()->getSession();
+        $full_name = $session->read('full_name');
+        $role = $session->read('role');
+        $group_name = $session->read('group_name');
+
+        //echo '<pre>'; print_r($session); exit;
+
+        if (($this->request->getParam('action') == 'verify' || $this->request->getParam('action') == 'create')) {
+            // $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+        } else if ($session->check('id') && $session->read('role') != 3) {
+            $this->Flash->error("You are not authrized");
+            return $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+        } else if (!$session->check('id')) {
+            return $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+        } else {
+            $this->set('logged_in', $session->read('id'));
+            $this->set('username', $session->read('username'));
+        }
+
+        $this->set(compact('full_name', 'role', 'group_name'));
+
+
         //$this->permission();
     }
     public function permission()
