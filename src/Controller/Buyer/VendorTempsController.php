@@ -217,15 +217,10 @@ class VendorTempsController extends BuyerAppController
                 $vendorCodes = [];
             }
 
-        //    print_r($vendorCodes);exit;
-
              $vendorView = [];
 
         
             $importFile = $this->request->getData('vendor_code');
-
-            //print_r($vendorCodes);exit;
-
 
             if ($_FILES['vendor_code']['name'] != "") {
                 if ($importFile !== null && isset($_FILES['vendor_code']['name'])) {
@@ -247,17 +242,14 @@ class VendorTempsController extends BuyerAppController
                         foreach ($row->getCellIterator() as $cell) {
                             $cellval = $cell->getValue();
                            
-                            array_push($vendorCodes, $cellval);
-                           // print_r($vendorCodes);    
+                            array_push($vendorCodes, $cellval);   
                             break;
                          
                         }
                     }
                 }
             }
-            // print_r($vendorCodes);exit;
            foreach ($vendorCodes as $vendorCode) {
-              //print_r($vendorCode);exit;
                if (!empty($vendorCode)) {
                    if (!$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $vendorCode])) {
                    
