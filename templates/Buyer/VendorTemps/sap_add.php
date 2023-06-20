@@ -14,33 +14,49 @@
 
     <div class="col-12">
         <div class="card">
-            <?= $this->Form->create(null, ['type' => 'file']); ?>
+            <?= $this->Form->create(null, ['type' => 'file', 'id' => 'sapvendorcodeform']); ?>
             <!-- <div class="card-header";
 >
             <h5 style="color:white"><b><?= __('IMPORT SAP VENDOR') ?></b></h5>
             </div> -->
             <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6">
+                    <div class="col-sm-4 col-md-4">
                         <?php echo $this->Form->control('sap_vendor_code', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'autocomplete' => "off")); ?>
                     </div>
-                    <div class="col-sm-2 col-md-2 mt-2">
-                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom mt-4', 'id' => 'cform']) ?>
+                    <div class="col-sm-1 col-md-1 d-flex justify-content-around align-items-end">
+                        <div style="font-size: 1.5rem;color: #0A0501;font-weight: 600;">OR</div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-2 col-md-2 mt-3">
+                    <div class="col-sm-3 col-md-3 d-flex align-items-end">
                         <?= $this->Form->control('vendor_code', [
-                            'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput'
+                            'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0 ', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput'
                         ]); ?>
+
                         <?= $this->Form->button('Import File', [
                             'id' => 'OpenImgUpload',
                             'type' => 'button',
-                            'class' => 'd-block btn btn-secondary mb-0 file-upld-btn'
+                            'class' => 'd-block btn btn-secondary mb-0  file-upld-btn'
                         ]); ?>
                         <span id="filessnames"></span>
+
+
+                    </div>
+                    <div class="col-sm-4 d-flex justify-content-end">
+                        <a href="<?= $this->Url->build('/') ?>webroot/img/sample file.xlsx" download>
+                            <button type="button" class="btn btn-primary px-3" style="font-size: 1rem;text-transform: capitalize;">
+                                <i class="fa fa-download mr-2" aria-hidden="true"></i>Sample File
+                            </button>
+                        </a>
                     </div>
 
+                    <div class="errorSubmit" style="color: red;display:none">Please enter a vendor code or select a file.</div>
+                </div>
+                <div class="row">
+
+                    <div class="col-sm-4 col-md-4 mt-2">
+                        <button class="btn btn-custom mt-4" id="sapvendorcode" type="button">Submit</button>
+
+                    </div>
                 </div>
                 <?= $this->Form->end() ?>
             </div>
@@ -63,19 +79,29 @@
             </thead>
             <tbody>
                 <?php if (isset($vendorData)) : ?>
-                   
+
                     <?php foreach ($vendorData as $vendorTemp) :
-                    //  print_r($vendorTemp[2]["status"]);exit;
-                    
-                        
-                        switch($vendorTemp[2]["status"]) {
-                            case 0 : $status = '<span class="badge bg-warning">Sent to Vendor</span>'; break;
-                            case 1 : $status = '<span class="badge bg-info">Pending for approval</span>'; break;
-                            case 2 : $status = '<span class="badge bg-info">Sent to SAP</span>'; break;
-                            case 3 : $status = '<span class="badge bg-success">Approved</span>'; break;
-                            case 4 : $status = '<span class="badge bg-danger">Rejected</span>'; break;
+                        //  print_r($vendorData);exit;
+
+
+                        switch ($vendorTemp[2]["status"]) {
+                            case 0:
+                                $status = '<span class="badge bg-warning">Sent to Vendor</span>';
+                                break;
+                            case 1:
+                                $status = '<span class="badge bg-info">Pending for approval</span>';
+                                break;
+                            case 2:
+                                $status = '<span class="badge bg-info">Sent to SAP</span>';
+                                break;
+                            case 3:
+                                $status = '<span class="badge bg-success">Approved</span>';
+                                break;
+                            case 4:
+                                $status = '<span class="badge bg-danger">Rejected</span>';
+                                break;
                         }
-                        ?>
+                    ?>
                         <tr>
                             <?php if ($vendorTemp[0] == 1) : ?>
                                 <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp[2]["id"]) ?>">
@@ -91,11 +117,11 @@
                                     <?= h($vendorTemp[2]["mobile"]) ?>
                                 </td>
                                 <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp[2]["id"]) ?>">
-                                   <?= $status ?>
-                             
+                                    <?= $status ?>
+
                                 </td>
 
-                                <td>  <?= $this->Html->link(__('Notification'), ['action' => 'approve-vendor', $vendorTemp[2]["id"], 'app'], ['class' => 'btn btn-info btn-sm mb-0']) ?></td>
+                                <td> <?= $this->Html->link(__('Notification'), ['action' => 'approve-vendor', $vendorTemp[2]["id"], 'apps'], ['class' => 'btn btn-info btn-sm mb-0']) ?></td>
                             <?php else : ?>
                                 <td>
                                     <?= h($vendorTemp[2][0]) ?>
@@ -130,14 +156,6 @@
             $('#vendorCodeInput').trigger('click');
         });
 
-        $('.onbording').click(function() {
-            alert("sdcf");
-
-
-
-
-        });
-
 
 
         $('#vendorCodeInput').change(function() {
@@ -156,6 +174,24 @@
             },
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         });
+
+
+        $('#sapvendorcode').click(function() {
+
+            var vendorCode = $("input[name='sap_vendor_code']").val();
+            var file = $('#filessnames').text();
+
+            if (vendorCode.trim() === '' && file.trim() === '') {
+                $('.errorSubmit').show();
+                console.log(vendorCode);
+
+            } else {
+                $('.errorSubmit').hide();
+
+                $('#sapvendorcodeform').trigger('submit');
+            }
+
+        });
         $('#example1').on('click', 'tbody tr td', function() {
             var redirectUrl = $(this).closest('td').attr('redirect');
             var isDraftButton = $(this).find('.badge').hasClass('bg-info');
@@ -171,7 +207,7 @@
         // });
 
 
-        
+
 
 
 

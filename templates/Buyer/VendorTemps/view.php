@@ -382,13 +382,4 @@ switch ($vendorTemp->status) {
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-       
-        // $(".reject").onClick(function () {
-
-        // });
-        // var interval = $("#flashMessage").attr("data-timeout");
-
-    });
-</script>
+<?= $this->Html->script('vendortemps_view') ?>
