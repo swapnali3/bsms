@@ -453,6 +453,7 @@
         return false;
       }
     });
+    
     $('#actual_qty').keyup(function() {
 
       var totalvalueqty = parseInt($('.poqtyvalu').text());
