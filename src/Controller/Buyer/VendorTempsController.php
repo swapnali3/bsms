@@ -258,7 +258,6 @@ class VendorTempsController extends BuyerAppController
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'payment_term'));
     }
 
-
     public function sapAdd()
     {
 
@@ -318,8 +317,6 @@ class VendorTempsController extends BuyerAppController
                         $data['DATA'] = array();
                         $data['DATA']['LIFNR'] = $vendorCode;
 
-
-
                         // $http = new Client();
                         // $response = $http->post(
                         //     'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
@@ -329,16 +326,13 @@ class VendorTempsController extends BuyerAppController
 
 
 
-
-
-                        // $jsonData = json_encode($response);
-
                         // if ($response->isOk()) {
                         //     $result = json_decode($response->getStringBody());
 
                         //     //print_r($result);
 
                         //     if ($result->RESPONSE->SUCCESS) {
+
                         $vendorTemp = $this->VendorTemps->newEmptyEntity();
                         // $resultResponse = json_decode($result->RESPONSE->DATA);
 
@@ -349,7 +343,7 @@ class VendorTempsController extends BuyerAppController
                             "CITY1" => "mumbai",
                             "POST_CODE1" => "12345",
                             "COUNTRY" => "india",
-                            "SMTP_ADDR" => "vendor1@example.com",
+                            "SMTP_ADDR" => "abhisheky@fts-pl.com",
                             "MOB_NUMBER" => "1234567890",
                             "ZTERM" => "0001"
                         );
@@ -367,19 +361,36 @@ class VendorTempsController extends BuyerAppController
                         $data['mobile'] = $response['MOB_NUMBER'];
                         $data['payment_term'] = $response['ZTERM'];
                         $data['valid_date'] = date('Y-m-d h:i:s');
-                        $data['status'] = 3;
+                        
+                        // user array create 
+                        $names = explode(' ', $response['NAME1']);
+                        $data['first_name'] = $names[0];;
+                        $data['last_name'] = $names[count($names) - 1];
+                        $data['username'] = $response['SMTP_ADDR'];
+                        $data['mobile'] = $response['MOB_NUMBER'];
+                        $data['password'] = $response['MOB_NUMBER'];
+                        $data['group_id'] = 3; // 3 is Vendor Portal Roles
+                        $data['status'] = 5;
                         $data['sap_vendor_code'] = $vendorCode;
 
                         $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
-                     //   print_r($data['email']);exit;
+                        //   print_r($data['email']);exit;
 
                         try {
-                            if (!$this->VendorTemps->exists(['VendorTemps.email' => $data['email']]) && !$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $data['sap_vendor_code']]) && !$this->VendorTemps->exists(['VendorTemps.mobile' => $data['mobile']])){
+                            if (!$this->VendorTemps->exists(['VendorTemps.email' => $data['email']]) && !$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $data['sap_vendor_code']]) && !$this->VendorTemps->exists(['VendorTemps.mobile' => $data['mobile']])) {
 
                                 if ($this->VendorTemps->save($vendorTemp)) {
+                                    $this->loadModel("Users");
+                                    $adminUser = $this->Users->newEmptyEntity();
+                                    $adminUser = $this->Users->patchEntity($adminUser, $data);
+                                    if (!$this->Users->exists(['Users.username' => $data['email']]) && !$this->Users->exists(['Users.mobile' => $data['mobile']])) {
+                                        $this->Users->save($adminUser);
+                                        $vendors = $vendorTemp->toArray();
+                                        array_push($vendorView, ['status'=>true, 'msg'=>"The Vendor Added Successfully", 'data'=>$vendors]); 
 
-                                    $id = $vendorTemp->toArray();
-                                    array_push($vendorView, [true, "The Vendor Successfully Added", $id]);
+                                    } else {
+                                        array_push($vendorView, ['status'=>false, 'msg'=>"The Add Vendor Failed", 'data' => ['sap_vendor_code'=>$vendorCode]]);
+                                    }
                                 }
                             }
                         } catch (\Exception $e) {
@@ -388,10 +399,12 @@ class VendorTempsController extends BuyerAppController
                         //     }
                         // }
                     } else {
-                        $this->Flash->error(__('Vendor Already Exists for SAP code - ' . $vendorCode));
+                    
+                        array_push($vendorView, ['status'=>false, 'msg'=>"Already Exists for SAP code", 'data' => ['sap_vendor_code'=>$vendorCode]]);
                     }
                 } else {
-                    $this->Flash->error(__('Please enter valid SAP Vendor Code'));
+                
+                    array_push($vendorView, ['status'=>false, 'msg'=>"Please enter valid SAP Vendor Code", 'data' => ['sap_vendor_code'=>$vendorCode]]);
                 }
             }
             $this->set('vendorData', $vendorView);
@@ -563,35 +576,6 @@ class VendorTempsController extends BuyerAppController
         return $this->redirect(['action' => 'view', $id]);
     }
 
-    public function addvendor()
-    {
-        $response = array();
-        $response['status'] = 'fail';
-        $response['message'] = '';
-        $this->autoRender = false;
-        $this->loadModel("VendorTemps");
-        $this->loadModel("Notifications");
-        //echo '<pre>'; print_r($this->request->getData()); exit;
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            try {
-                $VendorTemp = $this->VendorTemps->newEmptyEntity();
-                $data = $this->request->getData();
-                $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
-                $data['valid_date'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +1 day'));
-                $VendorTemp = $this->VendorTemps->patchEntity($VendorTemp, $data);                
-                if ($this->VendorTemps->save($VendorTemp)) {
-                    $response['status'] = 'success';
-                    $response['message'] = 'Record save successfully';        
-                }
-            } catch (\Exception $e) {
-                $response['status'] = 'fail';
-                $response['message'] = $e->getMessage();
-            }
-        }
-
-        echo json_encode($response);
-    }
-
     public function sapEdit($id = null)
     {
 
@@ -629,6 +613,62 @@ class VendorTempsController extends BuyerAppController
         }
 
 
+        echo json_encode($response);
+    }
+
+    public function userCredentials($id = null)
+    {
+        $response = array();
+        $response['status'] = '0';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->loadModel("Users");
+        $this->loadModel("VendorTemps");
+
+
+        $vendorTemp = $this->VendorTemps->get($id, [
+            'contain' => [],
+        ]);
+
+        if ($this->request->is(['patch', 'get', 'put'])) {
+
+
+            $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $this->request->getData());
+
+           // print_r($vendorTemp);exit;
+          
+            $vendorTemp->status = 3;
+
+            if ($this->VendorTemps->save($vendorTemp)) {
+                
+                $query = $this->Users->find()
+                    ->select(['first_name', 'mobile', 'username'])
+                    ->where(['username' => $vendorTemp->email])
+                    ->toList();
+
+
+                foreach ($query as $val) {
+                    $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                    $mailer = new Mailer('default');
+                    $mailer
+                        ->setTransport('smtp')
+                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                        ->setTo($val->username)
+                        ->setEmailFormat('html')
+                        ->setSubject('Vendor Portal - Account created')
+                        ->deliver('Hi ' . $val->first_name . ' <br/>Welcome to Vendor portal. <br/> <br/> Username: ' . $val->first_name .
+                            '<br/>Password:' . $val->mobile . '<br/> <a href="' . $link . '">Click here</a>');
+                }
+            } else {
+                $response['status'] = '0';
+                $response['message'] = 'Credentials Not Send.';
+            }
+        }
+
+
+        $response['status'] = '1';
+        $response['message'] = 'Credentials Mail Send successfully';
         echo json_encode($response);
     }
 }

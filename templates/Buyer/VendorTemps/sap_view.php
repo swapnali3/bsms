@@ -52,32 +52,27 @@ switch ($vendorTemp->status) {
 
                             <?= $this->Html->link(__('Edit'), '#', ['class' => 'btn btn-info edit-button mb-0 btn-sm']) ?>
 
+
                             <?= $this->Html->link(__('Update'), '#', ['class' => 'btn btn-info update-button mb-0 btn-sm', 'style' => 'display:none', 'id' => $vendorTemp->id]) ?>
 
-                            <?php if ($vendorTemp->status == 1) : ?>
 
-                                <button type="button" class="btn btn-success btn-sm mb-0" data-toggle="modal" data-target="#modal-sm">
-                                Approve
-                                </button>
-                                <!-- modal -->
-                                <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-body text-center">
-                                                <h6>Are you sure you want to aprrove?</h6>
-                                            </div>
-                                            <div class="modal-footer justify-content-between p-1">
-                                                <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                                                <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
-                                            </div>
+                            <button type="button" class="btn btn-success btn-sm mb-0" data-toggle="modal" data-target="#modal-sm">
+                                Notification
+                            </button>
+                            <!-- modal -->
+                            <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center">
+                                            <h6>Are you sure send login credentials?</h6>
+                                        </div>
+                                        <div class="modal-footer justify-content-between p-1">
+                                            <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                                            <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
                                         </div>
                                     </div>
-
                                 </div>
-                                <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject mb-0 btn-sm', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
-                                <!-- end modal -->
-
-                            <?php endif; ?>
+                            </div>
                         </div>
                     </div>
                 </div>
