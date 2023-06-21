@@ -3,8 +3,6 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp $vendorTemp
  */
-
-
 switch ($vendorTemp->status) {
     case 0:
         $status = '<span class="badge bg-warning">Sent to Vendor</span>';
@@ -21,21 +19,11 @@ switch ($vendorTemp->status) {
     case 4:
         $status = '<span class="badge bg-danger">Rejected</span>';
         break;
-
 }
 
 ?>
-<style>
-    p {
-        margin-bottom: 0px;
-    }
-
-    /* .docs-list {
-    width: 30% !important;
-} */
-</style>
 <?= $this->Html->css('custom') ?>
-
+<?= $this->Html->css('vendortemps_view') ?>
 <div class="row">
     <div class="col-12">
         <div class="vendorTemps view content card">
@@ -77,8 +65,8 @@ switch ($vendorTemp->status) {
                         </div>
                     </div>
                 </div>
-
             </div>
+
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
@@ -348,7 +336,6 @@ switch ($vendorTemp->status) {
                 </div>
 
             </div>
-
         </div>
     </div>
 </div>
