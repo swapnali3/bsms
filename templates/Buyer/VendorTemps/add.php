@@ -56,11 +56,6 @@
                                 <?php echo $this->Form->control('schema_group_id', array('class' => 'form-control', 'empty' => 'Please Select'));?>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
-                            <span class="errorm">
-                                <?= $this->Flash->render() ?>
-                            </span>
-                        </div>
                         <div class="col-sm-12 col-lg-12 col-md-12 mt-4">
                             <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom mb-0', 'id'=>'id_addvendor', 'type'=>'submit']) ?>
                         </div>
@@ -91,6 +86,11 @@
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-2">
                             <button type="submit" class="btn btn-primary" id="id_exportme">IMPORT</button>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                            <span class="errorm">
+                                <?= $this->Flash->render() ?>
+                            </span>
                         </div>
                         <div class="col-12 pt-2">
                             <i style="color: black;">

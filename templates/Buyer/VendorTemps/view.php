@@ -28,7 +28,7 @@ switch ($vendorTemp->status) {
     <div class="col-12">
         <div class="vendorTemps view content card">
             <div class="card-header">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between p-2">
                     <h5 class="align-self-center">
                         <b>
                             <?= h($vendorTemp->name) ?>

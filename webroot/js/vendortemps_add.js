@@ -21,13 +21,13 @@ $.validator.setDefaults({
               icon: 'success',
               title: response.message
             });
+            setTimeout(function(){ window.location.reload(); }, 2000);
           } else {
             Toast.fire({
               icon: 'error',
               title: response.message
             });
           }
-
         }
       });
       return false;
