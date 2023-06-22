@@ -599,6 +599,54 @@ class VendorTempsController extends BuyerAppController
         return $this->redirect(['action' => 'view', $id]);
     }
 
+
+    public function addvendor()
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+        $this->loadModel("VendorTemps");
+        $this->loadModel("Notifications");
+        // echo '<pre>'; print_r($this->request->getData()); exit;
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            try {
+                $VendorTemp = $this->VendorTemps->newEmptyEntity();
+                $data = $this->request->getData();
+                $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
+                $data['valid_date'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +1 day'));
+                $VendorTemp = $this->VendorTemps->patchEntity($VendorTemp, $data);
+                $response['status'] = 'fail';
+                if ($this->VendorTemps->exists(['VendorTemps.mobile' => $data['mobile']])) {
+                    $response['message'] = 'Mobile Number Exist';
+                } else if ($this->VendorTemps->exists(['VendorTemps.email' => $data['email']])) {
+                    $response['message'] = 'Email ID Exist';
+                } else if ($this->VendorTemps->save($VendorTemp)) {
+                    $response['status'] = 'success';
+                    $response['message'] = 'Record save successfully';
+                    $quryString = $data['email'] . '||' . $VendorTemp->id;
+                    $link = Router::url(['controller' => '../vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+
+                    $mailer = new Mailer('default');
+                    $mailer
+                        ->setTransport('smtp')
+                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                        ->setTo($data['email'])
+                        ->setEmailFormat('html')
+                        ->setSubject('Verify New Account')
+                        ->deliver('Hi ' . $data['name'] . '<br/>Welcome to Vendor portal. <br/>' . $link);
+                }
+            } catch (\Exception $e) {
+                $response['status'] = 'fail';
+                $response['message'] = 'Contact Administrator';
+                if ($e->getMessage()) {
+                    $response['message'] = $e->getMessage();
+                }
+            }
+        }
+
+        echo json_encode($response);
+    }
     public function sapEdit($id = null)
     {
 
@@ -620,43 +668,41 @@ class VendorTempsController extends BuyerAppController
 
                 $data = $this->request->getData();
 
-               
+
                 $query = $this->VendorTemps->find('all')
-                ->where(['VendorTemps.id' => $id])
-                ->first();
-            
-            if ($query) {
-                if ($query['email'] != $data['email']) {
-                    $emailCount = $this->VendorTemps->find()
-                        ->where(['VendorTemps.email' => $data["email"]])
-                        ->count();
-            
-                    if ($emailCount > 0) {
-                        throw new \Exception('Already Exits Email ID');
+                    ->where(['VendorTemps.id' => $id])
+                    ->first();
+
+                if ($query) {
+                    if ($query['email'] != $data['email']) {
+                        $emailCount = $this->VendorTemps->find()
+                            ->where(['VendorTemps.email' => $data["email"]])
+                            ->count();
+
+                        if ($emailCount > 0) {
+                            throw new \Exception('Already Exits Email ID');
+                        }
+                    } else if ($query['mobile'] != $data['mobile']) {
+                        $mobileCount = $this->VendorTemps->find()
+                            ->where(['VendorTemps.mobile' => $data["mobile"]])
+                            ->count();
+
+                        if ($mobileCount > 0) {
+                            throw new \Exception('Already Exits Mobile No.');
+                        }
                     }
-                } else if ($query['mobile'] != $data['mobile']) {
-                    $mobileCount = $this->VendorTemps->find()
-                        ->where(['VendorTemps.mobile' => $data["mobile"]])
-                        ->count();
-            
-                    if ($mobileCount > 0) {
-                        throw new \Exception('Already Exits Mobile No.');
+
+                    $vendorTemp = $this->VendorTemps->patchEntity($query, $data);
+
+                    if ($this->VendorTemps->save($vendorTemp)) {
+                        $response['status'] = '1';
+                        $response['message'] = 'Update Successfully';
+                    } else {
+                        throw new \Exception('Failed to Add User');
                     }
-                }
-            
-                $vendorTemp = $this->VendorTemps->patchEntity($query, $data);
-            
-                if ($this->VendorTemps->save($vendorTemp)) {
-                    $response['status'] = '1';
-                    $response['message'] = 'Update Successfully';
                 } else {
-                    throw new \Exception('Failed to Add User');
+                    throw new \Exception('Invalid ID');
                 }
-            } else {
-                throw new \Exception('Invalid ID');
-            }
-            
-   
             } catch (\Exception $e) {
                 $response['status'] = '0';
                 $response['message'] = $e->getMessage();

@@ -38,7 +38,7 @@ switch ($vendorTemp->status) {
                             <?= h($vendorTemp->name) ?>
                         </b>
                     </h5>
-                    <div class="">
+                    <div class="m-2">
                         <div class="text">
                             <?php if ($vendorTemp->status == 1) : ?>
 
@@ -63,6 +63,12 @@ switch ($vendorTemp->status) {
                                 <!-- end modal -->
 
                                 <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject mb-0 btn-sm', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
+                            <?php elseif ($vendorTemp->status == 5) : ?>
+
+                                <button type="button" data-id="<?= h($vendorTemp->id) ?>" class="btn btn-info btn-sm mb-0 notify">
+                                    Send Credentials
+                                </button>
+
                             <?php endif; ?>
                         </div>
                     </div>
@@ -370,4 +376,8 @@ switch ($vendorTemp->status) {
         </div>
     </div>
 </div>
+
+<script>
+    var userView = '<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>';
+</script>
 <?= $this->Html->script('vendortemps_view') ?>
