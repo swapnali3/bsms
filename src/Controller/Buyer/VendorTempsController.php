@@ -473,6 +473,17 @@ class VendorTempsController extends BuyerAppController
                 $vendor->status = 4;
                 $vendor->remark = $remarks;
                 $this->VendorTemps->save($vendor);
+                $quryString = $vendor->email . '||' . $vendor->id;
+                $link = Router::url(['controller' => '../vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+
+                $mailer = new Mailer('default');
+                $mailer
+                    ->setTransport('smtp')
+                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    ->setTo($vendor->email)
+                    ->setEmailFormat('html')
+                    ->setSubject('Vendor KYC Process')
+                    ->deliver('Hi ' . $vendor->name . '<br/>Your form has been rejected. Kindly Resubmit. <br/> <br/>Please find below the buyers remarks <br/>'.$remarks.'<br/> <br/>' . $link);
                 $this->Flash->success(__('The Vendor successfully rejected'));
             } else {
                 $this->Flash->success(__('Issue in vendor rejection'));

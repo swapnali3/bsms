@@ -218,17 +218,17 @@
                     <div class="row">
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" class="form-label">Upload GST no</label>
-                            <input class="form-control" type="file" required accept=".pdf" name="gst_file" id="formFileMultiple">
+                            <input class="form-control" type="file" required accept=".pdf" name="gst_file" id="formFileMultiple" accept="application/pdf">
                             <small class="text-info info-msg">Upload only PDF file</small>
                         </div>
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" class="form-label">Upload pan card</label>
-                            <input class="form-control" accept=".pdf" required type="file" name="pan_file" id="formFileMultiple">
+                            <input class="form-control" accept=".pdf" required type="file" name="pan_file" id="formFileMultiple" accept="application/pdf">
                             <small class="text-info info-msg">Upload only PDF file</small>
                         </div>
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" accept=".pdf" class="form-label">Upload bank details</label>
-                            <input class="form-control" type="file" required name="bank_file" id="formFileMultiple">
+                            <input class="form-control" type="file" required name="bank_file" id="formFileMultiple" accept="application/pdf">
                             <small class="text-info info-msg">Upload only PDF file</small>
                         </div>
                     </div>

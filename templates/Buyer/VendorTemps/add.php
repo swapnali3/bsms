@@ -66,7 +66,7 @@
         </div>
         <div class="col-12">
             <?= $this->Form->create(null, ['type' => 'file']); ?>
-            <div class="card">
+            <div class="card mx-2">
                 <div class="card-header p-3">
                     <h5 style="color:darkblue;">
                         Bulk Vendor Import
