@@ -23,6 +23,9 @@ switch ($vendorTemp->status) {
     case 4:
         $status = '<span class="badge bg-danger">Rejected</span>';
         break;
+    case 5:
+        $status = '<span class="badge bg-info">Sap Import</span>';
+        break;
 }
 
 ?>
@@ -47,7 +50,7 @@ switch ($vendorTemp->status) {
                             <?= h($vendorTemp->name) ?>
                         </b>
                     </h5>
-                    <div class="">
+                    <div class="m-3">
                         <div class="text">
 
                             <?= $this->Html->link(__('Edit'), '#', ['class' => 'btn btn-info edit-button mb-0 btn-sm']) ?>
@@ -57,7 +60,7 @@ switch ($vendorTemp->status) {
 
 
                             <button type="button" class="btn btn-success btn-sm mb-0" data-toggle="modal" data-target="#modal-sm">
-                                Notification
+                                Send Credentials
                             </button>
                             <!-- modal -->
                             <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
@@ -142,7 +145,7 @@ switch ($vendorTemp->status) {
 
                                         <span class="email-text"><?= h($vendorTemp->email) ?></span>
 
-                                        <input type="email" style="display: none;" name="email" required value="<?= h($vendorTemp->email) ?>" placeholder="Enter email">
+                                        <input type="email" style="display: none;" name="email" class="form-control" required value="<?= h($vendorTemp->email) ?>" placeholder="Enter email">
 
                                     </td>
                                 </tr>
@@ -267,7 +270,7 @@ switch ($vendorTemp->status) {
 
                                         <span class="mobile-text"><?= h($vendorTemp->mobile) ?></span>
 
-                                        <input type="text" style="display: none;" name="mobile" required value="<?= h($vendorTemp->mobile) ?>">
+                                        <input type="text" style="display: none;" name="mobile" class="form-control" required value="<?= h($vendorTemp->mobile) ?>">
 
 
                                     </td>
@@ -447,8 +450,12 @@ switch ($vendorTemp->status) {
                             title: response.message,
                         });
                         // form.submit();
+                      $emailData = $('input[name="email"]').val()
                         $('.email-text').show();
+                        $('.email-text').text($emailData);
+                        $mobileData = $('input[name="mobile"]').val()
                         $('.mobile-text').show();
+                        $('.mobile-text').text($mobileData);
                         $('input[name="email"]').val($('.email-text').text()).hide();
                         $('input[name="mobile"]').val($('.mobile-text').text()).hide();
                         $('.edit-button').show();

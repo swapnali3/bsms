@@ -80,8 +80,8 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if (isset($vendorData)) : 
-                    ?>
+                <?php if (isset($vendorData)) :
+                ?>
 
                     <?php foreach ($vendorData as $vendorTemp) :
                         // print_r($vendorData);
@@ -248,28 +248,23 @@
             }
 
         });
-        // $('#example1').on('click', 'tbody tr td', function() {
-        //     var redirectUrl = $(this).closest('td').attr('redirect');
-        //     var isDraftButton = $(this).find('.badge').hasClass('bg-info');
+        $('#example1').on('click', 'tbody tr td', function(event) {
+            event.preventDefault();
+            var redirectUrl = $(this).closest('td').attr('redirect');
 
-        //     if (!isDraftButton) {
-        //         window.location = redirectUrl;
-        //     }
-        // });
+            console.log(redirectUrl);
+            // var isDraftButton = $(this).hasClass('.notify');
+
+            // console.log(isDraftButton);
+
+            if (redirectUrl !== undefined && redirectUrl !== "") {
+                window.open(redirectUrl, '_blank');
+            }
+        });
 
 
         // $('#example1').on('click', 'tbody tr', function() {
         //     window.location = $(this).closest('tr').attr('redirect');
         // });
-
-
-
-
-
-
-
-
-
-
     });
 </script>
