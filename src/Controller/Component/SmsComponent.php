@@ -39,8 +39,6 @@ class SmsComponent extends Component
         // Process your response here
         return $response;
     }
-
-    
     
 }
 
