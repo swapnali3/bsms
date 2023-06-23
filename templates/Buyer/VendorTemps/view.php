@@ -21,7 +21,7 @@ switch ($vendorTemp->status) {
         $status = '<span class="badge bg-danger">Rejected</span>';
         break;
     case 5:
-        $status = '<span class="badge bg-info">Sap Import</span>';
+        $status = '<span class="badge bg-info sapImport">Sap Import</span>';
         break;
 }
 
