@@ -87,3 +87,17 @@ CREATE DEFINER=`root`@`localhost` TRIGGER `asn_headers_AFTER_IN` AFTER INSERT ON
         END IF;
     END IF;
 END
+
+CREATE TABLE `db_bsms`.`map_role_notification` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_group` INT NULL,
+  `notification_type` INT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `db_bsms`.`notifications_type` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(250) NULL,
+  PRIMARY KEY (`id`));
+
+INSERT INTO `db_bsms`.`notifications_type` (`name`) VALUES ('asn_material');
+INSERT INTO `db_bsms`.`notifications_type` (`name`) VALUES ('create_schedule');
