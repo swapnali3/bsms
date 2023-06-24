@@ -40,6 +40,7 @@ $(document).ready(function () {
 
                     //$(".statusVendor span").text("Approved");
                     $(".notify").hide();
+                    $(".sapImport").text("Approved")
                       
                 } else {
                     Toast.fire({
