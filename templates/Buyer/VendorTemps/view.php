@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp $vendorTemp
@@ -19,6 +20,9 @@ switch ($vendorTemp->status) {
     case 4:
         $status = '<span class="badge bg-danger">Rejected</span>';
         break;
+    case 5:
+        $status = '<span class="badge bg-info">Sap Import</span>';
+        break;
 }
 
 ?>
@@ -34,12 +38,11 @@ switch ($vendorTemp->status) {
                             <?= h($vendorTemp->name) ?>
                         </b>
                     </h5>
-                    <div class="">
+                    <div class="m-2">
                         <div class="text">
-                            <?php if ($vendorTemp->status == 1): ?>
+                            <?php if ($vendorTemp->status == 1) : ?>
 
-                                <button type="button" class="btn btn-success btn-sm mb-0" data-toggle="modal"
-                                    data-target="#modal-sm">
+                                <button type="button" class="btn btn-success btn-sm mb-0" data-toggle="modal" data-target="#modal-sm">
                                     Approve
                                 </button>
                                 <!-- modal -->
@@ -50,8 +53,7 @@ switch ($vendorTemp->status) {
                                                 <h6>Are you sure you want to aprrove?</h6>
                                             </div>
                                             <div class="modal-footer justify-content-between p-1">
-                                                <button type="button" class="btn btn-link"
-                                                    data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
                                                 <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
                                             </div>
                                         </div>
@@ -61,6 +63,12 @@ switch ($vendorTemp->status) {
                                 <!-- end modal -->
 
                                 <?= $this->Html->link(__('Reject'), '#', ['class' => 'btn btn-danger reject mb-0 btn-sm', 'data-toggle' => "modal", 'data-target' => "#remarkModal"]) ?>
+                            <?php elseif ($vendorTemp->status == 5) : ?>
+
+                                <button type="button" data-id="<?= h($vendorTemp->id) ?>" class="btn btn-info btn-sm mb-0 notify">
+                                    Send Credentials
+                                </button>
+
                             <?php endif; ?>
                         </div>
                     </div>
@@ -184,7 +192,7 @@ switch ($vendorTemp->status) {
                                 <h6 class="text-info mb-2 pl-2">Uploaded Documents</h6>
                                 <table class="table docs-list vendor-info table-bordered">
                                     <tbody>
-                                        <?php if ($vendorTemp->gst_file): ?>
+                                        <?php if ($vendorTemp->gst_file) : ?>
                                             <tr>
                                                 <td>GST NO</td>
                                                 </td>
@@ -193,7 +201,7 @@ switch ($vendorTemp->status) {
                                                 </td>
                                             </tr>
                                         <?php endif; ?>
-                                        <?php if ($vendorTemp->pan_file): ?>
+                                        <?php if ($vendorTemp->pan_file) : ?>
                                             <tr>
                                                 <td>Pan card</td>
                                                 <td>
@@ -201,7 +209,7 @@ switch ($vendorTemp->status) {
                                                 </td>
                                             </tr>
                                         <?php endif ?>
-                                        <?php if ($vendorTemp->bank_file): ?>
+                                        <?php if ($vendorTemp->bank_file) : ?>
                                             <tr>
                                                 <td>Bank Documents</td>
                                                 <td>
@@ -341,8 +349,7 @@ switch ($vendorTemp->status) {
 </div>
 
 <!-- Modal Reject remarks-->
-<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
 
         <div class="modal-content">
@@ -369,4 +376,8 @@ switch ($vendorTemp->status) {
         </div>
     </div>
 </div>
+
+<script>
+    var userView = '<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>';
+</script>
 <?= $this->Html->script('vendortemps_view') ?>

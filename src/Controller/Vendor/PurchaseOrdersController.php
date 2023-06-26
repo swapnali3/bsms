@@ -30,11 +30,7 @@ class PurchaseOrdersController extends VendorAppController
         $poHeaders = $this->paginate($this->PoHeaders->find()
             ->where(['sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id) > 0']));
 
-        $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
-        $count = $notificationCount->rowCount();
-
-        $this->set(compact('poHeaders', 'notificationCount', 'count'));
+        $this->set(compact('poHeaders'));
     }
 
     public function poApi($search = null, $createAsn = null)
@@ -105,11 +101,8 @@ class PurchaseOrdersController extends VendorAppController
         $poHeaders = $this->paginate($this->PoHeaders->find()
             ->where(['sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id) > 0']));
 
-        $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
-        $count = $notificationCount->rowCount();
 
-        $this->set(compact('poHeaders', 'notificationCount', 'count'));
+        $this->set(compact('poHeaders'));
     }
 
     /**
@@ -629,12 +622,9 @@ class PurchaseOrdersController extends VendorAppController
                 //echo '<pre>';print_r($row); exit;
             }
 
-            $this->loadModel('Notifications');
-            $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
-            $count = $notificationCount->rowCount();
 
 
-            $this->set(compact('poHeader', 'notificationCount','count'));
+            $this->set(compact('poHeader'));
         } else {
             return $this->redirect(['action' => 'create-asn']);
         }

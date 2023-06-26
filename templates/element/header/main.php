@@ -121,39 +121,32 @@
       <i class="fas fa-expand-arrows-alt"></i>
     </a> -->
     </li>
-    <?php if ($count > 0) : ?>
-        <li class="nav-item dropdown show">
-            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge custom-i"><?= $count ?></span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
-                <div class="d-flex justify-content-between">
-                    <span class="dropdown-header"><?= $count ?> Notifications</span>
-                    <span class="dropdown-header clearNotifications" style="color:#004d87">Clear</span>
-                </div>
+    <li class="nav-item dropdown show">
+        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+            <i class="far fa-bell"></i>
+            <span class="badge badge-warning navbar-badge custom-i">0</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
+            <div class="d-flex justify-content-between">
+                <span class="dropdown-header notifyView"> Notifications</span>
+                <span class="dropdown-header clearNotifications" style="color:#004d87">Clear</span>
+            </div>
 
-                <div class="dropdown-divider"></div>
-                <?php foreach ($notificationCount as $key => $val) : ?>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope text-info mr-2"></i> <?= $val['message_count'] ?> create Schedule
+            <div class="dropdown-divider"></div>
+
+            <div class="notification-lists">
+
+            </div>
+
+            <!-- <a href="#" class="dropdown-item">
+                        <i class="fas fa-envelope text-info mr-2"></i>Asn Material
                         <span class="float-right text-muted text-sm">3 mins</span>
                     </a>
-                    <div class="dropdown-divider"></div>
-                <?php endforeach; ?>
-            </div>
-        </li>
-    <?php else : ?>
-        <li class="nav-item dropdown show">
-            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge custom-i">0</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
-                <span class="dropdown-header">No Notifications</span>
-            </div>
-        </li>
-    <?php endif; ?>
+                    <div class="dropdown-divider"></div> -->
+
+        </div>
+    </li>
+
     <li class="nav-item dropdown show">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <div class="user-panel d-flex">

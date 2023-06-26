@@ -40,11 +40,8 @@ class RfqsController extends VendorAppController
         */
 
         
-        $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
-        $count = $notificationCount->rowCount();
 
-        $this->set(compact('rfqs','notificationCount','count'));
+        $this->set(compact('rfqs'));
     }
 
     /**
@@ -113,13 +110,8 @@ class RfqsController extends VendorAppController
                 }
             }
 
-            //echo '<pre>'; print_r($rfqs); exit;
 
-            $this->loadModel('Notifications');
-            $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
-            $count = $notificationCount->rowCount();
-
-        $this->set(compact('rfqs', 'chatHistory','notificationCount','count'));
+        $this->set(compact('rfqs', 'chatHistory'));
     }
 
     /**
