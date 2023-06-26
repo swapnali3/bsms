@@ -206,25 +206,19 @@ class ApiController extends ApiAppController
 
 
         $userId =  $session->read('id');
+
+        
         $this->loadModel('Notifications');
 
         $conn = ConnectionManager::get('default');
-        $notificationsQuery = $conn->execute(
-            "SELECT * FROM notifications WHERE notification_type IN (
-                SELECT nt.name FROM users u
-                INNER JOIN user_groups ug ON ug.id = u.group_id
-                INNER JOIN map_role_notification mrn ON ug.id = mrn.user_group
-                INNER JOIN notifications_type nt ON nt.id = mrn.notification_type
-                WHERE u.id = :userId
-            ) AND message_count > 0",
-            ['userId' => $userId]
-        );
+        $notificationsQuery = $conn->execute("SELECT * FROM notifications WHERE message_count > 0 and user_id = $userId");
 
         $notifications = $notificationsQuery->fetchAll('assoc');
-   
+
         $response['status'] = '1';
         $response['message'] = 'success';
         $response['notifications'] = $notifications;
+
 
         echo json_encode($response);
     }

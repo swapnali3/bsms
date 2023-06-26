@@ -161,6 +161,7 @@
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?>
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
+    <?= $this->Html->script('/js/common.js') ?>
     <?= $this->Html->script('/js/adminjs.js') ?>
     <link rel="stylesheet" href="/bsms/cake_lte/AdminLTE/plugins/toastr/toastr.min.css"/>   
     
