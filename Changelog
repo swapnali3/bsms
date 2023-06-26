@@ -87,3 +87,24 @@ CREATE DEFINER=`root`@`localhost` TRIGGER `asn_headers_AFTER_IN` AFTER INSERT ON
         END IF;
     END IF;
 END
+
+
+// ==================== Vendor Status ====================
+author: JThayil
+date: 22.06.2023
+// ==================== ============= ====================
+CREATE TABLE `db_bsms`.`vendor_status` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `status` INT NOT NULL,
+  `description` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `status_UNIQUE` (`status` ASC) VISIBLE);
+
+INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('0', 'Sent to Vendor');
+INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('1', 'Pending for approval');
+INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('2', 'Sent to SAP');
+INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('3', 'Approved');
+INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('4', 'Rejected');
+INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('5', 'SAP Import');
+
+// ==================== Vendor Status ====================
