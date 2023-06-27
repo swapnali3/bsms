@@ -238,16 +238,107 @@ switch ($vendorTemp->status) {
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-12 col-lg-12 <?= h($hide) ?>">
-                <?= $this->Form->create(null, ['id' => $vendorTemp->id,  'url' => ['controller' => 'VendorTemps', 'action' => 'update']]) ?>
+            <div class="col-sm-12 col-md-12 col-lg-12 ">
+                <?= $this->Form->create(null, ['id' => $vendorTempView[0]->id,  'url' => ['controller' => 'VendorTemps', 'action' => 'update']]) ?>
+                <?= $this->Form->hidden('id', ['value' => $vendorTempView[0]->id]) ?>
                 <div class="card">
                     <div class="card-body">
                         <table>
+                            
                             <tr>
-                                <?php if ($vendorTemp->gst_file != $vendorTemp->gst_file) : ?>
-                                <th>TAN No</th>
+                                <?php if ($vendorTempView[0]->name != $vendorTemp->name) : ?>
+                                <th>Name</th>
                                 <td>: &nbsp;
-                                    <?= h($vendorTemp->gst_file) ?>
+                                    <?= h($vendorTempView[0]->name) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->address != $vendorTempView[0]->address) : ?>
+                                <th>Address 1</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->address) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->address_2 != $vendorTempView[0]->address_2) : ?>
+                                <th>Address 2</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->address_2) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->city != $vendorTempView[0]->city) : ?>
+                                <th>City</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->city) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->Pincode != $vendorTempView[0]->Pincode) : ?>
+                                <th>Pincode</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->Pincode) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->state != $vendorTempView[0]->state) : ?>
+                                <th>State</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->state) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->country != $vendorTempView[0]->country) : ?>
+                                <th>Country</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->country) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                           
+                            <tr>
+                                <?php if ($vendorTempView[0]->contact_person != $vendorTempView[0]->contactperson) : ?>
+                                <th>contact person Name</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->contact_person) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->contact_email != $vendorTempView[0]->contactemail) : ?>
+                                <th>contact Email</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->contact_email) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->contact_mobile != $vendorTempView[0]->contact_mobile) : ?>
+                                <th>contact mobile</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->contact_mobile) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->contact_department != $vendorTempView[0]->contact_department) : ?>
+                                <th>contact department</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->contact_department) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->contact_designation != $vendorTempView[0]->contact_designation) : ?>
+                                <th>contact Designation</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->contact_designation) ?>
                                 </td>
                                 <?php endif ?>
                             </tr>

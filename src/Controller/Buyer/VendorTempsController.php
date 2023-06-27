@@ -36,7 +36,7 @@ class VendorTempsController extends BuyerAppController
         ];
         $vendorTemps = $this->paginate($this->VendorTemps);
 
- 
+
         $this->set(compact('vendorTemps'));
     }
 
@@ -91,7 +91,40 @@ class VendorTempsController extends BuyerAppController
         ]);
         $this->set('headTitle', 'Vendor Details');
 
-        $this->set(compact('vendorTemp'));
+        if ($this->VendorTemps->exists(['update_flag' => $id])) {
+
+            $vendorTempView = $this->VendorTemps->find('all')->where(['update_flag' => $id])->toArray();
+            // $vendorTempView = $this->VendorTemps->get($st[0]->id);
+            //   $this->set(compact('vendorTempView'));
+            $this->set('vendorTempView', $vendorTempView);
+        }
+        $this->set('vendorTemp', $vendorTemp);
+        // echo '<pre>'; print_r($vendorTempView);exit;
+
+    }
+
+
+    public function update()
+    {
+        $this->loadModel("VendorTemps");
+
+        if ($this->request->is('post')) {
+
+            $id = $this->request->getData('id');
+
+            $vendorTemp = $this->VendorTemps->get($id);
+            $this->request->allowMethod(['post', 'put']);
+
+            $vendorTemp->update_flag = -1;
+
+            if ($this->VendorTemps->save($vendorTemp)) {
+                $this->Flash->success(__('The vendorTemp has been updated.'));
+                return $this->redirect(['action' => 'index']);
+            } else {
+
+                $this->Flash->error(__('The vendorTemp could not be updated. Please, try again.'));
+            }
+        }
     }
 
 
