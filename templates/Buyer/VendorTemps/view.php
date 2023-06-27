@@ -35,7 +35,9 @@ switch ($vendorTemp->status) {
             <div class="card-body">
                 <div class="row ml-2">
                     <div class="col-sm-12 col-md-12 col-lg-12 text-info mb-3" style="text-transform: uppercase;">
-                        <h4><?= h($vendorTemp->name) ?></h4>
+                        <h4>
+                            <?= h($vendorTemp->name) ?>
+                        </h4>
                         <hr>
                     </div>
 
@@ -44,35 +46,51 @@ switch ($vendorTemp->status) {
                         <table>
                             <tr>
                                 <th>Email Id</th>
-                                <td>: &nbsp; <?= h($vendorTemp->email) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->email) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Mobile</th>
-                                <td>: &nbsp; <?= h($vendorTemp->mobile) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->mobile) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Address 1</th>
-                                <td>: &nbsp; <?= h($vendorTemp->address) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->address) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Address 2</th>
-                                <td>: &nbsp; <?= h($vendorTemp->address_2) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->address_2) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>City</th>
-                                <td>: &nbsp; <?= h($vendorTemp->city) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->city) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Pincode</th>
-                                <td>: &nbsp; <?= h($vendorTemp->pincode) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->pincode) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>State</th>
-                                <td>: &nbsp; <?= h($vendorTemp->email) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->email) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Country</th>
-                                <td>: &nbsp; <?= h($vendorTemp->country) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->country) ?>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -81,23 +99,33 @@ switch ($vendorTemp->status) {
                         <table>
                             <tr>
                                 <th>Name</th>
-                                <td>: &nbsp; <?= h($vendorTemp->contact_person) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->contact_person) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Email Id</th>
-                                <td>: &nbsp; <?= h($vendorTemp->contact_email) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->contact_email) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Mobile</th>
-                                <td>: &nbsp; <?= h($vendorTemp->contact_mobile) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->contact_mobile) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Department</th>
-                                <td>: &nbsp; <?= h($vendorTemp->contact_department) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->contact_department) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Designation</th>
-                                <td>: &nbsp; <?= h($vendorTemp->contact_designation) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->contact_designation) ?>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -109,27 +137,39 @@ switch ($vendorTemp->status) {
                         <table>
                             <tr>
                                 <th>Purchasing Organization</th>
-                                <td>: &nbsp; <?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?></td>
+                                <td>: &nbsp;
+                                    <?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Schema Group</th>
-                                <td>: &nbsp; <?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?></td>
+                                <td>: &nbsp;
+                                    <?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Order Currency</th>
-                                <td>: &nbsp; <?= h($vendorTemp->order_currency) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->order_currency) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Account Group</th>
-                                <td>: &nbsp; <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?></td>
+                                <td>: &nbsp;
+                                    <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Payment Term</th>
-                                <td>: &nbsp; <?= h($vendorTemp->payment_term) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->payment_term) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>SAP Vendor Code</th>
-                                <td>: &nbsp; <?= !empty($vendorTemp->sap_vendor_code) ? $vendorTemp->sap_vendor_code : '' ?></td>
+                                <td>: &nbsp;
+                                    <?= !empty($vendorTemp->sap_vendor_code) ? $vendorTemp->sap_vendor_code : '' ?>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -138,29 +178,34 @@ switch ($vendorTemp->status) {
                         <table class="mt-2">
                             <tr>
                                 <th>Pan No</th>
-                                <td>: &nbsp; <?= h($vendorTemp->pan_no) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->pan_no) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>CIN No</th>
-                                <td>: &nbsp; <?= h($vendorTemp->cin_no) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->cin_no) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>GST No</th>
-                                <td>: &nbsp; <?= h($vendorTemp->gst_no) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->gst_no) ?>
+                                </td>
                             </tr>
                             <tr>
                                 <th>TAN No</th>
-                                <td>: &nbsp; <?= h($vendorTemp->tan_no) ?></td>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->tan_no) ?>
+                                </td>
                             </tr>
                         </table>
                     </div>
-               
-               
+
+
                 </div>
-
-
             </div>
-
         </div>
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">
@@ -173,62 +218,85 @@ switch ($vendorTemp->status) {
                         </div>
                         <div class="card-body p-1">
                             <?php if ($vendorTemp->gst_file) : ?>
-                                <h5 class="mb-1">
-                                    <?= $this->Html->link('<i class="far fa-file-archive fa-lg"></i>&nbsp;GST NO', '/' . $vendorTemp->gst_file, ['escape' => false, 'class' => 'btn btn-block mb-0 text-info text-left p-2', 'target' => '_blank']); ?>
-                                </h5>
+                            <h5 class="mb-1">
+                                <?= $this->Html->link('<i class="far fa-file-archive fa-lg"></i>&nbsp;GST NO', '/' . $vendorTemp->gst_file, ['escape' => false, 'class' => 'btn btn-block mb-0 text-info text-left p-2', 'target' => '_blank']); ?>
+                            </h5>
                             <?php endif; ?>
 
                             <?php if ($vendorTemp->pan_file) : ?>
-                                <h5 class="mb-1">
-                                    <?= $this->Html->link('<i class="far fa-file-archive fa-lg"></i>&nbsp;PAN NO', '/' . $vendorTemp->pan_file, ['escape' => false, 'class' => 'btn mb-0 btn-block text-info text-left p-2', 'target' => '_blank']); ?>
-                                </h5>
+                            <h5 class="mb-1">
+                                <?= $this->Html->link('<i class="far fa-file-archive fa-lg"></i>&nbsp;PAN NO', '/' . $vendorTemp->pan_file, ['escape' => false, 'class' => 'btn mb-0 btn-block text-info text-left p-2', 'target' => '_blank']); ?>
+                            </h5>
                             <?php endif ?>
 
                             <?php if ($vendorTemp->pan_file) : ?>
-                                <h5 class="mb-1">
-                                    <?= $this->Html->link('<i class="far fa-file-archive fa-lg"></i>&nbsp;Bank Documents', '/' . $vendorTemp->bank_file, ['escape' => false, 'class' => 'btn mb-0 btn-block text-info text-left p-2', 'target' => '_blank']); ?>
-                                </h5>
+                            <h5 class="mb-1">
+                                <?= $this->Html->link('<i class="far fa-file-archive fa-lg"></i>&nbsp;Bank Documents', '/' . $vendorTemp->bank_file, ['escape' => false, 'class' => 'btn mb-0 btn-block text-info text-left p-2', 'target' => '_blank']); ?>
+                            </h5>
                             <?php endif ?>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="col-sm-12 col-md-12 col-lg-12 <?= h($hide) ?>">
+                <?= $this->Form->create(null, ['id' => $vendorTemp->id,  'url' => ['controller' => 'VendorTemps', 'action' => 'update']]) ?>
+                <div class="card">
+                    <div class="card-body">
+                        <table>
+                            <tr>
+                                <?php if ($vendorTemp->gst_file != $vendorTemp->gst_file) : ?>
+                                <th>TAN No</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTemp->gst_file) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card-footer">
+                        <?= $this->Form->button(__('Submit')) ?>
+                    </div>
+                </div>
+                <?= $this->Form->end() ?>
+            </div>
         </div>
-
     </div>
 </div>
 
 
 <?php if ($vendorTemp->status == 1) : ?>
-    <div class="card-footer">
-        <div class="row">
-            <div class="col-1">
-                <button type="button" class="btn btn-block p-2" style="border:1px solid #28a745" data-toggle="modal" data-target="#modal-sm">
-                    <i class="far fa-check-circle"></i> &nbsp; Approve
-                </button>
+<div class="card-footer">
+    <div class="row">
+        <div class="col-1">
+            <button type="button" class="btn btn-block p-2" style="border:1px solid #28a745" data-toggle="modal"
+                data-target="#modal-sm">
+                <i class="far fa-check-circle"></i> &nbsp; Approve
+            </button>
+        </div>
+        <div class="col-1">
+            <a href="#" class="btn btn-block reject  p-2" style="border:1px solid red" data-toggle="modal"
+                data-target="#remarkModal"><i class="far fa-times-circle"></i> &nbsp; Reject</a>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h6>Are you sure you want to approve?</h6>
             </div>
-            <div class="col-1">
-                <a href="#" class="btn btn-block reject  p-2" style="border:1px solid red" data-toggle="modal" data-target="#remarkModal"><i class="far fa-times-circle"></i> &nbsp; Reject</a>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
+                <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn', 'style' => 'border:1px solid #28a745']) ?>
             </div>
         </div>
     </div>
-    <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <h6>Are you sure you want to approve?</h6>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
-                    <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn', 'style' => 'border:1px solid #28a745']) ?>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 <?php endif; ?>
 </div>
 
-<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel" aria-hidden="true">
+<div class="modal fade" id="remarkModal" tabindex="-1" role="dialog" aria-labelledby="remarkModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
 
         <div class="modal-content">
