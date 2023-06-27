@@ -6,7 +6,7 @@
 
 ?>
 <?= $this->Html->css('custom') ?>
-<?= $this->Html->css('vendortemps_index') ?>
+<?= $this->Html->css('b_vendortemps_index') ?>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -62,4 +62,4 @@
         </div>
     </div>
 </div>
-<?= $this->Html->script('vendortemps_index') ?>
+<?= $this->Html->script('b_vendortemps_index') ?>

@@ -24,7 +24,7 @@ switch ($vendorTemp->status) {
 ?>
 
 <?= $this->Html->css('custom') ?>
-<?= $this->Html->css('vendortemps_view') ?>
+<?= $this->Html->css('b_vendortemps_view') ?>
 
 <div class="card">
     <div class="card-body">
@@ -244,4 +244,4 @@ switch ($vendorTemp->status) {
     </div>
 </div>
 
-<?= $this->Html->script('vendortemps_view') ?>
+<?= $this->Html->script('b_vendortemps_view') ?>

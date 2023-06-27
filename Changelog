@@ -108,3 +108,13 @@ INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('4', 'Re
 INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('5', 'SAP Import');
 
 // ==================== Vendor Status ====================
+
+// ==================== Vendor Update ====================
+author: JThayil
+date: 27.06.2023
+// ==================== ============= ====================
+ALTER TABLE `db_bsms`.`vendor_temps` 
+ADD COLUMN `update_flag` INT NULL DEFAULT 0 AFTER `updated_date`,
+CHANGE COLUMN `mobile` `mobile` VARCHAR(12) NULL DEFAULT NULL ,
+CHANGE COLUMN `email` `email` VARCHAR(100) NULL DEFAULT NULL ;
+// ==================== Vendor Update ====================

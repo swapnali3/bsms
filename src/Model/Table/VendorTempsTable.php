@@ -14,6 +14,9 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\PurchasingOrganizationsTable&\Cake\ORM\Association\BelongsTo $PurchasingOrganizations
  * @property \App\Model\Table\AccountGroupsTable&\Cake\ORM\Association\BelongsTo $AccountGroups
  * @property \App\Model\Table\SchemaGroupsTable&\Cake\ORM\Association\BelongsTo $SchemaGroups
+ * @property \App\Model\Table\RfqCommunicationsTable&\Cake\ORM\Association\HasMany $RfqCommunications
+ * @property \App\Model\Table\RfqsTable&\Cake\ORM\Association\HasMany $Rfqs
+ * @property \App\Model\Table\VendorTempOtpsTable&\Cake\ORM\Association\HasMany $VendorTempOtps
  *
  * @method \App\Model\Entity\VendorTemp newEmptyEntity()
  * @method \App\Model\Entity\VendorTemp newEntity(array $data, array $options = [])
@@ -105,9 +108,19 @@ class VendorTempsTable extends Table
             ->allowEmptyString('address');
 
         $validator
+            ->scalar('address_2')
+            ->maxLength('address_2', 100)
+            ->allowEmptyString('address_2');
+
+        $validator
             ->scalar('city')
             ->maxLength('city', 50)
             ->allowEmptyString('city');
+
+        $validator
+            ->scalar('state')
+            ->maxLength('state', 100)
+            ->allowEmptyString('state');
 
         $validator
             ->scalar('pincode')
@@ -122,8 +135,7 @@ class VendorTempsTable extends Table
 
         $validator
             ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email')
+            ->allowEmptyString('email')
             ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
@@ -168,6 +180,16 @@ class VendorTempsTable extends Table
             ->allowEmptyString('contact_mobile');
 
         $validator
+            ->scalar('contact_department')
+            ->maxLength('contact_department', 50)
+            ->allowEmptyString('contact_department');
+
+        $validator
+            ->scalar('contact_designation')
+            ->maxLength('contact_designation', 50)
+            ->allowEmptyString('contact_designation');
+
+        $validator
             ->scalar('cin_no')
             ->maxLength('cin_no', 25)
             ->allowEmptyString('cin_no');
@@ -176,6 +198,21 @@ class VendorTempsTable extends Table
             ->scalar('tan_no')
             ->maxLength('tan_no', 25)
             ->allowEmptyString('tan_no');
+
+        $validator
+            ->scalar('gst_file')
+            ->maxLength('gst_file', 255)
+            ->allowEmptyFile('gst_file');
+
+        $validator
+            ->scalar('pan_file')
+            ->maxLength('pan_file', 255)
+            ->allowEmptyFile('pan_file');
+
+        $validator
+            ->scalar('bank_file')
+            ->maxLength('bank_file', 255)
+            ->allowEmptyFile('bank_file');
 
         $validator
             ->notEmptyString('status');
@@ -202,6 +239,10 @@ class VendorTempsTable extends Table
             ->dateTime('updated_date')
             ->notEmptyDateTime('updated_date');
 
+        $validator
+            ->integer('update_flag')
+            ->allowEmptyString('update_flag');
+
         return $validator;
     }
 
@@ -214,7 +255,7 @@ class VendorTempsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->isUnique(['email'], ['allowMultipleNulls' => true]), ['errorField' => 'email']);
         $rules->add($rules->existsIn('purchasing_organization_id', 'PurchasingOrganizations'), ['errorField' => 'purchasing_organization_id']);
         $rules->add($rules->existsIn('account_group_id', 'AccountGroups'), ['errorField' => 'account_group_id']);
         $rules->add($rules->existsIn('schema_group_id', 'SchemaGroups'), ['errorField' => 'schema_group_id']);

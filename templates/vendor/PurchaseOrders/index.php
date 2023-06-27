@@ -5,7 +5,7 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
-<?= $this->Html->css('vendorCustom') ?>
+<?= $this->Html->css('v_vendorCustom') ?>
 <div class="poHeaders index content card purchase-order">
   <div class="card-body">
     <div class="table-responsive">

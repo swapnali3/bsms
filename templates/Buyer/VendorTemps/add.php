@@ -13,7 +13,7 @@
 </script>
 
 <?= $this->Html->css('custom') ?>
-<?= $this->Html->css('vendortemps_add') ?>
+<?= $this->Html->css('b_vendortemps_add') ?>
 <div class="add-vendor">
     <div class="row">
         <div class="col-12">
@@ -164,4 +164,4 @@
         </div>
     </div>
 </div>
-<?= $this->Html->script('vendortemps_add') ?>
+<?= $this->Html->script('b_vendortemps_add') ?>
