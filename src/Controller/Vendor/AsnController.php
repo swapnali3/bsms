@@ -36,7 +36,13 @@ class AsnController extends VendorAppController
         //echo '<pre>'; print_r($query); exit;
         $deliveryDetails = $this->paginate($query);
 
-        $this->set(compact('deliveryDetails'));
+             $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+
+        //echo '<pre>'; print_r($rfqDetails); exit;
+
+        $this->set(compact('deliveryDetails','notificationCount','count'));
     }
 
     /**
@@ -71,6 +77,10 @@ class AsnController extends VendorAppController
         //$record = $deliveryDetails->first();
         //$this->set('deliveryDetailw', $record);
 
+       $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
+        $count = $notificationCount->rowCount();
+        $this->set(compact('notificationCount','count'));
 
         $this->set('deliveryDetails', $deliveryDetails);
     }

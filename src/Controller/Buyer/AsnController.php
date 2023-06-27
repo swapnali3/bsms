@@ -18,7 +18,11 @@ class AsnController extends BuyerAppController
     {
         $session = $this->getRequest()->getSession();
             
-
+        $userId =  $session->read('id');
+ 
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
+        $count = $notificationCount->rowCount();
 
         $this->set(compact('notificationCount','count'));
 
@@ -92,6 +96,12 @@ class AsnController extends BuyerAppController
         //$this->set('deliveryDetailw', $record);
         $session = $this->getRequest()->getSession();
             
+        $userId =  $session->read('id');
+ 
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
+        $count = $notificationCount->rowCount();
+
         $this->set(compact('notificationCount','count'));
 
         $this->set('deliveryDetails', $deliveryDetails->all());

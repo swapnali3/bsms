@@ -243,7 +243,7 @@
   <link rel="stylesheet" href="<?= $this->Url->build('/') ?>css/all.min.css">
   <link href="<?= $this->Url->build('/') ?>css/5.7cec8de0.chunk.css" rel="stylesheet">
   <link href="<?= $this->Url->build('/') ?>css/main.26d266c0.chunk.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link href="<?= $this->Url->build('/') ?>css/animate.min.css" rel="stylesheet">
   <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/0.5bbd83f8.chunk.js"></script>
   <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/1.a9e5058d.chunk.js"></script>
   <script charset="utf-8" src="<?= $this->Url->build('/') ?>js/6.3128c4ca.chunk.js"></script>
@@ -399,8 +399,8 @@
 
   <script src="<?= $this->Url->build('/') ?>js/5.b662bfe1.chunk.js"></script>
   <script src="<?= $this->Url->build('/') ?>js/main.d308f349.chunk.js"></script>
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.6/ScrollMagic.min.js"></script>
+  <script src="<?= $this->Url->build('/') ?>js/ScrollMagic.min.js"></script>
+  <script src="<?= $this->Url->build('/') ?>js/particles.min.js"></script>
   <script>
     // background particles
     particlesJS("particles-js", {

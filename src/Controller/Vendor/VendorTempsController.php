@@ -78,8 +78,12 @@ class VendorTempsController extends VendorAppController
             }
         }
 
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
+        $count = $notificationCount->rowCount();
 
-        $this->set(compact('vendorTemp'));
+
+        $this->set(compact('vendorTemp','notificationCount','count'));
     }
 
    

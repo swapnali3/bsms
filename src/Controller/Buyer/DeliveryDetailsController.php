@@ -38,10 +38,15 @@ class DeliveryDetailsController extends BuyerAppController
         //echo '<pre>'; print_r($query); exit;
         $deliveryDetails = $this->paginate($query);
         
+        $userId =  $session->read('id');
+ 
+        $this->loadModel('Notifications');
+        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'asn_material' AND message_count > 0 AND user_id = $userId");
+        $count = $notificationCount->rowCount();
 
         //echo '<pre>'; print_r($rfqDetails); exit;
 
-        $this->set(compact('deliveryDetails'));
+        $this->set(compact('deliveryDetails','notificationCount','count'));
     }
 
     /**

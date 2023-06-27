@@ -1,9 +1,7 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller\Api;
-
 use Cake\Datasource\ConnectionManager;
 use Cake\Core\Exception\Exception;
 
@@ -28,31 +26,33 @@ class ApiController extends ApiAppController
 
         $this->autoRender = false;
 
-        date_default_timezone_set('Asia/Kolkata');
-
+        date_default_timezone_set('Asia/Kolkata'); 
+        
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
+        
     }
 
     public function index()
-    {
-    }
+{
+    
+}
 
     public function postPo()
     {
         $response = array();
         $response['status'] = 0;
         $response['message'] = 'Empty request';
-        $request = $this->request->getData();
+        $request = $this->request->getData();  
 
         $this->loadModel("PoHeaders");
         $this->loadModel("PoFooters");
-
-        if (!empty($request) && count($request['DATA'])) {
-
-            try {
-                foreach ($request['DATA'] as $key => $row) {
+        
+        if(!empty($request) && count($request['DATA'])) {
+            
+            try{
+                foreach($request['DATA'] as $key => $row) {
                     $hederData = array();
                     $footerData = array();
 
@@ -68,11 +68,11 @@ class ApiController extends ApiAppController
 
                     $poInstance = $this->PoHeaders->newEmptyEntity();
                     $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
-
+                    
                     if ($this->PoHeaders->save($poInstance)) {
                         $po_header_id = $poInstance->id;
 
-                        foreach ($row['ITEMS'] as $no => $item) {
+                        foreach($row['ITEMS'] as $no => $item) {
                             $tmp = array();
                             $tmp['po_header_id'] = $po_header_id;
                             $tmp['item'] = $item['EBELP'];
@@ -87,14 +87,14 @@ class ApiController extends ApiAppController
                             $tmp['price_unit'] = $item['PEINH'];
                             $tmp['net_value'] = $item['NETWR'];
                             $tmp['gross_value'] = $item['BRTWR'];
-
+        
                             $footerData[] = $tmp;
                             //print_r($footerData);        
                         }
 
                         $poItemsInstance = $this->PoFooters->newEntities($footerData);
                         #print_r($poItemsInstance);
-                        if ($this->PoFooters->saveMany($poItemsInstance)) {
+                        if($this->PoFooters->saveMany($poItemsInstance)) {   
                             $response['status'] = 1;
                             $response['message'] = 'PO saved successfully';
                         } else {
@@ -114,9 +114,10 @@ class ApiController extends ApiAppController
                 $response['status'] = 0;
                 $response['message'] = $e->getMessage();
             }
-        }
+        } 
 
         echo json_encode($response);
+        
     }
 
     public function postPr()
@@ -124,15 +125,15 @@ class ApiController extends ApiAppController
         $response = array();
         $response['status'] = 0;
         $response['message'] = 'Empty request';
-        $request = $this->request->getData();
+        $request = $this->request->getData();  
 
         $this->loadModel("PrHeaders");
         $this->loadModel("PrFooters");
-
-        if (!empty($request) && count($request['DATA'])) {
-
-            try {
-                foreach ($request['DATA'] as $key => $row) {
+        
+        if(!empty($request) && count($request['DATA'])) {
+            
+            try{
+                foreach($request['DATA'] as $key => $row) {
                     $hederData = array();
                     $footerData = array();
 
@@ -143,12 +144,12 @@ class ApiController extends ApiAppController
 
                     $poInstance = $this->PrHeaders->newEmptyEntity();
                     $poInstance = $this->PrHeaders->patchEntity($poInstance, $hederData);
-
-
+                    
+                    
                     if ($this->PrHeaders->save($poInstance)) {
                         $pr_header_id = $poInstance->id;
 
-                        foreach ($row['ITEMS'] as $no => $item) {
+                        foreach($row['ITEMS'] as $no => $item) {
                             $tmp = array();
                             $tmp['pr_header_id'] = $pr_header_id;
                             $tmp['item'] = $item['BNFPO'];
@@ -172,7 +173,7 @@ class ApiController extends ApiAppController
 
                         $poItemsInstance = $this->PrFooters->newEntities($footerData);
                         #print_r($poItemsInstance);
-                        if ($this->PrFooters->saveMany($poItemsInstance)) {
+                        if($this->PrFooters->saveMany($poItemsInstance)) {   
                             $response['status'] = 1;
                             $response['message'] = 'PR saved successfully';
                         } else {
@@ -183,6 +184,7 @@ class ApiController extends ApiAppController
                         $response['status'] = 0;
                         $response['message'] = 'PR header save fail';
                     }
+                    
                 }
             } catch (\PDOException $e) {
                 $response['status'] = 0;
@@ -191,35 +193,9 @@ class ApiController extends ApiAppController
                 $response['status'] = 0;
                 $response['message'] = $e->getMessage();
             }
-        }
+        } 
 
         echo json_encode($response);
-    }
-
-
-    public function notification()
-    {
-        $response = array();
-        $response['status'] = 0;
-        $response['message'] = '';
-        $session = $this->getRequest()->getSession();
-
-
-        $userId =  $session->read('id');
-
         
-        $this->loadModel('Notifications');
-
-        $conn = ConnectionManager::get('default');
-        $notificationsQuery = $conn->execute("SELECT * FROM notifications WHERE message_count > 0 and user_id = $userId");
-
-        $notifications = $notificationsQuery->fetchAll('assoc');
-
-        $response['status'] = '1';
-        $response['message'] = 'success';
-        $response['notifications'] = $notifications;
-
-
-        echo json_encode($response);
     }
 }

@@ -280,7 +280,4 @@ class UsersController extends AppController
         // $this->Flash->success("You've successfully logged out.");
         $this->redirect(array('controller' => 'users', 'action' => 'login'));
     }
-
-
-    
 }

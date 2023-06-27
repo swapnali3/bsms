@@ -121,29 +121,7 @@
       <i class="fas fa-expand-arrows-alt"></i>
     </a> -->
     </li>
-
-    <li class="nav-item dropdown show">
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge custom-i">0</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
-            <div class="d-flex justify-content-between">
-                <span class="dropdown-header notifyView"> Notifications</span>
-                <span class="dropdown-header clearNotifications" style="color:#004d87">Clear</span>
-            </div>
-
-            <div class="dropdown-divider"></div>
-
-            <div class="notification-lists">
-
-            </div>
-
-
-        </div>
-    </li>
-
-
+    
     <li class="nav-item dropdown show">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <div class="user-panel d-flex">
