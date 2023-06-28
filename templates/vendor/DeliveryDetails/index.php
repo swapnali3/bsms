@@ -15,7 +15,7 @@
         padding:0rem
     } */
     </style>
-<?= $this->Html->css('vendorCustom') ?>
+<?= $this->Html->css('v_vendorCustom') ?>
 
 <div class="deliveryDetails index content card intransit">
     <div class="card-header p-2">

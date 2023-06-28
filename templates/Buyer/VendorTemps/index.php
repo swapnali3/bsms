@@ -6,8 +6,8 @@
 
 ?>
 <?= $this->Html->css('custom') ?>
-<?= $this->Html->css('vendortemps_index') ?>
-<div class="row" style="height:90vh;">
+<?= $this->Html->css('b_vendortemps_index') ?>
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body vendor-list">
@@ -38,9 +38,6 @@
                                     case 2 : $status = '<span class="badge bg-info">Sent to SAP</span>'; break;
                                     case 3 : $status = '<span class="badge bg-success">Approved</span>'; break;
                                     case 4 : $status = '<span class="badge bg-danger">Rejected</span>'; break;
-                                    case 5:
-                                        $status = '<span class="badge bg-info">Sap Import</span>';
-                                        break;
                                 }
                                 ?>
                                 <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">
@@ -65,4 +62,4 @@
         </div>
     </div>
 </div>
-<?= $this->Html->script('vendortemps_index') ?>
+<?= $this->Html->script('b_vendortemps_index') ?>

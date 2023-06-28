@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
+
 use Cake\Datasource\ConnectionManager;
 
 
@@ -26,7 +28,7 @@ class VendorTempsController extends VendorAppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    
+
 
     /**
      * View method
@@ -39,14 +41,14 @@ class VendorTempsController extends VendorAppController
     {
         $this->set('headTitle', 'Profile');
         $session = $this->getRequest()->getSession();
- 
+
         $this->loadModel('VendorTemps');
         $vendorTemp = $this->VendorTemps->get($session->read('vendor_id'), [
             'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            try{
+            try {
                 $request = $this->request->getData();
                 $userData = [
                     'address' => $request['address1'],
@@ -55,10 +57,10 @@ class VendorTempsController extends VendorAppController
                     'contact_mobile' => $request['contact_mobiles'],
                     'contact_email' => $request['contact_email'],
                     'contact_department' => $request['contact_department'],
-                    'contact_designation' => $request['contact_designation']  
+                    'contact_designation' => $request['contact_designation']
                 ];
 
-            
+
                 $userObj = $this->VendorTemps->newEmptyEntity();
                 $userObj = $this->VendorTemps->patchEntity($vendorTemp, $userData);
 
@@ -78,11 +80,13 @@ class VendorTempsController extends VendorAppController
             }
         }
 
-
         $this->set(compact('vendorTemp'));
+
+
+
     }
 
-   
+
 
     /**
      * Edit method
@@ -99,7 +103,9 @@ class VendorTempsController extends VendorAppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $resp = $this->request->getData();
-            // echo '<pre>';print_r($resp);
+            $vendorTempData = $vendorTemp->toArray(); // Retrieve all column data as an array
+            //  echo '<pre>'; print_r($vendorTempData); exit;
+        
             $newvt = $this->VendorTemps->newEmptyEntity();
             $vt = array();
             $vt['purchasing_organization_id'] = $resp['purchasing_organization_id'];
@@ -122,7 +128,6 @@ class VendorTempsController extends VendorAppController
             $vt['valid_date'] = $resp['valid_date'];
             $vt['buyer_id'] = $vendorTemp->buyer_id;
             $vt['mobile'] = $vendorTemp->mobile;
-            $vt['address_2'] = $vendorTemp->address_2;
             $vt['payment_term'] = $vendorTemp->payment_term;
             $vt['update_flag'] = $vendorTemp->id;
             $vt['gst_file'] = $vendorTemp->gst_file;
@@ -135,14 +140,27 @@ class VendorTempsController extends VendorAppController
             $vt['remark'] = $vendorTemp->remark;
             $newvt = $this->VendorTemps->patchEntity($newvt, $vt);
 
-                return $this->redirect(['action' => 'index']);
+            if ($this->VendorTemps->save($newvt)) {
+                echo $newvt->author_id;
+                $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                $mailer = new Mailer('default');
+                $mailer
+                    ->setTransport('smtp')
+                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    // ->setTo($vendorTempData['email'])
+                    ->setTo('abhisheky@fts-pl.com')
+                    ->setEmailFormat('html')
+                    ->setSubject('Vendor Portal - Review Vendor Update')
+                    ->deliver('Dear Buyer, <br/><br/>' . $vendorTempData['name'] . ' Send You a Profile Update Request. Kindly Check and Review.<br/> <a href="' . $link . '">Click here</a>');
+                    $this->Flash->success(__('The Vendor successfully Updated'));
+                   return $this->redirect(['action' => 'view', $id]);
+            } else {
+                $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The vendor temp could not be saved. Please, try again.'));
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups'));
     }
-
 }

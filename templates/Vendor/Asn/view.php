@@ -7,7 +7,7 @@
 
 //echo '<pre>'; print_r($deliveryDetails); exit;
 ?>
-<?= $this->Html->css('vendorCustom') ?>
+<?= $this->Html->css('v_vendorCustom') ?>
 <div class="row content card">
     <div class="column-responsive column-80">
         <div class="deliveryDetails view content">
