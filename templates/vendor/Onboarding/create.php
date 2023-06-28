@@ -145,8 +145,7 @@
                         </div>
                         <div class="col-3 mt-3 col-md-3">
                             <div class="form-group">
-                                <?php echo $this->Form->control('country', ['class' => 'form-control', 'value'=>'India', 'disabled'=>true]); ?>
-                                <!-- <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?> -->
+                                <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                             </div>
                         </div>
                         <div class="col-3 mt-3">
@@ -218,18 +217,18 @@
                     <div class="row">
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" class="form-label">Upload GST no</label>
-                            <input class="form-control" type="file" required accept=".pdf" name="gst_file" id="formFileMultiple" accept="application/pdf">
-                            <small class="text-info info-msg">Upload only PDF file</small>
+                            <input class="form-control" type="file" accept=".pdf" name="gst_file" id="formFileMultiple">
+                            <small class="text-warning info-msg">Upload only PDF file</small>
                         </div>
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" class="form-label">Upload pan card</label>
-                            <input class="form-control" accept=".pdf" required type="file" name="pan_file" id="formFileMultiple" accept="application/pdf">
-                            <small class="text-info info-msg">Upload only PDF file</small>
+                            <input class="form-control" accept=".pdf" type="file" name="pan_file" id="formFileMultiple">
+                            <small class="text-warning info-msg">Upload only PDF file</small>
                         </div>
                         <div class="col-4 mt-3">
                             <label for="formFileMultiple" accept=".pdf" class="form-label">Upload bank details</label>
-                            <input class="form-control" type="file" required name="bank_file" id="formFileMultiple" accept="application/pdf">
-                            <small class="text-info info-msg">Upload only PDF file</small>
+                            <input class="form-control" type="file" name="bank_file" id="formFileMultiple">
+                            <small class="text-warning info-msg">Upload only PDF file</small>
                         </div>
                     </div>
                 </div>

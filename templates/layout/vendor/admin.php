@@ -179,7 +179,7 @@ body {
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
 
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>
-
+    <?= $this->Html->script('/js/common.js') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>
