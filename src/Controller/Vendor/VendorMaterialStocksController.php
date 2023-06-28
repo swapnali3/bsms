@@ -24,11 +24,8 @@ class VendorMaterialStocksController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $vendorMaterialStocks = $this->paginate($this->VendorMaterialStocks->find()->where(['sap_vendor_code' => $session->read('vendor_code')]));
 
-        $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
-        $count = $notificationCount->rowCount();
 
-        $this->set(compact('vendorMaterialStocks','notificationCount','count'));
+        $this->set(compact('vendorMaterialStocks'));
     }
 
     /**
@@ -76,14 +73,11 @@ class VendorMaterialStocksController extends VendorAppController
      */
     public function edit($id = null)
     {
-        $vendorMaterialStock = $this->VendorMaterialStocks->get($id, [
-            'contain' => [],
-        ]);
+        $vendorMaterialStock = $this->VendorMaterialStocks->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $vendorMaterialStock = $this->VendorMaterialStocks->patchEntity($vendorMaterialStock, $this->request->getData());
             if ($this->VendorMaterialStocks->save($vendorMaterialStock)) {
                 $this->Flash->success(__('The vendor material stock has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The vendor material stock could not be saved. Please, try again.'));

@@ -78,7 +78,7 @@ class AdminAppController extends Controller
         $this->set('statusCode', Configure::read('StatusCode'));
 
         if($session->read('role') != 1) {
-            $this->Flash->error("You are not authrized");
+                // $this->Flash->error("You are not authrized");
             $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
         }
         

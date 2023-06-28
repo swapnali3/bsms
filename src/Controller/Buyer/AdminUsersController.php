@@ -96,6 +96,8 @@ class AdminUsersController extends BuyerAppController
             'contain' => [],
         ]);
         $this->set('headTitle', 'Profile');
+
+
         $this->set(compact('adminUser'));
     }
 

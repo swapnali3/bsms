@@ -21,46 +21,61 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+     <?= $this->Html->css('CakeLte./AdminLTE//plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/bsms/cake_lte/AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css"/>
+
+    <link rel="stylesheet" href="/bsms/cake_lte/AdminLTE/plugins/toastr/toastr.min.css"/>   
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
     <!-- Theme style -->
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
     <?= $this->Html->css('CakeLte.style') ?>
+    <?= $this->Html->css('admincsssubmmited') ?>
     <?= $this->element('layout/css') ?>
+    <!-- jQuery -->
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <?= $this->fetch('css') ?>
+    <!-- jQuery -->
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <style>
-         aside.main-sidebar {
-        background-color: #08132F !important;
-    }
+        aside.main-sidebar {
+            background-color: #08132F !important;
+        }
 
-    .nav-link.active {
-        background-color: #8E9B2C !important;
-        color: #fff !important;
-    }
-    .ft_rect_logo {
-    margin-top: 4px !important;
-}
-/* .layout-fixed .brand-link {
+        .nav-link.active {
+            background-color: #8E9B2C !important;
+            color: #fff !important;
+        }
+
+        .ft_rect_logo {
+            margin-top: 4px !important;
+        }
+
+        /* .layout-fixed .brand-link {
     width: 218px !important;
 }*/
-.main-sidebar, .main-sidebar::before {
-    width: 218px;
-} 
-/* .sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link {
+        .main-sidebar,
+        .main-sidebar::before {
+            width: 218px;
+        }
+
+        /* .sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link {
     width: calc(235px - 1.1rem * 2);
 } */
-body,
-    h5,
-    h6,
-    p,
-    h4,
-    h3,
-    label {
-        font-family: 'Roboto', sans-serif !important;
-    }
-
+        body,
+        h5,
+        h6,
+        p,
+        h4,
+        h3,
+        label {
+            font-family: 'Roboto', sans-serif !important;
+        }
     </style>
 </head>
 
@@ -83,12 +98,12 @@ body,
                 <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
             <!-- Sidebar -->
-            <div class="sidebar">
+            <div class="sidebar" id="id_sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               
             </div> -->
-            
+
                 <?= $this->element('sidebar/main') ?>
             </div>
             <!-- /.sidebar -->
@@ -98,10 +113,10 @@ body,
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
             <!-- <div class="content-header"> -->
-                <!-- <div class="container-fluid"> -->
-                    <?= $this->element('content/header') ?>
-                <!-- </div> -->
-                <!-- /.container-fluid -->
+            <!-- <div class="container-fluid"> -->
+            <?= $this->element('content/header') ?>
+            <!-- </div> -->
+            <!-- /.container-fluid -->
             <!-- </div> -->
 
             <!-- Main content -->
@@ -109,6 +124,7 @@ body,
                 <div class="container-fluid">
                     <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
+
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content -->
@@ -123,14 +139,20 @@ body,
         <!-- /.control-sidebar -->
 
         <!-- Main Footer -->
-        <footer class="main-footer"  style="margin-top:0px;">
+        <footer class="main-footer" style="margin-top:0px;">
             <?= $this->element('footer/main') ?>
         </footer>
     </div>
     <!-- ./wrapper -->
+    <!-- DataTables  & Plugins -->
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
 
-    <!-- jQuery -->
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
+    <script src="/bsms/cake_lte/AdminLTE/plugins/jquery-validation/jquery.validate.min.js"></script>    
     <!-- Bootstrap 4 -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
     <!-- AdminLTE App -->
@@ -138,8 +160,12 @@ body,
 
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?>
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
-
-
+    <?= $this->Html->script('/js/cscript.js') ?>
+    <?= $this->Html->script('/js/common.js') ?>
+    <?= $this->Html->script('/js/adminjs.js') ?>
+    <link rel="stylesheet" href="/bsms/cake_lte/AdminLTE/plugins/toastr/toastr.min.css"/>   
+    
+    <script src="/bsms/cake_lte/AdminLTE/plugins/sweetalert2/sweetalert2.min.js"></script>    
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>
 </body>

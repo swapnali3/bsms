@@ -50,9 +50,7 @@ body {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->assign('title', $title); ?>
-    <title>
-        <?= $this->fetch('title') ?>
-    </title>
+    <title><?= $this->fetch('title') ?></title>
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
@@ -64,6 +62,7 @@ body {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
+    
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 
@@ -121,7 +120,7 @@ body {
                     class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
 
-            <div class="sidebar">
+            <div class="sidebar" id="id_sidebar">
                 <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="text-light">
                         Welcome,
@@ -168,12 +167,8 @@ body {
         </footer>
     </div>
     <!-- ./wrapper -->
-
-
-
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?>
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
-
 
     <!-- DataTables  & Plugins -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
@@ -184,16 +179,14 @@ body {
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
 
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>
-
+    <?= $this->Html->script('/js/common.js') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>
     <script>
     var baseurl = "<?= $this->Url->build('/') ?>";
-    $(document).ready(function() {});
-    $(window).on('load', function() {
-        $('#loaderss').hide();
-    });
+    // $(document).ready(function() {});
+    $(window).on('load', function() { $('#loaderss').hide(); });
     </script>
 </body>
 

@@ -35,6 +35,10 @@ class ErrorController extends AppController
         $this->loadComponent('RequestHandler');
     }
 
+    public function error403(){
+        
+    }
+
     /**
      * beforeFilter callback.
      *

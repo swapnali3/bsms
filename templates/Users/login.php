@@ -555,8 +555,15 @@
       });
     });
 
+    
+
     //end
     $(document).ready(function () {
+
+      setTimeout(function () {
+            $('.success').fadeOut('slow');
+        }, 2000); // <-- time in milliseconds
+
       $(document).on("change", "#mobile_btn", function () {
         $('span.userpassError').empty();
         $('#email_login').hide();

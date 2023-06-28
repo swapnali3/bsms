@@ -22,6 +22,7 @@ use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\ORM\TableRegistry;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\Datasource\ConnectionManager;
 
@@ -34,6 +35,25 @@ use Cake\Datasource\ConnectionManager;
  */
 class DashboardController extends VendorAppController
 {
+
+    public function initialize(): void
+    {
+        parent::initialize();
+
+    //     $session = $this->getRequest()->getSession();
+
+    //     $permissionsTable = $this->getTableLocator()->get('Permissions');
+    //     $query = $permissionsTable->find()
+    //         ->select(['permission'])
+    //         ->where([
+    //             'controller' => ':controller', 
+    //             'action' => 'index',
+    //             'users' => $session->read('id') 
+    //         ])->toArray();
+            
+    //    print_r($query);exit;    
+     
+    }
     public function index()
     {
 
@@ -70,7 +90,7 @@ class DashboardController extends VendorAppController
         $totalPos = $query->count();
 
         $this->loadModel('AsnHeaders');
-        $session = $this->getRequest()->getSession();
+        
         $intraQry = $this->AsnHeaders->find()
             ->select(['AsnHeaders.id', 'AsnHeaders.invoice_no', 'AsnHeaders.status', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_value', 'PoHeaders.po_no', 'AsnHeaders.added_date', 'AsnHeaders.updated_date'])
             ->contain(['PoHeaders'])
@@ -83,14 +103,9 @@ class DashboardController extends VendorAppController
 
         $totalRfqDetails = $this->RfqDetails->find('all', array('conditions' => array('status' => 1)))->count();
 
-        $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
-        $count = $notificationCount->rowCount();
-    
 
-       //print_r($notificationCount);exit; 
         
-       $this->set(compact('totalPos', 'totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested', 'notificationCount', 'count'));
+       $this->set(compact('totalPos', 'totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested'));
 
     }
 

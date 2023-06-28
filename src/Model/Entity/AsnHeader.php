@@ -18,6 +18,7 @@ use Cake\ORM\Entity;
  * @property string $vehicle_no
  * @property string $driver_name
  * @property string $driver_contact
+ * @property \Cake\I18n\FrozenTime|null $gateout_date
  * @property int $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
@@ -46,7 +47,7 @@ class AsnHeader extends Entity
         'vehicle_no' => true,
         'driver_name' => true,
         'driver_contact' => true,
-        'transporter_name' => true,
+        'gateout_date' => true,
         'status' => true,
         'added_date' => true,
         'updated_date' => true,

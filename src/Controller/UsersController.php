@@ -91,7 +91,19 @@ class UsersController extends AppController
 
     public function login()
     {
-        //$this->viewBuilder()->setLayout('admin/login'); 
+        $session = $this->getRequest()->getSession();
+      
+        
+        if ($session->check('id')) {
+            $role = $session->read('role');
+            if ($role == 1) {
+                $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
+            } else if ($role == 2) {
+                $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
+            } else if ($role == 3) {
+                $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
+            }
+        }
 
     }
 
@@ -112,16 +124,6 @@ class UsersController extends AppController
         $session = $this->getRequest()->getSession();
         
 
-        // if ($session->check('id')) {
-        //     $role = $session->read('role');
-        //     if ($role == 1) {
-        //         $this->redirect(['controller' => 'admin/dashboard', 'action' => 'index']);
-        //     } else if ($role == 2) {
-        //         $this->redirect(['controller' => 'buyer/dashboard', 'action' => 'index']);
-        //     } else if ($role == 3) {
-        //         $this->redirect(['controller' => 'vendor/dashboard', 'action' => 'index']);
-        //     }
-        // }
 
 
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -250,7 +252,7 @@ class UsersController extends AppController
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
-                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                         ->setTo($result[0]->username)
                         ->setEmailFormat('html')
                         ->setSubject('Login OTP')
@@ -259,7 +261,7 @@ class UsersController extends AppController
 
 
                 $response['status'] = 1;
-                $response['message'] = 'OTP sent to register email Id';
+                $response['message'] = 'OTP sent to register Mobile';
             } else {
                 $response['status'] = 0;
                 $response['message'] = 'Mobile number not found';
@@ -278,4 +280,7 @@ class UsersController extends AppController
         // $this->Flash->success("You've successfully logged out.");
         $this->redirect(array('controller' => 'users', 'action' => 'login'));
     }
+
+
+    
 }

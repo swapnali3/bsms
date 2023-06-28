@@ -60,6 +60,15 @@ class BuyerAppController extends Controller
          */
         //$this->loadComponent('FormProtection');
 
+    }
+
+    public function beforeFilter(EventInterface $event) {
+        parent::beforeFilter($event);
+        $this->viewBuilder()->setLayout('buyer/admin');  //admin is our new layout name
+
+        $this->set('controller', $this->request->getParam('controller'));
+        $this->set('action', $this->request->getParam('action'));
+
         $session = $this->getRequest()->getSession();
 
         //echo '<pre>'; print_r($session->check('id')); exit;
@@ -71,10 +80,10 @@ class BuyerAppController extends Controller
         $this->set(compact('full_name', 'role', 'group_name'));
 
         if($session->check('id') && $session->read('role') != 2) {
-             $this->Flash->error("You are not authrized");
+            // $this->Flash->error("You are not authrized");
              $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
          } else if(!$session->check('id')) {
-             $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
+             return $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
          }else {
              $this->set('logged_in', $session->read('id'));
              $this->set('username', $session->read('username'));
@@ -83,14 +92,6 @@ class BuyerAppController extends Controller
         
         $this->set('statusCode', Configure::read('StatusCode'));
 
-    }
-
-    public function beforeFilter(EventInterface $event) {
-        parent::beforeFilter($event);
-        $this->viewBuilder()->setLayout('buyer/admin');  //admin is our new layout name
-
-        $this->set('controller', $this->request->getParam('controller'));
-        $this->set('action', $this->request->getParam('action'));
         
     }
 

@@ -21,7 +21,7 @@
 <?= $this->Form->control('subtotal_value', array('label' => false, 'type' => 'hidden', 'id' => 'subtotal_value')) ?>
 <?= $this->Form->control('tax_value', array('label' => false, 'type' => 'hidden', 'id' => 'tax_value')) ?>
 <?= $this->Form->control('total_value', array('label' => false, 'type' => 'hidden', 'id' => 'total_value')) ?>
-<?= $this->Html->css('vendorCustom') ?>
+<?= $this->Html->css('v_vendorCustom') ?>
 
 <div class="row ml-2">
     <div class="card mb-3">
