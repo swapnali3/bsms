@@ -153,11 +153,9 @@ class AsnController extends VendorAppController
         $this->loadModel('AsnHeaders');
 
 
-        $deliveryDetail = $this->AsnHeaders->get($id, [
-            'contain' => [],
-        ]);
+        $deliveryDetail = $this->AsnHeaders->get($id);
 
-        $deliveryDetail = $this->AsnHeaders->patchEntity($deliveryDetail, ['status' => 2]);
+        $deliveryDetail = $this->AsnHeaders->patchEntity($deliveryDetail, ['status' => 2, 'gateout_date'=>date('Y-m-d h:i:s')]);
         if ($this->AsnHeaders->save($deliveryDetail)) {
             $response['status'] = 'success';
             $response['message'] = 'success';

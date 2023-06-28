@@ -38,25 +38,27 @@ INSERT INTO `users_permissions` (`id`, `permissionsName`, `permissionsLevel`) VA
 
 ========= Notification Trigger for create schedule =========
 CREATE DEFINER=`root`@`localhost` TRIGGER `po_item_schedules_AFTER_INSERT` AFTER INSERT ON `po_item_schedules` FOR EACH ROW BEGIN
-    DECLARE v_buyer_id INT;
+    DECLARE v_user_id INT;
     
     -- Retrieve the buyer_id from the vendor_temp table based on sap_vendor_code
-    SELECT buyer_id INTO v_buyer_id FROM vendor_temps a
-    LEFT JOIN po_headers b ON a.sap_vendor_code = b.sap_vendor_code
-    WHERE b.id = NEW.po_header_id
-    LIMIT 1;
+
+     SELECT u.id INTO v_user_id FROM users u
+LEFT JOIN vendor_temps v ON u.username = v.email 
+LEFT JOIN po_headers p ON p.sap_vendor_code = v.sap_vendor_code
+WHERE p.id = NEW.po_header_id
+LIMIT 1;
     
-    IF v_buyer_id IS NOT NULL THEN
+    IF v_user_id IS NOT NULL THEN
         -- Check if a record exists in notifications table for the given user_id and notification_type
-        IF EXISTS (SELECT 1 FROM notifications WHERE user_id = v_buyer_id AND notification_type = 'create_schedule') THEN
+        IF EXISTS (SELECT 1 FROM notifications WHERE user_id = v_user_id AND notification_type = 'create_schedule') THEN
             -- Update the existing record with the incremented message_count
             UPDATE notifications
             SET message_count = message_count + 1
-            WHERE user_id = v_buyer_id AND notification_type = 'create_schedule';
+            WHERE user_id = v_user_id AND notification_type = 'create_schedule';
         ELSE
             -- Insert a new record with message_count = 1
             INSERT INTO notifications (message_count, user_id, notification_type, created_at)
-            VALUES (1, v_buyer_id, 'create_schedule', NOW());
+            VALUES (1, v_user_id, 'create_schedule', NOW());
         END IF;
     END IF;
 END
@@ -118,3 +120,12 @@ ADD COLUMN `update_flag` INT NULL DEFAULT 0 AFTER `updated_date`,
 CHANGE COLUMN `mobile` `mobile` VARCHAR(12) NULL DEFAULT NULL ,
 CHANGE COLUMN `email` `email` VARCHAR(100) NULL DEFAULT NULL ;
 // ==================== Vendor Update ====================
+
+// ==================== ASN Header ====================
+author: JThayil
+date: 27.06.2023
+// ==================== ============= ====================
+ALTER TABLE `db_bsms`.`asn_headers` 
+ADD COLUMN `gateout_date` DATETIME NULL DEFAULT NULL AFTER `updated_date`;
+
+// ==================== ASN Header ====================
