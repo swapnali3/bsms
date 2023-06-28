@@ -115,6 +115,14 @@ date: 27.06.2023
 // ==================== ============= ====================
 ALTER TABLE `db_bsms`.`vendor_temps` 
 ADD COLUMN `update_flag` INT NULL DEFAULT 0 AFTER `updated_date`,
-CHANGE COLUMN `mobile` `mobile` VARCHAR(12) NULL DEFAULT NULL ,
 CHANGE COLUMN `email` `email` VARCHAR(100) NULL DEFAULT NULL ;
 // ==================== Vendor Update ====================
+
+// ==================== ASN Header ====================
+author: JThayil
+date: 28.06.2023
+// ==================== ============= ====================
+ALTER TABLE `asn_headers` 
+ADD COLUMN `gateout_date` DATETIME NULL DEFAULT NULL;
+// ==================== ASN Header ====================
+
