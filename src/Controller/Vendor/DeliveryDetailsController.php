@@ -44,15 +44,8 @@ class DeliveryDetailsController extends VendorAppController
         //echo '<pre>'; print_r($query); exit;
         $deliveryDetails = $this->paginate($query);
 
-        
-       $this->loadModel('Notifications');
-        $notificationCount = $this->Notifications->getConnection()->execute("SELECT * FROM notifications WHERE notification_type = 'create_schedule' AND message_count > 0");
-        $count = $notificationCount->rowCount();
 
-
-        //echo '<pre>'; print_r($rfqDetails); exit;
-
-        $this->set(compact('deliveryDetails','notificationCount','count'));
+        $this->set(compact('deliveryDetails'));
     }
 
     /**

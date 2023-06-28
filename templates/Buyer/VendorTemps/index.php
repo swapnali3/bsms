@@ -38,6 +38,9 @@
                                     case 2 : $status = '<span class="badge bg-info">Sent to SAP</span>'; break;
                                     case 3 : $status = '<span class="badge bg-success">Approved</span>'; break;
                                     case 4 : $status = '<span class="badge bg-danger">Rejected</span>'; break;
+                                    case 5:
+                                        $status = '<span class="badge bg-info">Sap Import</span>';
+                                        break;
                                 }
                                 ?>
                                 <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">
