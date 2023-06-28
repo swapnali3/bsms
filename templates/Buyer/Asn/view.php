@@ -93,16 +93,18 @@
                         </div>
                         <div class="col-md-2">
                             <label> Status :</label>
-
                             </td>
-
-                            <p>
-                                <?= $deliveryDetails->toArray()[0]->status == 2 ? '<span class="badge bg-success asnstatus">In Transit</span>' : '<span class="badge bg-warning">Received</span>' ?>
-                            </p>
+                                <p>
+                                    <?= $deliveryDetails->toArray()[0]->status == 2 ? '<span class="badge bg-success asnstatus">In Transit</span>' : '<span class="badge bg-warning">Received</span>' ?>
+                                </p>
                             </td>
                         </div>
-
-
+                        <div class="col-md-2">
+                            <label> Gate Out :</label>
+                            <p>
+                                <b> <?= h($deliveryDetails->toArray()[0]->gateout_date) ?> </b>
+                            </p>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-2">

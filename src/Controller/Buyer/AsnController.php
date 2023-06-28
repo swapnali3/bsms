@@ -77,7 +77,7 @@ class AsnController extends BuyerAppController
         $this->loadModel('AsnHeaders');
 
         $deliveryDetails = $this->AsnHeaders->find('all')
-            ->select(['AsnHeaders.id', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_path', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value', 'AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact', 'AsnHeaders.status', 'AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material', 'PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])
+            ->select(['AsnHeaders.id', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_path', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value', 'AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact', 'AsnHeaders.status', 'AsnHeaders.gateout_date', 'AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material', 'PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])
             ->innerJoin(['PoHeaders' => 'po_headers'], ['AsnHeaders.po_header_id = PoHeaders.id'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_header_id = PoHeaders.id', 'PoItemSchedules.po_footer_id = PoFooters.id'])
@@ -86,13 +86,11 @@ class AsnController extends BuyerAppController
 
             ->where(['AsnHeaders.id' => $id]);
 
-
-
         //$record = $deliveryDetails->first();
         //$this->set('deliveryDetailw', $record);
         $session = $this->getRequest()->getSession();
             
-        $this->set(compact('notificationCount','count'));
+        // $this->set(compact('notificationCount','count'));
 
         $this->set('deliveryDetails', $deliveryDetails->all());
         $this->set('headTitle', 'GATE ENTRY(GE)');
