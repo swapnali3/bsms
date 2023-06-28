@@ -30,12 +30,12 @@ class VendorTempsController extends BuyerAppController
     {
         $this->set('headTitle', 'Vendor List');
         $this->loadModel("VendorTemps");
-        $this->paginate = [
-            'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
-            'order' => array('VendorTemps.added_date' => 'DESC'),
-        ];
-        $vendorTemps = $this->paginate($this->VendorTemps);
-
+        $vendorTemps = $this->VendorTemps
+        ->find('all')
+        ->contain(['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'])
+        ->where(['update_flag' => 0])
+        ->order(['VendorTemps.added_date' => 'DESC'])
+        ->toArray();
         $session = $this->getRequest()->getSession();
 
         $userId =  $session->read('id');

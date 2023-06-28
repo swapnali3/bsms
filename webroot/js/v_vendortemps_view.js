@@ -1,10 +1,3 @@
-$(document).ready(function () {
-    $(".reject").onClick(function () {
-
-    });
-});
-
-
 $("#profileUpdate").validate({
     rules: {
         address1: {

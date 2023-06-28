@@ -76,14 +76,11 @@ class VendorMaterialStocksController extends VendorAppController
      */
     public function edit($id = null)
     {
-        $vendorMaterialStock = $this->VendorMaterialStocks->get($id, [
-            'contain' => [],
-        ]);
+        $vendorMaterialStock = $this->VendorMaterialStocks->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $vendorMaterialStock = $this->VendorMaterialStocks->patchEntity($vendorMaterialStock, $this->request->getData());
             if ($this->VendorMaterialStocks->save($vendorMaterialStock)) {
                 $this->Flash->success(__('The vendor material stock has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The vendor material stock could not be saved. Please, try again.'));
