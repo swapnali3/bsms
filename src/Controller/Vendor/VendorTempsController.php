@@ -120,6 +120,7 @@ class VendorTempsController extends VendorAppController
             $vt['valid_date'] = $resp['valid_date'];
             $vt['buyer_id'] = $vendorTemp->buyer_id;
             $vt['mobile'] = $vendorTemp->mobile;
+            $vt['address_2'] = $vendorTemp->address_2;
             $vt['payment_term'] = $vendorTemp->payment_term;
             $vt['update_flag'] = $vendorTemp->id;
             $vt['gst_file'] = $vendorTemp->gst_file;
