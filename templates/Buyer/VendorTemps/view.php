@@ -200,6 +200,10 @@ switch ($vendorTemp->status) {
                                     <?= h($vendorTemp->tan_no) ?>
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td>:&nbsp;<?= $status ?></td>
+                            </tr>
                         </table>
                     </div>
 
@@ -238,13 +242,16 @@ switch ($vendorTemp->status) {
                     </div>
                 </div>
             </div>
+        <?php if (isset($vendorTempView)) :
+                
+         if ($vendorTempView[0]->update_flag == $vendorTemp->id) : ?>
             <div class="col-sm-12 col-md-12 col-lg-12 ">
                 <?= $this->Form->create(null, ['id' => $vendorTempView[0]->id,  'url' => ['controller' => 'VendorTemps', 'action' => 'update']]) ?>
                 <?= $this->Form->hidden('id', ['value' => $vendorTempView[0]->id]) ?>
                 <div class="card">
                     <div class="card-body">
                         <table>
-                            
+                        <h5 class="text-info">Vendor Update Details</h5>
                             <tr>
                                 <?php if ($vendorTempView[0]->name != $vendorTemp->name) : ?>
                                 <th>Name</th>
@@ -345,11 +352,13 @@ switch ($vendorTemp->status) {
                         </table>
                     </div>
                     <div class="card-footer">
-                        <?= $this->Form->button(__('Submit')) ?>
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom mb-0']) ?>
                     </div>
                 </div>
                 <?= $this->Form->end() ?>
             </div>
+            <?php endif; ?>
+            <?php endif; ?>
         </div>
     </div>
 </div>

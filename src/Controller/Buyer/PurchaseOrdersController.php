@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Controller\Buyer;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * PoHeaders Controller
@@ -41,14 +42,14 @@ class PurchaseOrdersController extends BuyerAppController
         $poHeaders = $this->PoHeaders->find()
             ->select(['id', 'po_no', 'sap_vendor_code'])->toArray();
 
-       $session = $this->getRequest()->getSession();
+        $session = $this->getRequest()->getSession();
 
 
         $this->set(compact('poHeaders'));
     }
 
 
-       public function poApi($search = null)
+    public function poApi($search = null)
     {
         $response = array();
         $response['status'] = 'fail';
@@ -72,7 +73,7 @@ class PurchaseOrdersController extends BuyerAppController
                 'type' => 'INNER',
                 'conditions' => ['V.sap_vendor_code = PoHeaders.sap_vendor_code', 'V.buyer_id' => $session->read('id'), 'status' => '3']
             ])
-            ->where([ 
+            ->where([
                 'OR' => [
                     ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
                     ['PoFooters.material LIKE' => '%' . $search . '%'],
@@ -109,15 +110,14 @@ class PurchaseOrdersController extends BuyerAppController
 
         // print_r($poHeader);
         //echo json_encode($poHeader); exit;
-   
+
 
         if ($poHeader) {
 
-    
+
             $response['status'] = 'success';
             $response['data'] = $poHeader;
             $response['message'] = '';
-
         } else {
             $response['status'] = 'fail';
             $response['message'] = 'Material not found';
@@ -127,7 +127,8 @@ class PurchaseOrdersController extends BuyerAppController
         // echo '<pre>'; print_r($data); exit;
 
 
-        echo json_encode($response); exit;
+        echo json_encode($response);
+        exit;
     }
 
     /**
@@ -200,25 +201,46 @@ class PurchaseOrdersController extends BuyerAppController
         $response['status'] = 'fail';
         $response['message'] = '';
         $this->autoRender = false;
-        $this->loadModel("PoItemSchedules");
+        $this->loadModel('PoHeaders');
         $this->loadModel("Notifications");
-        //echo '<pre>'; print_r($this->request->getData()); exit;
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            try {
-                $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
-                $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $this->request->getData());
-                // echo '<pre>'; print_r($PoItemSchedule); exit();
-                
-                if ($this->PoItemSchedules->save($PoItemSchedule)) {
-                    $response['status'] = 'success';
-                    $response['message'] = 'Record save successfully';        
+        $this->loadModel("PoItemSchedules");
+ 
+
+        $sapVendorcode = $this->PoHeaders->find()
+            ->select(['sap_vendor_code'])
+            ->where(['id' => $this->request->getData('po_header_id')])
+            ->first();
+
+          //  print_r($sapVendorcode['sap_vendor_code']);
+
+            $conn = ConnectionManager::get('default');
+            $query = "SELECT COUNT(update_flag) AS count FROM vendor_temps WHERE update_flag > 0 AND sap_vendor_code = :sapVendorcode";
+            $params = ['sapVendorcode' => $sapVendorcode['sap_vendor_code']];
+            $result = $conn->execute($query, $params)->fetch('assoc');
+
+         //   print_r($result);
+            
+            
+        if ($result['count'] > 0) {
+            $response['status'] = 'fail';
+            $response['message'] = 'Vendor details pending for review';
+        } else {
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                try {
+                    $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
+                    $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $this->request->getData());
+                    // echo '<pre>'; print_r($PoItemSchedule); exit();
+
+                    if ($this->PoItemSchedules->save($PoItemSchedule)) {
+                        $response['status'] = 'success';
+                        $response['message'] = 'Record save successfully';
+                    }
+                } catch (\Exception $e) {
+                    $response['status'] = 'fail';
+                    $response['message'] = $e->getMessage();
                 }
-            } catch (\Exception $e) {
-                $response['status'] = 'fail';
-                $response['message'] = $e->getMessage();
             }
         }
-
         echo json_encode($response);
     }
 
@@ -263,7 +285,6 @@ class PurchaseOrdersController extends BuyerAppController
             $response['message'] = 'success';
             $response['html'] = $html;
             $response['totalQty'] = $totalQty;
-
         } else {
             $response['html'] = '';
             $response['status'] = 'fail';

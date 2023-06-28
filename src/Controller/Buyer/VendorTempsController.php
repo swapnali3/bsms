@@ -118,11 +118,11 @@ class VendorTempsController extends BuyerAppController
             $vendorTemp->update_flag = -1;
 
             if ($this->VendorTemps->save($vendorTemp)) {
-                $this->Flash->success(__('The vendorTemp has been updated.'));
+                $this->Flash->success(__('The Vendor Data updated.'));
                 return $this->redirect(['action' => 'index']);
             } else {
 
-                $this->Flash->error(__('The vendorTemp could not be updated. Please, try again.'));
+                $this->Flash->error(__('Failed'));
             }
         }
     }
