@@ -133,8 +133,23 @@ class VendorTempsController extends VendorAppController
             $vt['remark'] = $vendorTemp->remark;
             $newvt = $this->VendorTemps->patchEntity($newvt, $vt);
 
-            if ($this->VendorTemps->save($newvt)) { echo $newvt->author_id; return $this->redirect(['action' => 'view', $id]); }
-            else { $this->Flash->error(__('The vendor could not be saved. Please, try again.')); }
+            if ($this->VendorTemps->save($newvt)) {
+                echo $newvt->author_id;
+                $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                $mailer = new Mailer('default');
+                $mailer
+                    ->setTransport('smtp')
+                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    // ->setTo($vendorTempData['email'])
+                    ->setTo('abhisheky@fts-pl.com')
+                    ->setEmailFormat('html')
+                    ->setSubject('Vendor Portal - Review Vendor Update')
+                    ->deliver('Dear Buyer, <br/><br/>' . $vendorTempData['name'] . ' Send You a Profile Update Request. Kindly Check and Review.<br/> <a href="' . $link . '">Click here</a>');
+                    $this->Flash->success(__('The Vendor successfully Updated'));
+                   return $this->redirect(['action' => 'view', $id]);
+            } else {
+                $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
+            }
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();

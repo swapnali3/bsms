@@ -20,7 +20,7 @@ class AsnController extends BuyerAppController
             
 
 
-        $this->set(compact('notificationCount','count'));
+        // $this->set(compact('notificationCount','count'));
 
         $this->set('headTitle', 'Gate Entry(GE)');
         $this->loadModel('AsnHeaders');
