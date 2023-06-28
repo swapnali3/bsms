@@ -94,10 +94,14 @@ class VendorTempsController extends VendorAppController
     public function edit($id = null)
     {
         $this->loadModel("VendorTemps");
-        $vendorTemp = $this->VendorTemps->get($id);
+        $vendorTemp = $this->VendorTemps->get($id, [
+            'contain' => [],
+        ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $resp = $this->request->getData();
-            // echo '<pre>';print_r($resp);
+            $vendorTempData = $vendorTemp->toArray(); // Retrieve all column data as an array
+            //  echo '<pre>'; print_r($vendorTempData); exit;
+        
             $newvt = $this->VendorTemps->newEmptyEntity();
             $vt = array();
             $vt['purchasing_organization_id'] = $resp['purchasing_organization_id'];
