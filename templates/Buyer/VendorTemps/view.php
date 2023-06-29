@@ -251,7 +251,7 @@ switch ($vendorTemp->status) {
                 <div class="card">
                     <div class="card-body">
                         <table>
-                        <h5 class="text-info">Vendor Update Details</h5>
+                    <!-- <h5 class="text-info">Vendor Update Details</h5> -->
                             <tr>
                                 <?php if ($vendorTempView[0]->name != $vendorTemp->name) : ?>
                                 <th>Name</th>
@@ -285,10 +285,10 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->Pincode != $vendorTemp->Pincode) : ?>
+                                <?php if ($vendorTempView[0]->pincode != $vendorTemp->pincode) : ?>
                                 <th>Pincode</th>
                                 <td>: &nbsp;
-                                    <?= h($vendorTempView[0]->Pincode) ?>
+                                    <?= h($vendorTempView[0]->pincode) ?>
                                 </td>
                                 <?php endif ?>
                             </tr>
@@ -310,7 +310,7 @@ switch ($vendorTemp->status) {
                             </tr>
                            
                             <tr>
-                                <?php if ($vendorTempView[0]->contact_person != $vendorTemp->contactperson) : ?>
+                                <?php if ($vendorTempView[0]->contact_person != $vendorTemp->contact_person) : ?>
                                 <th>contact person Name</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->contact_person) ?>
@@ -318,7 +318,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->contact_email != $vendorTemp->contactemail) : ?>
+                                <?php if ($vendorTempView[0]->contact_email != $vendorTemp->contact_email) : ?>
                                 <th>contact Email</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->contact_email) ?>

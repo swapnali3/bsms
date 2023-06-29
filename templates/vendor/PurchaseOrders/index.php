@@ -64,6 +64,18 @@
     </table>
   </div>
 
+  <div class="row">
+    <div class="col-lg-12 mb-2 pe-4 d-flex justify-content-end">
+      <button type="button" data-id="<?= $poHeader->id ?>" class="btn btn-primary notify mb-0" <?= $poHeader->flag === 1 ? 'disabled' : '' ?>>
+        <i class="fa fa-bell"></i> Notify
+      </button>
+    </div>
+
+
+
+  </div>
+
+
 </div>
 
 <script>
@@ -166,6 +178,7 @@
 
     poform();
 
+
     function poform(search = "") {
       var div = $('<div/>')
         .addClass('loading')
@@ -217,6 +230,44 @@
     }
     $(document).ready(function() {
       $('div.details-control').click();
+    });
+
+
+    var Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+    });
+    $(".notify").click(function(e) {
+      e.preventDefault();
+
+      var id = $(this).attr("data-id");
+
+      // alert($username);
+
+      $.ajax({
+        type: "GET",
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-notify')); ?>/" + id,
+        dataType: "json",
+        success: function(response) {
+          if (response.status == "1") {
+            Toast.fire({
+              icon: "success",
+              title: response.message,
+            });
+
+          } else {
+            Toast.fire({
+              icon: "error",
+              title: response.message,
+            });
+          }
+        },
+        error: function(xhr, status, error) {
+          // Handle error case if needed
+        },
+      });
     });
 
   });

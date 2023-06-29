@@ -50,13 +50,19 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-sm-3">
+                    <!-- <div class="col-sm-3">
                         <p style="font-weight: 500;">Sample File Excel:
                             <a href="<?= $this->Url->build('/') ?>webroot/img/sample file.xlsx" style="color: #204489;text-decoration: underline;" download>
                                 Click
                             </a>
                         </p>
-                    </div>
+                    </div> -->
+
+                    <div class="col-3">
+                            <i style="color: black;">
+                            <a href="<?= $this->Url->build('/') ?>webroot/img/sample file.xlsx" download >Sample_Excel_Template.xlsx</a>
+                            </i>
+                        </div>
                 </div>
 
 
@@ -87,8 +93,8 @@
                         // print_r($vendorData);
                         // exit;
 
-                        if ($vendorTemp['status']) {
-                            switch ($vendorTemp['data']["status"]) {
+                      
+                            switch ($vendorTemp["status"]) {
                                 case 0:
                                     $status = '<span class="badge bg-warning">Sent to Vendor</span>';
                                     break;
@@ -108,7 +114,7 @@
                                     $status = '<span class="badge bg-info">Sap Import</span>';
                                     break;
                             }
-                        }
+                        
 
 
                     ?>
@@ -140,7 +146,7 @@
                         <?php else : ?>
                             <tr>
                                 <td> <?= h($vendorTemp['data']["sap_vendor_code"]) ?></td>
-                                <td colspan="5" class="text-danger text-end">
+                                <td colspan="5" class="text-danger text-center">
                                     <?= h($vendorTemp["msg"]) ?>
                                 </td>
                             </tr>

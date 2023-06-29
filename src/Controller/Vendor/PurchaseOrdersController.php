@@ -6,6 +6,7 @@ namespace App\Controller\Vendor;
 
 use Cake\View\Helper\HtmlHelper;
 use Cake\Datasource\ConnectionManager;
+use Cake\Mailer\Mailer;
 
 /**
  * PoHeaders Controller
@@ -31,6 +32,100 @@ class PurchaseOrdersController extends VendorAppController
             ->where(['sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id) > 0']));
 
         $this->set(compact('poHeaders'));
+    }
+
+    public function poNotify($id = null)
+    {
+
+
+
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $session = $this->getRequest()->getSession();
+
+        $session->read('vendor_code');
+
+        $this->loadModel('PoHeaders');
+        $this->loadModel('VendorTemps');
+        $this->loadModel('Users');
+
+
+
+
+        $poHeader = $this->PoHeaders->get($id, [
+            'contain' => [],
+        ]);
+
+        // print_r($poHeader->flag);
+        // exit;
+
+
+        $quary = $this->VendorTemps->find()
+            ->where(['VendorTemps.sap_vendor_code' => $poHeader->sap_vendor_code])
+            ->first()
+            ->toArray();
+
+        $buyerId = $quary['buyer_id'];
+
+        $user = $this->Users->find()
+            ->select(['username'])
+            ->where(['id' => $buyerId])
+            ->first();
+
+        // print_r($user["username"]);exit;
+        // print_r($quary["email"]);exit;
+
+
+        if ($poHeader->flag == 0) {
+            if ($user["username"] !== "") {
+
+                $mailer = new Mailer('default');
+                $mailer
+                    ->setTransport('smtp')
+                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    // ->setTo($vendorTempData['email'])
+                    ->setTo('abhisheky@fts-pl.com')
+                    ->setEmailFormat('html')
+                    ->setSubject('Vendor Portal - Order acknowledgement ')
+                    ->deliver('Dear Buyer, <br/><br/> This email is to inform you that your order has been successfully acknowledged.');
+            }
+            if ($quary["email"] !== "") {
+                $mailer = new Mailer('default');
+                $mailer
+                    ->setTransport('smtp')
+                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    // ->setTo($vendorTempData['email'])
+                    ->setTo('abhisheky@fts-pl.com')
+                    ->setEmailFormat('html')
+                    ->setSubject('Vendor Portal - Order acknowledgement')
+                    ->deliver('Dear Vendor, <br/><br/>This email is to inform you that your order has been successfully acknowledged.');
+
+
+                $response['status'] = '1';
+                $response['message'] = 'Send mail successfully';
+
+                if ($response['status'] === '1') {
+                    $poHeader->flag = 1; // Set flag value to 1
+                    $this->PoHeaders->save($poHeader); // Save the updated value
+                }
+            } else {
+
+                $response['status'] = '0';
+                $response['message'] = 'Failed';
+            }
+        } else {
+
+            $response['status'] = '0';
+            $response['message'] = 'Failed';
+        }
+
+
+
+
+        echo json_encode($response);
     }
 
     public function poApi($search = null, $createAsn = null)
@@ -205,7 +300,7 @@ class PurchaseOrdersController extends VendorAppController
                     if ($this->AsnFooters->saveMany($asnFooter)) {
                         $response['status'] = 'success';
                         $response['message'] = 'Record save successfully';
-                       // $this->Flash->success("ASN-$asnNo has been created successfully");
+                        // $this->Flash->success("ASN-$asnNo has been created successfully");
                         $this->Flash->success(__("ASN-$asnNo has been created successfully", 30));
                         return $this->redirect(['controller' => 'asn', 'action' => 'index']);
                     } else {
