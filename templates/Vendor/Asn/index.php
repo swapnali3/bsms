@@ -9,7 +9,7 @@
         margin-left:0px !important;
     }
 </style>
-<?= $this->Html->css('vendorCustom') ?>
+<?= $this->Html->css('v_vendorCustom') ?>
 <div class="deliveryDetails index content card">
     <!-- <div class="card-header">
         <h5>

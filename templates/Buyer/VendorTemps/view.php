@@ -25,7 +25,7 @@ switch ($vendorTemp->status) {
 ?>
 
 <?= $this->Html->css('custom') ?>
-<?= $this->Html->css('vendortemps_view') ?>
+<?= $this->Html->css('b_vendortemps_view') ?>
 
 
 <div class="row">
@@ -261,7 +261,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->address != $vendorTempView[0]->address) : ?>
+                                <?php if ($vendorTempView[0]->address != $vendorTemp->address) : ?>
                                 <th>Address 1</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->address) ?>
@@ -269,7 +269,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->address_2 != $vendorTempView[0]->address_2) : ?>
+                                <?php if ($vendorTempView[0]->address_2 != $vendorTemp->address_2) : ?>
                                 <th>Address 2</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->address_2) ?>
@@ -277,7 +277,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->city != $vendorTempView[0]->city) : ?>
+                                <?php if ($vendorTempView[0]->city != $vendorTemp->city) : ?>
                                 <th>City</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->city) ?>
@@ -285,7 +285,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->Pincode != $vendorTempView[0]->Pincode) : ?>
+                                <?php if ($vendorTempView[0]->Pincode != $vendorTemp->Pincode) : ?>
                                 <th>Pincode</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->Pincode) ?>
@@ -293,7 +293,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->state != $vendorTempView[0]->state) : ?>
+                                <?php if ($vendorTempView[0]->state != $vendorTemp->state) : ?>
                                 <th>State</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->state) ?>
@@ -301,7 +301,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->country != $vendorTempView[0]->country) : ?>
+                                <?php if ($vendorTempView[0]->country != $vendorTemp->country) : ?>
                                 <th>Country</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->country) ?>
@@ -310,7 +310,7 @@ switch ($vendorTemp->status) {
                             </tr>
                            
                             <tr>
-                                <?php if ($vendorTempView[0]->contact_person != $vendorTempView[0]->contactperson) : ?>
+                                <?php if ($vendorTempView[0]->contact_person != $vendorTemp->contactperson) : ?>
                                 <th>contact person Name</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->contact_person) ?>
@@ -318,7 +318,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->contact_email != $vendorTempView[0]->contactemail) : ?>
+                                <?php if ($vendorTempView[0]->contact_email != $vendorTemp->contactemail) : ?>
                                 <th>contact Email</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->contact_email) ?>
@@ -326,7 +326,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->contact_mobile != $vendorTempView[0]->contact_mobile) : ?>
+                                <?php if ($vendorTempView[0]->contact_mobile != $vendorTemp->contact_mobile) : ?>
                                 <th>contact mobile</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->contact_mobile) ?>
@@ -334,7 +334,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->contact_department != $vendorTempView[0]->contact_department) : ?>
+                                <?php if ($vendorTempView[0]->contact_department != $vendorTemp->contact_department) : ?>
                                 <th>contact department</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->contact_department) ?>
@@ -342,7 +342,7 @@ switch ($vendorTemp->status) {
                                 <?php endif ?>
                             </tr>
                             <tr>
-                                <?php if ($vendorTempView[0]->contact_designation != $vendorTempView[0]->contact_designation) : ?>
+                                <?php if ($vendorTempView[0]->contact_designation != $vendorTemp->contact_designation) : ?>
                                 <th>contact Designation</th>
                                 <td>: &nbsp;
                                     <?= h($vendorTempView[0]->contact_designation) ?>
@@ -421,4 +421,4 @@ switch ($vendorTemp->status) {
     </div>
 </div>
 
-<?= $this->Html->script('vendortemps_view') ?>
+<?= $this->Html->script('b_vendortemps_view') ?>

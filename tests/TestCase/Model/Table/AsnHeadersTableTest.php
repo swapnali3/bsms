@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\VendorTempsTable;
+use App\Model\Table\AsnHeadersTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\VendorTempsTable Test Case
+ * App\Model\Table\AsnHeadersTable Test Case
  */
-class VendorTempsTableTest extends TestCase
+class AsnHeadersTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\VendorTempsTable
+     * @var \App\Model\Table\AsnHeadersTable
      */
-    protected $VendorTemps;
+    protected $AsnHeaders;
 
     /**
      * Fixtures
@@ -24,13 +24,9 @@ class VendorTempsTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.VendorTemps',
-        'app.PurchasingOrganizations',
-        'app.AccountGroups',
-        'app.SchemaGroups',
-        'app.RfqCommunications',
-        'app.Rfqs',
-        'app.VendorTempOtps',
+        'app.AsnHeaders',
+        'app.PoHeaders',
+        'app.AsnFooters',
     ];
 
     /**
@@ -41,8 +37,8 @@ class VendorTempsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('VendorTemps') ? [] : ['className' => VendorTempsTable::class];
-        $this->VendorTemps = $this->getTableLocator()->get('VendorTemps', $config);
+        $config = $this->getTableLocator()->exists('AsnHeaders') ? [] : ['className' => AsnHeadersTable::class];
+        $this->AsnHeaders = $this->getTableLocator()->get('AsnHeaders', $config);
     }
 
     /**
@@ -52,7 +48,7 @@ class VendorTempsTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->VendorTemps);
+        unset($this->AsnHeaders);
 
         parent::tearDown();
     }
@@ -61,7 +57,7 @@ class VendorTempsTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\VendorTempsTable::validationDefault()
+     * @uses \App\Model\Table\AsnHeadersTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -72,7 +68,7 @@ class VendorTempsTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\VendorTempsTable::buildRules()
+     * @uses \App\Model\Table\AsnHeadersTable::buildRules()
      */
     public function testBuildRules(): void
     {

@@ -110,6 +110,10 @@ class AsnHeadersTable extends Table
             ->notEmptyString('driver_contact');
 
         $validator
+            ->dateTime('gateout_date')
+            ->allowEmptyDateTime('gateout_date');
+
+        $validator
             ->integer('status')
             ->notEmptyString('status');
 

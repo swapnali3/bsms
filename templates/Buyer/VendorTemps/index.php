@@ -6,8 +6,8 @@
 
 ?>
 <?= $this->Html->css('custom') ?>
-<?= $this->Html->css('vendortemps_index') ?>
-<div class="row" style="height:90vh;">
+<?= $this->Html->css('b_vendortemps_index') ?>
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-body vendor-list">
@@ -65,4 +65,4 @@
         </div>
     </div>
 </div>
-<?= $this->Html->script('vendortemps_index') ?>
+<?= $this->Html->script('b_vendortemps_index') ?>
