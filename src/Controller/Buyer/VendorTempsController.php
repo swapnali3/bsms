@@ -98,9 +98,10 @@ class VendorTempsController extends BuyerAppController
             // $vendorTempView = $this->VendorTemps->get($st[0]->id);
             //   $this->set(compact('vendorTempView'));
             $this->set('vendorTempView', $vendorTempView);
+                   // echo '<pre>'; print_r($vendorTempView);exit;
         }
         $this->set('vendorTemp', $vendorTemp);
-        // echo '<pre>'; print_r($vendorTempView);exit;
+ 
 
     }
 
@@ -285,16 +286,12 @@ class VendorTempsController extends BuyerAppController
         if ($this->request->is('post')) {
 
             $inputCode = trim($this->request->getData('sap_vendor_code'));
-            $vendorCodes = [$inputCode];
-
-            if ($inputCode == "") {
-                $vendorCodes = [];
-            }
-
-            $vendorView = [];
-
-
             $importFile = $this->request->getData('vendor_code');
+            $this->loadModel("Users");
+            $vendorView = [];
+            $vendorCodes = [$inputCode];
+            // Incase of Excel input
+            if ($inputCode == "") { $vendorCodes = []; }
 
             if ($_FILES['vendor_code']['name'] != "") {
                 if ($importFile !== null && isset($_FILES['vendor_code']['name'])) {
@@ -315,19 +312,23 @@ class VendorTempsController extends BuyerAppController
                     foreach ($worksheet->getRowIterator(2) as $row) {
                         foreach ($row->getCellIterator() as $cell) {
                             $cellval = $cell->getValue();
-
                             array_push($vendorCodes, $cellval);
                             break;
                         }
                     }
                 }
             }
+            // echo '<pre>';
+
             foreach ($vendorCodes as $vendorCode) {
                 if (!empty($vendorCode)) {
+                    
+                 //  print_r("A".$vendorCode."E");
+                      
                     if (!$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $vendorCode])) {
 
-                        $data['DATA'] = array();
-                        $data['DATA']['LIFNR'] = $vendorCode;
+                        // $data['DATA'] = array();
+                        // $data['DATA']['LIFNR'] = $vendorCode;
 
                         // $http = new Client();
                         // $response = $http->post(
@@ -335,89 +336,99 @@ class VendorTempsController extends BuyerAppController
                         //     json_encode($data),
                         //     ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
                         // );
-
-
-
                         // if ($response->isOk()) {
-                        //     $result = json_decode($response->getStringBody());
+                            // $result = json_decode($response->getStringBody());
+                            //print_r($result);
+                            // if ($result->RESPONSE->SUCCESS) {
+                                // $resultResponse = json_decode($result->RESPONSE->DATA);
+                                $resultResponse = array(
+                                    "NAME1" => "Abhishek Yadav",
+                                    "STREET" => "123 Main St",
+                                    "CITY1" => "mumbai",
+                                    "POST_CODE1" => "12345",
+                                    "COUNTRY" => "india",
+                                    "SMTP_ADDR" => "abhisheky@fts-pl.com",
+                                    "MOB_NUMBER" => "1234567890",
+                                    "ZTERM" => "0001"
+                                );
 
-                        //     //print_r($result);
+                              //  print_r($resultResponse['SMTP_ADDR']);exit;
+                            
+                               
+                                $vendorTemp = $this->VendorTemps->newEmptyEntity();
+                                $data = array();
+                                $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
+                                $data['purchasing_organization_id'] = 1;
+                                $data['account_group_id'] = 1;
+                                $data['schema_group_id'] = 1;
+                                $data['name'] = $resultResponse['NAME1'];
+                                $data['address'] = $resultResponse['STREET'];
+                                $data['city'] = $resultResponse['CITY1'];
+                                $data['pincode'] = $resultResponse['POST_CODE1'];
+                                $data['country'] = $resultResponse['COUNTRY'];
+                                $data['email'] = $resultResponse['SMTP_ADDR'];
+                                $data['mobile'] = $resultResponse['MOB_NUMBER'];
+                                $data['payment_term'] = $resultResponse['ZTERM'];
+                                $data['valid_date'] = date('Y-m-d h:i:s');
+                                $data['sap_vendor_code'] = $vendorCode;
+                                $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
+                                
+                                try {
+                                    if (!$this->VendorTemps->exists(['VendorTemps.email' => $data['email']])) {
+                                        if (!$this->VendorTemps->exists(['VendorTemps.mobile' => $data['mobile']])) {
+                                            // user array create 
+                                            $udata = array();
+                                            $names = explode(' ', $resultResponse['NAME1']);
+                                            $udata['first_name'] = $names[0];
+                                            $udata['last_name'] = $names[count($names) - 1];
+                                            $udata['username'] = $resultResponse['SMTP_ADDR'];
+                                            $udata['mobile'] = $resultResponse['MOB_NUMBER'];
+                                            $udata['password'] = $resultResponse['MOB_NUMBER'];
+                                            $udata['group_id'] = 3; // 3 is Vendor Portal Roles
+                                            $udata['status'] = 5;
+                                            $udata['sap_vendor_code'] = $vendorCode;
 
-                        //     if ($result->RESPONSE->SUCCESS) {
-
-                        $vendorTemp = $this->VendorTemps->newEmptyEntity();
-                        // $resultResponse = json_decode($result->RESPONSE->DATA);
-
-                        $data = array();
-                        $response = array(
-                            "NAME1" => "Abhishek Yadav",
-                            "STREET" => "123 Main St",
-                            "CITY1" => "mumbai",
-                            "POST_CODE1" => "12345",
-                            "COUNTRY" => "india",
-                            "SMTP_ADDR" => "abhisheky@fts-pl.com",
-                            "MOB_NUMBER" => "1234567890",
-                            "ZTERM" => "0001"
-                        );
-                        $data['DATA']['LIFNR'] = $vendorCode;
-                        $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
-                        $data['purchasing_organization_id'] = 1;
-                        $data['account_group_id'] = 1;
-                        $data['schema_group_id'] = 1;
-                        $data['name'] = $response['NAME1'];
-                        $data['address'] = $response['STREET'];
-                        $data['city'] = $response['CITY1'];
-                        $data['pincode'] = $response['POST_CODE1'];
-                        $data['country'] = $response['COUNTRY'];
-                        $data['email'] = $response['SMTP_ADDR'];
-                        $data['mobile'] = $response['MOB_NUMBER'];
-                        $data['payment_term'] = $response['ZTERM'];
-                        $data['valid_date'] = date('Y-m-d h:i:s');
-
-                        // user array create 
-                        $names = explode(' ', $response['NAME1']);
-                        $data['first_name'] = $names[0];
-                        $data['last_name'] = $names[count($names) - 1];
-                        $data['username'] = $response['SMTP_ADDR'];
-                        $data['mobile'] = $response['MOB_NUMBER'];
-                        $data['password'] = $response['MOB_NUMBER'];
-                        $data['group_id'] = 3; // 3 is Vendor Portal Roles
-                        $data['status'] = 5;
-                        $data['sap_vendor_code'] = $vendorCode;
-
-                        $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
-                        //   print_r($data['email']);exit;
-
-                        try {
-                            if (!$this->VendorTemps->exists(['VendorTemps.email' => $data['email']]) && !$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $data['sap_vendor_code']]) && !$this->VendorTemps->exists(['VendorTemps.mobile' => $data['mobile']])) {
-
-                                if ($this->VendorTemps->save($vendorTemp)) {
-                                    $this->loadModel("Users");
-                                    $adminUser = $this->Users->newEmptyEntity();
-                                    $adminUser = $this->Users->patchEntity($adminUser, $data);
-                                    if (!$this->Users->exists(['Users.username' => $data['email']]) && !$this->Users->exists(['Users.mobile' => $data['mobile']])) {
-                                        $this->Users->save($adminUser);
-                                        $vendors = $vendorTemp->toArray();
-                                        array_push($vendorView, ['status' => true, 'msg' => "The Vendor Added Successfully", 'data' => $vendors]);
+                                          //  print_r($udata);exit;
+                                            if (!$this->Users->exists(['Users.username' => $udata['username']])) {
+                                                if (!$this->Users->exists(['Users.mobile' => $udata['mobile']])) {
+                                                    $adminUser = $this->Users->newEmptyEntity();
+                                                    $adminUser = $this->Users->patchEntity($adminUser, $udata);
+                                                    if ($this->Users->save($adminUser)) {
+                                                        if ($this->VendorTemps->save($vendorTemp)) {
+                                                            $vendors = $vendorTemp->toArray();
+                                                            //print_r($vendors);exit;
+                                                            array_push($vendorView, ['status' => true, 'msg' => "Vendor Added Successfully", 'data' => $vendors]);
+                                                        } else {
+                                                            array_push($vendorView, ['status' => false, 'msg' => "Vendor Add Failed", 'data' => ['sap_vendor_code' => $vendorCode]]);
+                                                        }
+                                                    } else {
+                                                        array_push($vendorView, ['status' => false, 'msg' => "Vendor Add Failed", 'data' => ['sap_vendor_code' => $vendorCode]]);
+                                                    }
+                                                } else {
+                                                    array_push($vendorView, ['status' => false, 'msg' => "Mobile Exist in Users", 'data' => ['sap_vendor_code' => $vendorCode]]);
+                                                }
+                                            } else {
+                                                array_push($vendorView, ['status' => false, 'msg' => "Email Exist in Users", 'data' => ['sap_vendor_code' => $vendorCode]]);
+                                            }
+                                        } else {
+                                            array_push($vendorView, ['status' => false, 'msg' => "Mobile Exist in Vendor", 'data' => ['sap_vendor_code' => $vendorCode]]);
+                                        }
                                     } else {
-                                        array_push($vendorView, ['status' => false, 'msg' => "The Add Vendor Failed", 'data' => ['sap_vendor_code' => $vendorCode]]);
+                                        array_push($vendorView, ['status' => false, 'msg' => "Email Exist in Vendor", 'data' => ['sap_vendor_code' => $vendorCode]]);
                                     }
+                                } catch (\Exception $e) {
+                                    $this->Flash->error(__($e->getMessage()));
                                 }
-                            }
-                        } catch (\Exception $e) {
-                            $this->Flash->error(__($e->getMessage()));
-                        }
-                        //     }
+                            // }
                         // }
                     } else {
-
-                        array_push($vendorView, ['status' => false, 'msg' => "Already Exists for SAP code", 'data' => ['sap_vendor_code' => $vendorCode]]);
+                        array_push($vendorView, ['status' => false, 'msg' => "Vendor for SAP code Exist", 'data' => ['sap_vendor_code' => $vendorCode]]);
                     }
                 } else {
-
-                    array_push($vendorView, ['status' => false, 'msg' => "Please enter valid SAP Vendor Code", 'data' => ['sap_vendor_code' => $vendorCode]]);
+                    array_push($vendorView, ['status' => false, 'msg' => "Invalid SAP Vendor Code", 'data' => ['sap_vendor_code' => $vendorCode]]);
                 }
             }
+            // print_r($vendorView); exit;
             $this->set('vendorData', $vendorView);
         }
     }
