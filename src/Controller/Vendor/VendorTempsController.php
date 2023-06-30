@@ -96,55 +96,31 @@ class VendorTempsController extends VendorAppController
     public function edit($id = null)
     {
         $this->loadModel("VendorTemps");
-        $vendorTemp = $this->VendorTemps->get($id, [
-            'contain' => [],
-        ]);
-
-        if ($vendorTemp->update_flag != $id) {
-        if ($this->request->is(['patch', 'post', 'put'])) {
-
-            $resp = $this->request->getData();
-            $vendorTempData = $vendorTemp->toArray(); // Retrieve all column data as an array
-            // echo '<pre>';
-            // print_r($vendorTempData);
-            // exit;
-
-        
-                $newvt = $this->VendorTemps->newEmptyEntity();
-                $vt = array();
-                $vt['purchasing_organization_id'] = $resp['purchasing_organization_id'];
-                $vt['account_group_id'] = $resp['account_group_id'];
-                $vt['schema_group_id'] = $resp['schema_group_id'];
-                $vt['name'] = $resp['name'];
-                $vt['address'] = $resp['address'];
-                $vt['city'] = $resp['city'];
-                $vt['pincode'] = $resp['pincode'];
-                $vt['country'] = $resp['country'];
-                $vt['payment_term'] = $resp['payment_term'];
-                $vt['order_currency'] = $resp['order_currency'];
-                $vt['gst_no'] = $resp['gst_no'];
-                $vt['pan_no'] = $resp['pan_no'];
-                $vt['contact_person'] = $resp['contact_person'];
-                $vt['contact_mobile'] = $resp['contact_mobile'];
-                $vt['cin_no'] = $resp['cin_no'];
-                $vt['tan_no'] = $resp['tan_no'];
-                $vt['status'] = $resp['status'];
-                $vt['valid_date'] = $resp['valid_date'];
-                $vt['buyer_id'] = $vendorTemp->buyer_id;
-                $vt['mobile'] = $vendorTemp->mobile;
-                $vt['address_2'] = $vendorTemp->address_2;
-                $vt['payment_term'] = $vendorTemp->payment_term;
-                $vt['update_flag'] = $vendorTemp->id;
-                $vt['gst_file'] = $vendorTemp->gst_file;
-                $vt['pan_file'] = $vendorTemp->pan_file;
-                $vt['bank_file'] = $vendorTemp->bank_file;
-                $vt['sap_vendor_code'] = $vendorTemp->sap_vendor_code;
-                $vt['state'] = $vendorTemp->state;
-                $vt['contact_department'] = $vendorTemp->contact_department;
-                $vt['contact_designation'] = $vendorTemp->contact_designation;
-                $vt['remark'] = $vendorTemp->remark;
-                $newvt = $this->VendorTemps->patchEntity($newvt, $vt);
-
+        $this->loadModel("Users");
+        $vendorTemp = $this->VendorTemps->get($id);
+        $buyer = $this->Users->get($vendorTemp->buyer_id);
+        $updaterequest = $this->VendorTemps->find('all')->where(['update_flag >' => 0])->count();
+        if ($updaterequest == 0) {
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $resp = $this->request->getData();
+                $vendorTempData = $vendorTemp->toArray();      
+                $newvt = $this->VendorTemps->newEntity($vendorTemp->toArray());  
+                if ($this->VendorTemps->save($newvt)) {
+                    $vt = array();
+                    $vt['name'] = $resp['name'];
+                    $vt['address'] = $resp['address'];
+                    $vt['city'] = $resp['city'];
+                    $vt['pincode'] = $resp['pincode'];
+                    $vt['country'] = $resp['country'];
+                    $vt['order_currency'] = $resp['order_currency'];
+                    $vt['contact_email'] = $resp['contact_email'];
+                    $vt['contact_person'] = $resp['contact_person'];
+                    $vt['contact_mobile'] = $resp['contact_mobile'];
+                    $vt['contact_department'] = $resp['contact_department'];
+                    $vt['contact_designation'] = $resp['contact_designation'];
+                    $vt['update_flag'] = $vendorTemp->id;
+                    $newvt = $this->VendorTemps->patchEntity($newvt, $vt);
+                }
                 if ($this->VendorTemps->save($newvt)) {
                     echo $newvt->author_id;
                     $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
@@ -152,21 +128,18 @@ class VendorTempsController extends VendorAppController
                     $mailer
                         ->setTransport('smtp')
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                        // ->setTo($vendorTempData['email'])
-                        ->setTo('abhisheky@fts-pl.com')
+                        ->setTo($buyer->email)
+                        // ->setTo('abhisheky@fts-pl.com')
                         ->setEmailFormat('html')
                         ->setSubject('Vendor Portal - Review Vendor Update')
                         ->deliver('Dear Buyer, <br/><br/>' . $vendorTempData['name'] . ' Send You a Profile Update Request. Kindly Check and Review.<br/> <a href="' . $link . '">Click here</a>');
                     $this->Flash->success(__('The Vendor successfully Updated'));
                     return $this->redirect(['action' => 'view', $id]);
-                } else {
-                    $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
-                }
+                } else { $this->Flash->error(__('The vendor could not be saved. Please, try again.')); }
             }
-            else{
-                $this->Flash->error(__('Alreday Exits Update for Reviews.'));
-                return $this->redirect(['action' => 'edit', $id]);
-            }
+        } else {
+            $this->Flash->error(__('Previous Update Request is under review.'));
+            return $this->redirect(['action' => 'view', $id]);
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();

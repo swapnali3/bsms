@@ -202,7 +202,9 @@ switch ($vendorTemp->status) {
                             </tr>
                             <tr>
                                 <th>Status</th>
-                                <td>:&nbsp;<?= $status ?></td>
+                                <td>:&nbsp;
+                                    <?= $status ?>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -242,16 +244,13 @@ switch ($vendorTemp->status) {
                     </div>
                 </div>
             </div>
-        <?php if (isset($vendorTempView)) :
-                
-         if ($vendorTempView[0]->update_flag == $vendorTemp->id) : ?>
+            <?php if (isset($vendorTempView)) : ?>
             <div class="col-sm-12 col-md-12 col-lg-12 ">
-                <?= $this->Form->create(null, ['id' => $vendorTempView[0]->id,  'url' => ['controller' => 'VendorTemps', 'action' => 'update']]) ?>
-                <?= $this->Form->hidden('id', ['value' => $vendorTempView[0]->id]) ?>
+                <?= $this->Form->create(null, ['id' => $vendorTempView[0]->id,  'url' => '/buyer/vendor-temps/update/'.$vendorTemp->id]) ?>
                 <div class="card">
                     <div class="card-body">
                         <table>
-                    <!-- <h5 class="text-info">Vendor Update Details</h5> -->
+                            <!-- <h5 class="text-info">Vendor Update Details</h5> -->
                             <tr>
                                 <?php if ($vendorTempView[0]->name != $vendorTemp->name) : ?>
                                 <th>Name</th>
@@ -308,7 +307,7 @@ switch ($vendorTemp->status) {
                                 </td>
                                 <?php endif ?>
                             </tr>
-                           
+
                             <tr>
                                 <?php if ($vendorTempView[0]->contact_person != $vendorTemp->contact_person) : ?>
                                 <th>contact person Name</th>
@@ -352,12 +351,12 @@ switch ($vendorTemp->status) {
                         </table>
                     </div>
                     <div class="card-footer">
-                        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom mb-0']) ?>
+                        <?= $this->Form->button(__('Approve'), ['class' => 'btn btn-success mb-0', 'value'=>'1', 'name'=>'status']) ?>
+                        <?= $this->Form->button(__('Reject'), ['class' => 'btn btn-danger mb-0', 'value'=>'0', 'name'=>'status']) ?>
                     </div>
                 </div>
                 <?= $this->Form->end() ?>
             </div>
-            <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>
