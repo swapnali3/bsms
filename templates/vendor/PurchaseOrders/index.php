@@ -65,14 +65,12 @@
   </div>
 
   <div class="row">
-    <div class="col-lg-12 mb-2 pe-4 d-flex justify-content-end">
-      <button type="button" data-id="<?= $poHeader->id ?>" class="btn btn-primary notify mb-0" <?= $poHeader->flag === 1 ? 'disabled' : '' ?>>
-        <i class="fa fa-bell"></i> Notify
+    
+    <div class="col-lg-12 mb-2 pe-4 d-flex justify-content-end flagButton">
+      <button type="button" data-id="" class="btn btn-primary notify mb-0" >
+        <i class="fa fa-envelope"></i> Acknowledge
       </button>
     </div>
-
-
-
   </div>
 
 
@@ -106,6 +104,19 @@
       $('div.details-control').removeClass('active');
 
       $(this).addClass('active');
+
+     var poHeaderID = $(this).attr('data-id');
+     $('.notify').attr('data-id', poHeaderID);
+
+      var flagdata =  $(this).find('.flagdata').attr('data-flag');
+
+      if(flagdata == '1'){
+        $('.notify').hide();
+      }
+      else{
+        $('.notify').show();
+      }
+      
       $(".right-side").html(format($(this).attr('data-id')));
     });
 
@@ -210,12 +221,18 @@
                   <br> <small><b>
                      ` + val.sap_vendor_code + `
                     </b></small>
+                   
                 </div>
+                <span class="hide flagdata" data-flag=`+ val.flag +`></span>
               </div>`);
+
+              
 
               $('div.details-control:first').click();
 
             });
+
+       
           } else {
             //     $(".related tbody:first").empty().hide().append(`<tr>
             //   <td colspan="6" class="text-center">
@@ -228,9 +245,9 @@
         }
       });
     }
-    $(document).ready(function() {
-      $('div.details-control').click();
-    });
+    // $(document).ready(function() {
+    //   $('div.details-control').click();
+    // });
 
 
     var Toast = Swal.mixin({
@@ -256,6 +273,7 @@
               icon: "success",
               title: response.message,
             });
+            $('.notify').hide();
 
           } else {
             Toast.fire({

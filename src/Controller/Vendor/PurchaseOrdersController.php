@@ -37,8 +37,6 @@ class PurchaseOrdersController extends VendorAppController
     public function poNotify($id = null)
     {
 
-
-
         $response = array();
         $response['status'] = 'fail';
         $response['message'] = '';
@@ -52,14 +50,11 @@ class PurchaseOrdersController extends VendorAppController
         $this->loadModel('VendorTemps');
         $this->loadModel('Users');
 
-
-
-
         $poHeader = $this->PoHeaders->get($id, [
             'contain' => [],
         ]);
 
-        // print_r($poHeader->flag);
+        // print_r($poHeader->acknowledge);
         // exit;
 
 
@@ -75,40 +70,37 @@ class PurchaseOrdersController extends VendorAppController
             ->where(['id' => $buyerId])
             ->first();
 
-        // print_r($user["username"]);exit;
-        // print_r($quary["email"]);exit;
 
-
-        if ($poHeader->flag == 0) {
+        if ($poHeader->acknowledge == 0) {
             if ($user["username"] !== "") {
 
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                    // ->setTo($vendorTempData['email'])
+                    // ->setTo($user["username"])
                     ->setTo('abhisheky@fts-pl.com')
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Order acknowledgement ')
-                    ->deliver('Dear Buyer, <br/><br/> This email is to inform you that your order has been successfully acknowledged.');
+                    ->deliver('Dear Buyer, <br/><br/> This email is to inform you that your PO has been successfully acknowledged.');
             }
             if ($quary["email"] !== "") {
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                    // ->setTo($vendorTempData['email'])
+                    // ->setTo($quary['email'])
                     ->setTo('abhisheky@fts-pl.com')
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Order acknowledgement')
-                    ->deliver('Dear Vendor, <br/><br/>This email is to inform you that your order has been successfully acknowledged.');
+                    ->deliver('Dear Vendor, <br/><br/>This email is to inform you that your PO has been successfully acknowledged.');
 
 
                 $response['status'] = '1';
                 $response['message'] = 'Send mail successfully';
 
                 if ($response['status'] === '1') {
-                    $poHeader->flag = 1; // Set flag value to 1
+                    $poHeader->acknowledge = 1; // Set acknowledge value to 1
                     $this->PoHeaders->save($poHeader); // Save the updated value
                 }
             } else {
@@ -144,8 +136,8 @@ class PurchaseOrdersController extends VendorAppController
         if (!empty($createAsn)) {
 
             $data = $this->PoHeaders->find('all')
-                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
-                ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
+                ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
                 ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
                 ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
                 ->where([
@@ -161,8 +153,8 @@ class PurchaseOrdersController extends VendorAppController
         } else {
 
             $data = $this->PoHeaders->find('all')
-                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
-                ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
+                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
+                ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
                 ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
                 ->where([
                     'sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
