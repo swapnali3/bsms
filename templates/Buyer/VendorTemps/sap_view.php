@@ -58,10 +58,11 @@ switch ($vendorTemp->status) {
 
                             <?= $this->Html->link(__('Update'), '#', ['class' => 'btn btn-info update-button mb-0 btn-sm', 'style' => 'display:none', 'id' => $vendorTemp->id]) ?>
 
-
-                            <button type="button" class="btn btn-success btn-sm mb-0" data-toggle="modal" data-target="#modal-sm">
+                            <?php if ($vendorTemp->status == 5) : ?>
+                            <button type="button" class="btn btn-success btn-sm mb-0 sendCrendential" data-toggle="modal" data-target="#modal-sm">
                                 Send Credentials
                             </button>
+                            <?php endif; ?>
                             <!-- modal -->
                             <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-sm">
@@ -71,7 +72,7 @@ switch ($vendorTemp->status) {
                                         </div>
                                         <div class="modal-footer justify-content-between p-1">
                                             <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                                            <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
+                                            <button type="button" data-id="<?= h($vendorTemp->id) ?>" class="btn btn-link notify">Ok</button>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +195,7 @@ switch ($vendorTemp->status) {
                                     <th>
                                         <?= __('Status') ?>
                                     </th>
-                                    <td>
+                                    <td  class="statusVendor">
                                         <?= $status ?>
                                     </td>
                                 </tr>
@@ -433,6 +434,43 @@ switch ($vendorTemp->status) {
             showConfirmButton: false,
             timer: 3000,
         });
+
+        $('.notify').click(function(e) {
+            e.preventDefault();
+
+            var $id = $(this).attr('data-id');
+
+            // alert($username);
+
+            $.ajax({
+                type: "GET",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>/" + $id,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status == "1") {
+                        Toast.fire({
+                            icon: "success",
+                            title: response.message,
+                        });
+                        $('#modal-sm').modal('hide');
+                        $(".sendCrendential").hide();
+                        $(".statusVendor span").text("Approved");
+
+
+
+                    } else {
+                        Toast.fire({
+                            icon: "error",
+                            title: response.message,
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle error case if needed
+                }
+            });
+        });
+
 
         $('.update-button').click(function() {
             $vendorId = $('.update-button').attr('id');

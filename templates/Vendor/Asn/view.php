@@ -37,34 +37,38 @@
                         <?php
                         if ($deliveryDetails[0]->status == '1') { ?>
                             <div class="col-sm-12 col-lg-6">
-                               <div class="d-flex justify-content-end">
-                               <button class="btn btn-custom-2 mb-0 mrk mr-2" data-toggle="modal" data-target="#modal-confirm">Mark Delivered</button>
-                                <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
+                                <div class="d-flex justify-content-end">
+                                    <button class="btn btn-custom-2 mb-0 mrk mr-2" data-toggle="modal" data-target="#modal-confirm">Mark Delivered</button>
+                                    <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
 
-                                if (!empty($files)) {
-                                    echo $this->Html->link('View invoice', '/' . $files[0], ['target' => '_blank', 'class' => 'btn btn-custom mb-0']);
-                                }
-                                ?>
-                               </div>
+                                    if (!empty($files)) {
+                                        foreach ($files as $file) {
+                                            echo $this->Html->link('View invoice', '/' . $file, ['style' => 'display:none', 'class' => 'btn btn-custom mb-0 invoicefiles']);
+                                        }
+                                    }
+
+
+                                    ?>
+                                    <button class="btn btn-custom mb-0 invoiceButton">View invoice</button>
+                                </div>
                             </div>
-                             <!-- modal -->
-                             <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
-                                    <div class="modal-dialog modal-sm">
-                                        <div class="modal-content">
-                                            <div class="modal-body text-center">
-                                                <h6>Are you sure you want to mark delivered ?</h6>
-                                            </div>
-                                            <div class="modal-footer justify-content-between p-1">
-                                                <button type="button" class="btn btn-sm btn-link"
-                                                    data-dismiss="modal">Cancel</button>
-                                                <button class="btn btn-success mark_delivered btn-sm mb-0">OK</button>
-                                                <!-- <?= $this->Html->link(__('Ok'), ['class' => 'btn btn-success mark_delivered btn-sm mb-0']) ?> -->
-                                            </div>
+                            <!-- modal -->
+                            <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-body text-center">
+                                            <h6>Are you sure you want to mark delivered ?</h6>
+                                        </div>
+                                        <div class="modal-footer justify-content-between p-1">
+                                            <button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Cancel</button>
+                                            <button class="btn btn-success mark_delivered btn-sm mb-0">OK</button>
+                                            <!-- <?= $this->Html->link(__('Ok'), ['class' => 'btn btn-success mark_delivered btn-sm mb-0']) ?> -->
                                         </div>
                                     </div>
-
                                 </div>
-                                <!-- end modal -->
+
+                            </div>
+                            <!-- end modal -->
                         <?php } ?>
                     </div>
 
@@ -125,8 +129,7 @@
             </div>
 
             <div class="card-body p-0 pb-3">
-                <table class="table" id="example1"
-                    style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
+                <table class="table" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -138,7 +141,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($deliveryDetails as $deliveryDetail): ?>
+                        <?php foreach ($deliveryDetails as $deliveryDetail) : ?>
                             <tr>
                                 <td>
                                     <?= $deliveryDetail->has('PoFooters') ? $deliveryDetail->PoFooters['item'] : '' ?>
@@ -171,13 +174,22 @@
     $(document).ready(function() {
         var table = $("#example1").DataTable({
             "paging": true,
-            "responsive": false, "lengthChange": false, "autoWidth": false,
+            "responsive": false,
+            "lengthChange": false,
+            "autoWidth": false,
             "ordering": false,
-            "searching": false, "sorting": false,
+            "searching": false,
+            "sorting": false,
         });
-
+      
+        $('.invoiceButton').click(function() {
+            $('.invoicefiles').each(function() {
+                var fileUrl = $(this).attr('href');
+                window.open(fileUrl, '_blank');
+            });
+        });
         $(".mark_delivered").on('click', function() {
-           
+
             $.ajax({
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'mark-delivered', $deliveryDetails[0]->id)); ?>",
