@@ -64,6 +64,9 @@ $(function () {
                      
                     }else if(notification.notification_type == "create_schedule"){
                         var message = $('<span></span>').text(notification.message_count + ' Create Schedule');
+                    
+                    }else if(notification.notification_type == "po_acknowledge"){
+                        var message = $('<span></span>').text(notification.message_count + ' PO Acknowledge');
                     }
                     notificationItem.append(message);
     
