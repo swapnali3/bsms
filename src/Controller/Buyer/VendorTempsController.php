@@ -312,7 +312,9 @@ class VendorTempsController extends BuyerAppController
                     foreach ($worksheet->getRowIterator(2) as $row) {
                         foreach ($row->getCellIterator() as $cell) {
                             $cellval = $cell->getValue();
-                            array_push($vendorCodes, $cellval);
+                            if (!empty($cellval)) {
+                                $vendorCodes[] = $cellval;
+                            }
                             break;
                         }
                     }
@@ -371,6 +373,7 @@ class VendorTempsController extends BuyerAppController
                                 $data['payment_term'] = $resultResponse['ZTERM'];
                                 $data['valid_date'] = date('Y-m-d h:i:s');
                                 $data['sap_vendor_code'] = $vendorCode;
+                                $data['status'] = 5;
                                 $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
                                 
                                 try {
@@ -385,7 +388,6 @@ class VendorTempsController extends BuyerAppController
                                             $udata['mobile'] = $resultResponse['MOB_NUMBER'];
                                             $udata['password'] = $resultResponse['MOB_NUMBER'];
                                             $udata['group_id'] = 3; // 3 is Vendor Portal Roles
-                                            $udata['status'] = 5;
                                             $udata['sap_vendor_code'] = $vendorCode;
 
                                           //  print_r($udata);exit;
