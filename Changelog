@@ -128,3 +128,58 @@ ALTER TABLE `asn_headers`
 ADD COLUMN `gateout_date` DATETIME NULL DEFAULT NULL;
 // ==================== ASN Header ====================
 
+// ==================== ASN Header ====================
+
+
+
+// ==================== Po acknowledge ====================
+CREATE DEFINER=`root`@`localhost` TRIGGER `po_headers_Before_UPDATE` BEFORE UPDATE ON `po_headers` FOR EACH ROW BEGIN
+    DECLARE acknowledge INT;
+	DECLARE v_user_id INT;
+    DECLARE u_buyer_id INT;
+
+    
+    -- Retrieve user_id and buyer_id based on the updated header_id
+    SELECT u.id,vt.buyer_id,ph.acknowledge INTO v_user_id, u_buyer_id,acknowledge
+FROM vendor_temps vt
+LEFT JOIN po_headers ph ON vt.sap_vendor_code = ph.sap_vendor_code
+LEFT JOIN users u ON vt.email = u.username
+WHERE ph.id = NEW.id
+LIMIT 1;
+
+    IF acknowledge != NEW.acknowledge THEN
+        IF EXISTS (SELECT 1 FROM notifications WHERE user_id = v_user_id  AND notification_type = 'po_acknowledge') THEN
+            UPDATE notifications
+            SET message_count = message_count + 1
+            WHERE  user_id = v_user_id AND notification_type = 'po_acknowledge';
+        ELSE
+            -- Insert a new record for v_user_id with message_count = 1
+            INSERT INTO notifications (message_count, user_id, notification_type, created_at)
+            VALUES (1, v_user_id, 'po_acknowledge', NOW());
+        END IF;
+
+         IF EXISTS (SELECT 1 FROM notifications WHERE user_id = u_buyer_id  AND notification_type = 'po_acknowledge') THEN
+            -- Update the existing records for v_user_id with the incremented message_count
+            UPDATE notifications
+            SET message_count = message_count + 1
+            WHERE  user_id = u_buyer_id AND notification_type = 'po_acknowledge';
+        ELSE
+            -- Insert a new record for v_user_id with message_count = 1
+            INSERT INTO notifications (message_count, user_id, notification_type, created_at)
+            VALUES (1, u_buyer_id, 'po_acknowledge', NOW());
+
+        END IF;
+        
+    END IF; 
+END
+
+// ==================== Po acknowledge ====================
+
+
+// ==================== Po header acknowledge====================
+
+ALTER TABLE `po_headers` 
+ADD COLUMN `acknowledge` INT NULL DEFAULT '0' AFTER `acknowledge`;
+// ==================== Po header acknowledge====================
+
+

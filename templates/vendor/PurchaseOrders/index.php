@@ -64,6 +64,16 @@
     </table>
   </div>
 
+  <div class="row">
+    
+    <div class="col-lg-12 mb-2 pe-4 d-flex justify-content-end flagButton">
+      <button type="button" data-id="" class="btn btn-primary notify mb-0" >
+        <i class="fa fa-envelope"></i> Acknowledge
+      </button>
+    </div>
+  </div>
+
+
 </div>
 
 <script>
@@ -94,6 +104,19 @@
       $('div.details-control').removeClass('active');
 
       $(this).addClass('active');
+
+     var poHeaderID = $(this).attr('data-id');
+     $('.notify').attr('data-id', poHeaderID);
+
+      var flagdata =  $(this).find('.flagdata').attr('data-flag');
+
+      if(flagdata == '1'){
+        $('.notify').hide();
+      }
+      else{
+        $('.notify').show();
+      }
+      
       $(".right-side").html(format($(this).attr('data-id')));
     });
 
@@ -166,6 +189,7 @@
 
     poform();
 
+
     function poform(search = "") {
       var div = $('<div/>')
         .addClass('loading')
@@ -197,12 +221,18 @@
                   <br> <small><b>
                      ` + val.sap_vendor_code + `
                     </b></small>
+                   
                 </div>
+                <span class="hide flagdata" data-flag=`+ val.flag +`></span>
               </div>`);
+
+              
 
               $('div.details-control:first').click();
 
             });
+
+       
           } else {
             //     $(".related tbody:first").empty().hide().append(`<tr>
             //   <td colspan="6" class="text-center">
@@ -215,8 +245,47 @@
         }
       });
     }
-    $(document).ready(function() {
-      $('div.details-control').click();
+    // $(document).ready(function() {
+    //   $('div.details-control').click();
+    // });
+
+
+    var Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+    });
+    $(".notify").click(function(e) {
+      e.preventDefault();
+
+      var id = $(this).attr("data-id");
+
+      // alert($username);
+
+      $.ajax({
+        type: "GET",
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-notify')); ?>/" + id,
+        dataType: "json",
+        success: function(response) {
+          if (response.status == "1") {
+            Toast.fire({
+              icon: "success",
+              title: response.message,
+            });
+            $('.notify').hide();
+
+          } else {
+            Toast.fire({
+              icon: "error",
+              title: response.message,
+            });
+          }
+        },
+        error: function(xhr, status, error) {
+          // Handle error case if needed
+        },
+      });
     });
 
   });
