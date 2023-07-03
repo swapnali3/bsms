@@ -32,6 +32,10 @@
 
 
       </div>
+
+      <?php  
+      $totalVendorTemps  = $totalVendorOnboarding + $totalVendorApproved + $totalSentSap
+       ?>
       <!-- /.card-header -->
       <div class="card-body p-0">
         <ul class="products-list product-list-in-card">
@@ -41,7 +45,7 @@
             </div>
             <div class="product-info">
               <a href="javascript:void(0)" class="product-title">Total</a>
-              <span class="p-value">6</span>
+              <span class="p-value"><?= h($totalVendorTemps) ?></span>
             </div>
           </li>
           <!-- /.item -->
@@ -53,7 +57,7 @@
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Onboarding
                </a>
-                <span class="p-value">2</span>
+                <span class="p-value"><?= h($totalVendorOnboarding) ?></span>
             </div>
           </li>
           <!-- /.item -->
@@ -64,7 +68,7 @@
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Approved
                </a>
-                <span class="p-value">3</span>
+                <span class="p-value"><?= h($totalVendorApproved) ?></span>
             </div>
           </li>
           <!-- /.item -->
@@ -76,7 +80,7 @@
               <a href="javascript:void(0)" class="product-title">Sent to SAP
               
         </a>
-                <span class="p-value">1</span>
+                <span class="p-value"><?= h($totalSentSap) ?></span>
             </div>
           </li>
           <!-- /.item -->
@@ -93,7 +97,7 @@
       <div class="card-header">
         <h3 class="card-title">Purchase Orders</h3>
 
-
+        
       </div>
       <!-- /.card-header -->
       <div class="card-body p-0">
@@ -104,7 +108,7 @@
             </div>
             <div class="product-info">
               <a href="javascript:void(0)" class="product-title">Total</a>
-              <span class="p-value">20</span>
+              <span class="p-value"><?= h($totalPos) ?></span>
             </div>
           </li>
           <!-- /.item -->
@@ -115,9 +119,12 @@
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Completed</a>
-              <span class="p-value">15</span>
+              <span class="p-value"><?= h($poCompleteCount) ?></span>
             </div>
           </li>
+          <?php  
+            $poPending = $totalPos - $poCompleteCount
+          ?>
           <!-- /.item -->
           <li class="item">
             <div class="product-img">
@@ -125,7 +132,7 @@
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Pending</a>
-                <span class="p-value">5</span>
+                <span class="p-value"><?= $poPending ?></span>
             </div>
           </li>
          
@@ -203,7 +210,7 @@
             </div>
             <div class="product-info">
               <a href="javascript:void(0)" class="product-title">Created</a>
-              <span class="p-value">10</span>
+              <span class="p-value"><?= h($totalAsnCreated) ?></span>
             </div>
           </li>
           <!-- /.item -->
@@ -214,7 +221,7 @@
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Intransit</a>
-              <span class="p-value">5</span>
+              <span class="p-value"><?= h($totalAsnIntransit) ?></span>
             </div>
           </li>
           <!-- /.item -->
@@ -224,7 +231,7 @@
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Received</a>
-                <span class="p-value">5</span>
+                <span class="p-value"><?= h($totalAsnReceived) ?></span>
             </div>
           </li>
          
