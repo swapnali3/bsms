@@ -1,5 +1,10 @@
 $('#OpenImgUpload').click(function () { $('#vendorCodeInput').trigger('click'); });
 
+$('#vendorCodeInput').change(function () {
+  var file = $(this).prop('files')[0].name;
+  $("#filessnames").append(file);
+});
+
 var Toast = Swal.mixin({
     toast: true,
     position: 'top-end',

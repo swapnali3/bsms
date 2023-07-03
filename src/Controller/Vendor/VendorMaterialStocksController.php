@@ -24,7 +24,6 @@ class VendorMaterialStocksController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $vendorMaterialStocks = $this->paginate($this->VendorMaterialStocks->find()->where(['sap_vendor_code' => $session->read('vendor_code')]));
 
-
         $this->set(compact('vendorMaterialStocks'));
     }
 
@@ -37,10 +36,7 @@ class VendorMaterialStocksController extends VendorAppController
      */
     public function view($id = null)
     {
-        $vendorMaterialStock = $this->VendorMaterialStocks->get($id, [
-            'contain' => [],
-        ]);
-
+        $vendorMaterialStock = $this->VendorMaterialStocks->get($id);
         $this->set(compact('vendorMaterialStock'));
     }
 
@@ -56,7 +52,6 @@ class VendorMaterialStocksController extends VendorAppController
             $vendorMaterialStock = $this->VendorMaterialStocks->patchEntity($vendorMaterialStock, $this->request->getData());
             if ($this->VendorMaterialStocks->save($vendorMaterialStock)) {
                 $this->Flash->success(__('The vendor material stock has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The vendor material stock could not be saved. Please, try again.'));
