@@ -273,7 +273,7 @@
               icon: "success",
               title: response.message,
             });
-            $('.notify').hide();
+            $(this).hide(); // Hide the clicked button
 
           } else {
             Toast.fire({
