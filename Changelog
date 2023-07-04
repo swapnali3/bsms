@@ -111,16 +111,6 @@ INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('5', 'SA
 // ==================== Vendor Status ====================
 
 
-// ==================== Vendor Update ====================
-author: JThayil
-date: 27.06.2023
-// ==================== ============= ====================
-ALTER TABLE `db_bsms`.`vendor_temps` 
-ADD COLUMN `update_flag` INT NULL DEFAULT 0 AFTER `updated_date`,
-CHANGE COLUMN `email` `email` VARCHAR(100) NULL DEFAULT NULL ;
-// ==================== Vendor Update ====================
-
-
 // ==================== ASN Header ====================
 author: JThayil
 date: 28.06.2023
@@ -141,8 +131,7 @@ ALTER TABLE `vendor_temps` ADD COLUMN `update_flag` INT NULL DEFAULT '0' ;
 author: JThayil
 date: 29.06.2023
 // ==================== ============= ====================
-ALTER TABLE `db_bsms`.`vendor_temps` 
-DROP INDEX `email_UNIQUE` ;
+ALTER TABLE `db_bsms`.`vendor_temps` DROP INDEX `email_UNIQUE` ;
 // ==================== Vendor Update ====================
 
 

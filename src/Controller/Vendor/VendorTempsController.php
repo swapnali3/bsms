@@ -101,7 +101,7 @@ class VendorTempsController extends VendorAppController
         $this->loadModel("VendorTemps");
         $this->loadModel("Users");
         $vendorTemp = $this->VendorTemps->get($id);
-        $buyer = $this->Users->get($vendorTemp->buyer_id);
+        $buyer = $this->Users->get($vendorTemp->buyer_id)->toArray();
         $updaterequest = $this->VendorTemps->find('all')->where(['update_flag >' => 0])->count();
         if ($updaterequest == 0) {
             if ($this->request->is(['patch', 'post', 'put'])) {
@@ -125,13 +125,13 @@ class VendorTempsController extends VendorAppController
                     $newvt = $this->VendorTemps->patchEntity($newvt, $vt);
                 }
                 if ($this->VendorTemps->save($newvt)) {
-                    echo $newvt->author_id;
+                    // print_r($buyer->username);exit;
                     $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                        ->setTo($buyer->email)
+                        ->setTo($buyer->username)
                         // ->setTo('abhisheky@fts-pl.com')
                         ->setEmailFormat('html')
                         ->setSubject('Vendor Portal - Review Vendor Update')
