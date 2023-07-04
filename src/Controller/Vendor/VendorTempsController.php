@@ -41,6 +41,7 @@ class VendorTempsController extends VendorAppController
     {
         $this->set('headTitle', 'Profile');
         $session = $this->getRequest()->getSession();
+        if ($id == null){ $id = $session->read('vendor_id'); }
 
         $this->loadModel('VendorTemps');
         $vendorTemp = $this->VendorTemps->get($session->read('vendor_id'), [
@@ -80,7 +81,9 @@ class VendorTempsController extends VendorAppController
             }
         }
 
-
+        $vendorTempView = $this->VendorTemps->find('all')->where(['update_flag' => $id]);
+        $this->set('vendorTempView', $vendorTempView->toArray());
+        $this->set('updatecount', $vendorTempView->count());
         $this->set(compact('vendorTemp'));
     }
 

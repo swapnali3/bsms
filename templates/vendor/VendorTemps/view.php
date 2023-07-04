@@ -70,13 +70,122 @@ switch ($vendorTemp->status) {
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-12 col-md-7 col-lg-7">
+        <?php if ($updatecount > 0) : ?>
         <div class="card">
             <div class="card-header">
-                <span>USER DETAILS
+                <b class="text-info">Pending Request for Updation</b>
+            </div>
+            <div class="card-body">
+            <table style="width:100%">
+                <tr>
+                    <?php if ($vendorTempView[0]->name != $vendorTemp->name) : ?>
+                    <th>Name</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->name) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->address != $vendorTemp->address) : ?>
+                    <th>Address 1</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->address) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->address_2 != $vendorTemp->address_2) : ?>
+                    <th>Address 2</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->address_2) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->city != $vendorTemp->city) : ?>
+                    <th>City</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->city) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->pincode != $vendorTemp->pincode) : ?>
+                    <th>Pincode</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->pincode) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->state != $vendorTemp->state) : ?>
+                    <th>State</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->state) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->country != $vendorTemp->country) : ?>
+                    <th>Country</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->country) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->contact_person != $vendorTemp->contact_person) : ?>
+                    <th>contact person Name</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->contact_person) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->contact_email != $vendorTemp->contact_email) : ?>
+                    <th>contact Email</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->contact_email) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->contact_mobile != $vendorTemp->contact_mobile) : ?>
+                    <th>contact mobile</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->contact_mobile) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->contact_department != $vendorTemp->contact_department) : ?>
+                    <th>contact department</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->contact_department) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->contact_designation != $vendorTemp->contact_designation) : ?>
+                    <th>contact Designation</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->contact_designation) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+            </table>
+            </div>
+        </div>
+        <?php endif ?>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <span class="text-info">USER DETAILS
                     <div class="float-right">
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorTemp->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
+                        <?php if ($updatecount == 0) : ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorTemp->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
+                        <?php endif; ?>
                     </div>
                 </span>
             </div>

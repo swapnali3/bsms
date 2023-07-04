@@ -197,3 +197,57 @@ ADD COLUMN `acknowledge` INT NULL DEFAULT '0' AFTER `acknowledge`;
 // ==================== Po header acknowledge====================
 
 
+// ==================== Vendor Update ====================
+author: JThayil
+date: 04.07.2023
+// ==================== ============= ====================
+
+CREATE TABLE `dailymonitor` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_id` int DEFAULT NULL,
+  `productionline_id` int DEFAULT NULL,
+  `target_production` int DEFAULT NULL,
+  `confirm_production` int DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `added_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `productionline` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_id` int NOT NULL,
+  `vendormaterial_id` int NOT NULL,
+  `prdline_description` varchar(250) NOT NULL,
+  `prdline_capacity` int NOT NULL,
+  `status` int DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `vendor_material` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_id` int NOT NULL,
+  `vendor_material_code` bigint NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `buyer_material_code` bigint DEFAULT NULL,
+  `minimum_stock` int DEFAULT NULL,
+  `uom` varchar(50) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0',
+  `added_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `stockupload` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `opening_stock` int NOT NULL,
+  `vendor_material_id` int NOT NULL,
+  `vendor_id` int NOT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+// ==================== ASN Header ====================
