@@ -69,37 +69,29 @@
     <div class="col-sm-12 col-md-9 col-lg-9">
         <?= $this->Form->create($vendorTemp) ?>
         <div class="card">
-            <div class="card-body">
+            <div class="card-body pb-0">
                 <div class="row">
                     <div class="col-sm-4 col-md-4 col-lg-4">
-                        <?php echo $this->Form->control('purchasing_organization_id', ['options' => $purchasingOrganizations, 'class'=> 'form-control mb-3']);?>
                         <?php echo $this->Form->control('name', ['class'=>'form-control mb-3']); ?>
                         <?php echo $this->Form->control('pincode', ['class'=>'form-control mb-3']); ?>
-                        <?php echo $this->Form->control('country', ['class'=>'form-control mb-3']); ?>
-                        <?php echo $this->Form->control('gst_no', ['class'=>'form-control mb-3']); ?>
-                        <div class="input text"><label for="email-id">Contact Email</label><input type="text" name="contact_email_id" class="form-control mb-3" id="email-id" value="<?= h($vendorTemp->contact_email) ?>" maxlength="25"></div>
-                        <?php echo $this->Form->control('tan_no', ['class'=>'form-control mb-3']); ?>
+                        <?php echo $this->Form->control('contact_person', ['class'=>'form-control mb-3']); ?>
+                        <?php echo $this->Form->control('contact_department', ['class'=>'form-control mb-3']); ?>
                     </div>
                     <div class="col-sm-4 col-md-4 col-lg-4">
-                        <?php echo $this->Form->control('account_group_id', ['options' => $accountGroups, 'class'=> 'form-control mb-3']); ?>
                         <?php echo $this->Form->control('address', ['class'=>'form-control mb-3']); ?>
-                        <?php echo $this->Form->control('payment_term', ['class'=>'form-control mb-3']); ?>
-                        <?php echo $this->Form->control('pan_no', ['class'=>'form-control mb-3']); ?>
-                        <?php echo $this->Form->control('contact_mobile', ['class'=>'form-control mb-3']); ?>
-                        <?php echo $this->Form->control('status', ['class'=>'form-control mb-3']); ?>
+                        <?php echo $this->Form->control('country', ['class'=>'form-control mb-3']); ?>
+                        <?php echo $this->Form->control('contact_email', ['class'=>'form-control mb-3']); ?>
+                        <?php echo $this->Form->control('contact_designation', ['class'=>'form-control mb-3']); ?>
                     </div>
                     <div class="col-sm-4 col-md-4 col-lg-4">
-                        <?php echo $this->Form->control('schema_group_id', ['options' => $schemaGroups, 'class'=> 'form-control mb-3']); ?>
                         <?php echo $this->Form->control('city', ['class'=>'form-control mb-3']); ?>
                         <?php echo $this->Form->control('order_currency', ['class'=>'form-control mb-3']); ?>
-                        <?php echo $this->Form->control('contact_person', ['class'=>'form-control mb-3']); ?>
-                        <?php echo $this->Form->control('cin_no', ['class'=>'form-control mb-3']); ?>
-                        <?php echo $this->Form->control('valid_date', ['class'=>'form-control mb-3']); ?>
+                        <?php echo $this->Form->control('contact_mobile', ['class'=>'form-control mb-3']); ?>
                     </div>
                 </div>
             </div>
             <div class="card-footer p-3">
-                <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info']) ?>
+                <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info mb-0']) ?>
             </div>
         </div>
         <?= $this->Form->end() ?>

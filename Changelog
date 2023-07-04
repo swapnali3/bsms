@@ -64,7 +64,7 @@ LIMIT 1;
 END
 
 
-// ========== Notificatio trigger for create asn ========================
+// ========== Notification trigger for create asn ========================
 
 CREATE DEFINER=`root`@`localhost` TRIGGER `asn_headers_AFTER_IN` AFTER INSERT ON `asn_headers` FOR EACH ROW BEGIN
     DECLARE v_buyer_id INT;
@@ -108,8 +108,8 @@ INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('2', 'Se
 INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('3', 'Approved');
 INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('4', 'Rejected');
 INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('5', 'SAP Import');
-
 // ==================== Vendor Status ====================
+
 
 // ==================== Vendor Update ====================
 author: JThayil
@@ -120,16 +120,13 @@ ADD COLUMN `update_flag` INT NULL DEFAULT 0 AFTER `updated_date`,
 CHANGE COLUMN `email` `email` VARCHAR(100) NULL DEFAULT NULL ;
 // ==================== Vendor Update ====================
 
+
 // ==================== ASN Header ====================
 author: JThayil
 date: 28.06.2023
 // ==================== ============= ====================
-ALTER TABLE `asn_headers` 
-ADD COLUMN `gateout_date` DATETIME NULL DEFAULT NULL;
+ALTER TABLE `asn_headers` ADD COLUMN `gateout_date` DATETIME NULL DEFAULT NULL;
 // ==================== ASN Header ====================
-
-// ==================== ASN Header ====================
-
 
 
 // ==================== Po acknowledge ====================
@@ -183,3 +180,10 @@ ADD COLUMN `acknowledge` INT NULL DEFAULT '0' AFTER `acknowledge`;
 // ==================== Po header acknowledge====================
 
 
+
+// ==================== ASN Header ====================
+author: JThayil
+date: 29.06.2023
+// ==================== ============= ====================
+ALTER TABLE `vendor_temps` ADD COLUMN `update_flag` INT NULL DEFAULT '0' ;
+// ==================== ASN Header ====================

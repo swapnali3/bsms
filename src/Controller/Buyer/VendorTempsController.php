@@ -98,7 +98,7 @@ class VendorTempsController extends BuyerAppController
             // $vendorTempView = $this->VendorTemps->get($st[0]->id);
             //   $this->set(compact('vendorTempView'));
             $this->set('vendorTempView', $vendorTempView);
-                   // echo '<pre>'; print_r($vendorTempView);exit;
+            // echo '<pre>'; print_r($vendorTempView);exit;
         }
         $this->set('vendorTemp', $vendorTemp);
  
@@ -106,27 +106,30 @@ class VendorTempsController extends BuyerAppController
     }
 
 
-    public function update()
+    public function update($id = null)
     {
         $this->loadModel("VendorTemps");
-
+        $oldrecord = $this->VendorTemps->get($id);
+        $newrecord = $this->VendorTemps->find('all')->where(['update_flag' => $id])->first();
         if ($this->request->is('post')) {
-
-            $id = $this->request->getData('id');
-
-            $vendorTemp = $this->VendorTemps->get($id);
-            $this->request->allowMethod(['post', 'put']);
-
-            $vendorTemp->update_flag = -1;
-
-            if ($this->VendorTemps->save($vendorTemp)) {
-                $this->Flash->success(__('The Vendor Data updated.'));
-                return $this->redirect(['action' => 'index']);
-            } else {
-
-                $this->Flash->error(__('Failed'));
+            $status = $this->request->getData('status');
+            if ($status == 1){
+                $newrecord->update_flag = '0';
+                $oldrecord->update_flag = '-1';
+                if ($this->VendorTemps->save($newrecord)) {
+                    if ($this->VendorTemps->save($oldrecord)) {
+                        $this->Flash->success(__('Vendor Details Updated'));
+                    } else { $this->Flash->error(__('Failed')); }
+                } else { $this->Flash->error(__('Failed')); }
+            }
+            else {
+                $newrecord->update_flag = '-2';
+                if ($this->VendorTemps->save($newrecord)) {
+                    $this->Flash->success(__('Vendor Details Rejected'));
+                } else { $this->Flash->error(__('Failed')); }
             }
         }
+        return $this->redirect(['action' => 'view', $id]);
     }
 
 
@@ -161,112 +164,113 @@ class VendorTempsController extends BuyerAppController
         if ($this->request->is('post')) {
 
             $importFile = $this->request->getData('vendor_code');
+            if ($_FILES['vendor_code']['name'] != "") {
+                if ($importFile !== null && isset($_FILES['vendor_code']['name'])) {
+                    // echo '<pre>';
+                    $destination = "uploads/";
+                    $filename = $_FILES['vendor_code']['name'];
+                    $path = $destination . $filename;
+                    move_uploaded_file($_FILES['vendor_code']['tmp_name'], $path);
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($path);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($path);
+                    $worksheet = $spreadsheet->getActiveSheet();
+                    $this->loadModel('PaymentTerms');
+                    $this->loadModel('PurchasingOrganizations');
+                    $this->loadModel('AccountGroups');
+                    $this->loadModel('SchemaGroups');
+                    try{
+                        foreach ($worksheet->getRowIterator(2) as $row) {
+                            $minivendor = [];
+                            foreach ($row->getCellIterator() as $cell) {
+                                $cellval = $cell->getValue();
+                                array_push($minivendor, $cellval);
+                            }
+                            if (1 < count($minivendor) && count($minivendor) == 7){
+                                // print_r($minivendor);exit;
+                                $vendorTemp = $this->VendorTemps->newEmptyEntity();
+        
+                                // Check if mobile exist
+                                if ($this->VendorTemps->exists(['VendorTemps.mobile' => $minivendor[2]])){
+                                    array_push($vendorCodes, ['status'=>false, 'msg'=>"Mobile Already Exist", 'data'=>$minivendor]); continue;
+                                } else { $vendorTemp->mobile = $minivendor[2]; }
+        
+                                // Check if email exist
+                                if ($this->VendorTemps->exists(['VendorTemps.email' => $minivendor[3]])){
+                                    array_push($vendorCodes, ['status'=>false, 'msg'=>"Email Already Exist", 'data'=>$minivendor]); continue;
+                                } else { $vendorTemp->email = $minivendor[3]; }
+        
+                                // Check if Payment Term exist
+                                if ($minivendor[4]){
+                                    if ($minivendor[4] && !$this->PaymentTerms->exists(['PaymentTerms.code' => $minivendor[4]])){
+                                        array_push($vendorCodes, ['status'=>false, 'msg'=>"Payment Terms not found", 'data'=>$minivendor]); continue;
+                                    } else { 
+                                        $payment_term = $this->PaymentTerms->find('all')->where(['code =' => $minivendor[4]])->limit(1)->toArray();
+                                        if($payment_term[0]->id){$vendorTemp->payment_term = $payment_term[0]->id;}
+                                    }
+                                }
+        
+                                // Check if Purchase Organisation exist
+                                // print_r($minivendor[4]); exit;
+                                if ($minivendor[5]){
+                                    if (!$this->PurchasingOrganizations->exists(['PurchasingOrganizations.name' => $minivendor[5]])){
+                                        array_push($vendorCodes, ['status'=>false, 'msg'=>"Purchasing Organizations not found", 'data'=>$minivendor]); continue;
+                                    } else { 
+                                        $purchasing_org = $this->PurchasingOrganizations->find('all')->where(['name =' => $minivendor[5]])->limit(1)->toArray();
+                                        if($purchasing_org[0]->id){$vendorTemp->purchasing_organization_id = $purchasing_org[0]->id;}
+                                    }
+                                }
 
-            if ($importFile !== null && isset($_FILES['vendor_code']['name'])) {
-                // echo '<pre>';
-                $destination = "uploads/";
-                $filename = $_FILES['vendor_code']['name'];
-                $path = $destination . $filename;
-                move_uploaded_file($_FILES['vendor_code']['tmp_name'], $path);
-                $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($path);
-                $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-                $spreadsheet = $reader->load($path);
-                $worksheet = $spreadsheet->getActiveSheet();
-                $this->loadModel('PaymentTerms');
-                $this->loadModel('PurchasingOrganizations');
-                $this->loadModel('AccountGroups');
-                $this->loadModel('SchemaGroups');
-                try{
-                    foreach ($worksheet->getRowIterator(2) as $row) {
-                        $minivendor = [];
-                        foreach ($row->getCellIterator() as $cell) {
-                            $cellval = $cell->getValue();
-                            array_push($minivendor, $cellval);
+                                // Check if Account Group exist
+                                if($minivendor[6]){
+                                    if (!$this->AccountGroups->exists(['AccountGroups.name' => $minivendor[6]])){
+                                        array_push($vendorCodes, ['status'=>false, 'msg'=>"Account Groups not found", 'data'=>$minivendor]); continue;
+                                    } else { 
+                                        $account_group = $this->AccountGroups->find('all')->where(['name =' => $minivendor[6]])->limit(1)->toArray();
+                                        if($account_group[0]->id){$vendorTemp->account_group_id = $account_group[0]->id;}
+                                    }
+                                }
+                                
+                                // Check if Schema Group exist
+                                if ($minivendor[7]){
+                                    if (!$this->SchemaGroups->exists(['SchemaGroups.name' => $minivendor[7]])){
+                                        array_push($vendorCodes, ['status'=>false, 'msg'=>"Schema Groups not found", 'data'=>$minivendor]); continue;
+                                    } else { 
+                                        $schema_grp = $this->SchemaGroups->find('all')->where(['name =' => $minivendor[7]])->limit(1)->toArray();
+                                        if($schema_grp[0]->id){ $vendorTemp->schema_group_id = $schema_grp[0]->id;}
+                                    }
+                                }
+                                
+                                $vendorTemp->buyer_id = $this->getRequest()->getSession()->read('id');
+                                $vendorTemp->name = $minivendor[1];
+                                $vendorTemp->valid_date = date('Y-m-d h:i:s');
+                                $vendorTemp->status = 3;
+                                
+                                try {
+                                    if($this->VendorTemps->save($vendorTemp)){
+                                        $id = $vendorTemp->toArray();
+                                        array_push($vendorCodes, ['status'=>true, 'msg'=>"Vendor Add Successful", 'data'=>$minivendor]);
+                                    } else { array_push($vendorCodes, ['status'=>false, 'msg'=>"Vendor Add Failed", 'data'=>$minivendor]); }
+                                } catch (\Exception $e) { array_push($vendorCodes, ['status'=>false, 'msg'=>$e->getMessage(), 'data'=>$minivendor]); }
+                            }
                         }
-                        if (1 < count($minivendor) && count($minivendor) == 7){
-                            // print_r($minivendor);exit;
-                            $vendorTemp = $this->VendorTemps->newEmptyEntity();
-    
-                            // Check if mobile exist
-                            if ($this->VendorTemps->exists(['VendorTemps.mobile' => $minivendor[2]])){
-                                array_push($vendorCodes, ['status'=>false, 'msg'=>"Mobile Already Exist", 'data'=>$minivendor]); continue;
-                            } else { $vendorTemp->mobile = $minivendor[2]; }
-    
-                            // Check if email exist
-                            if ($this->VendorTemps->exists(['VendorTemps.email' => $minivendor[3]])){
-                                array_push($vendorCodes, ['status'=>false, 'msg'=>"Email Already Exist", 'data'=>$minivendor]); continue;
-                            } else { $vendorTemp->email = $minivendor[3]; }
-    
-                            // Check if Payment Term exist
-                            if ($minivendor[4]){
-                                if ($minivendor[4] && !$this->PaymentTerms->exists(['PaymentTerms.code' => $minivendor[4]])){
-                                    array_push($vendorCodes, ['status'=>false, 'msg'=>"Payment Terms not found", 'data'=>$minivendor]); continue;
-                                } else { 
-                                    $payment_term = $this->PaymentTerms->find('all')->where(['code =' => $minivendor[4]])->limit(1)->toArray();
-                                    if($payment_term[0]->id){$vendorTemp->payment_term = $payment_term[0]->id;}
-                                }
+                        $tempvendor = [];
+                        foreach ($vendorCodes as $ven) { 
+                            if (!$ven['status']){
+                                array_push($tempvendor, $ven);
                             }
-    
-                            // Check if Purchase Organisation exist
-                            // print_r($minivendor[4]); exit;
-                            if ($minivendor[5]){
-                                if (!$this->PurchasingOrganizations->exists(['PurchasingOrganizations.name' => $minivendor[5]])){
-                                    array_push($vendorCodes, ['status'=>false, 'msg'=>"Purchasing Organizations not found", 'data'=>$minivendor]); continue;
-                                } else { 
-                                    $purchasing_org = $this->PurchasingOrganizations->find('all')->where(['name =' => $minivendor[5]])->limit(1)->toArray();
-                                    if($purchasing_org[0]->id){$vendorTemp->purchasing_organization_id = $purchasing_org[0]->id;}
-                                }
+                        }
+                        foreach ($vendorCodes as $ven) { 
+                            if ($ven['status']){
+                                array_push($tempvendor, $ven);
                             }
+                        }
+        
+                        $this->set('results', $tempvendor);
+                    } catch (\Exception $e) { $this->Flash->error(__("Invalid Excel File")); }
+                    
 
-                            // Check if Account Group exist
-                            if($minivendor[6]){
-                                if (!$this->AccountGroups->exists(['AccountGroups.name' => $minivendor[6]])){
-                                    array_push($vendorCodes, ['status'=>false, 'msg'=>"Account Groups not found", 'data'=>$minivendor]); continue;
-                                } else { 
-                                    $account_group = $this->AccountGroups->find('all')->where(['name =' => $minivendor[6]])->limit(1)->toArray();
-                                    if($account_group[0]->id){$vendorTemp->account_group_id = $account_group[0]->id;}
-                                }
-                            }
-                            
-                            // Check if Schema Group exist
-                            if ($minivendor[7]){
-                                if (!$this->SchemaGroups->exists(['SchemaGroups.name' => $minivendor[7]])){
-                                    array_push($vendorCodes, ['status'=>false, 'msg'=>"Schema Groups not found", 'data'=>$minivendor]); continue;
-                                } else { 
-                                    $schema_grp = $this->SchemaGroups->find('all')->where(['name =' => $minivendor[7]])->limit(1)->toArray();
-                                    if($schema_grp[0]->id){ $vendorTemp->schema_group_id = $schema_grp[0]->id;}
-                                }
-                            }
-                            
-                            $vendorTemp->buyer_id = $this->getRequest()->getSession()->read('id');
-                            $vendorTemp->name = $minivendor[1];
-                            $vendorTemp->valid_date = date('Y-m-d h:i:s');
-                            $vendorTemp->status = 3;
-                            
-                            try {
-                                if($this->VendorTemps->save($vendorTemp)){
-                                    $id = $vendorTemp->toArray();
-                                    array_push($vendorCodes, ['status'=>true, 'msg'=>"Vendor Add Successful", 'data'=>$minivendor]);
-                                } else { array_push($vendorCodes, ['status'=>false, 'msg'=>"Vendor Add Failed", 'data'=>$minivendor]); }
-                            } catch (\Exception $e) { array_push($vendorCodes, ['status'=>false, 'msg'=>$e->getMessage(), 'data'=>$minivendor]); }
-                        }
-                    }
-                    $tempvendor = [];
-                    foreach ($vendorCodes as $ven) { 
-                        if (!$ven['status']){
-                            array_push($tempvendor, $ven);
-                        }
-                    }
-                    foreach ($vendorCodes as $ven) { 
-                        if ($ven['status']){
-                            array_push($tempvendor, $ven);
-                        }
-                    }
-    
-                    $this->set('results', $tempvendor);
-                } catch (\Exception $e) { $this->Flash->error(__("Invalid Excel File")); }
-                
-
+                } else { $this->Flash->error(__("SAP Vendor Code or Excel File Required.")); }
             } else { $this->Flash->error(__("SAP Vendor Code or Excel File Required.")); }
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
