@@ -24,6 +24,14 @@ switch ($vendorTemp->status) {
 }
 
 ?>
+<style>
+    tr{
+        border-bottom: 1px solid lightgrey;
+    }
+    td{
+        padding: .2rem;
+    }
+</style>
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>
 <div class="row">
@@ -62,77 +70,315 @@ switch ($vendorTemp->status) {
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-12 col-md-6 col-lg-6">
+        <?php if ($updatecount > 0) : ?>
         <div class="card">
             <div class="card-header">
-                <span>User Details
+                <b class="text-info">Pending Request for Updation</b>
+            </div>
+            <div class="card-body">
+            <table style="width:100%">
+                <tr>
+                    <?php if ($vendorTempView[0]->name != $vendorTemp->name) : ?>
+                    <th>Name</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->name) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->address != $vendorTemp->address) : ?>
+                    <th>Address 1</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->address) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->address_2 != $vendorTemp->address_2) : ?>
+                    <th>Address 2</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->address_2) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->city != $vendorTemp->city) : ?>
+                    <th>City</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->city) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->pincode != $vendorTemp->pincode) : ?>
+                    <th>Pincode</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->pincode) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->state != $vendorTemp->state) : ?>
+                    <th>State</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->state) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->country != $vendorTemp->country) : ?>
+                    <th>Country</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->country) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->contact_person != $vendorTemp->contact_person) : ?>
+                    <th>contact person Name</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->contact_person) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->contact_email != $vendorTemp->contact_email) : ?>
+                    <th>contact Email</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->contact_email) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->contact_mobile != $vendorTemp->contact_mobile) : ?>
+                    <th>contact mobile</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->contact_mobile) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->contact_department != $vendorTemp->contact_department) : ?>
+                    <th>contact department</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->contact_department) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+                <tr>
+                    <?php if ($vendorTempView[0]->contact_designation != $vendorTemp->contact_designation) : ?>
+                    <th>contact Designation</th>
+                    <td>: &nbsp;
+                        <?= h($vendorTempView[0]->contact_designation) ?>
+                    </td>
+                    <?php endif ?>
+                </tr>
+            </table>
+            </div>
+        </div>
+        <?php endif ?>
+    </div>
+    <div class="col-sm-12 col-md-8 col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <span class="text-info">USER DETAILS
                     <div class="float-right">
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorTemp->id], ['class' => 'btn btn-info btn-sm']) ?>
+                        <?php if ($updatecount == 0) : ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorTemp->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
+                        <?php endif; ?>
                     </div>
                 </span>
             </div>
             <div class="card-body">
-                <table style="width: 100%;">
-                    <tr>
-                        <th><?= __('Address 1') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->address) ?></td>
-                        <th><?= __('Contact Person') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->contact_person) ?></td>                        
-                    </tr>
-                    <tr>
-                        <th><?= __('Address 2') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->address_2) ?></td>
-                        <th><?= __('Contact Email Id') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->contact_email) ?></td>
-                    </tr>
-                    <tr>
-                        <th><?= __('City') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->city) ?></td>
-                        <th><?= __('Contact Mobile') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->contact_mobile) ?></td>
-                    </tr>
-                    <tr>
-                        <th><?= __('State') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->state) ?></td>
-                        <th><?= __('Contact Department') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->contact_department) ?></td>
-                    </tr>
-                    <tr>
-                        <th><?= __('Country') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->country) ?></td>
-                        <th><?= __('Contact Designation') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->contact_designation) ?></td>
-                    </tr>
-                    <tr>
-                        <th><?= __('Pincode') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->pincode) ?></td>
-                    </tr>
-                    <tr>
-                        <th><?= __('Gst No') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->gst_no) ?></td>
-                        <th><?= __('Purchasing Organization') ?></th>
-                        <td>: &nbsp;<?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?></td>
-                    </tr>
-                    <tr>
-                        <th><?= __('Tan No') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->tan_no) ?></td>
-                        <th><?= __('Account Group') ?></th>
-                        <td>: &nbsp;<?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?></td>
-                    </tr>
-                    <tr>
-                        <th><?= __('Pan No') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->pan_no) ?></td>
-                        <th><?= __('Schema Group') ?></th>
-                        <td>: &nbsp;<?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?></td>
-                    </tr>
-                    <tr>
-                        <th><?= __('Order Currency') ?></th>
-                        <td>: &nbsp;<?= h($vendorTemp->order_currency) ?></td>
-                        <th><?= __('Payment Term') ?></th>
-                        <td>: &nbsp;<?= (h($vendorTemp->payment_term)); ?></td>
-                    </tr>
-                </table>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Basic Details</h5>
+                            </div>
+                            <div class="card-body py-0">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th>
+                                            <?= __('Address 1') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->address) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Address 2') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->address_2) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('City') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->city) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('State') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->state) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Country') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->country) ?>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card" style="min-height: 94%;">
+                            <div class="card-header">
+                                <h5>KYC Details</h5>
+                            </div>
+                            <div class="card-body py-0">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th>
+                                            <?= __('Gst No') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->gst_no) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Tan No') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->tan_no) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Pan No') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->pan_no) ?>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card" style="min-height: 94%;">
+                            <div class="card-header">
+                                <h5>Contact Person</h5>
+                            </div>
+                            <div class="card-body py-0">
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <th>
+                                            <?= __('Contact Person') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->contact_person) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Contact Email Id') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->contact_email) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Contact Mobile') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->contact_mobile) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Contact Department') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->contact_department) ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Contact Designation') ?>
+                                        </th>
+                                        <td>
+                                            <?= h($vendorTemp->contact_designation) ?>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card" style="min-height: 94%;">
+                            <div class="card-header">
+                                <h5>Other Details</h5>
+                            </div>
+                            <div class="card-body py-0">
+                                <table style="width: 100%;">
+
+                                    <tr>
+                                        <th>
+                                            <?= __('Purchasing Organization') ?>
+                                        </th>
+                                        <td>
+                                            <?= $vendorTemp->has('purchasing_organization') ? $vendorTemp->purchasing_organization->name : '' ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Account Group') ?>
+                                        </th>
+                                        <td>
+                                            <?= $vendorTemp->has('account_group') ? $vendorTemp->account_group->name : '' ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Schema Group') ?>
+                                        </th>
+                                        <td>
+                                            <?= $vendorTemp->has('schema_group') ? $vendorTemp->schema_group->name : '' ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            <?= __('Payment Term') ?>
+                                        </th>
+                                        <td>
+                                            <?= (h($vendorTemp->payment_term)); ?>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-footer p-3">
                 <div class="row">

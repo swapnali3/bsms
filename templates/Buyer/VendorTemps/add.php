@@ -64,14 +64,15 @@
                             <?= $this->Form->control('vendor_code', [
                             'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput'
                             ]); ?>
-                            <?= $this->Form->button('SELECT File', [
+                            <?= $this->Form->button('Choose File', [
                                 'id' => 'OpenImgUpload',
                                 'type' => 'button',
                                 'class' => 'd-block btn btn-secondary btn-block mb-0 file-upld-btn'
                             ]); ?>
+                            <span id="filessnames"></span>
                         </div>
                         <div class="col-sm-6 col-md-4 col-lg-2">
-                            <button type="submit" class="btn btn-primary" id="id_exportme">IMPORT</button>
+                            <button type="submit" class="btn btn-primary" id="id_exportme">IMPORT FILE</button>
                         </div>
                         <div class="col-12 pt-2">
                             <i style="color: black;">

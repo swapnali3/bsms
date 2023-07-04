@@ -28,13 +28,10 @@
                         <div class="col-sm-12 col-lg-2">
                             Status: <span class='asnstatus'>
                                 <?php
-                                if ($deliveryDetails[0]->status == '1') {
-                                    echo 'Created';
-                                } else if ($deliveryDetails[0]->status == '2') {
-                                    echo 'In Transit';
-                                } else if ($deliveryDetails[0]->status == '3') {
-                                    echo 'Received';
-                                } ?>
+                                    if ($deliveryDetails[0]->status == '1') { echo 'Created'; }
+                                    else if ($deliveryDetails[0]->status == '2') { echo 'In Transit'; }
+                                    else if ($deliveryDetails[0]->status == '3') { echo 'Received'; }
+                                ?>
                             </span>
                         </div>
                         <?php

@@ -77,6 +77,10 @@
   <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
 </li>
 
+<li class="nav-item ">
+  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Material Master</p>'), ['controller' => 'vendormaterial', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
+</li>
+
 <!-- 
 <li class="nav-item menu-open">
   <?= $this->Html->link(__('<i class="far fa-money-bill-alt nav-icon"></i><p>Payment Status</p>'), "#", ['class' => 'nav-link', 'escape' => false]) ?>

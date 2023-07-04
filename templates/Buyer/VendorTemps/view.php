@@ -205,7 +205,9 @@ switch ($vendorTemp->status) {
                             </tr>
                             <tr>
                                 <th>Status</th>
-                                <td>:&nbsp;<?= $status ?></td>
+                                <td>:&nbsp;
+                                    <?= $status ?>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -287,122 +289,119 @@ switch ($vendorTemp->status) {
                     </div>
                 </div>
             </div>
-            <?php if (isset($vendorTempView)) :
+            <?php if (isset($vendorTempView)) : ?>
+            <div class="col-sm-12 col-md-12 col-lg-12 ">
+                <?= $this->Form->create(null, ['id' => $vendorTempView[0]->id,  'url' => '/buyer/vendor-temps/update/'.$vendorTemp->id]) ?>
+                <div class="card">
+                    <div class="card-body">
+                        <table>
+                            <!-- <h5 class="text-info">Vendor Update Details</h5> -->
+                            <tr>
+                                <?php if ($vendorTempView[0]->name != $vendorTemp->name) : ?>
+                                <th>Name</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->name) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->address != $vendorTemp->address) : ?>
+                                <th>Address 1</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->address) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->address_2 != $vendorTemp->address_2) : ?>
+                                <th>Address 2</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->address_2) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->city != $vendorTemp->city) : ?>
+                                <th>City</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->city) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->pincode != $vendorTemp->pincode) : ?>
+                                <th>Pincode</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->pincode) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->state != $vendorTemp->state) : ?>
+                                <th>State</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->state) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->country != $vendorTemp->country) : ?>
+                                <th>Country</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->country) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
 
-                if ($vendorTempView[0]->update_flag == $vendorTemp->id) : ?>
-                    <div class="col-sm-12 col-md-12 col-lg-12 ">
-                        <?= $this->Form->create(null, ['id' => $vendorTempView[0]->id,  'url' => ['controller' => 'VendorTemps', 'action' => 'update']]) ?>
-                        <?= $this->Form->hidden('id', ['value' => $vendorTempView[0]->id]) ?>
-                        <div class="card">
-                            <div class="card-body">
-                                <table>
-                                    <!-- <h5 class="text-info">Vendor Update Details</h5> -->
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->name != $vendorTemp->name) : ?>
-                                            <th>Name</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->name) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->address != $vendorTemp->address) : ?>
-                                            <th>Address 1</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->address) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->address_2 != $vendorTemp->address_2) : ?>
-                                            <th>Address 2</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->address_2) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->city != $vendorTemp->city) : ?>
-                                            <th>City</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->city) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->pincode != $vendorTemp->pincode) : ?>
-                                            <th>Pincode</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->pincode) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->state != $vendorTemp->state) : ?>
-                                            <th>State</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->state) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->country != $vendorTemp->country) : ?>
-                                            <th>Country</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->country) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->contact_person != $vendorTemp->contact_person) : ?>
-                                            <th>contact person Name</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->contact_person) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->contact_email != $vendorTemp->contact_email) : ?>
-                                            <th>contact Email</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->contact_email) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->contact_mobile != $vendorTemp->contact_mobile) : ?>
-                                            <th>contact mobile</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->contact_mobile) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->contact_department != $vendorTemp->contact_department) : ?>
-                                            <th>contact department</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->contact_department) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                    <tr>
-                                        <?php if ($vendorTempView[0]->contact_designation != $vendorTemp->contact_designation) : ?>
-                                            <th>contact Designation</th>
-                                            <td>: &nbsp;
-                                                <?= h($vendorTempView[0]->contact_designation) ?>
-                                            </td>
-                                        <?php endif ?>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="card-footer">
-                                <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom mb-0']) ?>
-                            </div>
-                        </div>
-                        <?= $this->Form->end() ?>
+                            <tr>
+                                <?php if ($vendorTempView[0]->contact_person != $vendorTemp->contact_person) : ?>
+                                <th>contact person Name</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->contact_person) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->contact_email != $vendorTemp->contact_email) : ?>
+                                <th>contact Email</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->contact_email) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->contact_mobile != $vendorTemp->contact_mobile) : ?>
+                                <th>contact mobile</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->contact_mobile) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->contact_department != $vendorTemp->contact_department) : ?>
+                                <th>contact department</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->contact_department) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                            <tr>
+                                <?php if ($vendorTempView[0]->contact_designation != $vendorTemp->contact_designation) : ?>
+                                <th>contact Designation</th>
+                                <td>: &nbsp;
+                                    <?= h($vendorTempView[0]->contact_designation) ?>
+                                </td>
+                                <?php endif ?>
+                            </tr>
+                        </table>
                     </div>
-                <?php endif; ?>
+                    <div class="card-footer">
+                        <?= $this->Form->button(__('Approve'), ['class' => 'btn btn-success mb-0', 'value'=>'1', 'name'=>'status']) ?>
+                        <?= $this->Form->button(__('Reject'), ['class' => 'btn btn-danger mb-0', 'value'=>'0', 'name'=>'status']) ?>
+                    </div>
+                </div>
+                <?= $this->Form->end() ?>
+            </div>
             <?php endif; ?>
         </div>
     </div>
@@ -433,7 +432,5 @@ switch ($vendorTemp->status) {
         </div>
     </div>
 </div>
-<script>
-    var userView = '<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>';
-</script>
-<?= $this->Html->script('vendortemps_view') ?>
+
+<?= $this->Html->script('b_vendortemps_view') ?>

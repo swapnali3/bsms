@@ -35,7 +35,7 @@
                     <div class="col-sm-2 col-md-2 mt-3">
                         <?= $this->Form->control('vendor_code', ['type' => 'file', 'label' =>
                         false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden;
-    position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput']);
+                        position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput']);
                         ?>
 
                         <?= $this->Form->button('Import File', ['id' => 'OpenImgUpload', 'type' =>
@@ -89,7 +89,7 @@
                 <?php if (isset($vendorData)) :
                 ?>
 
-                    <?php foreach ($vendorData as $vendorTemp) :
+                <?php foreach ($vendorData as $vendorTemp) :
                         // print_r($vendorData);
                         // exit;
 
@@ -118,40 +118,49 @@
 
 
                     ?>
-                        <?php if ($vendorTemp['status']) : ?>
+                <?php if ($vendorTemp['status']) : ?>
 
-                            <tr>
-                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["id"]) ?>">
-                                    <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
-                                </td>
-                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["id"]) ?>">
-                                    <?= h($vendorTemp['data']["name"]) ?>
-                                </td>
-                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["id"]) ?>">
-                                    <?= h($vendorTemp['data']["email"]) ?>
-                                </td>
-                                <td>
-                                    <?= h($vendorTemp['data']["mobile"]) ?>
-                                </td>
-                                <td class="statusVendor" redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["id"]) ?>">
-                                    <?= $status ?>
+                <tr>
+                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                        id"]) ?>">
+                        <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
+                    </td>
+                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                        id"]) ?>">
+                        <?= h($vendorTemp['data']["name"]) ?>
+                    </td>
+                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                        id"]) ?>">
+                        <?= h($vendorTemp['data']["email"]) ?>
+                    </td>
+                    <td>
+                        <?= h($vendorTemp['data']["mobile"]) ?>
+                    </td>
+                    <td class="statusVendor"
+                        redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                        id"]) ?>">
+                        <?= $status ?>
 
-                                </td>
+                    </td>
 
-                                <td>
-                                    <a href="" data-id="<?= $vendorTemp['data']["id"] ?>" class="btn btn-info btn-sm mb-0 notify">Send Credentials</a>
-                                </td>
-                            </tr>
+                    <td>
+                        <a href="" data-id="<?= $vendorTemp['data'][" id"] ?>" class="btn btn-info btn-sm mb-0
+                            notify">Send Credentials</a>
+                    </td>
+                </tr>
 
-                        <?php else : ?>
-                            <tr>
-                                <td> <?= h($vendorTemp['data']["sap_vendor_code"]) ?></td>
-                                <td colspan="5" class="text-danger text-center">
-                                    <?= h($vendorTemp["msg"]) ?>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
+                <?php else : ?>
+                <tr>
+                    <td>
+                        <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
+                    </td>
+                    <td colspan="4" ></td>
+                    <td class="text-danger text-left">
+                        <?= h($vendorTemp["msg"]) ?>
+                    </td>
+                </tr>
+                <?php endif; ?>
+                <?php endforeach; ?>
                 <?php endif; ?>
             </tbody>
         </table>
@@ -161,12 +170,12 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('#OpenImgUpload').click(function() {
+    $(document).ready(function () {
+        $('#OpenImgUpload').click(function () {
             $('#vendorCodeInput').trigger('click');
         });
 
-        $('#vendorCodeInput').change(function() {
+        $('#vendorCodeInput').change(function () {
             var file = $(this).prop('files')[0].name;
             $("#filessnames").append(file);
         });
@@ -175,7 +184,7 @@
         // Users crendential send api
 
 
-        $('.notify').click(function(e) {
+        $('.notify').click(function (e) {
             e.preventDefault();
 
             var $id = $(this).attr('data-id');
@@ -186,7 +195,7 @@
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>/" + $id,
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     if (response.status == "1") {
                         Toast.fire({
                             icon: "success",
@@ -206,7 +215,7 @@
                         });
                     }
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     // Handle error case if needed
                 }
             });
@@ -238,7 +247,7 @@
         });
 
 
-        $('#sapvendorcode').click(function() {
+        $('#sapvendorcode').click(function () {
 
             var vendorCode = $("input[name='sap_vendor_code']").val();
             var file = $('#filessnames').text();
@@ -254,7 +263,7 @@
             }
 
         });
-        $('#example1').on('click', 'tbody tr td', function(event) {
+        $('#example1').on('click', 'tbody tr td', function (event) {
             event.preventDefault();
             var redirectUrl = $(this).closest('td').attr('redirect');
 
