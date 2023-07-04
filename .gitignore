@@ -57,3 +57,7 @@ config/app_local.php
 bsms_backup/
 webroot/img/flow-img.jpg
 vendor/composer/installed.php
+webroot/uploads/sample file.xlsx
+webroot/uploads/23000012_1688365266_pdf2.pdf
+webroot/uploads/23000011_1688364789_pdf1.pdf
+webroot/img/sample file.xlsx

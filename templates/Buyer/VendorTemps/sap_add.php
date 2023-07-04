@@ -59,11 +59,10 @@
                     </div> -->
 
                     <div class="col-3">
-                        <i style="color: black;">
-                            <a href="<?= $this->Url->build('/') ?>webroot/img/sample file.xlsx"
-                                download>Sample_Excel_Template.xlsx</a>
-                        </i>
-                    </div>
+                            <i style="color: black;">
+                            <a href="<?= $this->Url->build('/') ?>webroot/img/sample file.xlsx" download >Vendor__Import_Template.xlsx</a>
+                            </i>
+                        </div>
                 </div>
 
 
