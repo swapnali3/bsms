@@ -12,3 +12,19 @@
     background: #ddd;
     border-radius: 20px;
 }
+
+
+.btn[data-toggle="tooltip"] {
+    background-color: #f8f9fa;
+    color: #000;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  
+  .btn[data-toggle="tooltip"]:before {
+    border-top-color: #f8f9fa;
+  } 
+
+
+  

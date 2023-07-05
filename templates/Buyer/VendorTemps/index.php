@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp[]|\Cake\Collection\CollectionInterface $vendorTemps
@@ -30,33 +31,61 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($vendorTemps as $vendorTemp): 
-                                
-                                switch($vendorTemp->status) {
-                                    case 0 : $status = '<span class="badge bg-warning">Sent to Vendor</span>'; break;
-                                    case 1 : $status = '<span class="badge bg-info">Pending for approval</span>'; break;
-                                    case 2 : $status = '<span class="badge bg-info">Sent to SAP</span>'; break;
-                                    case 3 : $status = '<span class="badge bg-success">Approved</span>'; break;
-                                    case 4 : $status = '<span class="badge bg-danger">Rejected</span>'; break;
+                            <?php foreach ($vendorTemps as $vendorTemp) :
+
+                                switch ($vendorTemp->status) {
+                                    case 0:
+                                        $status = '<button type="button" class="btn bg-info btn-info m-0" data-toggle="tooltip" data-placement="top" title="Sent to Vendor">
+                                    <i class="fa fa-bars" aria-hidden="true"></i>
+                                  </button>';
+                                        break;
+                                    case 1:
+                                        $status = '<button type="button" class="btn bg-info btn-info m-0" data-toggle="tooltip" data-placement="top" title="Pending for approval">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                                  </button>';
+                                        break;
+                                    case 2:
+                                        $status = '<button type="button" class="btn bg-info btn-info m-0" data-toggle="tooltip" data-placement="top" title="Sent to SAP">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                                  </button>';
+                                        break;
+                                    case 3:
+                                        $status ='<button type="button" class="btn bg-info btn-info m-0" data-toggle="tooltip" data-placement="top" title="Approved">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                                  </button>';
+                                        break;
+                                    case 4:
+                                        $status = '<button type="button" class="btn bg-info btn-info m-0" data-toggle="tooltip" data-placement="top" title="Rejected">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                                  </button>';
+                                        break;
                                     case 5:
-                                        $status = '<span class="badge bg-info">Sap Import</span>';
+                                        $status = '<button type="button" class="btn bg-info btn-info m-0" data-toggle="tooltip" data-placement="top" title="Sap Import">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+
+                                      </button>';
                                         break;
                                 }
-                                ?>
-                                <tr redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">
-                                    <td><?= h($vendorTemp->name) ?></td>
-                                    <td><?= h($vendorTemp->email) ?></td>
-                                    <td><?= h($vendorTemp->mobile) ?></td>
-                                    <td><?= h($vendorTemp->sap_vendor_code) ?></td>
-                                    <td><?= h($vendorTemp->city) ?></td>
-                                    <td><?= h($vendorTemp->pincode) ?></td>
-                                    <td><?= h($vendorTemp->contact_person) ?></td>
-                                    <td><?= h($vendorTemp->contact_email) ?></td>
-                                    <td><?= h($vendorTemp->contact_mobile) ?></td>
-                                    <td><?= $status ?></td>
+                            ?>
+                            <tr
+                                redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">
+                                <td><?= h($vendorTemp->name) ?></td>
+                                <td><?= h($vendorTemp->email) ?></td>
+                                <td><?= h($vendorTemp->mobile) ?></td>
+                                <td><?= h($vendorTemp->sap_vendor_code) ?></td>
+                                <td><?= h($vendorTemp->city) ?></td>
+                                <td><?= h($vendorTemp->pincode) ?></td>
+                                <td><?= h($vendorTemp->contact_person) ?></td>
+                                <td><?= h($vendorTemp->contact_email) ?></td>
+                                <td><?= h($vendorTemp->contact_mobile) ?></td>
+                                <td><?= $status ?></td>
                                 <!-- <td><?= h($vendorTemp->added_date) ?></td> -->
                                 <!-- <td><?= h($vendorTemp->updated_date) ?></td> -->
-                                </tr>
+                            </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
