@@ -7,35 +7,54 @@
  * @var \Cake\Collection\CollectionInterface|string[] $schemaGroups
  */
 ?>
+
+<script>
+    var addurl = "<?php echo \Cake\Routing\Router::url(array('controller' => '/vendor-temps', 'action' => 'addvendor')); ?>";
+</script>
+
 <?= $this->Html->css('custom') ?>
-<?= $this->Html->css('b_vendortemps_add') ?>
+<?= $this->Html->css('vendortemps_add') ?>
 <div class="add-vendor">
     <div class="row">
         <div class="col-12">
             <div class="card m-2">
-                <?= $this->Form->create($vendorTemp) ?>
                 <div class="card-body fm">
+                    <?= $this->Form->create(null, ['id'=>'addvendorform']) ?>
                     <div class="row">
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                            <?php echo $this->Form->control('name', array('class' => 'form-control','label'=>'Full Name','placeholder'=>'Please Enter Full Name','div' => 'form-group'));?>
+                            <div class="form-group">
+                            <?php echo $this->Form->control('name', array('class' => 'form-control','label'=>'Full Name','placeholder'=>'Please Enter Full Name'));?>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                            <?php echo $this->Form->control('mobile', array('class' => 'form-control tel', 'minlength' => '10', 'maxlength' => '10','pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel','placeholder'=>'please enter mobile number','div' => 'form-group'));?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10','pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel','placeholder'=>'please enter mobile number'));?>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                            <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0','placeholder'=>'please enter email id','div' => 'form-group'));?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0','placeholder'=>'please enter email id'));?>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                            <?php echo $this->Form->control('payment_term', array('class' => 'form-control','options' => $payment_term,'div' => 'form-group', 'empty' => 'Please Select'));?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('payment_term', array('class' => 'form-control','options' => $payment_term, 'empty' => 'Please Select'));?>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                            <?php echo $this->Form->control('purchasing_organization_id', array('class' => 'form-control','div' => 'form-group'));?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('purchasing_organization_id', array('class' => 'form-control', 'empty' => 'Please Select'));?>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                            <?php echo $this->Form->control('account_group_id', array('class' => 'form-control','div' => 'form-group'));?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('account_group_id', array('class' => 'form-control', 'empty' => 'Please Select'));?>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                            <?php echo $this->Form->control('schema_group_id', array('class' => 'form-control','div' => 'form-group'));?>
+                            <div class="form-group">
+                                <?php echo $this->Form->control('schema_group_id', array('class' => 'form-control', 'empty' => 'Please Select'));?>
+                            </div>
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                             <span class="errorm">
@@ -43,16 +62,16 @@
                             </span>
                         </div>
                         <div class="col-sm-12 col-lg-12 col-md-12 mt-4">
-                            <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom mb-0']) ?>
+                            <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom mb-0', 'id'=>'id_addvendor', 'type'=>'submit']) ?>
                         </div>
                     </div>
                     <?= $this->Form->end() ?>
                 </div>
             </div>
         </div>
-        <div class="col-12">
+        <div class="col-12" style="display: none;">
             <?= $this->Form->create(null, ['type' => 'file']); ?>
-            <div class="card">
+            <div class="card mx-2">
                 <div class="card-header p-3">
                     <h5 style="color:darkblue;">
                         Bulk Vendor Import

@@ -432,5 +432,8 @@ switch ($vendorTemp->status) {
         </div>
     </div>
 </div>
+<script>
+    var userView = '<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>';
+</script>
 
 <?= $this->Html->script('b_vendortemps_view') ?>
