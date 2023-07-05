@@ -35,28 +35,31 @@
 
                                 switch ($vendorTemp->status) {
                                     case 0:
-                                        $status = '<span class="badge lbluebadge" data-toggle="tooltip" data-placement="right" title="Sent to Vendor">1</span>';
+                                        $status = '<span class="badge lbluebadge" data-toggle="tooltip" data-placement="right" title="Sent to Vendor"><i class="fas fa-people-arrows"></i></span>';
                                         break;
                                     case 1:
-                                        $status = '<span class="badge dbluebadge" data-toggle="tooltip" data-placement="right" title="Pending for approval">2</span>';
+                                        $status = '<span class="badge dbluebadge" data-toggle="tooltip" data-placement="right" title="Pending for approval"><i class="fas fa-user-clock"></i></span>';
                                         break;
                                     case 2:
-                                        $status = '<span class="badge purplebadge" data-toggle="tooltip" data-placement="right" title="Sent to SAP">3</span>';
+                                        $status = '<span class="badge purplebadge" data-toggle="tooltip" data-placement="right" title="Sent to SAP"><i class="fas fa-user-plus"></i></span>';
                                         break;
                                     case 3:
-                                        $status ='<span class="badge lgreenbadge" data-toggle="tooltip" data-placement="right" title="Approved">4</span>';
+                                        $status ='<span class="badge lgreenbadge" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span>';
                                         break;
                                     case 4:
-                                        $status = '<span class="badge redbadge" data-toggle="tooltip" data-placement="right" title="Rejected">0</span>';
+                                        $status = '<span class="badge redbadge" data-toggle="tooltip" data-placement="right" title="Rejected"><i class="fas fa-user-slash"></i></span>';
                                         break;
                                     case 5:
-                                        $status = '<span class="badge dgreenbadge" data-toggle="tooltip" data-placement="right" title="Sap Import">6</span>';
+                                        $status = '<span class="badge dgreenbadge" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span><span class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Send Credentials"><i class="fas fa-envelope-open-text text-info"></i></span>';
                                         break;
                                 }
                             ?>
                             <tr
                                 redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">
-                                <td><?= $status ?></td>
+                                <td>
+                                    <?= $status ?>
+                                    <span class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Chat"><i class="fas fa-comments text-info"></i></span>
+                                </td>
                                 <td><?= h($vendorTemp->name) ?></td>
                                 <td><?= h($vendorTemp->email) ?></td>
                                 <td><?= h($vendorTemp->mobile) ?></td>
