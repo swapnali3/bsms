@@ -333,20 +333,20 @@ class VendorTempsController extends BuyerAppController
                       
                     if (!$this->VendorTemps->exists(['VendorTemps.sap_vendor_code' => $vendorCode])) {
 
-                        // $data['DATA'] = array();
-                        // $data['DATA']['LIFNR'] = $vendorCode;
+                        $data['DATA'] = array();
+                        $data['DATA']['LIFNR'] = $vendorCode;
 
-                        // $http = new Client();
-                        // $response = $http->post(
-                        //     'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
-                        //     json_encode($data),
-                        //     ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
-                        // );
-                        // if ($response->isOk()) {
-                            // $result = json_decode($response->getStringBody());
-                            //print_r($result);
-                            // if ($result->RESPONSE->SUCCESS) {
-                                // $resultResponse = json_decode($result->RESPONSE->DATA);
+                        $http = new Client();
+                        $response = $http->post(
+                            'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
+                            json_encode($data),
+                            ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
+                        );
+                        if ($response->isOk()) {
+                            $result = json_decode($response->getStringBody());
+                            // print_r($result);
+                            if ($result->RESPONSE->SUCCESS) {
+                                $resultResponse = json_decode($result->RESPONSE->DATA);
                                 $resultResponse = array(
                                     "NAME1" => "Abhishek Yadav",
                                     "STREET" => "123 Main St",
@@ -359,8 +359,7 @@ class VendorTempsController extends BuyerAppController
                                 );
 
                               //  print_r($resultResponse['SMTP_ADDR']);exit;
-                            
-                               
+
                                 $vendorTemp = $this->VendorTemps->newEmptyEntity();
                                 $data = array();
                                 $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
@@ -425,8 +424,12 @@ class VendorTempsController extends BuyerAppController
                                 } catch (\Exception $e) {
                                     $this->Flash->error(__($e->getMessage()));
                                 }
-                            // }
-                        // }
+                            } else {
+                                array_push($vendorView, ['status' => false, 'msg' => "Failed Response", 'data' => $vendors]);
+                            }
+                        } else {
+                            array_push($vendorView, ['status' => false, 'msg' => "Failed Connection to SAP", 'data' => ['sap_vendor_code' => $vendorCode]]);
+                        }
                     } else {
                         array_push($vendorView, ['status' => false, 'msg' => "Vendor for SAP code Exist", 'data' => ['sap_vendor_code' => $vendorCode]]);
                     }

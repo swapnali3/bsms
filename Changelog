@@ -111,22 +111,28 @@ INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('5', 'SA
 // ==================== Vendor Status ====================
 
 
-// ==================== Vendor Update ====================
-author: JThayil
-date: 27.06.2023
-// ==================== ============= ====================
-ALTER TABLE `db_bsms`.`vendor_temps` 
-ADD COLUMN `update_flag` INT NULL DEFAULT 0 AFTER `updated_date`,
-CHANGE COLUMN `email` `email` VARCHAR(100) NULL DEFAULT NULL ;
-// ==================== Vendor Update ====================
-
-
 // ==================== ASN Header ====================
 author: JThayil
 date: 28.06.2023
 // ==================== ============= ====================
 ALTER TABLE `asn_headers` ADD COLUMN `gateout_date` DATETIME NULL DEFAULT NULL;
 // ==================== ASN Header ====================
+
+
+// ==================== ASN Header ====================
+author: JThayil
+date: 29.06.2023
+// ==================== ============= ====================
+ALTER TABLE `vendor_temps` ADD COLUMN `update_flag` INT NULL DEFAULT '0' ;
+// ==================== ASN Header ====================
+
+
+// ==================== Vendor Update ====================
+author: JThayil
+date: 29.06.2023
+// ==================== ============= ====================
+ALTER TABLE `db_bsms`.`vendor_temps` DROP INDEX `email_UNIQUE` ;
+// ==================== Vendor Update ====================
 
 
 // ==================== Po acknowledge ====================
@@ -180,10 +186,57 @@ ADD COLUMN `acknowledge` INT NULL DEFAULT '0' AFTER `acknowledge`;
 // ==================== Po header acknowledge====================
 
 
-
-// ==================== ASN Header ====================
+// ==================== Vendor Update ====================
 author: JThayil
-date: 29.06.2023
+date: 04.07.2023
 // ==================== ============= ====================
-ALTER TABLE `vendor_temps` ADD COLUMN `update_flag` INT NULL DEFAULT '0' ;
+
+CREATE TABLE `dailymonitor` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_id` int DEFAULT NULL,
+  `productionline_id` int DEFAULT NULL,
+  `target_production` int DEFAULT NULL,
+  `confirm_production` int DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `added_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `productionline` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_id` int NOT NULL,
+  `vendormaterial_id` int NOT NULL,
+  `prdline_description` varchar(250) NOT NULL,
+  `prdline_capacity` int NOT NULL,
+  `status` int DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `vendor_material` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_id` int NOT NULL,
+  `vendor_material_code` bigint NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `buyer_material_code` bigint DEFAULT NULL,
+  `minimum_stock` int DEFAULT NULL,
+  `uom` varchar(50) DEFAULT NULL,
+  `status` tinyint(1) DEFAULT '0',
+  `added_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `stockupload` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `opening_stock` int NOT NULL,
+  `vendor_material_id` int NOT NULL,
+  `vendor_id` int NOT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 // ==================== ASN Header ====================

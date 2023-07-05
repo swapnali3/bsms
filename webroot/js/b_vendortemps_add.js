@@ -1,5 +1,10 @@
 $('#OpenImgUpload').click(function () { $('#vendorCodeInput').trigger('click'); });
 
+$('#vendorCodeInput').change(function () {
+  var file = $(this).prop('files')[0].name;
+  $("#filessnames").append(file);
+});
+
 var Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -21,13 +26,13 @@ $.validator.setDefaults({
               icon: 'success',
               title: response.message
             });
+            setTimeout(function(){ window.location.reload(); }, 2000);
           } else {
             Toast.fire({
               icon: 'error',
               title: response.message
             });
           }
-
         }
       });
       return false;
