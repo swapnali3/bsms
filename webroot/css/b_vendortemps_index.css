@@ -20,11 +20,44 @@
     font-weight: bold;
     font-size: 14px;
     padding: 8px 12px;
-  }
-  
-  .btn[data-toggle="tooltip"]:before {
+}
+
+.btn[data-toggle="tooltip"]:before {
     border-top-color: #f8f9fa;
-  } 
+}
 
+.lbluebadge{
+    border-radius: 12px !important;
+    background-color: lavender;
+    color: #17a2b8;
+}
 
-  
+.dbluebadge{
+    border-radius: 12px !important;
+    background-color: lavender;
+    color: darkblue;
+}
+
+.purplebadge{
+    border-radius: 12px !important;
+    background-color: lavender;
+    color: purple;
+}
+
+.lgreenbadge{
+    border-radius: 12px !important;
+    background-color: lavender;
+    color: #20c997;
+}
+
+.dgreenbadge{
+    border-radius: 12px !important;
+    background-color: lavender;
+    color: green;
+}
+
+.redbadge{
+    border-radius: 12px !important;
+    background-color: lavender;
+    color: red;
+}

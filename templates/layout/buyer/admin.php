@@ -198,7 +198,10 @@
     <?= $this->fetch('script') ?>
     <?= $this->Html->script('/js/common.js') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
-    <script>$(window).on('load', function () {$('#loaderss').hide();});</script>
+    <script>
+    $(window).on('load', function () {$('#loaderss').hide();});
+    $(function () {$('[data-toggle="tooltip"]').tooltip()})
+    </script>
 </body>
 
 </html>
