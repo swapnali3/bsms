@@ -8,17 +8,20 @@
  * @var string[]|\Cake\Collection\CollectionInterface $schemaGroups
  */
 
-
-
-
 ?>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
+<?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
+<?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
+<?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> -->
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
 <!-- (Optional) Latest compiled and minified JavaScript translation files -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+<?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
+<?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
 <style>
     .label {
         font-size: 10px
@@ -67,6 +70,9 @@
                     <h4 class="text-info">
                         <legend>
                             <?= __('Onboarding') ?>
+                            <button type="button" class="btn btn-outline-info btn-light chat" data-toggle="modal"
+                                data-target="#modal-xl" style="margin-left: 3em;">
+                                <i class="fas fa-comments"></i> Need help</button>
                         </legend>
                     </h4>
                 </div>
@@ -74,10 +80,7 @@
                     <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon">
                     <img src="<?= $this->Url->build('/') ?>img/logo_s.png" class="vekpro-logo" widht="50">
                 </div>
-
             </div>
-
-
             <div class="card">
                 <div class="card-body">
                     <?= $this->Form->create($vendorTemp, ['type' => 'file', 'id' => 'onbordingSubmit']) ?>
@@ -133,8 +136,6 @@
                                 <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
                             </div>
                         </div>
-
-
                     </div>
 
                     <div class="row">
@@ -155,9 +156,6 @@
                         <div class="col-3 mt-3">
                             <?php echo $this->Form->control('order_currency', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
                         </div>
-
-
-
 
                     </div>
                     <div class="row">
@@ -236,143 +234,144 @@
             <div class="col-3 col-md-12 text-center mt-1 pt-1">
                 <?php echo $this->Form->button('Submit', array('class' => 'btn btn-custom mt-3')); ?>
             </div>
-
             <?= $this->Form->end() ?>
-
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modal-xl">
+    <div class="modal-dialog modal-xl card card-primary card-outline direct-chat direct-chat-primary">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="card-title">Onboarding Process Ticket</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="direct-chat-messages" id="id_oldmsg">
+                    <!-- <div class="direct-chat-msg">
+                        <div class="direct-chat-infos clearfix">
+                            <span class="direct-chat-name float-left">Alexander Pierce</span>
+                            <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                        </div>
+                        <img class="direct-chat-img" src="..\..\..\img\U.png" alt="Message User Image">
+                        <div class="direct-chat-text">
+                            Is this template really for free? That's unbelievable!
+                        </div>
+                    </div>
+
+                    <div class="direct-chat-msg right">
+                        <div class="direct-chat-infos clearfix">
+                            <span class="direct-chat-name float-right">Sarah Bullock</span>
+                            <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                        </div>
+                        <img class="direct-chat-img" src="..\..\..\img\U.png" alt="Message User Image">
+                        <div class="direct-chat-text">
+                            You better believe it!
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <form action="#" method="post">
+                    <div class="input-group">
+                        <input type="text" name="message" placeholder="Message ..." class="form-control"
+                            style="min-width: 54vw;">
+                        <span class="input-group-append">
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    $(function() {
-        $('.my-select').selectpicker();
+    var uid = "<?= $vendorTemp->id ?>";
+    var chatgeturl = "<?php echo \Cake\Routing\Router::url(array( 'prefix' => false,'controller' => 'msgchat-headers', 'action' => 'index')); ?>";
+    var chatposturl = "<?php echo \Cake\Routing\Router::url(array( 'prefix' => false,'controller' => 'msgchat-headers', 'action' => 'edit')); ?>";
+    
+    $(function () { $('.my-select').selectpicker(); });
+    $.ajax({
+        type: "GET",
+        url: chatgeturl+"/index/vendor_temps/" + uid,
+        dataType: 'json',
+        success: function (response) {
+            $.each(response, function (index, row) {
+                var ndiv = '';
+                if (row['group_id'] == '1') {
+                    ndiv = `<div class="direct-chat-msg">
+                            <div class="direct-chat-infos clearfix">
+                                <span class="direct-chat-name float-left">`+ row['fullname'] + `</span>
+                                <span class="direct-chat-timestamp float-right">`+ row['updateddate'] + `</span>
+                            </div>
+                            <img class="direct-chat-img" src="..\\..\\..\\img\\buyer.png" alt="Message User Image">
+                            <div class="direct-chat-text">`+ row['message'] + `</div>
+                        </div>`;
+                } else {
+                    ndiv = `<div class="direct-chat-msg right">
+                        <div class="direct-chat-infos clearfix">
+                            <span class="direct-chat-name float-right">`+ row['fullname'] + `</span>
+                            <span class="direct-chat-timestamp float-left">`+ row['updateddate'] + `</span>
+                        </div>
+                        <img class="direct-chat-img" src="..\\..\\..\\img\\vendor.png" alt="Message User Image">
+                        <div class="direct-chat-text">`+ row['message'] + `</div>
+                    </div>`;
+                }
+                $("#id_oldmsg").append(ndiv);
+            });
+        }
     });
-    $(document).ready(function() {
+
+    $(document).ready(function () {
         $("#onbordingSubmit").validate({
             rules: {
-                address: {
-                    required: true
-                },
-                // address_2: {
-                //     required: true
-                // },
-                city: {
-                    required: true
-                },
-                state: {
-                    required: true
-                },
-                pincode: {
-                    required: true,
-                    digits: true
-                },
-                country: {
-                    required: true
-                },
-                payment_term: {
-                    required: true
-                },
-                order_currency: {
-                    required: true
-                },
-                tan_no: {
-                    required: true
-                },
-                cin_no: {
-                    required: true
-                },
-                gst_no: {
-                    required: true
-                },
-                pan_no: {
-                    required: true
-                },
-                contact_person: {
-                    required: true
-                },
-                contact_email: {
-                    required: true,
-                    email: true,
-                },
-                contact_mobile: {
-                    required: true,
-                    number: true,
-                    minlength: 10,
-                    maxlength: 10
-
-                },
-                contact_department: {
-                    required: true
-                },
-                contact_designation: {
-                    required: true
-                }
+                address: { required: true },
+                city: { required: true },
+                state: { required: true },
+                pincode: { required: true, digits: true },
+                country: { required: true },
+                payment_term: { required: true },
+                order_currency: { required: true },
+                tan_no: { required: true },
+                cin_no: { required: true },
+                gst_no: { required: true },
+                pan_no: { required: true },
+                contact_person: { required: true },
+                contact_email: { required: true, email: true },
+                contact_mobile: { required: true, number: true, minlength: 10, maxlength: 10 },
+                contact_department: { required: true },
+                contact_designation: { required: true }
             },
 
             messages: {
-                address: {
-                    required: "Please enter a Address",
-                },
-                // address_2: {
-                //     required: "Please enter a Address2",
-                // },
-                city: {
-                    required: "Please enter a city",
-                },
-                state: {
-                    required: "Please enter a state",
-                },
-                pincode: {
-                    required: "Please enter a pincode",
-                    digits: true,
-                },
-                country: {
-                    required: "Please enter a country",
-                },
-                tan_no: {
-                    required: "Please enter a tan no",
-                },
-                cin_no: {
-                    required: "Please enter a cin no",
-                },
-                gst_no: {
-                    required: "Please enter a gst no",
-                },
-                pan_no: {
-                    required: "Please enter a pam no",
-                },
-                contact_person: {
-                    required: "Please enter a contact person",
-                },
-                contact_email: {
-                    required: "Please enter a contact email",
-                    email: "Please enter a valid email address",
-                },
-                contact_mobile: {
-                    required: "Please enter a contact mobile",
-                    number: "Please enter a valid mobile number",
-                },
-                contact_department: {
-                    required: "Please enter a contact department",
-                },
-                contact_designation: {
-                    required: "Please enter a contact designation",
-                },
+                address: { required: "Please enter a Address" },
+                city: { required: "Please enter a city" },
+                state: { required: "Please enter a state" },
+                pincode: { required: "Please enter a pincode", digits: true },
+                country: { required: "Please enter a country" },
+                tan_no: { required: "Please enter a tan no" },
+                cin_no: { required: "Please enter a cin no" },
+                gst_no: { required: "Please enter a gst no" },
+                pan_no: { required: "Please enter a pam no" },
+                contact_person: { required: "Please enter a contact person" },
+                contact_email: { required: "Please enter a contact email", email: "Please enter a valid email address" },
+                contact_mobile: { required: "Please enter a contact mobile", number: "Please enter a valid mobile number" },
+                contact_department: { required: "Please enter a contact department" },
+                contact_designation: { required: "Please enter a contact designation" },
             },
             errorElement: "span",
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 error.addClass("invalid-feedback");
                 element.closest(".form-group").append(error);
             },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass("is-invalid");
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass("is-invalid");
-            },
-            submitHandler: function(form, event) {
+            highlight: function (element, errorClass, validClass) { $(element).addClass("is-invalid"); },
+            unhighlight: function (element, errorClass, validClass) { $(element).removeClass("is-invalid"); },
+            submitHandler: function (form, event) {
                 event.preventDefault();
                 $("#onbordingSubmit")[0].submit();
-
                 return false;
             },
         });
