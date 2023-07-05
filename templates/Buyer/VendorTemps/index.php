@@ -44,7 +44,7 @@
                                         $status = '<span class="badge purplebadge" data-toggle="tooltip" data-placement="right" title="Sent to SAP"><i class="fas fa-user-plus"></i></span>';
                                         break;
                                     case 3:
-                                        $status ='<span class="badge lgreenbadge" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span>';
+                                        $status = '<span class="badge lgreenbadge" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span>';
                                         break;
                                     case 4:
                                         $status = '<span class="badge redbadge" data-toggle="tooltip" data-placement="right" title="Rejected"><i class="fas fa-user-slash"></i></span>';
@@ -54,24 +54,23 @@
                                         break;
                                 }
                             ?>
-                            <tr
-                                redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>">
-                                <td>
-                                    <?= $status ?>
-                                    <span class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Chat"><i class="fas fa-comments text-info"></i></span>
-                                </td>
-                                <td><?= h($vendorTemp->name) ?></td>
-                                <td><?= h($vendorTemp->email) ?></td>
-                                <td><?= h($vendorTemp->mobile) ?></td>
-                                <td><?= h($vendorTemp->sap_vendor_code) ?></td>
-                                <td><?= h($vendorTemp->city) ?></td>
-                                <td><?= h($vendorTemp->pincode) ?></td>
-                                <td><?= h($vendorTemp->contact_person) ?></td>
-                                <td><?= h($vendorTemp->contact_email) ?></td>
-                                <td><?= h($vendorTemp->contact_mobile) ?></td>
-                                <!-- <td><?= h($vendorTemp->added_date) ?></td> -->
-                                <!-- <td><?= h($vendorTemp->updated_date) ?></td> -->
-                            </tr>
+                                <tr>
+                                    <td>
+                                        <?= $status ?>
+                                        <span class="badge badge-light" data-toggle="modal" data-target="#modal-lg" data-placement="right" value="<?= $vendorTemp->id ?>" title="Chat"><i class="fas fa-comments text-info"></i></span>
+                                    </td>
+                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->name) ?></td>
+                                    <td><?= h($vendorTemp->email) ?></td>
+                                    <td><?= h($vendorTemp->mobile) ?></td>
+                                    <td><?= h($vendorTemp->sap_vendor_code) ?></td>
+                                    <td><?= h($vendorTemp->city) ?></td>
+                                    <td><?= h($vendorTemp->pincode) ?></td>
+                                    <td><?= h($vendorTemp->contact_person) ?></td>
+                                    <td><?= h($vendorTemp->contact_email) ?></td>
+                                    <td><?= h($vendorTemp->contact_mobile) ?></td>
+                                    <!-- <td><?= h($vendorTemp->added_date) ?></td> -->
+                                    <!-- <td><?= h($vendorTemp->updated_date) ?></td> -->
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -80,4 +79,91 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal-lg">
+    <div class="modal-dialog modal-lg card card-primary card-outline direct-chat direct-chat-primary">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="card-title">Onboarding Process Ticket</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="direct-chat-messages" id="id_oldmsg">
+                    <!-- <div class="direct-chat-msg">
+                        <div class="direct-chat-infos clearfix">
+                            <span class="direct-chat-name float-left">Alexander Pierce</span>
+                            <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                        </div>
+                        <img class="direct-chat-img" src="..\..\..\img\U.png" alt="Message User Image">
+                        <div class="direct-chat-text">
+                            Is this template really for free? That's unbelievable!
+                        </div>
+                    </div>
+
+                    <div class="direct-chat-msg right">
+                        <div class="direct-chat-infos clearfix">
+                            <span class="direct-chat-name float-right">Sarah Bullock</span>
+                            <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                        </div>
+                        <img class="direct-chat-img" src="..\..\..\img\U.png" alt="Message User Image">
+                        <div class="direct-chat-text">
+                            You better believe it!
+                        </div>
+                    </div> -->
+
+
+                    <!-- <div class="card card-widget">
+                        <div class="card-header">
+                            <div class="user-block">
+                                <img class="img-circle" src="..\..\..\img\U.png" alt="User Image">
+                                <span class="username">Jonathan Burke Jr</span>
+                                <span class="description">7:30 PM Today</span>
+                            </div>
+                      
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" title="Mark as read">
+                                    <i class="far fa-circle"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                  
+                        <div class="card-body" style="display: block;margin: 6px 24px;">
+                            <p>I took this photo this morning. What do you guys think?</p>
+                        </div>
+                       
+
+                    </div> -->
+                </div>
+            </div>
+            <div class="modal-footer">
+
+                <?= $this->Form->create($vendorTemp, ['id' => 'communiSubmit', 'style' => 'width:100%']) ?>
+
+
+
+                <div class="input-group">
+                    <input type="text" name="message" placeholder="Message ..." class="form-control">
+                    <span class="input-group-append">
+                        <button type="submit" id="add_comm" class="btn btn-primary">Send</button>
+                    </span>
+                </div>
+
+                <?= $this->Form->end() ?>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  var userComm = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
+  var  userCommadd ='<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
+</script>
 <?= $this->Html->script('b_vendortemps_index') ?>

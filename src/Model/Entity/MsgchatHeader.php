@@ -14,6 +14,8 @@ use Cake\ORM\Entity;
  * @property string $subject
  * @property \Cake\I18n\FrozenTime|null $addeddate
  * @property \Cake\I18n\FrozenTime|null $updateddate
+ *
+ * @property \App\Model\Entity\MsgchatFooter[] $msgchat_footers
  */
 class MsgchatHeader extends Entity
 {
@@ -32,5 +34,6 @@ class MsgchatHeader extends Entity
         'subject' => true,
         'addeddate' => true,
         'updateddate' => true,
+        'msgchat_footers' => true,
     ];
 }

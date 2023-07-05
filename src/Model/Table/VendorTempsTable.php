@@ -97,6 +97,11 @@ class VendorTempsTable extends Table
             ->allowEmptyString('sap_vendor_code');
 
         $validator
+            ->scalar('tittle')
+            ->maxLength('tittle', 50)
+            ->allowEmptyString('tittle');
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 200)
             ->requirePresence('name', 'create')
@@ -130,12 +135,12 @@ class VendorTempsTable extends Table
         $validator
             ->scalar('mobile')
             ->maxLength('mobile', 12)
-            ->requirePresence('mobile', 'create')
-            ->notEmptyString('mobile');
+            ->allowEmptyString('mobile');
 
         $validator
             ->email('email')
-            ->allowEmptyString('email');
+            ->allowEmptyString('email')
+            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('country')
@@ -254,6 +259,7 @@ class VendorTempsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        $rules->add($rules->isUnique(['email'], ['allowMultipleNulls' => true]), ['errorField' => 'email']);
         $rules->add($rules->existsIn('purchasing_organization_id', 'PurchasingOrganizations'), ['errorField' => 'purchasing_organization_id']);
         $rules->add($rules->existsIn('account_group_id', 'AccountGroups'), ['errorField' => 'account_group_id']);
         $rules->add($rules->existsIn('schema_group_id', 'SchemaGroups'), ['errorField' => 'schema_group_id']);

@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * MsgchatHeaders Model
  *
+ * @property \App\Model\Table\MsgchatFootersTable&\Cake\ORM\Association\HasMany $MsgchatFooters
+ *
  * @method \App\Model\Entity\MsgchatHeader newEmptyEntity()
  * @method \App\Model\Entity\MsgchatHeader newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\MsgchatHeader[] newEntities(array $data, array $options = [])
@@ -40,6 +42,10 @@ class MsgchatHeadersTable extends Table
         $this->setTable('msgchat_headers');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->hasMany('MsgchatFooters', [
+            'foreignKey' => 'msgchat_header_id',
+        ]);
     }
 
     /**
