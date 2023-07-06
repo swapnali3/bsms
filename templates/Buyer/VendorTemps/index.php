@@ -57,7 +57,7 @@
                                 <tr>
                                     <td>
                                         <?= $status ?>
-                                        <span class="badge badge-light chatload" data-toggle="modal" data-target="#modal-lg" data-placement="right" data-value="<?= $vendorTemp->id ?>" title="Chat"><i class="fas fa-comments text-info"></i></span>
+                                        <span class="badge badge-light chatload" data-name="<?= h($vendorTemp->name) ?>"  data-toggle="modal" data-target="#modal-lg" data-placement="right" data-value="<?= $vendorTemp->id ?>" title="Chat"><i class="fas fa-comments text-info"></i></span>
                                     </td>
                                     <td  class="tableName" redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->name) ?></td>
                                     <td calss="tableEmail" redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->email) ?></td>
@@ -80,89 +80,42 @@
     </div>
 </div>
 <div class="modal fade" id="modal-lg">
-    <div class="modal-dialog modal-lg card card-primary card-outline direct-chat direct-chat-primary">
+    <div class="modal-dialog modal-xl card card-primary card-outline direct-chat direct-chat-primary">
         <div class="modal-content">
-            <div class="modal-header" style="display: unset;">
-                <h3 class="card-title">Onboarding Process Ticket</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <div class="d-flex">
-                    <h6 class="nameView" style="margin: 0 8px;">Abhishek</h6>
-                    <h6> and </h6>
-                    <h6 class="emailView" style="margin: 0 12px;">ay321gmail.com</h6>
-                </div>
-
-
-            </div>
-
-
-            <div class="modal-body">
-                <div class="direct-chat-messages" id="id_oldmsg">
-                    <!-- <div class="direct-chat-msg">
-                        <div class="direct-chat-infos clearfix">
-                            <span class="direct-chat-name float-left">Alexander Pierce</span>
-                            <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
-                        </div>
-                        <img class="direct-chat-img" src="..\..\..\img\U.png" alt="Message User Image">
-                        <div class="direct-chat-text">
-                            Is this template really for free? That's unbelievable!
-                        </div>
+            <div class="modal-header">
+                <div class="row" style="width: 100%;">
+                    <div class="col-4">
+                        <h3 class="card-title"> <span class="text-info" id="id_chatuser"></span></h3>
                     </div>
-
-                    <div class="direct-chat-msg right">
-                        <div class="direct-chat-infos clearfix">
-                            <span class="direct-chat-name float-right">Sarah Bullock</span>
-                            <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
-                        </div>
-                        <img class="direct-chat-img" src="..\..\..\img\U.png" alt="Message User Image">
-                        <div class="direct-chat-text">
-                            You better believe it!
-                        </div>
-                    </div> -->
-
-
-                    <!-- <div class="card card-widget">
-                        <div class="card-header">
-                            <div class="user-block">
-                                <img class="img-circle" src="..\..\..\img\U.png" alt="User Image">
-                                <span class="username">Jonathan Burke Jr</span>
-                                <span class="description">7:30 PM Today</span>
-                            </div>
-                      
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" title="Mark as read">
-                                    <i class="far fa-circle"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                  
-                        <div class="card-body" style="display: block;margin: 6px 24px;">
-                            <p>I took this photo this morning. What do you guys think?</p>
-                        </div>
-                       
-
-                    </div> -->
+                    <div class="col-4">
+                        <h3 class="card-title text-center">Onboarding Process Ticket </h3>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body" style="max-height: 65vh; min-height: 65vh; overflow-y: scroll;">
+                <div class="direct-chat-messages" id="id_oldmsg" style="height:auto;">
                 </div>
             </div>
             <div class="modal-footer">
 
                 <?= $this->Form->create($vendorTemp, ['id' => 'communiSubmit', 'style' => 'width:100%']) ?>
-
-
-
-                <div class="input-group">
-                    <input type="text" name="message" placeholder="Message ..." class="form-control">
-                    <span class="input-group-append">
-                        <button type="submit" id="add_comm" class="btn btn-primary">Send</button>
-                    </span>
+                <div class="row">
+                    <div class="col-sm-12 col-md-11 col-lg-11">
+                        <div class="input-group">
+                            <input type="hidden" name="app_id" value="<?= h($vendorTemp->id) ?>">
+                            <textarea id="summernote" name="message" placeholder="Message ..."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-1 col-lg-1">
+                        <span class="input-group-append mt-3">
+                            <button type="submit" id="add_comm" class="btn btn-primary">Send</button>
+                        </span>
+                    </div>
                 </div>
 
                 <?= $this->Form->end() ?>
@@ -175,4 +128,5 @@
     var userComm = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
     var userCommadd = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
 </script>
+
 <?= $this->Html->script('b_vendortemps_index') ?>

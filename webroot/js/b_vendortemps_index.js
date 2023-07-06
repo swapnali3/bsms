@@ -1,6 +1,7 @@
 var currentchat;
 
 function communication(id = null) {
+    
     $.ajax({
         type: "GET",
         url: userComm + "/index/vendor_temps/" + id,
@@ -14,7 +15,7 @@ function communication(id = null) {
                     `<div class="card card-widget">
                 <div class="card-header">
                     <div class="user-block">
-                        <img class="img-circle" src="..\\img\\U.png" alt="User Image">
+                        <img class="img-circle" src="..\\img\\U.png" alt="User Image" style="width: 40px; height: auto;">
                         <span class="username">` +
                     row["fullname"] +
                     `</span>
@@ -90,7 +91,8 @@ $("#add_comm").click(function (e) {
             if (response.status == "1") {
                 $("#id_oldmsg").empty();
                 communication(currentchat);
-                $("#communiSubmit")[0].reset();
+                // $("#summernote").text('');
+                $('#summernote').summernote('reset');
             } else {
             }
         },
@@ -98,13 +100,13 @@ $("#add_comm").click(function (e) {
 });
 
 $(document).on("click", ".chatload", function () {
-   var name =  $('.tableName').text();
-   var email = $('.tableEmail').text();
+//    var name =  $('.tableName').text();
+//    var email = $('.tableEmail').text();
 
-   console.log(name+ "" +email);
+   $("#id_chatuser").html($(this).data('name'));
 
-   $(".nameView").text(name);
-   $(".emailView").text(email);
+//    $(".nameView").text(name);
+//    $(".emailView").text(email);
     
     currentchat = $(this).data("value");
     communication(currentchat);

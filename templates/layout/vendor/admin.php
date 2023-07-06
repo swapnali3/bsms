@@ -69,7 +69,6 @@ body {
     <?= $this->Html->css('CakeLte./AdminLTE//plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>
-
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>
 
     <!-- Ionicons -->
@@ -77,6 +76,7 @@ body {
 
     <!-- Theme style -->
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/summernote/summernote.min.css') ?>
     <?= $this->Html->css('CakeLte.style') ?>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
@@ -171,6 +171,7 @@ body {
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
 
     <!-- DataTables  & Plugins -->
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/summernote/summernote.min.js') ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>
