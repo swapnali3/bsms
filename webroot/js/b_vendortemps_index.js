@@ -75,6 +75,7 @@ $("#add_comm").click(function (e) {
 
     var table_name = "vendor_temps";
     formdata.append("table_name", table_name);
+    formdata.append("app_id", currentchat);
     formdata.append("group_id", "2");
 
     $.ajax({
