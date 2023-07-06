@@ -22,17 +22,20 @@
                 <div class="card-body fm">
                     <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                     <div class="row">
-                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                        <div class="col-sm-12 col-md-3 col-lg-1 mb-3">
                             <div class="form-group">
                                 <?php
-                                echo $this->Form->control('tittle', [
+                                echo $this->Form->control('title', [
                                     'class' => 'form-control',
-                                    'label' => 'Tittle',
+                                    'label' => 'Title',
                                     'options' => [
-                                        'Mr' => 'Mr',
-                                        'Mrs' => 'Mrs',
-                                        'Mis' => 'Mis'
+                                        'Company' => 'Company',
+                                        'M/S' => 'M/S',
+                                        'Mr.' => 'Mr.',
+                                        'Ms.' => 'Ms.'
                                     ],
+                                    'empty' => 'Select',
+                                    'required' => 'required'
                                 ]);
                                 ?>
                             </div>
@@ -42,12 +45,17 @@
                                 <?php
                                 echo $this->Form->control('name', [
                                     'class' => 'form-control',
-                                    'label' => 'Full Name',
-                                    'placeholder' => 'Please Enter Full Name'
+                                    'label' => 'Company Name',
+                                    'placeholder' => 'Please Enter Full Company Name'
                                 ]);
                                 ?>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-4 col-lg-1 mb-3">
+                            <div class="form-group">
+                                <?php echo $this->Form->control('country_code', array('label' => 'Code','class' => 'form-control tel numberonly', 'type' => 'tel', 'value' => '+91', 'readonly' =>'readonly')); ?>
+                            </div>
+                            </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                             <div class="form-group">
                                 <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
@@ -91,6 +99,55 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-12">
+            <?= $this->Form->create(null, ['type' => 'file']); ?>
+            <div class="card mx-2">
+                <div class="card-header p-3">
+                    <h5 style="color:darkblue;">
+                        Recently Added Vendor
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                            <div class="col-12">
+                    <div class="table-responsive">
+                                    <table class="table table-hover dataTable no-footer" id="example1">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Name</th>
+                                                <th>Mobile</th>
+                                                <th>Email</th>
+                                                <th>Purchasing Organization</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach($latestVendors as $vendor) : 
+                                                //echo '<pre>';print_r($vendor); exit;
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $vendor->title?></td>
+                                                    <td><?php echo $vendor->name?></td>
+                                                    <td><?php echo $vendor->mobile?></td>
+                                                    <td><?php echo $vendor->email?></td>
+                                                    <td><?php echo $vendor->purchasing_organization->name?></td>
+                                                    <td><?php echo $vendor->vendor_status->description?></td>
+
+                                                </tr>
+                                                <?php endforeach; ?>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
+                </div>
+            </div>
+            <?= $this->Form->end() ?>
+        </div>
+
         <div class="col-12" style="display: none;">
             <?= $this->Form->create(null, ['type' => 'file']); ?>
             <div class="card mx-2">

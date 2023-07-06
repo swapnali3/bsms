@@ -13,15 +13,15 @@ use Cake\ORM\Entity;
  * @property int $account_group_id
  * @property int $schema_group_id
  * @property string|null $sap_vendor_code
- * @property string|null $tittle
+ * @property string $title
  * @property string $name
  * @property string|null $address
  * @property string|null $address_2
  * @property string|null $city
  * @property string|null $state
  * @property string|null $pincode
- * @property string|null $mobile
- * @property string|null $email
+ * @property string $mobile
+ * @property string $email
  * @property string|null $country
  * @property string $payment_term
  * @property string $order_currency
@@ -68,7 +68,7 @@ class VendorTemp extends Entity
         'account_group_id' => true,
         'schema_group_id' => true,
         'sap_vendor_code' => true,
-        'tittle' => true,
+        'title' => true,
         'name' => true,
         'address' => true,
         'address_2' => true,

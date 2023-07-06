@@ -1,9 +1,7 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Controller;
-
 use Cake\Datasource\ConnectionManager;
 
 /**
@@ -19,23 +17,18 @@ class MsgchatHeadersController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index($app = null, $app_id = null)
+    public function index($app=null, $app_id=null)
     {
-        // echo '<pre>';
-        // print_r($app);
-        // exit;
+        // echo '<pre>';print_r($app);exit;
         $conn = ConnectionManager::get('default');
         $query = "SELECT mf.id, mh.table_name, mh.table_pk, mh.subject, mf.msgchat_header_id, mf.group_id,
         case when mf.group_id = 1 then concat(u.first_name,' ',u.last_name) else vt.name end as fullname, mf.message, mf.seen, mf.addeddate, mf.updateddate
         FROM msgchat_headers mh left join msgchat_footers mf on mh.id=mf.msgchat_header_id
         left join users u on u.id = mf.sender_id
         left join vendor_temps vt on mf.sender_id = vt.id ";
-        if ($app != null && $app_id != null) {
-            $query .= " where table_name='" . $app . "' and table_pk=" . $app_id . " order by mf.addeddate desc";
-        }
+        if ($app!=null && $app_id!=null){ $query .= " where table_name='".$app."' and table_pk=".$app_id." order by mf.addeddate desc";}
         $rfqDetails = $conn->execute($query)->fetchAll('assoc');
-        echo json_encode($rfqDetails);
-        exit;
+        echo json_encode($rfqDetails);exit;
     }
 
     /**
