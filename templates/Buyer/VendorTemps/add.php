@@ -22,17 +22,20 @@
                 <div class="card-body fm">
                     <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                     <div class="row">
-                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                        <div class="col-sm-12 col-md-3 col-lg-1 mb-3">
                             <div class="form-group">
                                 <?php
                                 echo $this->Form->control('tittle', [
                                     'class' => 'form-control',
-                                    'label' => 'Tittle',
+                                    'label' => 'Title',
                                     'options' => [
-                                        'Mr' => 'Mr',
-                                        'Mrs' => 'Mrs',
-                                        'Mis' => 'Mis'
+                                        'Company' => 'Company',
+                                        'M/S' => 'M/S',
+                                        'Mr.' => 'Mr.',
+                                        'Ms.' => 'Ms.'
                                     ],
+                                    'empty' => 'Select',
+                                    'required' => 'required'
                                 ]);
                                 ?>
                             </div>
@@ -42,12 +45,17 @@
                                 <?php
                                 echo $this->Form->control('name', [
                                     'class' => 'form-control',
-                                    'label' => 'Full Name',
-                                    'placeholder' => 'Please Enter Full Name'
+                                    'label' => 'Company Name',
+                                    'placeholder' => 'Please Enter Full Company Name'
                                 ]);
                                 ?>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-4 col-lg-1 mb-3">
+                            <div class="form-group">
+                                <?php echo $this->Form->control('country_code', array('label' => 'Code','class' => 'form-control tel numberonly', 'type' => 'tel', 'value' => '+91', 'readonly' =>'readonly')); ?>
+                            </div>
+                            </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                             <div class="form-group">
                                 <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
