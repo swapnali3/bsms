@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
+
 use Cake\Datasource\ConnectionManager;
 
 /**
@@ -17,18 +19,23 @@ class MsgchatHeadersController extends AppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-    public function index($app=null, $app_id=null)
+    public function index($app = null, $app_id = null)
     {
-        echo '<pre>';print_r($app);exit;
+        // echo '<pre>';
+        // print_r($app);
+        // exit;
         $conn = ConnectionManager::get('default');
         $query = "SELECT mf.id, mh.table_name, mh.table_pk, mh.subject, mf.msgchat_header_id, mf.group_id,
         case when mf.group_id = 1 then concat(u.first_name,' ',u.last_name) else vt.name end as fullname, mf.message, mf.seen, mf.addeddate, mf.updateddate
         FROM msgchat_headers mh left join msgchat_footers mf on mh.id=mf.msgchat_header_id
         left join users u on u.id = mf.sender_id
         left join vendor_temps vt on mf.sender_id = vt.id ";
-        if ($app!=null && $app_id!=null){ $query .= " where table_name='".$app."' and table_pk=".$app_id." order by mf.addeddate desc";}
+        if ($app != null && $app_id != null) {
+            $query .= " where table_name='" . $app . "' and table_pk=" . $app_id . " order by mf.addeddate desc";
+        }
         $rfqDetails = $conn->execute($query)->fetchAll('assoc');
-        echo json_encode($rfqDetails);exit;
+        echo json_encode($rfqDetails);
+        exit;
     }
 
     /**
@@ -54,18 +61,66 @@ class MsgchatHeadersController extends AppController
      */
     public function add()
     {
-        $msgchatHeader = $this->MsgchatHeaders->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $msgchatHeader = $this->MsgchatHeaders->patchEntity($msgchatHeader, $this->request->getData());
-            if ($this->MsgchatHeaders->save($msgchatHeader)) {
-                $this->Flash->success(__('The msgchat header has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+        $headerStatus = true;
+        $response = ['status' => 0, 'message' => ''];
+        // $response['status'] = 0;
+        // $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->loadModel("MsgchatFooters");
+        $this->loadModel("MsgchatHeaders");
+
+        $MsgchatFooter = $this->MsgchatFooters->newEmptyEntity();
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            $app_id = $data['app_id'];
+
+            $msgchatHeader = $this->MsgchatHeaders->find()->where(['table_pk' => $app_id, 'table_name'=> $data['table_name']])->first();
+            // print_r($msgchatHeader->id);exit;
+
+            if (!$msgchatHeader) {
+                $msgchatHeader = $this->MsgchatHeaders->newEmptyEntity();
+                $msgchatHeader->table_name = $data['table_name'];
+                $msgchatHeader->table_pk = $data['app_id'];
+                $msgchatHeader->subject = "Onboarding Process Ticket";
+
+                if ($this->MsgchatHeaders->save($msgchatHeader)) {
+                    $response['status'] = '1';
+                    $response['message'] = 'success';
+                } else {
+                    $response['status'] = '0';
+                    $response['message'] = 'failed';
+                    $headerStatus = false;
+                }
             }
-            $this->Flash->error(__('The msgchat header could not be saved. Please, try again.'));
+            if ($headerStatus) {
+                $msgFooter = array();
+                $msgFooter['msgchat_header_id'] = $msgchatHeader->id;
+                $msgFooter['group_id'] = "2";
+                $msgFooter['sender_id'] = $data['app_id'];
+                $msgFooter['message'] = $data['message'];
+                $msgFooter['seen'] = "0";
+
+                $MsgchatFooter = $this->MsgchatFooters->patchEntity($MsgchatFooter, $msgFooter);
+                if ($this->MsgchatFooters->save($MsgchatFooter)) {
+                    $response['status'] = '1';
+                    $response['message'] = 'success';
+                } else {
+                    $response['status'] = '0';
+                    $response['message'] = 'failed';
+                }
+            }
+            
+        } else {
+            $response['status'] = '0';
+            $response['message'] = 'Invalid request.';
         }
-        $this->set(compact('msgchatHeader'));
+
+        echo json_encode($response);
     }
+
 
     /**
      * Edit method

@@ -145,7 +145,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-lg-3">
+  <div class="col-sm-12 col-lg-3" style="display:none;">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">Payments</h3>
