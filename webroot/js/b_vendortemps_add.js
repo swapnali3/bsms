@@ -33,13 +33,13 @@ $.validator.setDefaults({
               title: response.message
             });
 
-            if(response.data) {
+            /*if(response.data) {
               $("#exist_vendor_list tbody").html('');
               $.each(response.data, function( index, value ) {
                 console.log(value);
                 $("#exist_vendor_list tbody").append("<tr><td>"+value.title+"</td><td>"+value.name+"</td><td>"+value.mobile+"</td><td>"+value.email+"</td><td>"+value.purchasing_organization_id+"</td><td>"+value.status+"</td></tr>");
               });
-            }
+            } */
           }
         }
       });

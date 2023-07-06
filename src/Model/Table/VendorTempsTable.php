@@ -48,6 +48,10 @@ class VendorTempsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('VendorStatus', [
+            'foreignKey' => 'status',
+            'joinType' => 'INNER',
+        ]);
         $this->belongsTo('PurchasingOrganizations', [
             'foreignKey' => 'purchasing_organization_id',
             'joinType' => 'INNER',

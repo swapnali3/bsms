@@ -105,14 +105,14 @@
             <div class="card mx-2">
                 <div class="card-header p-3">
                     <h5 style="color:darkblue;">
-                        Vendors already exists
+                        Recently Added Vendor
                     </h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
                             <div class="col-12">
                     <div class="table-responsive">
-                                    <table class="table table-hover dataTable no-footer" id="exist_vendor_list">
+                                    <table class="table table-hover dataTable no-footer" id="example1">
                                         <thead>
                                             <tr>
                                                 <th>Title</th>
@@ -124,6 +124,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <?php foreach($latestVendors as $vendor) : 
+                                                //echo '<pre>';print_r($vendor); exit;
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo $vendor->title?></td>
+                                                    <td><?php echo $vendor->name?></td>
+                                                    <td><?php echo $vendor->mobile?></td>
+                                                    <td><?php echo $vendor->email?></td>
+                                                    <td><?php echo $vendor->purchasing_organization->name?></td>
+                                                    <td><?php echo $vendor->vendor_status->description?></td>
+
+                                                </tr>
+                                                <?php endforeach; ?>
+
                                         </tbody>
                                     </table>
                                 </div>

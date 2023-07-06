@@ -158,7 +158,18 @@ class VendorTempsController extends BuyerAppController
 
         $this->set('headTitle', 'Create Vendor');
         $this->loadModel("VendorTemps");
+        $this->loadModel("VendorStatus");
         $this->loadModel("PaymentTerms");
+
+        $latestVendors = $this->VendorTemps
+        ->find('all')
+        ->contain(['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups', 'VendorStatus' => ['conditions'  =>  ['VendorStatus.status = VendorTemps.status'] ]])
+        
+        ->order(['VendorTemps.added_date' => 'DESC'])
+        ->limit(5);
+
+        //echo '<pre>'; print_r($$latestVendors); exit;
+
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         $vendorCodes = [];
         if ($this->request->is('post')) {
@@ -278,7 +289,7 @@ class VendorTempsController extends BuyerAppController
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
         $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'code', 'valueField' => 'code'])->all();
 
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'payment_term'));
+        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'payment_term', 'latestVendors'));
     }
 
     public function sapAdd()
@@ -626,8 +637,9 @@ class VendorTempsController extends BuyerAppController
         $response['message'] = '';
         $this->autoRender = false;
         $this->loadModel("VendorTemps");
-        $this->loadModel("VendorTemps");
+        
         $this->loadModel("Notifications");
+
         // echo '<pre>'; print_r($this->request->getData()); exit;
         if ($this->request->is(['patch', 'post', 'put'])) {
             try {
@@ -641,7 +653,7 @@ class VendorTempsController extends BuyerAppController
                 ->select(['title','name', 'mobile', 'email','purchasing_organization_id', 'status'])
                 ->where([
                     'OR' => [
-                        ['name' => $data['name']],
+                        ['name' => trim($data['name'])],
                         ['mobile' => $data['mobile']],
                         ['email' => $data['email']],
                     ]
@@ -649,8 +661,8 @@ class VendorTempsController extends BuyerAppController
 
                 $response['status'] = 'fail';
                 if(count($result)) {
-                    $response['message'] = 'Vendor exists';
-                    $response['data'] = $result;
+                    $response['message'] = 'Vendor already exists';
+                    //$response['data'] = $result;
                 }else if ($this->VendorTemps->exists(['VendorTemps.mobile' => $data['mobile']])) {
                     $response['message'] = 'Mobile Number Exist';
                 } else if ($this->VendorTemps->exists(['VendorTemps.email' => $data['email']])) {
