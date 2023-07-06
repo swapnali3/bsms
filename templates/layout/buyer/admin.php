@@ -57,7 +57,7 @@
 
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
-    <!-- <?= $this->Html->css('table.css') ?> -->
+    <?= $this->Html->css('table.css') ?>
     <?= $this->Html->css('listing.css') ?>
 
     <!-- Bootstrap 4 -->

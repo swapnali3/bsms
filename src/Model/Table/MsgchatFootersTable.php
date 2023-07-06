@@ -52,7 +52,6 @@ class MsgchatFootersTable extends Table
     {
         $validator
             ->scalar('msgchat_header_id')
-            ->maxLength('msgchat_header_id', 250)
             ->requirePresence('msgchat_header_id', 'create')
             ->notEmptyString('msgchat_header_id');
 
