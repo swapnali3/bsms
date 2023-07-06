@@ -18,7 +18,14 @@ class StockuploadController extends VendorAppController
      */
     public function index()
     {
+
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
         $stockupload = $this->paginate($this->Stockupload);
+
+        $stockupload = $this->paginate($this->Stockupload->find('all', [
+            'conditions' => ['Stockupload.vendor_id' => $vendorId]
+        ]));
 
         $this->set(compact('stockupload'));
     }
@@ -47,8 +54,17 @@ class StockuploadController extends VendorAppController
     public function add()
     {
         $stockupload = $this->Stockupload->newEmptyEntity();
+        
+        
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
+    
         if ($this->request->is('post')) {
-            $stockupload = $this->Stockupload->patchEntity($stockupload, $this->request->getData());
+            $requestData = $this->request->getData();
+            $requestData['vendor_id'] = $vendorId;
+            $requestData['vendor_material_id'] = "1";
+
+            $stockupload = $this->Stockupload->patchEntity($stockupload, $requestData);
             if ($this->Stockupload->save($stockupload)) {
                 $this->Flash->success(__('The stockupload has been saved.'));
 
