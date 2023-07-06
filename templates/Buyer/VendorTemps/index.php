@@ -57,17 +57,17 @@
                                 <tr>
                                     <td>
                                         <?= $status ?>
-                                        <span class="badge badge-light" data-toggle="modal" data-target="#modal-lg" data-placement="right" value="<?= $vendorTemp->id ?>" title="Chat"><i class="fas fa-comments text-info"></i></span>
+                                        <span class="badge badge-light chatload" data-toggle="modal" data-target="#modal-lg" data-placement="right" data-value="<?= $vendorTemp->id ?>" title="Chat"><i class="fas fa-comments text-info"></i></span>
                                     </td>
                                     <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->name) ?></td>
-                                    <td><?= h($vendorTemp->email) ?></td>
-                                    <td><?= h($vendorTemp->mobile) ?></td>
-                                    <td><?= h($vendorTemp->sap_vendor_code) ?></td>
-                                    <td><?= h($vendorTemp->city) ?></td>
-                                    <td><?= h($vendorTemp->pincode) ?></td>
-                                    <td><?= h($vendorTemp->contact_person) ?></td>
-                                    <td><?= h($vendorTemp->contact_email) ?></td>
-                                    <td><?= h($vendorTemp->contact_mobile) ?></td>
+                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->email) ?></td>
+                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->mobile) ?></td>
+                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->sap_vendor_code) ?></td>
+                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->city) ?></td>
+                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->pincode) ?></td>
+                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->contact_person) ?></td>
+                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->contact_email) ?></td>
+                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->contact_mobile) ?></td>
                                     <!-- <td><?= h($vendorTemp->added_date) ?></td> -->
                                     <!-- <td><?= h($vendorTemp->updated_date) ?></td> -->
                                 </tr>
