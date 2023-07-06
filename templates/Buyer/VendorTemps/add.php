@@ -15,6 +15,49 @@
 
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('vendortemps_add') ?>
+<style>
+    .lbluebadge{
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #17a2b8;
+    }
+
+    .dbluebadge{
+        border-radius: 12px !important;
+        padding: 7px;
+        background-color: lavender;
+        color: #004a9f;
+    }
+
+    .purplebadge{
+        border-radius: 12px !important;
+        padding: 7px;
+        background-color: lavender;
+        color: #6610f2;
+    }
+
+    .lgreenbadge{
+        border-radius: 12px !important;
+        padding: 7px;
+        background-color: lavender;
+        color: green;
+    }
+
+    .dgreenbadge{
+        border-radius: 12px !important;
+        padding: 7px;
+        background-color: lavender;
+        color: #20c997;
+    }
+
+    .redbadge{
+        border-radius: 12px !important;
+        padding: 7px;
+        background-color: lavender;
+        color: #f11e00;
+    }
+</style>
 <div class="add-vendor">
     <div class="row">
         <div class="col-12">
@@ -22,7 +65,7 @@
                 <div class="card-body fm">
                     <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                     <div class="row">
-                        <div class="col-sm-12 col-md-3 col-lg-1 mb-3">
+                        <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                             <div class="form-group">
                                 <?php
                                 echo $this->Form->control('title', [
@@ -51,14 +94,18 @@
                                 ?>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-4 col-lg-1 mb-3">
-                            <div class="form-group">
-                                <?php echo $this->Form->control('country_code', array('label' => 'Code','class' => 'form-control tel numberonly', 'type' => 'tel', 'value' => '+91', 'readonly' =>'readonly')); ?>
-                            </div>
-                        </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                            <div class="form-group">
-                                <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
+                             <div class="row p-0">
+                                <div class="col-3 pr-0">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('country_code', array('label' => 'Code','class' => 'form-control tel numberonly', 'type' => 'tel', 'value' => '+91', 'readonly' =>'readonly')); ?>
+                                    </div>
+                                </div>
+                                <div class="col-9">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
@@ -86,13 +133,13 @@
                                 <?php echo $this->Form->control('schema_group_id', array('class' => 'form-control', 'empty' => 'Please Select')); ?>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
+                        <div class="col-sm-12 col-lg-12 col-md-12 mt-4">
+                            <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom mb-0', 'id' => 'id_addvendor', 'type' => 'submit']) ?>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg- mb-3">
                             <span class="errorm">
                                 <?= $this->Flash->render() ?>
                             </span>
-                        </div>
-                        <div class="col-sm-12 col-lg-12 col-md-12 mt-4">
-                            <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-custom mb-0', 'id' => 'id_addvendor', 'type' => 'submit']) ?>
                         </div>
                     </div>
                     <?= $this->Form->end() ?>
@@ -125,8 +172,27 @@
                                     </thead>
                                     <tbody>
                                         <?php foreach($latestVendors as $vendor) : 
-                                                //echo '<pre>';print_r($vendor); exit;
-                                                ?>
+                                            switch ($vendor->status) {
+                                                case 0:
+                                                    $status = '<span class="badge lbluebadge" data-toggle="tooltip" data-placement="right" title="Sent to Vendor"><i class="fas fa-people-arrows"></i></span>';
+                                                    break;
+                                                case 1:
+                                                    $status = '<span class="badge dbluebadge" data-toggle="tooltip" data-placement="right" title="Pending for approval"><i class="fas fa-user-clock"></i></span>';
+                                                    break;
+                                                case 2:
+                                                    $status = '<span class="badge purplebadge" data-toggle="tooltip" data-placement="right" title="Sent to SAP"><i class="fas fa-user-plus"></i></span>';
+                                                    break;
+                                                case 3:
+                                                    $status = '<span class="badge lgreenbadge" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span>';
+                                                    break;
+                                                case 4:
+                                                    $status = '<span class="badge redbadge" data-toggle="tooltip" data-placement="right" title="Rejected"><i class="fas fa-user-slash"></i></span>';
+                                                    break;
+                                                case 5:
+                                                    $status = '<span class="badge dgreenbadge" data-toggle="tooltip" data-placement="right" id="halfapproved'.$vendor->id.'" title="Approved"><i class="fas fa-user-check"></i></span><span class="badge badge-light sendcred" data-id="'.$vendor->id.'" id="sendcred'.$vendor->id.'" data-toggle="tooltip" data-placement="right" title="Send Credentials"><i class="fas fa-envelope-open-text text-info"></i></span>';
+                                                    break;
+                                            }
+                                        ?>
                                         <tr>
                                             <td>
                                                 <?php echo $vendor->title?>
@@ -144,7 +210,7 @@
                                                 <?php echo $vendor->purchasing_organization->name?>
                                             </td>
                                             <td>
-                                                <?php echo $vendor->vendor_status->description?>
+                                            <?= $status ?>
                                             </td>
 
                                         </tr>
