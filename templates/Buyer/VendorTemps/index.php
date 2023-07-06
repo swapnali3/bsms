@@ -59,8 +59,8 @@
                                         <?= $status ?>
                                         <span class="badge badge-light chatload" data-toggle="modal" data-target="#modal-lg" data-placement="right" data-value="<?= $vendorTemp->id ?>" title="Chat"><i class="fas fa-comments text-info"></i></span>
                                     </td>
-                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->name) ?></td>
-                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->email) ?></td>
+                                    <td  class="tableName" redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->name) ?></td>
+                                    <td calss="tableEmail" redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->email) ?></td>
                                     <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->mobile) ?></td>
                                     <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->sap_vendor_code) ?></td>
                                     <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->city) ?></td>
@@ -82,12 +82,21 @@
 <div class="modal fade" id="modal-lg">
     <div class="modal-dialog modal-lg card card-primary card-outline direct-chat direct-chat-primary">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="display: unset;">
                 <h3 class="card-title">Onboarding Process Ticket</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <div class="d-flex">
+                    <h6 class="nameView" style="margin: 0 8px;">Abhishek</h6>
+                    <h6> and </h6>
+                    <h6 class="emailView" style="margin: 0 12px;">ay321gmail.com</h6>
+                </div>
+
+
             </div>
+
+
             <div class="modal-body">
                 <div class="direct-chat-messages" id="id_oldmsg">
                     <!-- <div class="direct-chat-msg">
@@ -163,7 +172,7 @@
     </div>
 </div>
 <script>
-  var userComm = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
-  var  userCommadd ='<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
+    var userComm = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
+    var userCommadd = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
 </script>
 <?= $this->Html->script('b_vendortemps_index') ?>

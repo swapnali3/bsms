@@ -98,6 +98,14 @@ $("#add_comm").click(function (e) {
 });
 
 $(document).on("click", ".chatload", function () {
+   var name =  $('.tableName').text();
+   var email = $('.tableEmail').text();
+
+   console.log(name+ "" +email);
+
+   $(".nameView").text(name);
+   $(".emailView").text(email);
+    
     currentchat = $(this).data("value");
     communication(currentchat);
 });

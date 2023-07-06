@@ -70,8 +70,11 @@
                     <h4 class="text-info">
                         <legend>
                             <?= __('Onboarding') ?>
-                            <button type="button" class="btn btn-outline-info btn-light chat" data-toggle="modal" data-target="#modal-lg" style="margin-left: 3em;">
-                                <i class="fas fa-comments"></i> Need help</button>
+                            <button type="button" id="needButton" class="btn btn-outline-info btn-light chat" data-toggle="modal" data-target="#modal-lg" style="margin-left: 3em;">
+                                <i class="fas fa-comments"></i> Need help
+                                <span class="badge badge-info" id="count-badge" style="transform: translate(19px, -15px);">0</span>
+                            </button>
+
                         </legend>
                     </h4>
                 </div>
@@ -325,21 +328,24 @@
 </div>
 
 <script>
+    var data;
     $(function() {
         $('.my-select').selectpicker();
     });
 
 
-    
+
     $(document).ready(function() {
         function communication() {
             $.ajax({
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>",
                 dataType: 'json',
-                success: function (response) {
+                success: function(response) {
+                    data = response;
                     var count = 0;
-                    $.each(response, function (index, row) {
+                    var counts = 0;
+                    $.each(response, function(index, row) {
                         var ndiv = '';
                         ndiv = `<div class="card card-widget">
                         <div class="card-header">
@@ -367,10 +373,18 @@
                         if (count != 1) {
                             $("#minimise" + row["id"]).trigger("click");
                         }
+
+                        var seen = row['seen'];
+                        if (seen == 0) {
+                            counts++;
+                        }
+                        $('#count-badge').text(counts);
                     });
                 },
             });
         }
+
+
 
         communication();
         $("#onbordingSubmit").validate({
@@ -496,6 +510,8 @@
         });
 
 
+
+
         $('#add_comm').click(function(e) {
             e.preventDefault(); // Prevent the default form submission
 
@@ -522,12 +538,26 @@
                         $('#communiSubmit')[0].reset();
                     } else {
 
-
-
                     }
                 }
             });
         });
 
+
+        $('#needButton').click(function() {
+            $.each(data, function(key, value) {
+                // var id = value.id
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'seen-update')); ?>/"+value.id,
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status == '1') {
+                            $('#count-badge').hide();
+                        }
+                    },
+                });
+            });
+        });
     });
 </script>
