@@ -28,6 +28,7 @@
     
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/summernote/summernote.min.css') ?>
     
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
@@ -194,13 +195,14 @@
     <!-- ./wrapper -->
     <!-- <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?> -->
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/summernote/summernote.min.js') ?>
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>
     <?= $this->Html->script('/js/common.js') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
     <script>
     $(window).on('load', function () {$('#loaderss').hide();});
-    $(function () {$('[data-toggle="tooltip"]').tooltip()})
+    $(function () {$('[data-toggle="tooltip"]').tooltip();$('#summernote').summernote({ width: 1000, }); });
     </script>
 </body>
 

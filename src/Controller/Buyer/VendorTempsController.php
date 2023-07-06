@@ -514,7 +514,7 @@ class VendorTempsController extends BuyerAppController
                 $vendor->remark = $remarks;
                 $this->VendorTemps->save($vendor);
                 $quryString = $vendor->email . '||' . $vendor->id;
-                $link = Router::url(['controller' => '../vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                $link = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
 
                 $mailer = new Mailer('default');
                 $mailer
@@ -671,7 +671,7 @@ class VendorTempsController extends BuyerAppController
                     $response['status'] = 'success';
                     $response['message'] = 'Record save successfully';
                     $quryString = $data['email'] . '||' . $VendorTemp->id;
-                    $link = Router::url(['controller' => '../vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                    $link = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
 
                     $mailer = new Mailer('default');
                     $mailer
