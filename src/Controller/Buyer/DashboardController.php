@@ -95,19 +95,12 @@ class DashboardController extends BuyerAppController
         $result = $conn->execute($query)->fetch('assoc');
         $poCompleteCount = $result['COUNT(complete)'];
 
-        // Top Vendors by order Value
-
-
         $topVendor = $conn->execute("SELECT MAX(po_footers.po_qty) AS max_qty FROM po_headers
         INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
         WHERE po_headers.sap_vendor_code = 'LARET0' GROUP By po_footers.po_header_id 
         ORDER BY po_footers.po_qty DESC LIMIT 5");
-
-
         $topVendors = $topVendor->fetchAll('assoc');
 
-
-        //print_r($topVendors);exit;
         // print_r($countComplete);exit;
 
         // $totalAsn = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();

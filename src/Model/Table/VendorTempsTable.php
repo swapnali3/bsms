@@ -97,9 +97,9 @@ class VendorTempsTable extends Table
             ->allowEmptyString('sap_vendor_code');
 
         $validator
-            ->scalar('tittle')
-            ->maxLength('tittle', 50)
-            ->allowEmptyString('tittle');
+            ->scalar('title')
+            ->maxLength('title', 50)
+            ->allowEmptyString('title');
 
         $validator
             ->scalar('name')

@@ -329,8 +329,6 @@
         $('.my-select').selectpicker();
     });
 
-
-    
     $(document).ready(function() {
         function communication() {
             $.ajax({

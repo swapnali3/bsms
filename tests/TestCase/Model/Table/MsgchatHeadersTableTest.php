@@ -25,7 +25,6 @@ class MsgchatHeadersTableTest extends TestCase
      */
     protected $fixtures = [
         'app.MsgchatHeaders',
-        'app.MsgchatFooters',
     ];
 
     /**
