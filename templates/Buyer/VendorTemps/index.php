@@ -1,13 +1,14 @@
 <?php
-
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp[]|\Cake\Collection\CollectionInterface $vendorTemps
  */
 
 ?>
+
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('b_vendortemps_index') ?>
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -50,7 +51,7 @@
                                         $status = '<span class="badge redbadge" data-toggle="tooltip" data-placement="right" title="Rejected"><i class="fas fa-user-slash"></i></span>';
                                         break;
                                     case 5:
-                                        $status = '<span class="badge dgreenbadge" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span><span class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Send Credentials"><i class="fas fa-envelope-open-text text-info"></i></span>';
+                                        $status = '<span class="badge dgreenbadge" data-toggle="tooltip" data-placement="right" id="halfapproved'.$vendorTemp->id.'" title="Approved"><i class="fas fa-user-check"></i></span><span class="badge badge-light sendcred" data-id="'.$vendorTemp->id.'" id="sendcred'.$vendorTemp->id.'" data-toggle="tooltip" data-placement="right" title="Send Credentials"><i class="fas fa-envelope-open-text text-info"></i></span>';
                                         break;
                                 }
                             ?>
@@ -79,6 +80,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="modal-lg">
     <div class="modal-dialog modal-lg card card-primary card-outline direct-chat direct-chat-primary">
         <div class="modal-content">
@@ -88,82 +90,24 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="direct-chat-messages" id="id_oldmsg">
-                    <!-- <div class="direct-chat-msg">
-                        <div class="direct-chat-infos clearfix">
-                            <span class="direct-chat-name float-left">Alexander Pierce</span>
-                            <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
-                        </div>
-                        <img class="direct-chat-img" src="..\..\..\img\U.png" alt="Message User Image">
-                        <div class="direct-chat-text">
-                            Is this template really for free? That's unbelievable!
-                        </div>
-                    </div>
-
-                    <div class="direct-chat-msg right">
-                        <div class="direct-chat-infos clearfix">
-                            <span class="direct-chat-name float-right">Sarah Bullock</span>
-                            <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
-                        </div>
-                        <img class="direct-chat-img" src="..\..\..\img\U.png" alt="Message User Image">
-                        <div class="direct-chat-text">
-                            You better believe it!
-                        </div>
-                    </div> -->
-
-
-                    <!-- <div class="card card-widget">
-                        <div class="card-header">
-                            <div class="user-block">
-                                <img class="img-circle" src="..\..\..\img\U.png" alt="User Image">
-                                <span class="username">Jonathan Burke Jr</span>
-                                <span class="description">7:30 PM Today</span>
-                            </div>
-                      
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" title="Mark as read">
-                                    <i class="far fa-circle"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                  
-                        <div class="card-body" style="display: block;margin: 6px 24px;">
-                            <p>I took this photo this morning. What do you guys think?</p>
-                        </div>
-                       
-
-                    </div> -->
-                </div>
-            </div>
+            <div class="modal-body"><div class="direct-chat-messages" id="id_oldmsg"></div></div>
+            
             <div class="modal-footer">
-
                 <?= $this->Form->create($vendorTemp, ['id' => 'communiSubmit', 'style' => 'width:100%']) ?>
-
-
-
                 <div class="input-group">
                     <input type="text" name="message" placeholder="Message ..." class="form-control">
-                    <span class="input-group-append">
-                        <button type="submit" id="add_comm" class="btn btn-primary">Send</button>
-                    </span>
+                    <span class="input-group-append"> <button type="submit" id="add_comm" class="btn btn-primary">Send</button></span>
                 </div>
-
                 <?= $this->Form->end() ?>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 <script>
   var userComm = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
-  var  userCommadd ='<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
+  var userCommadd ='<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
+  var sendmemail = '<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>';
 </script>
 <?= $this->Html->script('b_vendortemps_index') ?>

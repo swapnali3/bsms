@@ -101,3 +101,18 @@ $(document).on("click", ".chatload", function () {
     currentchat = $(this).data("value");
     communication(currentchat);
 });
+
+$(document).on("click", ".sendcred", function () {
+    var userid = $(this).data('id');
+    $.ajax({
+        type: "GET",
+        url: sendmemail + "/" + userid,
+        dataType: 'json',
+        success: function (r) {
+            if (r.status) {
+                $("#sendcred" + userid).remove();
+                $("#halfapproved" + userid).attr('class', 'badge lgreenbadge');
+            } // else { Toast('warning', r.message); }
+        }
+    });
+});
