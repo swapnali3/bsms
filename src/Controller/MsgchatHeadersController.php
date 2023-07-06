@@ -115,6 +115,26 @@ class MsgchatHeadersController extends AppController
     }
 
 
+    public function seenUpdate($id = null)
+    {
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = '';
+
+        // $id= "1";
+
+        $this->loadModel('MsgchatFooters');
+        $this->MsgchatFooters->updateAll(['seen' => 1], ['id' => $id]);
+
+        $response['status'] = 1;
+        $response['message'] = 'seen messsage';
+
+        echo json_encode($response);
+        exit();
+    }
+
+
+
     /**
      * Edit method
      *

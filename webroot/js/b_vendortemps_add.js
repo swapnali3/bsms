@@ -26,12 +26,20 @@ $.validator.setDefaults({
               icon: 'success',
               title: response.message
             });
-            setTimeout(function(){ window.location.reload(); }, 2000);
+            setTimeout(function(){ window.location.reload(); }, 1000);
           } else {
             Toast.fire({
               icon: 'error',
               title: response.message
             });
+
+            /*if(response.data) {
+              $("#exist_vendor_list tbody").html('');
+              $.each(response.data, function( index, value ) {
+                console.log(value);
+                $("#exist_vendor_list tbody").append("<tr><td>"+value.title+"</td><td>"+value.name+"</td><td>"+value.mobile+"</td><td>"+value.email+"</td><td>"+value.purchasing_organization_id+"</td><td>"+value.status+"</td></tr>");
+              });
+            } */
           }
         }
       });

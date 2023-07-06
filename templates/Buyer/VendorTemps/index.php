@@ -58,10 +58,10 @@
                                 <tr>
                                     <td>
                                         <?= $status ?>
-                                        <span class="badge badge-light chatload" data-toggle="modal" data-target="#modal-lg" data-placement="right" data-value="<?= $vendorTemp->id ?>" title="Chat"><i class="fas fa-comments text-info"></i></span>
+                                        <span class="badge badge-light chatload" data-name="<?= h($vendorTemp->name) ?>"  data-toggle="modal" data-target="#modal-lg" data-placement="right" data-value="<?= $vendorTemp->id ?>" title="Chat"><i class="fas fa-comments text-info"></i></span>
                                     </td>
-                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->name) ?></td>
-                                    <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->email) ?></td>
+                                    <td  class="tableName" redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->name) ?></td>
+                                    <td calss="tableEmail" redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->email) ?></td>
                                     <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->mobile) ?></td>
                                     <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->sap_vendor_code) ?></td>
                                     <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->city) ?></td>
@@ -82,21 +82,41 @@
 </div>
 
 <div class="modal fade" id="modal-lg">
-    <div class="modal-dialog modal-lg card card-primary card-outline direct-chat direct-chat-primary">
+    <div class="modal-dialog modal-xl card card-primary card-outline direct-chat direct-chat-primary">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="card-title">Onboarding Process Ticket</h3>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <div class="row" style="width: 100%;">
+                    <div class="col-4">
+                        <h3 class="card-title"> <span class="text-info" id="id_chatuser"></span></h3>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="card-title text-center">Onboarding Process Ticket </h3>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body"><div class="direct-chat-messages" id="id_oldmsg"></div></div>
-            
+            <div class="modal-body" style="max-height: 65vh; min-height: 65vh; overflow-y: scroll;">
+                <div class="direct-chat-messages" id="id_oldmsg" style="height:auto;">
+                </div>
+            </div>
             <div class="modal-footer">
                 <?= $this->Form->create($vendorTemp, ['id' => 'communiSubmit', 'style' => 'width:100%']) ?>
-                <div class="input-group">
-                    <input type="text" name="message" placeholder="Message ..." class="form-control">
-                    <span class="input-group-append"> <button type="submit" id="add_comm" class="btn btn-primary">Send</button></span>
+                <div class="row">
+                    <div class="col-sm-12 col-md-11 col-lg-11">
+                        <div class="input-group">
+                            <input type="hidden" name="app_id" value="<?= h($vendorTemp->id) ?>">
+                            <textarea id="summernote" name="message" placeholder="Message ..."></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-1 col-lg-1">
+                        <span class="input-group-append mt-3">
+                            <button type="submit" id="add_comm" class="btn btn-primary">Send</button>
+                        </span>
+                    </div>
                 </div>
                 <?= $this->Form->end() ?>
                 </form>
@@ -106,8 +126,8 @@
 </div>
 
 <script>
-  var userComm = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
-  var userCommadd ='<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
-  var sendmemail = '<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>';
+    var userComm = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
+    var userCommadd = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
 </script>
+
 <?= $this->Html->script('b_vendortemps_index') ?>

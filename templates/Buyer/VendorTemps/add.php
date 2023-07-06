@@ -25,7 +25,7 @@
                         <div class="col-sm-12 col-md-3 col-lg-1 mb-3">
                             <div class="form-group">
                                 <?php
-                                echo $this->Form->control('tittle', [
+                                echo $this->Form->control('title', [
                                     'class' => 'form-control',
                                     'label' => 'Title',
                                     'options' => [
@@ -55,7 +55,7 @@
                             <div class="form-group">
                                 <?php echo $this->Form->control('country_code', array('label' => 'Code','class' => 'form-control tel numberonly', 'type' => 'tel', 'value' => '+91', 'readonly' =>'readonly')); ?>
                             </div>
-                            </div>
+                        </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                             <div class="form-group">
                                 <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
@@ -99,6 +99,67 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-12">
+            <?= $this->Form->create(null, ['type' => 'file']); ?>
+            <div class="card mx-2">
+                <div class="card-header p-3">
+                    <h5 style="color:darkblue;">
+                        Recently Added Vendor
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover dataTable no-footer" id="example1">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Name</th>
+                                            <th>Mobile</th>
+                                            <th>Email</th>
+                                            <th>Purchasing Organization</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($latestVendors as $vendor) : 
+                                                //echo '<pre>';print_r($vendor); exit;
+                                                ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $vendor->title?>
+                                            </td>
+                                            <td>
+                                                <?php echo $vendor->name?>
+                                            </td>
+                                            <td>
+                                                <?php echo $vendor->mobile?>
+                                            </td>
+                                            <td>
+                                                <?php echo $vendor->email?>
+                                            </td>
+                                            <td>
+                                                <?php echo $vendor->purchasing_organization->name?>
+                                            </td>
+                                            <td>
+                                                <?php echo $vendor->vendor_status->description?>
+                                            </td>
+
+                                        </tr>
+                                        <?php endforeach; ?>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?= $this->Form->end() ?>
+        </div>
+
         <div class="col-12" style="display: none;">
             <?= $this->Form->create(null, ['type' => 'file']); ?>
             <div class="card mx-2">
@@ -125,70 +186,74 @@
                         </div>
                         <div class="col-12 pt-2">
                             <i style="color: black;">
-                                <a href="<?= $this->Url->build('/') ?>webroot/templates/vendor_import_template.xlsx" target="_blank" rel="noopener noreferrer">Sample_Excel_Template.xlsx</a>
+                                <a href="<?= $this->Url->build('/') ?>webroot/templates/vendor_import_template.xlsx"
+                                    target="_blank" rel="noopener noreferrer">Sample_Excel_Template.xlsx</a>
                             </i>
                         </div>
                     </div>
                     <?php if (isset($results)) : ?>
-                        <div class="row py-0">
-                            <div class="col-12">
-                                <div class="table-responsive">
-                                    <table class="table table-hover dataTable no-footer" id="example1">
-                                        <thead>
-                                            <tr style="color: white;">
-                                                <td>Name</td>
-                                                <td>Mobile</td>
-                                                <td>Email</td>
-                                                <td>Payment Terms</td>
-                                                <td>Purchase Organization</td>
-                                                <td>Account Group</td>
-                                                <td>Schema Group</td>
-                                                <td>Status</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php foreach ($results as $row) : ?>
-                                                <tr>
-                                                    <td>
-                                                        <?= h($row["data"][1]) ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= h($row["data"][2]) ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= h($row["data"][3]) ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= h($row["data"][4]) ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= h($row["data"][5]) ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= h($row["data"][6]) ?>
-                                                    </td>
-                                                    <td>
-                                                        <?= h($row["data"][7]) ?>
-                                                    </td>
-                                                    <?php if ($row['status']) : ?>
-                                                        <td class="text-success">
-                                                            <?= h($row['msg']) ?>
-                                                        </td>
-                                                    <?php else : ?>
-                                                        <td class="text-danger">
-                                                            <b><?= h($row['msg']) ?></b>
-                                                        </td>
-                                                    <?php endif; ?>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                    <div class="row py-0">
+                        <div class="col-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover dataTable no-footer" id="example1">
+                                    <thead>
+                                        <tr style="color: white;">
+                                            <td>Name</td>
+                                            <td>Mobile</td>
+                                            <td>Email</td>
+                                            <td>Payment Terms</td>
+                                            <td>Purchase Organization</td>
+                                            <td>Account Group</td>
+                                            <td>Schema Group</td>
+                                            <td>Status</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($results as $row) : ?>
+                                        <tr>
+                                            <td>
+                                                <?= h($row["data"][1]) ?>
+                                            </td>
+                                            <td>
+                                                <?= h($row["data"][2]) ?>
+                                            </td>
+                                            <td>
+                                                <?= h($row["data"][3]) ?>
+                                            </td>
+                                            <td>
+                                                <?= h($row["data"][4]) ?>
+                                            </td>
+                                            <td>
+                                                <?= h($row["data"][5]) ?>
+                                            </td>
+                                            <td>
+                                                <?= h($row["data"][6]) ?>
+                                            </td>
+                                            <td>
+                                                <?= h($row["data"][7]) ?>
+                                            </td>
+                                            <?php if ($row['status']) : ?>
+                                            <td class="text-success">
+                                                <?= h($row['msg']) ?>
+                                            </td>
+                                            <?php else : ?>
+                                            <td class="text-danger">
+                                                <b>
+                                                    <?= h($row['msg']) ?>
+                                                </b>
+                                            </td>
+                                            <?php endif; ?>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
+                    </div>
                     <?php endif; ?>
                 </div>
-                <div class="card-footer">Note<span class="text-danger">*</span> : <i>Imported Vendor's will receive credentials on mail</i></div>
+                <div class="card-footer">Note<span class="text-danger">*</span> : <i>Imported Vendor's will receive
+                        credentials on mail</i></div>
             </div>
             <?= $this->Form->end() ?>
         </div>
