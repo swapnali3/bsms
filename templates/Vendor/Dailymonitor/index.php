@@ -4,53 +4,42 @@
  * @var iterable<\App\Model\Entity\Dailymonitor> $dailymonitor
  */
 ?>
-<div class="dailymonitor index content">
-    <?= $this->Html->link(__('New Dailymonitor'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Dailymonitor') ?></h3>
-    <div class="table-responsive">
-        <table>
+</style>
+<?= $this->Html->css('custom') ?>
+<div class="card">
+    <div class="card-header pb-1 pt-2">
+        <div class="row">
+            <div class="col-lg-6 d-flex justify-content-start">
+                <h5>Daily Monitor</h5>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-end text-align-end">
+            <a href="<?= $this->Url->build('/') ?>vendor/dailymonitor/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Monitor</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-header p-0 mb-0 mt-3 ml-3 mr-3" id="id_pohead">
+        <table class="table table-bordered material-list">
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('vendor_id') ?></th>
-                    <th><?= $this->Paginator->sort('productionline_id') ?></th>
-                    <th><?= $this->Paginator->sort('target_production') ?></th>
-                    <th><?= $this->Paginator->sort('confirm_production') ?></th>
-                    <th><?= $this->Paginator->sort('status') ?></th>
-                    <th><?= $this->Paginator->sort('added_date') ?></th>
-                    <th><?= $this->Paginator->sort('updated_date') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th>Target Production</th>
+                    <th>Confirm Production</th>
+                    <th>Added Date</th>
+                    <th>Update Date</th>
+                    <th>status</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($dailymonitor as $dailymonitor): ?>
+            <?php foreach ($dailymonitor as $dailymonitors) : ?>
                 <tr>
-                    <td><?= $this->Number->format($dailymonitor->id) ?></td>
-                    <td><?= $dailymonitor->vendor_id === null ? '' : $this->Number->format($dailymonitor->vendor_id) ?></td>
-                    <td><?= $dailymonitor->productionline_id === null ? '' : $this->Number->format($dailymonitor->productionline_id) ?></td>
-                    <td><?= $dailymonitor->target_production === null ? '' : $this->Number->format($dailymonitor->target_production) ?></td>
-                    <td><?= $dailymonitor->confirm_production === null ? '' : $this->Number->format($dailymonitor->confirm_production) ?></td>
-                    <td><?= $dailymonitor->status === null ? '' : $this->Number->format($dailymonitor->status) ?></td>
-                    <td><?= h($dailymonitor->added_date) ?></td>
-                    <td><?= h($dailymonitor->updated_date) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $dailymonitor->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $dailymonitor->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $dailymonitor->id], ['confirm' => __('Are you sure you want to delete # {0}?', $dailymonitor->id)]) ?>
-                    </td>
+                <td><?= h($dailymonitors->target_production) ?></td>
+                <td><?= h($dailymonitors->confirm_production) ?></td>
+                <td><?= h($dailymonitors->updated_date) ?></td>
+                <td><?= h($dailymonitors->added_date) ?></td>
+                <td><?= $dailymonitors->status == 0 ? '<span class="badge bg-success">On Insert</span>' : ($dailymonitors->status == 1 ? '<span class="badge bg-info">confirm production</span>' : '<span class="badge bg-info">confirm modified</span>') ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>

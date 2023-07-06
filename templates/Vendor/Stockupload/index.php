@@ -1,52 +1,44 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Stockupload> $stockupload
  */
 ?>
-<div class="stockupload index content">
-    <?= $this->Html->link(__('New Stockupload'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Stockupload') ?></h3>
-    <div class="table-responsive">
-        <table>
+</style>
+<?= $this->Html->css('custom') ?>
+<div class="card">
+    <div class="card-header pb-1 pt-2">
+        <div class="row">
+            <div class="col-lg-6 d-flex justify-content-start">
+                <h5>Stock Upload</h5>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-end text-align-end">
+            <a href="<?= $this->Url->build('/') ?>vendor/stockupload/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Stock</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-header p-0 mb-0 mt-3 ml-3 mr-3" id="id_pohead">
+        <table class="table table-bordered material-list">
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('opening_stock') ?></th>
-                    <th><?= $this->Paginator->sort('vendor_material_id') ?></th>
-                    <th><?= $this->Paginator->sort('vendor_id') ?></th>
-                    <th><?= $this->Paginator->sort('added_date') ?></th>
-                    <th><?= $this->Paginator->sort('updated_date') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th>Opening Stock</th>
+                    <th>Vendor Material Id</th>
+                    <th>Added Date</th>
+                    <th>Update Date</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($stockupload as $stockupload): ?>
-                <tr>
-                    <td><?= $this->Number->format($stockupload->id) ?></td>
-                    <td><?= $this->Number->format($stockupload->opening_stock) ?></td>
-                    <td><?= $this->Number->format($stockupload->vendor_material_id) ?></td>
-                    <td><?= $this->Number->format($stockupload->vendor_id) ?></td>
-                    <td><?= h($stockupload->added_date) ?></td>
-                    <td><?= h($stockupload->updated_date) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $stockupload->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $stockupload->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $stockupload->id], ['confirm' => __('Are you sure you want to delete # {0}?', $stockupload->id)]) ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
+                <?php foreach ($stockupload as $stockuploads) : ?>
+                    <tr>
+                        <td><?= h($stockuploads->opening_stock) ?></td>
+                        <td><?= h($stockuploads->vendor_material_id) ?></td>
+                        <td><?= h($stockuploads->added_date->format('d-m-Y')) ?></td>
+                        <td><?= h($stockuploads->updated_date->format('d-m-Y')) ?></td>
+                    </tr>
             </tbody>
+        <?php endforeach; ?>
         </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>

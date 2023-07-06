@@ -18,7 +18,11 @@ class ProductionlineController extends VendorAppController
      */
     public function index()
     {
-        $productionline = $this->paginate($this->Productionline);
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
+        $productionline = $this->paginate($this->Productionline->find('all', [
+            'conditions' => ['Productionline.vendor_id' => $vendorId]
+        ]));
 
         $this->set(compact('productionline'));
     }
@@ -47,8 +51,14 @@ class ProductionlineController extends VendorAppController
     public function add()
     {
         $productionline = $this->Productionline->newEmptyEntity();
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
         if ($this->request->is('post')) {
-            $productionline = $this->Productionline->patchEntity($productionline, $this->request->getData());
+            $requestData = $this->request->getData();
+            $requestData['vendor_id'] = $vendorId;
+            $requestData['vendormaterial_id'] = "1";
+            $requestData['status'] = 0;
+            $productionline = $this->Productionline->patchEntity($productionline, $requestData);
             if ($this->Productionline->save($productionline)) {
                 $this->Flash->success(__('The productionline has been saved.'));
 

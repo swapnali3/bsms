@@ -1,56 +1,46 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Productionline> $productionline
  */
 ?>
-<div class="productionline index content">
-    <?= $this->Html->link(__('New Productionline'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Productionline') ?></h3>
-    <div class="table-responsive">
-        <table>
+</style>
+<?= $this->Html->css('custom') ?>
+<div class="card">
+    <div class="card-header pb-1 pt-2">
+        <div class="row">
+            <div class="col-lg-6 d-flex justify-content-start">
+                <h5>Production Line</h5>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-end text-align-end">
+                <a href="<?= $this->Url->build('/') ?>vendor/productionline/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Producation</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-header p-0 mb-0 mt-3 ml-3 mr-3" id="id_pohead">
+        <table class="table table-bordered material-list">
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('vendor_id') ?></th>
-                    <th><?= $this->Paginator->sort('vendormaterial_id') ?></th>
-                    <th><?= $this->Paginator->sort('prdline_description') ?></th>
-                    <th><?= $this->Paginator->sort('prdline_capacity') ?></th>
-                    <th><?= $this->Paginator->sort('status') ?></th>
-                    <th><?= $this->Paginator->sort('added_date') ?></th>
-                    <th><?= $this->Paginator->sort('updated_date') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th>Description</th>
+                    <th>Prod Line Capacity</th>
+                    <th>Added Date</th>
+                    <th>Update Date</th>
+                    <th>status</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($productionline as $productionline): ?>
-                <tr>
-                    <td><?= $this->Number->format($productionline->id) ?></td>
-                    <td><?= $this->Number->format($productionline->vendor_id) ?></td>
-                    <td><?= $this->Number->format($productionline->vendormaterial_id) ?></td>
-                    <td><?= h($productionline->prdline_description) ?></td>
-                    <td><?= $this->Number->format($productionline->prdline_capacity) ?></td>
-                    <td><?= $productionline->status === null ? '' : $this->Number->format($productionline->status) ?></td>
-                    <td><?= h($productionline->added_date) ?></td>
-                    <td><?= h($productionline->updated_date) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $productionline->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $productionline->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $productionline->id], ['confirm' => __('Are you sure you want to delete # {0}?', $productionline->id)]) ?>
-                    </td>
-                </tr>
+                <?php foreach ($productionline as $productionlines) : ?>
+                    <tr>
+                    <td><?= h($productionlines->prdline_description) ?></td>
+                    <td><?= h($productionlines->prdline_capacity) ?></td>
+                    <td><?= h($productionlines->added_date->format('d-m-Y')) ?></td>
+                    <td><?= h($productionlines->updated_date->format('d-m-Y')) ?></td>      
+                    <td><?= $productionlines->status == 1 ? '<span class="badge bg-success">Approved</span>' : ($productionlines->status == 0 ? '<span class="badge bg-info">Pending for Approval</span>' : '<span class="badge bg-info">Rejected</span>') ?></td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
