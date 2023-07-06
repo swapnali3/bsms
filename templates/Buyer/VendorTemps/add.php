@@ -25,7 +25,7 @@
                         <div class="col-sm-12 col-md-3 col-lg-1 mb-3">
                             <div class="form-group">
                                 <?php
-                                echo $this->Form->control('tittle', [
+                                echo $this->Form->control('title', [
                                     'class' => 'form-control',
                                     'label' => 'Title',
                                     'options' => [
@@ -99,6 +99,41 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-12">
+            <?= $this->Form->create(null, ['type' => 'file']); ?>
+            <div class="card mx-2">
+                <div class="card-header p-3">
+                    <h5 style="color:darkblue;">
+                        Vendors already exists
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                            <div class="col-12">
+                    <div class="table-responsive">
+                                    <table class="table table-hover dataTable no-footer" id="exist_vendor_list">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Name</th>
+                                                <th>Mobile</th>
+                                                <th>Email</th>
+                                                <th>Purchasing Organization</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
+                </div>
+            </div>
+            <?= $this->Form->end() ?>
+        </div>
+
         <div class="col-12" style="display: none;">
             <?= $this->Form->create(null, ['type' => 'file']); ?>
             <div class="card mx-2">

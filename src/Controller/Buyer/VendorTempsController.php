@@ -626,6 +626,7 @@ class VendorTempsController extends BuyerAppController
         $response['message'] = '';
         $this->autoRender = false;
         $this->loadModel("VendorTemps");
+        $this->loadModel("VendorTemps");
         $this->loadModel("Notifications");
         // echo '<pre>'; print_r($this->request->getData()); exit;
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -635,8 +636,22 @@ class VendorTempsController extends BuyerAppController
                 $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
                 $data['valid_date'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +1 day'));
                 $VendorTemp = $this->VendorTemps->patchEntity($VendorTemp, $data);
+
+                $result = $this->VendorTemps->find('all')
+                ->select(['title','name', 'mobile', 'email','purchasing_organization_id', 'status'])
+                ->where([
+                    'OR' => [
+                        ['name' => $data['name']],
+                        ['mobile' => $data['mobile']],
+                        ['email' => $data['email']],
+                    ]
+                    ])->toArray();
+
                 $response['status'] = 'fail';
-                if ($this->VendorTemps->exists(['VendorTemps.mobile' => $data['mobile']])) {
+                if(count($result)) {
+                    $response['message'] = 'Vendor exists';
+                    $response['data'] = $result;
+                }else if ($this->VendorTemps->exists(['VendorTemps.mobile' => $data['mobile']])) {
                     $response['message'] = 'Mobile Number Exist';
                 } else if ($this->VendorTemps->exists(['VendorTemps.email' => $data['email']])) {
                     $response['message'] = 'Email ID Exist';
