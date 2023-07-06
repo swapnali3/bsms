@@ -335,31 +335,38 @@
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>",
                 dataType: 'json',
-                success: function(response) {
-                    $.each(response, function(index, row) {
+                success: function (response) {
+                    var count = 0;
+                    $.each(response, function (index, row) {
                         var ndiv = '';
-                        if (row['group_id'] == '1') {
-                            ndiv = `<div class="direct-chat-msg">
-                                <div class="direct-chat-infos clearfix">
-                                    <span class="direct-chat-name float-left">` + row['fullname'] + `</span>
-                                    <span class="direct-chat-timestamp float-right">` + row['updateddate'] + `</span>
-                                </div>
-                                <img class="direct-chat-img" src="..\\..\\..\\img\\U.png" alt="Message User Image">
-                                <div class="direct-chat-text">` + row['message'] + `</div>
-                            </div>`;
-                        } else {
-                            ndiv = `<div class="direct-chat-msg right">
-                            <div class="direct-chat-infos clearfix">
-                                <span class="direct-chat-name float-right">` + row['fullname'] + `</span>
-                                <span class="direct-chat-timestamp float-left">` + row['updateddate'] + `</span>
+                        ndiv = `<div class="card card-widget">
+                        <div class="card-header">
+                            <div class="user-block">
+                                <img class="img-circle" src="..\\..\\..\\img\\U.png" alt="User Image">
+                                <span class="username">` + row['fullname'] + `</span>
+                                <span class="description">` + row['updateddate'] + `</span>
                             </div>
-                            <img class="direct-chat-img" src="..\\..\\..\\img\\U.png" alt="Message User Image">
-                            <div class="direct-chat-text">` + row['message'] + `</div>
-                        </div>`;
-                        }
+                      
+                            <div class="card-tools">
+                           
+                                <button type="button" class="btn btn-tool" id="minimise` + row['id'] + `" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>         
+                            </div>
+                        </div>
+                        <div class="card-body" style="display: block;margin: 6px 24px;">
+                            <p>` + row['message'] + `</p>
+                        </div>
+
+                    </div>`;
+
                         $("#id_oldmsg").append(ndiv);
+                        count++;
+                        if (count != 1) {
+                            $("#minimise" + row["id"]).trigger("click");
+                        }
                     });
-                }
+                },
             });
         }
 
