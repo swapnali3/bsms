@@ -491,8 +491,7 @@
                     if (response.status == '1') {
                         $('#id_oldmsg').empty();
                         communication();
-
-                        $('#communiSubmit')[0].reset();
+                        $('#summernote').summernote('reset');
                     } else {
 
                     }
