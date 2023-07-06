@@ -6,7 +6,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * MsgchatHeader Entity
+ * MsgchatFooter Entity
  *
  * @property int $id
  * @property string $table_name
@@ -14,10 +14,8 @@ use Cake\ORM\Entity;
  * @property string $subject
  * @property \Cake\I18n\FrozenTime|null $addeddate
  * @property \Cake\I18n\FrozenTime|null $updateddate
- *
- * @property \App\Model\Entity\MsgchatFooter[] $msgchat_footers
  */
-class MsgchatHeader extends Entity
+class MsgchatFooter extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -29,11 +27,12 @@ class MsgchatHeader extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'table_name' => true,
-        'table_pk' => true,
-        'subject' => true,
+        'msgchat_header_id' => true,
+        'group_id' => true,
+        'sender_id' => true,
+        'message' => true,
+        'seen' => true,
         'addeddate' => true,
-        'updateddate' => true,
-        'msgchat_footers' => true,
+        'updateddate' => true
     ];
 }

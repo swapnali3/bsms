@@ -179,6 +179,74 @@ class PurchaseOrdersController extends VendorAppController
         echo json_encode($response);
     }
 
+
+    public function poDetails($id =null)
+    {
+        $response = array();
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->loadModel('PoHeaders');
+
+        //$data = $this->PoFooters->find('all', ['conditions' => ['po_header_id' => $id]]);
+        
+        $poHeader = $this->PoHeaders->get($id, [
+            'contain' => [],
+        ]); 
+        
+
+        $html = '';
+        if ($poHeader) {
+            $html .= '<table class="table table-bordered material-list">
+            <thead>
+                <tr>   
+                <th>Sap Vendor Code</th>
+                <th>Po No</th>
+                <th>Document Type</th>
+                <th>Created By</th>
+                <th>Pay Terms</th>
+                <th>Exchange Rate</th>
+                <th>Added Date</th>
+                </tr>
+            </thead>
+            <tbody>';
+           
+            // print_r($row); exit;
+       
+                $html .= '<tr>
+                 <td>' . $poHeader['sap_vendor_code'] . '</td>
+                 <td>' . $poHeader['po_no'] . '</td>
+                 <td>' . $poHeader['document_type'] . '</td>
+                 <td>' . $poHeader['created_on'] . '</td>
+                 <td>' . $poHeader['pay_terms'] . '</td>
+                 <td>' . $poHeader['exchange_rate'] . '</td>
+                 <td>' . $poHeader['added_date'] . '</td>
+                 
+                </tr>';
+            
+
+            $html .= "</tbody>
+            </table>";
+
+            $response['status'] = 'success';
+            $response['message'] = 'success';
+            $response['html'] = $html;
+        } else {
+            $response['status'] = 'fail';
+            $response['message'] = 'Material not found';
+        }
+
+
+        // echo '<pre>';
+        // print_r($html);
+        // exit;
+
+       // header('Content-Type: application/json');
+        echo json_encode($response);
+    }
+
+
     public function createAsn()
     {
         $this->set('headTitle', 'Create ASN');

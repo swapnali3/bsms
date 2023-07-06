@@ -9,9 +9,7 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * MsgchatHeaders Model
- *
- * @property \App\Model\Table\MsgchatFootersTable&\Cake\ORM\Association\HasMany $MsgchatFooters
+ * MsgchatFooters Model
  *
  * @method \App\Model\Entity\MsgchatHeader newEmptyEntity()
  * @method \App\Model\Entity\MsgchatHeader newEntity(array $data, array $options = [])
@@ -27,7 +25,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\MsgchatHeader[]|\Cake\Datasource\ResultSetInterface|false deleteMany(iterable $entities, $options = [])
  * @method \App\Model\Entity\MsgchatHeader[]|\Cake\Datasource\ResultSetInterface deleteManyOrFail(iterable $entities, $options = [])
  */
-class MsgchatHeadersTable extends Table
+class MsgchatFootersTable extends Table
 {
     /**
      * Initialize method
@@ -39,13 +37,9 @@ class MsgchatHeadersTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('msgchat_headers');
+        $this->setTable('msgchat_footers');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
-
-        $this->hasMany('MsgchatFooters', [
-            'foreignKey' => 'msgchat_header_id',
-        ]);
     }
 
     /**
@@ -57,20 +51,30 @@ class MsgchatHeadersTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->scalar('table_name')
-            ->maxLength('table_name', 250)
-            ->requirePresence('table_name', 'create')
-            ->notEmptyString('table_name');
+            ->scalar('msgchat_header_id')
+            ->maxLength('msgchat_header_id', 250)
+            ->requirePresence('msgchat_header_id', 'create')
+            ->notEmptyString('msgchat_header_id');
 
         $validator
-            ->integer('table_pk')
-            ->requirePresence('table_pk', 'create')
-            ->notEmptyString('table_pk');
+            ->integer('group_id')
+            ->requirePresence('group_id', 'create')
+            ->notEmptyString('group_id');
 
         $validator
-            ->scalar('subject')
-            ->requirePresence('subject', 'create')
-            ->notEmptyString('subject');
+            ->scalar('sender_id')
+            ->requirePresence('sender_id', 'create')
+            ->notEmptyString('sender_id');
+
+        $validator
+            ->scalar('message')
+            ->requirePresence('message', 'create')
+            ->notEmptyString('message');
+
+        $validator
+            ->scalar('seen')
+            ->requirePresence('seen', 'create')
+            ->notEmptyString('seen');
 
         $validator
             ->dateTime('addeddate')

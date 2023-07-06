@@ -95,9 +95,13 @@ class DashboardController extends BuyerAppController
         $result = $conn->execute($query)->fetch('assoc');
         $poCompleteCount = $result['COUNT(complete)'];
 
-        
+        $topVendor = $conn->execute("SELECT MAX(po_footers.po_qty) AS max_qty FROM po_headers
+        INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
+        WHERE po_headers.sap_vendor_code = 'LARET0' GROUP By po_footers.po_header_id 
+        ORDER BY po_footers.po_qty DESC LIMIT 5");
+        $topVendors = $topVendor->fetchAll('assoc');
 
-       // print_r($countComplete);exit;
+        // print_r($countComplete);exit;
 
         // $totalAsn = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();
 
@@ -126,7 +130,7 @@ class DashboardController extends BuyerAppController
 
         // echo $totalVendorTemps;exit;
 
-        $this->set(compact('totalVendorOnboarding', 'totalVendorApproved', 'totalSentSap', 'totalPos', 'totalAsnCreated', 'totalAsnIntransit', 'totalAsnReceived','poCompleteCount'));
+        $this->set(compact('totalVendorOnboarding', 'totalVendorApproved', 'totalSentSap', 'totalPos', 'totalAsnCreated', 'totalAsnIntransit', 'totalAsnReceived', 'poCompleteCount', 'topVendors'));
     }
 
     public function oldindex()

@@ -5,12 +5,12 @@ namespace App\Controller;
 use Cake\Datasource\ConnectionManager;
 
 /**
- * MsgchatHeaders Controller
+ * MsgchatFooters Controller
  *
- * @property \App\Model\Table\MsgchatHeadersTable $MsgchatHeaders
+ * @property \App\Model\Table\MsgchatFootersTable $MsgchatFooters
  * @method \App\Model\Entity\MsgchatHeader[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class MsgchatHeadersController extends AppController
+class MsgchatFootersController extends AppController
 {
     /**
      * Index method
@@ -19,7 +19,7 @@ class MsgchatHeadersController extends AppController
      */
     public function index($app=null, $app_id=null)
     {
-        // echo '<pre>';print_r($app);exit;
+        echo '<pre>';print_r($app);exit;
         $conn = ConnectionManager::get('default');
         $query = "SELECT mf.id, mh.table_name, mh.table_pk, mh.subject, mf.msgchat_header_id, mf.group_id,
         case when mf.group_id = 1 then concat(u.first_name,' ',u.last_name) else vt.name end as fullname, mf.message, mf.seen, mf.addeddate, mf.updateddate
@@ -40,7 +40,7 @@ class MsgchatHeadersController extends AppController
      */
     public function view($id = null)
     {
-        $msgchatHeader = $this->MsgchatHeaders->get($id, [
+        $msgchatHeader = $this->MsgchatFooters->get($id, [
             'contain' => [],
         ]);
 
@@ -54,66 +54,18 @@ class MsgchatHeadersController extends AppController
      */
     public function add()
     {
+        $msgchatHeader = $this->MsgchatFooters->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $msgchatHeader = $this->MsgchatFooters->patchEntity($msgchatHeader, $this->request->getData());
+            if ($this->MsgchatFooters->save($msgchatHeader)) {
+                $this->Flash->success(__('The msgchat header has been saved.'));
 
-        $headerStatus = true;
-        $response = ['status' => 0, 'message' => ''];
-        // $response['status'] = 0;
-        // $response['message'] = '';
-        $this->autoRender = false;
-
-        $this->loadModel("MsgchatFooters");
-        $this->loadModel("MsgchatHeaders");
-
-        $MsgchatFooter = $this->MsgchatFooters->newEmptyEntity();
-
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $data = $this->request->getData();
-            $app_id = $data['app_id'];
-
-            $msgchatHeader = $this->MsgchatHeaders->find()->where(['table_pk' => $app_id, 'table_name'=> $data['table_name']])->first();
-            // print_r($msgchatHeader->id);exit;
-
-            if (!$msgchatHeader) {
-                $msgchatHeader = $this->MsgchatHeaders->newEmptyEntity();
-                $msgchatHeader->table_name = $data['table_name'];
-                $msgchatHeader->table_pk = $data['app_id'];
-                $msgchatHeader->subject = "Onboarding Process Ticket";
-
-                if ($this->MsgchatHeaders->save($msgchatHeader)) {
-                    $response['status'] = '1';
-                    $response['message'] = 'success';
-                } else {
-                    $response['status'] = '0';
-                    $response['message'] = 'failed';
-                    $headerStatus = false;
-                }
+                return $this->redirect(['action' => 'index']);
             }
-            if ($headerStatus) {
-                $msgFooter = array();
-                $msgFooter['msgchat_header_id'] = $msgchatHeader->id;
-                $msgFooter['group_id'] = "2";
-                $msgFooter['sender_id'] = $data['app_id'];
-                $msgFooter['message'] = $data['message'];
-                $msgFooter['seen'] = "0";
-
-                $MsgchatFooter = $this->MsgchatFooters->patchEntity($MsgchatFooter, $msgFooter);
-                if ($this->MsgchatFooters->save($MsgchatFooter)) {
-                    $response['status'] = '1';
-                    $response['message'] = 'success';
-                } else {
-                    $response['status'] = '0';
-                    $response['message'] = 'failed';
-                }
-            }
-            
-        } else {
-            $response['status'] = '0';
-            $response['message'] = 'Invalid request.';
+            $this->Flash->error(__('The msgchat header could not be saved. Please, try again.'));
         }
-
-        echo json_encode($response);
+        $this->set(compact('msgchatHeader'));
     }
-
 
     /**
      * Edit method
@@ -124,12 +76,12 @@ class MsgchatHeadersController extends AppController
      */
     public function edit($id = null)
     {
-        $msgchatHeader = $this->MsgchatHeaders->get($id, [
+        $msgchatHeader = $this->MsgchatFooters->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $msgchatHeader = $this->MsgchatHeaders->patchEntity($msgchatHeader, $this->request->getData());
-            if ($this->MsgchatHeaders->save($msgchatHeader)) {
+            $msgchatHeader = $this->MsgchatFooters->patchEntity($msgchatHeader, $this->request->getData());
+            if ($this->MsgchatFooters->save($msgchatHeader)) {
                 $this->Flash->success(__('The msgchat header has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -149,8 +101,8 @@ class MsgchatHeadersController extends AppController
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $msgchatHeader = $this->MsgchatHeaders->get($id);
-        if ($this->MsgchatHeaders->delete($msgchatHeader)) {
+        $msgchatHeader = $this->MsgchatFooters->get($id);
+        if ($this->MsgchatFooters->delete($msgchatHeader)) {
             $this->Flash->success(__('The msgchat header has been deleted.'));
         } else {
             $this->Flash->error(__('The msgchat header could not be deleted. Please, try again.'));

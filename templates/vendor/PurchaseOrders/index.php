@@ -44,7 +44,29 @@
   </div>
 </div>
 <div class="related card">
-  <div class="right-side">
+   <div class="card-header p-0" id="id_pohead">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Sap Vendor Code</th>
+          <th>Po No</th>
+          <th>Document Type</th>
+          <th>Created By</th>
+          <th>Pay Terms</th>
+          <th>Exchange Rate</th>
+          <th>Added Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="7" class="text-center">
+            <p>No data found !</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="right-side"> 
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -65,9 +87,9 @@
   </div>
 
   <div class="row">
-    
+
     <div class="col-lg-12 mb-2 pe-4 d-flex justify-content-end flagButton">
-      <button type="button" data-id="" class="btn btn-primary notify mb-0" >
+      <button type="button" data-id="" class="btn btn-primary notify mb-0">
         <i class="fa fa-envelope"></i> Acknowledge
       </button>
     </div>
@@ -105,20 +127,59 @@
 
       $(this).addClass('active');
 
-     var poHeaderID = $(this).attr('data-id');
-     $('.notify').attr('data-id', poHeaderID);
+      var poHeaderID = $(this).attr('data-id');
+      $('.notify').attr('data-id', poHeaderID);
 
-      var flagdata =  $(this).find('.flagdata').attr('data-flag');
-
-      if(flagdata == '1'){
+      var flagdata = $(this).find('.flagdata').attr('data-flag');
+      
+      if (flagdata !== '1') {
+        $('.notify').show();
+       
+      } else {
         $('.notify').hide();
       }
-      else{
-        $('.notify').show();
-      }
-      
+
       $(".right-side").html(format($(this).attr('data-id')));
+      
+      $(".card-header").html(poHeaders($(this).attr('data-id')));
     });
+
+
+   function poHeaders(rowDatas) {
+
+    var div = $('<div/>')
+        .addClass('loading')
+        .text('Loading...');
+
+    if (!rowDatas) {
+        rowDatas = $('div.details-control:first').attr('data-id');
+      }
+
+    $.ajax({
+        type: "GET",
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'poDetails')); ?> /"+rowDatas,
+        contentType: "application/x-www-form-urlencoded; charset=utf-8",
+        dataType: "json",
+        //async: false,
+        beforeSend: function() {
+          $("#loaderss").show();
+        },
+        success: function(response) {
+          if (response.status == 'success') {
+            $("#id_pohead").empty().html(response.html);
+          } else {
+            div
+              .html(response.message)
+              .removeClass('loading');
+          }
+        },
+        complete: function() {
+          $("#loaderss").hide();
+        }
+      });
+
+    }
+
 
 
 
@@ -166,8 +227,8 @@
     $('.search-box').on('keypress', function(event) {
       if (event.which === 13) {
         var searchName = $(this).closest('.search-bar').find('.search-box').val();
-        $(".related tbody:first").empty().hide().append(`<tr>
-          <td colspan="6" class="text-center">
+        $(".related tbody").empty().append(`<tr>
+          <td colspan="7" class="text-center">
             <p>No data found !</p>
           </td>
         </tr>`);
@@ -181,7 +242,7 @@
       if (event.which === 8) { // Check if Backspace key is pressed 
         var searchName = $(this).closest('.search-bar').find('.search-box').val();
         if (searchName.length === 1) {
-          $(".related tbody:first").empty().hide();
+          $(".related tbody").empty().hide();
           poform(searchName);
         }
       }
@@ -223,17 +284,19 @@
                     </b></small>
                    
                 </div>
-                <span class="hide flagdata" data-flag=`+ val.flag +`></span>
+                <span class="hide flagdata" data-flag=` + val.acknowledge + `></span>
               </div>`);
 
-              
+
 
               $('div.details-control:first').click();
 
             });
 
-       
+
           } else {
+
+            $('.related .notify').css('display','none');
             //     $(".related tbody:first").empty().hide().append(`<tr>
             //   <td colspan="6" class="text-center">
             //     <p>No data found !</p>
