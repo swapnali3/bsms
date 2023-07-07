@@ -35,7 +35,7 @@
                         <?php echo $this->Form->control('Upload Stocks', ['label' => false, 'accept'=>".xls,.xlsx", 'type' => 'file', 'class' => 'custom-file-input', 'id' => 'exampleInputFile']); ?>
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
-                   <?= $this->Form->button(__('Upload'), ['class' => 'btn btn-custom mb-0 mt-2']) ?>
+                   <?= $this->Form->button(__('Upload'), ['class' => 'btn btn-custom mb-0']) ?>
                 </div>
             </div>
         </fieldset>
@@ -69,6 +69,7 @@
                         <th>
                             <?= h('Updated Date') ?>
                         </th>
+                      
                     </tr>
                 </thead>
                 <tbody>

@@ -23,15 +23,15 @@
         <div class="row dgf m-0">
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('vendor_material_code', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required')); ?>
+                    <?php echo $this->Form->control('vendor_material_code', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group','label' => 'Material Code' ,'required')); ?>
+                </div>
+            </div>
+            <div class="col-sm-8 col-md-3">
+                <div class="form-group">
+                    <?php echo $this->Form->control('description', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group','label' => 'Material' , 'required')); ?>
                 </div>
             </div>
 
-            <div class="col-sm-8 col-md-3">
-                <div class="form-group">
-                    <?php echo $this->Form->control('buyer_material_code', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required')); ?>
-                </div>
-            </div>
 
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
@@ -40,15 +40,10 @@
             </div>
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('uom', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group','label' => 'Unit of Material' ,'required')); ?>
+                    <?php echo $this->Form->control('uom', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group','label' => 'Unit of Measurement' ,'required')); ?>
                 </div>
             </div>
 
-            <div class="col-sm-8 col-md-3">
-                <div class="form-group">
-                    <?php echo $this->Form->control('description', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required')); ?>
-                </div>
-            </div>
             <div class="col-sm-8 col-md-3 d-flex justify-content-start align-items-end">
                 <button type="submit" class="btn btn-custom">Submit</button>
             </div>

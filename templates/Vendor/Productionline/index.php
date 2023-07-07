@@ -23,21 +23,28 @@
         <table class="table table-bordered material-list">
             <thead>
                 <tr>
+                    <th>status</th>
                     <th>Prod Line Capacity</th>
                     <th>Description</th>
                     <th>Added Date</th>
                     <th>Update Date</th>
-                    <th>status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($productionline as $productionlines) : ?>
                     <tr>
+                        <td><?= $productionlines->status == 1 ? '<span class="badge lgreenbadge" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span>' : ($productionlines->status == 0 ? '<span class="badge dbluebadge" data-toggle="tooltip" data-placement="right" title="Pending For Approval"><i class="fas fa-user-clock"></i></span>' : '<span class="badge redbadge" data-toggle="tooltip" data-placement="right" title="Rejected"><i class="fas fa-user-slash"></i></span>') ?></td>
+                        
                         <td><?= h($productionlines->prdline_capacity) ?></td>
                         <td><?= h($productionlines->prdline_description) ?></td>
                         <td><?= h($productionlines->added_date->format('d-m-Y')) ?></td>
                         <td><?= h($productionlines->updated_date->format('d-m-Y')) ?></td>
-                        <td><?= $productionlines->status == 1 ? '<span class="badge bg-success">Approved</span>' : ($productionlines->status == 0 ? '<span class="badge bg-info">Pending for Approval</span>' : '<span class="badge bg-info">Rejected</span>') ?></td>
+                        <td>
+                            <div class="float-left">
+                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $productionlines->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
+                            </div>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

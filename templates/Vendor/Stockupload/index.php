@@ -27,6 +27,7 @@
                     <th>Vendor Material Id</th>
                     <th>Added Date</th>
                     <th>Update Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,6 +37,11 @@
                         <td><?= h($stockuploads->vendor_material_id) ?></td>
                         <td><?= h($stockuploads->added_date->format('d-m-Y')) ?></td>
                         <td><?= h($stockuploads->updated_date->format('d-m-Y')) ?></td>
+                        <td>
+                            <div class="float-left">
+                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $stockuploads->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
+                            </div>
+                        </td>
                     </tr>
             </tbody>
         <?php endforeach; ?>

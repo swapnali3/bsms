@@ -14,7 +14,7 @@
                 <h5>Vendor Material</h5>
             </div>
             <div class="col-lg-6 d-flex justify-content-end text-align-end">
-            <a href="<?= $this->Url->build('/') ?>vendor/vendor-material/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Material</button></a>
+                <a href="<?= $this->Url->build('/') ?>vendor/vendor-material/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Material</button></a>
             </div>
         </div>
     </div>
@@ -24,10 +24,10 @@
             <thead>
                 <tr>
                     <th>Vendor Material Code</th>
-                    <th>Description</th>
-                    <th>Buyer Mateial Code</th>
+                    <th>Material</th>
                     <th>Minimum Stock</th>
-                    <th>Unit Of Material</th>
+                    <th>Unit Of Measurement</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,9 +35,13 @@
                     <tr>
                         <td><?= h($vendorMaterials->vendor_material_code) ?></td>
                         <td><?= h($vendorMaterials->description) ?></td>
-                        <td><?= h($vendorMaterials->buyer_material_code) ?></td>
                         <td><?= h($vendorMaterials->minimum_stock) ?></td>
                         <td><?= h($vendorMaterials->uom) ?></td>
+                        <td>
+                            <div class="float-left">
+                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorMaterials->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
+                            </div>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
