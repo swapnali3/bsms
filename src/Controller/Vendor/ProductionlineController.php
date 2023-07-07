@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Vendor;
 
+
+use App\Model\Table\VendorMaterialTable;
+
 /**
  * Productionline Controller
  *
@@ -50,14 +53,23 @@ class ProductionlineController extends VendorAppController
      */
     public function add()
     {
+        $this->loadModel("VendorMaterial");
         $productionline = $this->Productionline->newEmptyEntity();
-        $session = $this->getRequest()->getSession();
-        $vendorId = $session->read('id');
+
+        // exit;
+
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
-            $requestData['vendor_id'] = $vendorId;
-            $requestData['vendormaterial_id'] = "1";
+            $vendorMaterialCode = $requestData['vendor_material_code'];
+
+            $VendorMaterials = $this->paginate($this->VendorMaterial->find('all', [
+                'conditions' => ['VendorMaterial.vendor_material_code' => $vendorMaterialCode]
+            ]))->first();
+
+            $requestData['vendor_id'] = $VendorMaterials->vendor_id;
+            $requestData['vendormaterial_id'] = $VendorMaterials->id;
             $requestData['status'] = 0;
+
             $productionline = $this->Productionline->patchEntity($productionline, $requestData);
             if ($this->Productionline->save($productionline)) {
                 $this->Flash->success(__('The productionline has been saved.'));
@@ -66,7 +78,8 @@ class ProductionlineController extends VendorAppController
             }
             $this->Flash->error(__('The productionline could not be saved. Please, try again.'));
         }
-        $this->set(compact('productionline'));
+        $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'vendor_material_code', 'valueField' => 'vendor_material_code'])->all();
+        $this->set(compact('productionline','vendor_mateial'));
     }
 
     /**

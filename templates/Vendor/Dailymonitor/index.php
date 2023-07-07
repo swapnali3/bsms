@@ -34,8 +34,8 @@
                 <tr>
                 <td><?= h($dailymonitors->target_production) ?></td>
                 <td><?= h($dailymonitors->confirm_production) ?></td>
-                <td><?= h($dailymonitors->updated_date) ?></td>
-                <td><?= h($dailymonitors->added_date) ?></td>
+                <td><?= h($dailymonitors->added_date->format('d-m-Y')) ?></td>
+                <td><?= h($dailymonitors->updated_date->format('d-m-Y')) ?></td>
                 <td><?= $dailymonitors->status == 0 ? '<span class="badge bg-success">On Insert</span>' : ($dailymonitors->status == 1 ? '<span class="badge bg-info">confirm production</span>' : '<span class="badge bg-info">confirm modified</span>') ?></td>
                 </tr>
                 <?php endforeach; ?>

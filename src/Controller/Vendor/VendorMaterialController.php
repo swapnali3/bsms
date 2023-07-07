@@ -63,7 +63,6 @@ class VendorMaterialController extends VendorAppController
             $requestData = $this->request->getData();
             $requestData['vendor_id'] = $vendorId;
             $vendorMaterial = $this->VendorMaterial->patchEntity($vendorMaterial, $requestData);
-            //print_r($vendorMaterial);exit;
             if ($this->VendorMaterial->save($vendorMaterial)) {
                 $this->Flash->success(__('The vendor material has been saved.'));
     

@@ -1,7 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
+use App\Model\Table\VendorMaterialTable;
+
 
 /**
  * Stockupload Controller
@@ -53,26 +56,34 @@ class StockuploadController extends VendorAppController
      */
     public function add()
     {
+
+        $this->loadModel("VendorMaterial");
         $stockupload = $this->Stockupload->newEmptyEntity();
-        
-        
-        $session = $this->getRequest()->getSession();
-        $vendorId = $session->read('id');
-    
+
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
-            $requestData['vendor_id'] = $vendorId;
-            $requestData['vendor_material_id'] = "1";
+            $vendorMaterialCode = $requestData['vendor_material_code'];
+
+            $VendorMaterials = $this->paginate($this->VendorMaterial->find('all', [
+                'conditions' => ['VendorMaterial.vendor_material_code' => $vendorMaterialCode]
+            ]))->first();
+
+            $requestData['vendor_id'] = $VendorMaterials->vendor_id;
+            $requestData['vendor_material_id'] = $VendorMaterials->id;
 
             $stockupload = $this->Stockupload->patchEntity($stockupload, $requestData);
             if ($this->Stockupload->save($stockupload)) {
-                $this->Flash->success(__('The stockupload has been saved.'));
+                $this->Flash->success(__('The stock Upload has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The stockupload could not be saved. Please, try again.'));
         }
-        $this->set(compact('stockupload'));
+
+        $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'vendor_material_code', 'valueField' => 'vendor_material_code'])->all();
+
+
+        $this->set(compact('stockupload', 'vendor_mateial'));
     }
 
     /**

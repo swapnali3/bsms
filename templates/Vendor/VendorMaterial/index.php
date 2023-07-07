@@ -27,9 +27,7 @@
                     <th>Description</th>
                     <th>Buyer Mateial Code</th>
                     <th>Minimum Stock</th>
-                    <th>Uom</th>
-                    <th>Added Date</th>
-                    <th>Update Date</th>
+                    <th>Unit Of Material</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,8 +38,6 @@
                         <td><?= h($vendorMaterials->buyer_material_code) ?></td>
                         <td><?= h($vendorMaterials->minimum_stock) ?></td>
                         <td><?= h($vendorMaterials->uom) ?></td>
-                        <td><?= h($vendorMaterials->added_date) ?></td>
-                        <td><?= h($vendorMaterials->updated_date) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
