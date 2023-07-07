@@ -41,7 +41,6 @@ class VendorTempsController extends BuyerAppController
         $this->set(compact('vendorTemps'));
     }
 
-
     public function getList($term = null)
     {
         $this->autoRender = false;
@@ -762,7 +761,7 @@ class VendorTempsController extends BuyerAppController
     public function userCredentials($id = null)
     {
         $response = array();
-        $response['status'] = '0';
+        $response['status'] = 0;
         $response['message'] = '';
         $this->autoRender = false;
 
@@ -804,13 +803,13 @@ class VendorTempsController extends BuyerAppController
                             '<br/>Password:' . $val->mobile . '<br/> <a href="' . $link . '">Click here</a>');
                 }
             } else {
-                $response['status'] = '0';
+                $response['status'] = 0;
                 $response['message'] = 'Credentials Not Send.';
             }
         }
 
 
-        $response['status'] = '1';
+        $response['status'] = 1;
         $response['message'] = 'Credentials Mail Send successfully';
         echo json_encode($response);
     }
