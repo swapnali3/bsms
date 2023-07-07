@@ -240,3 +240,32 @@ CREATE TABLE `stockupload` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 // ==================== ASN Header ====================
+
+
+// ==================== Chat ====================
+author: JThayil
+date: 04.07.2023
+// ==================== ============= ====================
+CREATE TABLE `msgchat_footers` (
+ `id` int NOT NULL AUTO_INCREMENT,
+ `msgchat_header_id` varchar(250) NOT NULL,
+ `group_id` int NOT NULL,
+ `sender_id` int NOT NULL,
+ `message` text NOT NULL,
+ `seen` int NOT NULL DEFAULT '0',
+ `addeddate` datetime DEFAULT CURRENT_TIMESTAMP,
+ `updateddate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+CREATE TABLE `msgchat_headers` (
+ `id` int NOT NULL AUTO_INCREMENT,
+ `table_name` varchar(250) NOT NULL,
+ `table_pk` int NOT NULL,
+ `subject` text NOT NULL,
+ `addeddate` datetime DEFAULT CURRENT_TIMESTAMP,
+ `updateddate` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+// ==================== Chat ====================

@@ -1,13 +1,14 @@
 <?php
-
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\VendorTemp[]|\Cake\Collection\CollectionInterface $vendorTemps
  */
 
 ?>
+
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('b_vendortemps_index') ?>
+
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -50,7 +51,7 @@
                                         $status = '<span class="badge redbadge" data-toggle="tooltip" data-placement="right" title="Rejected"><i class="fas fa-user-slash"></i></span>';
                                         break;
                                     case 5:
-                                        $status = '<span class="badge dgreenbadge" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span><span class="badge badge-light" data-toggle="tooltip" data-placement="right" title="Send Credentials"><i class="fas fa-envelope-open-text text-info"></i></span>';
+                                        $status = '<span class="badge dgreenbadge" data-toggle="tooltip" data-placement="right" id="halfapproved'.$vendorTemp->id.'" title="Approved"><i class="fas fa-user-check"></i></span><span class="badge badge-light sendcred" data-id="'.$vendorTemp->id.'" id="sendcred'.$vendorTemp->id.'" data-toggle="tooltip" data-placement="right" title="Send Credentials"><i class="fas fa-envelope-open-text text-info"></i></span>';
                                         break;
                                 }
                             ?>
@@ -79,6 +80,7 @@
         </div>
     </div>
 </div>
+
 <div class="modal fade" id="modal-lg">
     <div class="modal-dialog modal-xl card card-primary card-outline direct-chat direct-chat-primary">
         <div class="modal-content">
@@ -102,7 +104,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-
                 <?= $this->Form->create($vendorTemp, ['id' => 'communiSubmit', 'style' => 'width:100%']) ?>
                 <div class="row">
                     <div class="col-sm-12 col-md-11 col-lg-11">
@@ -117,13 +118,13 @@
                         </span>
                     </div>
                 </div>
-
                 <?= $this->Form->end() ?>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 <script>
     var userComm = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
     var userCommadd = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
