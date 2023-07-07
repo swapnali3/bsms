@@ -74,6 +74,22 @@
 </li>
 
 <li class="nav-item ">
+  <?= $this->Html->link(__('<i class="fas fa-boxes nav-icon"></i><p>Material Master</p>'), ['controller' => 'vendor-material', 'action' => 'index'], ['class' => "nav-link $stockActive", 'escape' => false]) ?>
+</li>
+
+<li class="nav-item ">
+  <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stockupload', 'action' => 'index'], ['class' => "nav-link $stockActive", 'escape' => false]) ?>
+</li>
+
+<li class="nav-item ">
+  <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Production Line</p>'), ['controller' => 'productionline', 'action' => 'index'], ['class' => "nav-link $stockActive", 'escape' => false]) ?>
+</li>
+
+<li class="nav-item ">
+  <?= $this->Html->link(__('<i class="fas fa-pallet nav-icon"></i><p>Daily Stock Monitoring</p>'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $stockActive", 'escape' => false]) ?>
+</li>
+
+<li class="nav-item ">
   <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
 </li>
 
