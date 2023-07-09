@@ -64,10 +64,13 @@
                     <h4 class="text-info">
                         <legend>
                             <?= __('Onboarding') ?>
-                            <button type="button" id="needButton" class="btn btn-outline-info btn-light chat"
+                            <button type="button" id="needButton" data-modalbody="id_oldmsg"
+                                class="btn btn-outline-info btn-light chatload" data-sender_group_id="3"
+                                data-sender_id="<?= $vendorTemp->id ?>" data-sender_name="<?= $vendorTemp->name ?>"
+                                data-table_name="vendor_temps" data-table_pk="<?= $vendorTemp->id ?>"
                                 data-toggle="modal" data-target="#modal-lg" style="margin-left: 3em;">
                                 <i class="fas fa-comments"></i> Need help
-                                <span class="badge badge-info" id="count-badge"
+                                <span class="badge badge-info" id="unread<?= $vendorTemp->id ?>"
                                     style="transform: translate(19px, -15px);">0</span>
                             </button>
                         </legend>
@@ -373,13 +376,15 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-11 col-lg-11">
                         <div class="input-group">
-                            <input type="hidden" name="app_id" value="<?= h($vendorTemp->id) ?>">
+                            <input type="hidden" id="id_table_pk" name="table_pk" value="">
+                            <input type="hidden" id="id_sender_id" name="sender_id">
+                            <input type="hidden" id="id_group_id" name="group_id">
                             <textarea id="summernote" name="message" placeholder="Message ..."></textarea>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-1 col-lg-1">
                         <span class="input-group-append mt-3">
-                            <button type="submit" id="add_comm" class="btn btn-primary">Send</button>
+                            <button type="button" id="add_comm" class="btn btn-primary">Send</button>
                         </span>
                     </div>
                 </div>
@@ -397,61 +402,51 @@
 <?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/summernote/summernote.min.js') ?>
+<?= $this->Html->script('chat') ?>
 <!-- <?= $this->Html->script('/js/v_onboarding_create.js') ?> -->
 <script>
-    var chatgeturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>";
-    var chatposturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>";
+    var getchaturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>";
+    var postchaturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>";
+
+
     var seengeturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'seen-update')); ?>";
-    var data;
+    var chatdata, user_id = "<?= h($vendorTemp->id) ?>", sender_id, table_pk;
     $(function () { $('.my-select').selectpicker(); $('#summernote').summernote({ width: 1000, }); });
 
-    function communication() {
-        $.ajax({
-            type: "GET",
-            url: chatgeturl,
-            dataType: 'json',
-            success: function (response) {
-                data = response;
-                var count = 0;
-                var counts = 0;
-                $.each(response, function (index, row) {
-                    var ndiv = '';
-                    ndiv = `<div class="card card-widget">
-                    <div class="card-header">
-                        <div class="user-block">
-                            <img class="img-circle" src="..\\..\\..\\img\\U.png" alt="User Image">
-                            <span class="username">` + row['fullname'] + `</span>
-                            <span class="description">` + row['updateddate'] + `</span>
-                        </div>
-                  
-                        <div class="card-tools">
-                       
-                            <button type="button" class="btn btn-tool" id="minimise` + row['id'] + `" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>         
-                        </div>
-                    </div>
-                    <div class="card-body" style="display: block;margin: 6px 24px;">
-                        <p>` + row['message'] + `</p>
-                    </div>
+    // function communication(val) {
+    //     $.ajax({
+    //         type: "GET",
+    //         url: getchaturl + "/index/vendor_temps/" + val,
+    //         dataType: 'json',
+    //         success: function (response) {
+    //             chatdata = response;
+    //             var counts = 0;
+    //             $.each(response, function (index, row) {
+    //                 var ndiv = `<div class="card card-widget">
+    //                     <div class="card-header">
+    //                         <div class="user-block">
+    //                             <img class="img-circle" src="..\\..\\..\\img\\U.png" alt="User Image">
+    //                             <span class="username">` + row['fullname'] + `</span>
+    //                             <span class="description">` + row['updateddate'] + `</span>
+    //                         </div><div class="card-tools">
+    //                             <button type="button" class="btn btn-tool" id="minimise` + row['id'] + `" data-card-widget="collapse">
+    //                                 <i class="fas fa-minus"></i>
+    //                             </button>         
+    //                         </div>
+    //                     </div>
+    //                     <div class="card-body" style="display: block;margin: 6px 24px;"><p>` + row['message'] + `</p></div>
+    //                 </div>`;
 
-                </div>`;
-
-                    $("#id_oldmsg").append(ndiv);
-                    count++;
-                    if (count != 1) {
-                        $("#minimise" + row["id"]).trigger("click");
-                    }
-
-                    var seen = row['seen'];
-                    if (seen == 0) {
-                        counts++;
-                    }
-                    $('#count-badge').text(counts);
-                });
-            },
-        });
-    }
+    //                 $("#id_oldmsg").append(ndiv);
+    //                 if (index != 0 && row['seen'] == "1") { $("#minimise" + row["id"]).trigger("click"); }
+    //                 if (row['seen'] == 0 && row['sender_id'] != user_id) {
+    //                     counts++; sender_id = row["sender_id"]; table_pk = row["table_pk"];
+    //                 }
+    //             });
+    //             $('#count-badge').text(counts);
+    //         },
+    //     });
+    // }
 
     $(document).on("click", "#id_fksubmit", function () {
         var submitcall = true;
@@ -461,193 +456,113 @@
             "tab_paymentdetails": ["id_bankcountry", "cin-no", "gst-no", "pan-no"],
             "tab_document": ["formFileMultiple1", "formFileMultiple2", "formFileMultiple3"]
         }
+
         for (const [index, row] of Object.entries(tab)) {
             for (const [indexs, rows] of Object.entries(row)) {
                 var data = $("#" + rows).val();
-                if (data == "" || data == null || data == undefined) {
-                    $("#" + index).trigger('click');
-                    submitcall = false;
-                    break;
-                }
+                if (data == "" || data == null || data == undefined) { $("#" + index).trigger('click'); submitcall = false; break; }
             }
-            if (submitcall == false) { 
-                setTimeout(function () {
-                    $("#id_ogsubmit").trigger('click');
-                }, 500);
-                break;
-            }
+            if (submitcall == false) { setTimeout(function () { $("#id_ogsubmit").trigger('click'); }, 500); break; }
         }
         if (submitcall) { $("#id_ogsubmit").trigger('click'); }
     });
 
-    communication();
-    $('#add_comm').click(function (e) {
-        e.preventDefault(); // Prevent the default form submission
+    // communication(user_id);
 
-        var formdata = new FormData($('#communiSubmit')[0]);
+    // $('#add_comm').click(function (e) {
+    //     e.preventDefault();
+    //     var formdata = new FormData($('#communiSubmit')[0]);
+    //     formdata.append('table_name', "vendor_temps");
+    //     formdata.append('table_pk', data[0]['table_pk']);
+    //     formdata.append('group_id', '3');
+    //     $.ajax({
+    //         type: "POST",
+    //         url: postchaturl,
+    //         data: formdata,
+    //         dataType: 'json',
+    //         processData: false,
+    //         contentType: false,
+    //         success: function (response) {
+    //             if (response.status == '1') {
+    //                 $('#id_oldmsg').empty();
+    //                 communication(user_id);
+    //                 $('#summernote').summernote('reset');
+    //             }
+    //         }
+    //     });
+    // });
 
-        var table_name = "vendor_temps";
-        formdata.append('table_name', table_name);
-        formdata.append('group_id', '2');
-
-
-        $.ajax({
-            type: "POST",
-            url: chatposturl,
-            data: formdata,
-            dataType: 'json',
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                console.log(response);
-                if (response.status == '1') {
-                    $('#id_oldmsg').empty();
-                    communication();
-                    $('#summernote').summernote('reset');
-                } else {
-
-                }
-            }
-        });
+    $(document).on("click", "#add_comm", function () {
+        // e.preventDefault();
+        var formdata = new FormData($("#communiSubmit")[0]);
+        formdata.append("table_name", "vendor_temps");
+        resp = sendchat(postchaturl, formdata, $(this).data('modal_body'), $(this).data('sender_id'), getchaturl);
     });
 
     $('#needButton').click(function () {
-        $.each(data, function (key, value) {
-            // var id = value.id
-            $.ajax({
-                type: "GET",
-                url: seengeturl + "/" + value.id,
-                dataType: 'json',
-                success: function (response) {
-                    if (response.status == '1') {
-                        $('#count-badge').hide();
-                    }
-                },
-            });
+        table_pk = $(this).data('table_pk');
+        sender_id = $(this).data('sender_id');
+        $("#id_sender_id").val($(this).data('sender_id'));
+        $("#id_group_id").val($(this).data('sender_group_id'));
+        $("#id_table_pk").val($(this).data('table_pk'));
+        $("#add_comm").attr('data-modal_body', $(this).data('modalbody')).attr('data-sender_id', $(this).data('sender_id'));
+        chat($(this).data('modalbody'), $(this).data('sender_id'), getchaturl, $(this).data('table_name'), $(this).data('table_pk'));
+        $.ajax({
+            type: "GET",
+            url: seengeturl + "/vendor_temps/" + table_pk + "/" + sender_id,
+            dataType: 'json',
+            success: function (resp) { if (resp.status == 1) { $('#count-badge').hide(); sender_id = table_pk = 0; } },
         });
     });
 
     $(document).ready(function () {
+
+        $(".chatload").each(function () {
+            // var valdata = getbadge($(this).data('sender_id'), getchaturl, "vendor_temps", $(this).data('table_pk'));
+            // console.log(valdata);
+            $('#unread' + $(this).data('sender_id')).empty();
+            getbadge($(this).data('sender_id'), getchaturl, "vendor_temps", $(this).data('table_pk'), 'unread' + $(this).data('sender_id'))
+        });
         $("#onbordingSubmit").validate({
             rules: {
-                address: {
-                    required: true
-                },
-                city: {
-                    required: true
-                },
-                state: {
-                    required: true
-                },
-                pincode: {
-                    required: true,
-                    digits: true
-                },
-                country: {
-                    required: true
-                },
-                payment_term: {
-                    required: true
-                },
-                order_currency: {
-                    required: true
-                },
-                tan_no: {
-                    required: true
-                },
-                cin_no: {
-                    required: true
-                },
-                gst_no: {
-                    required: true
-                },
-                pan_no: {
-                    required: true
-                },
-                contact_person: {
-                    required: true
-                },
-                contact_email: {
-                    required: true,
-                    email: true
-                },
-                contact_mobile: {
-                    required: true,
-                    number: true,
-                    minlength: 10,
-                    maxlength: 10
-                },
-                contact_department: {
-                    required: true
-                },
-                contact_designation: {
-                    required: true
-                }
+                address: { required: true },
+                city: { required: true },
+                state: { required: true },
+                pincode: { required: true, digits: true },
+                country: { required: true },
+                payment_term: { required: true },
+                order_currency: { required: true },
+                tan_no: { required: true },
+                cin_no: { required: true },
+                gst_no: { required: true },
+                pan_no: { required: true },
+                contact_person: { required: true },
+                contact_email: { required: true, email: true },
+                contact_mobile: { required: true, number: true, minlength: 10, maxlength: 10 },
+                contact_department: { required: true },
+                contact_designation: { required: true }
             },
-
             messages: {
-                address: {
-                    required: "Please enter a Address"
-                },
-                city: {
-                    required: "Please enter a city"
-                },
-                state: {
-                    required: "Please enter a state"
-                },
-                pincode: {
-                    required: "Please enter a pincode",
-                    digits: true
-                },
-                country: {
-                    required: "Please enter a country"
-                },
-                tan_no: {
-                    required: "Please enter a tan no"
-                },
-                cin_no: {
-                    required: "Please enter a cin no"
-                },
-                gst_no: {
-                    required: "Please enter a gst no"
-                },
-                pan_no: {
-                    required: "Please enter a pam no"
-                },
-                contact_person: {
-                    required: "Please enter a contact person"
-                },
-                contact_email: {
-                    required: "Please enter a contact email",
-                    email: "Please enter a valid email address"
-                },
-                contact_mobile: {
-                    required: "Please enter a contact mobile",
-                    number: "Please enter a valid mobile number"
-                },
-                contact_department: {
-                    required: "Please enter a contact department"
-                },
-                contact_designation: {
-                    required: "Please enter a contact designation"
-                },
+                address: { required: "Please enter a Address" },
+                city: { required: "Please enter a city" },
+                state: { required: "Please enter a state" },
+                pincode: { required: "Please enter a pincode", digits: true },
+                country: { required: "Please enter a country" },
+                tan_no: { required: "Please enter a tan no" },
+                cin_no: { required: "Please enter a cin no" },
+                gst_no: { required: "Please enter a gst no" },
+                pan_no: { required: "Please enter a pam no" },
+                contact_person: { required: "Please enter a contact person" },
+                contact_email: { required: "Please enter a contact email", email: "Please enter a valid email address" },
+                contact_mobile: { required: "Please enter a contact mobile", number: "Please enter a valid mobile number" },
+                contact_department: { required: "Please enter a contact department" },
+                contact_designation: { required: "Please enter a contact designation" },
             },
             errorElement: "span",
-            errorPlacement: function (error, element) {
-                error.addClass("invalid-feedback");
-                element.closest(".form-group").append(error);
-            },
-            highlight: function (element, errorClass, validClass) {
-                $(element).addClass("is-invalid");
-            },
-            unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass("is-invalid");
-            },
-            submitHandler: function (form, event) {
-                event.preventDefault();
-                $("#onbordingSubmit")[0].submit();
-                return false;
-            },
+            errorPlacement: function (error, element) { error.addClass("invalid-feedback"); element.closest(".form-group").append(error); },
+            highlight: function (element, errorClass, validClass) { $(element).addClass("is-invalid"); },
+            unhighlight: function (element, errorClass, validClass) { $(element).removeClass("is-invalid"); },
+            submitHandler: function (form, event) { event.preventDefault(); $("#onbordingSubmit")[0].submit(); return false; },
         });
 
     });

@@ -24,11 +24,17 @@ class StockuploadController extends VendorAppController
 
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-        $stockupload = $this->paginate($this->Stockupload);
-
-        $stockupload = $this->paginate($this->Stockupload->find('all', [
+        $stockupload = $this->Stockupload->find('all', [
             'conditions' => ['Stockupload.vendor_id' => $vendorId]
-        ]));
+        ])->select([
+            'id', 'opening_stock', 'vendor_material_id', 'vendor_id', 'added_date', 'updated_date',
+            'vm_description' => 'vm.description',
+        ])->join([
+            'table' => 'vendor_material',
+            'alias' => 'vm',
+            'type' => 'LEFT',
+            'conditions' => 'vm.id = Stockupload.vendor_material_id',
+        ]);
 
         $this->set(compact('stockupload'));
     }

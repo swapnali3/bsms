@@ -14,7 +14,8 @@
                 <h5>Stock Upload</h5>
             </div>
             <div class="col-lg-6 d-flex justify-content-end text-align-end">
-            <a href="<?= $this->Url->build('/') ?>vendor/stockupload/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Stock</button></a>
+                <a href="<?= $this->Url->build('/') ?>vendor/stockupload/add"><button type="button" id="continueSub"
+                        class="btn mb-0 continue_btn btn-dark">Add Stock</button></a>
             </div>
         </div>
     </div>
@@ -31,20 +32,36 @@
                 </tr>
             </thead>
             <tbody>
+                <?php if (isset($stockupload)) : ?>
                 <?php foreach ($stockupload as $stockuploads) : ?>
-                    <tr>
-                        <td><?= h($stockuploads->opening_stock) ?></td>
-                        <td><?= h($stockuploads->vendor_material_id) ?></td>
-                        <td><?= h($stockuploads->added_date->format('d-m-Y')) ?></td>
-                        <td><?= h($stockuploads->updated_date->format('d-m-Y')) ?></td>
-                        <td>
-                            <div class="float-left">
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $stockuploads->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
-                            </div>
-                        </td>
-                    </tr>
+                <tr>
+                    <td>
+                        <?= h($stockuploads->opening_stock) ?>
+                    </td>
+                    <td>
+                        <?= h($stockuploads->vm_description) ?>
+                    </td>
+                    <td>
+                        <?= h($stockuploads->added_date->format('d-m-Y')) ?>
+                    </td>
+                    <td>
+                        <?= h($stockuploads->updated_date->format('d-m-Y')) ?>
+                    </td>
+                    <td>
+                        <div class="float-left">
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $stockuploads->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+            <?php else: ?>
+            <tr>
+                <td colspan="5">
+                    No Records Found
+                </td>
+            </tr>
+            <?php endif; ?>
         </table>
     </div>
 </div>
