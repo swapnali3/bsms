@@ -6,19 +6,19 @@
  */
 switch ($vendorTemp->status) {
     case 0:
-        $status = '<span class="">Sent to Vendor</span>';
+        $status = '<span class="badge bg-warning">Sent to Vendor</span>';
         break;
     case 1:
-        $status = '<span class="">Pending for approval</span>';
+        $status = '<span class="badge bg-info">Pending for approval</span>';
         break;
     case 2:
-        $status = '<span class="">Sent to SAP</span>';
+        $status = '<span class="badge bg-info">Sent to SAP</span>';
         break;
     case 3:
-        $status = '<span class="">Approved</span>';
+        $status = '<span class="badge bg-success">Approved</span>';
         break;
     case 4:
-        $status = '<span class="">Rejected</span>';
+        $status = '<span class="badge bg-danger">Rejected</span>';
         break;
     case 5:
         $status = '<span class="badge bg-info">Sap Import</span>';
@@ -97,6 +97,7 @@ switch ($vendorTemp->status) {
                             </tr>
                         </table>
                     </div>
+
                     <div class="col-sm-12 col-md-6 col-lg-6">
                         <h5 class="text-info">Contact Person</h5>
                         <table>
@@ -132,9 +133,11 @@ switch ($vendorTemp->status) {
                             </tr>
                         </table>
                     </div>
+                    
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <hr>
                     </div>
+                    
                     <div class="col-sm-12 col-md-6 col-lg-6">
                         <h5 class="text-info">Other Details</h5>
                         <table>
@@ -176,6 +179,7 @@ switch ($vendorTemp->status) {
                             </tr>
                         </table>
                     </div>
+
                     <div class="col-sm-12 col-md-6 col-lg-6">
                         <br>
                         <table class="mt-2">
@@ -211,7 +215,6 @@ switch ($vendorTemp->status) {
                             </tr>
                         </table>
                     </div>
-
 
                 </div>
 
@@ -404,6 +407,22 @@ switch ($vendorTemp->status) {
             </div>
             <?php endif; ?>
         </div>
+        <?php if (isset($vendorTemp->remark)) : ?>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header" style="font-variant-caps: all-small-caps;">
+                            <h5 class="text-info">Reject Reason</h5>
+                        </div>
+                        <div class="card-body p-1">
+                            <?= $vendorTemp->remark ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 </div>
 </div>
