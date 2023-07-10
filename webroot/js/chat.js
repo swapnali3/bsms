@@ -1,3 +1,4 @@
+var chatdata;
 function chat(modalBody, sender_id, url, table_name = null, table_pk = null, mt3 = null) {
     $.ajax({
         type: "GET",
@@ -5,6 +6,7 @@ function chat(modalBody, sender_id, url, table_name = null, table_pk = null, mt3
         dataType: "json",
         success: function (resp) {
             if (resp.length > 0) {
+                chatdata = resp;
                 $("#" + modalBody).empty();
                 $.each(resp, function (index, row) {
                     $("#" + modalBody).append(`<div class="card card-widget">
@@ -56,9 +58,9 @@ function getbadge(sender_id, url, table_name, table_pk, badge = null) {
         success: function (resp) {
             var unread = "";
             if (resp.length > 0) {
-                $.each(resp, function (index, row) { if (row['seen'] == 0 && row['sender_id'] != sender_id) { unread++; } });
+                $.each(resp, function (index, row) { if (row['seen'] == 0 && row['sender_id'] == sender_id) { unread++; } });
             }
-            if (badge) { $("#" + badge).prepend(unread + " "); }
+            if (badge > 0) { $("#" + badge).prepend(unread + " "); }
             // return unread;
         },
     });
