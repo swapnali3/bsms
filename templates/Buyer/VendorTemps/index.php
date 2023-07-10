@@ -58,7 +58,7 @@
                                 <tr>
                                     <td>
                                         <?= $status ?>
-                                        <span class="badge badge-light chatload" data-name="<?= h($vendorTemp->name) ?>"  data-toggle="modal" data-target="#modal-lg" data-placement="right" data-value="<?= $vendorTemp->id ?>" title="Chat"><i class="fas fa-comments text-info"></i></span>
+                                        <span type="button" id="unread<?= $vendorTemp->id ?>" class="badge badge-light chatload" data-modalbody="id_oldmsg" data-sender_group_id="<?= $user_id->group_id ?>" data-sender_id="<?= $user_id->id ?>" data-sender_name="<?= h($vendorTemp->name) ?>" data-toggle="modal" data-target="#modal-lg" data-table_name="vendor_temps" data-table_pk="<?= $vendorTemp->id ?>" data-placement="right"  title="Chat"><i class="fas fa-comments text-info"></i></span>
                                     </td>
                                     <td  class="tableName" redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->name) ?></td>
                                     <td calss="tableEmail" redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/view/<?= h($vendorTemp->id) ?>"><?= h($vendorTemp->email) ?></td>
@@ -108,13 +108,15 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-11 col-lg-11">
                         <div class="input-group">
-                            <input type="hidden" name="app_id" value="<?= h($vendorTemp->id) ?>">
+                            <input type="hidden" id="id_table_pk" name="table_pk" >
+                            <input type="hidden" id="id_sender_id" name="sender_id">
+                            <input type="hidden" id="id_group_id" name="group_id">
                             <textarea id="summernote" name="message" placeholder="Message ..."></textarea>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-1 col-lg-1">
                         <span class="input-group-append mt-3">
-                            <button type="submit" id="add_comm" class="btn btn-primary">Send</button>
+                            <button type="button" id="add_comm" class="btn btn-primary">Send</button>
                         </span>
                     </div>
                 </div>
@@ -126,8 +128,10 @@
 </div>
 
 <script>
-    var userComm = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
-    var userCommadd = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
+    var getchaturl = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
+    var postchaturl = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
+    var user_id = '<?php $user_id ?>';
 </script>
 
 <?= $this->Html->script('b_vendortemps_index') ?>
+<?= $this->Html->script('chat') ?>

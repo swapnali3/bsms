@@ -31,6 +31,7 @@
                 </tr>
             </thead>
             <tbody>
+            <?php if (isset($vendorMaterial)) : ?>
                 <?php foreach ($vendorMaterial as $vendorMaterials) : ?>
                     <tr>
                         <td><?= h($vendorMaterials->vendor_material_code) ?></td>
@@ -44,6 +45,13 @@
                         </td>
                     </tr>
                 <?php endforeach; ?>
+            <?php else: ?>
+            <tr>
+                <td colspan="5">
+                    No Records Found
+                </td>
+            </tr>
+            <?php endif; ?>
             </tbody>
         </table>
     </div>

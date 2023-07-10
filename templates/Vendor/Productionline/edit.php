@@ -20,10 +20,10 @@
     <div class="card mb-0">
         <div class="card-body  pb-0">
             <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-4">
+                <div class="col-sm-4 col-md-4 col-lg-3">
                     <?php echo $this->Form->control('prdline_description', ['class' => 'form-control mb-3', 'label' => 'Production Line Description']); ?>
                 </div>
-                <div class="col-sm-4 col-md-4 col-lg-4">
+                <div class="col-sm-4 col-md-4 col-lg-3">
                     <?php echo $this->Form->control('prdline_capacity', ['class' => 'form-control mb-3','label' => 'Production Line Capacity']); ?>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4 mt-4">

@@ -31,8 +31,8 @@ class DailymonitorFixture extends TestFixture
                 'target_production' => 1,
                 'confirm_production' => 1,
                 'status' => 1,
-                'added_date' => '2023-07-04 17:32:58',
-                'updated_date' => '2023-07-04 17:32:58',
+                'added_date' => '2023-07-09 13:15:27',
+                'updated_date' => '2023-07-09 13:15:27',
             ],
         ];
         parent::init();

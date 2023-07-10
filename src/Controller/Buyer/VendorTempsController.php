@@ -30,14 +30,16 @@ class VendorTempsController extends BuyerAppController
     {
         $this->set('headTitle', 'Vendor List');
         $this->loadModel("VendorTemps");
+        $this->loadModel("Users");
         $vendorTemps = $this->VendorTemps
         ->find('all')
         ->contain(['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'])
         ->where(['update_flag' => 0])
         ->order(['VendorTemps.added_date' => 'DESC'])
         ->toArray();
-        $session = $this->getRequest()->getSession();
-
+        $user_id = $this->getRequest()->getSession()->read('id');
+        $usr = $this->Users->get($user_id);
+        $this->set('user_id', $usr);
         $this->set(compact('vendorTemps'));
     }
 
@@ -99,9 +101,8 @@ class VendorTempsController extends BuyerAppController
             $this->set('vendorTempView', $vendorTempView);
             // echo '<pre>'; print_r($vendorTempView);exit;
         }
+        
         $this->set('vendorTemp', $vendorTemp);
- 
-
     }
 
 
