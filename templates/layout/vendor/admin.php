@@ -188,6 +188,7 @@ body {
     var baseurl = "<?= $this->Url->build('/') ?>";
     // $(document).ready(function() {});
     $(window).on('load', function() { $('#loaderss').hide(); });
+    $(function () {$('[data-toggle="tooltip"]').tooltip();$('#summernote').summernote({ width: 1000, }); });
     </script>
 </body>
 

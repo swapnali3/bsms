@@ -18,7 +18,11 @@ class DailymonitorController extends VendorAppController
      */
     public function index()
     {
-        $dailymonitor = $this->paginate($this->Dailymonitor);
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
+        $dailymonitor = $this->paginate($this->Dailymonitor->find('all', [
+            'conditions' => ['dailymonitor.vendor_id' => $vendorId]
+        ]));
 
         $this->set(compact('dailymonitor'));
     }
@@ -46,9 +50,19 @@ class DailymonitorController extends VendorAppController
      */
     public function add()
     {
+        
+        $this->loadModel("VendorMaterial");
+        
         $dailymonitor = $this->Dailymonitor->newEmptyEntity();
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
         if ($this->request->is('post')) {
-            $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $this->request->getData());
+            $requestData = $this->request->getData();
+            $requestData['vendor_id'] = $vendorId;
+            $requestData['productionline_id'] =1;
+            $requestData['status'] = 0;
+
+            $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $requestData);
             if ($this->Dailymonitor->save($dailymonitor)) {
                 $this->Flash->success(__('The dailymonitor has been saved.'));
 
@@ -56,7 +70,9 @@ class DailymonitorController extends VendorAppController
             }
             $this->Flash->error(__('The dailymonitor could not be saved. Please, try again.'));
         }
-        $this->set(compact('dailymonitor'));
+        $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'vendor_material_code', 'valueField' => 'vendor_material_code'])->all();
+
+        $this->set(compact('dailymonitor','vendor_mateial'));
     }
 
     /**

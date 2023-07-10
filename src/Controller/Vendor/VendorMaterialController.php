@@ -24,8 +24,12 @@ class VendorMaterialController extends VendorAppController
      */
     public function index()
     {
-        $vendorMaterial = $this->paginate($this->VendorMaterial);
-
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
+        $vendorMaterial = $this->paginate($this->VendorMaterial->find('all', [
+            'conditions' => ['VendorMaterial.vendor_id' => $vendorId]
+        ]));
+    
         $this->set(compact('vendorMaterial'));
     }
 
@@ -53,17 +57,22 @@ class VendorMaterialController extends VendorAppController
     public function add()
     {
         $vendorMaterial = $this->VendorMaterial->newEmptyEntity();
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
         if ($this->request->is('post')) {
-            $vendorMaterial = $this->VendorMaterial->patchEntity($vendorMaterial, $this->request->getData());
+            $requestData = $this->request->getData();
+            $requestData['vendor_id'] = $vendorId;
+            $vendorMaterial = $this->VendorMaterial->patchEntity($vendorMaterial, $requestData);
             if ($this->VendorMaterial->save($vendorMaterial)) {
                 $this->Flash->success(__('The vendor material has been saved.'));
-
+    
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The vendor material could not be saved. Please, try again.'));
         }
         $this->set(compact('vendorMaterial'));
     }
+    
 
     /**
      * Edit method

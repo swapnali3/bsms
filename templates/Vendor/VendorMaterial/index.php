@@ -1,54 +1,50 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\VendorMaterial> $vendorMaterial
  */
 ?>
-<div class="vendorMaterial index content">
-    <?= $this->Html->link(__('New Vendor Material'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Vendor Material') ?></h3>
-    <div class="table-responsive">
-        <table>
+</style>
+<?= $this->Html->css('custom') ?>
+<div class="card">
+    <div class="card-header pb-1 pt-2">
+        <div class="row">
+            <div class="col-lg-6 d-flex justify-content-start">
+                <h5>Vendor Material</h5>
+            </div>
+            <div class="col-lg-6 d-flex justify-content-end text-align-end">
+                <a href="<?= $this->Url->build('/') ?>vendor/vendor-material/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Material</button></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-header p-0 mb-0 mt-3 ml-3 mr-3" id="id_pohead">
+        <table class="table table-bordered material-list">
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('material_code') ?></th>
-                    <th><?= $this->Paginator->sort('description') ?></th>
-                    <th><?= $this->Paginator->sort('buyer_material_code') ?></th>
-                    <th><?= $this->Paginator->sort('status') ?></th>
-                    <th><?= $this->Paginator->sort('added_date') ?></th>
-                    <th><?= $this->Paginator->sort('updated_date') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th>Vendor Material Code</th>
+                    <th>Material</th>
+                    <th>Minimum Stock</th>
+                    <th>Unit Of Measurement</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($vendorMaterial as $vendorMaterial): ?>
-                <tr>
-                    <td><?= $this->Number->format($vendorMaterial->id) ?></td>
-                    <td><?= h($vendorMaterial->material_code) ?></td>
-                    <td><?= h($vendorMaterial->description) ?></td>
-                    <td><?= h($vendorMaterial->buyer_material_code) ?></td>
-                    <td><?= h($vendorMaterial->status) ?></td>
-                    <td><?= h($vendorMaterial->added_date) ?></td>
-                    <td><?= h($vendorMaterial->updated_date) ?></td>
-                    <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $vendorMaterial->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorMaterial->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $vendorMaterial->id], ['confirm' => __('Are you sure you want to delete # {0}?', $vendorMaterial->id)]) ?>
-                    </td>
-                </tr>
+                <?php foreach ($vendorMaterial as $vendorMaterials) : ?>
+                    <tr>
+                        <td><?= h($vendorMaterials->vendor_material_code) ?></td>
+                        <td><?= h($vendorMaterials->description) ?></td>
+                        <td><?= h($vendorMaterials->minimum_stock) ?></td>
+                        <td><?= h($vendorMaterials->uom) ?></td>
+                        <td>
+                            <div class="float-left">
+                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorMaterials->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
+                            </div>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
