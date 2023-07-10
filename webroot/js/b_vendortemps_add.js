@@ -12,6 +12,8 @@ var Toast = Swal.mixin({
     timer: 3000
 });
 
+
+
 $.validator.setDefaults({
     submitHandler: function() {
       $.ajax({
@@ -26,12 +28,15 @@ $.validator.setDefaults({
               icon: 'success',
               title: response.message
             });
+            $('#modal-sm').modal('hide'); 
+
             setTimeout(function(){ window.location.reload(); }, 1000);
           } else {
             Toast.fire({
               icon: 'error',
               title: response.message
             });
+            $('#modal-sm').modal('hide'); 
 
             /*if(response.data) {
               $("#exist_vendor_list tbody").html('');
@@ -47,6 +52,19 @@ $.validator.setDefaults({
     }
   });
 
+  
+$('#id_addvendor').click(function(){
+  if ($("#addvendorform").valid()) { // Check form validation
+    $('#modal-sm').modal('show'); // Show the modal
+  }
+});
+
+$('#modal-sm').on('click', '.btn-success', function () {
+  if ($("#addvendorform").valid()) { 
+    $('#modal-sm').modal('hide'); 
+    $('#addvendorform')[0].submit(); // Submit the form
+  }
+});
 $('#addvendorform').validate({
     rules: {
         name: { required: true },
