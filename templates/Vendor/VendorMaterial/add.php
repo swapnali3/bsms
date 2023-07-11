@@ -7,6 +7,8 @@
 ?>
 </style>
 <?= $this->Html->css('custom') ?>
+
+<?= $this->Form->create($vendorMaterial) ?>
 <div class="card">
     <div class="card-header pb-1 pt-2">
         <div class="row">
@@ -19,16 +21,15 @@
         </div>
     </div>
     <div class="card-body invoice-details p-0">
-    <?= $this->Form->create($vendorMaterial) ?>
         <div class="row dgf m-0">
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('vendor_material_code', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group','label' => 'Material Code' ,'required')); ?>
+                    <?php echo $this->Form->control('vendor_material_code', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'label' => 'Material Code', 'required')); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('description', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group','label' => 'Material' , 'required')); ?>
+                    <?php echo $this->Form->control('description', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'label' => 'Material', 'required')); ?>
                 </div>
             </div>
 
@@ -40,14 +41,38 @@
             </div>
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('uom', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group','label' => 'Unit of Measurement' ,'required')); ?>
+                    <?php echo $this->Form->control('uom', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'label' => 'Unit of Measurement', 'required')); ?>
                 </div>
             </div>
 
             <div class="col-sm-8 col-md-3 d-flex justify-content-start align-items-end">
-                <button type="submit" class="btn btn-custom">Submit</button>
+                 <button type="button" class="btn btn-custom" onclick="showConfirmationModal()">Submit</button>
             </div>
         </div>
-        <?= $this->Form->end() ?>
+    
     </div>
 </div>
+
+<div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h6>Are you sure you want to Add Vendor Material?</h6>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn" style="border:1px solid #28a745">Ok</button>
+            </div>  
+        </div>
+    </div>
+</div>
+
+<?= $this->Form->end() ?>
+
+
+
+<script>
+    function showConfirmationModal() {
+        $('#modal-sm').modal('show');
+    }
+</script>

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
@@ -20,6 +21,7 @@ class DailymonitorController extends VendorAppController
     {
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
+
         $dailymonitor = $this->Dailymonitor->find('all', [
             'conditions' => ['Dailymonitor.vendor_id' => $vendorId]
         ])->select([
@@ -29,8 +31,34 @@ class DailymonitorController extends VendorAppController
             'table' => 'Productionline',
             'alias' => 'prdline',
             'type' => 'LEFT',
-            'conditions' => 'prdline.id = Dailymonitor.productionline_id',
+            'conditions' => 'prdline.id = Dailymonitor.productionline_id', 'prdline.status' => 1,
         ]);
+
+
+        // $dailymonitor = $this->Dailymonitor->find('all')
+        //     ->select([
+        //         'Dailymonitor.id',
+        //         'Dailymonitor.vendor_id',
+        //         'Dailymonitor.productionline_id',
+        //         'Dailymonitor.target_production',
+        //         'Dailymonitor.confirm_production',
+        //         'Dailymonitor.status',
+        //         'Dailymonitor.added_date',
+        //         'Dailymonitor.updated_date',
+        //         'prdline.prdline_description',
+
+        //     ])
+        //     ->leftJoin(
+        //         ['prdline' => 'Productionline'],
+        //         ['prdline.id = Dailymonitor.productionline_id', 'prdline.status' => 1]
+        //     )
+        //     ->leftJoin(
+        //         ['vendormaterial' => 'vendor_material'],
+        //         ['vendormaterial.vendor_id = Dailymonitor.vendor_id', 'vendormaterial.status' => 1]
+        //     )
+        //     ->where(['Dailymonitor.vendor_id' => $vendorId]);
+
+        // print_r($dailymonitor);exit;
         // $query = $query->select($Productionline);
         $this->set(compact('dailymonitor'));
     }
@@ -78,10 +106,10 @@ class DailymonitorController extends VendorAppController
             }
             $this->Flash->error(__('The dailymonitor could not be saved. Please, try again.'));
         }
-        $vendor_mateial = $this->VendorMaterial->find('list', [ 'conditions' => ['VendorMaterial.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'description' ])->all();
-        $productionline = $this->Productionline->find('list', [ 'conditions' => ['Productionline.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'prdline_description' ])->all();
+        $vendor_mateial = $this->VendorMaterial->find('list', ['conditions' => ['VendorMaterial.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'description'])->all();
+        $productionline = $this->Productionline->find('list', ['conditions' => ['Productionline.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'prdline_description'])->all();
 
-        $this->set(compact('dailymonitor','vendor_mateial', 'productionline'));
+        $this->set(compact('dailymonitor', 'vendor_mateial', 'productionline'));
     }
 
     /**
