@@ -73,22 +73,37 @@
 </li>
 
 <li class="nav-item ">
-  <?= $this->Html->link(__('<i class="fas fa-box-open nav-icon"></i><p>Material Stocks</p>'), ['controller' => 'vendor-material-stocks', 'action' => 'index'], ['class' => "nav-link $stockActive", 'escape' => false]) ?>
+<?= $this->Html->link(__('<i class="fas fa-box-open nav-icon"></i><p>Material Stocks</p>'), ['controller' => 'vendor-material-stocks', 'action' => 'index'], ['class' => "nav-link $stockActive", 'escape' => false]) ?>
+</li>
+
+<li class="nav-item">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-user-alt"></i>
+    <p>
+      Vendor Master
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item ">
+    <?= $this->Html->link(__('<i class="fas fa-boxes nav-icon"></i><p>Material Master</p>'), ['controller' => 'vendor-material', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
+    </li>
+    <li class="nav-item ">
+    <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stockupload', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+    </li>
+    <li class="nav-item ">
+    <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Production Line</p>'), ['controller' => 'productionline', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
+    </li>
+  </ul>
+</li>
+
+
+<li class="nav-item ">
+  <?= $this->Html->link(__('<i class="fas fa-pallet nav-icon"></i><p>Weekly Production Planner</p>'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item ">
-  <?= $this->Html->link(__('<i class="fas fa-boxes nav-icon"></i><p>Material Master</p>'), ['controller' => 'vendor-material', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
-</li>
-<li class="nav-item ">
-  <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stockupload', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
-</li>
-
-<li class="nav-item ">
-  <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Production Line</p>'), ['controller' => 'productionline', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
-</li>
-
-<li class="nav-item ">
-  <?= $this->Html->link(__('<i class="fas fa-pallet nav-icon"></i><p>Daily Stock Monitoring</p>'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-pallet nav-icon"></i><p>Daily Stock Upload</p>'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link ", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item ">

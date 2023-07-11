@@ -59,6 +59,14 @@ class DailymonitorTable extends Table
             ->allowEmptyString('productionline_id');
 
         $validator
+            ->integer('material_id')
+            ->allowEmptyString('material_id');
+
+        $validator
+            ->date('plan_date')
+            ->allowEmptyDate('plan_date');
+
+        $validator
             ->integer('target_production')
             ->allowEmptyString('target_production');
 
@@ -79,5 +87,19 @@ class DailymonitorTable extends Table
             ->allowEmptyDateTime('updated_date');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['productionline_id', 'material_id', 'plan_date'], ['allowMultipleNulls' => true]), ['errorField' => 'productionline_id']);
+
+        return $rules;
     }
 }

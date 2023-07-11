@@ -28,11 +28,13 @@ class DailymonitorFixture extends TestFixture
                 'id' => 1,
                 'vendor_id' => 1,
                 'productionline_id' => 1,
+                'material_id' => 1,
+                'plan_date' => '2023-07-11',
                 'target_production' => 1,
                 'confirm_production' => 1,
                 'status' => 1,
-                'added_date' => '2023-07-09 13:15:27',
-                'updated_date' => '2023-07-09 13:15:27',
+                'added_date' => '2023-07-11 15:44:58',
+                'updated_date' => '2023-07-11 15:44:58',
             ],
         ];
         parent::init();

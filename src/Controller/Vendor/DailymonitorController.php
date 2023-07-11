@@ -3,35 +3,30 @@ declare(strict_types=1);
 
 namespace App\Controller\Vendor;
 
-/**
- * Dailymonitor Controller
- *
- * @property \App\Model\Table\DailymonitorTable $Dailymonitor
- * @method \App\Model\Entity\Dailymonitor[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class DailymonitorController extends VendorAppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
     public function index()
     {
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-        $dailymonitor = $this->Dailymonitor->find('all', [
-            'conditions' => ['Dailymonitor.vendor_id' => $vendorId]
-        ])->select([
-            'id','vendor_id','productionline_id','target_production','confirm_production','status','added_date', 'updated_date',
-            'prdline_description' => 'prdline.prdline_description',
-        ])->join([
+        $this->loadModel("VendorMaterial");
+        $this->loadModel("Productionline");
+
+        $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.vendor_id' => $vendorId]])
+        ->select([
+            'id','vendor_id','productionline_id','material_id', 'plan_date','target_production','confirm_production','status','added_date', 'updated_date',
+            'prdline_description' => 'prdline.prdline_description','material_description' => 'vendormat.description'])->join([
             'table' => 'Productionline',
             'alias' => 'prdline',
             'type' => 'LEFT',
             'conditions' => 'prdline.id = Dailymonitor.productionline_id',
+        ])->join([
+            'table' => 'Vendor_material',
+            'alias' => 'vendormat',
+            'type' => 'LEFT',
+            'conditions' => 'vendormat.id = Dailymonitor.material_id',
         ]);
-        // $query = $query->select($Productionline);
+        // echo '<pre>'; print_r($dailymonitor); exit;
         $this->set(compact('dailymonitor'));
     }
 
@@ -44,18 +39,15 @@ class DailymonitorController extends VendorAppController
      */
     public function view($id = null)
     {
-        $dailymonitor = $this->Dailymonitor->get($id, [
-            'contain' => [],
-        ]);
-
+        $dailymonitor = $this->Dailymonitor->get($id);
         $this->set(compact('dailymonitor'));
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
+    public function dailyentry()
+    {
+        // $this->set(compact('dailymonitor'));
+    }
+
     public function add()
     {
         
@@ -68,8 +60,8 @@ class DailymonitorController extends VendorAppController
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
             $requestData['vendor_id'] = $vendorId;
-            $requestData['status'] = 0;
-
+            $requestData['status'] = 1;
+            // echo '<pre>'; print_r($requestData);exit;
             $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $requestData);
             if ($this->Dailymonitor->save($dailymonitor)) {
                 $this->Flash->success(__('The dailymonitor has been saved.'));
@@ -93,9 +85,10 @@ class DailymonitorController extends VendorAppController
      */
     public function edit($id = null)
     {
-        $dailymonitor = $this->Dailymonitor->get($id, [
-            'contain' => [],
-        ]);
+        $this->loadModel("VendorMaterial");
+        $this->loadModel("Productionline");
+        $dailymonitor = $this->Dailymonitor->get($id);
+        $vendorId = $dailymonitor->vendor_id;
         if ($this->request->is(['patch', 'post', 'put'])) {
             $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $this->request->getData());
             if ($this->Dailymonitor->save($dailymonitor)) {
@@ -105,7 +98,9 @@ class DailymonitorController extends VendorAppController
             }
             $this->Flash->error(__('The dailymonitor could not be saved. Please, try again.'));
         }
-        $this->set(compact('dailymonitor'));
+        $vendor_mateial = $this->VendorMaterial->find('list', [ 'conditions' => ['VendorMaterial.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'description' ])->all();
+        $productionline = $this->Productionline->find('list', [ 'conditions' => ['Productionline.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'prdline_description' ])->all();
+        $this->set(compact('dailymonitor','vendor_mateial', 'productionline'));
     }
 
     /**
