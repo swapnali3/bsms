@@ -56,14 +56,40 @@ class VendorMaterialController extends VendorAppController
      */
     public function add()
     {
+        $this->loadModel("VendorTemps");
+        $this->loadModel('Notifications');
         $vendorMaterial = $this->VendorMaterial->newEmptyEntity();
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
+
+        $sapVendor = $session->read('vendor_code');
+
+  
+        
+        // Retrieve the buyer_id based on sapVendor
+        $buyer = $this->VendorTemps->find()
+            ->select(['buyer_id'])
+            ->where(['sap_vendor_code' => $sapVendor])
+            ->first();
+
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
             $requestData['vendor_id'] = $vendorId;
             $vendorMaterial = $this->VendorMaterial->patchEntity($vendorMaterial, $requestData);
             if ($this->VendorMaterial->save($vendorMaterial)) {
+                if ($this->Notifications->exists(['Notifications.user_id' => $buyer->buyer_id, 'Notifications.notification_type' => 'vendor_material'])) {
+                    $this->Notifications->updateAll(
+                        ['message_count' => $this->Notifications->query()->newExpr('message_count + 1')],
+                        ['user_id' => $buyer->buyer_id, 'notification_type' => 'vendor_material']
+                    );
+                } else {
+                    $notification = $this->Notifications->newEmptyEntity();
+                    $notification->user_id = $buyer->buyer_id;
+                    $notification->notification_type = 'vendor_material';
+                    $notification->message_count = 1;
+                    $this->Notifications->save($notification);
+                } 
+
                 $this->Flash->success(__('The vendor material has been saved.'));
     
                 return $this->redirect(['action' => 'index']);

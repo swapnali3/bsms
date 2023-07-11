@@ -67,7 +67,13 @@ $(function () {
                     
                     }else if(notification.notification_type == "po_acknowledge"){
                         var message = $('<span></span>').text(notification.message_count + ' PO Acknowledge');
-                    }
+                    }else if(notification.notification_type == "vendor_material"){
+                    var message = $('<span></span>').text(notification.message_count + ' Vendor Material');
+                }else if(notification.notification_type == "production_line"){
+                    var message = $('<span></span>').text(notification.message_count + ' Production Line');
+                }
+                
+                    
                     notificationItem.append(message);
     
                     var divider = $('<div class="dropdown-divider"></div>');
