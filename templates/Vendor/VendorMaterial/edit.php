@@ -12,7 +12,7 @@
     <div class="card-header pb-1 pt-2">
         <div class="row">
             <div class="col-lg-6 d-flex justify-content-start">
-                <h5><b>Update Vendor Material</b></h5>
+                <h5><b>Update Vendor Materials</b></h5>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
             </div>
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('description', ['class' => 'form-control rounded-0 w-100 mb-3', 'style' => "height: unset !important;", 'label' => 'Material']); ?>
+                    <?php echo $this->Form->control('description', ['class' => 'form-control rounded-0 w-100 mb-3', 'style' => "height: unset !important;", 'label' => 'Material Description']); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">
@@ -35,10 +35,10 @@
             </div>
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('uom', ['class' => 'form-control rounded-0 w-100 mb-3', 'label' => 'Unit of Measurement', 'style' => "height: unset !important;"]); ?>
+                    <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'style' => "height: unset !important;", 'empty' => 'Please Select','label'=>'Unit Of Measurement')); ?>
+
                 </div>
             </div>
-
             <div class="col-sm-8 col-md-3 d-flex justify-content-start align-items-end">
                 <!-- <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info mb-0']) ?>
             </div> -->
