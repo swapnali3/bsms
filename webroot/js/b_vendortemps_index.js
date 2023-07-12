@@ -1,54 +1,5 @@
 var currentchat, sender_id, table_pk;
 
-// function communication(id = null) {
-//     $.ajax({
-//         type: "GET",
-//         url: userComm + "/index/vendor_temps/" + id,
-//         dataType: "json",
-//         success: function (response) {
-//             $("#id_oldmsg").empty();
-//             chatdata = response;
-//             var counts = 0;
-//             $.each(response, function (index, row) {
-//                 table_pk = row['table_pk'];
-//                 var ndiv = `<div class="card card-widget">
-//                         <div class="card-header">
-//                             <div class="user-block">
-//                                 <img class="img-circle" src="..\\..\\..\\img\\U.png" alt="User Image">
-//                                 <span class="username">` + row['fullname'] + `</span>
-//                                 <span class="description">` + row['updateddate'] + `</span>
-//                             </div><div class="card-tools">
-//                                 <button type="button" class="btn btn-tool" id="minimise` + row['id'] + `" data-card-widget="collapse">
-//                                     <i class="fas fa-minus"></i>
-//                                 </button>         
-//                             </div>
-//                         </div>
-//                         <div class="card-body" style="display: block;margin: 6px 24px;"><p>` + row['message'] + `</p></div>
-//                     </div>`;
-//                 $("#id_oldmsg").append(ndiv);
-//                 if (index != 0 && row['seen'] == "1") { $("#minimise" + row["id"]).trigger("click"); }
-//                 if (row['seen'] == 0 && row['sender_id'] != user_id) {
-//                     counts++; sender_id = row["sender_id"]; table_pk = row["table_pk"];
-//                 }
-//             });
-//             $('#count-badge').text(counts);
-//         },
-//     });
-// }
-
-// $(document).on("click", ".chatload", function () {
-//     //    var name =  $('.tableName').text();
-//     //    var email = $('.tableEmail').text();
-
-//     $("#id_chatuser").html($(this).data('name'));
-
-//     //    $(".nameView").text(name);
-//     //    $(".emailView").text(email);
-
-//     currentchat = $(this).data("value");
-//     communication(currentchat);
-// });
-
 $(document).on("click", "#add_comm", function () {
     // e.preventDefault();
     var formdata = new FormData($("#communiSubmit")[0]);

@@ -1,35 +1,61 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
- * @var \App\Model\Entity\Dailymonitor $dailymonitor
+ * @var iterable<\App\Model\Entity\Dailymonitor> $dailymonitor
  */
 ?>
 </style>
 <?= $this->Html->css('custom') ?>
-<div class="card ">
+<div class="card">
     <div class="card-header pb-1 pt-2">
         <div class="row">
             <div class="col-lg-6 d-flex justify-content-start">
-                <h5>Daily Monitor Edit</h5>
+                <h5>Daily Production Planner</h5>
             </div>
         </div>
     </div>
-    <?= $this->Form->create($dailymonitor) ?>
-    <div class="card mb-0">
-        <div class="card-body  pb-0">
-            <div class="row">
-                <div class="col-sm-4 col-md-4 col-lg-4">
-                    <?php echo $this->Form->control('target_production', ['class' => 'form-control mb-3']); ?>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-4">
-                    <?php echo $this->Form->control('confirm_production', ['class' => 'form-control mb-3']); ?>
-                </div>
-                <div class="col-sm-4 col-md-4 col-lg-4 mt-4">
-                    <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-info mt-1']) ?>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?= $this->Form->end() ?>
 
+    <div class="card-header p-0 mb-0 mt-3 ml-3 mr-3" id="id_pohead">
+        <table class="table table-bordered material-list">
+            <thead>
+                <tr>
+                    <th>Plan Date</th>
+                    <th>Production Line</th>
+                    <th>Material</th>
+                    <th>Target Production</th>
+                    <th>Confirm Production</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php if (isset($dailymonitor)) : ?>
+                <?php foreach ($dailymonitor as $dailymonitors) : ?>
+                    <tr>
+                        <td><?= h($dailymonitors->plan_date) ?></td>
+                        <td><?= h($dailymonitors->prdline_description) ?></td>
+                        <td><?= h($dailymonitors->material_description) ?></td>
+                        <td><?= h($dailymonitors->target_production) ?></td>
+                        <td>
+                            <input type="number" class="form-control form-control-sm" id="confirmprd<?= h($dailymonitors->id) ?>">
+                        </td>
+                        <td>
+                            <button class="btn btn-success save btn-sm mb-0" id="confirmsave<?= h($dailymonitors->id) ?>" data-id="<?= h($dailymonitors->id) ?>">Save</button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6">
+                        No Records Found
+                    </td>
+                </tr>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
+<script>
+    var getConfirmedProductionUrl="<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'confirmedproduction')); ?>"
+</script>
+<?= $this->Html->script('v_dailymonitor_dailyentry') ?>

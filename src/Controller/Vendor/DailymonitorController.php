@@ -43,9 +43,38 @@ class DailymonitorController extends VendorAppController
         $this->set(compact('dailymonitor'));
     }
 
+    public function confirmedproduction($id=null, $confirm_production=null)
+    {
+        $response = ['status'=>0,'message'=>''];
+        $dailymonitor = $this->Dailymonitor->get($id);
+        $dailymonitor->confirm_production = $confirm_production;
+        if ($this->Dailymonitor->save($dailymonitor)) { $response = ['status'=>1,'message'=>$dailymonitor]; }
+        else { $response = ['status'=>0,'message'=>'Failed']; }
+        echo json_encode($response); exit;
+    }
     public function dailyentry()
     {
-        // $this->set(compact('dailymonitor'));
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
+        $this->loadModel("VendorMaterial");
+        $this->loadModel("Productionline");
+
+        $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.vendor_id' => $vendorId, 'Dailymonitor.plan_date' => date('y-m-d'), 'Dailymonitor.confirm_production' => '']])
+        ->select([
+            'id','vendor_id','productionline_id','material_id', 'plan_date','target_production','confirm_production','status','added_date', 'updated_date',
+            'prdline_description' => 'prdline.prdline_description','material_description' => 'vendormat.description'])->join([
+            'table' => 'Productionline',
+            'alias' => 'prdline',
+            'type' => 'LEFT',
+            'conditions' => 'prdline.id = Dailymonitor.productionline_id',
+        ])->join([
+            'table' => 'Vendor_material',
+            'alias' => 'vendormat',
+            'type' => 'LEFT',
+            'conditions' => 'vendormat.id = Dailymonitor.material_id',
+        ]);
+        // echo '<pre>'; print_r($dailymonitor); exit;
+        $this->set(compact('dailymonitor'));
     }
 
     public function add()
