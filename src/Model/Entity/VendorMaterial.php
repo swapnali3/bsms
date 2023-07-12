@@ -14,10 +14,12 @@ use Cake\ORM\Entity;
  * @property string $description
  * @property int|null $buyer_material_code
  * @property int|null $minimum_stock
- * @property string|null $uom
+ * @property int|null $uom
  * @property bool|null $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
+ *
+ * @property \App\Model\Entity\Stockupload[] $stockupload
  */
 class VendorMaterial extends Entity
 {
@@ -40,5 +42,6 @@ class VendorMaterial extends Entity
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
+        'stockupload' => true,
     ];
 }
