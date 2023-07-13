@@ -23,6 +23,13 @@ class VendorMaterialController extends VendorAppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     public function index()
     {
         $this->loadModel('Uoms');
@@ -80,6 +87,8 @@ class VendorMaterialController extends VendorAppController
         // $vendorMaterial = $this->VendorMaterial->newEmptyEntity();
         $vendorMaterial = [];
         $vendorView = [];
+        $flash = [];
+        $vendorMaterial = $this->VendorMaterial->newEmptyEntity();
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
         $sapVendor = $session->read('vendor_code');
@@ -195,17 +204,20 @@ class VendorMaterialController extends VendorAppController
     public function edit($id = null)
     {
         $this->loadModel('Uoms');
+        $flash = [];
         $vendorMaterial = $this->VendorMaterial->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $vendorMaterial = $this->VendorMaterial->patchEntity($vendorMaterial, $this->request->getData());
             if ($this->VendorMaterial->save($vendorMaterial)) {
-                $this->Flash->success(__('The vendor material has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The vendor material has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The vendor material could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The vendor material has been saved'];
+            $this->set('flash', $flash);
         }
 
         $uom = $this->Uoms->find('list', ['keyField' => 'id', 'valueField' => 'code'])->all();
@@ -222,13 +234,15 @@ class VendorMaterialController extends VendorAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $vendorMaterial = $this->VendorMaterial->get($id);
         if ($this->VendorMaterial->delete($vendorMaterial)) {
-            $this->Flash->success(__('The vendor material has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The vendor material has been deleted'];
         } else {
-            $this->Flash->error(__('The vendor material could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor material could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

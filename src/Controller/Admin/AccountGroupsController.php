@@ -11,6 +11,13 @@ namespace App\Controller\Admin;
  */
 class AccountGroupsController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -46,15 +53,17 @@ class AccountGroupsController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $accountGroup = $this->AccountGroups->newEmptyEntity();
         if ($this->request->is('post')) {
             $accountGroup = $this->AccountGroups->patchEntity($accountGroup, $this->request->getData());
             if ($this->AccountGroups->save($accountGroup)) {
-                $this->Flash->success(__('The account group has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The account group has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The account group could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The account group could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('accountGroup'));
     }
@@ -68,17 +77,19 @@ class AccountGroupsController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $accountGroup = $this->AccountGroups->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $accountGroup = $this->AccountGroups->patchEntity($accountGroup, $this->request->getData());
             if ($this->AccountGroups->save($accountGroup)) {
-                $this->Flash->success(__('The account group has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The account group has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The account group could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The account group could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('accountGroup'));
     }
@@ -92,13 +103,15 @@ class AccountGroupsController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $accountGroup = $this->AccountGroups->get($id);
         if ($this->AccountGroups->delete($accountGroup)) {
-            $this->Flash->success(__('The account group has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The account group has been deleted'];
         } else {
-            $this->Flash->error(__('The account group could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The account group could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

@@ -14,6 +14,13 @@ use App\Model\Table\VendorMaterialTable;
  */
 class ProductionlineController extends VendorAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -78,6 +85,7 @@ class ProductionlineController extends VendorAppController
      */
     public function add()
     {
+        $flash = [];
         $this->loadModel("VendorMaterial");
         $this->loadModel("VendorTemps");
         $this->loadModel('Notifications');
@@ -123,11 +131,13 @@ class ProductionlineController extends VendorAppController
                     $this->Notifications->save($notification);
                 } 
 
-                $this->Flash->success(__('The productionline has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The productionline has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The productionline could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The productionline could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         
          $session = $this->getRequest()->getSession();
@@ -147,6 +157,7 @@ class ProductionlineController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel("VendorMaterial");
         $productionline = $this->Productionline->get($id, [
             'contain' => [],
@@ -155,11 +166,13 @@ class ProductionlineController extends VendorAppController
             $productionline = $this->Productionline->patchEntity($productionline, $this->request->getData());
 
             if ($this->Productionline->save($productionline)) {
-                $this->Flash->success(__('The productionline has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The productionline has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The productionline could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The productionline could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
 
         $session = $this->getRequest()->getSession();
@@ -180,13 +193,15 @@ class ProductionlineController extends VendorAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $productionline = $this->Productionline->get($id);
         if ($this->Productionline->delete($productionline)) {
-            $this->Flash->success(__('The productionline has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The productionline has been deleted'];
         } else {
-            $this->Flash->error(__('The productionline could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The productionline could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

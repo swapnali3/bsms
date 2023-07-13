@@ -11,6 +11,13 @@ namespace App\Controller\Admin;
  */
 class UsersPermissionsController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -46,15 +53,17 @@ class UsersPermissionsController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $usersPermission = $this->UsersPermissions->newEmptyEntity();
         if ($this->request->is('post')) {
             $usersPermission = $this->UsersPermissions->patchEntity($usersPermission, $this->request->getData());
             if ($this->UsersPermissions->save($usersPermission)) {
-                $this->Flash->success(__('The users permission has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The users permission has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The users permission could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The users permission could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('usersPermission'));
     }
@@ -68,17 +77,20 @@ class UsersPermissionsController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $usersPermission = $this->UsersPermissions->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $usersPermission = $this->UsersPermissions->patchEntity($usersPermission, $this->request->getData());
             if ($this->UsersPermissions->save($usersPermission)) {
-                $this->Flash->success(__('The users permission has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The users permission has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The users permission could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The users permission could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('usersPermission'));
     }
@@ -92,13 +104,15 @@ class UsersPermissionsController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $usersPermission = $this->UsersPermissions->get($id);
         if ($this->UsersPermissions->delete($usersPermission)) {
-            $this->Flash->success(__('The users permission has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The users permission has been deleted'];
         } else {
-            $this->Flash->error(__('The users permission could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The users permission could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

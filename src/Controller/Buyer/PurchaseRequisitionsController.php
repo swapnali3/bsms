@@ -12,6 +12,13 @@ use Cake\Core\Exception\Exception;
  */
 class PurchaseRequisitionsController extends BuyerAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     var $uses = array('PrHeaders');
     /**
      * Index method
@@ -47,6 +54,7 @@ class PurchaseRequisitionsController extends BuyerAppController
 
     public function createRfq($id = null)
     {
+        $flash = [];
         $this->set('headTitle', 'Create RFQ');
         $session = $this->getRequest()->getSession();
         $this->loadModel('PrHeaders');
@@ -112,13 +120,15 @@ class PurchaseRequisitionsController extends BuyerAppController
                     }
                 }
              
-                $this->Flash->success(__('The RFQ has been saved.'));
+                $flash = ['type'=>'error', 'msg'=>'The RFQ has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             } catch (\PDOException $e) {
-                $this->Flash->error($e->getMessage());
+                $flash = ['type'=>'error', 'msg'=>($e->getMessage())];
             }  catch (\Exception $e ) {
-                $this->Flash->error($e->getMessage());
+                $flash = ['type'=>'error', 'msg'=>($e->getMessage())];
             }    
+            $this->set('flash', $flash);
         }
 
         $vendors = $this->VendorTemps->find('list', ['limit' => 200])->toArray();
@@ -133,15 +143,18 @@ class PurchaseRequisitionsController extends BuyerAppController
      */
     public function add()
     {
+        $flash = [];
         $prHeader = $this->PrHeaders->newEmptyEntity();
         if ($this->request->is('post')) {
             $prHeaders = $this->PrHeaders->patchEntity($prHeader, $this->request->getData());
             if ($this->PrHeaders->save($prHeader)) {
-                $this->Flash->success(__('The buyer/pr header has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The buyer/pr header has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The buyer/pr header could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The buyer/pr header could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('prHeader'));
     }
@@ -155,17 +168,20 @@ class PurchaseRequisitionsController extends BuyerAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $prHeaders = $this->PrHeaders->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $prHeaders = $this->PrHeaders->patchEntity($prHeader, $this->request->getData());
             if ($this->PrHeaders->save($prHeader)) {
-                $this->Flash->success(__('The buyer/pr header has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The buyer/pr header has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The buyer/pr header could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The buyer/pr header could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('buyer/prHeader'));
     }
@@ -179,13 +195,15 @@ class PurchaseRequisitionsController extends BuyerAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $prHeader = $this->PrHeaders->get($id);
         if ($this->PrHeaders->delete($prHeader)) {
-            $this->Flash->success(__('The buyer/pr header has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The buyer/pr header has been deleted'];
         } else {
-            $this->Flash->error(__('The buyer/pr header could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The buyer/pr header could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

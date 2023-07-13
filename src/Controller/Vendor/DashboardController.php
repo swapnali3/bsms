@@ -39,7 +39,7 @@ class DashboardController extends VendorAppController
     public function initialize(): void
     {
         parent::initialize();
-
+        $flash = [];
     //     $session = $this->getRequest()->getSession();
 
     //     $permissionsTable = $this->getTableLocator()->get('Permissions');
@@ -52,11 +52,11 @@ class DashboardController extends VendorAppController
     //         ])->toArray();
             
     //    print_r($query);exit;    
-     
+        $this->set('flash', $flash);
     }
+
     public function index()
     {
-
         $this->set('headTitle', 'Dashboard');
         $session = $this->getRequest()->getSession();
         $conn = ConnectionManager::get('default');

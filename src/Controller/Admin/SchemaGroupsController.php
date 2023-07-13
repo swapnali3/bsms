@@ -11,6 +11,13 @@ namespace App\Controller\Admin;
  */
 class SchemaGroupsController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -46,15 +53,18 @@ class SchemaGroupsController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $schemaGroup = $this->SchemaGroups->newEmptyEntity();
         if ($this->request->is('post')) {
             $schemaGroup = $this->SchemaGroups->patchEntity($schemaGroup, $this->request->getData());
             if ($this->SchemaGroups->save($schemaGroup)) {
-                $this->Flash->success(__('The schema group has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The schema group has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The schema group could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The schema group could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('schemaGroup'));
     }
@@ -68,17 +78,19 @@ class SchemaGroupsController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $schemaGroup = $this->SchemaGroups->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $schemaGroup = $this->SchemaGroups->patchEntity($schemaGroup, $this->request->getData());
             if ($this->SchemaGroups->save($schemaGroup)) {
-                $this->Flash->success(__('The schema group has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The schema group has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The schema group could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The schema group could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('schemaGroup'));
     }
@@ -92,13 +104,15 @@ class SchemaGroupsController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $schemaGroup = $this->SchemaGroups->get($id);
         if ($this->SchemaGroups->delete($schemaGroup)) {
-            $this->Flash->success(__('The schema group has been deleted.'));
+            $flash = ['type'=>'error', 'msg'=>'The schema group could not be saved. Please, try again'];
         } else {
-            $this->Flash->error(__('The schema group could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The schema group could not be saved. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

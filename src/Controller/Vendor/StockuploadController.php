@@ -15,6 +15,13 @@ use App\Model\Table\VendorMaterialTable;
  */
 class StockuploadController extends VendorAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -70,7 +77,7 @@ class StockuploadController extends VendorAppController
      */
     public function add()
     {
-
+        $flash = [];
         $this->loadModel("VendorMaterial");
         $stockupload = $this->Stockupload->newEmptyEntity();
 
@@ -87,11 +94,13 @@ class StockuploadController extends VendorAppController
 
             $stockupload = $this->Stockupload->patchEntity($stockupload, $requestData);
             if ($this->Stockupload->save($stockupload)) {
-                $this->Flash->success(__('The stock Upload has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The stock Upload has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The stockupload could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The stockupload could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
 
         $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'id', 'valueField' => 'description'])->all();
@@ -143,6 +152,7 @@ class StockuploadController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel("VendorMaterial");
         $stockupload = $this->Stockupload->get($id, [
             'contain' => [],
@@ -150,11 +160,13 @@ class StockuploadController extends VendorAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $stockupload = $this->Stockupload->patchEntity($stockupload, $this->request->getData());
             if ($this->Stockupload->save($stockupload)) {
-                $this->Flash->success(__('The stockupload has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The stockupload has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The stockupload could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The stockupload could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
 
         $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'id', 'valueField' => 'description'])->all();
@@ -173,14 +185,16 @@ class StockuploadController extends VendorAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $stockupload = $this->Stockupload->get($id);
         if ($this->Stockupload->delete($stockupload)) {
-            $this->Flash->success(__('The stockupload has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The stockupload has been deleted'];
         } else {
-            $this->Flash->error(__('The stockupload could not be deleted. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The stockupload could not be deleted. Please, try again'];
         }
-
+        $this->set('flash', $flash);
+        
         return $this->redirect(['action' => 'index']);
     }
 }

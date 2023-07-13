@@ -17,6 +17,13 @@ use Cake\Http\Client;
  */
 class VendorMaterialController extends BuyerAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     public function index()
     {
         $session = $this->getRequest()->getSession();

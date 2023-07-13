@@ -11,6 +11,13 @@ namespace App\Controller\Vendor;
  */
 class RfqInquiriesController extends VendorAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -49,15 +56,18 @@ class RfqInquiriesController extends VendorAppController
      */
     public function add()
     {
+        $flash = [];
         $rfqInquiry = $this->RfqInquiries->newEmptyEntity();
         if ($this->request->is('post')) {
             $rfqInquiry = $this->RfqInquiries->patchEntity($rfqInquiry, $this->request->getData());
             if ($this->RfqInquiries->save($rfqInquiry)) {
-                $this->Flash->success(__('The rfq inquiry has been saved.'));
+                $flash = ['type'=>'error', 'msg'=>'The rfq inquiry has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The rfq inquiry could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The rfq inquiry could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $buyerSellerUsers = $this->RfqInquiries->BuyerSellerUsers->find('list', ['limit' => 200])->all();
         $this->set(compact('rfqInquiry', 'buyerSellerUsers'));
@@ -72,17 +82,20 @@ class RfqInquiriesController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $rfqInquiry = $this->RfqInquiries->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $rfqInquiry = $this->RfqInquiries->patchEntity($rfqInquiry, $this->request->getData());
             if ($this->RfqInquiries->save($rfqInquiry)) {
-                $this->Flash->success(__('The rfq inquiry has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The rfq inquiry has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The rfq inquiry could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The rfq inquiry could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $buyerSellerUsers = $this->RfqInquiries->BuyerSellerUsers->find('list', ['limit' => 200])->all();
         $this->set(compact('rfqInquiry', 'buyerSellerUsers'));
@@ -97,18 +110,22 @@ class RfqInquiriesController extends VendorAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $rfqInquiry = $this->RfqInquiries->get($id);
         if ($this->RfqInquiries->delete($rfqInquiry)) {
-            $this->Flash->success(__('The rfq inquiry has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The rfq inquiry has been deleted'];
+            $this->set('flash', $flash);
         } else {
-            $this->Flash->error(__('The rfq inquiry could not be deleted. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The rfq inquiry could not be deleted. Please, try again'];
+            $this->set('flash', $flash);
         }
 
         return $this->redirect(['action' => 'index']);
     }
 
     public function inquiry($id=null) {
+        $flash = [];
         $session = $this->getRequest()->getSession();
         if($this->request->is('post')) {
 
@@ -177,7 +194,8 @@ class RfqInquiriesController extends VendorAppController
                 if($error) {
                     foreach($RfqInquiry as $err) {
                         if($err->hasErrors()) {
-                            $this->Flash->error(__("Quation save fail"));
+                            $flash = ['type'=>'success', 'msg'=>'Quation save fail'];
+                            $this->set('flash', $flash);
                         }
                     }
                     return $this->redirect(['controller' => 'rfqs', 'action' => 'view', $id]);
@@ -196,17 +214,19 @@ class RfqInquiriesController extends VendorAppController
                     if ($this->RfqCommunications->save($rfqCommunication)) {
                     }
 
-                    $this->Flash->success(__('Inquiry send to Buyer.'));
+                    $flash = ['type'=>'success', 'msg'=>'Inquiry send to Buyer'];
+                    $this->set('flash', $flash);
                     return $this->redirect(['controller' => 'rfqs', 'action' => 'index']);
                 }
 
             } catch (\PDOException $e) {
-                $this->Flash->error($e->getMessage());
+                $flash = ['type'=>'success', 'msg'=>($e->getMessage())];
                 return $this->redirect(['controller' => 'rfqs', 'action' => 'view', $id]);
             } catch (\Exception $e) {
-                $this->Flash->error(__($e->getMessage()));
+                $flash = ['type'=>'success', 'msg'=>($e->getMessage())];
                 return $this->redirect(['controller' => 'rfqs', 'action' => 'view', $id]);
             }
+            $this->set('flash', $flash);
         }
     }
 }

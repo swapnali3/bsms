@@ -53,15 +53,17 @@ class GroupsController extends AppController
      */
     public function add()
     {
+        $flash = [];
         $group = $this->Groups->newEmptyEntity();
         if ($this->request->is('post')) {
             $group = $this->Groups->patchEntity($group, $this->request->getData());
             if ($this->Groups->save($group)) {
-                $this->Flash->success(__('The group has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The group has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The group could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The group could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('group'));
     }
@@ -75,17 +77,19 @@ class GroupsController extends AppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $group = $this->Groups->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $group = $this->Groups->patchEntity($group, $this->request->getData());
             if ($this->Groups->save($group)) {
-                $this->Flash->success(__('The group has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The group has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The group could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The group could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('group'));
     }
@@ -99,14 +103,16 @@ class GroupsController extends AppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $group = $this->Groups->get($id);
         if ($this->Groups->delete($group)) {
-            $this->Flash->success(__('The group has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The group has been deleted'];
         } else {
-            $this->Flash->error(__('The group could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The group could not be deleted. Please, try again'];
         }
-
+        
+        $this->set('flash', $flash);
         return $this->redirect(['action' => 'index']);
     }
 }

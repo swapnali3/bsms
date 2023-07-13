@@ -11,6 +11,13 @@ namespace App\Controller\Admin;
  */
 class BuyerSellerUsersController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -48,6 +55,7 @@ class BuyerSellerUsersController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $this->loadModel('BuyerSellerUsers');
         
         $buyerSellerUser = $this->BuyerSellerUsers->newEmptyEntity();
@@ -55,11 +63,13 @@ class BuyerSellerUsersController extends AdminAppController
         if ($this->request->is('post')) {
             $buyerSellerUser = $this->BuyerSellerUsers->patchEntity($buyerSellerUser, $this->request->getData());
             if ($this->BuyerSellerUsers->save($buyerSellerUser)) {
-                $this->Flash->success(__('The buyer seller user has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The buyer seller user has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The buyer seller user could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The buyer seller user could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('buyerSellerUser', 'products'));
     }
@@ -73,6 +83,7 @@ class BuyerSellerUsersController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel('BuyerSellerUsers');
         $buyerSellerUser = $this->BuyerSellerUsers->get($id, [
             'contain' => [],
@@ -80,11 +91,12 @@ class BuyerSellerUsersController extends AdminAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $buyerSellerUser = $this->BuyerSellerUsers->patchEntity($buyerSellerUser, $this->request->getData());
             if ($this->BuyerSellerUsers->save($buyerSellerUser)) {
-                $this->Flash->success(__('The buyer seller user has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The buyer seller user has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The buyer seller user could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The buyer seller user could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('buyerSellerUser'));
     }
@@ -98,14 +110,16 @@ class BuyerSellerUsersController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->loadModel('BuyerSellerUsers');
         $this->request->allowMethod(['post', 'delete']);
         $buyerSellerUser = $this->BuyerSellerUsers->get($id);
         if ($this->BuyerSellerUsers->delete($buyerSellerUser)) {
-            $this->Flash->success(__('The buyer seller user has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The buyer seller user has been deleted'];
         } else {
-            $this->Flash->error(__('The buyer seller user could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The buyer seller user could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

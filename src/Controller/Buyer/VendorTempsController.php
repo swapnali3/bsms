@@ -21,6 +21,13 @@ use SebastianBergmann\Environment\Console;
  */
 class VendorTempsController extends BuyerAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -108,6 +115,7 @@ class VendorTempsController extends BuyerAppController
 
     public function update($id = null)
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
         $oldrecord = $this->VendorTemps->get($id);
         $newrecord = $this->VendorTemps->find('all')->where(['update_flag' => $id])->first();
@@ -118,16 +126,20 @@ class VendorTempsController extends BuyerAppController
                 $oldrecord->update_flag = '-1';
                 if ($this->VendorTemps->save($newrecord)) {
                     if ($this->VendorTemps->save($oldrecord)) {
-                        $this->Flash->success(__('Vendor Details Updated'));
-                    } else { $this->Flash->error(__('Failed')); }
-                } else { $this->Flash->error(__('Failed')); }
-            }
-            else {
-                $newrecord->update_flag = '-2';
-                if ($this->VendorTemps->save($newrecord)) {
-                    $this->Flash->success(__('Vendor Details Rejected'));
-                } else { $this->Flash->error(__('Failed')); }
-            }
+                        $flash = ['type'=>'success', 'msg'=>'Vendor Details Updated'];
+                        $flash = ['type'=>'error', 'msg'=>'Failed'];
+                    }
+                        $flash = ['type'=>'error', 'msg'=>'Failed'];
+                    }
+                }
+                else {
+                    $newrecord->update_flag = '-2';
+                    if ($this->VendorTemps->save($newrecord)) {
+                        $flash = ['type'=>'success', 'msg'=>'Vendor Details Rejected'];
+                    // } else { $this->Flash->error(__('Failed'));
+                        $flash = ['type'=>'error', 'msg'=>'Failed']; }
+                    }
+                $this->set('flash', $flash);
         }
         return $this->redirect(['action' => 'view', $id]);
     }
@@ -154,6 +166,7 @@ class VendorTempsController extends BuyerAppController
 
     public function add()
     {
+        $flash = [];
         $session = $this->getRequest()->getSession();
 
         $this->set('headTitle', 'Create Vendor');
@@ -278,11 +291,20 @@ class VendorTempsController extends BuyerAppController
                         }
         
                         $this->set('results', $tempvendor);
-                    } catch (\Exception $e) { $this->Flash->error(__("Invalid Excel File")); }
+                    } catch (\Exception $e) {
+                        $flash = ['type'=>'error', 'msg'=>'Invalid Excel File'];
+                        $this->set('flash', $flash);
+                    }
                     
 
-                } else { $this->Flash->error(__("SAP Vendor Code or Excel File Required.")); }
-            } else { $this->Flash->error(__("SAP Vendor Code or Excel File Required.")); }
+                } else {
+                    $flash = ['type'=>'error', 'msg'=>'SAP Vendor Code or Excel File Required'];
+                    $this->set('flash', $flash);
+                }
+            } else {
+                $flash = ['type'=>'error', 'msg'=>'SAP Vendor Code or Excel File Required'];
+                $this->set('flash', $flash);
+            }
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
@@ -294,7 +316,7 @@ class VendorTempsController extends BuyerAppController
 
     public function sapAdd()
     {
-
+        $flash = [];
         $this->set('headTitle', 'Import SAP Vendor');
         $this->loadModel("VendorTemps");
 
@@ -433,7 +455,8 @@ class VendorTempsController extends BuyerAppController
                                         array_push($vendorView, ['status' => false, 'msg' => "Email Exist in Vendor", 'data' => ['sap_vendor_code' => $vendorCode]]);
                                     }
                                 } catch (\Exception $e) {
-                                    $this->Flash->error(__($e->getMessage()));
+                                    $flash = ['type'=>'error', 'msg'=>($e->getMessage())];
+                                    $this->set('flash', $flash);
                                 }
                             } else {
                                 array_push($vendorView, ['status' => false, 'msg' => "Failed Response", 'data' => $vendors]);
@@ -463,6 +486,7 @@ class VendorTempsController extends BuyerAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
         $vendorTemp = $this->VendorTemps->get($id, [
             'contain' => [],
@@ -470,11 +494,13 @@ class VendorTempsController extends BuyerAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $this->request->getData());
             if ($this->VendorTemps->save($vendorTemp)) {
-                $this->Flash->success(__('The vendor has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The vendor has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The vendor temp could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
@@ -491,19 +517,22 @@ class VendorTempsController extends BuyerAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $vendorTemp = $this->VendorTemps->get($id);
         if ($this->VendorTemps->delete($vendorTemp)) {
-            $this->Flash->success(__('The vendor temp has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The vendor temp has been deleted'];
         } else {
-            $this->Flash->error(__('The vendor temp could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be deleted. Please, try again'];
         }
-
+        $this->set('flash', $flash);
+        
         return $this->redirect(['action' => 'index']);
     }
 
     public function approveVendor($id = null, $action = null)
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
         $vendor = $this->VendorTemps->get($id);
 
@@ -524,10 +553,11 @@ class VendorTempsController extends BuyerAppController
                     ->setEmailFormat('html')
                     ->setSubject('Vendor KYC Process')
                     ->deliver('Hi ' . $vendor->name . '<br/>Your form has been rejected. Kindly Resubmit. <br/> <br/>Please find below the buyers remarks <br/>'.$remarks.'<br/> <br/>' . $link);
-                $this->Flash->success(__('The Vendor successfully rejected'));
+                $flash = ['type'=>'success', 'msg'=>'The Vendor successfully rejected'];
             } else {
-                $this->Flash->success(__('Issue in vendor rejection'));
+                $flash = ['type'=>'success', 'msg'=>'Issue in vendor rejection'];
             }
+            $this->set('flash', $flash);
 
             return $this->redirect(['action' => 'view', $id]);
         }
@@ -617,14 +647,15 @@ class VendorTempsController extends BuyerAppController
 
 
                     $this->redirect(['action' => 'index',]);
-                    $this->Flash->success(__('The Vendor successfully approved', array('action' => 'index'), 30));
+                    $flash = ['type'=>'success', 'msg'=>__('The Vendor successfully approved', array('action' => 'index'), 30)];
                 }
             } else {
-                $this->Flash->success(__('The Vendor sent to SAP for approval'));
+                $flash = ['type'=>'success', 'msg'=>'e Vendor sent to SAP for approval'];
             }
         } else {
-            $this->Flash->error(__('The Vendor detail could not be updated. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The Vendor detail could not be updated. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'view', $id]);
     }

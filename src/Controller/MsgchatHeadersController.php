@@ -112,17 +112,19 @@ class MsgchatHeadersController extends AppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $msgchatHeader = $this->MsgchatHeaders->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $msgchatHeader = $this->MsgchatHeaders->patchEntity($msgchatHeader, $this->request->getData());
             if ($this->MsgchatHeaders->save($msgchatHeader)) {
-                $this->Flash->success(__('The msgchat header has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The msgchat header has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The msgchat header could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The msgchat header could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('msgchatHeader'));
     }
@@ -136,14 +138,15 @@ class MsgchatHeadersController extends AppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $msgchatHeader = $this->MsgchatHeaders->get($id);
         if ($this->MsgchatHeaders->delete($msgchatHeader)) {
-            $this->Flash->success(__('The msgchat header has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The msgchat header has been deleted'];
         } else {
-            $this->Flash->error(__('The msgchat header could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The msgchat header could not be deleted. Please, try again'];
         }
-
+        $this->set('flash', $flash);
         return $this->redirect(['action' => 'index']);
     }
 }
