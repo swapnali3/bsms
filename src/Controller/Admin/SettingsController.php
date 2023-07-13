@@ -12,6 +12,13 @@ use Cake\Datasource\ConnectionManager;
  */
 class SettingsController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -47,15 +54,18 @@ class SettingsController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $setting = $this->Settings->newEmptyEntity();
         if ($this->request->is('post')) {
             $setting = $this->Settings->patchEntity($setting, $this->request->getData());
             if ($this->Settings->save($setting)) {
-                $this->Flash->success(__('The setting has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The setting has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The setting could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The setting could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('setting'));
     }
@@ -69,17 +79,20 @@ class SettingsController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $setting = $this->Settings->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $setting = $this->Settings->patchEntity($setting, $this->request->getData());
             if ($this->Settings->save($setting)) {
-                $this->Flash->success(__('The setting has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The setting has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The setting could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The setting could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('setting'));
     }
@@ -93,19 +106,21 @@ class SettingsController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $setting = $this->Settings->get($id);
         if ($this->Settings->delete($setting)) {
-            $this->Flash->success(__('The setting has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The setting has been deleted'];
         } else {
-            $this->Flash->error(__('The setting could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The setting could not be deleted. Please, try again'];
         }
-
+        $this->set('flash', $flash);
         return $this->redirect(['action' => 'index']);
     }
 
     public function update()
     {
+        $flash = [];
         $setting = $this->Settings->find('all')->toList();
         if ($this->request->is(['patch', 'post', 'put'])) {
             //echo '<pre>'; print_r($this->request->getData()); exit;
@@ -115,7 +130,8 @@ class SettingsController extends AdminAppController
                 $rfqDetails = $conn->execute("update settings set `value` = '$val' where `name` = '$key'");
             }
             
-            $this->Flash->success(__('The setting has been saved.'));
+            $flash = ['type'=>'success', 'msg'=>'The setting has been saved'];
+            $this->set('flash', $flash);
 
             return $this->redirect(['action' => 'update']);
         }

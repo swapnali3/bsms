@@ -11,7 +11,7 @@
     <div class="card-header pb-1 pt-2">
         <div class="row">
             <div class="col-lg-6 d-flex justify-content-start">
-                <h5>Weekly Production Planner</h5>
+                <h5>Production Planner</h5>
             </div>
             <div class="col-lg-6 d-flex justify-content-end text-align-end">
                 <a href="<?= $this->Url->build('/') ?>vendor/dailymonitor/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Monitor</button></a>
@@ -26,7 +26,7 @@
                     <th>Plan Date</th>
                     <th>Production Line</th>
                     <th>Material</th>
-                    <th>Target Production</th>
+                    <th>Production Plan</th>
                     <th>Action</th>
                 </tr>
             </thead>

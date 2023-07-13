@@ -29,15 +29,17 @@ class UsersController extends AppController
      */
     public function add()
     {
+        $flash = [];
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The user has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The user could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $groups = $this->Users->Groups->find('list', ['limit' => 200])->all();
         $this->set(compact('user', 'groups'));
@@ -52,17 +54,19 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The user has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The user could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $groups = $this->Users->UserGroups->find('list', ['limit' => 200])->all();
         $this->set(compact('user', 'groups'));
@@ -77,13 +81,15 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The user has been deleted'];
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The user could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }
@@ -170,7 +176,6 @@ class UsersController extends AppController
                             $response['redirect'] = ['controller' => 'vendor/dashboard', 'action' => 'index'];
                         }
                     } else {
-                        // $this->Flash->error("Invalid password");
                         $response['message'] = 'Invalid password';
                     }
                 } else {
@@ -218,11 +223,9 @@ class UsersController extends AppController
 
                         }
                     } else {
-                        // $this->Flash->error("Invalid OTP");
                         $response['message'] = 'Invalid OTP';
                     }
                 } else {
-                    // $this->Flash->error("Invalid mobile");
                     $response['message'] = 'Invalid mobile';
                     
                 }
@@ -277,7 +280,6 @@ class UsersController extends AppController
         //$this->redirect($this->Auth->logout());
         $session = $this->getRequest()->getSession();
         $session->destroy();
-        // $this->Flash->success("You've successfully logged out.");
         $this->redirect(array('controller' => 'users', 'action' => 'login'));
     }
 

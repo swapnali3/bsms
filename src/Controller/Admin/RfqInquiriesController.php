@@ -11,6 +11,13 @@ namespace App\Controller\Admin;
  */
 class RfqInquiriesController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -49,15 +56,17 @@ class RfqInquiriesController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $rfqInquiry = $this->RfqInquiries->newEmptyEntity();
         if ($this->request->is('post')) {
             $rfqInquiry = $this->RfqInquiries->patchEntity($rfqInquiry, $this->request->getData());
             if ($this->RfqInquiries->save($rfqInquiry)) {
-                $this->Flash->success(__('The rfq inquiry has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The rfq inquiry has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The rfq inquiry could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The rfq inquiry could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $buyerSellerUsers = $this->RfqInquiries->BuyerSellerUsers->find('list', ['limit' => 200])->all();
         $this->set(compact('rfqInquiry', 'buyerSellerUsers'));
@@ -72,17 +81,19 @@ class RfqInquiriesController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $rfqInquiry = $this->RfqInquiries->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $rfqInquiry = $this->RfqInquiries->patchEntity($rfqInquiry, $this->request->getData());
             if ($this->RfqInquiries->save($rfqInquiry)) {
-                $this->Flash->success(__('The rfq inquiry has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The rfq inquiry has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The rfq inquiry could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The rfq inquiry could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $buyerSellerUsers = $this->RfqInquiries->BuyerSellerUsers->find('list', ['limit' => 200])->all();
         $this->set(compact('rfqInquiry', 'buyerSellerUsers'));
@@ -97,13 +108,15 @@ class RfqInquiriesController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $rfqInquiry = $this->RfqInquiries->get($id);
         if ($this->RfqInquiries->delete($rfqInquiry)) {
-            $this->Flash->success(__('The rfq inquiry has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The rfq inquiry has been deleted'];
         } else {
-            $this->Flash->error(__('The rfq inquiry could not be deleted. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The rfq inquiry could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

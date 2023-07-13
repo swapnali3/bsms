@@ -19,7 +19,15 @@ use Cake\Routing\Router;
  */
 class AdminUsersController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     public function login() {
+        $flash = [];
         $this->viewBuilder()->setLayout('admin/login');  //admin is our new layout name
         $this->loadModel("AdminUsers");
         
@@ -44,7 +52,8 @@ class AdminUsersController extends AdminAppController
                     $session->write('adminuser.role', $result[0]->role);
                     $this->redirect(array('controller' => 'dashboard', 'action' => 'index'));
                 } else {
-                    $this->Flash->error("Invalid Login details");
+                    $flash = ['type'=>'error', 'msg'=>'Invalid Login details'];
+                    $this->set('flash', $flash);
                 }
         }
     }
@@ -52,7 +61,6 @@ class AdminUsersController extends AdminAppController
     public function logout() {
         $session = $this->getRequest()->getSession();
         $session->destroy();
-        // $this->Flash->success("You've successfully logged out.");
         $this->redirect(array('controller' => 'adminusers', 'action' => 'login'));
     }
 
@@ -105,6 +113,7 @@ class AdminUsersController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $this->loadModel("Users");
         $adminUser = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -124,11 +133,12 @@ class AdminUsersController extends AdminAppController
                     ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
                     '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
 
-                $this->Flash->success(__('The User has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The User has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The admin user could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The admin user could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('adminUser'));
     }
@@ -142,6 +152,7 @@ class AdminUsersController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel("AdminUsers");
         $adminUser = $this->AdminUsers->get($id, [
             'contain' => [],
@@ -149,11 +160,13 @@ class AdminUsersController extends AdminAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $adminUser = $this->AdminUsers->patchEntity($adminUser, $this->request->getData());
             if ($this->AdminUsers->save($adminUser)) {
-                $this->Flash->success(__('The admin user has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The admin user has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The admin user could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The admin user could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('adminUser'));
     }
@@ -167,15 +180,17 @@ class AdminUsersController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->loadModel("AdminUsers");
         $this->request->allowMethod(['post', 'delete']);
         $adminUser = $this->AdminUsers->get($id);
         if ($this->AdminUsers->delete($adminUser)) {
-            $this->Flash->success(__('The admin user has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The admin user has been deleted'];
         } else {
-            $this->Flash->error(__('The admin user could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The admin user could not be deleted. Please, try again'];
         }
-
+        $this->set('flash', $flash);
+        
         return $this->redirect(['action' => 'index']);
     }
 }

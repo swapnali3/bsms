@@ -166,9 +166,9 @@
   <?= $this->Html->link(__('<i class="fa fa-universal-access nav-icon"></i><p>Gate Entry</p>'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
 </li>
 
-<li class="nav-item">
+<!-- <li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-vector-square nav-icon"></i><p>Vendor Material Master</p>'), ['controller' => 'vendormaterial', 'action' => 'index'], ['class' => "nav-link vmmactive" , 'escape' => false]) ?>
-</li>
+</li> -->
 
 <li class="nav-item <?=$settingmenuopen?>">
   <?= $this->Html->link(__('<i class="fa fa-cog nav-icon"></i><p>Settings</p>'), ['controller' => 'settings', 'action' => 'update'], ['class' => "nav-link $settingactive", 'escape' => false]) ?>

@@ -13,48 +13,44 @@ class DealerController extends AppController
 {
 
     public function login() {
+        $flash = [];
         $this->loadModel('BuyerSellerUsers');
         $this->loadModel('Products');
 
         $products = $this->Products->find('list')->toArray();
         $this->set(compact('products'));
         $session = $this->getRequest()->getSession();
-        if($session->read('user.id')) {
-            $this->redirect(array('action' => 'dashboard'));
-        }
+        if($session->read('user.id')) { $this->redirect(array('action' => 'dashboard')); }
 
         if($this->request->is('post')) {
             $result = $this->BuyerSellerUsers->find()
-            //->select(['id', 'username', 'user_type'])
             ->where(['username' => $this->request->getData('username'),
                 'password' => md5($this->request->getData('password'))])
                 ->limit(1);
-            
                 $result = $result->toArray();
-
-                if($result) {
-                    $session = $this->getRequest()->getSession();
-                    $session->write('user.username', $result[0]->username);
-                    $session->write('user.id', $result[0]->id);
-                    $session->write('user.user_type', $result[0]->user_type);
-                    $session->write('user.details', $result[0]);
-                    $this->redirect(array('controller' => 'dealer', 'action' => 'dashboard'));
-                } else {
-                    $this->Flash->error("Invalid Login details");
-                }
-                
+            if($result) {
+                $session = $this->getRequest()->getSession();
+                $session->write('user.username', $result[0]->username);
+                $session->write('user.id', $result[0]->id);
+                $session->write('user.user_type', $result[0]->user_type);
+                $session->write('user.details', $result[0]);
+                $this->redirect(array('controller' => 'dealer', 'action' => 'dashboard'));
+            } else { $flash = ['type'=>'error', 'msg'=>'Invalid Login details']; }
         }
+        $this->set('flash', $flash);
     }
 
     public function logout() {
         $session = $this->getRequest()->getSession();
         $session->destroy();
-        // $this->Flash->success("You've successfully logged out.");
+        $flash = ['type'=>'success', 'msg'=>'Logged Out Successfully'];
+        $this->set('flash', $flash);
         $this->redirect(array('controller' => 'home', 'action' => 'index'));
     }
 
     public function registration()
     {
+        $flash = [];
         $this->loadModel('BuyerSellerUsers');
         $buyerSellerUser = $this->BuyerSellerUsers->newEmptyEntity();
 
@@ -69,12 +65,13 @@ class DealerController extends AppController
             $buyerSellerUser = $this->BuyerSellerUsers->patchEntity($buyerSellerUser, $data);
             //print_r($buyerSellerUser); exit;
             if ($this->BuyerSellerUsers->save($buyerSellerUser)) {
-                $this->Flash->success(__('The user has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'User Saved Successfully'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'confirmation']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'User Saved Failed. Try Again'];
         }
+        $this->set('flash', $flash);
         $this->set(compact('buyerSellerUser', 'products'));
     }
 
@@ -182,7 +179,7 @@ class DealerController extends AppController
     }
 
     public function addproduct($type, $sellerId = '') {
-
+        $flash = [];
         $session = $this->getRequest()->getSession();
         if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
@@ -287,16 +284,18 @@ class DealerController extends AppController
                 $rfqSeller = $this->RfqForSellers->newEmptyEntity();
                 $rfqSeller = $this->RfqForSellers->patchEntity($rfqSeller, $rfqSellers);
                 $this->RfqForSellers->save($rfqSeller);
-                $this->Flash->success(__('The product has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'Product Saved Successfully'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'dashboard']);
             }
-       
-            $this->Flash->error(__('The product could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'Product Saved Failed. Try Again'];
+            $this->set('flash', $flash);
         }
     }
 
     public function copy($id = null)
     {
+        $flash = [];
         $this->loadModel("RfqDetails");
         $rfqDetailExisting = $this->RfqDetails->get($id)->toArray();
 
@@ -317,15 +316,17 @@ class DealerController extends AppController
         
         $rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $rfqDetailExisting);
         if ($this->RfqDetails->save($rfqDetail)) {
-            $this->Flash->success(__('The rfq successfully copied - RFQ NO:-' .$maxRfqId));
-
+            $flash = ['type'=>'success', 'msg'=>'The rfq successfully copied - RFQ NO:-' .$maxRfqId];
+            $this->set('flash', $flash);
             return $this->redirect(['action' => 'dashboard']);
         }
-        $this->Flash->error(__('The rfq detail could not be saved. Please, try again.'));
+        $flash = ['type'=>'error', 'msg'=>'RFQ Saving Failed. Try Again'];
+        $this->set('flash', $flash);
     }
 
     public function copyPreview($id = null)
     {
+        $flash = [];
         $this->loadModel("RfqDetails");
         $rfqDetail = $this->RfqDetails->get($id, [
             'contain' => [],
@@ -358,12 +359,12 @@ class DealerController extends AppController
         
         $rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $request);
         if ($this->RfqDetails->save($rfqDetail)) {
-            $this->Flash->success(__('The rfq successfully copied - RFQ NO:-' .$maxRfqId));
-
+            $flash = ['type'=>'success', 'msg'=>'The rfq successfully copied - RFQ NO:-' .$maxRfqId];
+            $this->set('flash', $flash);
             return $this->redirect(['action' => 'dashboard']);
         }
-        $this->Flash->error(__('The rfq detail could not be saved. Please, try again.'));
-
+        $flash = ['type'=>'error', 'msg'=>'The rfq detail could not be saved. Please, try again.'];
+        $this->set('flash', $flash);
         }
     }
 
@@ -402,6 +403,7 @@ class DealerController extends AppController
     }
 
     public function inquiry($id=null) {
+        $flash = [];
         $session = $this->getRequest()->getSession();
         if(!$session->check('user.id')) {
             return $this->redirect(array('action' => 'login'));
@@ -423,7 +425,8 @@ class DealerController extends AppController
                 $RfqInquiry->delivery_date = $this->request->getData('delivery_date');
                 
                 if($this->RfqInquiries->save($RfqInquiry)) {
-                    $this->Flash->success(__('Inquiry send to Buyer.'));
+                    $flash = ['type'=>'success', 'msg'=>'Inquiry send to Buyer'];
+                    $this->set('flash', $flash);
                     return $this->redirect(['action' => 'productlist']);
                 }
             }

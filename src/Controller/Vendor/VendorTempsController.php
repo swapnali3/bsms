@@ -28,7 +28,12 @@ class VendorTempsController extends VendorAppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
-
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
 
     /**
      * View method
@@ -39,6 +44,7 @@ class VendorTempsController extends VendorAppController
      */
     public function view($id = null)
     {
+        $flash = [];
         $this->set('headTitle', 'Profile');
         $session = $this->getRequest()->getSession();
         if ($id == null){ $id = $session->read('vendor_id'); }
@@ -68,17 +74,21 @@ class VendorTempsController extends VendorAppController
                 if ($this->VendorTemps->save($userObj)) {
                     $response['status'] = 'success';
                     $response['message'] = 'Record saved successfully';
-                    $this->Flash->success("Profle has been updated successfully");
+                    $flash = ['type'=>'success', 'msg'=>'Profle has been updated successfully'];
+                    $this->set('flash', $flash);
                 } else {
                     // Handle save error
-                    $this->Flash->error('Failed to save user data.');
+                    $flash = ['type'=>'error', 'msg'=>'Failed to save user data'];
+                    $this->set('flash', $flash);
                 }
             } catch (\PDOException $e) {
-                $this->Flash->error($e->getMessage());
+                $flash = ['type'=>'error', 'msg'=>($e->getMessage())];
             } catch (\Exception $e) {
                 $response['status'] = 'fail';
                 $response['message'] = $e->getMessage();
+                $flash = ['type'=>'error', 'msg'=>($e->getMessage())];
             }
+            $this->set('flash', $flash);
         }
 
         $vendorTempView = $this->VendorTemps->find('all')->where(['update_flag' => $id]);
@@ -98,6 +108,7 @@ class VendorTempsController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
         $this->loadModel("Users");
         $vendorTemp = $this->VendorTemps->get($id);
@@ -136,12 +147,16 @@ class VendorTempsController extends VendorAppController
                         ->setEmailFormat('html')
                         ->setSubject('Vendor Portal - Review Vendor Update')
                         ->deliver('Dear Buyer, <br/><br/>' . $vendorTempData['name'] . ' Send You a Profile Update Request. Kindly Check and Review.<br/> <a href="' . $link . '">Click here</a>');
-                    $this->Flash->success(__('The Vendor successfully Updated'));
+                    $flash = ['type'=>'success', 'msg'=>'The Vendor successfully Updated'];
+                    $this->set('flash', $flash);
                     return $this->redirect(['action' => 'view', $id]);
-                } else { $this->Flash->error(__('The vendor could not be saved. Please, try again.')); }
+                } else {
+                    $flash = ['type'=>'error', 'msg'=>'The vendor could not be saved. Please, try again'];
+                    $this->set('flash', $flash);}
             }
         } else {
-            $this->Flash->error(__('Previous Update Request is under review.'));
+            $flash = ['type'=>'success', 'msg'=>'Previous Update Request is under review'];
+            $this->set('flash', $flash);
             return $this->redirect(['action' => 'view', $id]);
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
