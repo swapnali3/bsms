@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
@@ -71,15 +72,17 @@ class VendorMaterialController extends VendorAppController
     public function add()
     {
         $this->loadModel("VendorTemps");
+        $this->loadModel("VendorMaterial");
         $this->loadModel('Notifications');
         $this->loadModel('Uoms');
-        $vendorMaterial = $this->VendorMaterial->newEmptyEntity();
+        $this->loadModel("Users");
+
+        // $vendorMaterial = $this->VendorMaterial->newEmptyEntity();
+        $vendorMaterial = [];
+        $vendorView = [];
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-
         $sapVendor = $session->read('vendor_code');
-
-  
         
         // Retrieve the buyer_id based on sapVendor
         $buyer = $this->VendorTemps->find()
@@ -88,35 +91,99 @@ class VendorMaterialController extends VendorAppController
             ->first();
 
         if ($this->request->is('post')) {
-            $requestData = $this->request->getData();
-            $requestData['vendor_id'] = $vendorId;
-            $vendorMaterial = $this->VendorMaterial->patchEntity($vendorMaterial, $requestData);
-            if ($this->VendorMaterial->save($vendorMaterial)) {
-                if ($this->Notifications->exists(['Notifications.user_id' => $buyer->buyer_id, 'Notifications.notification_type' => 'vendor_material'])) {
-                    $this->Notifications->updateAll(
-                        ['message_count' => $this->Notifications->query()->newExpr('message_count + 1')],
-                        ['user_id' => $buyer->buyer_id, 'notification_type' => 'vendor_material']
-                    );
-                } else {
-                    $notification = $this->Notifications->newEmptyEntity();
-                    $notification->user_id = $buyer->buyer_id;
-                    $notification->notification_type = 'vendor_material';
-                    $notification->message_count = 1;
-                    $this->Notifications->save($notification);
-                } 
+            // Import File To array
+            $importFile = $this->request->getData('vendor_code');
+            if (isset($_FILES['vendor_code']) && $_FILES['vendor_code']['name'] != "" && $importFile !== null && isset($_FILES['vendor_code']['name'])) {
+                $destination = "uploads/";
+                $filename = $_FILES['vendor_code']['name'];
+                $path = $destination . $filename;
+                move_uploaded_file($_FILES['vendor_code']['tmp_name'], $path);
+                $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($path);
+                $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                $spreadsheet = $reader->load($path);
+                $worksheet = $spreadsheet->getActiveSheet();
 
-                $this->Flash->success(__('The vendor material has been saved.'));
-    
-                return $this->redirect(['action' => 'index']);
+                foreach ($worksheet->getRowIterator(2) as $row) {
+                    $minivendor = [];
+                    foreach ($row->getCellIterator() as $cell) {
+                        $cellval = $cell->getValue();
+                        if (!empty($cellval)) { $minivendor[] = $cellval; }
+                    }
+                    // $finduom = $this->Uoms->exists(['Uoms.code' => $minivendor[3]]);
+                    $uom_code = $this->paginate($this->Uoms->find('all', ['conditions' => ['Uoms.code' => $minivendor["3"]]]))->first();
+                    
+                    if ($uom_code->id > 0) { $minivendor[4] = $minivendor[3]; $minivendor[3] = $uom_code->id; }
+                    else{ $minivendor[3] = 0;$minivendor[4] = 0; }
+                    
+                    array_push($vendorMaterial, $minivendor);
+                }
+                // print_r($vendorMaterial); exit;
             }
-            $this->Flash->error(__('The vendor material could not be saved. Please, try again.'));
+
+          if(empty($minivendor)){
+            $minivendor = [];
+            $res = $this->request->getData();
+            if ($res["vendor_material_code"] && $res["description"] && $res["minimum_stock"] && $res["uom"]) {
+                array_push($minivendor, $res["vendor_material_code"]);
+                array_push($minivendor, $res["description"]);
+                array_push($minivendor, $res["minimum_stock"]);
+                array_push($minivendor, $res["uom"]);
+                $uom_code = $this->paginate($this->Uoms->find('all', ['conditions' => ['Uoms.id' => $res["uom"]]]))->first();
+                if ($uom_code->id > 0) {
+                     $minivendor[4] = $uom_code->code; }
+                array_push($vendorMaterial, $minivendor);
+            }
+        }
+           
+          //  echo "<pre>";
+            foreach ($vendorMaterial as $vendorMaterials) {
+                if (!empty($vendorMaterials)) {
+
+                    $vendorData = array();
+                    $vendorData['vendor_id'] = $vendorId;
+                    $vendorData['vendor_material_code'] = $vendorMaterials[0];
+                    $vendorData['description'] = $vendorMaterials[1];
+                    $vendorData['minimum_stock'] = $vendorMaterials[2];
+                    $vendorData['uom'] = $vendorMaterials[3];
+                 
+                    $vendorData['status'] = 1;
+
+                    //print_r($vendorData);exit;
+                 
+                    $vendorMaterial = $this->VendorMaterial->newEmptyEntity();
+                    $vendorMaterial = $this->VendorMaterial->patchEntity($vendorMaterial, $vendorData);
+                    //  print_r($vendorMaterial); exit;
+                    if ($this->VendorMaterial->save($vendorMaterial)) {
+                     
+                        if ($this->Notifications->exists(['Notifications.user_id' => $buyer->buyer_id, 'Notifications.notification_type' => 'vendor_material'])) {
+                            $this->Notifications->updateAll(
+                                ['message_count' => $this->Notifications->query()->newExpr('message_count + 1')],
+                                ['user_id' => $buyer->buyer_id, 'notification_type' => 'vendor_material']
+                            );
+                        } else {
+                            $notification = $this->Notifications->newEmptyEntity();
+                            $notification->user_id = $buyer->buyer_id;
+                            $notification->notification_type = 'vendor_material';
+                            $notification->message_count = 1;
+                            $this->Notifications->save($notification);
+                        }
+                      
+                        array_push($vendorView, ['status' => true, 'msg' => "The vendor material has been saved.", 'data' => $vendorMaterials]);
+                    } else {
+                        array_push($vendorView, ['status' => false, 'msg' => "The vendor material could not be saved. Please, try again.", 'data' => $vendorMaterials]);
+                    }
+                }
+            }
+
+            $this->set('vendorMaterialData', $vendorView);
         }
 
         $uom = $this->Uoms->find('list', ['keyField' => 'id', 'valueField' => 'code'])->all();
 
-        $this->set(compact('vendorMaterial','uom'));
+        $this->set(compact('vendorMaterial', 'uom'));
     }
-    
+
+
 
     /**
      * Edit method
@@ -140,10 +207,10 @@ class VendorMaterialController extends VendorAppController
             }
             $this->Flash->error(__('The vendor material could not be saved. Please, try again.'));
         }
-        
+
         $uom = $this->Uoms->find('list', ['keyField' => 'id', 'valueField' => 'code'])->all();
 
-        $this->set(compact('vendorMaterial','uom'));
+        $this->set(compact('vendorMaterial', 'uom'));
     }
 
     /**

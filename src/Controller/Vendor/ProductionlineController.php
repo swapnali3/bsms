@@ -21,12 +21,37 @@ class ProductionlineController extends VendorAppController
      */
     public function index()
     {
+
+       $this->loadModel("productionline");
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-        $productionline = $this->paginate($this->Productionline->find('all', [
-            'conditions' => ['Productionline.vendor_id' => $vendorId]
-        ]));
+        // $productionline = $this->paginate($this->Productionline->find('all', [
+        //     'conditions' => ['Productionline.vendor_id' => $vendorId]
+        // ]));
 
+        $productionline = $this->productionline->find('all', [
+            'conditions' => ['productionline.vendor_id' => $vendorId]
+        ])->select([
+            'id','prdline_description', 'prdline_capacity','vm_description' => 'vm.description', 'vm_vendor_code' => 'vm.vendor_material_code', 'uom_desp' => 'um.code',
+        ])->join([
+            'table' => 'vendor_material',
+            'alias' => 'vm',
+            'type' => 'LEFT',
+            'conditions' => 'vm.id = productionline.vendormaterial_id',
+        ])->join([
+            'table' => 'uoms',
+            'alias' => 'um',
+            'type' => 'LEFT',
+            'conditions' => 'um.id = vm.uom',
+        ])->toArray();
+
+
+        // productionline
+
+       // print_r($productionline);exit;
+
+
+    
         $this->set(compact('productionline'));
     }
 
@@ -63,6 +88,7 @@ class ProductionlineController extends VendorAppController
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
             $vendorMaterialCode = $requestData['vendor_material_code'];
+           // print_r($vendorMaterialCode);exit;
 
             $VendorMaterials = $this->paginate($this->VendorMaterial->find('all', [
                 'conditions' => ['VendorMaterial.vendor_material_code' => $vendorMaterialCode]
@@ -103,7 +129,12 @@ class ProductionlineController extends VendorAppController
             }
             $this->Flash->error(__('The productionline could not be saved. Please, try again.'));
         }
-        $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'vendor_material_code', 'valueField' => 'vendor_material_code'])->all();
+        
+         $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
+        $vendor_mateial = $this->VendorMaterial->find('list', [ 'conditions' => ['vendor_id' => $vendorId],'keyField' => 'id', 'valueField' => 'description'])->all();
+
+
         $this->set(compact('productionline','vendor_mateial'));
     }
 
@@ -116,11 +147,13 @@ class ProductionlineController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $this->loadModel("VendorMaterial");
         $productionline = $this->Productionline->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $productionline = $this->Productionline->patchEntity($productionline, $this->request->getData());
+
             if ($this->Productionline->save($productionline)) {
                 $this->Flash->success(__('The productionline has been saved.'));
 
@@ -128,7 +161,14 @@ class ProductionlineController extends VendorAppController
             }
             $this->Flash->error(__('The productionline could not be saved. Please, try again.'));
         }
-        $this->set(compact('productionline'));
+
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
+
+
+        $vendor_mateial = $this->VendorMaterial->find('list', [ 'conditions' => ['vendor_id' => $vendorId],'keyField' => 'id', 'valueField' => 'description'])->all();
+
+        $this->set(compact('productionline','vendor_mateial'));
     }
 
     /**

@@ -21,6 +21,24 @@
     <div class="card mb-0">
         <div class="card-body  pb-0">
             <div class="row">
+            <div class="col-sm-4 col-md-4 col-lg-3">
+                    <div class="form-group">
+
+                        <?php echo $this->Form->control('vendormaterial_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe','style' => "height: unset !important;", 'empty' => 'Please Select','label'=>'Material Description')); ?>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-4 col-md-4 col-lg-3">
+                    <div class="form-group">
+                        <?php echo $this->Form->control('vendor_material_code', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Code','readonly')); ?>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-3">
+                    <div class="form-group">
+                        <?php echo $this->Form->control('uom', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Unit Of Measurement','readonly')); ?>
+                    </div>
+                </div>
                 <div class="col-sm-4 col-md-4 col-lg-3">
                     <?php echo $this->Form->control('prdline_description', ['class' => 'form-control mb-3', 'label' => 'Production Line Description']); ?>
                 </div>
@@ -58,4 +76,37 @@
     function showConfirmationModal() {
         $('#modal-sm').modal('show');
     }
+
+    $("#descripe").change(function () {
+        var vendorId = $(this).val();
+        if (vendorId != "") {
+            $.ajax({
+                type: "get",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stockupload', 'action' => 'vendor_material')); ?>/" + vendorId,
+                dataType: "json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader(
+                        "Content-type",
+                        "application/x-www-form-urlencoded"
+                    );
+                },
+                success: function (response) {
+                    if (response.status == "1") {
+                        $("#vendor-material-code").val(response.data.vendor_material_code);
+                        $("#uom").val(response.data.uom_desp);
+                    }
+                },
+                error: function (e) {
+                    alert("An error occurred: " + e.responseText.message);
+                    console.log(e);
+                },
+            });
+        }
+    });
+
+
+    $(document).ready(function () {
+        setTimeout(function () { $('.success').fadeOut('slow'); }, 2000);
+        $("#descripe").trigger("change");
+    });
 </script>
