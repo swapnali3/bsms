@@ -11,6 +11,13 @@ namespace App\Controller\Admin;
  */
 class UsersAclController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -46,15 +53,18 @@ class UsersAclController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $usersAcl = $this->UsersAcl->newEmptyEntity();
         if ($this->request->is('post')) {
             $usersAcl = $this->UsersAcl->patchEntity($usersAcl, $this->request->getData());
             if ($this->UsersAcl->save($usersAcl)) {
-                $this->Flash->success(__('The users acl has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The users acl has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The users acl could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The users acl could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('usersAcl'));
     }
@@ -68,17 +78,20 @@ class UsersAclController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $usersAcl = $this->UsersAcl->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $usersAcl = $this->UsersAcl->patchEntity($usersAcl, $this->request->getData());
             if ($this->UsersAcl->save($usersAcl)) {
-                $this->Flash->success(__('The users acl has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The users acl has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The users acl could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The users acl could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('usersAcl'));
     }
@@ -92,13 +105,15 @@ class UsersAclController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $usersAcl = $this->UsersAcl->get($id);
         if ($this->UsersAcl->delete($usersAcl)) {
-            $this->Flash->success(__('The users acl has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The users acl has been deleted'];
         } else {
-            $this->Flash->error(__('The users acl could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The users acl could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

@@ -6,6 +6,13 @@ namespace App\Controller\Vendor;
 
 class DailymonitorController extends VendorAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     public function index()
     {
         $session = $this->getRequest()->getSession();
@@ -60,7 +67,7 @@ class DailymonitorController extends VendorAppController
         $this->loadModel("VendorMaterial");
         $this->loadModel("Productionline");
 
-        $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.vendor_id' => $vendorId, 'Dailymonitor.plan_date' => date('y-m-d'), 'Dailymonitor.confirm_production' => '']])
+        $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.vendor_id' => $vendorId, 'Dailymonitor.plan_date <=' => date('y-m-d')]])
         ->select([
             'id','vendor_id','productionline_id','material_id', 'plan_date','target_production','confirm_production','status','added_date', 'updated_date',
             'prdline_description' => 'prdline.prdline_description','material_description' => 'vendormat.description'])->join([
@@ -73,14 +80,14 @@ class DailymonitorController extends VendorAppController
             'alias' => 'vendormat',
             'type' => 'LEFT',
             'conditions' => 'vendormat.id = Dailymonitor.material_id',
-        ]);
+        ])->order(['Dailymonitor.plan_date' => 'DESC']);
         // echo '<pre>'; print_r($dailymonitor); exit;
         $this->set(compact('dailymonitor'));
     }
 
     public function add()
     {
-        
+        $flash = [];
         $this->loadModel("VendorMaterial");
         $this->loadModel("Productionline");
         
@@ -94,11 +101,12 @@ class DailymonitorController extends VendorAppController
             // echo '<pre>'; print_r($requestData);exit;
             $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $requestData);
             if ($this->Dailymonitor->save($dailymonitor)) {
-                $this->Flash->success(__('The dailymonitor has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The dailymonitor has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The dailymonitor could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The dailymonitor could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $vendor_mateial = $this->VendorMaterial->find('list', ['conditions' => ['VendorMaterial.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'description'])->all();
         $productionline = $this->Productionline->find('list', ['conditions' => ['Productionline.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'prdline_description'])->all();
@@ -115,6 +123,7 @@ class DailymonitorController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel("VendorMaterial");
         $this->loadModel("Productionline");
         $dailymonitor = $this->Dailymonitor->get($id);
@@ -122,11 +131,12 @@ class DailymonitorController extends VendorAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $this->request->getData());
             if ($this->Dailymonitor->save($dailymonitor)) {
-                $this->Flash->success(__('The dailymonitor has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The dailymonitor has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The dailymonitor could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The dailymonitor could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $vendor_mateial = $this->VendorMaterial->find('list', [ 'conditions' => ['VendorMaterial.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'description' ])->all();
         $productionline = $this->Productionline->find('list', [ 'conditions' => ['Productionline.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'prdline_description' ])->all();
@@ -142,14 +152,16 @@ class DailymonitorController extends VendorAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $dailymonitor = $this->Dailymonitor->get($id);
         if ($this->Dailymonitor->delete($dailymonitor)) {
-            $this->Flash->success(__('The dailymonitor has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The dailymonitor has been deleted'];
         } else {
-            $this->Flash->error(__('The dailymonitor could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The dailymonitor could not be deleted. Please, try again'];
         }
-
+        
+        $this->set('flash', $flash);
         return $this->redirect(['action' => 'index']);
     }
 }

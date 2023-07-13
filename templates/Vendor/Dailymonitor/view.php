@@ -31,7 +31,7 @@
                     <td><?= $dailymonitor->productionline_id === null ? '' : $this->Number->format($dailymonitor->productionline_id) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Target Production') ?></th>
+                    <th><?= __('Production Plan') ?></th>
                     <td><?= $dailymonitor->target_production === null ? '' : $this->Number->format($dailymonitor->target_production) ?></td>
                 </tr>
                 <tr>

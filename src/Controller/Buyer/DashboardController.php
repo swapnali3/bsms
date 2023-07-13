@@ -34,6 +34,13 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class DashboardController extends BuyerAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+
     public function index()
     {
 

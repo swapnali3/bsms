@@ -38,6 +38,13 @@ use Cake\Mailer\Mailer;
  */
 class DashboardController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     public function index()
     {
 

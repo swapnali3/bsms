@@ -99,11 +99,11 @@
 
 
 <li class="nav-item ">
-  <?= $this->Html->link(__('<i class="fas fa-pallet nav-icon"></i><p>Weekly Production Planner</p>'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-pallet nav-icon"></i><p>Production Planner</p>'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item ">
-  <?= $this->Html->link(__('<i class="fas fa-pallet nav-icon"></i><p>Daily Stock Upload</p>'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link ", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-pallet nav-icon"></i><p>Production Confirmation</p>'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link ", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item ">

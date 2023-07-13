@@ -14,7 +14,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->assign('title', $title); ?>
-    <title><?= $this->fetch('title') ?></title>
+    <title>
+        <?= $this->fetch('title') ?>
+    </title>
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
@@ -25,14 +27,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
-    
+
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/summernote/summernote.min.css') ?>
-    
+
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
-    
+
 
     <!-- DataTables  & Plugins -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
@@ -62,24 +64,24 @@
 
     <!-- Bootstrap 4 -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
-    
+
     <!-- AdminLTE App -->
     <?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
-    
+
     <!-- sweetalert2 -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.css') ?>
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.js") ?>
-    
+
     <!-- toastr -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/toastr/toastr.min.css') ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
-        
+
     <style>
         .content-wrapper {
             min-height: 750px !important;
         }
-        
+
         aside.main-sidebar {
             background-color: #08132F !important;
         }
@@ -88,7 +90,7 @@
             background-color: #8E9B2C !important;
             color: #fff !important;
         }
-        
+
         .loader-container {
             position: fixed;
             top: 0;
@@ -196,14 +198,31 @@
     <!-- <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?> -->
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/summernote/summernote.min.js') ?>
-    <?= $this->element('layout/script') ?>
-    <?= $this->fetch('script') ?>
     <?= $this->Html->script('/js/common.js') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
     <script>
-    $(window).on('load', function () {$('#loaderss').hide();});
-    $(function () {$('[data-toggle="tooltip"]').tooltip();$('#summernote').summernote({ width: 1000, }); });
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000
+        });
+        <?php if($flash) : ?>
+        Toast.fire({
+            icon: "<?= $flash['type'] ?>",
+            title: "<?= $flash['msg'] ?>",
+        });
+        <?php endif; ?>
+        $(window).on('load', function () {
+            $('#loaderss').hide();
+        });
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('#summernote').summernote({ width: 1000, });
+        });
     </script>
+    <?= $this->element('layout/script') ?>
+    <?= $this->fetch('script') ?>
 </body>
 
 </html>

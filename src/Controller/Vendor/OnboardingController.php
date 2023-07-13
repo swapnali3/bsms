@@ -22,12 +22,14 @@ class OnboardingController extends VendorAppController
     public function initialize(): void
     {
         parent::initialize();
-
+        
         date_default_timezone_set('Asia/Kolkata'); 
         
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
+        $flash = [];  
+        $this->set('flash', $flash);
         $this->loadComponent('Flash');
         $this->set('title', 'Vendor Portal');
     }
@@ -39,6 +41,7 @@ class OnboardingController extends VendorAppController
 
     public function verify($request = null)
     {
+        $flash = [];
         if($request == null) {
             echo 'Bad request';
             exit;
@@ -72,7 +75,8 @@ class OnboardingController extends VendorAppController
                 echo 'match';
                 return $this->redirect(['action' => 'create', $request]);
             } else {
-                $this->Flash->error(__('Invalid otp'));
+                $flash = ['type'=>'error', 'msg'=>'Invalid otp'];
+                $this->set('flash', $flash);
             }
             //print_r($vendorTempOtp);
             
@@ -110,6 +114,7 @@ class OnboardingController extends VendorAppController
      */
     public function add()
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -132,14 +137,16 @@ class OnboardingController extends VendorAppController
                     ->deliver('Hi '.$data['name'].'<br/>Welcome to Vekpro.' . $link);
                     
 
-                $this->Flash->success(__('The vendor temp has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The vendor temp has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
 
             //print_r($vendorTemp);
             //exit;
-            $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
@@ -156,6 +163,7 @@ class OnboardingController extends VendorAppController
      */
     public function create($request = null)
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
         $this->loadModel("Countries");
         $this->loadModel("States");
@@ -246,11 +254,13 @@ class OnboardingController extends VendorAppController
             //echo '<pre>'; print_r($data); exit;
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
             if ($this->VendorTemps->save($vendorTemp)) {
-                $this->Flash->success(__('The request sent for approval.'));
+                $flash = ['type'=>'success', 'msg'=>'The request sent for approval'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['prefix' => false, 'controller' => 'users','action' => 'login']);
             }
-            $this->Flash->error(__('The vendor temp could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
@@ -271,13 +281,15 @@ class OnboardingController extends VendorAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $vendorTemp = $this->VendorTemps->get($id);
         if ($this->VendorTemps->delete($vendorTemp)) {
-            $this->Flash->success(__('The vendor temp has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The vendor temp has been deleted'];
         } else {
-            $this->Flash->error(__('The vendor temp could not be deleted. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The vendor temp could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

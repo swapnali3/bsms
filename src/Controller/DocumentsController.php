@@ -46,15 +46,17 @@ class DocumentsController extends AppController
      */
     public function add()
     {
+        $flash = [];
         $document = $this->Documents->newEmptyEntity();
         if ($this->request->is('post')) {
             $document = $this->Documents->patchEntity($document, $this->request->getData());
             if ($this->Documents->save($document)) {
-                $this->Flash->success(__('The document has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The document has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The document could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The document could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('document'));
     }
@@ -68,17 +70,19 @@ class DocumentsController extends AppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $document = $this->Documents->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $document = $this->Documents->patchEntity($document, $this->request->getData());
             if ($this->Documents->save($document)) {
-                $this->Flash->success(__('The document has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The document has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The document could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The document could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('document'));
     }
@@ -92,12 +96,15 @@ class DocumentsController extends AppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $document = $this->Documents->get($id);
         if ($this->Documents->delete($document)) {
-            $this->Flash->success(__('The document has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The document has been deleted'];
+            $this->set('flash', $flash);
         } else {
-            $this->Flash->error(__('The document could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The document could not be deleted. Please, try again'];
+            $this->set('flash', $flash);
         }
 
         return $this->redirect(['action' => 'index']);

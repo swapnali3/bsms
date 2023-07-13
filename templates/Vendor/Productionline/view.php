@@ -60,7 +60,7 @@
                             <th><?= __('Id') ?></th>
                             <th><?= __('Vendor Id') ?></th>
                             <th><?= __('Productionline Id') ?></th>
-                            <th><?= __('Target Production') ?></th>
+                            <th><?= __('Production Plan') ?></th>
                             <th><?= __('Confirm Production') ?></th>
                             <th><?= __('Status') ?></th>
                             <th><?= __('Added Date') ?></th>
