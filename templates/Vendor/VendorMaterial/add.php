@@ -8,7 +8,7 @@
 </style>
 <?= $this->Html->css('custom') ?>
 
-<?= $this->Form->create($vendorMaterial) ?>
+<?= $this->Form->create($vendorMaterial, ['id' => 'vendormaterialform']) ?>
 <div class="card">
     <div class="card-header pb-1 pt-2">
         <div class="row">
@@ -77,8 +77,122 @@
 
 
 
+<div class="card">
+    <div class="card-header pb-1 pt-2">
+        <div class="row">
+            <div class="col-lg-6 d-flex justify-content-start">
+                <h5><b>Upload Vendor Material</b></h5>
+            </div>
+        </div>
+    </div>
+
+    <?= $this->Form->create(null, ['type' => 'file', 'id' => 'sapvendorcodeform']); ?>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-2 col-md-2 mt-3">
+                <?= $this->Form->control('vendor_code', ['type' => 'file', 'label' =>
+                false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden;
+                        position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput']);
+                ?>
+                <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
+                'button', 'label' => 'Upload File', 'class' => 'd-block btn btn-secondary mb-0 file-upld-btn']); ?>
+                <span id="filessnames"></span>
+            </div>
+            <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">
+                <button class="btn btn-custom" id="sapvendorcode" type="submit">
+                    Submit
+                </button>
+            </div>
+
+            <div class="col-sm-12 col-md-12 mt-3">
+                <i style="color: black;">
+                    <a href="<?= $this->Url->build('/') ?>webroot/templates/vendor_material.xlsx" download>vendor_material_template</a>
+                </i>
+            </div>
+        </div>
+    </div>
+    <?= $this->Form->end() ?>
+</div>
+
+<div class="card">
+    <div class="card-header p-0 mb-0 mt-3 ml-3 mr-3" id="id_pohead">
+        <table class="table table-hover" id="example1">
+            <thead>
+                <tr>
+                    <th>Material Description</th>
+                    <th>Material Code</th>
+                    <th>Unit Of Measurement</th>
+                    <th>Minimum Stock</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (isset($vendorMaterialData)) : ?>
+                    <?php foreach ($vendorMaterialData as $vendorMaterialDatas) :  ?>
+                        <?php if ($vendorMaterialDatas['status']) : ?>
+                            <tr>
+                                <td>
+                                    <?= h($vendorMaterialDatas['data'][1]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorMaterialDatas['data'][0]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorMaterialDatas['data'][4]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorMaterialDatas['data'][2]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorMaterialDatas["msg"]) ?>
+                                </td>
+                            </tr>
+                        <?php else : ?>
+                            <tr>
+                                <td>
+                                    <?= h($vendorMaterialDatas['data'][1]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorMaterialDatas['data'][0]) ?>
+                                </td>
+                                <td colspan="2"></td>
+                                <td class="text-danger text-left">
+                                    <?= h($vendorMaterialDatas["msg"]) ?>
+                                </td>
+                            </tr>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
 <script>
     function showConfirmationModal() {
         $('#modal-sm').modal('show');
     }
+
+    // $(window).load(function() {
+    //     alert("dsf");
+    //     $('#vendormaterialform')[0].reset();
+    // });
+
+    $(document).ready(function() {
+
+        $('#OpenImgUpload').click(function() {
+            $('#vendorCodeInput').trigger('click');
+        });
+        $('#vendorCodeInput').change(function() {
+            var file = $(this).prop('files')[0].name;
+            $("#filessnames").append(file);
+        });
+
+        setTimeout(function() {
+            $('.success').fadeOut('slow');
+        }, 2000);
+
+    });
 </script>
