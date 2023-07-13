@@ -23,8 +23,8 @@ class UomsFixture extends TestFixture
                 'code' => 'L',
                 'description' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'created_date' => '2022-10-07 09:43:45',
-                'updated_date' => '2022-10-07 09:43:45',
+                'created_date' => '2023-07-11 16:57:26',
+                'updated_date' => '2023-07-11 16:57:26',
             ],
         ];
         parent::init();

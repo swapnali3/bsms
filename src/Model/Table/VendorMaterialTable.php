@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * VendorMaterial Model
  *
+ * @property \App\Model\Table\StockuploadTable&\Cake\ORM\Association\HasMany $Stockupload
+ *
  * @method \App\Model\Entity\VendorMaterial newEmptyEntity()
  * @method \App\Model\Entity\VendorMaterial newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\VendorMaterial[] newEntities(array $data, array $options = [])
@@ -77,8 +79,7 @@ class VendorMaterialTable extends Table
             ->allowEmptyString('minimum_stock');
 
         $validator
-            ->scalar('uom')
-            ->maxLength('uom', 50)
+            ->integer('uom')
             ->allowEmptyString('uom');
 
         $validator

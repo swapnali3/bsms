@@ -54,6 +54,8 @@ class ProductionlineController extends VendorAppController
     public function add()
     {
         $this->loadModel("VendorMaterial");
+        $this->loadModel("VendorTemps");
+        $this->loadModel('Notifications');
         $productionline = $this->Productionline->newEmptyEntity();
 
         // exit;
@@ -70,8 +72,31 @@ class ProductionlineController extends VendorAppController
             $requestData['vendormaterial_id'] = $VendorMaterials->id;
             $requestData['status'] = 0;
 
+            $session = $this->getRequest()->getSession();
+            $sapVendor = $session->read('vendor_code');
+            $buyer = $this->VendorTemps->find()
+            ->select(['buyer_id'])
+            ->where(['sap_vendor_code' => $sapVendor])
+            ->first();
+
+
+
             $productionline = $this->Productionline->patchEntity($productionline, $requestData);
             if ($this->Productionline->save($productionline)) {
+
+                if ($this->Notifications->exists(['Notifications.user_id' => $buyer->buyer_id, 'Notifications.notification_type' => 'production_line'])) {
+                    $this->Notifications->updateAll(
+                        ['message_count' => $this->Notifications->query()->newExpr('message_count + 1')],
+                        ['user_id' => $buyer->buyer_id, 'notification_type' => 'production_line']
+                    );
+                } else {
+                    $notification = $this->Notifications->newEmptyEntity();
+                    $notification->user_id = $buyer->buyer_id;
+                    $notification->notification_type = 'production_line';
+                    $notification->message_count = 1;
+                    $this->Notifications->save($notification);
+                } 
+
                 $this->Flash->success(__('The productionline has been saved.'));
 
                 return $this->redirect(['action' => 'index']);

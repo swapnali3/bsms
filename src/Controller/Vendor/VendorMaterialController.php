@@ -24,12 +24,26 @@ class VendorMaterialController extends VendorAppController
      */
     public function index()
     {
+        $this->loadModel('Uoms');
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-        $vendorMaterial = $this->paginate($this->VendorMaterial->find('all', [
-            'conditions' => ['VendorMaterial.vendor_id' => $vendorId]
-        ]));
-    
+
+        $this->loadModel('VendorMaterial');
+
+        $vendorMaterial = $this->VendorMaterial->find('all', [
+            'conditions' => ['vendorMaterial.vendor_id' => $vendorId]
+        ])->select([
+            'id', 'vendor_id', 'vendor_material_code', 'description', 'minimum_stock',
+            'uom_desp' => 'um.code',
+        ])->join([
+            'table' => 'uoms',
+            'alias' => 'um',
+            'type' => 'LEFT',
+            'conditions' => 'um.id = vendorMaterial.uom',
+        ])->toArray();
+
+        // echo '<pre>';print_r($vendorMaterial);exit;
+
         $this->set(compact('vendorMaterial'));
     }
 
@@ -56,21 +70,51 @@ class VendorMaterialController extends VendorAppController
      */
     public function add()
     {
+        $this->loadModel("VendorTemps");
+        $this->loadModel('Notifications');
+        $this->loadModel('Uoms');
         $vendorMaterial = $this->VendorMaterial->newEmptyEntity();
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
+
+        $sapVendor = $session->read('vendor_code');
+
+  
+        
+        // Retrieve the buyer_id based on sapVendor
+        $buyer = $this->VendorTemps->find()
+            ->select(['buyer_id'])
+            ->where(['sap_vendor_code' => $sapVendor])
+            ->first();
+
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
             $requestData['vendor_id'] = $vendorId;
             $vendorMaterial = $this->VendorMaterial->patchEntity($vendorMaterial, $requestData);
             if ($this->VendorMaterial->save($vendorMaterial)) {
+                if ($this->Notifications->exists(['Notifications.user_id' => $buyer->buyer_id, 'Notifications.notification_type' => 'vendor_material'])) {
+                    $this->Notifications->updateAll(
+                        ['message_count' => $this->Notifications->query()->newExpr('message_count + 1')],
+                        ['user_id' => $buyer->buyer_id, 'notification_type' => 'vendor_material']
+                    );
+                } else {
+                    $notification = $this->Notifications->newEmptyEntity();
+                    $notification->user_id = $buyer->buyer_id;
+                    $notification->notification_type = 'vendor_material';
+                    $notification->message_count = 1;
+                    $this->Notifications->save($notification);
+                } 
+
                 $this->Flash->success(__('The vendor material has been saved.'));
     
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The vendor material could not be saved. Please, try again.'));
         }
-        $this->set(compact('vendorMaterial'));
+
+        $uom = $this->Uoms->find('list', ['keyField' => 'id', 'valueField' => 'code'])->all();
+
+        $this->set(compact('vendorMaterial','uom'));
     }
     
 
@@ -83,6 +127,7 @@ class VendorMaterialController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $this->loadModel('Uoms');
         $vendorMaterial = $this->VendorMaterial->get($id, [
             'contain' => [],
         ]);
@@ -95,7 +140,10 @@ class VendorMaterialController extends VendorAppController
             }
             $this->Flash->error(__('The vendor material could not be saved. Please, try again.'));
         }
-        $this->set(compact('vendorMaterial'));
+        
+        $uom = $this->Uoms->find('list', ['keyField' => 'id', 'valueField' => 'code'])->all();
+
+        $this->set(compact('vendorMaterial','uom'));
     }
 
     /**

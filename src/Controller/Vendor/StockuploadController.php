@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
+
 use App\Model\Table\VendorMaterialTable;
 
 
@@ -28,13 +29,20 @@ class StockuploadController extends VendorAppController
             'conditions' => ['Stockupload.vendor_id' => $vendorId]
         ])->select([
             'id', 'opening_stock', 'vendor_material_id', 'vendor_id', 'added_date', 'updated_date',
-            'vm_description' => 'vm.description',
+            'vm_description' => 'vm.description', 'vm_vendor_code' => 'vm.vendor_material_code', 'uom_desp' => 'um.code',
         ])->join([
             'table' => 'vendor_material',
             'alias' => 'vm',
             'type' => 'LEFT',
             'conditions' => 'vm.id = Stockupload.vendor_material_id',
-        ]);
+        ])->join([
+            'table' => 'uoms',
+            'alias' => 'um',
+            'type' => 'LEFT',
+            'conditions' => 'um.id = vm.uom',
+        ])->toArray();
+        // echo '<pre>';print_r($stockupload);exit;
+
 
         $this->set(compact('stockupload'));
     }
@@ -86,11 +94,45 @@ class StockuploadController extends VendorAppController
             $this->Flash->error(__('The stockupload could not be saved. Please, try again.'));
         }
 
-        $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'vendor_material_code', 'valueField' => 'vendor_material_code'])->all();
+        $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'id', 'valueField' => 'description'])->all();
+
 
 
         $this->set(compact('stockupload', 'vendor_mateial'));
     }
+
+
+    public function vendorMaterial($id = null)
+    {
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        if ($this->request->is(['patch', 'get', 'put'])) {
+            $this->loadModel("VendorMaterial");
+            $vendorMaterial = $this->VendorMaterial->find('all')
+                ->select([
+                    'id', 'vendor_id', 'vendor_material_code', 'description', 'minimum_stock',
+                    'uom_desp' => 'um.code'])
+                ->leftJoin(
+                    ['um' => 'uoms'],
+                    ['um.id = VendorMaterial.uom']
+                )
+                ->where(['VendorMaterial.id' => $id])
+                ->first();
+
+            $response['status'] = 1;
+            $response['message'] = 'success';
+            $response['data'] = $vendorMaterial;
+        } else {
+            $response['message'] = 'error';
+        }
+
+        echo json_encode($response);
+    }
+
+
 
     /**
      * Edit method
@@ -101,6 +143,7 @@ class StockuploadController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $this->loadModel("VendorMaterial");
         $stockupload = $this->Stockupload->get($id, [
             'contain' => [],
         ]);
@@ -113,7 +156,12 @@ class StockuploadController extends VendorAppController
             }
             $this->Flash->error(__('The stockupload could not be saved. Please, try again.'));
         }
-        $this->set(compact('stockupload'));
+
+        $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'id', 'valueField' => 'description'])->all();
+
+
+
+        $this->set(compact('stockupload','vendor_mateial'));
     }
 
     /**

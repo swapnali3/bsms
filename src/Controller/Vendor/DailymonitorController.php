@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
@@ -99,10 +100,10 @@ class DailymonitorController extends VendorAppController
             }
             $this->Flash->error(__('The dailymonitor could not be saved. Please, try again.'));
         }
-        $vendor_mateial = $this->VendorMaterial->find('list', [ 'conditions' => ['VendorMaterial.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'description' ])->all();
-        $productionline = $this->Productionline->find('list', [ 'conditions' => ['Productionline.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'prdline_description' ])->all();
+        $vendor_mateial = $this->VendorMaterial->find('list', ['conditions' => ['VendorMaterial.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'description'])->all();
+        $productionline = $this->Productionline->find('list', ['conditions' => ['Productionline.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'prdline_description'])->all();
 
-        $this->set(compact('dailymonitor','vendor_mateial', 'productionline'));
+        $this->set(compact('dailymonitor', 'vendor_mateial', 'productionline'));
     }
 
     /**

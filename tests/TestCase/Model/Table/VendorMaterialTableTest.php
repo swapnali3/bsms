@@ -25,6 +25,7 @@ class VendorMaterialTableTest extends TestCase
      */
     protected $fixtures = [
         'app.VendorMaterial',
+        'app.Stockupload',
     ];
 
     /**
