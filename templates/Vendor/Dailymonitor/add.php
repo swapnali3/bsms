@@ -17,10 +17,7 @@
         </div>
     </div>
     <div class="card-body invoice-details p-0">
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
         <div class="row dgf m-0">
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
