@@ -5,11 +5,18 @@
  * @var \App\Model\Entity\VendorMaterial $vendorMaterial
  */
 ?>
+
+<?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
+<?= $this->Html->css('CakeLte./AdminLTE/plugins/summernote/summernote.min.css') ?>
+
+<?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
+<?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 <?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
 <?= $this->Html->css('v_index.css') ?>
-<?= $this->Html->css('custom') ?>
 
 <?= $this->Form->create($vendorMaterial, ['id' => 'vendormaterialform']) ?>
 <div class="card">
@@ -42,7 +49,7 @@
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <?php echo $this->Form->control('uom', [
                         'class' => 'form-control w-100',
                         'options' => $uom,
@@ -51,7 +58,9 @@
                         'value' => '',
                         'required'
                     ]); ?>
-                </div>
+                </div> -->
+
+                <?php echo $this->Form->control('uom', ['class' => 'selectpicker form-control my-select w-100', 'options' => $uom, 'style' => 'height: unset !important;','data-live-search' => 'true',  'empty' => 'Please Select','title' => 'Select Uom']); ?>
             </div>
 
             <div class="col-sm-8 col-md-3 d-flex justify-content-start align-items-end">
@@ -171,7 +180,12 @@
         </table>
     </div>
 </div>
-
+<!-- jQuery -->
+<?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
+<?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
+<?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
+<?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
+<?= $this->Html->script('CakeLte./AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>
 
 <script>
     function showConfirmationModal() {
@@ -182,6 +196,10 @@
     //     alert("dsf");
     //     $('#vendormaterialform')[0].reset();
     // });
+
+    $(function() {
+        $('.my-select').selectpicker();
+    });
 
     $(document).ready(function() {
 
