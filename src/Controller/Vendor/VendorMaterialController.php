@@ -88,7 +88,6 @@ class VendorMaterialController extends VendorAppController
         $vendorMaterial = [];
         $vendorView = [];
         $flash = [];
-        $vendorMaterial = $this->VendorMaterial->newEmptyEntity();
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
         $sapVendor = $session->read('vendor_code');
