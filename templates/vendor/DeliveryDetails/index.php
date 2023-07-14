@@ -4,17 +4,10 @@
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
  */
 ?>
-<style>
-    /* .body{
-        font-size:0.9rem;
-    }
-    .card-body{
-        font-size:0.9rem
-    }
-    .table td, .table th{
-        padding:0rem
-    } */
-    </style>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_vendorCustom') ?>
 
 <div class="deliveryDetails index content card intransit">

@@ -7,6 +7,8 @@
  * @var string[]|\Cake\Collection\CollectionInterface $schemaGroups
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
 <style>
     img.vekpro-logo {
     width: 100px;
@@ -32,6 +34,8 @@ label {
     color: #999;
 }
 </style>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <div class="container">
 <div class="row">
     <div class="column-responsive">

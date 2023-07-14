@@ -5,8 +5,11 @@
  * @var iterable<\App\Model\Entity\VendorMaterial> $vendorMaterial
  */
 ?>
-</style>
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <div class="card">
     <div class="card-header pb-1 pt-2">
         <div class="row">

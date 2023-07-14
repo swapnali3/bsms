@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\Product[]|\Cake\Collection\CollectionInterface $products
  */
 ?>
+  <?= $this->Html->css('cstyle.css') ?>
+  <?= $this->Html->css('table.css') ?>
+  <?= $this->Html->css('listing.css') ?>
+  <?= $this->Html->css('b_index.css') ?>
 <div class="products index content">
     <?= $this->Html->link(__('New Product'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Products') ?></h3>

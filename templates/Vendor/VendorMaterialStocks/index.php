@@ -22,6 +22,10 @@
         margin-left:-10px !important;
     } */
 </style>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_vendorCustom') ?>
 <div class="vendorMaterialStocks index content card">
     <div class="card-header p-2">

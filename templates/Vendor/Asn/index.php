@@ -4,11 +4,15 @@
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
 <style>
     .deliveryDetails #example1_filter input.form-control.form-control-sm{
         margin-left:0px !important;
     }
 </style>
+  <?= $this->Html->css('listing.css') ?>
+  <?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_vendorCustom') ?>
 <div class="deliveryDetails index content card">
     <!-- <div class="card-header">

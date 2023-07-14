@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\Setting $setting
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="row">
 
     <div class="column-responsive column-80">

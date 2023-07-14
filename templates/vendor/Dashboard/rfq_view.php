@@ -1,4 +1,12 @@
-<?php ?>
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <section id="content">
     <div class="container-fluid">
         <div class="row">

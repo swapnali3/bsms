@@ -162,12 +162,15 @@ class DashboardController extends VendorAppController
 
     public function clearMessageCount()
     {
+
+        $session = $this->getRequest()->getSession();
+        $vendorID = $session->read('id');
         $response = array();
         $response['status'] = 0;
         $response['message'] = '';
     
         $this->loadModel('Notifications');
-        $this->Notifications->updateAll(['message_count' => 0], ['notification_type' => 'create_schedule']);
+        $this->Notifications->updateAll(['message_count' => 0], ['notification_type' => $vendorID]);
     
         $response['status'] = 1;
         $response['message'] = 'clear Notification';

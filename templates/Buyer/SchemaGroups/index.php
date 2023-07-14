@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\SchemaGroup[]|\Cake\Collection\CollectionInterface $schemaGroups
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="schemaGroups index content">
     <?= $this->Html->link(__('New Schema Group'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Schema Groups') ?></h3>

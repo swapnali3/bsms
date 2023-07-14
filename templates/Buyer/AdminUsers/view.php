@@ -1,13 +1,12 @@
-<style>
-    .vendor-profile table {
-        font-size: 14px;
-    }
-
-    .vendor-profile tr {
-        display: block;
-        padding: 5px 10px;
-    }
-</style>
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
+  <?= $this->Html->css('cstyle.css') ?>
+  <?= $this->Html->css('table.css') ?>
+  <?= $this->Html->css('listing.css') ?>
+  <?= $this->Html->css('b_index.css') ?>
 <?= $this->Html->css('b_vendorCustom') ?>
 <div class="buyer-profile">
     <div class="profile-page pb-4 pl-2">

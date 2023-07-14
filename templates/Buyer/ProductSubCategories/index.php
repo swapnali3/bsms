@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\ProductSubCategory[]|\Cake\Collection\CollectionInterface $productSubCategories
  */
 ?>
+  <?= $this->Html->css('cstyle.css') ?>
+  <?= $this->Html->css('table.css') ?>
+  <?= $this->Html->css('listing.css') ?>
+  <?= $this->Html->css('b_index.css') ?>
 <div class="productSubCategories index content">
     <?= $this->Html->link(__('New Product Sub Category'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Product Sub Categories') ?></h3>
