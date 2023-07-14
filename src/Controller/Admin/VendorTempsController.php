@@ -17,6 +17,13 @@ use Cake\Http\Client;
  */
 class VendorTempsController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -57,6 +64,7 @@ class VendorTempsController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -78,12 +86,14 @@ class VendorTempsController extends AdminAppController
                     ->setSubject('Verify New Account')
                     ->deliver('Hi '.$data['name'].'<br/>Welcome to Vendor portal. <br/>' . $link);
 
-                $this->Flash->success(__('The vendor temp has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The vendor temp has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
 
-            $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
@@ -100,6 +110,7 @@ class VendorTempsController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
         $vendorTemp = $this->VendorTemps->get($id, [
             'contain' => [],
@@ -107,11 +118,13 @@ class VendorTempsController extends AdminAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $this->request->getData());
             if ($this->VendorTemps->save($vendorTemp)) {
-                $this->Flash->success(__('The vendor temp has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The vendor temp has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The vendor temp could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
@@ -128,19 +141,22 @@ class VendorTempsController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $vendorTemp = $this->VendorTemps->get($id);
         if ($this->VendorTemps->delete($vendorTemp)) {
-            $this->Flash->success(__('The vendor temp has been deleted.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor temp has been deleted'];
         } else {
-            $this->Flash->error(__('The vendor temp could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be deleted. Please, try again'];
         }
-
+        $this->set('flash', $flash);
+        
         return $this->redirect(['action' => 'index']);
     }
 
     public function approveVendor($id = null, $action = null)
-    {   
+    {  
+        $flash = []; 
         $this->loadModel("VendorTemps");
         $vendor = $this->VendorTemps->get($id);
         if($action == 'app') {
@@ -184,12 +200,13 @@ class VendorTempsController extends AdminAppController
             );
 
             if($action == 'app') {
-                $this->Flash->success(__('The Vendor successfully approved and sent to SAP system'));
+                $flash = ['type'=>'success', 'msg'=>'The Vendor successfully approved and sent to SAP system'];
             }
         } else {
-            $this->Flash->error(__('The Vendor detail could not be updated. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The Vendor detail could not be updated. Please, try again'];
         }
-
+        
+        $this->set('flash', $flash);
         return $this->redirect(['action' => 'index']);
     }
 

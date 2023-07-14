@@ -38,6 +38,13 @@ use Cake\Mailer\Mailer;
  */
 class DashboardController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     public function index()
     {
 
@@ -142,11 +149,8 @@ class DashboardController extends AdminAppController
                 $data['password'] = Security::randomString(10);
 
                 $groupName = "";
-                if ($data['group_id'] === '1') {
-                    $groupName = "Admin";
-                } else {
-                    $groupName = "Buyer";
-                }
+                if ($data['group_id'] === '1') { $groupName = "Admin"; }
+                else { $groupName = "Buyer"; }
 
                 $User = $this->Users->patchEntity($User, $data);
                 if ($this->Users->save($User)) {
@@ -164,7 +168,6 @@ class DashboardController extends AdminAppController
                     $response['message'] = 'User Added successfully';
                 } else {
                     throw new \Exception('Failed to Add User'); // Throw exception if the 
-
                 }
             } catch (\Exception $e) {
                 $response['status'] = '0';

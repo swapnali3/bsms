@@ -11,6 +11,8 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int|null $vendor_id
  * @property int|null $productionline_id
+ * @property int|null $material_id
+ * @property \Cake\I18n\FrozenDate|null $plan_date
  * @property int|null $target_production
  * @property int|null $confirm_production
  * @property int|null $status
@@ -31,6 +33,8 @@ class Dailymonitor extends Entity
     protected $_accessible = [
         'vendor_id' => true,
         'productionline_id' => true,
+        'material_id' => true,
+        'plan_date' => true,
         'target_production' => true,
         'confirm_production' => true,
         'status' => true,

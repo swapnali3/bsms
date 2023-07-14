@@ -11,6 +11,13 @@ namespace App\Controller\Admin;
  */
 class ProductSubCategoriesController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -54,17 +61,19 @@ class ProductSubCategoriesController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         //$this->loadModel('Products');
         $this->loadModel('ProductSubCategories');
         $productSubCategory = $this->ProductSubCategories->newEmptyEntity();
         if ($this->request->is('post')) {
             $productSubCategory = $this->ProductSubCategories->patchEntity($productSubCategory, $this->request->getData());
             if ($this->ProductSubCategories->save($productSubCategory)) {
-                $this->Flash->success(__('The product sub category has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The product sub category has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The product sub category could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The product sub category could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $products = $this->ProductSubCategories->Products->find('list', ['limit' => 200])->all();
         $this->set(compact('productSubCategory', 'products'));
@@ -79,6 +88,7 @@ class ProductSubCategoriesController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel('Products');
         $this->loadModel('productSubCategories');
         $productSubCategory = $this->ProductSubCategories->get($id, [
@@ -87,11 +97,12 @@ class ProductSubCategoriesController extends AdminAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $productSubCategory = $this->ProductSubCategories->patchEntity($productSubCategory, $this->request->getData());
             if ($this->ProductSubCategories->save($productSubCategory)) {
-                $this->Flash->success(__('The product sub category has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The product sub category has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The product sub category could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The product sub category could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $products = $this->ProductSubCategories->Products->find('list', ['limit' => 200])->all();
         $this->set(compact('productSubCategory', 'products'));
@@ -106,15 +117,17 @@ class ProductSubCategoriesController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->loadModel('Products');
         $this->loadModel('productSubCategories');
         $this->request->allowMethod(['post', 'delete']);
         $productSubCategory = $this->ProductSubCategories->get($id);
         if ($this->ProductSubCategories->delete($productSubCategory)) {
-            $this->Flash->success(__('The product sub category has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The product sub category has been deleted'];
         } else {
-            $this->Flash->error(__('The product sub category could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The product sub category could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

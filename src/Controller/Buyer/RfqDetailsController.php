@@ -12,6 +12,13 @@ use Cake\Datasource\ConnectionManager;
  */
 class RfqDetailsController extends BuyerAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -71,6 +78,7 @@ class RfqDetailsController extends BuyerAppController
      */
     public function add()
     {
+        $flash = [];
         $this->loadModel("Products");
         $this->loadModel("Uoms");
         $this->loadModel("RfqDetails");
@@ -92,11 +100,13 @@ class RfqDetailsController extends BuyerAppController
             $rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $data);
             //echo '<pre>'; print_r($rfqDetail); exit;
             if ($this->RfqDetails->save($rfqDetail)) {
-                $this->Flash->success(__('The RFQ has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The RFQ has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The RFQ  could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The RFQ  could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         
         $products = $this->RfqDetails->Products->find('list', ['limit' => 200])->all();
@@ -114,6 +124,7 @@ class RfqDetailsController extends BuyerAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel("RfqDetails");
         $rfqDetail = $this->RfqDetails->get($id, [
             'contain' => [],
@@ -121,11 +132,13 @@ class RfqDetailsController extends BuyerAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $rfqDetail = $this->RfqDetails->patchEntity($rfqDetail, $this->request->getData());
             if ($this->RfqDetails->save($rfqDetail)) {
-                $this->Flash->success(__('The rfq detail has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The rfq detail has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The rfq detail could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The rfq detail could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $buyerSellerUsers = $this->RfqDetails->BuyerSellerUsers->find('list', ['limit' => 200])->all();
         $products = $this->RfqDetails->Products->find('list', ['limit' => 200])->all();
@@ -143,19 +156,22 @@ class RfqDetailsController extends BuyerAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $rfqDetail = $this->RfqDetails->get($id);
         if ($this->RfqDetails->delete($rfqDetail)) {
-            $this->Flash->success(__('The rfq detail has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The rfq detail has been deleted'];
         } else {
-            $this->Flash->error(__('The rfq detail could not be deleted. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The rfq detail could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }
 
     public function apprej($id = null, $action = null)
     {   
+        $flash = [];
         $this->loadModel("RfqDetails");
         $rfqDetail = $this->RfqDetails->get($id);
         if($action == 'app') {
@@ -167,14 +183,15 @@ class RfqDetailsController extends BuyerAppController
         if ($this->RfqDetails->save($rfqDetail)) {
             
             if($action == 'app') {
-                $this->Flash->success(__('The RFQ successfully approved'));
+                $flash = ['type'=>'success', 'msg'=>'The RFQ successfully approved'];
             } else if($action == 'rej') {
-                $this->Flash->success(__('The RFQ successfully Rejected'));
+                $flash = ['type'=>'success', 'msg'=>'The RFQ successfully Rejected'];
             }
         } else {
-            $this->Flash->error(__('The rfq detail could not be updated. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The rfq detail could not be updated. Please, try again'];
         }
-
+        
+        $this->set('flash', $flash);
         return $this->redirect(['action' => 'index']);
     }
 }

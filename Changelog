@@ -195,13 +195,17 @@ CREATE TABLE `dailymonitor` (
   `id` int NOT NULL AUTO_INCREMENT,
   `vendor_id` int DEFAULT NULL,
   `productionline_id` int DEFAULT NULL,
+  `material_id` int DEFAULT NULL,
+  `plan_date` date DEFAULT NULL,
   `target_production` int DEFAULT NULL,
   `confirm_production` int DEFAULT NULL,
   `status` int DEFAULT NULL,
   `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `index2` (`productionline_id`,`material_id`,`plan_date`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 CREATE TABLE `productionline` (
   `id` int NOT NULL AUTO_INCREMENT,

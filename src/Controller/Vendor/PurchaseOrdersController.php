@@ -16,6 +16,13 @@ use Cake\Mailer\Mailer;
  */
 class PurchaseOrdersController extends VendorAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     var $uses = array('PoHeaders', 'DeliveryDetails');
     /**
      * Index method
@@ -269,6 +276,7 @@ class PurchaseOrdersController extends VendorAppController
      */
     public function view($id = null)
     {
+        $flash = [];
         $this->loadModel('PoHeaders');
         $this->loadModel('PoItemSchedules');
 
@@ -360,16 +368,18 @@ class PurchaseOrdersController extends VendorAppController
                     if ($this->AsnFooters->saveMany($asnFooter)) {
                         $response['status'] = 'success';
                         $response['message'] = 'Record save successfully';
-                        // $this->Flash->success("ASN-$asnNo has been created successfully");
-                        $this->Flash->success(__("ASN-$asnNo has been created successfully", 30));
+                        $flash = ['type'=>'success', 'msg'=>(__("ASN-$asnNo has been created successfully", 30))];
+                        $this->set('flash', $flash);
                         return $this->redirect(['controller' => 'asn', 'action' => 'index']);
                     } else {
                     }
                 } else {
-                    $this->Flash->error("fail");
+                    $flash = ['type'=>'error', 'msg'=>'fail'];
+                    $this->set('flash', $flash);
                 }
             } catch (\PDOException $e) {
-                $this->Flash->error($e->getMessage());
+                $flash = ['type'=>'error', 'msg'=>($e->getMessage())];
+                $this->set('flash', $flash);
             } catch (\Exception $e) {
                 $response['status'] = 'fail';
                 $response['message'] = $e->getMessage();
@@ -390,15 +400,17 @@ class PurchaseOrdersController extends VendorAppController
      */
     public function add()
     {
+        $flash = [];
         $poHeader = $this->PoHeaders->newEmptyEntity();
         if ($this->request->is('post')) {
             $poHeader = $this->PoHeaders->patchEntity($poHeader, $this->request->getData());
             if ($this->PoHeaders->save($poHeader)) {
-                $this->Flash->success(__('The po header has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The po header has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The po header could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The po header could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('poHeader'));
     }
@@ -412,17 +424,19 @@ class PurchaseOrdersController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $poHeader = $this->PoHeaders->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $poHeader = $this->PoHeaders->patchEntity($poHeader, $this->request->getData());
             if ($this->PoHeaders->save($poHeader)) {
-                $this->Flash->success(__('The record has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The record has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The po header could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The po header could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('poHeader'));
     }
@@ -436,13 +450,15 @@ class PurchaseOrdersController extends VendorAppController
      */
     public function delete($id = null)
     {
-
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $poHeader = $this->PoHeaders->get($id);
         if ($this->PoHeaders->delete($poHeader)) {
-            $this->Flash->success(__('The po header has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The po header has been deleted'];
+            $this->set('flash', $flash);
         } else {
-            $this->Flash->error(__('The po header could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The po header could not be deleted. Please, try again'];
+            $this->set('flash', $flash);
         }
 
         return $this->redirect(['action' => 'index']);

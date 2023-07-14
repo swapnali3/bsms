@@ -401,12 +401,9 @@
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/summernote/summernote.min.js') ?>
 <?= $this->Html->script('chat') ?>
-<!-- <?= $this->Html->script('/js/v_onboarding_create.js') ?> -->
 <script>
     var getchaturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>";
     var postchaturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>";
-
-
     var seengeturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'seen-update')); ?>";
     var chatdata, user_id = "<?= h($vendorTemp->id) ?>",
         sender_id, table_pk;
@@ -417,42 +414,7 @@
         });
     });
 
-    // function communication(val) {
-    //     $.ajax({
-    //         type: "GET",
-    //         url: getchaturl + "/index/vendor_temps/" + val,
-    //         dataType: 'json',
-    //         success: function (response) {
-    //             chatdata = response;
-    //             var counts = 0;
-    //             $.each(response, function (index, row) {
-    //                 var ndiv = `<div class="card card-widget">
-    //                     <div class="card-header">
-    //                         <div class="user-block">
-    //                             <img class="img-circle" src="..\\..\\..\\img\\U.png" alt="User Image">
-    //                             <span class="username">` + row['fullname'] + `</span>
-    //                             <span class="description">` + row['updateddate'] + `</span>
-    //                         </div><div class="card-tools">
-    //                             <button type="button" class="btn btn-tool" id="minimise` + row['id'] + `" data-card-widget="collapse">
-    //                                 <i class="fas fa-minus"></i>
-    //                             </button>         
-    //                         </div>
-    //                     </div>
-    //                     <div class="card-body" style="display: block;margin: 6px 24px;"><p>` + row['message'] + `</p></div>
-    //                 </div>`;
-
-    //                 $("#id_oldmsg").append(ndiv);
-    //                 if (index != 0 && row['seen'] == "1") { $("#minimise" + row["id"]).trigger("click"); }
-    //                 if (row['seen'] == 0 && row['sender_id'] != user_id) {
-    //                     counts++; sender_id = row["sender_id"]; table_pk = row["table_pk"];
-    //                 }
-    //             });
-    //             $('#count-badge').text(counts);
-    //         },
-    //     });
-    // }
-
-    $(document).on("click", "#id_fksubmit", function() {
+    $(document).on("click", "#id_fksubmit", function () {
         var submitcall = true;
         var tab = {
             "tab_address": ["address", "address-2", "pincode", "city", "country", "state"],
@@ -490,33 +452,7 @@
         }
     });
 
-    // communication(user_id);
-
-    // $('#add_comm').click(function (e) {
-    //     e.preventDefault();
-    //     var formdata = new FormData($('#communiSubmit')[0]);
-    //     formdata.append('table_name', "vendor_temps");
-    //     formdata.append('table_pk', data[0]['table_pk']);
-    //     formdata.append('group_id', '3');
-    //     $.ajax({
-    //         type: "POST",
-    //         url: postchaturl,
-    //         data: formdata,
-    //         dataType: 'json',
-    //         processData: false,
-    //         contentType: false,
-    //         success: function (response) {
-    //             if (response.status == '1') {
-    //                 $('#id_oldmsg').empty();
-    //                 communication(user_id);
-    //                 $('#summernote').summernote('reset');
-    //             }
-    //         }
-    //     });
-    // });
-
-    $(document).on("click", "#add_comm", function() {
-        // e.preventDefault();
+    $(document).on("click", "#add_comm", function () {
         var formdata = new FormData($("#communiSubmit")[0]);
         formdata.append("table_name", "vendor_temps");
         resp = sendchat(postchaturl, formdata, $(this).data('modal_body'), $(this).data('sender_id'), getchaturl);
@@ -535,24 +471,18 @@
         $("#id_table_pk").val($(this).data('table_pk'));
         $("#add_comm").attr('data-modal_body', $(this).data('modalbody')).attr('data-sender_id', $(this).data('sender_id'));
         chat($(this).data('modalbody'), $(this).data('sender_id'), getchaturl, $(this).data('table_name'), $(this).data('table_pk'));
+
         $.ajax({
             type: "GET",
             url: seengeturl + "/vendor_temps/" + table_pk + "/" + sender_id,
             dataType: 'json',
-            success: function(resp) {
-                if (resp.status == 1) {
-                    $('#count-badge').hide();
-                    sender_id = table_pk = 0;
-                }
-            },
+            success: function (resp) { if (resp.status == 1) { $('#unread'+sender_id).hide();} },
         });
     });
 
     $(document).ready(function() {
 
-        $(".chatload").each(function() {
-            // var valdata = getbadge($(this).data('sender_id'), getchaturl, "vendor_temps", $(this).data('table_pk'));
-            // console.log(valdata);
+        $(".chatload").each(function () {
             $('#unread' + $(this).data('sender_id')).empty();
             getbadge($(this).data('sender_id'), getchaturl, "vendor_temps", $(this).data('table_pk'), 'unread' + $(this).data('sender_id'))
         });

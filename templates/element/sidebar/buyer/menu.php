@@ -1,39 +1,65 @@
-
 <style>
   /* nav.main-header {
     height: 52px;
 } */
-  .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl{
-    padding-left:0rem
-  }
-  .layout-fixed .brand-link{
-    width:218px
+  .container,
+  .container-fluid,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    padding-left: 0rem
   }
 
-  .brand-link{
-    padding:0.5rem 0.5rem
+  .layout-fixed .brand-link {
+    width: 218px
   }
-  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer, body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header{
-    margin-left:210px
+
+  .brand-link {
+    padding: 0.5rem 0.5rem
   }
-  .sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link{
-    width:calc(235px - 1.1rem * 2)
+
+  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
+  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
+    margin-left: 210px
   }
-  .nav-sidebar .nav-link>.right, .nav-sidebar .nav-link>p>.right{
-    top:0.9rem
+
+  .sidebar-mini .main-sidebar .nav-link,
+  .sidebar-mini-md .main-sidebar .nav-link,
+  .sidebar-mini-xs .main-sidebar .nav-link {
+    width: calc(235px - 1.1rem * 2)
   }
-  .main-sidebar, .main-sidebar::before{
-    width:218px
+
+  .nav-sidebar .nav-link>.right,
+  .nav-sidebar .nav-link>p>.right {
+    top: 0.9rem
   }
-  p, .p{
-    font-size:14px
+
+  .main-sidebar,
+  .main-sidebar::before {
+    width: 218px
   }
-  .sidebar{
-    padding-left:0.6rem
+
+  p,
+  .p {
+    font-size: 14px
   }
-  .nav-sidebar>.nav-item .nav-icon.fa, .nav-sidebar>.nav-item .nav-icon.fab, .nav-sidebar>.nav-item .nav-icon.fad, .nav-sidebar>.nav-item .nav-icon.fal, .nav-sidebar>.nav-item .nav-icon.far, .nav-sidebar>.nav-item .nav-icon.fas, .nav-sidebar>.nav-item .nav-icon.ion, .nav-sidebar>.nav-item .nav-icon.svg-inline--fa {
-    font-size:0.8rem;
-    }
+
+  .sidebar {
+    padding-left: 0.6rem
+  }
+
+  .nav-sidebar>.nav-item .nav-icon.fa,
+  .nav-sidebar>.nav-item .nav-icon.fab,
+  .nav-sidebar>.nav-item .nav-icon.fad,
+  .nav-sidebar>.nav-item .nav-icon.fal,
+  .nav-sidebar>.nav-item .nav-icon.far,
+  .nav-sidebar>.nav-item .nav-icon.fas,
+  .nav-sidebar>.nav-item .nav-icon.ion,
+  .nav-sidebar>.nav-item .nav-icon.svg-inline--fa {
+    font-size: 0.8rem;
+  }
 </style>
 <!-- Add icons to the links using the .nav-icon class
      with font-awesome or any other icon font library -->
@@ -80,19 +106,19 @@
   <ul class="nav nav-treeview">
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link <?= $tempindctive ?>">
-      <i class="nav-icon fas fa-users"></i>
+        <i class="nav-icon fas fa-users"></i>
         <p>Vendors</p>
       </a>
     </li>
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/add" class="nav-link <?= $createvendactive ?>">
-      <i class="fa fa-solid fa-plus nav-icon"></i>
+        <i class="fa fa-solid fa-plus nav-icon"></i>
         <p>Add Vendor</p>
       </a>
     </li>
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>">
-      <i class="fas fa-file-import nav-icon"></i>
+        <i class="fas fa-file-import nav-icon"></i>
         <p>SAP Vendor Import</p>
       </a>
     </li>
@@ -135,20 +161,25 @@
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit ASN</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
 </li>
+
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-universal-access nav-icon"></i><p>Gate Entry</p>'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
 </li>
+
+<!-- <li class="nav-item">
+  <?= $this->Html->link(__('<i class="fas fa-vector-square nav-icon"></i><p>Vendor Material Master</p>'), ['controller' => 'vendormaterial', 'action' => 'index'], ['class' => "nav-link vmmactive" , 'escape' => false]) ?>
+</li> -->
 
 <li class="nav-item <?=$settingmenuopen?>">
   <?= $this->Html->link(__('<i class="fa fa-cog nav-icon"></i><p>Settings</p>'), ['controller' => 'settings', 'action' => 'update'], ['class' => "nav-link $settingactive", 'escape' => false]) ?>
 
   <ul class="nav nav-treeview">
     <li class="nav-item ">
-    <?= $this->Html->link(__('<i class="fa fa-solid fa-list nav-icon"></i><p>Buyer Management</p>'), ['controller' => '/settings', 'action' => 'buyer-management'], ['class' => "nav-link $settingBuyerActive", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fa fa-solid fa-list nav-icon"></i><p>Buyer Management</p>'), ['controller' => '/settings', 'action' => 'buyer-management'], ['class' => "nav-link $settingBuyerActive", 'escape' => false]) ?>
     </li>
 
     <li class="nav-item ">
-    <?= $this->Html->link(__('<i class="fa fa-solid fa-list nav-icon"></i><p>Vendor Management</p>'), ['controller' => '/settings', 'action' => 'vendor-management'], ['class' => "nav-link $settingVendorActive", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fa fa-solid fa-list nav-icon"></i><p>Vendor Management</p>'), ['controller' => '/settings', 'action' => 'vendor-management'], ['class' => "nav-link $settingVendorActive", 'escape' => false]) ?>
     </li>
   </ul>
 </li>

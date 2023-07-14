@@ -11,6 +11,13 @@ namespace App\Controller\Admin;
  */
 class ProductAttributesController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -51,16 +58,18 @@ class ProductAttributesController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $this->loadModel('ProductAttributes');
         $productAttribute = $this->ProductAttributes->newEmptyEntity();
         if ($this->request->is('post')) {
             $productAttribute = $this->ProductAttributes->patchEntity($productAttribute, $this->request->getData());
             if ($this->ProductAttributes->save($productAttribute)) {
-                $this->Flash->success(__('The product attribute has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The product attribute has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The product attribute could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The product attribute could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $products = $this->ProductAttributes->Products->find('list')->all();
         $this->set(compact('productAttribute', 'products'));
@@ -75,6 +84,7 @@ class ProductAttributesController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel('ProductAttributes');
         $productAttribute = $this->ProductAttributes->get($id, [
             'contain' => [],
@@ -82,11 +92,12 @@ class ProductAttributesController extends AdminAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $productAttribute = $this->ProductAttributes->patchEntity($productAttribute, $this->request->getData());
             if ($this->ProductAttributes->save($productAttribute)) {
-                $this->Flash->success(__('The product attribute has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The product attribute has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The product attribute could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The product attribute could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $products = $this->ProductAttributes->Products->find('list', ['limit' => 200])->all();
         $productSubCategories = $this->ProductAttributes->ProductSubCategories->find('list', ['limit' => 200])->all();
@@ -102,14 +113,16 @@ class ProductAttributesController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->loadModel('ProductAttributes');
         $this->request->allowMethod(['post', 'delete']);
         $productAttribute = $this->ProductAttributes->get($id);
         if ($this->ProductAttributes->delete($productAttribute)) {
-            $this->Flash->success(__('The product attribute has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The product attribute has been deleted'];
         } else {
-            $this->Flash->error(__('The product attribute could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The product attribute could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

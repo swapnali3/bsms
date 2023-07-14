@@ -15,28 +15,33 @@
     padding: 15px;
     border-radius: 8px;
     font-size: 21px;
-}
-.i .fa-cart-plus {
+  }
+
+  .i .fa-cart-plus {
     color: #fff;
     background-color: #B1BD68;
     padding: 15px;
     border-radius: 8px;
     font-size: 21px;
-}
-.i {
+  }
+
+  .i {
     align-self: center;
-}
-.txt h3 {
+  }
+
+  .txt h3 {
     color: #878a99;
     font-size: 1.2rem;
     margin-bottom: 0px;
-}
-.btn-action {
+  }
+
+  .btn-action {
     border-top: 1px solid #ddd;
     margin-top: 15px;
-    text-align:right;
-}
-.btn-action .btn {
+    text-align: right;
+  }
+
+  .btn-action .btn {
     color: #fff;
     font-weight: 600;
     font-size: 12px;
@@ -44,18 +49,21 @@
     margin-top: 15px;
     margin-bottom: 0px;
     background-color: #112A68;
-}
-.txt h5 {
+  }
+
+  .txt h5 {
     font-size: 28px;
     margin-bottom: 0px;
-}
-.d-box{
-  background-color: #fff;
+  }
+
+  .d-box {
+    background-color: #fff;
     padding: 25px;
     justify-content: space-between;
-    box-shadow: 0 3px 3px rgba(56,65,74,0.1);
-    border-radius:5px;
-}
+    box-shadow: 0 3px 3px rgba(56, 65, 74, 0.1);
+    border-radius: 5px;
+  }
+
   /* .table> :not(caption)>*>*{
     padding:0rem
     
@@ -63,8 +71,8 @@
   .table thead th{
     padding:0rem
   } */
-  </style>
-  <?= $this->Html->css('custom') ?>
+</style>
+<?= $this->Html->css('custom') ?>
 <div class="row pt-3">
 
   <!-- <div class="col-sm-12 col-lg-3">
@@ -133,37 +141,103 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
       </div>
     </div>
   </div> -->
-  <div class="col-md-4 col-lg-4">
-    <div class="d-box">
-      <div class="d-flex justify-content-between text-right">
-        <div class="i">
-        <i class="fas fa-cart-plus"></i>
+
+  <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+      <div class="d-box">
+        <div class="d-flex justify-content-between text-right">
+          <div class="i">
+            <i class="fas fa-cart-plus"></i>
+          </div>
+          <div class="txt">
+            <h3>Purchase Order</h3>
+            <h5>
+              <?= $totalPos ?>
+            </h5>
+          </div>
         </div>
-        <div class="txt">
-          <h3>Purchase Order</h3>
-          <h5><?= $totalPos ?></h5>
+        <div class="btn-action">
+          <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'btn ', 'escape' => false]) ?>
         </div>
       </div>
-        <div class="btn-action">
-        <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'btn ', 'escape' => false]) ?>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+      <div class="d-box">
+        <div class="d-flex justify-content-between text-right">
+          <div class="i">
+            <i class="fas fa-truck"></i>
+          </div>
+          <div class="txt">
+            <h3>In Transit</h3>
+            <h5>
+              <?= $totalIntransit ?>
+            </h5>
+          </div>
         </div>
+        <div class="btn-action">
+          <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'btn', 'escape' => false]) ?>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="col-md-4 col-lg-4">
-    <div class="d-box">
-      <div class="d-flex justify-content-between text-right">
-        <div class="i">
-          <i class="fas fa-truck"></i>
+  <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
+
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+      <div class="card">
+        <div class="card-header">
+          Stock By Material
         </div>
-        <div class="txt">
-          <h3>In Transit</h3>
-          <h5><?= $totalIntransit ?></h5>
+        <div class="card-body table-responsive">
+          <table class="table table-bordered table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Material</th>
+                <th>Opening Stock</th>
+                <th>Production Stock</th>
+                <th>ASN Stock</th>
+                <th>Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>11/07/2023</td>
+                <td>Coarse Aggregate 60mm</td>
+                <td>30</td>
+                <td>22</td>
+                <td>50</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>11/07/2023</td>
+                <td>Coarse Aggregate 60mm</td>
+                <td>30</td>
+                <td>22</td>
+                <td>50</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>11/07/2023</td>
+                <td>Coarse Aggregate 60mm</td>
+                <td>30</td>
+                <td>22</td>
+                <td>50</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>11/07/2023</td>
+                <td>Coarse Aggregate 60mm</td>
+                <td>30</td>
+                <td>22</td>
+                <td>50</td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
-        <div class="btn-action">
-        <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'btn', 'escape' => false]) ?>
-        </div>
     </div>
+
   </div>
 
   <!-- <div class="col-sm-12 col-lg-3">
@@ -188,6 +262,8 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
     </div>
   </div> -->
 
+
+
 </div>
 
 <!-- New RFQs-->
@@ -195,148 +271,150 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
 <?php if(count($rfqnewDetails)) : ?>
 <div class="card">
   <div class="card-header">
-        <div class="row">
-            <div class="col-sm-12 col-lg-10">
-                <h3 class="mb-0" style="color:navy;"><b>Open RFQs</b></h3>
-            </div>
-        </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-10">
+        <h3 class="mb-0" style="color:navy;"><b>Open RFQs</b></h3>
+      </div>
+    </div>
   </div>
   <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-hover" id="newrfqlist" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
-                <thead>
-                    <tr style="background-color: #d3d3d36e;">
-                        <th>
-                            <?= h('RFQ No.') ?>
-                        </th>
-                        <th>
-                            <?= h('Category') ?>
-                        </th>
-                        <th>
-                            <?= h('Part Name') ?>
-                        </th>
-                        <th>
-                            <?= h('Make') ?>
-                        </th>
-                        <th>
-                            <?= h('UOM') ?>
-                        </th>
-                        <th>
-                            <?= h('Remarks') ?>
-                        </th>
-                        <th>
-                            <?= h('Date') ?>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($rfqnewDetails as $key => $val): 
+    <div class="table-responsive">
+      <table class="table table-hover" id="newrfqlist"
+        style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray;">
+        <thead>
+          <tr style="background-color: #d3d3d36e;">
+            <th>
+              <?= h('RFQ No.') ?>
+            </th>
+            <th>
+              <?= h('Category') ?>
+            </th>
+            <th>
+              <?= h('Part Name') ?>
+            </th>
+            <th>
+              <?= h('Make') ?>
+            </th>
+            <th>
+              <?= h('UOM') ?>
+            </th>
+            <th>
+              <?= h('Remarks') ?>
+            </th>
+            <th>
+              <?= h('Date') ?>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($rfqnewDetails as $key => $val): 
                     
                     ?>
-                    <tr redirect="<?= $this->Url->build('/') ?>vendor/dashboard/rfq-view/<?= $val['id'] ?>">
-                        <td>
-                            <?= $val['rfq_no'] ?>
-                        </td>
-                        
-                        <td>
-                            <?=$val['product']?>
-                        </td>
-                        <td>
-                            <?=$val['part_name']?>
-                        </td>
-                        <td>
-                            <?=$val['make']?>
-                        </td>
-                        <td>
-                            <?=$val['uom']?>
-                        </td>
-                        <td>
-                            <?=$val['remarks']?>
-                        </td>
-                        <td>
-                            <?=$val['added_date']?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+          <tr redirect="<?= $this->Url->build('/') ?>vendor/dashboard/rfq-view/<?= $val['id'] ?>">
+            <td>
+              <?= $val['rfq_no'] ?>
+            </td>
+
+            <td>
+              <?=$val['product']?>
+            </td>
+            <td>
+              <?=$val['part_name']?>
+            </td>
+            <td>
+              <?=$val['make']?>
+            </td>
+            <td>
+              <?=$val['uom']?>
+            </td>
+            <td>
+              <?=$val['remarks']?>
+            </td>
+            <td>
+              <?=$val['added_date']?>
+            </td>
+          </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 <?php endif; ?>
-    
 
-<!-- Responded RFQs--> 
+
+<!-- Responded RFQs-->
 <?php $rfqRequested = array(); ?>
 <?php if(count($rfqRequested)) : ?>
 <div class="card">
   <div class="card-header">
-        <div class="row">
-            <div class="col-sm-12 col-lg-10">
-                <h4 class="mb-0" style="color:navy;"><b> Submitted RFQs</b></h4>
-            </div>
-        </div>
+    <div class="row">
+      <div class="col-sm-12 col-lg-10">
+        <h4 class="mb-0" style="color:navy;"><b> Submitted RFQs</b></h4>
+      </div>
+    </div>
   </div>
   <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-hover" id="respondedrfqlist"  style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray; padding:0rem">
-                <thead>
-                    <tr style="background-color: #d3d3d36e;">
-                        <th>
-                            <?= h('RFQ No.') ?>
-                        </th>
-                        <th>
-                            <?= h('Category') ?>
-                        </th>
-                        <th>
-                            <?= h('Part Name') ?>
-                        </th>
-                        <th>
-                            <?= h('Make') ?>
-                        </th>
-                        <th>
-                            <?= h('UOM') ?>
-                        </th>
-                        <th>
-                            <?= h('Remarks') ?>
-                        </th>
-                        <th>
-                            <?= h('Date') ?>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($rfqRequested as $key => $val): 
+    <div class="table-responsive">
+      <table class="table table-hover" id="respondedrfqlist"
+        style="border-left: .5px solid lightgray;border-right: .5px solid lightgray;border-bottom: .5px solid lightgray; padding:0rem">
+        <thead>
+          <tr style="background-color: #d3d3d36e;">
+            <th>
+              <?= h('RFQ No.') ?>
+            </th>
+            <th>
+              <?= h('Category') ?>
+            </th>
+            <th>
+              <?= h('Part Name') ?>
+            </th>
+            <th>
+              <?= h('Make') ?>
+            </th>
+            <th>
+              <?= h('UOM') ?>
+            </th>
+            <th>
+              <?= h('Remarks') ?>
+            </th>
+            <th>
+              <?= h('Date') ?>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($rfqRequested as $key => $val): 
                     ?>
-                    <tr redirect="<?= $this->Url->build('/') ?>vendor/dashboard/rfq-view/<?= $val['id'] ?>">
-                        <td>
-                            <?= $val['rfq_no'] ?>
-                        </td>
-                        
-                        <td>
-                            <?=$val['product']?>
-                        </td>
-                        <td>
-                            <?=$val['part_name']?>
-                        </td>
-                        <td>
-                            <?=$val['make']?>
-                        </td>
-                        <td>
-                            <?=$val['uom']?>
-                        </td>
-                        <td>
-                            <?=$val['remarks']?>
-                        </td>
-                        <td>
-                            <?=$val['added_date']?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
+          <tr redirect="<?= $this->Url->build('/') ?>vendor/dashboard/rfq-view/<?= $val['id'] ?>">
+            <td>
+              <?= $val['rfq_no'] ?>
+            </td>
+
+            <td>
+              <?=$val['product']?>
+            </td>
+            <td>
+              <?=$val['part_name']?>
+            </td>
+            <td>
+              <?=$val['make']?>
+            </td>
+            <td>
+              <?=$val['uom']?>
+            </td>
+            <td>
+              <?=$val['remarks']?>
+            </td>
+            <td>
+              <?=$val['added_date']?>
+            </td>
+          </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 <?php endif; ?>
 
@@ -344,30 +422,30 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
 </section>
 
 <script>
-    $(document).ready(function () {
-        $("#newrfqlist").DataTable({
-            "responsive": false, "lengthChange": false, "autoWidth": false,
-            "ordering":false,
-            "searching" :false,
-            "paging": false
-
-        });
-
-        $("#respondedrfqlist").DataTable({
-            "responsive": false, "lengthChange": false, "autoWidth": false,
-            "ordering":false,
-            "searching" :false,
-            "paging": false
-
-        });
-        
-
-        $('#newrfqlist, #respondedrfqlist').on('click', 'tbody tr', function(){
-            window.location = $(this).closest('tr').attr('redirect');
-        });
+  $(document).ready(function () {
+    $("#newrfqlist").DataTable({
+      "responsive": false, "lengthChange": false, "autoWidth": false,
+      "ordering": false,
+      "searching": false,
+      "paging": false
 
     });
 
-  
-  
+    $("#respondedrfqlist").DataTable({
+      "responsive": false, "lengthChange": false, "autoWidth": false,
+      "ordering": false,
+      "searching": false,
+      "paging": false
+
+    });
+
+
+    $('#newrfqlist, #respondedrfqlist').on('click', 'tbody tr', function () {
+      window.location = $(this).closest('tr').attr('redirect');
+    });
+
+  });
+
+
+
 </script>

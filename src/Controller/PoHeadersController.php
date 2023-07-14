@@ -46,15 +46,17 @@ class PoHeadersController extends AppController
      */
     public function add()
     {
+        $flash = [];
         $poHeader = $this->PoHeaders->newEmptyEntity();
         if ($this->request->is('post')) {
             $poHeader = $this->PoHeaders->patchEntity($poHeader, $this->request->getData());
             if ($this->PoHeaders->save($poHeader)) {
-                $this->Flash->success(__('The po header has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The po header has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The po header could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The po header could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('poHeader'));
     }
@@ -68,17 +70,19 @@ class PoHeadersController extends AppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $poHeader = $this->PoHeaders->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $poHeader = $this->PoHeaders->patchEntity($poHeader, $this->request->getData());
             if ($this->PoHeaders->save($poHeader)) {
-                $this->Flash->success(__('The po header has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The po header has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The po header could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The po header could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('poHeader'));
     }
@@ -92,13 +96,15 @@ class PoHeadersController extends AppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $poHeader = $this->PoHeaders->get($id);
         if ($this->PoHeaders->delete($poHeader)) {
-            $this->Flash->success(__('The po header has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The po header has been deleted'];
         } else {
-            $this->Flash->error(__('The po header could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The po header could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

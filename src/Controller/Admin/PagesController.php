@@ -31,6 +31,13 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Displays a view
      *

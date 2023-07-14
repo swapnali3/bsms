@@ -49,15 +49,17 @@ class PoFootersController extends AppController
      */
     public function add()
     {
+        $flash = [];
         $poFooter = $this->PoFooters->newEmptyEntity();
         if ($this->request->is('post')) {
             $poFooter = $this->PoFooters->patchEntity($poFooter, $this->request->getData());
             if ($this->PoFooters->save($poFooter)) {
-                $this->Flash->success(__('The po footer has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The po footer has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The po footer could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The po footer could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $poHeaders = $this->PoFooters->PoHeaders->find('list', ['limit' => 200])->all();
         $this->set(compact('poFooter', 'poHeaders'));
@@ -72,17 +74,19 @@ class PoFootersController extends AppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $poFooter = $this->PoFooters->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $poFooter = $this->PoFooters->patchEntity($poFooter, $this->request->getData());
             if ($this->PoFooters->save($poFooter)) {
-                $this->Flash->success(__('The po footer has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The po footer has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The po footer could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The po footer could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $poHeaders = $this->PoFooters->PoHeaders->find('list', ['limit' => 200])->all();
         $this->set(compact('poFooter', 'poHeaders'));
@@ -97,14 +101,15 @@ class PoFootersController extends AppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $poFooter = $this->PoFooters->get($id);
         if ($this->PoFooters->delete($poFooter)) {
-            $this->Flash->success(__('The po footer has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The po footer has been deleted'];
         } else {
-            $this->Flash->error(__('The po footer could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The po footer could not be deleted. Please, try again'];
         }
-
+        $this->set('flash', $flash);
         return $this->redirect(['action' => 'index']);
     }
 }

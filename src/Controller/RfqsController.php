@@ -49,15 +49,17 @@ class RfqsController extends AppController
      */
     public function add()
     {
+        $flash = [];
         $rfq = $this->Rfqs->newEmptyEntity();
         if ($this->request->is('post')) {
             $rfq = $this->Rfqs->patchEntity($rfq, $this->request->getData());
             if ($this->Rfqs->save($rfq)) {
-                $this->Flash->success(__('The rfq has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The rfq has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The rfq could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The rfq could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $vendorTemps = $this->Rfqs->VendorTemps->find('list', ['limit' => 200])->all();
         $prHeaders = $this->Rfqs->PrHeaders->find('list', ['limit' => 200])->all();
@@ -74,17 +76,19 @@ class RfqsController extends AppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $rfq = $this->Rfqs->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $rfq = $this->Rfqs->patchEntity($rfq, $this->request->getData());
             if ($this->Rfqs->save($rfq)) {
-                $this->Flash->success(__('The rfq has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The rfq has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The rfq could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The rfq could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $vendorTemps = $this->Rfqs->VendorTemps->find('list', ['limit' => 200])->all();
         $prHeaders = $this->Rfqs->PrHeaders->find('list', ['limit' => 200])->all();
@@ -101,13 +105,15 @@ class RfqsController extends AppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $rfq = $this->Rfqs->get($id);
         if ($this->Rfqs->delete($rfq)) {
-            $this->Flash->success(__('The rfq has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The rfq has been deleted'];
         } else {
-            $this->Flash->error(__('The rfq could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The rfq could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

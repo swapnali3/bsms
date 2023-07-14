@@ -12,18 +12,16 @@
     <div class="card-header pb-1 pt-2">
         <div class="row">
             <div class="col-lg-6 d-flex justify-content-start">
-                <h5><b>Add Daily Monitor</b></h5>
-            </div>
-            <div class="col-lg-6 d-flex justify-content-end text-align-end">
-                <p><a href="#">List Daily Monitor</a></p>
+                <h5><b>Add Production Planner</b></h5>
             </div>
         </div>
     </div>
     <div class="card-body invoice-details p-0">
+
         <div class="row dgf m-0">
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('vendor_material_code', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'style' => "height: unset !important;", 'empty' => 'Please Select')); ?>
+                    <?php echo $this->Form->control('plan_date', array('type'=>'date', 'class' => 'form-control w-100', 'style' => "height: unset !important;")); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">
@@ -33,13 +31,19 @@
             </div>
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('target_production', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required')); ?>
+                    <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'style' => "height: unset !important;", 'empty' => 'Please Select')); ?>
                 </div>
             </div>
 
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('confirm_production', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required')); ?>
+                    <?php echo $this->Form->control('target_production', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required')); ?>
+                </div>
+            </div>
+
+            <div class="col-sm-8 col-md-3" style="display:none;">
+                <div class="form-group">
+                    <?php echo $this->Form->control('confirm_production', array('type' => 'number', 'value' => '0','class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required')); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3 d-flex justify-content-start align-items-end">
@@ -64,11 +68,53 @@
 </div>
 
 <?= $this->Form->end() ?>
-
-
-
-<script>
-    function showConfirmationModal() {
-        $('#modal-sm').modal('show');
-    }
-</script>
+<?= $this->Form->create($dailymonitor) ?>
+<div class="card">
+    <div class="card-header">
+        <h5><b>Bulk Production Planner</b></h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-2">
+                <?= $this->Form->control('vendor_code', [
+                                'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput']); ?>
+                <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn btn-secondary btn-block mb-0 file-upld-btn'
+                            ]); ?>
+                <span id="filessnames"></span>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-2">
+                <button type="submit" class="btn btn-primary" id="id_exportme">IMPORT FILE</button>
+            </div>
+            <div class="col-12 pt-2">
+                <i style="color: black;">
+                    <a href="<?= $this->Url->build('/') ?>webroot/templates/production_planner_template.xlsx"
+                        target="_blank" rel="noopener noreferrer">Sample_Excel_Template.xlsx</a>
+                </i>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Plan Date</th>
+                    <th>Production Line</th>
+                    <th>Material</th>
+                    <th>Target Production</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Plan Date</td>
+                    <td>Production Line</td>
+                    <td>Material</td>
+                    <td>Target Production</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?= $this->Form->end() ?>
+<?= $this->Html->script('v_dailymonitor_add') ?>

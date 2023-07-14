@@ -10,47 +10,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <style>
-.brand-link {
-    padding: 0.5rem 0.5rem;
-}
+    .brand-link {
+        padding: 0.5rem 0.5rem;
+    }
 
-.nav-link.active {
-    background-color: #8E9B2C !important;
+    .nav-link.active {
+        background-color: #8E9B2C !important;
 
-}
+    }
 
-aside.main-sidebar {
-    background-color: #08132F !important;
-}
+    aside.main-sidebar {
+        background-color: #08132F !important;
+    }
 
-body {
+    body {
 
-    font-family: 'Source Sans Pro', sans-serif;
-}
+        font-family: 'Source Sans Pro', sans-serif;
+    }
 
-.loader-container {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background-color: #fff;
-    opacity: 0.9;
-    background: linear-gradient(to right, rgb(255, 255, 255, .9), rgb(255, 255, 255, .9));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: 0.5s ease-in-out;
-}
-
+    .loader-container {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        background-color: #fff;
+        opacity: 0.9;
+        background: linear-gradient(to right, rgb(255, 255, 255, .9), rgb(255, 255, 255, .9));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: 0.5s ease-in-out;
+    }
 </style>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->assign('title', $title); ?>
-    <title><?= $this->fetch('title') ?></title>
+    <title>
+        <?= $this->fetch('title') ?>
+    </title>
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
@@ -62,7 +63,7 @@ body {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 
@@ -116,8 +117,9 @@ body {
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
                 style="background-color:#ffffff; text-align-last:center;">
                 <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '2']) ?>
-                <span
-                    class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
+                <span class="brand-text">
+                    <?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?>
+                </span>
             </a>
 
             <div class="sidebar" id="id_sidebar">
@@ -185,10 +187,22 @@ body {
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>
     <script>
-    var baseurl = "<?= $this->Url->build('/') ?>";
-    // $(document).ready(function() {});
-    $(window).on('load', function() { $('#loaderss').hide(); });
-    $(function () {$('[data-toggle="tooltip"]').tooltip();$('#summernote').summernote({ width: 1000, }); });
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        <?php if($flash) : ?>
+        Toast.fire({
+            icon: "<?= $flash['type'] ?>",
+            title: "<?= $flash['msg'] ?>",
+        });
+        <?php endif; ?>
+        var baseurl = "<?= $this->Url->build('/') ?>";
+        // $(document).ready(function() {});
+        $(window).on('load', function () { $('#loaderss').hide(); });
+        $(function () { $('[data-toggle="tooltip"]').tooltip(); $('#summernote').summernote({ width: 1000, }); });
     </script>
 </body>
 

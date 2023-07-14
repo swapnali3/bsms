@@ -39,16 +39,19 @@ class BuyerAppController extends Controller
      *
      * @return void
      */
+    
     public function initialize(): void
     {
         parent::initialize();
-
+        
         date_default_timezone_set('Asia/Kolkata'); 
-
+        
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
+        $flash = [];  
+        $this->set('flash', $flash);
         $this->loadComponent('Sms');
         
         $this->set('title', 'VeKPro');
@@ -80,7 +83,6 @@ class BuyerAppController extends Controller
         $this->set(compact('full_name', 'role', 'group_name'));
 
         if($session->check('id') && $session->read('role') != 2) {
-            // $this->Flash->error("You are not authrized");
              $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
          } else if(!$session->check('id')) {
              return $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
