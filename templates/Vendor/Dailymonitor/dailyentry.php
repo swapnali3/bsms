@@ -45,7 +45,7 @@
                             </td>
                         <?php else: ?>
                             <td>
-                                <input type="number" class="form-control form-control-sm" value="<?= h($dailymonitors->target_production) ?>" disabled>
+                                <input type="number" class="form-control form-control-sm" value="<?= h($dailymonitors->confirm_production) ?>" disabled>
                             </td>
                             <td></td>
                         <?php endif; ?>

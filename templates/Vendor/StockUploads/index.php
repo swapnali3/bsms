@@ -2,7 +2,7 @@
 
 /**
  * @var \App\View\AppView $this
- * @var iterable<\App\Model\Entity\Productionline> $productionline
+ * @var iterable<\App\Model\Entity\Stockupload> $stockupload
  */
 ?>
 </style>
@@ -11,10 +11,10 @@
     <div class="card-header pb-1 pt-2">
         <div class="row">
             <div class="col-lg-6 d-flex justify-content-start">
-                <h5>Production Line</h5>
+                <h5>Stock Upload</h5>
             </div>
             <div class="col-lg-6 d-flex justify-content-end text-align-end">
-                <a href="<?= $this->Url->build('/') ?>vendor/productionline/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Producation</button></a>
+                <a href="<?= $this->Url->build('/') ?>vendor/stock-uploads/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Stock</button></a>
             </div>
         </div>
     </div>
@@ -23,46 +23,37 @@
         <table class="table table-hover" id="example1">
             <thead>
                 <tr>
-                    <th>Production Line</th>
                     <th>Material Code</th>
                     <th>Material Description</th>
-                    <th>UOM</th>
-                    <th>Production Line Capacity</th>
+                    <th>Opening Stock</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (isset($productionline)) : ?>
-                    <?php foreach ($productionline as $productionlines) : ?>
-                        <tr class="redirect" data-href="<?= $this->Url->build('/') ?>vendor/productionline/edit/<?= $productionlines->id ?>">
+                <?php if (isset($stockupload)) : ?>
+                    <?php foreach ($stockupload as $stockuploads) : ?>
+                        <tr class="redirect" data-href="<?= $this->Url->build('/') ?>vendor/stockupload/edit/<?= $stockuploads->id ?>">
                             <td>
-                                <?= h($productionlines->prdline_description) ?>
+                                <?= h($stockuploads->vm_vendor_code) ?>
                             </td>
                             <td>
-                                <?= h($productionlines->vm_vendor_code) ?>
+                                <?= h($stockuploads->vm_description) ?>
                             </td>
                             <td>
-                                <?= h($productionlines->vm_description) ?>
-                            </td>
-                            <td>
-                                <?= h($productionlines->uom_desp) ?>
-                            </td>
-                            <td>
-                                <?= h($productionlines->prdline_capacity) ?>
+                                <?= h($stockuploads->opening_stock . ' '. $stockuploads->vm['uom']) ?>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
-                <?php else : ?>
-                    <tr>
-                        <td colspan="6">
-                            No Records Found
-                        </td>
-                    </tr>
-                <?php endif; ?>
             </tbody>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <tr>
+            <td colspan="5">
+                No Records Found
+            </td>
+        </tr>
+    <?php endif; ?>
         </table>
     </div>
 </div>
-
 
 <script>
     $(document).ready(function() {

@@ -14,7 +14,8 @@
                 <h5>Vendor Materials</h5>
             </div>
             <div class="col-lg-6 d-flex justify-content-end text-align-end">
-                <a href="<?= $this->Url->build('/') ?>vendor/vendor-material/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Material</button></a>
+                <!-- <a href="<?= $this->Url->build('/') ?>vendor/materials/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Material</button></a> -->
+                <button type="button" id="reload_stocks" class="btn mb-0 continue_btn btn-dark">Reload Stocks</button>
             </div>
         </div>
     </div>
@@ -24,24 +25,17 @@
             <thead>
                 <tr>
                     <th>Material Code</th>
-                    <th>Material Description</th>
+                    <th>Description</th>
                     <th>Minimum Stock</th>
-                    <th>Unit Of Measurement</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (isset($vendorMaterial)) : ?>
                     <?php foreach ($vendorMaterial as $vendorMaterials) : ?>
-                        <tr class="redirect" data-href="<?= $this->Url->build('/') ?>vendor/vendor-material/edit/<?= $vendorMaterials->id ?>">
-                            <td><?= h($vendorMaterials->vendor_material_code) ?></td>
+                        <tr>
+                            <td><?= h($vendorMaterials->code) ?></td>
                             <td><?= h($vendorMaterials->description) ?></td>
-                            <td><?= h($vendorMaterials->minimum_stock) ?></td>
-                            <td><?= h($vendorMaterials->uom_desp) ?></td>
-                            <!-- <td>
-                            <div class="float-left">
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorMaterials->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
-                            </div>
-                        </td> -->
+                            <td><?= h($vendorMaterials->minimum_stock ." ". $vendorMaterials->uom) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
@@ -57,7 +51,18 @@
 </div>
 
 <script>
+    
     $(document).ready(function() {
+        var table = $("#example1").DataTable({
+            "paging": true,
+            "responsive": false,
+            "lengthChange": false,
+            "autoWidth": false,
+            "searching": false,
+            "ordering": false,
+            "destroy": true,
+        });
+
         setTimeout(function() {
             $('.success').fadeOut('slow');
         }, 2000);
@@ -66,17 +71,33 @@
             window.location.href = $(this).data("href");
         });
 
-        var table = $("#example1").DataTable({
-            "paging": true,
-            "responsive": false,
-            "lengthChange": false,
-            "autoWidth": false,
-            "searching": false,
-            "ordering": false,
-            language: {
-                search: "_INPUT_",
-                searchPlaceholder: "Search..."
-            },
+        
+
+        $(document).on("click", "#reload_stocks", function() {
+            $.ajax({
+          type: "get",
+          url: "<?php echo \Cake\Routing\Router::url(array('prefix' => false,'controller' => 'api', 'action' => 'get-material-masters')); ?> ",
+          
+          dataType: 'json',
+          success: function(response) {
+            console.log(response);
+            if (response.status == '1') {
+              Toast.fire({
+                icon: 'success',
+                title: response.message
+              });
+              
+            } else {
+              Toast.fire({
+                icon: 'error',
+                title: response.message
+              });
+            }
+
+            table.draw();
+          }
         });
+        });
+
     });
 </script>

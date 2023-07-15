@@ -29,7 +29,7 @@
 
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('vendor_material_code', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Code', 'readonly')); ?>
+                    <?php echo $this->Form->control('vendor_material_code', array('id'=> 'vendor-material-code',  'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Code', 'readonly')); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">
@@ -185,7 +185,7 @@
             if (vendorId != "") {
                 $.ajax({
                     type: "get",
-                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stockupload', 'action' => 'vendor_material')); ?>/" + vendorId,
+                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'vendor-material')); ?>/" + vendorId,
                     dataType: "json",
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader(
@@ -195,8 +195,8 @@
                     },
                     success: function(response) {
                         if (response.status == "1") {
-                            $("#vendor-material-code").val(response.data.vendor_material_code);
-                            $("#uom").val(response.data.uom_desp);
+                            $("#vendor-material-code").val(response.data.code);
+                            $("#uom").val(response.data.uom);
                         }
                     },
                     error: function(e) {

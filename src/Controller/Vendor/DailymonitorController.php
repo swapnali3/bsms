@@ -17,19 +17,19 @@ class DailymonitorController extends VendorAppController
     {
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-        $this->loadModel("VendorMaterial");
-        $this->loadModel("Productionline");
+        $this->loadModel("Materials");
+        $this->loadModel("ProductionLines");
 
         $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.vendor_id' => $vendorId]])
         ->select([
             'id','vendor_id','productionline_id','material_id', 'plan_date','target_production','confirm_production','status','added_date', 'updated_date',
-            'prdline_description' => 'prdline.prdline_description','material_description' => 'vendormat.description'])->join([
-            'table' => 'Productionline',
+            'prdline_description' => 'prdline.name','material_description' => 'vendormat.description'])->join([
+            'table' => 'production_lines',
             'alias' => 'prdline',
             'type' => 'LEFT',
             'conditions' => 'prdline.id = Dailymonitor.productionline_id',
         ])->join([
-            'table' => 'Vendor_material',
+            'table' => 'materials',
             'alias' => 'vendormat',
             'type' => 'LEFT',
             'conditions' => 'vendormat.id = Dailymonitor.material_id',
@@ -64,19 +64,19 @@ class DailymonitorController extends VendorAppController
     {
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-        $this->loadModel("VendorMaterial");
-        $this->loadModel("Productionline");
+        $this->loadModel("Materials");
+        $this->loadModel("ProductionLines");
 
         $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.vendor_id' => $vendorId, 'Dailymonitor.plan_date <=' => date('y-m-d')]])
         ->select([
-            'id','vendor_id','productionline_id','material_id', 'plan_date','target_production','confirm_production','status','added_date', 'updated_date',
-            'prdline_description' => 'prdline.prdline_description','material_description' => 'vendormat.description'])->join([
-            'table' => 'Productionline',
+            'id','vendor_id','productionline_id','material_id', 'plan_date','target_production','confirm_production','status',
+            'prdline_description' => 'prdline.name','material_description' => 'vendormat.description'])->join([
+            'table' => 'production_lines',
             'alias' => 'prdline',
             'type' => 'LEFT',
             'conditions' => 'prdline.id = Dailymonitor.productionline_id',
         ])->join([
-            'table' => 'Vendor_material',
+            'table' => 'materials',
             'alias' => 'vendormat',
             'type' => 'LEFT',
             'conditions' => 'vendormat.id = Dailymonitor.material_id',
@@ -88,8 +88,8 @@ class DailymonitorController extends VendorAppController
     public function add()
     {
         $flash = [];
-        $this->loadModel("VendorMaterial");
-        $this->loadModel("Productionline");
+        $this->loadModel("Materials");
+        $this->loadModel("ProductionLines");
         
         $dailymonitor = $this->Dailymonitor->newEmptyEntity();
         $session = $this->getRequest()->getSession();
@@ -108,8 +108,8 @@ class DailymonitorController extends VendorAppController
             $flash = ['type'=>'error', 'msg'=>'The dailymonitor could not be saved. Please, try again'];
             $this->set('flash', $flash);
         }
-        $vendor_mateial = $this->VendorMaterial->find('list', ['conditions' => ['VendorMaterial.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'description'])->all();
-        $productionline = $this->Productionline->find('list', ['conditions' => ['Productionline.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'prdline_description'])->all();
+        $vendor_mateial = $this->Materials->find('list', [ 'conditions' => ['Materials.sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'description' ])->all();
+        $productionline = $this->ProductionLines->find('list', [ 'conditions' => ['ProductionLines.sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'name' ])->all();
 
         $this->set(compact('dailymonitor', 'vendor_mateial', 'productionline'));
     }
@@ -123,11 +123,12 @@ class DailymonitorController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $session = $this->getRequest()->getSession();
         $flash = [];
-        $this->loadModel("VendorMaterial");
-        $this->loadModel("Productionline");
+        $this->loadModel("Materials");
+        $this->loadModel("ProductionLines");
         $dailymonitor = $this->Dailymonitor->get($id);
-        $vendorId = $dailymonitor->vendor_id;
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $this->request->getData());
             if ($this->Dailymonitor->save($dailymonitor)) {
@@ -138,8 +139,8 @@ class DailymonitorController extends VendorAppController
             $flash = ['type'=>'success', 'msg'=>'The dailymonitor could not be saved. Please, try again'];
             $this->set('flash', $flash);
         }
-        $vendor_mateial = $this->VendorMaterial->find('list', [ 'conditions' => ['VendorMaterial.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'description' ])->all();
-        $productionline = $this->Productionline->find('list', [ 'conditions' => ['Productionline.vendor_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'prdline_description' ])->all();
+        $vendor_mateial = $this->Materials->find('list', [ 'conditions' => ['Materials.sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'description' ])->all();
+        $productionline = $this->ProductionLines->find('list', [ 'conditions' => ['ProductionLines.sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'name' ])->all();
         $this->set(compact('dailymonitor','vendor_mateial', 'productionline'));
     }
 

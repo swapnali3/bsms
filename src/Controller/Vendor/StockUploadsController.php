@@ -13,7 +13,7 @@ use App\Model\Table\VendorMaterialTable;
  * @property \App\Model\Table\StockuploadTable $Stockupload
  * @method \App\Model\Entity\Stockupload[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class StockuploadController extends VendorAppController
+class StockUploadsController extends VendorAppController
 {
     public function initialize(): void
     {
@@ -32,21 +32,16 @@ class StockuploadController extends VendorAppController
 
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-        $stockupload = $this->Stockupload->find('all', [
-            'conditions' => ['Stockupload.vendor_id' => $vendorId]
+        $stockupload = $this->StockUploads->find('all', [
+            'conditions' => ['StockUploads.sap_vendor_code' => $session->read('vendor_code')]
         ])->select([
-            'id', 'opening_stock', 'vendor_material_id', 'vendor_id', 'added_date', 'updated_date',
-            'vm_description' => 'vm.description', 'vm_vendor_code' => 'vm.vendor_material_code', 'uom_desp' => 'um.code',
+            'id', 'opening_stock', 'material_id', 'sap_vendor_code', 'added_date', 'updated_date',
+            'vm_description' => 'vm.description', 'vm_vendor_code' => 'vm.code', 'vm.uom',
         ])->join([
-            'table' => 'vendor_material',
+            'table' => 'materials',
             'alias' => 'vm',
             'type' => 'LEFT',
-            'conditions' => 'vm.id = Stockupload.vendor_material_id',
-        ])->join([
-            'table' => 'uoms',
-            'alias' => 'um',
-            'type' => 'LEFT',
-            'conditions' => 'um.id = vm.uom',
+            'conditions' => 'vm.id = StockUploads.material_id',
         ])->toArray();
         // echo '<pre>';print_r($stockupload);exit;
 
@@ -63,7 +58,7 @@ class StockuploadController extends VendorAppController
      */
     public function view($id = null)
     {
-        $stockupload = $this->Stockupload->get($id, [
+        $stockupload = $this->StockUploads->get($id, [
             'contain' => [],
         ]);
 
@@ -78,22 +73,22 @@ class StockuploadController extends VendorAppController
     public function add()
     {
         $flash = [];
-        $this->loadModel("VendorMaterial");
-        $stockupload = $this->Stockupload->newEmptyEntity();
+        $this->loadModel("Materials");
+        $stockupload = $this->StockUploads->newEmptyEntity();
 
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
             $vendorMaterialCode = $requestData['vendor_material_code'];
 
-            $VendorMaterials = $this->paginate($this->VendorMaterial->find('all', [
-                'conditions' => ['VendorMaterial.vendor_material_code' => $vendorMaterialCode]
-            ]))->first();
+            $VendorMaterials = $this->Materials->find('all', [
+                'conditions' => ['Materials.code' => $vendorMaterialCode]
+            ])->first();
 
-            $requestData['vendor_id'] = $VendorMaterials->vendor_id;
-            $requestData['vendor_material_id'] = $VendorMaterials->id;
+            $requestData['sap_vendor_code'] = $VendorMaterials->sap_vendor_code;
+            $requestData['material_id'] = $VendorMaterials->id;
 
-            $stockupload = $this->Stockupload->patchEntity($stockupload, $requestData);
-            if ($this->Stockupload->save($stockupload)) {
+            $stockupload = $this->StockUploads->patchEntity($stockupload, $requestData);
+            if ($this->StockUploads->save($stockupload)) {
                 $flash = ['type'=>'success', 'msg'=>'The stock Upload has been saved'];
                 $this->set('flash', $flash);
 
@@ -103,7 +98,7 @@ class StockuploadController extends VendorAppController
             $this->set('flash', $flash);
         }
 
-        $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'id', 'valueField' => 'description'])->all();
+        $vendor_mateial = $this->Materials->find('list', ['keyField' => 'id', 'valueField' => 'description'])->all();
 
 
 
@@ -119,16 +114,12 @@ class StockuploadController extends VendorAppController
         $this->autoRender = false;
 
         if ($this->request->is(['patch', 'get', 'put'])) {
-            $this->loadModel("VendorMaterial");
-            $vendorMaterial = $this->VendorMaterial->find('all')
+            $this->loadModel("Materials");
+            $vendorMaterial = $this->Materials->find('all')
                 ->select([
-                    'id', 'vendor_id', 'vendor_material_code', 'description', 'minimum_stock',
-                    'uom_desp' => 'um.code'])
-                ->leftJoin(
-                    ['um' => 'uoms'],
-                    ['um.id = VendorMaterial.uom']
-                )
-                ->where(['VendorMaterial.id' => $id])
+                    'id', 'sap_vendor_code', 'code', 'description', 'minimum_stock',
+                    'uom'])
+                ->where(['Materials.id' => $id])
                 ->first();
 
             $response['status'] = 1;
