@@ -24,26 +24,26 @@
             <div class="col-sm-4 col-md-4 col-lg-3">
                     <div class="form-group">
 
-                        <?php echo $this->Form->control('vendormaterial_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe','style' => "height: unset !important;", 'empty' => 'Please Select','label'=>'Material Description')); ?>
+                        <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe','style' => "height: unset !important;", 'empty' => 'Please Select','label'=>'Material Description', 'readonly')); ?>
 
                     </div>
                 </div>
 
                 <div class="col-sm-4 col-md-4 col-lg-3">
                     <div class="form-group">
-                        <?php echo $this->Form->control('vendor_material_code', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Code','readonly')); ?>
+                        <?php echo $this->Form->control('code', array( 'id' => 'vendor-material-code', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Code','readonly')); ?>
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-3">
                     <div class="form-group">
-                        <?php echo $this->Form->control('uom', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Unit Of Measurement','readonly')); ?>
+                        <?php echo $this->Form->control('uom', array('type' => 'text', 'id'=>'uom' ,'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Unit Of Measurement','readonly')); ?>
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-3">
-                    <?php echo $this->Form->control('prdline_description', ['class' => 'form-control mb-3', 'label' => 'Production Line Description']); ?>
+                    <?php echo $this->Form->control('name', ['class' => 'form-control mb-3', 'label' => 'Production Line Description', 'readonly']); ?>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-3">
-                    <?php echo $this->Form->control('prdline_capacity', ['class' => 'form-control mb-3', 'label' => 'Production Line Capacity']); ?>
+                    <?php echo $this->Form->control('capacity', ['class' => 'form-control mb-3', 'label' => 'Production Line Capacity']); ?>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4 mt-4">
                     <button type="button" class="btn btn-custom mt-1" onclick="showConfirmationModal()">Submit</button>
@@ -82,7 +82,7 @@
         if (vendorId != "") {
             $.ajax({
                 type: "get",
-                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stockupload', 'action' => 'vendor_material')); ?>/" + vendorId,
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'vendor_material')); ?>/" + vendorId,
                 dataType: "json",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader(
@@ -92,8 +92,8 @@
                 },
                 success: function (response) {
                     if (response.status == "1") {
-                        $("#vendor-material-code").val(response.data.vendor_material_code);
-                        $("#uom").val(response.data.uom_desp);
+                        $("#vendor-material-code").val(response.data.code);
+                        $("#uom").val(response.data.uom);
                     }
                 },
                 error: function (e) {

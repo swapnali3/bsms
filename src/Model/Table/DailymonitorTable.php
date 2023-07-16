@@ -40,6 +40,13 @@ class DailymonitorTable extends Table
         $this->setTable('dailymonitor');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('ProductionLines', [
+            'foreignKey' => 'production_line_id',
+        ]);
+        $this->belongsTo('Materials', [
+            'foreignKey' => 'material_id',
+        ]);
     }
 
     /**
@@ -51,12 +58,14 @@ class DailymonitorTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('vendor_id')
-            ->allowEmptyString('vendor_id');
+            ->scalar('sap_vendor_code')
+            ->maxLength('sap_vendor_code', 10)
+            ->requirePresence('sap_vendor_code', 'create')
+            ->notEmptyString('sap_vendor_code');
 
         $validator
-            ->integer('productionline_id')
-            ->allowEmptyString('productionline_id');
+            ->integer('production_line_id')
+            ->allowEmptyString('production_line_id');
 
         $validator
             ->integer('material_id')
@@ -98,7 +107,8 @@ class DailymonitorTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['productionline_id', 'material_id', 'plan_date'], ['allowMultipleNulls' => true]), ['errorField' => 'productionline_id']);
+        $rules->add($rules->existsIn('production_line_id', 'ProductionLines'), ['errorField' => 'production_line_id']);
+        $rules->add($rules->existsIn('material_id', 'Materials'), ['errorField' => 'material_id']);
 
         return $rules;
     }

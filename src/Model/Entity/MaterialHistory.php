@@ -6,20 +6,19 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Dailymonitor Entity
+ * MaterialHistory Entity
  *
  * @property int $id
  * @property string $sap_vendor_code
- * @property int|null $production_line_id
- * @property int|null $material_id
- * @property \Cake\I18n\FrozenDate|null $plan_date
- * @property int|null $target_production
- * @property int|null $confirm_production
- * @property int|null $status
- * @property \Cake\I18n\FrozenTime|null $added_date
- * @property \Cake\I18n\FrozenTime|null $updated_date
+ * @property string $code
+ * @property string $description
+ * @property string|null $minimum_stock
+ * @property string|null $uom
+ * @property bool|null $status
+ * @property \Cake\I18n\FrozenTime $added_date
+ * @property \Cake\I18n\FrozenTime $updated_date
  */
-class Dailymonitor extends Entity
+class MaterialHistory extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -32,11 +31,10 @@ class Dailymonitor extends Entity
      */
     protected $_accessible = [
         'sap_vendor_code' => true,
-        'production_line_id' => true,
-        'material_id' => true,
-        'plan_date' => true,
-        'target_production' => true,
-        'confirm_production' => true,
+        'code' => true,
+        'description' => true,
+        'minimum_stock' => true,
+        'uom' => true,
         'status' => true,
         'added_date' => true,
         'updated_date' => true,

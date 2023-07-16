@@ -26,7 +26,7 @@
             </div>
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('production_line_id', array('name' => 'productionline_id', 'class' => 'form-control w-100', 'options' => $productionline, 'style' => "height: unset !important;", 'empty' => 'Please Select')); ?>
+                    <?php echo $this->Form->control('production_line_id', array('name' => 'production_line_id', 'class' => 'form-control w-100', 'options' => $productionline, 'style' => "height: unset !important;", 'empty' => 'Please Select')); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">

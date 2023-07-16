@@ -26,15 +26,15 @@ class DailymonitorFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'vendor_id' => 1,
-                'productionline_id' => 1,
+                'sap_vendor_code' => 'Lorem ip',
+                'production_line_id' => 1,
                 'material_id' => 1,
-                'plan_date' => '2023-07-11',
+                'plan_date' => '2023-07-16',
                 'target_production' => 1,
                 'confirm_production' => 1,
                 'status' => 1,
-                'added_date' => '2023-07-11 15:44:58',
-                'updated_date' => '2023-07-11 15:44:58',
+                'added_date' => '2023-07-16 15:33:59',
+                'updated_date' => '2023-07-16 15:33:59',
             ],
         ];
         parent::init();

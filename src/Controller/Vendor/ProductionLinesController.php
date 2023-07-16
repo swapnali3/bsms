@@ -153,14 +153,14 @@ class ProductionLinesController extends VendorAppController
     public function edit($id = null)
     {
         $flash = [];
-        $this->loadModel("VendorMaterial");
-        $productionline = $this->Productionline->get($id, [
+        $this->loadModel("Materials");
+        $productionline = $this->ProductionLines->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $productionline = $this->Productionline->patchEntity($productionline, $this->request->getData());
+            $productionline = $this->ProductionLines->patchEntity($productionline, $this->request->getData());
 
-            if ($this->Productionline->save($productionline)) {
+            if ($this->ProductionLines->save($productionline)) {
                 $flash = ['type'=>'success', 'msg'=>'The productionline has been saved'];
                 $this->set('flash', $flash);
 
@@ -174,7 +174,7 @@ class ProductionLinesController extends VendorAppController
         $vendorId = $session->read('id');
 
 
-        $vendor_mateial = $this->VendorMaterial->find('list', [ 'conditions' => ['vendor_id' => $vendorId],'keyField' => 'id', 'valueField' => 'description'])->all();
+        $vendor_mateial = $this->Materials->find('list', [ 'conditions' => ['sap_vendor_code' => $session->read('vendor_code')],'keyField' => 'id', 'valueField' => 'description'])->all();
 
         $this->set(compact('productionline','vendor_mateial'));
     }

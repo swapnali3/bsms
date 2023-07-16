@@ -20,14 +20,14 @@ class DailymonitorController extends VendorAppController
         $this->loadModel("Materials");
         $this->loadModel("ProductionLines");
 
-        $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.vendor_id' => $vendorId]])
+        $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code')]])
         ->select([
-            'id','vendor_id','productionline_id','material_id', 'plan_date','target_production','confirm_production','status','added_date', 'updated_date',
+            'id','sap_vendor_code','production_line_id','material_id', 'plan_date','target_production','confirm_production','status','added_date', 'updated_date',
             'prdline_description' => 'prdline.name','material_description' => 'vendormat.description'])->join([
             'table' => 'production_lines',
             'alias' => 'prdline',
             'type' => 'LEFT',
-            'conditions' => 'prdline.id = Dailymonitor.productionline_id',
+            'conditions' => 'prdline.id = Dailymonitor.production_line_id',
         ])->join([
             'table' => 'materials',
             'alias' => 'vendormat',
@@ -56,6 +56,7 @@ class DailymonitorController extends VendorAppController
         $response = ['status'=>0,'message'=>''];
         $dailymonitor = $this->Dailymonitor->get($id);
         $dailymonitor->confirm_production = $confirm_production;
+        $dailymonitor->status= 3;
         if ($this->Dailymonitor->save($dailymonitor)) { $response = ['status'=>1,'message'=>$dailymonitor]; }
         else { $response = ['status'=>0,'message'=>'Failed']; }
         echo json_encode($response); exit;
@@ -67,14 +68,14 @@ class DailymonitorController extends VendorAppController
         $this->loadModel("Materials");
         $this->loadModel("ProductionLines");
 
-        $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.vendor_id' => $vendorId, 'Dailymonitor.plan_date <=' => date('y-m-d')]])
+        $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code'), 'Dailymonitor.plan_date <=' => date('y-m-d')]])
         ->select([
-            'id','vendor_id','productionline_id','material_id', 'plan_date','target_production','confirm_production','status',
+            'id','sap_vendor_code','production_line_id','material_id', 'plan_date','target_production','confirm_production','status',
             'prdline_description' => 'prdline.name','material_description' => 'vendormat.description'])->join([
             'table' => 'production_lines',
             'alias' => 'prdline',
             'type' => 'LEFT',
-            'conditions' => 'prdline.id = Dailymonitor.productionline_id',
+            'conditions' => 'prdline.id = Dailymonitor.production_line_id',
         ])->join([
             'table' => 'materials',
             'alias' => 'vendormat',
@@ -96,7 +97,7 @@ class DailymonitorController extends VendorAppController
         $vendorId = $session->read('id');
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
-            $requestData['vendor_id'] = $vendorId;
+            $requestData['sap_vendor_code'] = $session->read('vendor_code');
             $requestData['status'] = 1;
             // echo '<pre>'; print_r($requestData);exit;
             $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $requestData);
@@ -164,5 +165,27 @@ class DailymonitorController extends VendorAppController
         
         $this->set('flash', $flash);
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function changeStatus($action = null, $id = null)
+    {
+        $this->autoRender = false;
+        $this->loadModel("Dailymonitor");
+
+        $status = 1;
+        if($action && $action == 'cancel') {
+            $status = 2;
+        }
+        
+        $response = ['status'=>0,'message'=>''];
+        $dailymonitor = $this->Dailymonitor->get($id);
+        $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, ['status' => $status]);
+        if ($this->Dailymonitor->save($dailymonitor)) {
+            $response = ['status'=>1,'message'=>'plant Successgully cancelled'];
+        } else {
+            $response = ['status'=>0,'message'=>'Something went wrong'];
+        }
+
+        echo json_encode($response);
     }
 }

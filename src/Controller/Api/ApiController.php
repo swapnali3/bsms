@@ -230,6 +230,7 @@ class ApiController extends ApiAppController
         $response['message'] = 'Empty request';
         
         $this->loadModel("Materials");
+        $this->loadModel("MaterialHistories");
 
         /*
         $response = $http->get(
@@ -243,8 +244,8 @@ class ApiController extends ApiAppController
             if (true) { //|| $response->isOk()) 
                 //$result = json_decode($response->getStringBody());
                 $result = json_decode('{"RESPONSE":{"SUCCESS":1,"MESSAGE":"Success",
-                    "MAT_LIST" :[{"LIFNR":"0000100186", "MATNR":"KT12445", "MAKTX":"Sand", "MIN_STOCK":500,"MEINS":"KG"},
-                    {"LIFNR":"0000100186", "MATNR":"HT142323", "MAKTX":"Alluminium", "MIN_STOCK":400,"MEINS":"KG"}]
+                    "MAT_LIST" :[{"LIFNR":"0000100186", "MATNR":"KT12445", "MAKTX":"Sand", "MIN_STOCK":1200,"MEINS":"KG"},
+                    {"LIFNR":"0000100186", "MATNR":"HT142323", "MAKTX":"Alluminium", "MIN_STOCK":800,"MEINS":"KG"}]
                     }}');
                 if ($result->RESPONSE->SUCCESS) {
                     $rows = [];
@@ -269,6 +270,9 @@ class ApiController extends ApiAppController
                         `description`=VALUES(`description`), `minimum_stock`=VALUES(`minimum_stock`), `uom`=VALUES(`uom`)')
                         ->execute();
                     }
+
+                    $materialHistories = $this->MaterialHistories->newEntities($rows);
+                    $this->MaterialHistories->saveMany($materialHistories);
 
                     
                     $response['status'] = '1';

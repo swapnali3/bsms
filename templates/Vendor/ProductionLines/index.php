@@ -27,6 +27,7 @@
                     <th>Material Code</th>
                     <th>Material Description</th>
                     <th>Capacity</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +46,12 @@
                             <td>
                                 <?= h($productionlines->capacity .' '.$productionlines->vm['uom']) ?>
                             </td>
+                            <td>
+                            <div class="float-left">
+                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $productionlines->id], ['class' => 'btn btn-info btn-sm mb-0']) ?>
+                            </div>
+                            </td>
+                            
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
