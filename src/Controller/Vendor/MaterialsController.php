@@ -16,7 +16,7 @@ use Cake\Http\Client;
  * @property \App\Model\Table\VendorMaterialTable $VendorMaterial
  * @method \App\Model\Entity\VendorMaterial[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class VendorMaterialController extends VendorAppController
+class MaterialsController extends VendorAppController
 {
     /**
      * Index method
@@ -36,18 +36,12 @@ class VendorMaterialController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
 
-        $this->loadModel('VendorMaterial');
+        $this->loadModel('materials');
 
-        $vendorMaterial = $this->VendorMaterial->find('all', [
-            'conditions' => ['vendorMaterial.vendor_id' => $vendorId]
+        $vendorMaterial = $this->materials->find('all', [
+            'conditions' => ['materials.sap_vendor_code' => $session->read('vendor_code')]
         ])->select([
-            'id', 'vendor_id', 'vendor_material_code', 'description', 'minimum_stock',
-            'uom_desp' => 'um.code',
-        ])->join([
-            'table' => 'uoms',
-            'alias' => 'um',
-            'type' => 'LEFT',
-            'conditions' => 'um.id = vendorMaterial.uom',
+            'id', 'sap_vendor_code', 'code', 'description', 'minimum_stock','uom'
         ])->toArray();
 
         // echo '<pre>';print_r($vendorMaterial);exit;

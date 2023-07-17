@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\DailymonitorTable;
+use App\Model\Table\StockUploadsTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\DailymonitorTable Test Case
+ * App\Model\Table\StockUploadsTable Test Case
  */
-class DailymonitorTableTest extends TestCase
+class StockUploadsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\DailymonitorTable
+     * @var \App\Model\Table\StockUploadsTable
      */
-    protected $Dailymonitor;
+    protected $StockUploads;
 
     /**
      * Fixtures
@@ -24,7 +24,8 @@ class DailymonitorTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.Dailymonitor',
+        'app.StockUploads',
+        'app.Materials',
     ];
 
     /**
@@ -35,8 +36,8 @@ class DailymonitorTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Dailymonitor') ? [] : ['className' => DailymonitorTable::class];
-        $this->Dailymonitor = $this->getTableLocator()->get('Dailymonitor', $config);
+        $config = $this->getTableLocator()->exists('StockUploads') ? [] : ['className' => StockUploadsTable::class];
+        $this->StockUploads = $this->getTableLocator()->get('StockUploads', $config);
     }
 
     /**
@@ -46,7 +47,7 @@ class DailymonitorTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->Dailymonitor);
+        unset($this->StockUploads);
 
         parent::tearDown();
     }
@@ -55,7 +56,7 @@ class DailymonitorTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\DailymonitorTable::validationDefault()
+     * @uses \App\Model\Table\StockUploadsTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -66,7 +67,7 @@ class DailymonitorTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\DailymonitorTable::buildRules()
+     * @uses \App\Model\Table\StockUploadsTable::buildRules()
      */
     public function testBuildRules(): void
     {

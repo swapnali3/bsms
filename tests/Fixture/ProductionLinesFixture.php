@@ -6,16 +6,10 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * DailymonitorFixture
+ * ProductionLinesFixture
  */
-class DailymonitorFixture extends TestFixture
+class ProductionLinesFixture extends TestFixture
 {
-    /**
-     * Table name
-     *
-     * @var string
-     */
-    public $table = 'dailymonitor';
     /**
      * Init method
      *
@@ -27,14 +21,12 @@ class DailymonitorFixture extends TestFixture
             [
                 'id' => 1,
                 'sap_vendor_code' => 'Lorem ip',
-                'production_line_id' => 1,
                 'material_id' => 1,
-                'plan_date' => '2023-07-16',
-                'target_production' => 1,
-                'confirm_production' => 1,
+                'name' => 'Lorem ipsum d',
+                'capacity' => 1.5,
                 'status' => 1,
-                'added_date' => '2023-07-16 15:33:59',
-                'updated_date' => '2023-07-16 15:33:59',
+                'added_date' => '2023-07-15 22:31:57',
+                'updated_date' => '2023-07-15 22:31:57',
             ],
         ];
         parent::init();

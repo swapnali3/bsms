@@ -6,20 +6,20 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Productionline Entity
+ * ProductionLine Entity
  *
  * @property int $id
- * @property int $vendor_id
- * @property int $vendormaterial_id
- * @property string $prdline_description
- * @property int $prdline_capacity
+ * @property string $sap_vendor_code
+ * @property int $material_id
+ * @property string $name
+ * @property string $capacity
  * @property int|null $status
  * @property \Cake\I18n\FrozenTime|null $added_date
  * @property \Cake\I18n\FrozenTime|null $updated_date
  *
- * @property \App\Model\Entity\Dailymonitor[] $dailymonitor
+ * @property \App\Model\Entity\Material $material
  */
-class Productionline extends Entity
+class ProductionLine extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -31,13 +31,13 @@ class Productionline extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'vendor_id' => true,
-        'vendormaterial_id' => true,
-        'prdline_description' => true,
-        'prdline_capacity' => true,
+        'sap_vendor_code' => true,
+        'material_id' => true,
+        'name' => true,
+        'capacity' => true,
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
-        'dailymonitor' => true,
+        'material' => true,
     ];
 }

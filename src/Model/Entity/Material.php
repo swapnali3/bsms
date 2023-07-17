@@ -6,18 +6,21 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * StockUpload Entity
+ * Material Entity
  *
  * @property int $id
- * @property string $opening_stock
- * @property int $material_id
  * @property string $sap_vendor_code
- * @property \Cake\I18n\FrozenTime|null $added_date
- * @property \Cake\I18n\FrozenTime|null $updated_date
+ * @property string $code
+ * @property string $description
+ * @property string|null $minimum_stock
+ * @property string|null $uom
+ * @property bool|null $status
+ * @property \Cake\I18n\FrozenTime $added_date
+ * @property \Cake\I18n\FrozenTime $updated_date
  *
- * @property \App\Model\Entity\Material $material
+ * @property \App\Model\Entity\Dailymonitor[] $dailymonitor
  */
-class StockUpload extends Entity
+class Material extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -29,11 +32,14 @@ class StockUpload extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'opening_stock' => true,
-        'material_id' => true,
         'sap_vendor_code' => true,
+        'code' => true,
+        'description' => true,
+        'minimum_stock' => true,
+        'uom' => true,
+        'status' => true,
         'added_date' => true,
         'updated_date' => true,
-        'material' => true,
+        'dailymonitor' => true,
     ];
 }
