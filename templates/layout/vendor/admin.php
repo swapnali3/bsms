@@ -64,9 +64,9 @@
 
 
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
-    <div class="loader-container" id="loaderss">
+    <!-- <div class="loader-container" id="loaderss">
         <img src="<?= $this->Url->build('/') ?>img/loaders.gif" alt="Loader" class="loader">
-    </div>
+    </div> -->
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">

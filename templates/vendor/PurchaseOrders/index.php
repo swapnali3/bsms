@@ -5,11 +5,12 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
-<?= $this->Html->css('cstyle.css') ?>
-<?= $this->Html->css('table.css') ?>
-<?= $this->Html->css('listing.css') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
+<!-- <?= $this->Html->css('listing.css') ?> -->
 <?= $this->Html->css('v_index.css') ?>
-<?= $this->Html->css('v_vendorCustom') ?>
+<?= $this->Html->css('v_purchaseorder_index') ?>
+<!-- <?= $this->Html->css('v_vendorCustom') ?> -->
 <div class="poHeaders index content card purchase-order">
   <div class="card-body">
     <div class="table-responsive">
@@ -48,29 +49,8 @@
   </div>
 </div>
 <div class="related card">
-   <div class="card-header p-0" id="id_pohead">
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Sap Vendor Code</th>
-          <th>Po No</th>
-          <th>Document Type</th>
-          <th>Created By</th>
-          <th>Pay Terms</th>
-          <th>Exchange Rate</th>
-          <th>Added Date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td colspan="7" class="text-center">
-            <p>No data found !</p>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="right-side"> 
+   <div class="card-header p-2" id="id_pohead"></div>
+  <div class="right-side p-2"> 
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -91,15 +71,12 @@
   </div>
 
   <div class="row">
-
     <div class="col-lg-12 mb-2 pe-4 d-flex justify-content-end flagButton">
       <button type="button" data-id="" class="btn btn-primary notify mb-0">
         <i class="fa fa-envelope"></i> Acknowledge
       </button>
     </div>
   </div>
-
-
 </div>
 
 <script>
