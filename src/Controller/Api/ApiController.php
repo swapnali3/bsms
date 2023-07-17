@@ -222,4 +222,72 @@ class ApiController extends ApiAppController
 
         echo json_encode($response);
     }
+
+    public function getMaterialMasters()
+    {
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = 'Empty request';
+        
+        $this->loadModel("Materials");
+        $this->loadModel("MaterialHistories");
+
+        /*
+        $response = $http->get(
+            'http://123.108.46.252:8000/sap/bc/sftmob/GET_MAT_MST/?sap-client=300',
+            ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
+        );
+        */
+
+        try{
+
+            if (true) { //|| $response->isOk()) 
+                //$result = json_decode($response->getStringBody());
+                $result = json_decode('{"RESPONSE":{"SUCCESS":1,"MESSAGE":"Success",
+                    "MAT_LIST" :[{"LIFNR":"0000100186", "MATNR":"KT12445", "MAKTX":"Sand", "MIN_STOCK":1200,"MEINS":"KG"},
+                    {"LIFNR":"0000100186", "MATNR":"HT142323", "MAKTX":"Alluminium", "MIN_STOCK":800,"MEINS":"KG"}]
+                    }}');
+                if ($result->RESPONSE->SUCCESS) {
+                    $rows = [];
+                    foreach($result->RESPONSE->MAT_LIST as $row) {
+                        $temp = [];
+                        $temp['sap_vendor_code'] = $row->LIFNR;
+                        $temp['code'] = $row->MATNR;
+                        $temp['description'] = $row->MAKTX;
+                        $temp['minimum_stock'] = $row->MIN_STOCK;
+                        $temp['uom'] = $row->MEINS;
+
+                        $rows[] = $temp;
+                    }
+
+                    $columns = array_keys($rows[0]);
+                    $upsertQuery = $this->Materials->query();
+                    $upsertQuery->insert($columns);
+
+                    foreach($rows as $row) {
+                        $upsertQuery->values($row);
+                        $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
+                        `description`=VALUES(`description`), `minimum_stock`=VALUES(`minimum_stock`), `uom`=VALUES(`uom`)')
+                        ->execute();
+                    }
+
+                    $materialHistories = $this->MaterialHistories->newEntities($rows);
+                    $this->MaterialHistories->saveMany($materialHistories);
+
+                    
+                    $response['status'] = '1';
+                    $response['message'] = 'Success';
+                } else {
+                    $response['status'] = '0';
+                    $response['message'] = $result->RESPONSE->MESSAGE;
+                }
+            }
+        } catch (\Exception $e) {
+            $response['status'] = '0';
+            $response['message'] = $e->getMessage();
+        }
+
+        echo json_encode($response);
+    }
+
 }

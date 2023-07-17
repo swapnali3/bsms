@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\DailymonitorTable;
+use App\Model\Table\ProductionLinesTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\DailymonitorTable Test Case
+ * App\Model\Table\ProductionLinesTable Test Case
  */
-class DailymonitorTableTest extends TestCase
+class ProductionLinesTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\DailymonitorTable
+     * @var \App\Model\Table\ProductionLinesTable
      */
-    protected $Dailymonitor;
+    protected $ProductionLines;
 
     /**
      * Fixtures
@@ -24,7 +24,8 @@ class DailymonitorTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.Dailymonitor',
+        'app.ProductionLines',
+        'app.Materials',
     ];
 
     /**
@@ -35,8 +36,8 @@ class DailymonitorTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Dailymonitor') ? [] : ['className' => DailymonitorTable::class];
-        $this->Dailymonitor = $this->getTableLocator()->get('Dailymonitor', $config);
+        $config = $this->getTableLocator()->exists('ProductionLines') ? [] : ['className' => ProductionLinesTable::class];
+        $this->ProductionLines = $this->getTableLocator()->get('ProductionLines', $config);
     }
 
     /**
@@ -46,7 +47,7 @@ class DailymonitorTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->Dailymonitor);
+        unset($this->ProductionLines);
 
         parent::tearDown();
     }
@@ -55,7 +56,7 @@ class DailymonitorTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\DailymonitorTable::validationDefault()
+     * @uses \App\Model\Table\ProductionLinesTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -66,7 +67,7 @@ class DailymonitorTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\DailymonitorTable::buildRules()
+     * @uses \App\Model\Table\ProductionLinesTable::buildRules()
      */
     public function testBuildRules(): void
     {

@@ -8,9 +8,9 @@
      <?php $rfqlickActive = ($controller == 'Rfqs') ? 'active' : ''; ?>
      <?php $asnActive = ($controller == 'Asn') ? 'active' : '';?>
      <?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : '';?>
-     <?php $materialMaster = ($controller == 'VendorMaterial') ? 'active' : ''; ?>
-     <?php $stocksUpload = ($controller == 'Stockupload') ? 'active' : ''; ?>
-     <?php $productionLine = ($controller == 'Productionline') ? 'active' : ''; ?>
+     <?php $materialMaster = ($controller == 'Materials') ? 'active' : ''; ?>
+     <?php $stocksUpload = ($controller == 'stockUploads') ? 'active' : ''; ?>
+     <?php $productionLine = ($controller == 'ProductionLines') ? 'active' : ''; ?>
      <?php $dailyStock = ($controller == 'Dailymonitor') ? 'active' : ''; ?>
      <?php $intransit = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
 
@@ -86,13 +86,13 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item ">
-    <?= $this->Html->link(__('<i class="fas fa-boxes nav-icon"></i><p>Material Master</p>'), ['controller' => 'vendor-material', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
+    <?= $this->Html->link(__('<i class="fas fa-boxes nav-icon"></i><p>Material Master</p>'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
-    <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stockupload', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+    <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stockUploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
-    <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Production Line</p>'), ['controller' => 'productionline', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
+    <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Production Line</p>'), ['controller' => 'ProductionLines', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
     </li>
   </ul>
 </li>
@@ -111,7 +111,7 @@
 </li>
 
 <!-- <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Material Master</p>'), ['controller' => 'vendormaterial', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Material Master</p>'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
 </li> -->
 
 <!-- 

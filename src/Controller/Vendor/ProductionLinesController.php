@@ -12,7 +12,7 @@ use App\Model\Table\VendorMaterialTable;
  * @property \App\Model\Table\ProductionlineTable $Productionline
  * @method \App\Model\Entity\Productionline[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class ProductionlineController extends VendorAppController
+class ProductionLinesController extends VendorAppController
 {
     public function initialize(): void
     {
@@ -29,27 +29,22 @@ class ProductionlineController extends VendorAppController
     public function index()
     {
 
-       $this->loadModel("productionline");
+       $this->loadModel("ProductionLines");
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
         // $productionline = $this->paginate($this->Productionline->find('all', [
         //     'conditions' => ['Productionline.vendor_id' => $vendorId]
         // ]));
 
-        $productionline = $this->productionline->find('all', [
-            'conditions' => ['productionline.vendor_id' => $vendorId]
+        $productionline = $this->ProductionLines->find('all', [
+            'conditions' => ['ProductionLines.sap_vendor_code' => $session->read('vendor_code')]
         ])->select([
-            'id','prdline_description', 'prdline_capacity','vm_description' => 'vm.description', 'vm_vendor_code' => 'vm.vendor_material_code', 'uom_desp' => 'um.code',
+            'id','name', 'capacity','vm.description', 'vm.code', 'vm.uom',
         ])->join([
-            'table' => 'vendor_material',
+            'table' => 'materials',
             'alias' => 'vm',
             'type' => 'LEFT',
-            'conditions' => 'vm.id = productionline.vendormaterial_id',
-        ])->join([
-            'table' => 'uoms',
-            'alias' => 'um',
-            'type' => 'LEFT',
-            'conditions' => 'um.id = vm.uom',
+            'conditions' => 'vm.id = ProductionLines.material_id',
         ])->toArray();
 
 
@@ -86,10 +81,10 @@ class ProductionlineController extends VendorAppController
     public function add()
     {
         $flash = [];
-        $this->loadModel("VendorMaterial");
+        $this->loadModel("Materials");
         $this->loadModel("VendorTemps");
         $this->loadModel('Notifications');
-        $productionline = $this->Productionline->newEmptyEntity();
+        $productionline = $this->ProductionLines->newEmptyEntity();
 
         // exit;
 
@@ -98,12 +93,12 @@ class ProductionlineController extends VendorAppController
             $vendorMaterialCode = $requestData['vendor_material_code'];
            // print_r($vendorMaterialCode);exit;
 
-            $VendorMaterials = $this->paginate($this->VendorMaterial->find('all', [
-                'conditions' => ['VendorMaterial.vendor_material_code' => $vendorMaterialCode]
-            ]))->first();
+            $VendorMaterials = $this->Materials->find('all', [
+                'conditions' => ['Materials.code' => $vendorMaterialCode]
+            ])->first();
 
-            $requestData['vendor_id'] = $VendorMaterials->vendor_id;
-            $requestData['vendormaterial_id'] = $VendorMaterials->id;
+            $requestData['sap_vendor_code'] = $VendorMaterials->sap_vendor_code;
+            $requestData['material_id'] = $VendorMaterials->id;
             $requestData['status'] = 0;
 
             $session = $this->getRequest()->getSession();
@@ -115,8 +110,8 @@ class ProductionlineController extends VendorAppController
 
 
 
-            $productionline = $this->Productionline->patchEntity($productionline, $requestData);
-            if ($this->Productionline->save($productionline)) {
+            $productionline = $this->ProductionLines->patchEntity($productionline, $requestData);
+            if ($this->ProductionLines->save($productionline)) {
 
                 if ($this->Notifications->exists(['Notifications.user_id' => $buyer->buyer_id, 'Notifications.notification_type' => 'production_line'])) {
                     $this->Notifications->updateAll(
@@ -142,7 +137,7 @@ class ProductionlineController extends VendorAppController
         
          $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-        $vendor_mateial = $this->VendorMaterial->find('list', [ 'conditions' => ['vendor_id' => $vendorId],'keyField' => 'id', 'valueField' => 'description'])->all();
+        $vendor_mateial = $this->Materials->find('list', [ 'conditions' => ['sap_Vendor_code' => $session->read('vendor_code')],'keyField' => 'id', 'valueField' => 'description'])->all();
 
 
         $this->set(compact('productionline','vendor_mateial'));
@@ -158,14 +153,14 @@ class ProductionlineController extends VendorAppController
     public function edit($id = null)
     {
         $flash = [];
-        $this->loadModel("VendorMaterial");
-        $productionline = $this->Productionline->get($id, [
+        $this->loadModel("Materials");
+        $productionline = $this->ProductionLines->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $productionline = $this->Productionline->patchEntity($productionline, $this->request->getData());
+            $productionline = $this->ProductionLines->patchEntity($productionline, $this->request->getData());
 
-            if ($this->Productionline->save($productionline)) {
+            if ($this->ProductionLines->save($productionline)) {
                 $flash = ['type'=>'success', 'msg'=>'The productionline has been saved'];
                 $this->set('flash', $flash);
 
@@ -179,7 +174,7 @@ class ProductionlineController extends VendorAppController
         $vendorId = $session->read('id');
 
 
-        $vendor_mateial = $this->VendorMaterial->find('list', [ 'conditions' => ['vendor_id' => $vendorId],'keyField' => 'id', 'valueField' => 'description'])->all();
+        $vendor_mateial = $this->Materials->find('list', [ 'conditions' => ['sap_vendor_code' => $session->read('vendor_code')],'keyField' => 'id', 'valueField' => 'description'])->all();
 
         $this->set(compact('productionline','vendor_mateial'));
     }

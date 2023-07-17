@@ -6,9 +6,9 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * NotificationsFixture
+ * StockUploadsFixture
  */
-class NotificationsFixture extends TestFixture
+class StockUploadsFixture extends TestFixture
 {
     /**
      * Init method
@@ -20,10 +20,11 @@ class NotificationsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'user_id' => 1,
-                'message_count' => 1,
-                'notification_type' => 'Lorem ipsum dolor sit amet',
-                'added_date' => '2023-07-15 22:49:46',
+                'opening_stock' => 1.5,
+                'material_id' => 1,
+                'sap_vendor_code' => 'Lorem ip',
+                'added_date' => '2023-07-15 21:33:53',
+                'updated_date' => '2023-07-15 21:33:53',
             ],
         ];
         parent::init();

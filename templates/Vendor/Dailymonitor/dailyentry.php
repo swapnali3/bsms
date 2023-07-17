@@ -39,16 +39,20 @@
                         <td><?= h($dailymonitors->prdline_description) ?></td>
                         <td><?= h($dailymonitors->material_description) ?></td>
                         <td><?= h($dailymonitors->target_production) ?></td>
-                        <?php if ($dailymonitors->confirm_production == 0) : ?>
+                        <?php if ($dailymonitors->status == 1) : ?>
                             <td>
                                 <input type="number" class="form-control form-control-sm" id="confirmprd<?= h($dailymonitors->id) ?>">
                             </td>
                             <td>
                                 <button class="btn btn-success save btn-sm mb-0" id="confirmsave<?= h($dailymonitors->id) ?>" data-id="<?= h($dailymonitors->id) ?>">Save</button>
                             </td>
+                            <?php elseif ($dailymonitors->status == 2) : ?>
+                                <td colspan="2">
+                                Plan Cancelled
+                            </td>
                         <?php else: ?>
                             <td>
-                                <input type="number" class="form-control form-control-sm" value="<?= h($dailymonitors->target_production) ?>" disabled>
+                                <input type="number" class="form-control form-control-sm" value="<?= h($dailymonitors->confirm_production) ?>" disabled>
                             </td>
                             <td></td>
                         <?php endif; ?>

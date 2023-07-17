@@ -45,6 +45,7 @@ class NotificationsTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
+            'joinType' => 'INNER',
         ]);
     }
 
@@ -58,7 +59,7 @@ class NotificationsTable extends Table
     {
         $validator
             ->integer('user_id')
-            ->allowEmptyString('user_id');
+            ->notEmptyString('user_id');
 
         $validator
             ->integer('message_count')
@@ -72,9 +73,8 @@ class NotificationsTable extends Table
             ->notEmptyString('notification_type');
 
         $validator
-            ->dateTime('created_at')
-            ->requirePresence('created_at', 'create')
-            ->notEmptyDateTime('created_at');
+            ->dateTime('added_date')
+            ->notEmptyDateTime('added_date');
 
         return $validator;
     }

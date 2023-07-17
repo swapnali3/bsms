@@ -9,8 +9,8 @@ use Cake\ORM\Entity;
  * Dailymonitor Entity
  *
  * @property int $id
- * @property int|null $vendor_id
- * @property int|null $productionline_id
+ * @property string $sap_vendor_code
+ * @property int|null $production_line_id
  * @property int|null $material_id
  * @property \Cake\I18n\FrozenDate|null $plan_date
  * @property int|null $target_production
@@ -31,8 +31,8 @@ class Dailymonitor extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'vendor_id' => true,
-        'productionline_id' => true,
+        'sap_vendor_code' => true,
+        'production_line_id' => true,
         'material_id' => true,
         'plan_date' => true,
         'target_production' => true,
