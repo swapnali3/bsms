@@ -34,7 +34,7 @@
             <tbody>
                 <?php if (isset($stockupload)) : ?>
                     <?php foreach ($stockupload as $stockuploads) : ?>
-                        <tr class="redirect" data-href="<?= $this->Url->build('/') ?>vendor/stockupload/edit/<?= $stockuploads->id ?>">
+                        <tr class="redirect" data-href="<?= $this->Url->build('/') ?>vendor/stock-uploads/edit/<?= $stockuploads->id ?>">
                             <td>
                                 <?= h($stockuploads->vm_vendor_code) ?>
                             </td>

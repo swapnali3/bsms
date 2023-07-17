@@ -17,7 +17,7 @@
                 <h5>Production Line</h5>
             </div>
             <div class="col-lg-6 d-flex justify-content-end text-align-end">
-                <a href="<?= $this->Url->build('/') ?>vendor/production-lines/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Producation</button></a>
+                <a href="<?= $this->Url->build('/') ?>vendor/production-lines/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Producation Line</button></a>
             </div>
         </div>
     </div>

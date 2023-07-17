@@ -4,13 +4,16 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Stockupload $stockupload
  */
+
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
+
 ?>
 <?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
 <?= $this->Html->css('v_index.css') ?>
-<?= $this->Form->create($stockupload) ?>
+<?= $this->Form->create($stockupload, ['id' => 'stockuploadForm']) ?>
 <div class="card">
     <div class="card-header pb-1 pt-2">
         <div class="row">
@@ -26,13 +29,13 @@
         <div class="row dgf m-0">
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('description', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Material Description')); ?>
+                    <?php echo $this->Form->control('code', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'value' => $this->getRequest()->getData('vendor_material_code'), 'empty' => 'Please Select', 'label' => 'Material Code')); ?>
                 </div>
             </div>
 
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('vendor_material_code', array('id'=> 'vendor-material-code',  'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Code', 'readonly')); ?>
+                    <?php echo $this->Form->control('description', array('type' => 'text','class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Description', 'readonly')); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">
@@ -117,6 +120,7 @@
                     <th>Material Code</th>
                     <th>Unit Of Measurement</th>
                     <th>Opening Stock</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -127,27 +131,30 @@
 
                             <tr>
                                 <td>
-                                    <?= h($stockuploads['descr']) ?>
+                                    <?= h($stockuploads['data']['desc']) ?>
                                 </td>
                                 <td>
-                                    <?= h($stockuploads['vendorCode']) ?>
+                                    <?= h($stockuploads['data']['material_code']) ?>
                                 </td>
                                 <td>
-                                    <?= h($stockuploads['uomCode']) ?>
+                                    <?= h($stockuploads['data']['uoms']) ?>
                                 </td>
                                 <td>
                                     <?= h($stockuploads['data']["opening_stock"]) ?>
+                                </td>
+                                <td>
+                                    <?= h($stockuploads["msg"]) ?>
                                 </td>
                             </tr>
                         <?php else : ?>
                             <tr>
                                 <td>
-                                    <?= h($stockuploads['data']) ?>
+                                    <?= h($stockuploads['data']['desc']) ?>
                                 </td>
                                 <td>
-                                    <?= h($stockuploads['vendorCode']) ?>
+                                    <?= h($stockuploads['data']['material_code']) ?>
                                 </td>
-                                <td colspan="1"></td>
+                                <td colspan="2"></td>
                                 <td class="text-danger text-left">
                                     <?= h($stockuploads["msg"]) ?>
                                 </td>
@@ -155,7 +162,6 @@
                         <?php endif; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
-            </tbody>
             </tbody>
         </table>
     </div>
@@ -165,28 +171,33 @@
 
 
 <script>
-    var submitStatus = true;
 
+    
+   
     $('#stockClick').click(function() {
         submitStatus = true
     });
 
     $('#sapvendorcode').click(function() {
         submitStatus = false
+        console.log(submitStatus);
     });
 
 
     $('.addSubmit').click(function() {
         if (submitStatus) {
-            $("#stockInputSubmit").trigger('click');
+            $("#stockInputSubmit").trigger('click');           
+            $('#stockuploadForm')[0].reset();          
         }
         else{
-            $("#sapvendorcode").trigger('click');  
+            $("#stockFileSubmit").trigger('click');  
+            $('#sapvendorcodeform')[0].reset();  
         }
     });
 
 
     $(document).ready(function() {
+
         $('#OpenImgUpload').click(function() {
             $('#vendorCodeInput').trigger('click');
         });
@@ -204,7 +215,7 @@
             if (vendorId != "") {
                 $.ajax({
                     type: "get",
-                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'vendor-material')); ?>/" + vendorId,
+                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'material')); ?>/" + vendorId,
                     dataType: "json",
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader(
@@ -214,7 +225,7 @@
                     },
                     success: function(response) {
                         if (response.status == "1") {
-                            $("#vendor-material-code").val(response.data.code);
+                            $("#description").val(response.data.description);
                             $("#uom").val(response.data.uom);
                         }
                     },
