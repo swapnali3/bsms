@@ -48,14 +48,14 @@
                 </div>
             </div>
             <div class="col-sm-8 col-md-3 d-flex justify-content-start align-items-end">
-                <button type="button" class="btn btn-custom" onclick="showConfirmationModal()">Submit</button>
+                <button type="button" class="btn btn-custom" data-toggle="modal" data-target="#modal-sm" id="stockClick">Submit</button>
+                <button type="submit" style="display: none;" id="stockInputSubmit">Submit</button>
             </div>
         </div>
     </div>
 </div>
 
-
-
+<?= $this->Form->end() ?>
 <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -64,13 +64,11 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn" style="border:1px solid #28a745">Ok</button>
+                <button type="button" class="btn addSubmit" style="border:1px solid #28a745">Ok</button>
             </div>
         </div>
     </div>
 </div>
-
-<?= $this->Form->end() ?>
 
 
 
@@ -96,9 +94,10 @@
                 <span id="filessnames"></span>
             </div>
             <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">
-                <button class="btn btn-custom" id="sapvendorcode" type="submit">
+                <button class="btn btn-custom" data-toggle="modal" data-target="#modal-sm" id="sapvendorcode" type="button">
                     Submit
                 </button>
+                <button type="submit" style="display: none;" id="stockFileSubmit">Submit</button>
             </div>
             <div class="col-sm-12 col-md-12 mt-3">
                 <i style="color: black;">
@@ -166,9 +165,26 @@
 
 
 <script>
-    function showConfirmationModal() {
-        $('#modal-sm').modal('show');
-    }
+    var submitStatus = true;
+
+    $('#stockClick').click(function() {
+        submitStatus = true
+    });
+
+    $('#sapvendorcode').click(function() {
+        submitStatus = false
+    });
+
+
+    $('.addSubmit').click(function() {
+        if (submitStatus) {
+            $("#stockInputSubmit").trigger('click');
+        }
+        else{
+            $("#sapvendorcode").trigger('click');  
+        }
+    });
+
 
     $(document).ready(function() {
         $('#OpenImgUpload').click(function() {
