@@ -27,6 +27,7 @@ switch ($vendorTemp->status) {
 }
 
 ?>
+<?= $this->Html->css('cstyle.css') ?>
 <style>
     tr{
         border-bottom: 1px solid lightgrey;
@@ -35,6 +36,9 @@ switch ($vendorTemp->status) {
         padding: .2rem;
     }
 </style>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>
 <div class="row">

@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\RfqInquiry[]|\Cake\Collection\CollectionInterface $rfqInquiries
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="rfqInquiries index content">
     <?= $this->Html->link(__('New Rfq Inquiry'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Rfq Inquiries') ?></h3>

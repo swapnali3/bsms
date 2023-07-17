@@ -317,3 +317,12 @@ a.page-link,.dataTables_info {
     line-height: 1.1rem;
     padding: 10px 20px;
 }
+
+.vendor-profile table {
+    font-size: 14px;
+}
+
+.vendor-profile tr {
+    display: block;
+    padding: 5px 10px;
+}

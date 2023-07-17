@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
+
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('custom') ?>
 <style>
     aside.main-sidebar {
     background-color: #08132F !important;
@@ -20,7 +23,9 @@
     }
   
 </style>
-<?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="buyer-dash">
 <div class="row mt-4 mx-1 mb-1 first-row">
   

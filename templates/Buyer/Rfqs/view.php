@@ -4,7 +4,11 @@
  * @var \App\Model\Entity\Rfq $rfq
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
 <div class="row card">
     

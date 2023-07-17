@@ -5,6 +5,8 @@
  */
 ?>
 
+
+<?= $this->Html->css('cstyle.css') ?>
 <style>
     .table td, .table th{
         padding:0rem;
@@ -23,13 +25,12 @@
     }
 
     </style>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="rfqDetails index content card">
 
-    <div class="card-header" style="background-color: ;">
-        <!-- <h3 style="color: white;"><b>RFQ LIST</b> -->
-
-
-
+    <div class="card-header">
             <?= $this->Html->link(__('New RFQ'), ['action' => 'add'], ['class' => 'button float-right py-2 px-3','style'=>'font-size:small;']) ?>
         </h3>
     </div>

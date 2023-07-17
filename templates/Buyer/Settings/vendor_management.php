@@ -4,13 +4,7 @@
  * @var \App\Model\Entity\Setting[]|\Cake\Collection\CollectionInterface $settings
  */
 ?>
-<!-- <div class="settings index content">
-    
-    <h3><?= __('Setting') ?></h3>
-    <div class="table-responsive">
-        Vendor Management
-    </div>
-</div> -->
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
 <style>
    
@@ -79,6 +73,16 @@
     width: 20%;
 }
 </style>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
+<!-- <div class="settings index content">
+    
+    <h3><?= __('Setting') ?></h3>
+    <div class="table-responsive">
+        Vendor Management
+    </div>
+</div> -->
 
 <div class="settings index content">
     <div class="card">

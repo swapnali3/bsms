@@ -11,7 +11,11 @@
         padding: 10px !important;
     }
 </style>
-<?= $this->Html->css('custom') ?>
+<?= $this->Html->css('cstyle.css') ?>
+  <?= $this->Html->css('custom') ?>
+  <?= $this->Html->css('table.css') ?>
+  <?= $this->Html->css('listing.css') ?>
+  <?= $this->Html->css('b_index.css') ?>
 <div class="row content card gate-entry">
     <div class="column-responsive column-80">
         <div class="card-header">

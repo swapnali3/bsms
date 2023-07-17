@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\VendorTemp $vendorTemp
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <div class="row">
     <aside class="column">
         <div class="side-nav">

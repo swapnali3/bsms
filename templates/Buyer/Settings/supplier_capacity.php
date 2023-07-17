@@ -5,6 +5,9 @@
  */
 ?>
 
+
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('custom') ?>
 <style>
     .supplier-capacity .box i {
         font-size: 12px;
@@ -73,9 +76,13 @@
     }
 </style>
 
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
+
+
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<?= $this->Html->css('custom') ?>
 
 
 <div class="supplier-capacity">

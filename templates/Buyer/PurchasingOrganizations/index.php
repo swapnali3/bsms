@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\PurchasingOrganization[]|\Cake\Collection\CollectionInterface $purchasingOrganizations
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="purchasingOrganizations index content">
     <?= $this->Html->link(__('New Purchasing Organization'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Purchasing Organizations') ?></h3>

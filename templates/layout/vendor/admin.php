@@ -9,41 +9,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<style>
-    .brand-link {
-        padding: 0.5rem 0.5rem;
-    }
-
-    .nav-link.active {
-        background-color: #8E9B2C !important;
-
-    }
-
-    aside.main-sidebar {
-        background-color: #08132F !important;
-    }
-
-    body {
-
-        font-family: 'Source Sans Pro', sans-serif;
-    }
-
-    .loader-container {
-        position: fixed;
-        top: 0;
-        width: 100%;
-        height: 100vh;
-        overflow: hidden;
-        background-color: #fff;
-        opacity: 0.9;
-        background: linear-gradient(to right, rgb(255, 255, 255, .9), rgb(255, 255, 255, .9));
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        transition: 0.5s ease-in-out;
-    }
-</style>
 
 <head>
     <meta charset="utf-8">
@@ -56,9 +21,7 @@
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
 
-    <?= $this->Html->css('listing.css') ?>
-    <?= $this->Html->css('cstyle.css') ?>
-    <?= $this->Html->css('table.css') ?>
+ 
     <!-- Google Font: Source Sans Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
