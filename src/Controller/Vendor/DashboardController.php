@@ -40,18 +40,18 @@ class DashboardController extends VendorAppController
     {
         parent::initialize();
         $flash = [];
-    //     $session = $this->getRequest()->getSession();
+        //     $session = $this->getRequest()->getSession();
 
-    //     $permissionsTable = $this->getTableLocator()->get('Permissions');
-    //     $query = $permissionsTable->find()
-    //         ->select(['permission'])
-    //         ->where([
-    //             'controller' => ':controller', 
-    //             'action' => 'index',
-    //             'users' => $session->read('id') 
-    //         ])->toArray();
-            
-    //    print_r($query);exit;    
+        //     $permissionsTable = $this->getTableLocator()->get('Permissions');
+        //     $query = $permissionsTable->find()
+        //         ->select(['permission'])
+        //         ->where([
+        //             'controller' => ':controller', 
+        //             'action' => 'index',
+        //             'users' => $session->read('id') 
+        //         ])->toArray();
+
+        //    print_r($query);exit;    
         $this->set('flash', $flash);
     }
 
@@ -90,7 +90,7 @@ class DashboardController extends VendorAppController
         $totalPos = $query->count();
 
         $this->loadModel('AsnHeaders');
-        
+
         $intraQry = $this->AsnHeaders->find()
             ->select(['AsnHeaders.id', 'AsnHeaders.invoice_no', 'AsnHeaders.status', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_value', 'PoHeaders.po_no', 'AsnHeaders.added_date', 'AsnHeaders.updated_date'])
             ->contain(['PoHeaders'])
@@ -104,9 +104,8 @@ class DashboardController extends VendorAppController
         $totalRfqDetails = $this->RfqDetails->find('all', array('conditions' => array('status' => 1)))->count();
 
 
-        
-       $this->set(compact('totalPos', 'totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested'));
 
+        $this->set(compact('totalPos', 'totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested'));
     }
 
     public function rfqView($id = null)
@@ -162,19 +161,25 @@ class DashboardController extends VendorAppController
 
     public function clearMessageCount()
     {
-
         $session = $this->getRequest()->getSession();
         $vendorID = $session->read('id');
         $response = array();
         $response['status'] = 0;
         $response['message'] = '';
-    
-        $this->loadModel('Notifications');
-        $this->Notifications->updateAll(['message_count' => 0], ['notification_type' => $vendorID]);
-    
+
+        $id = $this->request->getQuery('id'); 
+        if (!empty($id)) {
+            $this->loadModel('Notifications');
+            $this->Notifications->updateAll(['message_count' => 0], ['id IN' => $id]);
+        }
+        else{
+            $response['status'] = 0;
+            $response['message'] = 'Failed';
+        }
+
         $response['status'] = 1;
-        $response['message'] = 'clear Notification';
-    
+        $response['message'] = 'Clear Notification';
+
         echo json_encode($response);
         exit();
     }

@@ -105,7 +105,7 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item ">
-      <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link <?= $tempindctive ?>">
+      <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link vendor_material<?= $tempindctive ?>">
         <i class="nav-icon fas fa-users"></i>
         <p>Vendors</p>
       </a>
@@ -155,7 +155,7 @@
 </li> -->
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'view'], ['class' => "nav-link $polickActive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'view'], ['class' => "nav-link po_acknowledge $polickActive", 'escape' => false]) ?>
 </li>
 
 <li class="nav-item">

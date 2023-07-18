@@ -219,14 +219,73 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('.clearNotifications').click(function(event) {
+  $(document).on("click", ".notificationTittle", function (event) {
+        var menu_class = $(this).data("class");
+        var targetElement = document.querySelector("." + menu_class);
+
+        if (targetElement) {
+            targetElement.click();
+        }
+
+
+    });
+
+
+
+    $(document).ready(function () {
+
+        $(document).on("click", ".clearNotifications", function (event) {
             event.stopPropagation();
+            var dataId = $(this).attr('id');
             $.ajax({
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'dashboard', 'action' => 'clear-message-count')); ?>",
+                data: {
+                    id: dataId
+                },
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
+                    if (response.status === 1) {
+                        $('.notificationId[data-id="' + dataId + '"]').remove();
+
+                        var currentCount = parseInt($('.navbar-badge.custom-i').text());
+                        var newCount = currentCount - 1;
+                        $('.navbar-badge.custom-i').text(newCount);
+
+                        if (newCount === 0) {
+                            $('.notification-list').empty();
+                            $('.notification-list').append('<div class="dropdown-item">No Notifications</div>');
+                        } else {
+                            $('.dropdown-header.notifyView').text(newCount + ' Notifications');
+                        }
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+
+
+        $('.clearNotificationsAll').click(function (event) {
+
+            event.stopPropagation();
+            var ids = [];
+
+            $('.notificationId').each(function () {
+                var dataId = $(this).data('id');
+                ids.push(dataId);
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'dashboard', 'action' => 'clear-message-count')); ?>",
+                data: {
+                    id: ids
+                },
+                dataType: 'json',
+                success: function (response) {
 
                     $('.navbar-badge.custom-i').text('0');
                     $('.notification-list').empty();
@@ -234,7 +293,7 @@
                     $('.notification-list').append('<div class="dropdown-item">No Notifications</div>');
 
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log(error);
                 }
             });
