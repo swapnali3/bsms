@@ -5,7 +5,10 @@
  */
 ?>
 
-
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="deliveryDetails index content card">
     <div class="card-header">
         <h5>

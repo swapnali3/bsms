@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\Setting[]|\Cake\Collection\CollectionInterface $settings
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="settings index content">
     <?= $this->Html->link(__('New Setting'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Setting') ?></h3>

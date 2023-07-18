@@ -4,9 +4,13 @@
  * @var \App\Model\Entity\PoHeader $poHeader
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-  <?= $this->Html->css('Custom') ?>
 <div class="card">
   <div class="card-header">
     <div class="d-flex">

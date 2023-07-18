@@ -21,12 +21,10 @@
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
 
-    <?= $this->Html->css('cstyle.css') ?>
+  
     <!-- Google Font: Source Sans Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> -->
 
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
@@ -59,8 +57,7 @@
 
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
-    <?= $this->Html->css('table.css') ?>
-    <?= $this->Html->css('listing.css') ?>
+
 
     <!-- Bootstrap 4 -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
@@ -76,55 +73,6 @@
     <!-- toastr -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/toastr/toastr.min.css') ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
-
-    <style>
-        .content-wrapper {
-            min-height: 750px !important;
-        }
-
-        aside.main-sidebar {
-            background-color: #08132F !important;
-        }
-
-        .nav-link.active {
-            background-color: #8E9B2C !important;
-            color: #fff !important;
-        }
-
-        .loader-container {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            background-color: #fff;
-            opacity: 0.9;
-            background: linear-gradient(to right, rgb(255, 255, 255, .9), rgb(255, 255, 255, .9));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        body,
-        h5,
-        h6,
-        p,
-        h4,
-        h3,
-        label {
-            font-family: 'Roboto', sans-serif !important;
-        }
-
-        div#id_sidebar {
-            transition: 0.5s ease all;
-        }
-
-        div#id_sidebar:hover {
-            transition: 0.5s ease all;
-        }
-    </style>
-
     <script>var baseurl = "<?= $this->Url->build('/') ?>";</script>
 </head>
 

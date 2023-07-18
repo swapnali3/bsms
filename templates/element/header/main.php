@@ -209,6 +209,10 @@
 <script>
     $(document).ready(function() {
         $('.clearNotifications').click(function(event) {
+
+            
+
+
             event.stopPropagation();
             $.ajax({
                 type: "GET",

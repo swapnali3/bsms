@@ -72,7 +72,11 @@
     padding:0rem
   } */
 </style>
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <div class="row pt-3">
 
   <!-- <div class="col-sm-12 col-lg-3">

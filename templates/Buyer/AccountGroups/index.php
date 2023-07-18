@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\AccountGroup[]|\Cake\Collection\CollectionInterface $accountGroups
  */
 ?>
+  <?= $this->Html->css('cstyle.css') ?>
+  <?= $this->Html->css('table.css') ?>
+  <?= $this->Html->css('listing.css') ?>
+  <?= $this->Html->css('b_index.css') ?>
 <div class="accountGroups index content">
     <?= $this->Html->link(__('New Account Group'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Account Groups') ?></h3>

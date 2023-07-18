@@ -5,8 +5,11 @@
  * @var \App\Model\Entity\Productionline $productionline
  */
 ?>
-</style>
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <?= $this->Form->create($productionline) ?>
 <div class="card">
     <div class="card-header pb-1 pt-2">
@@ -19,14 +22,14 @@
     <div class="card-body invoice-details p-0">
         <div class="row dgf m-0">
             <div class="col-sm-8 col-md-3">
-                <div class="form-group">
-                    <?php echo $this->Form->control('description', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Material Description')); ?>
+            <div class="form-group">
+                    <?php echo $this->Form->control('vendor_material_code', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'value' => $this->getRequest()->getData('vendor_material_code'), 'empty' => 'Please Select', 'label' => 'Material Code')); ?>
                 </div>
             </div>
 
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('vendor_material_code', array( 'id' => 'vendor-material-code', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Code', 'readonly')); ?>
+                    <?php echo $this->Form->control('description', array('type' => 'text','class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Description', 'readonly')); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">
@@ -81,7 +84,7 @@
             if (vendorId != "") {
                 $.ajax({
                     type: "get",
-                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'vendor_material')); ?>/" + vendorId,
+                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'material')); ?>/" + vendorId,
                     dataType: "json",
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader(
@@ -91,7 +94,7 @@
                     },
                     success: function(response) {
                         if (response.status == "1") {
-                            $("#vendor-material-code").val(response.data.code);
+                            $("#description").val(response.data.description);
                             $("#uom").val(response.data.uom);
                         }
                     },

@@ -5,8 +5,11 @@
  * @var \App\Model\Entity\Stockupload $stockupload
  */
 ?>
-</style>
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <?= $this->Form->create($stockupload) ?>
 <div class="card ">
     <div class="card-header pb-1 pt-2">
@@ -19,19 +22,17 @@
     <div class="card mb-0">
         <div class="card-body  pb-0">
             <div class="row">
-                <div class="col-sm-8 col-md-3">
-                    <div class="form-group">
-
-                        <?php echo $this->Form->control('vendor_material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe','style' => "height: unset !important;", 'empty' => 'Please Select','label'=>'Material Description')); ?>
-
-                    </div>
+            <div class="col-sm-8 col-md-3">
+                <div class="form-group">
+                    <?php echo $this->Form->control('code', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'value' => $this->getRequest()->getData('material_id'), 'empty' => 'Please Select', 'label' => 'Material Code')); ?>
                 </div>
+            </div>
 
-                <div class="col-sm-8 col-md-3">
-                    <div class="form-group">
-                        <?php echo $this->Form->control('vendor_material_code', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Code','readonly')); ?>
-                    </div>
+            <div class="col-sm-8 col-md-3">
+                <div class="form-group">
+                    <?php echo $this->Form->control('description', array('type' => 'text','class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Description', 'readonly')); ?>
                 </div>
+            </div>
                 <div class="col-sm-8 col-md-3">
                     <div class="form-group">
                         <?php echo $this->Form->control('uom', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Unit Of Measurement','readonly')); ?>
@@ -78,7 +79,7 @@
         if (vendorId != "") {
             $.ajax({
                 type: "get",
-                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stockupload', 'action' => 'vendor_material')); ?>/" + vendorId,
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'material')); ?>/" + vendorId,
                 dataType: "json",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader(
@@ -88,8 +89,8 @@
                 },
                 success: function (response) {
                     if (response.status == "1") {
-                        $("#vendor-material-code").val(response.data.vendor_material_code);
-                        $("#uom").val(response.data.uom_desp);
+                        $("#description").val(response.data.description);
+                        $("#uom").val(response.data.uom);
                     }
                 },
                 error: function (e) {

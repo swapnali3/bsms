@@ -29,6 +29,8 @@ switch ($vendorTemp->status) {
 }
 
 ?>
+
+<?= $this->Html->css('cstyle.css') ?>
 <style>
     p {
         margin-bottom: 0px;
@@ -38,7 +40,11 @@ switch ($vendorTemp->status) {
     width: 30% !important;
 } */
 </style>
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 
 <div class="row">
     <div class="col-12">

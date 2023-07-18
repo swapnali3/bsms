@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\Rfq $rfq
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
 <style>
     .btn-save {
         padding: 6px 30px;
@@ -13,6 +15,9 @@
         margin-right: 15px;
     }
 </style>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
+<?= $this->Html->css('v_vendorCustom') ?>
 
 <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
 <?= $this->Form->create(null, ['url' => ['controller' => 'rfq-inquiries', 'action' => 'inquiry', $rfqs->toArray()[0]->rfq_no]]); ?>
@@ -21,7 +26,7 @@
 <?= $this->Form->control('subtotal_value', array('label' => false, 'type' => 'hidden', 'id' => 'subtotal_value')) ?>
 <?= $this->Form->control('tax_value', array('label' => false, 'type' => 'hidden', 'id' => 'tax_value')) ?>
 <?= $this->Form->control('total_value', array('label' => false, 'type' => 'hidden', 'id' => 'total_value')) ?>
-<?= $this->Html->css('v_vendorCustom') ?>
+
 
 <div class="row ml-2">
     <div class="card mb-3">

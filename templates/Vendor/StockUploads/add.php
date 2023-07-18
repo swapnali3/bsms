@@ -4,10 +4,16 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Stockupload $stockupload
  */
+
+use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
+
 ?>
-</style>
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
-<?= $this->Form->create($stockupload) ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
+<?= $this->Form->create($stockupload, ['id' => 'stockuploadForm']) ?>
 <div class="card">
     <div class="card-header pb-1 pt-2">
         <div class="row">
@@ -23,13 +29,13 @@
         <div class="row dgf m-0">
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('description', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Material Description')); ?>
+                    <?php echo $this->Form->control('code', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'value' => $this->getRequest()->getData('vendor_material_code'), 'empty' => 'Please Select', 'label' => 'Material Code')); ?>
                 </div>
             </div>
 
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('vendor_material_code', array('id'=> 'vendor-material-code',  'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Code', 'readonly')); ?>
+                    <?php echo $this->Form->control('description', array('type' => 'text','class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Description', 'readonly')); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">
@@ -45,14 +51,14 @@
                 </div>
             </div>
             <div class="col-sm-8 col-md-3 d-flex justify-content-start align-items-end">
-                <button type="button" class="btn btn-custom" onclick="showConfirmationModal()">Submit</button>
+                <button type="button" class="btn btn-custom" data-toggle="modal" data-target="#modal-sm" id="stockClick">Submit</button>
+                <button type="submit" style="display: none;" id="stockInputSubmit">Submit</button>
             </div>
         </div>
     </div>
 </div>
 
-
-
+<?= $this->Form->end() ?>
 <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
@@ -61,13 +67,11 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn" style="border:1px solid #28a745">Ok</button>
+                <button type="button" class="btn addSubmit" style="border:1px solid #28a745">Ok</button>
             </div>
         </div>
     </div>
 </div>
-
-<?= $this->Form->end() ?>
 
 
 
@@ -93,9 +97,10 @@
                 <span id="filessnames"></span>
             </div>
             <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">
-                <button class="btn btn-custom" id="sapvendorcode" type="submit">
+                <button class="btn btn-custom" data-toggle="modal" data-target="#modal-sm" id="sapvendorcode" type="button">
                     Submit
                 </button>
+                <button type="submit" style="display: none;" id="stockFileSubmit">Submit</button>
             </div>
             <div class="col-sm-12 col-md-12 mt-3">
                 <i style="color: black;">
@@ -115,6 +120,7 @@
                     <th>Material Code</th>
                     <th>Unit Of Measurement</th>
                     <th>Opening Stock</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -125,27 +131,30 @@
 
                             <tr>
                                 <td>
-                                    <?= h($stockuploads['descr']) ?>
+                                    <?= h($stockuploads['data']['desc']) ?>
                                 </td>
                                 <td>
-                                    <?= h($stockuploads['vendorCode']) ?>
+                                    <?= h($stockuploads['data']['material_code']) ?>
                                 </td>
                                 <td>
-                                    <?= h($stockuploads['uomCode']) ?>
+                                    <?= h($stockuploads['data']['uoms']) ?>
                                 </td>
                                 <td>
                                     <?= h($stockuploads['data']["opening_stock"]) ?>
+                                </td>
+                                <td>
+                                    <?= h($stockuploads["msg"]) ?>
                                 </td>
                             </tr>
                         <?php else : ?>
                             <tr>
                                 <td>
-                                    <?= h($stockuploads['data']) ?>
+                                    <?= h($stockuploads['data']['desc']) ?>
                                 </td>
                                 <td>
-                                    <?= h($stockuploads['vendorCode']) ?>
+                                    <?= h($stockuploads['data']['material_code']) ?>
                                 </td>
-                                <td colspan="1"></td>
+                                <td colspan="2"></td>
                                 <td class="text-danger text-left">
                                     <?= h($stockuploads["msg"]) ?>
                                 </td>
@@ -153,7 +162,6 @@
                         <?php endif; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
-            </tbody>
             </tbody>
         </table>
     </div>
@@ -163,11 +171,33 @@
 
 
 <script>
-    function showConfirmationModal() {
-        $('#modal-sm').modal('show');
-    }
+
+    
+   
+    $('#stockClick').click(function() {
+        submitStatus = true
+    });
+
+    $('#sapvendorcode').click(function() {
+        submitStatus = false
+        console.log(submitStatus);
+    });
+
+
+    $('.addSubmit').click(function() {
+        if (submitStatus) {
+            $("#stockInputSubmit").trigger('click');           
+            $('#stockuploadForm')[0].reset();          
+        }
+        else{
+            $("#stockFileSubmit").trigger('click');  
+            $('#sapvendorcodeform')[0].reset();  
+        }
+    });
+
 
     $(document).ready(function() {
+
         $('#OpenImgUpload').click(function() {
             $('#vendorCodeInput').trigger('click');
         });
@@ -185,7 +215,7 @@
             if (vendorId != "") {
                 $.ajax({
                     type: "get",
-                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'vendor-material')); ?>/" + vendorId,
+                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'material')); ?>/" + vendorId,
                     dataType: "json",
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader(
@@ -195,7 +225,7 @@
                     },
                     success: function(response) {
                         if (response.status == "1") {
-                            $("#vendor-material-code").val(response.data.code);
+                            $("#description").val(response.data.description);
                             $("#uom").val(response.data.uom);
                         }
                     },

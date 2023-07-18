@@ -14,6 +14,10 @@
         padding: 0.2rem
     }
 </style> -->
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_vendorCustom') ?>
 <div class="poHeaders index content card" class="card-header">
     <!-- <div class="card-header">

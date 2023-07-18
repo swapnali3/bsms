@@ -5,10 +5,14 @@
  * @var \App\Model\Entity\VendorMaterial $vendorMaterial
  */
 ?>
-</style>
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 
 <?= $this->Form->create($vendorMaterial, ['id' => 'vendormaterialform']) ?>
+<?= $this->Form->control('vendorMaterial_id', array( 'type' => 'hidden', 'value' => $vendorMaterial)); ?>
 <div class="card">
     <div class="card-header pb-1 pt-2">
         <div class="row">
@@ -39,7 +43,7 @@
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <?php echo $this->Form->control('uom', [
                         'class' => 'form-control w-100',
                         'options' => $uom,
@@ -48,7 +52,9 @@
                         'value' => '',
                         'required'
                     ]); ?>
-                </div>
+                </div> -->
+
+                <?php echo $this->Form->control('uom', ['class' => 'selectpicker form-control my-select w-100', 'options' => $uom, 'style' => 'height: unset !important;','data-live-search' => 'true',  'empty' => 'Please Select','title' => 'Select Uom']); ?>
             </div>
 
             <div class="col-sm-8 col-md-3 d-flex justify-content-start align-items-end">
@@ -168,8 +174,6 @@
         </table>
     </div>
 </div>
-
-
 <script>
     function showConfirmationModal() {
         $('#modal-sm').modal('show');
@@ -180,6 +184,10 @@
     //     $('#vendormaterialform')[0].reset();
     // });
 
+    $(function() {
+        $('.my-select').selectpicker();
+    });
+
     $(document).ready(function() {
 
         $('#OpenImgUpload').click(function() {
@@ -187,7 +195,7 @@
         });
         $('#vendorCodeInput').change(function() {
             var file = $(this).prop('files')[0].name;
-            $("#filessnames").append(file);
+            $("#filessnames").empty().append(file);
         });
 
         setTimeout(function() {

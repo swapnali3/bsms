@@ -5,8 +5,11 @@
  * @var iterable<\App\Model\Entity\Stockupload> $stockupload
  */
 ?>
-</style>
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <div class="card">
     <div class="card-header pb-1 pt-2">
         <div class="row">
@@ -31,7 +34,7 @@
             <tbody>
                 <?php if (isset($stockupload)) : ?>
                     <?php foreach ($stockupload as $stockuploads) : ?>
-                        <tr class="redirect" data-href="<?= $this->Url->build('/') ?>vendor/stockupload/edit/<?= $stockuploads->id ?>">
+                        <tr class="redirect" data-href="<?= $this->Url->build('/') ?>vendor/stock-uploads/edit/<?= $stockuploads->id ?>">
                             <td>
                                 <?= h($stockuploads->vm_vendor_code) ?>
                             </td>

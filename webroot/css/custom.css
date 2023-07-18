@@ -126,6 +126,7 @@ table#example1 tr th,table#example1 tr td{
     padding: 5px;
     margin-bottom: 0px;
     font-size: 12px;
+    color: #1f2d3d;
 }
 #example1 .view-btn {
     background-color: #138496;

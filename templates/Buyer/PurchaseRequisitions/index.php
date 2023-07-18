@@ -4,7 +4,11 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
- <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="poHeaders index content card PR">
     <!-- <div class="card-header">
         <h5>

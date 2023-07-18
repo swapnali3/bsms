@@ -5,6 +5,10 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_vendorCustom') ?>
 <div class="poHeaders index content card purchase-order">
   <div class="card-body">
@@ -296,7 +300,7 @@
 
           } else {
 
-            $('.related .notify').css('display','none');
+            $('.related').find('.flagButton .notify').css('display','none');
             //     $(".related tbody:first").empty().hide().append(`<tr>
             //   <td colspan="6" class="text-center">
             //     <p>No data found !</p>

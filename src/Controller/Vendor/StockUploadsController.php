@@ -72,41 +72,115 @@ class StockUploadsController extends VendorAppController
      */
     public function add()
     {
+
+        $this->loadModel('Uoms');
+
         $flash = [];
         $this->loadModel("Materials");
+        $this->loadModel("StockUploads");
         $stockupload = $this->StockUploads->newEmptyEntity();
 
+        $stockUpload = [];
+        $stockView = [];
+        $flash = [];
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
+        $sapVendor = $session->read('vendor_code');
+
         if ($this->request->is('post')) {
-            $requestData = $this->request->getData();
-            $vendorMaterialCode = $requestData['vendor_material_code'];
 
-            $VendorMaterials = $this->Materials->find('all', [
-                'conditions' => ['Materials.code' => $vendorMaterialCode]
-            ])->first();
+            $importFile = $this->request->getData('vendor_code');
+            if (isset($_FILES['vendor_code']) && $_FILES['vendor_code']['name'] != "" && $importFile !== null && isset($_FILES['vendor_code']['name'])) {
+                $destination = "uploads/";
+                $filename = $_FILES['vendor_code']['name'];
+                $path = $destination . $filename;
+                move_uploaded_file($_FILES['vendor_code']['tmp_name'], $path);
+                $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($path);
+                $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                $spreadsheet = $reader->load($path);
+                $worksheet = $spreadsheet->getActiveSheet();
 
-            $requestData['sap_vendor_code'] = $VendorMaterials->sap_vendor_code;
-            $requestData['material_id'] = $VendorMaterials->id;
+                foreach ($worksheet->getRowIterator(2) as $row) {
+                    $minivendor = [];
+                    foreach ($row->getCellIterator() as $cell) {
+                        $cellval = $cell->getValue();
+                        if (!empty($cellval)) {
+                            $minivendor[] = $cellval;
+                        }
+                    }
 
-            $stockupload = $this->StockUploads->patchEntity($stockupload, $requestData);
-            if ($this->StockUploads->save($stockupload)) {
-                $flash = ['type'=>'success', 'msg'=>'The stock Upload has been saved'];
-                $this->set('flash', $flash);
-
-                return $this->redirect(['action' => 'index']);
+                    array_push($stockUpload, $minivendor);
+                }
             }
-            $flash = ['type'=>'success', 'msg'=>'The stockupload could not be saved. Please, try again'];
-            $this->set('flash', $flash);
+
+
+
+            if (empty($minivendor)) {
+                $minivendor = [];
+                $res = $this->request->getData();
+                //  print_r($res);exit;
+
+                if ($res["code"] && $res["description"] && $res["opening_stock"] && $res["uom"]) {
+
+                    $VendorMaterials = $this->paginate($this->Materials->find('all', [
+                        'conditions' => ['Materials.id' => $res['code']]
+                    ]))->first();
+                    array_push($minivendor, $VendorMaterials->code);
+                    array_push($minivendor, $res["opening_stock"]);
+                    array_push($stockUpload, $minivendor);
+                }
+            }
+
+
+            foreach ($stockUpload as $stockuploads) {
+                if (!empty($stockuploads)) {
+                    $materialCode = $stockuploads[0];
+                    $VendorMaterials = $this->paginate($this->Materials->find('all', [
+                        'conditions' => ['Materials.code' => $materialCode]
+                    ]))->first();
+
+                    $stockData = array();
+                    $stockData['sap_vendor_code'] = $sapVendor;
+                    $stockData['material_id'] = $VendorMaterials->id;
+                    $stockData['opening_stock'] = $stockuploads[1];
+                    $stockData['desc'] =  $VendorMaterials->description;
+                    $stockData['material_code'] =  $VendorMaterials->code;
+                    $stockData['uoms'] =  $VendorMaterials->uom;
+
+
+
+                    $existingStockUpload = $this->StockUploads->find('all', [
+                        'conditions' => [
+                            'StockUploads.material_id' => $VendorMaterials->id,
+                        ]
+                    ])->first();
+
+                 if (!$existingStockUpload) {
+                    $stockupload = $this->StockUploads->newEmptyEntity();
+                    $stockupload = $this->StockUploads->patchEntity($stockupload, $stockData);
+                    if ($this->StockUploads->save($stockupload)) {
+                        $flash = ['type' => 'success', 'msg' => 'The stock Upload has been saved'];
+                        $this->set('flash', $flash);
+                        array_push($stockView, ['status' => true, 'msg' => "The vendor material has been saved.", 'data' => $stockData]);
+                    } else {
+                        array_push($stockView, ['status' => false, 'msg' => "The vendor material could not be saved. Please, try again.", 'data' => $stockData]);
+                    }
+                    } 
+                    else {
+                        array_push($stockView, ['status' => false, 'msg' => "Vendor material code already exits in stock upload", 'data' => $stockData]);
+                    }
+                }
+            }
+
+            $this->set('stockuploadData', $stockView);
         }
 
-        $vendor_mateial = $this->Materials->find('list', ['keyField' => 'id', 'valueField' => 'description'])->all();
-
-
-
+        $vendor_mateial = $this->Materials->find('list', ['keyField' => 'id', 'valueField' => 'code'])->all();
         $this->set(compact('stockupload', 'vendor_mateial'));
     }
 
 
-    public function vendorMaterial($id = null)
+    public function material($id = null)
     {
         $response = array();
         $response['status'] = 0;
@@ -118,7 +192,8 @@ class StockUploadsController extends VendorAppController
             $vendorMaterial = $this->Materials->find('all')
                 ->select([
                     'id', 'sap_vendor_code', 'code', 'description', 'minimum_stock',
-                    'uom'])
+                    'uom'
+                ])
                 ->where(['Materials.id' => $id])
                 ->first();
 
@@ -144,27 +219,28 @@ class StockUploadsController extends VendorAppController
     public function edit($id = null)
     {
         $flash = [];
-        $this->loadModel("VendorMaterial");
-        $stockupload = $this->Stockupload->get($id, [
+        $this->loadModel("Materials");
+        $stockupload = $this->StockUploads->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $stockupload = $this->Stockupload->patchEntity($stockupload, $this->request->getData());
-            if ($this->Stockupload->save($stockupload)) {
-                $flash = ['type'=>'success', 'msg'=>'The stockupload has been saved'];
+            $stockupload = $this->StockUploads->patchEntity($stockupload, $this->request->getData());
+            if ($this->StockUploads->save($stockupload)) {
+                $flash = ['type' => 'success', 'msg' => 'The stockupload has been saved'];
                 $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $flash = ['type'=>'success', 'msg'=>'The stockupload could not be saved. Please, try again'];
+            $flash = ['type' => 'success', 'msg' => 'The stockupload could not be saved. Please, try again'];
             $this->set('flash', $flash);
         }
+        $session = $this->getRequest()->getSession();
+        $sapVendor = $session->read('vendor_code');
+      //  print_r($sapVendor);
 
-        $vendor_mateial = $this->VendorMaterial->find('list', ['keyField' => 'id', 'valueField' => 'description'])->all();
-
-
-
-        $this->set(compact('stockupload','vendor_mateial'));
+        $vendor_mateial = $this->Materials->find('list', ['conditions' => ['sap_vendor_code' => $sapVendor],'keyField' => 'id', 'valueField' => 'code'])->all();
+    
+        $this->set(compact('stockupload', 'vendor_mateial'));
     }
 
     /**
@@ -180,12 +256,12 @@ class StockUploadsController extends VendorAppController
         $this->request->allowMethod(['post', 'delete']);
         $stockupload = $this->Stockupload->get($id);
         if ($this->Stockupload->delete($stockupload)) {
-            $flash = ['type'=>'success', 'msg'=>'The stockupload has been deleted'];
+            $flash = ['type' => 'success', 'msg' => 'The stockupload has been deleted'];
         } else {
-            $flash = ['type'=>'success', 'msg'=>'The stockupload could not be deleted. Please, try again'];
+            $flash = ['type' => 'success', 'msg' => 'The stockupload could not be deleted. Please, try again'];
         }
         $this->set('flash', $flash);
-        
+
         return $this->redirect(['action' => 'index']);
     }
 }
