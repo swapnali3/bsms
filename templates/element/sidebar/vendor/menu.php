@@ -61,7 +61,7 @@
 </li>
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fas fa-plus nav-icon"></i><p>Create ASN</p>'), ['controller' => 'purchase-orders', 'action' => 'create-asn'], ['class' => "nav-link $createAsnActive" , 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-plus nav-icon"></i><p>Create ASN</p>'), ['controller' => '/purchase-orders', 'action' => 'create-asn'], ['class' => "nav-link $createAsnActive" , 'escape' => false]) ?>
 </li>
 
 <li class="nav-item ">

@@ -405,4 +405,4 @@
 </div>
 <?php endif; ?>
 
-<?= $this->Html->script('v_dashboard_index.css') ?>
+<?= $this->Html->script('v_dashboard_index') ?>
