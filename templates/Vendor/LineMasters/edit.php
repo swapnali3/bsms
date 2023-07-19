@@ -4,34 +4,50 @@
  * @var \App\Model\Entity\LineMaster $lineMaster
  */
 ?>
+<?= $this->Html->css('v_index.css') ?>
+<?= $this->Html->css('custom_table') ?>
+<?= $this->Html->css('v_linemasters_edit') ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $lineMaster->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $lineMaster->id), 'class' => 'side-nav-item']
-            ) ?>
-            <?= $this->Html->link(__('List Line Masters'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="lineMasters form content">
-            <?= $this->Form->create($lineMaster) ?>
-            <fieldset>
-                <legend><?= __('Edit Line Master') ?></legend>
-                <?php
-                    echo $this->Form->control('sap_vendor_code');
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('uom');
-                    echo $this->Form->control('status');
-                    echo $this->Form->control('added_date');
-                    echo $this->Form->control('updated_date');
+    <div class="col-12">
+        <?= $this->Form->create($lineMaster) ?>
+        <div class="card">
+            <div class="card-header">
+
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <?php
+                    echo $this->Form->control('name', ['class'=> 'form-control']);
+                    ?>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <?php
+                        echo $this->Form->control('capacity', ['class'=> 'form-control']);
+                        ?>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <?php
+                        echo $this->Form->control('uom', ['class'=> 'form-control']);
+                        ?>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <?php
+                    echo $this->Form->control('sap_vendor_code', ['class'=> 'form-control', 'style' => 'visibility: hidden; position: absolute;','label' => false]);
                 ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <?php
+                    echo $this->Form->control('status', ['class'=> 'form-control', 'style' => 'visibility: hidden; position: absolute;','label' => false]);
+                ?>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <?= $this->Form->button(__('Submit'), ['class'=> 'btn btn-gradient-true']) ?>
+                <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'btn btn-gradient-false']) ?>
+            </div>
         </div>
+        <?= $this->Form->end() ?>
     </div>
 </div>

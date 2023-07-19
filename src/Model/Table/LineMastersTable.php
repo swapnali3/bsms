@@ -62,6 +62,11 @@ class LineMastersTable extends Table
             ->notEmptyString('name');
 
         $validator
+            ->decimal('capacity')
+            ->requirePresence('capacity', 'create')
+            ->notEmptyString('capacity');
+
+        $validator
             ->scalar('uom')
             ->maxLength('uom', 3)
             ->requirePresence('uom', 'create')
