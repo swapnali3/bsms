@@ -38,7 +38,7 @@
                         <tr>
                             <td><?= h($vendorMaterials->code) ?></td>
                             <td><?= h($vendorMaterials->description) ?></td>
-                            <td><?= h($vendorMaterials->minimum_stock ." ". $vendorMaterials->uom) ?></td>
+                            <td><?= h($vendorMaterials->minimum_stock . " " . $vendorMaterials->uom) ?></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
@@ -54,7 +54,6 @@
 </div>
 
 <script>
-    
     $(document).ready(function() {
         var table = $("#example1").DataTable({
             "paging": true,
@@ -64,6 +63,17 @@
             "searching": false,
             "ordering": false,
             "destroy": true,
+            "columns": [
+                {
+                    "data": "code"
+                },
+                {
+                    "data": "description"
+                },
+                {
+                    "data": "minimum_stock"
+                },
+            ]
         });
 
         setTimeout(function() {
@@ -74,32 +84,32 @@
             window.location.href = $(this).data("href");
         });
 
-        
+
 
         $(document).on("click", "#reload_stocks", function() {
             $.ajax({
-          type: "get",
-          url: "<?php echo \Cake\Routing\Router::url(array('prefix' => false,'controller' => 'api', 'action' => 'get-material-masters')); ?> ",
-          
-          dataType: 'json',
-          success: function(response) {
-            console.log(response);
-            if (response.status == '1') {
-              Toast.fire({
-                icon: 'success',
-                title: response.message
-              });
-              
-            } else {
-              Toast.fire({
-                icon: 'error',
-                title: response.message
-              });
-            }
+                type: "get",
+                url: "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'api', 'action' => 'get-material-masters')); ?> ",
 
-            table.draw();
-          }
-        });
+                dataType: 'json',
+                success: function(response) {
+                    console.log(response);
+                    if (response.status == '1') {
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.message
+                        });
+
+                        table.clear().rows.add(response.data).draw();
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.message
+                        });
+                    }
+
+                }
+            });
         });
 
     });

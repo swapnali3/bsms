@@ -1,3 +1,26 @@
+table{
+    font-size: small;
+}
+
+thead {
+    background-color: #527195 !important;
+    color: white;
+
+}
+
+.table>tbody {
+    background-color: #f5f7fd !important;
+    vertical-align: inherit;
+}
+
+
+td {
+    padding: .5rem !important;
+}
+
+th {
+    font-weight: 100;
+}
 p.po-no {
     color: #444;
     font-weight: 600;
@@ -102,8 +125,9 @@ div#past_messages::-webkit-scrollbar-track {
 }
 
 .bg-gradient-false {
-    color: black;
-    background-color: #c7c7c7;
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
 }
 
 .bg-gradient-false:hover {

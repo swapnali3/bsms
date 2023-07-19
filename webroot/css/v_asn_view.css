@@ -14,3 +14,37 @@ td {
 th {
     font-weight: 100;
 }
+
+.asnstatus {
+    font-size: 14px;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 5px 8px;
+    border-radius: 5px;
+}
+
+
+.btn-custom-2 {
+    background-color: #08132F;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.1rem;
+    padding: 10px 20px;
+}
+
+.btn-custom {
+    background-color: #8E9B2C;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1.1rem;
+    padding: 10px 20px;
+}
+
+.btn-custom:hover {
+    color: #fff !important;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-custom-2:hover {
+    color: #fff;
+}

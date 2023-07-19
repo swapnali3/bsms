@@ -8,6 +8,12 @@ thead {
 
 }
 
+.table>tbody {
+    background-color: #f5f7fd !important;
+    vertical-align: inherit;
+}
+
+
 td {
     padding: .5rem !important;
 }
@@ -161,3 +167,4 @@ th {
 .purchase-order .pono small {
     font-size: 11px;
 }
+

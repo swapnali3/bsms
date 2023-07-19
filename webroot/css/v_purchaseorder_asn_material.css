@@ -1,0 +1,67 @@
+table{
+    font-size: small;
+}
+
+thead {
+    background-color: #527195 !important;
+    color: white;
+
+}
+
+.table>tbody {
+    background-color: #f5f7fd !important;
+    vertical-align: inherit;
+}
+
+
+td {
+    padding: .5rem !important;
+}
+
+th {
+    font-weight: 100;
+}
+.file-upld-btn {
+    font-size: 12px;
+    text-transform: capitalize;
+}
+
+span.file-delete i {
+    padding-right: 5px;
+}
+
+.file__value {
+    font-size: 0.8rem;
+}
+
+span.file-block {
+    display: inline-block;
+    padding-top: 10px;
+    padding-right: 15px;
+}
+.modal-footer .btn {
+    font-weight: 700;
+}
+
+.table tbody tr td {
+    font-size: 14px;
+}
+
+.table td, .table th {
+    padding: 0.75rem;
+}
+
+.btn.btn-link:hover, .btn.btn-link:focus {
+    box-shadow: none;
+}
+
+
+
+
+
+/* span#invoices-error {
+    margin-top: -36px;
+}
+.file-upld-btn {
+    margin-top: -55px;
+} */
