@@ -53,11 +53,11 @@
 </li>
 
 <!-- <li class="nav-item">
-  <?= $this->Html->link(__('<i class="far fa-user nav-icon"></i><p>Profile</p>'), ['controller' => 'vendor-temps', 'action' => 'view', 0], ['class' => "nav-link $profileActive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="far fa-user nav-icon"></i><p>Profile</p>'), ['controller' => 'vendor-temps', 'action' => 'view', 0], ['class' => "nav-link  $profileActive", 'escape' => false]) ?>
 </li> -->
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link $polickActive" , 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Purchase Orders</p>'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link po_acknowledge $polickActive" , 'escape' => false]) ?>
 </li>
 
 <li class="nav-item">
