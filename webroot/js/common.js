@@ -44,7 +44,6 @@ $(function () {
         method: "GET",
         dataType: "json",
         success: function (response) {
-           
             if (response.notifications.length > 0) {
                 $('.navbar-badge').text(response.notifications.length);
 
@@ -53,31 +52,37 @@ $(function () {
                 $('.notification-lists').empty();
     
                 $.each(response.notifications, function (index, notification) {
-                    var notificationItem = $('<a href="#" class="dropdown-item"></a>');
+                    var notificationItem = $('<span class="dropdown-item notificationId"></span>');
     
                     var icon = $('<i class="fas fa-envelope text-info mr-2"></i>');
+
+                    notificationItem.attr('data-id', notification.id);
                     notificationItem.append(icon);
 
                     if(notification.notification_type == "asn_material"){
 
-                        var message = $('<span></span>').text(notification.message_count + ' Asn Material');
+                        var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' Asn Material');
+                      
                      
                     }else if(notification.notification_type == "create_schedule"){
-                        var message = $('<span></span>').text(notification.message_count + ' Create Schedule');
+                        var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' Create Schedule');
                     
                     }else if(notification.notification_type == "po_acknowledge"){
-                        var message = $('<span></span>').text(notification.message_count + ' PO Acknowledge');
+                        var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' PO Acknowledge');
                     }else if(notification.notification_type == "vendor_material"){
-                    var message = $('<span></span>').text(notification.message_count + ' Vendor Material');
+                    var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' Vendor Material');
                 }else if(notification.notification_type == "production_line"){
-                    var message = $('<span></span>').text(notification.message_count + ' Production Line');
+                    var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' Production Line');
                 }
+
+                     message.attr('data-class', notification.notification_type);
                 
-                    
+                    var clearButton = $('<span class="clearNotifications float-end" style="color:#004d87">Clear</span>');
+                    clearButton.attr('id', notification.id);
                     notificationItem.append(message);
-    
-                    var divider = $('<div class="dropdown-divider"></div>');
-    
+                    notificationItem.append(clearButton);
+        
+                    var divider = $('<div class="dropdown-divider"></div>');  
                     $('.notification-lists').append(notificationItem, divider);
                 });
             } else {      

@@ -98,6 +98,10 @@
     .user-info h6 {
         white-space: initial;
     }
+
+    .notification-lists .notificationTittle {
+        color: #16181b;
+    }
 </style>
 
 <ul class="navbar-nav">
@@ -108,7 +112,9 @@
 </ul>
 
 <div class="navbar card-header" style="margin-top:0.3vw;border-bottom:none;">
-    <h4><b><?= (isset($headTitle)) ? $headTitle : '' ?></b></h4>
+    <h4><b>
+            <?= (isset($headTitle)) ? $headTitle : '' ?>
+        </b></h4>
     <!-- <b>
     <img src="<?= $this->Url->build('/') ?>img/rect_logo.png" alt="vekpro" style="width: 8vw;">
   </b> -->
@@ -126,10 +132,11 @@
             <i class="far fa-bell"></i>
             <span class="badge badge-warning navbar-badge custom-i">0</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list"
+            style="left: inherit; right: 0px;">
             <div class="d-flex justify-content-between">
                 <span class="dropdown-header notifyView"> Notifications</span>
-                <span class="dropdown-header clearNotifications" style="color:#004d87">Clear</span>
+                <span class="dropdown-header  clearNotificationsAll" style="color:#004d87">Clear All</span>
             </div>
 
             <div class="dropdown-divider"></div>
@@ -151,18 +158,20 @@
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <div class="user-panel d-flex">
                 <div class="image">
-                    <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2" alt="User Image" style="box-shadow:none !important;margin-right:15px">
-
-
+                    <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2"
+                        alt="User Image" style="box-shadow:none !important;margin-right:15px">
                 </div>
             </div>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting" style="left: inherit; right: 10px;">
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting"
+            style="left: inherit; right: 10px;">
             <span class="dropdown-header">
-                <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle" alt=""></span>
+                <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png"
+                            class="img-circle" alt=""></span>
                     <div class="user-info text-left">
                         <h6 class="mb-0 text-info">
-                            <?php echo $this->getRequest()->getSession()->read('first_name'); ?></h6>
+                            <?php echo $this->getRequest()->getSession()->read('first_name'); ?>
+                        </h6>
                     </div>
                 </div>
                 <!-- <p class="unm">Snehal</p>
@@ -171,19 +180,22 @@
             <div class="dropdown-divider"></div>
 
             <?php if ($role == 2) : ?>
-                <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>" class="dropdown-item">
-                    <i class="fas fa-user-cog text-info mr-2"></i>
-                    <span>Profile</span>
-                </a>
+            <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>"
+                class="dropdown-item">
+                <i class="fas fa-user-cog text-info mr-2"></i>
+                <span>Profile</span>
+            </a>
             <?php endif; ?>
             <?php if ($role == 3) : ?>
-                <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>" class="dropdown-item">
-                    <i class="fas fa-user-cog text-info mr-2"></i>
-                    <span>Profile</span>
-                </a>
+            <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>"
+                class="dropdown-item">
+                <i class="fas fa-user-cog text-info mr-2"></i>
+                <span>Profile</span>
+            </a>
             <?php endif; ?>
             <div class="dropdown-divider"></div>
-            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>" class="dropdown-item">
+            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>"
+                class="dropdown-item">
                 <i class="fas fa-power-off text-danger mr-2"></i>
                 <span>Logout</span>
             </a>
@@ -207,18 +219,75 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('.clearNotifications').click(function(event) {
-
-            
 
 
+    $(document).on("click", ".notificationTittle", function (event) {
+        var menu_class = $(this).data("class");
+        var targetElement = document.querySelector("." + menu_class);
+
+        if (targetElement) {
+            targetElement.click();
+        }
+
+
+    });
+
+
+
+    $(document).ready(function () {
+
+        $(document).on("click", ".clearNotifications", function (event) {
             event.stopPropagation();
+            var dataId = $(this).attr('id');
             $.ajax({
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'dashboard', 'action' => 'clear-message-count')); ?>",
+                data: {
+                    id: dataId
+                },
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
+                    if (response.status === 1) {
+                        $('.notificationId[data-id="' + dataId + '"]').remove();
+
+                        var currentCount = parseInt($('.navbar-badge.custom-i').text());
+                        var newCount = currentCount - 1;
+                        $('.navbar-badge.custom-i').text(newCount);
+
+                        if (newCount === 0) {
+                            $('.notification-list').empty();
+                            $('.notification-list').append('<div class="dropdown-item">No Notifications</div>');
+                        } else {
+                            $('.dropdown-header.notifyView').text(newCount + ' Notifications');
+                        }
+                    }
+
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        });
+
+
+        $('.clearNotificationsAll').click(function (event) {
+
+            event.stopPropagation();
+            var ids = [];
+
+            $('.notificationId').each(function () {
+                var dataId = $(this).data('id');
+                ids.push(dataId);
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'dashboard', 'action' => 'clear-message-count')); ?>",
+                data: {
+                    id: ids
+                },
+                dataType: 'json',
+                success: function (response) {
 
                     $('.navbar-badge.custom-i').text('0');
                     $('.notification-list').empty();
@@ -226,7 +295,7 @@
                     $('.notification-list').append('<div class="dropdown-item">No Notifications</div>');
 
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.log(error);
                 }
             });
