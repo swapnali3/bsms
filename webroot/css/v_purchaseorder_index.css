@@ -1,3 +1,28 @@
+table{
+    font-size: small;
+}
+
+thead {
+    background-color: #527195 !important;
+    color: white;
+
+}
+
+.table>tbody {
+    background-color: #f5f7fd !important;
+    vertical-align: inherit;
+}
+
+
+td {
+    padding: .5rem !important;
+}
+
+th {
+    font-weight: 100;
+}
+
+
 .purchase-order .d-flex::-webkit-scrollbar {
     height: 10px;
     width: 10px;
@@ -143,3 +168,4 @@
 .purchase-order .pono small {
     font-size: 11px;
 }
+

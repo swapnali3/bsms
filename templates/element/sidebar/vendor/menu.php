@@ -9,7 +9,7 @@
      <?php $asnActive = ($controller == 'Asn') ? 'active' : '';?>
      <?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : '';?>
      <?php $materialMaster = ($controller == 'Materials') ? 'active' : ''; ?>
-     <?php $stocksUpload = ($controller == 'stockUploads') ? 'active' : ''; ?>
+     <?php $stocksUpload = ($controller == 'StockUploads') ? 'active' : ''; ?>
      <?php $productionLine = ($controller == 'ProductionLines') ? 'active' : ''; ?>
      <?php $dailyStock = ($controller == 'Dailymonitor') ? 'active' : ''; ?>
      <?php $intransit = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
@@ -68,9 +68,9 @@
   <?= $this->Html->link(__('<i class="fas fa-list nav-icon"></i><p>ASN List</p>'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
 </li>
 
-<li class="nav-item ">
+<!-- <li class="nav-item ">
   <?= $this->Html->link(__('<i class="fas fa-pen-square nav-icon"></i><p>RFQs</p>'), ['controller' => 'rfqs', 'action' => 'index'], ['class' => "nav-link $rfqlickActive" , 'escape' => false]) ?>
-</li>
+</li> -->
 
 <!-- <li class="nav-item ">
   <?= $this->Html->link(__('<i class="fas fa-box-open nav-icon"></i><p>Material Stocks</p>'), ['controller' => 'vendor-material-stocks', 'action' => 'index'], ['class' => "nav-link $stockActive", 'escape' => false]) ?>
@@ -89,7 +89,7 @@
     <?= $this->Html->link(__('<i class="fas fa-boxes nav-icon"></i><p>Material Master</p>'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
-    <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stockUploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+    <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
     <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Production Line</p>'), ['controller' => 'ProductionLines', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>

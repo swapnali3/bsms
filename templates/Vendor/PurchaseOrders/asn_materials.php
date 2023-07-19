@@ -5,40 +5,14 @@
  * @var \App\Model\Entity\PoHeader $poHeader
  */
 ?>
-<?= $this->Html->css('cstyle.css') ?>
-<style>
-  .file-upld-btn {
-    font-size: 12px;
-    text-transform: capitalize;
-  }
-
-  span.file-delete i {
-    padding-right: 5px;
-  }
-
-  .file__value {
-    font-size: 0.8rem;
-  }
-
-  span.file-block {
-    display: inline-block;
-    padding-top: 10px;
-    padding-right: 15px;
-  }
-
-  /* span#invoices-error {
-    margin-top: -36px;
-}
-.file-upld-btn {
-    margin-top: -55px;
-} */
-</style>
-<?= $this->Html->css('table.css') ?>
-<?= $this->Html->css('listing.css') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?> -->
 <?= $this->Html->css('v_index.css') ?>
 <link rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('v_purchaseorder_asn_material') ?>
 <?= $this->Form->create(null, ['url' => '/vendor/purchase-orders/view/' . $poHeader[0]->id, 'type' => 'file', 'id' => 'asnForm']) ?>
 <?= $this->form->control('po_header_id', ['label' => false, 'type' => 'hidden', 'value' => $poHeader[0]->id]) ?>
 <div class="create-asn">
