@@ -3,23 +3,6 @@
     font-size: x-large;
 }
 
-table{
-    font-size: small;
-}
-
-thead {
-    background-color: #527195 !important;
-    color: white;
-}
-
-td {
-    padding: .5rem !important;
-}
-
-th {
-    font-weight: 100;
-}
-
 .i .fas.fa-truck {
     color: #fff;
     background-color: #E46161;

@@ -11,6 +11,13 @@ namespace App\Controller\Vendor;
  */
 class LineMastersController extends VendorAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->loadModel('LineMasters');
+        $this->set('flash', $flash);
+    }
     /**
      * Index method
      *

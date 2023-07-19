@@ -9,6 +9,7 @@
 <!-- <?= $this->Html->css('custom') ?> -->
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
+<?= $this->Html->css('custom_table.css') ?>
 <?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_dashboard_index.css') ?>
 

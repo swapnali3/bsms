@@ -35,6 +35,10 @@
                     <td><?= $this->Number->format($lineMaster->name) ?></td>
                 </tr>
                 <tr>
+                    <th><?= __('Capacity') ?></th>
+                    <td><?= $this->Number->format($lineMaster->capacity) ?></td>
+                </tr>
+                <tr>
                     <th><?= __('Status') ?></th>
                     <td><?= $this->Number->format($lineMaster->status) ?></td>
                 </tr>

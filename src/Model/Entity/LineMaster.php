@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $sap_vendor_code
  * @property int $name
+ * @property string $capacity
  * @property string $uom
  * @property int $status
  * @property \Cake\I18n\FrozenTime $added_date
@@ -30,6 +31,7 @@ class LineMaster extends Entity
     protected $_accessible = [
         'sap_vendor_code' => true,
         'name' => true,
+        'capacity' => true,
         'uom' => true,
         'status' => true,
         'added_date' => true,
