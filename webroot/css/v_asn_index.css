@@ -1,0 +1,20 @@
+.deliveryDetails #example1_filter input.form-control.form-control-sm {
+    margin-left: 0px !important;
+}
+
+table{
+    font-size: small;
+}
+
+thead {
+    background-color: #527195 !important;
+    color: white;
+}
+
+td {
+    padding: .5rem !important;
+}
+
+th {
+    font-weight: 100;
+}

@@ -724,6 +724,7 @@ class VendorTempsController extends BuyerAppController
 
         echo json_encode($response);
     }
+
     public function sapEdit($id = null)
     {
 
@@ -844,6 +845,18 @@ class VendorTempsController extends BuyerAppController
         $response['status'] = 1;
         $response['message'] = 'Credentials Mail Send successfully';
         echo json_encode($response);
+    }
+
+    public function bulkupdate($status_id = null, $user_arr = array()){
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            try {
+                $data = $this->request->getData();
+                echo '<pre>'; print_r($data);exit;
+            } catch (\Exception $e) {
+                $response['status'] = '0';
+                $response['message'] = $e->getMessage();
+            }
+        }
     }
 }
 

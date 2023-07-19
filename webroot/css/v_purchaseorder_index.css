@@ -1,0 +1,163 @@
+table{
+    font-size: small;
+}
+
+thead {
+    background-color: #527195 !important;
+    color: white;
+
+}
+
+td {
+    padding: .5rem !important;
+}
+
+th {
+    font-weight: 100;
+}
+
+.purchase-order .d-flex::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+.purchase-order .d-flex::-webkit-scrollbar-thumb {
+    background: #BEBEFF;
+    border-radius: 20px;
+}
+
+.purchase-order .d-flex::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 20px;
+}
+
+.active {
+    background-color: #d4ddf7;
+}
+
+.purchase-order .po-list {
+    border: 1px solid #ddd;
+    background-color: #f5f7fd;
+}
+
+.search-bar {
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    width: 260px;
+    padding: 5px 10px;
+    justify-content: space-between;
+}
+
+.search-bar input.search-box {
+    border: none;
+    font-size: 13px;
+    width: 100%;
+    height: 32px !important;
+    padding-left: 5px;
+}
+
+.search-bar .btn-go {
+    font-size: 12px;
+    padding: 7px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: #527195;
+    color: #fff;
+    border: 1px solid #527195;
+}
+
+.search-box .fas.fa-search {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+.search-bar input.search-box {
+    border: none;
+    font-size: 13px;
+    width: 100%;
+    height: 32px !important;
+    padding-left: 5px;
+}
+
+.purchase-order .po-box {
+    border-right: 1px solid #ccc;
+    padding: 5px 20px;
+    width: 170px;
+    cursor: pointer;
+    color: #444;
+}
+
+.purchase-order .po-code {
+    font-size: 0.8rem;
+}
+
+.purchase-order .po-list .d-flex {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.purchase-order .po-box:hover {
+    background-color: #d4ddf7;
+}
+
+.purchase-order .pono b {
+    color: #004d87;
+}
+
+.purchase-order .po-box .pono {
+    padding-bottom: 5px;
+}
+
+.purchase-order #example2 thead {
+    background-color: #B9E0F5 !important;
+}
+
+.purchase-order #example2 tbody {
+    background-color: #fff !important;
+}
+
+.purchase-order .pono small {
+    font-size: 11px;
+}
+
+.purchase-order .po-box {
+    border-right: 1px solid #ccc;
+    padding: 5px 20px;
+    width: 170px;
+    cursor: pointer;
+    color: #444;
+}
+
+.purchase-order .po-code {
+    font-size: 0.8rem;
+}
+
+.purchase-order .po-list .d-flex {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.purchase-order .po-box:hover {
+    background-color: #d4ddf7;
+}
+
+.purchase-order .pono b {
+    color: #004d87;
+}
+
+.purchase-order .po-box .pono {
+    padding-bottom: 5px;
+}
+
+.purchase-order #example2 thead {
+    background-color: #b0c235 !important
+}
+
+.purchase-order #example2 tbody {
+    background-color: #fff !important;
+}
+
+.purchase-order .pono small {
+    font-size: 11px;
+}

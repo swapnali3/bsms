@@ -5,79 +5,14 @@
  */
 ?>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-
-
-<!-- Main content -->
-<style>
-  .i .fas.fa-truck {
-    color: #fff;
-    background-color: #E46161;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 21px;
-  }
-
-  .i .fa-cart-plus {
-    color: #fff;
-    background-color: #B1BD68;
-    padding: 15px;
-    border-radius: 8px;
-    font-size: 21px;
-  }
-
-  .i {
-    align-self: center;
-  }
-
-  .txt h3 {
-    color: #878a99;
-    font-size: 1.2rem;
-    margin-bottom: 0px;
-  }
-
-  .btn-action {
-    border-top: 1px solid #ddd;
-    margin-top: 15px;
-    text-align: right;
-  }
-
-  .btn-action .btn {
-    color: #fff;
-    font-weight: 600;
-    font-size: 12px;
-    padding: 5px 10px;
-    margin-top: 15px;
-    margin-bottom: 0px;
-    background-color: #112A68;
-  }
-
-  .txt h5 {
-    font-size: 28px;
-    margin-bottom: 0px;
-  }
-
-  .d-box {
-    background-color: #fff;
-    padding: 25px;
-    justify-content: space-between;
-    box-shadow: 0 3px 3px rgba(56, 65, 74, 0.1);
-    border-radius: 5px;
-  }
-
-  /* .table> :not(caption)>*>*{
-    padding:0rem
-    
-  }
-  .table thead th{
-    padding:0rem
-  } */
-</style>
-<?= $this->Html->css('cstyle.css') ?>
-<?= $this->Html->css('custom') ?>
-<?= $this->Html->css('table.css') ?>
-<?= $this->Html->css('listing.css') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('custom') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
+<!-- <?= $this->Html->css('listing.css') ?> -->
 <?= $this->Html->css('v_index.css') ?>
-<div class="row pt-3">
+<?= $this->Html->css('v_dashboard_index.css') ?>
+
+<div class="row p-1">
 
   <!-- <div class="col-sm-12 col-lg-3">
     <div class="card mb-2" style="border-radius:1rem;">
@@ -127,7 +62,7 @@
     <div class="card  mb-2" style="border-radius:1rem;">
       <div class="card-header p-3 pt-2 bg-transparent">
         <div
-class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl  position-absolute">
+          class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl  position-absolute">
           <i class="material-icons opacity-10">local_shipping</i>
         </div>
         <i class="fas fa-truck"></i>
@@ -146,95 +81,145 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
     </div>
   </div> -->
 
-  <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4">
-    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
-      <div class="d-box">
-        <div class="d-flex justify-content-between text-right">
-          <div class="i">
-            <i class="fas fa-cart-plus"></i>
-          </div>
-          <div class="txt">
-            <h3>Purchase Order</h3>
-            <h5>
-              <?= $totalPos ?>
-            </h5>
-          </div>
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 mb-3">
+    <div class="d-box">
+      <div class="d-flex justify-content-between text-right">
+        <div class="i">
+          <i class="fas fa-cart-plus"></i>
         </div>
-        <div class="btn-action">
-          <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'btn ', 'escape' => false]) ?>
+        <div class="txt">
+          <h3>Purchase Order</h3>
+          <h5>
+            <?= $totalPos ?>
+          </h5>
         </div>
       </div>
-    </div>
-    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
-      <div class="d-box">
-        <div class="d-flex justify-content-between text-right">
-          <div class="i">
-            <i class="fas fa-truck"></i>
-          </div>
-          <div class="txt">
-            <h3>In Transit</h3>
-            <h5>
-              <?= $totalIntransit ?>
-            </h5>
-          </div>
-        </div>
-        <div class="btn-action">
-          <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'btn', 'escape' => false]) ?>
-        </div>
+      <div class="btn-action">
+        <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'btn ', 'escape' => false]) ?>
       </div>
     </div>
   </div>
-  <div class="col-sm-12 col-md-12 col-lg-8 col-xl-8">
 
+  <div class="col-sm-12 col-md-4 col-lg-4 col-xl-3 mb-3">
+    <div class="d-box">
+      <div class="d-flex justify-content-between text-right">
+        <div class="i">
+          <i class="fas fa-truck"></i>
+        </div>
+        <div class="txt">
+          <h3>In Transit</h3>
+          <h5>
+            <?= $totalIntransit ?>
+          </h5>
+        </div>
+      </div>
+      <div class="btn-action">
+        <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'btn', 'escape' => false]) ?>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row p-1">
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
       <div class="card">
-        <div class="card-header">
+        <div class="card-header camelcaps">
           Stock By Material
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-bordered table-hover table-striped" style="border-top: 1px solid #dee2e6">
+            <thead>
+              <tr>
+                <th>Material</th>
+                <th>Opening Stock</th>
+                <th>Production Stock</th>
+                <th>ASN Stock</th>
+                <th>Closing Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Coarse Aggregate 60mm</td>
+                <td>30</td>
+                <td>22</td>
+                <td>50</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Coarse Aggregate 10mm</td>
+                <td>30</td>
+                <td>22</td>
+                <td>50</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Coarse Aggregate 20mm</td>
+                <td>30</td>
+                <td>22</td>
+                <td>50</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Coarse Aggregate 40mm</td>
+                <td>30</td>
+                <td>22</td>
+                <td>50</td>
+                <td>2</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
+    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
+      <div class="card">
+        <div class="card-header camelcaps">
+          Stock Intransit
         </div>
         <div class="card-body table-responsive">
           <table class="table table-bordered table-hover table-striped">
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Material</th>
-                <th>Opening Stock</th>
-                <th>Production Stock</th>
-                <th>ASN Stock</th>
-                <th>Stock</th>
+                <th>Invoice Date</th>
+                <th>Invoice No</th>
+                <th>Purchase Order</th>
+                <th>ASN No</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>11/07/2023</td>
-                <td>Coarse Aggregate 60mm</td>
-                <td>30</td>
-                <td>22</td>
-                <td>50</td>
-                <td>2</td>
+                <td>234</td>
+                <td>4510000421</td>
+                <td>4510000421</td>
+                <td>Received</td>
               </tr>
               <tr>
                 <td>11/07/2023</td>
-                <td>Coarse Aggregate 60mm</td>
-                <td>30</td>
-                <td>22</td>
-                <td>50</td>
-                <td>2</td>
+                <td>234</td>
+                <td>4510000421</td>
+                <td>4510000421</td>
+                <td>Intransit</td>
               </tr>
               <tr>
                 <td>11/07/2023</td>
-                <td>Coarse Aggregate 60mm</td>
-                <td>30</td>
-                <td>22</td>
-                <td>50</td>
-                <td>2</td>
+                <td>234</td>
+                <td>4510000421</td>
+                <td>4510000421</td>
+                <td>Created</td>
               </tr>
               <tr>
                 <td>11/07/2023</td>
-                <td>Coarse Aggregate 60mm</td>
-                <td>30</td>
-                <td>22</td>
-                <td>50</td>
-                <td>2</td>
+                <td>234</td>
+                <td>4510000421</td>
+                <td>4510000421</td>
+                <td>Received</td>
               </tr>
             </tbody>
           </table>
@@ -265,8 +250,6 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
       </div>
     </div>
   </div> -->
-
-
 
 </div>
 
@@ -422,34 +405,4 @@ class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center bo
 </div>
 <?php endif; ?>
 
-
-</section>
-
-<script>
-  $(document).ready(function () {
-    $("#newrfqlist").DataTable({
-      "responsive": false, "lengthChange": false, "autoWidth": false,
-      "ordering": false,
-      "searching": false,
-      "paging": false
-
-    });
-
-    $("#respondedrfqlist").DataTable({
-      "responsive": false, "lengthChange": false, "autoWidth": false,
-      "ordering": false,
-      "searching": false,
-      "paging": false
-
-    });
-
-
-    $('#newrfqlist, #respondedrfqlist').on('click', 'tbody tr', function () {
-      window.location = $(this).closest('tr').attr('redirect');
-    });
-
-  });
-
-
-
-</script>
+<?= $this->Html->script('v_dashboard_index') ?>
