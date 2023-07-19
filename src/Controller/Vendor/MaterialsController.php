@@ -36,10 +36,10 @@ class MaterialsController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
 
-        $this->loadModel('materials');
+        $this->loadModel('Materials');
 
-        $vendorMaterial = $this->materials->find('all', [
-            'conditions' => ['materials.sap_vendor_code' => $session->read('vendor_code')]
+        $vendorMaterial = $this->Materials->find('all', [
+            'conditions' => ['Materials.sap_vendor_code' => $session->read('vendor_code')]
         ])->select([
             'id', 'sap_vendor_code', 'code', 'description', 'minimum_stock','uom'
         ])->toArray();

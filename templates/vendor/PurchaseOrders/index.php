@@ -277,7 +277,7 @@
 
           } else {
 
-            $('.related .notify').css('display','none');
+            $('.related').find('.flagButton .notify').css('display','none');
             //     $(".related tbody:first").empty().hide().append(`<tr>
             //   <td colspan="6" class="text-center">
             //     <p>No data found !</p>

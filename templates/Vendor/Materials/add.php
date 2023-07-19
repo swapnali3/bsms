@@ -5,13 +5,6 @@
  * @var \App\Model\Entity\VendorMaterial $vendorMaterial
  */
 ?>
-
-<?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
-<?= $this->Html->css('CakeLte./AdminLTE/plugins/summernote/summernote.min.css') ?>
-
-<?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
-<?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 <?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table.css') ?>
@@ -19,6 +12,7 @@
 <?= $this->Html->css('v_index.css') ?>
 
 <?= $this->Form->create($vendorMaterial, ['id' => 'vendormaterialform']) ?>
+<?= $this->Form->control('vendorMaterial_id', array( 'type' => 'hidden', 'value' => $vendorMaterial)); ?>
 <div class="card">
     <div class="card-header pb-1 pt-2">
         <div class="row">
@@ -180,13 +174,6 @@
         </table>
     </div>
 </div>
-<!-- jQuery -->
-<?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
-<?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
-<?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
-<?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
-<?= $this->Html->script('CakeLte./AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>
-
 <script>
     function showConfirmationModal() {
         $('#modal-sm').modal('show');
@@ -208,7 +195,7 @@
         });
         $('#vendorCodeInput').change(function() {
             var file = $(this).prop('files')[0].name;
-            $("#filessnames").append(file);
+            $("#filessnames").empty().append(file);
         });
 
         setTimeout(function() {

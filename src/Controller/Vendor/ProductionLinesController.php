@@ -91,10 +91,10 @@ class ProductionLinesController extends VendorAppController
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
             $vendorMaterialCode = $requestData['vendor_material_code'];
-           // print_r($vendorMaterialCode);exit;
+           //  print_r($vendorMaterialCode);exit;
 
             $VendorMaterials = $this->Materials->find('all', [
-                'conditions' => ['Materials.code' => $vendorMaterialCode]
+                'conditions' => ['Materials.id' => $vendorMaterialCode]
             ])->first();
 
             $requestData['sap_vendor_code'] = $VendorMaterials->sap_vendor_code;
@@ -135,9 +135,10 @@ class ProductionLinesController extends VendorAppController
             $this->set('flash', $flash);
         }
         
-         $session = $this->getRequest()->getSession();
-        $vendorId = $session->read('id');
-        $vendor_mateial = $this->Materials->find('list', [ 'conditions' => ['sap_Vendor_code' => $session->read('vendor_code')],'keyField' => 'id', 'valueField' => 'description'])->all();
+        $session = $this->getRequest()->getSession();
+        $sapVendor = $session->read('vendor_code');
+
+        $vendor_mateial = $this->Materials->find('list', ['conditions' => ['sap_vendor_code' => $sapVendor],'keyField' => 'id', 'valueField' => 'code'])->all();
 
 
         $this->set(compact('productionline','vendor_mateial'));
@@ -173,8 +174,7 @@ class ProductionLinesController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
 
-
-        $vendor_mateial = $this->Materials->find('list', [ 'conditions' => ['sap_vendor_code' => $session->read('vendor_code')],'keyField' => 'id', 'valueField' => 'description'])->all();
+        $vendor_mateial = $this->Materials->find('list', [ 'conditions' => ['sap_vendor_code' => $session->read('vendor_code')],'keyField' => 'id', 'valueField' => 'code'])->all();
 
         $this->set(compact('productionline','vendor_mateial'));
     }
