@@ -9,6 +9,7 @@
 <!-- <?= $this->Html->css('listing.css') ?> -->
 <?= $this->Html->css('v_index.css') ?>
 <!-- <?= $this->Html->css('v_vendorCustom') ?> -->
+<?= $this->Html->css('custom_table.css') ?>
 <?= $this->Html->css('v_asn_index') ?>
 <div class="deliveryDetails index content card">
     <!-- <div class="card-header">
@@ -66,9 +67,9 @@
 <script>
     $(document).ready(function () {
         setTimeout(function () { $('.success').fadeOut('slow'); }, 2000);
-
+        
         $(document).on("click", ".redirect", function () { window.location.href = $(this).data("href"); });
-
+        
         var table = $("#example1").DataTable({
             "paging": true,
             "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
@@ -78,6 +79,7 @@
                 searchPlaceholder: "Search..."
             },
         });
+        $('input[type=search]').attr('class', 'search-bar');
     });
 
 </script>

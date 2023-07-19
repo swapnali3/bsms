@@ -9,6 +9,7 @@
 <!-- <?= $this->Html->css('custom') ?> -->
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
+<?= $this->Html->css('custom_table.css') ?>
 <?= $this->Html->css('v_index.css') ?>
 <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
 
@@ -31,10 +32,10 @@
                     <div class="col-md-6 pb-2">
                         <div class="action-btn d-flex justify-content-end">
                             <input type="file" id="imgupload" style="display:none" />
-                            <button id="OpenImgUpload" type="button" class="btn bg-gradient-true mr-2"><i
+                            <button id="OpenImgUpload" type="button" class="btn btn-gradient-true mr-2"><i
                                     class="fa fa-solid fa-file-import"></i> Upload ASN File</button>
                             <!-- <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a> -->
-                            <button type="button" id="continueSub" class="btn bg-gradient-false continue_btn"
+                            <button type="button" id="continueSub" class="btn btn-gradient-false continue_btn"
                                 disabled>Continue</button>
                         </div>
                     </div>

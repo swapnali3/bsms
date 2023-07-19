@@ -275,3 +275,20 @@ CREATE TABLE `msgchat_headers` (
 // ==================== Chat ====================
 
 ALTER TABLE `vendor_material` CHANGE COLUMN `uom` `uom` INT NULL DEFAULT NULL ;
+
+// ==================== Line Master ====================
+author: JThayil
+date: 17.07.2023
+// ==================== ============= ====================
+CREATE TABLE `line_masters` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sap_vendor_code` varchar(10) NOT NULL,
+  `name` int NOT NULL,
+  `capacity` decimal(12,2) NOT NULL,
+  `uom` varchar(3) NOT NULL,
+  `status` tinyint NOT NULL DEFAULT '0',
+  `added_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+// ==================== ============= ====================
