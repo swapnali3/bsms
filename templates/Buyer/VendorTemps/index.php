@@ -20,7 +20,7 @@
                     <table class="table table-hover" id="example1">
                         <thead>
                             <tr>
-                                <th></th>
+                                <th><span class="float-left mr-2" style="min-width:25px;"><input id="vcheckbox" type="checkbox" class="form-control mr-0" id=""></span></th>
                                 <th><?= h('Name') ?></th>
                                 <th><?= h('Email') ?></th>
                                 <th><?= h('Mobile') ?></th>
@@ -39,27 +39,28 @@
 
                                 switch ($vendorTemp->status) {
                                     case 0:
-                                        $status = '<span class="badge lbluebadge" data-toggle="tooltip" data-placement="right" title="Sent to Vendor"><i class="fas fa-people-arrows"></i></span>';
+                                        $status = '<span class="badge lbluebadge mt-2" data-toggle="tooltip" data-placement="right" title="Sent to Vendor"><i class="fas fa-people-arrows"></i></span>';
                                         break;
                                     case 1:
-                                        $status = '<span class="badge dbluebadge" data-toggle="tooltip" data-placement="right" title="Pending for approval"><i class="fas fa-user-clock"></i></span>';
+                                        $status = '<span class="badge dbluebadge mt-2" data-toggle="tooltip" data-placement="right" title="Pending for approval"><i class="fas fa-user-clock"></i></span>';
                                         break;
                                     case 2:
-                                        $status = '<span class="badge purplebadge" data-toggle="tooltip" data-placement="right" title="Sent to SAP"><i class="fas fa-user-plus"></i></span>';
+                                        $status = '<span class="badge purplebadge mt-2" data-toggle="tooltip" data-placement="right" title="Sent to SAP"><i class="fas fa-user-plus"></i></span>';
                                         break;
                                     case 3:
-                                        $status = '<span class="badge lgreenbadge" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span>';
+                                        $status = '<span class="badge lgreenbadge mt-2" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span>';
                                         break;
                                     case 4:
-                                        $status = '<span class="badge redbadge" data-toggle="tooltip" data-placement="right" title="Rejected"><i class="fas fa-user-slash"></i></span>';
+                                        $status = '<span class="badge redbadge mt-2" data-toggle="tooltip" data-placement="right" title="Rejected"><i class="fas fa-user-slash"></i></span>';
                                         break;
                                     case 5:
-                                        $status = '<span class="badge dgreenbadge" data-toggle="tooltip" data-placement="right" id="halfapproved'.$vendorTemp->id.'" title="Approved"><i class="fas fa-user-check"></i></span><span class="badge badge-light sendcred" data-id="'.$vendorTemp->id.'" id="sendcred'.$vendorTemp->id.'" data-toggle="tooltip" data-placement="right" title="Send Credentials"><i class="fas fa-envelope-open-text text-info"></i></span>';
+                                        $status = '<span class="badge dgreenbadge mt-2" data-toggle="tooltip" data-placement="right" id="halfapproved'.$vendorTemp->id.'" title="Approved"><i class="fas fa-user-check"></i></span><span class="badge badge-light sendcred" data-id="'.$vendorTemp->id.'" id="sendcred'.$vendorTemp->id.'" data-toggle="tooltip" data-placement="right" title="Send Credentials"><i class="fas fa-envelope-open-text text-info"></i></span>';
                                         break;
                                 }
                             ?>
                                 <tr>
                                     <td>
+                                        <span class="float-left mr-2" style="min-width:25px;"><input type="checkbox" data-user_id="<?= $user_id->id ?>" class="form-control mr-0 vcheckbox" id=""></span>
                                         <?= $status ?>
                                         <span type="button" id="unread<?= $vendorTemp->id ?>" class="badge badge-light chatload" data-modalbody="id_oldmsg" data-sender_group_id="<?= $user_id->group_id ?>" data-sender_id="<?= $user_id->id ?>" data-sender_name="<?= h($vendorTemp->name) ?>" data-toggle="modal" data-target="#modal-lg" data-table_name="vendor_temps" data-table_pk="<?= $vendorTemp->id ?>" data-placement="right"  title="Chat"><i class="fas fa-comments text-info"></i></span>
                                     </td>
@@ -79,6 +80,14 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+            <div class="card-footer p-3" id="actionfooter" style="display: none;">
+                <a class="btn btn-info mb-0 bulkaction" data-status_id="-1">Activate</a>
+                <a class="btn btn-info mb-0 bulkaction" data-status_id="-2">Deactivate</a>
+                <a class="btn btn-info mb-0 bulkaction" data-status_id="3">Approve</a>
+                <a class="btn btn-info mb-0 bulkaction" data-status_id="4">Reject</a>
+                <a class="btn btn-info mb-0 bulkaction" data-status_id="5">Send Credentials</a>
+                <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
             </div>
         </div>
     </div>
@@ -133,6 +142,7 @@
 <script>
     var getchaturl = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>';
     var postchaturl = '<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>';
+    var postactionurl = '<?php echo \Cake\Routing\Router::url(array('controller' => 'VendorTemps', 'action' => 'bulkupdate')); ?>';
     var user_id = '<?php $user_id ?>';
 </script>
 

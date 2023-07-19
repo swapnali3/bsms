@@ -43,3 +43,31 @@ $(document).on("click", ".sendcred", function () {
         }
     });
 });
+
+var csrfToken = $('meta[name="csrfToken"]').attr('content');
+
+$(document).on("click", ".vcheckbox", function () {
+    var allcheck = true;
+    var checked = unchecked = 0;
+    $(".vcheckbox").each(function () { if (!$(this).is(':checked')) { allcheck = false; unchecked++; } else { checked++; } });
+    if (allcheck) { $('#vcheckbox').prop('checked', true); }
+    else { $('#vcheckbox').prop('checked', false); }
+    if (checked > 0 && unchecked > 0) { $("#actionfooter").show(); }
+    else if (checked == 0) { $("#actionfooter").hide(); }
+});
+
+$(document).on("click", ".bulkaction", function () {
+    var status_id, user_arr = [];
+    status_id = $(this).data('status_id');
+    $(".vcheckbox").each(function () { if ($(this).is(':checked')) { user_arr.push($(this).data("user_id")) } });
+    $.ajax({
+        type: "POST",
+        url: postactionurl,
+        dataType: 'json',
+        headers: { 'X-CSRF-Token': csrfToken },
+        data: { 'status_id': status_id, 'user_arr': user_arr },
+        success: function (resp) { }
+    });
+});
+
+
