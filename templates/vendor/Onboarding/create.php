@@ -45,7 +45,7 @@
     }
 
     .vendorTemps.form.content {
-        width: 70%;
+        width: 80%;
         margin: 0 auto;
         background-color: #f5f7fd;
         margin-top: 20px;
@@ -72,9 +72,14 @@
                     <h4 class="text-info">
                         <legend>
                             <?= __('Onboarding') ?>
-                            <button type="button" id="needButton" data-modalbody="id_oldmsg" class="btn btn-outline-info btn-light chatload" data-sender_group_id="3" data-sender_id="<?= $vendorTemp->id ?>" data-sender_name="<?= $vendorTemp->name ?>" data-table_name="vendor_temps" data-table_pk="<?= $vendorTemp->id ?>" data-toggle="modal" data-target="#modal-lg" style="margin-left: 3em;">
+                            <button type="button" id="needButton" data-modalbody="id_oldmsg"
+                                class="btn btn-outline-info btn-light chatload" data-sender_group_id="3"
+                                data-sender_id="<?= $vendorTemp->id ?>" data-sender_name="<?= $vendorTemp->name ?>"
+                                data-table_name="vendor_temps" data-table_pk="<?= $vendorTemp->id ?>"
+                                data-toggle="modal" data-target="#modal-lg" style="margin-left: 3em;">
                                 <i class="fas fa-comments"></i> Need help
-                                <span class="badge badge-info" id="unread<?= $vendorTemp->id ?>" style="transform: translate(19px, -15px);">0</span>
+                                <span class="badge badge-info" id="unread<?= $vendorTemp->id ?>"
+                                    style="transform: translate(19px, -15px);">0</span>
                             </button>
                         </legend>
                     </h4>
@@ -111,6 +116,22 @@
                         <div class="col-3 mb-2">
                             <?php echo $this->Form->control('mobile', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
                         </div>
+
+                        <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                            <div class="form-group">
+                                <?php
+                                $businessTypes  = [
+                                    'PROPRIETARY' => 'Proprietary',
+                                    'PARTNERSHIP' => 'Partnership Concern',
+                                    'PUBLIC_LIMITED' => 'Public Limited Company',
+                                    'PRIVATE_LIMITED' => 'Private Limited Company'
+                                ];
+                                echo $this->Form->control('status', [
+                                    'class' => 'form-control', 'options' => $businessTypes, 'label' => 'Status'
+                                ]);
+                                ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,23 +139,57 @@
                 <div class="card-header p-0 border-bottom-0">
                     <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="tab_address" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="true">Address</a>
+                            <a class="nav-link active" id="tab_address" data-toggle="pill"
+                                href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
+                                aria-selected="true">Address</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tab_contactperson" data-toggle="pill" href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Contact Person</a>
+                            <a class="nav-link" id="tab_branchoffice" data-toggle="pill" href="#custom-tabs-four-branch"
+                                role="tab" aria-controls="custom-tabs-four-branch" aria-selected="false">Address of
+                                Branch Office / Factory</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tab_paymentdetails" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="false">Payment
+                            <a class="nav-link" id="tab_productionfaculty" data-toggle="pill"
+                                href="#custom-tabs-four-productionfaculty" role="tab"
+                                aria-controls="custom-tabs-four-productionfaculty" aria-selected="false">Production
+                                Facility</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab_contactperson" data-toggle="pill"
+                                href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages"
+                                aria-selected="false">Contact Person</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab_companydetail" data-toggle="pill"
+                                href="#custom-tabs-four-companydetail" role="tab"
+                                aria-controls="custom-tabs-four-companydetail" aria-selected="false">Company Details</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab_paymentdetails" data-toggle="pill" href="#custom-tabs-four-home"
+                                role="tab" aria-controls="custom-tabs-four-home" aria-selected="false">Payment
                                 Details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tab_document" data-toggle="pill" href="#custom-tabs-four-settings" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Document</a>
+                            <a class="nav-link" id="tab_certificate" data-toggle="pill"
+                                href="#custom-tabs-four-certificate" role="tab"
+                                aria-controls="custom-tabs-four-certificate" aria-selected="false">Certificate</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab_document" data-toggle="pill" href="#custom-tabs-four-settings"
+                                role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Document</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="tab_questionnaire " data-toggle="pill"
+                                href="#custom-tabs-four-questionnaire" role="tab"
+                                aria-controls="custom-tabs-four-questionnaire" aria-selected="false">Questionnaire</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body">
                     <div class="tab-content" id="custom-tabs-four-tabContent">
-                        <div class="tab-pane fade active show" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="tab_address" style="background-color: white;">
+                        <div class="tab-pane fade active show" id="custom-tabs-four-profile" role="tabpanel"
+                            aria-labelledby="tab_address" style="background-color: white;">
 
                             <div class="row">
 
@@ -207,35 +262,238 @@
                                         <textarea id="id_comments" cols="30" rows="3" class="form-control"></textarea>
                                     </div>
                                 </div>
+                                <div class="col-12 mt-1">
+                                    <label>Address Of Reg Office:</label>
+                                    <textarea placeholder="Address" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-3 mt-1">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('tan_no', ['type' => 'number', 'class' => 'form-control', 'label' => 'TEL. NO.']); ?>
+                                    </div>
+
+                                </div>
+                                <div class="col-3 mt-1">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('fax_no', ['type' => 'number', 'class' => 'form-control', 'label' => 'FAX NO.']); ?>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
-                        <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="tab_contactperson" style="background-color: white;">
+                        <div class="tab-pane fade" id="custom-tabs-four-branch" role="tabpanel"
+                            aria-labelledby="tab_branchoffice" style="background-color: white;">
 
                             <div class="row">
-                                <div class="col-3 mt-3">
+                                <div class="col-lg-6" style="border-right: 1px solid #dee2e6;">
+                                    <div class="row">
+                                        <p>Add Of Branch Office:</p>
+                                        <div class="col-6 mt-1">
+                                            <div class="form-group">
+                                                <?php echo $this->Form->control('tan_no', ['type' => 'number', 'class' => 'form-control', 'label' => 'TEL. NO.']); ?>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-6 mt-1">
+                                            <div class="form-group">
+                                                <?php echo $this->Form->control('fax_no', ['type' => 'number', 'class' => 'form-control', 'label' => 'FAX NO.']); ?>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>Address Of Factory:</label>
+                                    <textarea placeholder="Address" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-6" style="border-right: 1px solid #dee2e6;">
+                                    <p>Year Of Establishment:</p>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-6">
+                                    <p>Year Of Commencement Of Production Of Item/s:</p>
+                                    <input type="text" class="form-control">
+                                    <div class="row">
+                                        <div class="col-6 mt-1">
+                                            <div class="form-group">
+                                                <?php echo $this->Form->control('item', ['type' => 'number', 'class' => 'form-control', 'label' => 'ITEM']); ?>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-6 mt-1">
+                                            <div class="form-group">
+                                                <?php echo $this->Form->control('year', ['type' => 'date', 'class' => 'form-control', 'label' => 'Year']); ?>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="custom-tabs-four-productionfaculty" role="tabpanel"
+                            aria-labelledby="tab_productionfaculty" style="background-color: white;">
+
+                            <div class="row">
+                                <div class="col-4 mt-3">
+                                    <label for="" class="form-label">Upload INSTALLED CAPACITY</label>
+                                    <input class="form-control" required type="file" accept=".pdf" name="" id="">
+                                </div>
+                                <div class="col-4 mt-3">
+                                    <label for="" class="form-label">Upload POWER AVAILABLE</label>
+                                    <input class="form-control" required type="file" accept=".pdf" name="" id="">
+                                </div>
+                                <div class="col-4 mt-3">
+                                    <label for="" class="form-label">Upload MACHINERY AVAILABLE</label>
+                                    <input class="form-control" required type="file" accept=".pdf" name="" id="">
+                                </div>
+                                <div class="col-4 mt-4">
+                                    <label for="" class="form-label">Upload RAW MATERIALS AVAILABLE AND
+                                        SOURCE</label>
+                                    <input class="form-control" required type="file" accept=".pdf" name="" id="">
+                                </div>
+                                <div class="col-4 mt-4">
+                                    <label for="" class="form-label">Upload ACTUAL PRODUCTION
+                                        DURING</label>
+                                    <input class="form-control" required type="file" accept=".pdf" name="" id="">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label>LABORATORY FACILITIES AVAILABLE</label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>WHETHER THERE IS ANY ISI REGISTRATION :</label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>TEST FACILITIES AVAILABLE</label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>FACILITIES FOR EFFECTIVE AFTER SALES SERVICES</label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label>QUALITY CONTROL PROCEDURE ADOPTED.</label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <p>ANNUAL TURN OVER IN LAST 3 YEARS:</p>
+                                <div class="col-lg-3">
+                                    <label for="">1 Year</label>
+                                    <input type="text" name="" class="form-control">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label for="">2 Year</label>
+                                    <input type="text" name="" class="form-control">
+                                </div>
+                                <div class="col-lg-4">
+                                    <label for="">3 Year</label>
+                                    <input type="text" name="" class="form-control">
+                                </div>
+
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                                <p>INCOME TAX CLEANING</p>
+                                <div class="col-lg-3">
+                                    <label for="">CERTIFICATE No</label>
+                                    <input type="number" name="" class="form-control">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label for="">Add Production Facility</label>
+                                    <input type="text" name="" class="form-control">
+                                </div>
+                                <div class="col-lg-3">
+                                    <label for="">Date</label>
+                                    <input type="date" name="" class="form-control">
+                                </div>
+
+                            </div>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-6 mt-3">
+                                    <label for="" class="form-label">Balance Sheet
+                                    </label>
+                                    <input class="form-control" required="" type="file" accept=".pdf" name="" id="">
+
+                                    <i class="mt-2" style="color: black;">
+                                        <a href="/bsms/webroot/templates/stock_upload.xlsx"
+                                            download="">sample_file_template</a>
+                                    </i>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel"
+                            aria-labelledby="tab_contactperson" style="background-color: white;">
+
+                            <div class="row">
+                                <div class="col-12 mt-1">
+                                    <label for="">Name:</label>
+                                    <input type="text" name="" class="form-control">
+                                </div>
+                                <div class="col-12 mt-1">
+                                    <label for="">Address:</label>
+                                    <textarea name="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="row ml-3">
+                                <div class="col-2 mt-1">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->radio('role', ['Proprietor' => 'Proprietor'], ['class' => 'form-check-input', 'checked']); ?>
+                                    </div>
+                                </div>
+                                <div class="col-2 mt-1">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->radio('role', ['Partner' => 'Partner'], ['class' => 'form-check-input']); ?>
+                                    </div>
+                                </div>
+                                <div class="col-2 mt-1">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->radio('role', ['Director' => 'Director'], ['class' => 'form-check-input']); ?>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3 mt-1">
                                     <div class="form-group">
                                         <?php echo $this->Form->control('contact_person', ['class' => 'form-control']); ?>
                                     </div>
                                 </div>
 
-                                <div class="col-3 mt-3">
+                                <div class="col-3 mt-1">
                                     <div class="form-group">
                                         <?php echo $this->Form->control('contact_email', ['class' => 'form-control']); ?>
                                     </div>
                                 </div>
 
-                                <div class="col-3 mt-3">
+                                <div class="col-3 mt-1">
                                     <div class="form-group">
                                         <?php echo $this->Form->control('contact_mobile', ['class' => 'form-control']); ?>
                                     </div>
                                 </div>
-                                <div class="col-3 mt-3">
+                                <div class="col-3 mt-1">
                                     <div class="form-group">
                                         <?php echo $this->Form->control('contact_department', ['class' => 'form-control']); ?>
                                     </div>
                                 </div>
-                                <div class="col-3 mt-3">
+                                <div class="col-3 mt-1">
                                     <div class="form-group">
                                         <?php echo $this->Form->control('contact_designation', ['class' => 'form-control']); ?>
                                     </div>
@@ -243,7 +501,149 @@
                             </div>
 
                         </div>
-                        <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="tab_paymentdetails" style="background-color: white;">
+                        <div class="tab-pane fade" id="custom-tabs-four-certificate" role="tabpanel"
+                            aria-labelledby="tab_certificate" style="background-color: white;">
+                            <div class="row">
+                                <div class="col-6 mt-3">
+                                    <label for="" class="form-label">ISO Registration / certificate
+                                    </label>
+                                    <input class="form-control" required type="file" accept=".pdf" name="gst_file"
+                                        id="">
+                                    <small class="text-warning info-msg">Upload only PDF file</small>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-6 mt-3 col-md-12">
+                                    <div class="form-group">
+                                        <label for="id_sigma">SIX SIGMA</label>
+                                        <textarea id="id_sigma" cols="30" rows="3" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+
+                            <div class="row mt-1">
+                                <h3>HALAL Registration / certificate</h3>
+                                <p>Please Attach copy and send our declaration form along with this form.</p>
+                                <div class="col-6 mt-3" style="border-right: 1px solid #dee2e6;">
+                                    <label for="" class="form-label">Uploade File
+                                    </label>
+                                    <input class="form-control" required type="file" accept=".pdf" name="gst_file"
+                                        id="">
+                                </div>
+                                <div class="col-6 mt-3">
+                                    <label for="" class="form-label">Fill up
+                                    </label>
+                                    <input class="form-control" required type="file" accept=".pdf" name="gst_file"
+                                        id="">
+
+                                    <i class="mt-2" style="color: black;">
+                                        <a href="/bsms/webroot/templates/stock_upload.xlsx"
+                                            download="">sample_file_template</a>
+                                    </i>
+
+
+                                </div>
+
+
+                            </div>
+                            <hr>
+
+                            <div class="row">
+                                <h3>Manufacturing Information</h3>
+                                <p>Whether the item is completely manufactured in applicant's factory?</p>
+                                <div class="col-2 ml-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->radio('fully_manufactured', ['1' => 'Yes'], ['class' => 'form-check-input', 'checked']); ?>
+                                    </div>
+                                </div>
+                                <div class="col-2 ml-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->radio('fully_manufactured', [['0' => 'No']], ['class' => 'form-check-input']); ?>
+                                    </div>
+                                </div>
+                                <div class="sub-contractors-info" style="display: none;">
+                                    <div class="col-6 mt-1">
+                                        <div class="form-group">
+                                            <?php echo $this->Form->control('contact_person', ['class' => 'form-control', 'label' => 'Names of Sub-Contractor']); ?>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="custom-tabs-four-companydetail" role="tabpanel"
+                            aria-labelledby="tab_companydetail" style="background-color: white;">
+                            <div class="row">
+                                <div class="col-lg-6" style="border-right: 1px solid #dee2e6;">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <?php echo $this->Form->control('registation_no', ['type' => 'number', 'class' => 'form-control', 'label' => 'Company Registration No.']); ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <?php echo $this->Form->control('date', ['type' => 'date', 'class' => 'form-control', 'label' => 'Date']); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <label for="">Companies Act:</label>
+                                            <textarea name="" class="form-control" cols="30" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-lg-6" style="border-right: 1px solid #dee2e6;">
+                                    <p>Company Act</p>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <?php echo $this->Form->control('no', ['type' => 'number', 'class' => 'form-control', 'label' => 'No.']); ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <?php echo $this->Form->control('date', ['type' => 'date', 'class' => 'form-control', 'label' => 'Date']); ?>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>Small Scale IND</p>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <?php echo $this->Form->control('no', ['type' => 'number', 'class' => 'form-control', 'label' => 'No.']); ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <?php echo $this->Form->control('date', ['type' => 'date', 'class' => 'form-control', 'label' => 'Date']); ?>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel"
+                            aria-labelledby="tab_paymentdetails" style="background-color: white;">
                             <div class="row">
 
 
@@ -281,6 +681,31 @@
                                     <label for="id_bank_branch">Bank Branch</label>
                                     <input type="text" class="form-control" id="id_bank_branch" name="">
                                 </div>
+                                <div class="col-3 mt-3">
+                                    <label for="">Vat Registration</label>
+                                    <input type="text" class="form-control" id="" name="">
+                                </div>
+                                <div class="col-3 mt-3">
+                                    <label for="">State No </label>
+                                    <input type="text" class="form-control" id="" name="">
+                                </div>
+
+                                <div class="col-3 mt-3">
+                                    <label for="">C.S.T Details:</label>
+                                    <input type="text" class="form-control" id="" name="">
+                                </div>
+
+                                <div class="col-3 mt-3">
+                                    <label for="">Excise Details:</label>
+                                    <input type="text" class="form-control" id="" name="">
+                                </div>
+
+                                <div class="col-3 mt-3">
+                                    <label for="">Date</label>
+                                    <input type="date" class="form-control" id="" name="">
+                                </div>
+
+
 
                                 <div class="col-3 mt-3">
                                     <div class="form-group">
@@ -312,54 +737,104 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel" aria-labelledby="tab_document" style="background-color: white;">
+                        <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel"
+                            aria-labelledby="tab_document" style="background-color: white;">
 
                             <div class="row">
                                 <div class="col-4 mt-3">
                                     <label for="formFileMultiple" class="form-label">Upload GST no</label>
-                                    <input class="form-control" required type="file" accept=".pdf" name="gst_file" id="formFileMultiple1">
+                                    <input class="form-control" required type="file" accept=".pdf" name="gst_file"
+                                        id="formFileMultiple1">
                                     <small class="text-warning info-msg">Upload only PDF file</small>
                                 </div>
                                 <div class="col-4 mt-3">
                                     <label for="formFileMultiple" class="form-label">Upload pan card</label>
-                                    <input class="form-control" required accept=".pdf" type="file" name="pan_file" id="formFileMultiple2">
+                                    <input class="form-control" required accept=".pdf" type="file" name="pan_file"
+                                        id="formFileMultiple2">
                                     <small class="text-warning info-msg">Upload only PDF file</small>
                                 </div>
                                 <div class="col-4 mt-3">
                                     <label for="formFileMultiple" accept=".pdf" class="form-label">Upload bank
                                         details</label>
-                                    <input class="form-control" required type="file" name="bank_file" id="formFileMultiple3">
+                                    <input class="form-control" required type="file" name="bank_file"
+                                        id="formFileMultiple3">
                                     <small class="text-warning info-msg">Upload only PDF file</small>
                                 </div>
                             </div>
 
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3 col-md-12 text-center mt-1 pt-1">
-                <!-- <?php echo $this->Form->button('Submit', array('class' => 'btn mt-3', 'style' => 'display:none;', 'id' => 'id_ogsubmit')); ?> -->
+                        <div class="tab-pane fade" id="custom-tabs-four-questionnaire" role="tabpanel"
+                            aria-labelledby="tab_questionnaire" style="background-color: white;">
+                            <div class="row mt-3">
 
-                <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
-                    <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                            <div class="modal-body text-center">
-                                <h6>Are you sure you want to proceed? This action cannot be edit.</h6>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn cancelButton" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
-                                <?php echo $this->Form->button('Ok', array('class' => 'btn mt-3', 'style' => "border:1px solid #28a745", 'id' => 'id_ogsubmit')); ?>
+                                <div class="col-lg-12 mt-3">
+                                    <label>ADDRESS OF YOUR REPUTED CUSTOMERS TO WHOM REFERENCE CAN BE MADE (USE SEPARATE
+                                        SHEET) IF NECESSARY.
+
+                                    </label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                    <label>OTHER INFORMATION CONSIDERED RELEVENT TO BE FURNISHED BY SUPPLIER</label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                    <label>Does the company have any policy wrt to child labour appoint in work
+                                        place</label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                    <label>Does your company follow any anit - corruption policy (zero corruption ) &
+                                        has follow ethical code of code / corporate social responsibilities:-</label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                    <label>Does the company have policy &decimate between sexual worker wrt cast,
+                                        gender, religion and harassment at work place</label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-lg-12 mt-3">
+                                    <label>Does the company use any product in the manufacturing of material through
+                                        Recycled material :-</label>
+                                    <textarea placeholder="" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
 
                             </div>
                         </div>
+
                     </div>
                 </div>
-
-                <?php echo $this->Form->button('Submit', array('class' => 'btn mt-3', 'type' => 'button', 'id' => 'id_fksubmit', 'style' => 'background-color: #8E9B2C; color: #fff; font-size: 14px; line-height: 1.1rem; padding: 10px 20px;')); ?>
             </div>
-            <?= $this->Form->end() ?>
         </div>
+
+        <div class="col-3 col-md-12 text-center mt-1 pt-1">
+            <!-- <?php echo $this->Form->button('Submit', array('class' => 'btn mt-3', 'style' => 'display:none;', 'id' => 'id_ogsubmit')); ?> -->
+
+            <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <h6>Are you sure you want to proceed? This action cannot be edit.</h6>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn cancelButton" style="border:1px solid #6610f2"
+                                data-dismiss="modal">Cancel</button>
+                            <?php echo $this->Form->button('Ok', array('class' => 'btn mt-3', 'style' => "border:1px solid #28a745", 'id' => 'id_ogsubmit')); ?>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <small class="text-warning info-msg text-center">NOTE : THE COMPANY RESERVE THE RIGHT TO REJECT ANY
+                APPLICATION WITHOUT ASSURING ANY REASON.</small>
+            <br>
+
+            <?php echo $this->Form->button('Submit', array('class' => 'btn mt-3', 'type' => 'button', 'id' => 'id_fksubmit', 'style' => 'background-color: #8E9B2C; color: #fff; font-size: 14px; line-height: 1.1rem; padding: 10px 20px;')); ?>
+        </div>
+        <?= $this->Form->end() ?>
     </div>
+</div>
 </div>
 
 <div class="modal fade" id="modal-lg">
@@ -414,7 +889,7 @@
     var seengeturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'seen-update')); ?>";
     var chatdata, user_id = "<?= h($vendorTemp->id) ?>",
         sender_id, table_pk;
-    $(function() {
+    $(function () {
         $('.my-select').selectpicker();
         $('#summernote').summernote({
             width: 1000,
@@ -441,7 +916,7 @@
             }
             if (submitcall == false) {
 
-                setTimeout(function() {
+                setTimeout(function () {
                     if ($("#onbordingSubmit").valid()) {
                         $("#id_ogsubmit").trigger('click')
                     }
@@ -466,11 +941,11 @@
     });
 
 
-    $('.cancelButton').click(function() {
+    $('.cancelButton').click(function () {
         $('#modal-sm').modal('hide');
     });
 
-    $('#needButton').click(function() {
+    $('#needButton').click(function () {
         table_pk = $(this).data('table_pk');
         sender_id = $(this).data('sender_id');
         $("#id_sender_id").val($(this).data('sender_id'));
@@ -483,11 +958,15 @@
             type: "GET",
             url: seengeturl + "/vendor_temps/" + table_pk + "/" + sender_id,
             dataType: 'json',
-            success: function (resp) { if (resp.status == 1) { $('#unread'+sender_id).hide();} },
+            success: function (resp) {
+                if (resp.status == 1) {
+                    $('#unread' + sender_id).hide();
+                }
+            },
         });
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         $(".chatload").each(function () {
             $('#unread' + $(this).data('sender_id')).empty();
@@ -597,17 +1076,25 @@
                 },
             },
             errorElement: "span",
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 error.addClass("invalid-feedback");
                 element.closest(".form-group").append(error);
             },
-            highlight: function(element, errorClass, validClass) {
+            highlight: function (element, errorClass, validClass) {
                 $(element).addClass("is-invalid");
             },
-            unhighlight: function(element, errorClass, validClass) {
+            unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass("is-invalid");
             }
         });
 
+    });
+
+    $('input[name="fully_manufactured"]').on('change', function () {
+        if ($(this).val() === '0') {
+            $('.sub-contractors-info').show();
+        } else {
+            $('.sub-contractors-info').hide();
+        }
     });
 </script>

@@ -287,7 +287,10 @@
 
 
           }
-        }
+        },
+        error: function(xhr, status, error) {
+          $('.related').find('.flagButton .notify').css('display','none');
+        },
       });
     }
     // $(document).ready(function() {
