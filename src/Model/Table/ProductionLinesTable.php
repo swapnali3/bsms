@@ -40,12 +40,19 @@ class ProductionLinesTable extends Table
         parent::initialize($config);
 
         $this->setTable('production_lines');
-        $this->setDisplayField('name');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->belongsTo('Materials', [
             'foreignKey' => 'material_id',
             'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('LineMasters', [
+            'foreignKey' => 'line_master_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->hasMany('Dailymonitor', [
+            'foreignKey' => 'production_line_id',
         ]);
     }
 
@@ -68,10 +75,8 @@ class ProductionLinesTable extends Table
             ->notEmptyString('material_id');
 
         $validator
-            ->scalar('name')
-            ->maxLength('name', 15)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->integer('line_master_id')
+            ->notEmptyString('line_master_id');
 
         $validator
             ->decimal('capacity')
@@ -102,7 +107,9 @@ class ProductionLinesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        $rules->add($rules->isUnique(['sap_vendor_code', 'material_id', 'line_master_id']), ['errorField' => 'sap_vendor_code']);
         $rules->add($rules->existsIn('material_id', 'Materials'), ['errorField' => 'material_id']);
+        $rules->add($rules->existsIn('line_master_id', 'LineMasters'), ['errorField' => 'line_master_id']);
 
         return $rules;
     }

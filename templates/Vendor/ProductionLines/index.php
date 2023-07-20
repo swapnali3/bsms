@@ -35,19 +35,22 @@
             </thead>
             <tbody>
                 <?php if (isset($productionline)) : ?>
-                    <?php foreach ($productionline as $productionlines) : ?>
+                    <?php foreach ($productionline as $productionlines) : 
+                        
+                        //echo '<pre>'; print_r($productionlines); exit;
+                        ?>
                         <tr>
                             <td>
-                                <?= h($productionlines->name) ?>
+                                <?= h($productionlines->line_master->name) ?>
                             </td>
                             <td>
-                                <?= h($productionlines->vm['code']) ?>
+                                <?= h($productionlines->material->code) ?>
                             </td>
                             <td>
-                                <?= h($productionlines->vm['description']) ?>
+                                <?= h($productionlines->material->description) ?>
                             </td>
                             <td>
-                                <?= h($productionlines->capacity .' '.$productionlines->vm['uom']) ?>
+                                <?= h($productionlines->capacity .' '.$productionlines->material->uom) ?>
                             </td>
                             <td>
                             <div class="float-left">

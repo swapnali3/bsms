@@ -24,10 +24,10 @@ class MaterialsFixture extends TestFixture
                 'code' => 'Lorem ipsum dolor ',
                 'description' => 'Lorem ipsum dolor sit amet',
                 'minimum_stock' => 1.5,
-                'uom' => 'Lorem ipsum dolor sit amet',
+                'uom' => 'L',
                 'status' => 1,
-                'added_date' => '2023-07-15 20:08:09',
-                'updated_date' => '2023-07-15 20:08:09',
+                'added_date' => '2023-07-19 17:53:12',
+                'updated_date' => '2023-07-19 17:53:12',
             ],
         ];
         parent::init();

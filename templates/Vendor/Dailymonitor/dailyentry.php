@@ -36,8 +36,8 @@
                 <?php foreach ($dailymonitor as $dailymonitors) : ?>
                     <tr>
                         <td><?= h($dailymonitors->plan_date) ?></td>
-                        <td><?= h($dailymonitors->prdline_description) ?></td>
-                        <td><?= h($dailymonitors->material_description) ?></td>
+                        <td><?= h($dailymonitors->production_line->line_master->name) ?></td>
+                        <td><?= h($dailymonitors->material->description) ?></td>
                         <td><?= h($dailymonitors->target_production) ?></td>
                         <?php if ($dailymonitors->status == 1) : ?>
                             <td>

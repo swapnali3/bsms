@@ -22,11 +22,11 @@ class ProductionLinesFixture extends TestFixture
                 'id' => 1,
                 'sap_vendor_code' => 'Lorem ip',
                 'material_id' => 1,
-                'name' => 'Lorem ipsum d',
+                'line_master_id' => 1,
                 'capacity' => 1.5,
                 'status' => 1,
-                'added_date' => '2023-07-15 22:31:57',
-                'updated_date' => '2023-07-15 22:31:57',
+                'added_date' => '2023-07-19 19:58:52',
+                'updated_date' => '2023-07-19 19:58:52',
             ],
         ];
         parent::init();

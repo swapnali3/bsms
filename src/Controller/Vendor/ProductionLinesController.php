@@ -38,14 +38,7 @@ class ProductionLinesController extends VendorAppController
 
         $productionline = $this->ProductionLines->find('all', [
             'conditions' => ['ProductionLines.sap_vendor_code' => $session->read('vendor_code')]
-        ])->select([
-            'id','name', 'capacity','vm.description', 'vm.code', 'vm.uom',
-        ])->join([
-            'table' => 'materials',
-            'alias' => 'vm',
-            'type' => 'LEFT',
-            'conditions' => 'vm.id = ProductionLines.material_id',
-        ])->toArray();
+        ])->contain(['LineMasters', 'Materials'])->toArray();
 
 
         // productionline
@@ -80,7 +73,11 @@ class ProductionLinesController extends VendorAppController
      */
     public function add()
     {
+        $session = $this->getRequest()->getSession();
+        $sapVendor = $session->read('vendor_code');
+
         $flash = [];
+        $this->loadModel("LineMasters");
         $this->loadModel("Materials");
         $this->loadModel("VendorTemps");
         $this->loadModel('Notifications');
@@ -90,19 +87,10 @@ class ProductionLinesController extends VendorAppController
 
         if ($this->request->is('post')) {
             $requestData = $this->request->getData();
-            $vendorMaterialCode = $requestData['vendor_material_code'];
-           //  print_r($vendorMaterialCode);exit;
+            
+            $requestData['sap_vendor_code'] = $sapVendor;
 
-            $VendorMaterials = $this->Materials->find('all', [
-                'conditions' => ['Materials.id' => $vendorMaterialCode]
-            ])->first();
-
-            $requestData['sap_vendor_code'] = $VendorMaterials->sap_vendor_code;
-            $requestData['material_id'] = $VendorMaterials->id;
-            $requestData['status'] = 0;
-
-            $session = $this->getRequest()->getSession();
-            $sapVendor = $session->read('vendor_code');
+            
             $buyer = $this->VendorTemps->find()
             ->select(['buyer_id'])
             ->where(['sap_vendor_code' => $sapVendor])
@@ -131,17 +119,17 @@ class ProductionLinesController extends VendorAppController
 
                 return $this->redirect(['action' => 'index']);
             }
+            //echo '<pre>'; print_r($productionline); exit;
             $flash = ['type'=>'success', 'msg'=>'The productionline could not be saved. Please, try again'];
             $this->set('flash', $flash);
         }
         
-        $session = $this->getRequest()->getSession();
-        $sapVendor = $session->read('vendor_code');
 
         $vendor_mateial = $this->Materials->find('list', ['conditions' => ['sap_vendor_code' => $sapVendor],'keyField' => 'id', 'valueField' => 'code'])->all();
+        $lineMasterList = $this->LineMasters->find('list', ['conditions' => ['sap_vendor_code' => $sapVendor],'keyField' => 'id', 'valueField' => 'name'])->all();
 
 
-        $this->set(compact('productionline','vendor_mateial'));
+        $this->set(compact('productionline','vendor_mateial', 'lineMasterList'));
     }
 
     /**

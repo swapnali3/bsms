@@ -13,6 +13,9 @@
      <?php $productionLine = ($controller == 'ProductionLines') ? 'active' : ''; ?>
      <?php $dailyStock = ($controller == 'Dailymonitor') ? 'active' : ''; ?>
      <?php $intransit = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
+     <?php $lineMaster = ($controller == 'LineMaters') ? 'active' : ''; ?>
+
+     
 
     
 <style>
@@ -87,6 +90,9 @@
   <ul class="nav nav-treeview">
     <li class="nav-item ">
     <?= $this->Html->link(__('<i class="fas fa-boxes nav-icon"></i><p>Material Master</p>'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
+    </li>
+    <li class="nav-item ">
+      <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Line Master</p>'), ['controller' => 'line-masters', 'action' => 'index'], ['class' => "nav-link $lineMaster", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
     <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>

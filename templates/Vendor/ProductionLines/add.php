@@ -21,28 +21,21 @@
     </div>
     <div class="card-body invoice-details p-0">
         <div class="row dgf m-0">
+
             <div class="col-sm-8 col-md-3">
-            <div class="form-group">
-                    <?php echo $this->Form->control('vendor_material_code', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'value' => $this->getRequest()->getData('vendor_material_code'), 'empty' => 'Please Select', 'label' => 'Material Code')); ?>
+                <div class="form-group">
+                    <?php echo $this->Form->control('line_master_id', array('class' => 'form-control w-100', 'options' => $lineMasterList, 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Line Description')); ?>
                 </div>
             </div>
 
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('description', array('type' => 'text','class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Description', 'readonly')); ?>
-                </div>
-            </div>
-            <div class="col-sm-8 col-md-3">
-                <div class="form-group">
-                    <?php echo $this->Form->control('uom', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group',  'label' => 'Unit Of Measurement', 'readonly')); ?>
+                    <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Material Code')); ?>
                 </div>
             </div>
 
-            <div class="col-sm-8 col-md-3">
-                <div class="form-group">
-                    <?php echo $this->Form->control('name', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group',  'label' => 'Line Description', 'required')); ?>
-                </div>
-            </div>
+
+            
 
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">

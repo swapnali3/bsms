@@ -21,7 +21,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Description</th>
+                                <th>Line Description</th>
                                 <th>Capacity</th>
                                 <th>UOM</th>
                                 <th>Status</th>
@@ -34,7 +34,7 @@
                             <?php foreach ($lineMasters as $lineMaster): ?>
                             <tr>
                                 <td>
-                                    <?= $this->Number->format($lineMaster->name) ?>
+                                    <?= $lineMaster->name ?>
                                 </td>
                                 <td>
                                     <?= $this->Number->format($lineMaster->capacity) ?>

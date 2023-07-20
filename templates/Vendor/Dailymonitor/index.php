@@ -38,6 +38,8 @@
             <tbody>
             <?php if (isset($dailymonitor)) : ?>
                 <?php foreach ($dailymonitor as $dailymonitors) : 
+
+                //echo '<pre>'; print_r($dailymonitors); exit;
                     $status = 'Active';
                     if($dailymonitors->status == 2) {
                         $status = 'Cancelled';
@@ -47,8 +49,8 @@
                     ?>
                     <tr>
                         <td><?= h($dailymonitors->plan_date) ?></td>
-                        <td><?= h($dailymonitors->prdline_description) ?></td>
-                        <td><?= h($dailymonitors->material_description) ?></td>
+                        <td><?= h($dailymonitors->production_line->line_master->name) ?></td>
+                        <td><?= h($dailymonitors->material->description) ?></td>
                         <td><?= h($dailymonitors->target_production) ?></td>
                         <td><?= h($status) ?></td>
                         <td>
