@@ -189,4 +189,29 @@ class LineMastersController extends VendorAppController
         echo json_encode($response); exit;
     }
 
+    public function getDetail($id = null)
+    {
+        $this->autoRender = false;
+        $this->loadModel('ProductionLines');
+        $total = 0;
+        $response = ['status' => 1, 'message' => ''];
+        $lineMaster = $this->LineMasters->get($id);
+        $totalResult = $this->ProductionLines->find()
+        ->select(['total' => 'sum(capacity)'])
+        ->where(['line_master_id' => $id])->first();
+
+
+        //echo '<pre>'; print_r($lineMaster); print_r($total); exit();
+        $response['data']['capacity'] = $lineMaster->capacity;
+        if(!$totalResult->isEmpty('total')) {
+            $total = $totalResult->total;
+        }
+        
+        $response['data']['total'] = $total;
+        $response['data']['balance'] = $lineMaster->capacity - $total;
+
+        echo json_encode($response); exit;
+        
+    }
+
 }

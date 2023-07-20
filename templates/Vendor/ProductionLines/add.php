@@ -43,9 +43,14 @@
                 </div>
             </div>
             <div class="col-sm-8 col-md-3 d-flex justify-content-start align-items-end">
-                <button type="button" class="btn btn-custom" onclick="showConfirmationModal()">Submit</button>
+                <button type="button" class="btn btn-custom" onclick="showConfirmationModal()" id="submit-btn">Submit</button>
             </div>
+            <div id="line-capacity-view" style="display:none;">Capacity : <span id="line-capacity"></span> &nbsp; &nbsp; 
+            Total : <span id="total"></span> &nbsp; &nbsp; 
+            Balance : <span id="balance"></span></div>
         </div>
+
+        
     </div>
 </div>
 
@@ -72,6 +77,7 @@
         $('#modal-sm').modal('show');
     }
 
+
     $("#descripe").change(function() {
             var vendorId = $(this).val();
             if (vendorId != "") {
@@ -96,6 +102,64 @@
                         console.log(e);
                     },
                 });
+            }
+        });
+
+        var capacity = 0;
+        var capacityBal = 0;
+        var total = 0;
+
+        $("#line-master-id").change( function () {
+            var lineId = $(this).val();
+            $("#line-capacity-view").hide();
+            capacity = 0;
+            capacityBal = 0;
+            total = 0;
+
+            if(lineId != "") {
+                $.ajax({
+                    type: "get",
+                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/line-masters', 'action' => 'get-detail')); ?>/" + lineId,
+                    dataType: "json",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(
+                            "Content-type",
+                            "application/x-www-form-urlencoded"
+                        );
+                    },
+                    success: function(response) {
+                        if (response.status) {
+                            capacity = response.data.capacity;
+                            total = response.data.total;
+                            capacityBal = response.data.balance;
+
+                            $("#line-capacity-view").show();
+                            $("#line-capacity").text(capacity);
+                            $("#total").text(total);
+                            $("#balance").text(capacityBal);
+                            if(capacityBal<= 0) {
+                                $("#submit-btn").attr('disabled', 'disabled');
+                                $("#capacity").attr('disabled', 'disabled');
+                            } else {
+                                $("#submit-btn").removeAttr('disabled');
+                                $("#capacity").removeAttr('disabled');
+                            }
+
+                        }
+                    },
+                    error: function(e) {
+                        alert("An error occurred: " + e.responseText.message);
+                        console.log(e);
+                    },
+                });
+            } 
+        });
+
+        $("#capacity").keyup( function () {
+            var val = $(this).val();
+            console.log(val);
+            if(val > capacityBal) {
+                $(this).val(capacityBal);
             }
         });
 

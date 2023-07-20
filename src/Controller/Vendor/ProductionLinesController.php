@@ -31,23 +31,19 @@ class ProductionLinesController extends VendorAppController
 
        $this->loadModel("ProductionLines");
         $session = $this->getRequest()->getSession();
-        $vendorId = $session->read('id');
-        // $productionline = $this->paginate($this->Productionline->find('all', [
-        //     'conditions' => ['Productionline.vendor_id' => $vendorId]
-        // ]));
-
+        
         $productionline = $this->ProductionLines->find('all', [
             'conditions' => ['ProductionLines.sap_vendor_code' => $session->read('vendor_code')]
         ])->contain(['LineMasters', 'Materials'])->toArray();
 
+        $this->set(compact('productionline'));
 
-        // productionline
 
-       // print_r($productionline);exit;
+       //echo '<pre>';  print_r($productionline);exit;
 
 
     
-        $this->set(compact('productionline'));
+        
     }
 
     /**
@@ -95,8 +91,6 @@ class ProductionLinesController extends VendorAppController
             ->select(['buyer_id'])
             ->where(['sap_vendor_code' => $sapVendor])
             ->first();
-
-
 
             $productionline = $this->ProductionLines->patchEntity($productionline, $requestData);
             if ($this->ProductionLines->save($productionline)) {

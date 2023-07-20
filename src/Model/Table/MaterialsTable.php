@@ -40,7 +40,7 @@ class MaterialsTable extends Table
         parent::initialize($config);
 
         $this->setTable('materials');
-        $this->setDisplayField('id');
+        $this->setDisplayField('code');
         $this->setPrimaryKey('id');
 
         $this->hasMany('Dailymonitor', [

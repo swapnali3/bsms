@@ -38,10 +38,12 @@
                         <td><?= h($dailymonitors->plan_date) ?></td>
                         <td><?= h($dailymonitors->production_line->line_master->name) ?></td>
                         <td><?= h($dailymonitors->material->description) ?></td>
-                        <td><?= h($dailymonitors->target_production) ?></td>
+                        <td><?= h($dailymonitors->target_production) ?>
+                        <input type="hidden" value="<?php echo $dailymonitors->target_production;?>" id="plan_qty_<?= h($dailymonitors->id) ?>" data-id="<?= h($dailymonitors->id) ?>">
+                    </td>
                         <?php if ($dailymonitors->status == 1) : ?>
                             <td>
-                                <input type="number" class="form-control form-control-sm" id="confirmprd<?= h($dailymonitors->id) ?>">
+                                <input type="number" class="form-control form-control-sm confirm-input" id="confirmprd<?= h($dailymonitors->id) ?>" data-id="<?= h($dailymonitors->id) ?>">
                             </td>
                             <td>
                                 <button class="btn btn-success save btn-sm mb-0" id="confirmsave<?= h($dailymonitors->id) ?>" data-id="<?= h($dailymonitors->id) ?>">Save</button>
@@ -71,5 +73,16 @@
 </div>
 <script>
     var getConfirmedProductionUrl="<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'confirmedproduction')); ?>"
+
+    $(".confirm-input").keyup( function () {
+            var id = $(this).attr('data-id');
+            var val = parseFloat($(this).val().trim());
+            var maxQty = parseFloat($("#plan_qty_"+id).val().trim());
+            console.log(val + "=" + maxQty);
+            if(val > maxQty) {
+                $(this).val(maxQty);
+            }
+        });
+
 </script>
 <?= $this->Html->script('v_dailymonitor_dailyentry') ?>
