@@ -57,7 +57,8 @@ class LineMastersTable extends Table
             ->notEmptyString('sap_vendor_code');
 
         $validator
-            ->integer('name')
+            ->scalar('name')
+            ->maxLength('name', 250)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 

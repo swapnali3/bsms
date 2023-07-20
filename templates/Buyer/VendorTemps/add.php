@@ -246,7 +246,7 @@
                             <?= $this->Form->button('Choose File', [
                                 'id' => 'OpenImgUpload',
                                 'type' => 'button',
-                                'class' => 'd-block btn btn-secondary btn-block mb-0 file-upld-btn'
+                                'class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn'
                             ]); ?>
                             <span id="filessnames"></span>
                         </div>

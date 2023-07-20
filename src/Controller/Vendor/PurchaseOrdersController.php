@@ -634,7 +634,7 @@ class PurchaseOrdersController extends VendorAppController
             <thead>
                 <tr>
                     <th>
-                    <input type="checkbox"  id="ckbCheckAll">
+                        <input type="checkbox" class="form-control form-control-sm" style="max-width: 20px;" id="ckbCheckAll">
                     </th>
                     <th>Item</th>
                     <th>Material</th>
@@ -648,12 +648,12 @@ class PurchaseOrdersController extends VendorAppController
             foreach ($data as $row) {
                 // print_r($row); 
                 $html .= '<tr>
-                <td><input type="checkbox" name="footer_id[]" value="' . $row->PoFooters['id'] . '" class="checkBoxClass"  data-pendingqty="' . $row->actual_qty . '" data-id="' . $row->PoItemSchedules['id'] . '"></td>
+                <td><input type="checkbox" name="footer_id[]" value="' . $row->PoFooters['id'] . '" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="' . $row->actual_qty . '" data-id="' . $row->PoItemSchedules['id'] . '"></td>
                  <td>' . $row->PoFooters['item'] . '</td>
                  <td>' . $row->PoFooters['material'] . '</td>
                  <td>' . $row->PoFooters['short_text'] . '</td>
                  <td>' . $row->actual_qty . ' ' . $row->PoFooters['order_unit'] . '</td>
-                 <td><input type="number" name="" class="form-control check_qty" required="required" data-item="' . $row->PoFooters['item'] . '" id="qty' . $row->PoItemSchedules['id'] . '" value="0"></td>
+                 <td><input type="number" name="" class="form-control form-control-sm check_qty" required="required" data-item="' . $row->PoFooters['item'] . '" id="qty' . $row->PoItemSchedules['id'] . '" value="0"></td>
                  
                 </tr>';
             }

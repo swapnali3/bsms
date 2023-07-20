@@ -22,11 +22,10 @@
         margin-left:-10px !important;
     } */
 </style>
-<?= $this->Html->css('cstyle.css') ?>
-<?= $this->Html->css('table.css') ?>
-<?= $this->Html->css('listing.css') ?>
-<?= $this->Html->css('v_index.css') ?>
-<?= $this->Html->css('v_vendorCustom') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
+<!-- <?= $this->Html->css('listing.css') ?> -->
+<!-- <?= $this->Html->css('v_vendorCustom') ?> -->
 <div class="vendorMaterialStocks index content card">
     <div class="card-header p-2">
         <?= $this->Form->create(null, ['url' => ['action' => 'upload'],'type' => 'file']) ?>
@@ -39,7 +38,7 @@
                         <?php echo $this->Form->control('Upload Stocks', ['label' => false, 'accept'=>".xls,.xlsx", 'type' => 'file', 'class' => 'custom-file-input', 'id' => 'exampleInputFile']); ?>
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
-                   <?= $this->Form->button(__('Upload'), ['class' => 'btn btn-custom mb-0']) ?>
+                   <?= $this->Form->button(__('Upload'), ['class' => 'btn bg-gradient-button mb-0']) ?>
                 </div>
             </div>
         </fieldset>
