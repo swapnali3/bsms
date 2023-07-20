@@ -132,7 +132,7 @@
         </footer>
     </div>
     <!-- ./wrapper -->
-    <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?>
+    <!-- <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?> -->
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
 
     <!-- DataTables  & Plugins -->

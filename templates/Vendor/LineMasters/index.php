@@ -21,7 +21,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Description</th>
+                                <th>Line Description</th>
                                 <th>Capacity</th>
                                 <th>UOM</th>
                                 <th>Status</th>
@@ -32,9 +32,10 @@
                         </thead>
                         <tbody>
                             <?php foreach ($lineMasters as $lineMaster): ?>
+                                
                             <tr>
                                 <td>
-                                    <?= $this->Number->format($lineMaster->name) ?>
+                                    <?= $lineMaster->name ?>
                                 </td>
                                 <td>
                                     <?= $this->Number->format($lineMaster->capacity) ?>
@@ -43,7 +44,11 @@
                                     <?= h($lineMaster->uom) ?>
                                 </td>
                                 <td>
-                                    <?= $this->Number->format($lineMaster->status) ?>
+                                    <?php if($lineMaster->status == 1) : ?>
+                                    Active
+                                    <?php else : ?>
+                                    Inactive
+                                    <?php endif; ?>
                                 </td>
                                 <td class="actions">
                                     <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $lineMaster->id]) ?> -->
