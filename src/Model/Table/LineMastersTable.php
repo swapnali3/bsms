@@ -58,7 +58,7 @@ class LineMastersTable extends Table
 
         $validator
             ->scalar('name')
-            ->maxLength('name', 250)
+            ->maxLength('name', 20)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
@@ -85,5 +85,19 @@ class LineMastersTable extends Table
             ->notEmptyDateTime('updated_date');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['sap_vendor_code', 'name']), ['errorField' => 'sap_vendor_code']);
+
+        return $rules;
     }
 }

@@ -40,10 +40,16 @@ class MaterialsTable extends Table
         parent::initialize($config);
 
         $this->setTable('materials');
-        $this->setDisplayField('id');
+        $this->setDisplayField('code');
         $this->setPrimaryKey('id');
 
         $this->hasMany('Dailymonitor', [
+            'foreignKey' => 'material_id',
+        ]);
+        $this->hasMany('ProductionLines', [
+            'foreignKey' => 'material_id',
+        ]);
+        $this->hasMany('StockUploads', [
             'foreignKey' => 'material_id',
         ]);
     }
@@ -80,7 +86,7 @@ class MaterialsTable extends Table
 
         $validator
             ->scalar('uom')
-            ->maxLength('uom', 50)
+            ->maxLength('uom', 3)
             ->allowEmptyString('uom');
 
         $validator

@@ -21,9 +21,14 @@ class DailymonitorController extends VendorAppController
         $this->loadModel("ProductionLines");
 
         $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code')]])
-        ->select([
+        ->contain(['ProductionLines','ProductionLines.LineMasters', 'Materials']);
+        $this->set(compact('dailymonitor'));
+
+        //echo '<pre>'; print_r($dailymonitor); exit;
+        /*->select([
             'id','sap_vendor_code','production_line_id','material_id', 'plan_date','target_production','confirm_production','status','added_date', 'updated_date',
-            'prdline_description' => 'prdline.name','material_description' => 'vendormat.description'])->join([
+            'prdline_description' => 'prdline.name','material_description' => 'vendormat.description'])
+            ->join([
             'table' => 'production_lines',
             'alias' => 'prdline',
             'type' => 'LEFT',
@@ -33,9 +38,9 @@ class DailymonitorController extends VendorAppController
             'alias' => 'vendormat',
             'type' => 'LEFT',
             'conditions' => 'vendormat.id = Dailymonitor.material_id',
-        ]);
+        ]); */
         // echo '<pre>'; print_r($dailymonitor); exit;
-        $this->set(compact('dailymonitor'));
+        
     }
 
     /**
@@ -69,7 +74,11 @@ class DailymonitorController extends VendorAppController
         $this->loadModel("ProductionLines");
 
         $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code'), 'Dailymonitor.plan_date <=' => date('y-m-d')]])
-        ->select([
+        ->contain(['ProductionLines','ProductionLines.LineMasters', 'Materials'])
+        ->order(['Dailymonitor.plan_date' => 'DESC']);
+        $this->set(compact('dailymonitor'));
+        
+        /*->select([
             'id','sap_vendor_code','production_line_id','material_id', 'plan_date','target_production','confirm_production','status',
             'prdline_description' => 'prdline.name','material_description' => 'vendormat.description'])->join([
             'table' => 'production_lines',
@@ -81,9 +90,8 @@ class DailymonitorController extends VendorAppController
             'alias' => 'vendormat',
             'type' => 'LEFT',
             'conditions' => 'vendormat.id = Dailymonitor.material_id',
-        ])->order(['Dailymonitor.plan_date' => 'DESC']);
-        // echo '<pre>'; print_r($dailymonitor); exit;
-        $this->set(compact('dailymonitor'));
+        ])->order(['Dailymonitor.plan_date' => 'DESC']);*/
+        
     }
 
     public function add()

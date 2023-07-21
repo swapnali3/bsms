@@ -84,27 +84,22 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
         </div>
     </div>
 
-    <?= $this->Form->create(null, ['type' => 'file', 'id' => 'sapvendorcodeform']); ?>
+    <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
     <div class="card-body">
         <div class="row">
             <div class="col-sm-2 col-md-2 mt-3">
-                <?= $this->Form->control('vendor_code', ['type' => 'file', 'label' =>
-                false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden;
-                        position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput']);
-                ?>
-                <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
-                'button', 'label' => 'Upload File', 'class' => 'd-block btn btn-secondary mb-0 file-upld-btn']); ?>
+            <?= $this->Form->control('upload_file', ['id' => 'bulk_file','type' => 'file']); ?>
+                
                 <span id="filessnames"></span>
             </div>
             <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">
-                <button class="btn btn-custom" id="sapvendorcode" type="button">
+                <button class="btn btn-custom" id="id_import" type="button">
                     Submit
                 </button>
-                <button type="submit" style="display: none;" id="stockFileSubmit">Submit</button>
             </div>
             <div class="col-sm-12 col-md-12 mt-3">
                 <i style="color: black;">
-                    <a href="<?= $this->Url->build('/') ?>webroot/templates/stock_upload.xlsx" download>stock_upload_template</a>
+                    <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload.xlsx" download>stock_upload_template</a>
                 </i>
             </div>
         </div>
@@ -296,5 +291,40 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
         });
 
 
+    });
+
+    $("#id_import").click(function() {
+        var fd = new FormData($('#formUpload')[0]);
+
+        $.ajax({
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'upload')); ?>",
+            type: "post",
+            dataType: 'json',
+            processData: false, // important
+            contentType: false, // important
+            data: fd,
+            success: function(response) {
+                if(response.status) {
+                    Toast.fire({
+                    icon: 'success',
+                    title: response.message
+                });
+
+                //setTimeout(function() {history.go(-1);}, 1000);
+                
+                } else {
+                    Toast.fire({
+                    icon: 'error',
+                    title: response.message
+                });
+                }
+            },
+            error: function() {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'An error occured, please try again.'
+                });
+            }
+        });
     });
 </script>

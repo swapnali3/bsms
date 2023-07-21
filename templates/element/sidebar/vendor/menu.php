@@ -1,19 +1,21 @@
 <!-- Add icons to the links using the .nav-icon class
      with font-awesome or any other icon font library -->
-<?php $polickActive = ($controller == 'PurchaseOrders' && $action == 'index') ? 'active' : ''; ?>
-<?php $createAsnActive = ($controller == 'PurchaseOrders' && $action == 'createAsn' || $action == 'asnMaterials') ? 'active' : ''; ?>
-<?php $dashactive = ($controller == 'Dashboard') ? 'active' : ''; ?>
-<?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
-<?php $profileActive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
-<?php $rfqlickActive = ($controller == 'Rfqs') ? 'active' : ''; ?>
-<?php $asnActive = ($controller == 'Asn') ? 'active' : '';?>
-<?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : '';?>
-<?php $materialMaster = ($controller == 'Materials') ? 'active' : ''; ?>
-<?php $stocksUpload = ($controller == 'StockUploads') ? 'active' : ''; ?>
-<?php $productionLine = ($controller == 'ProductionLines') ? 'active' : ''; ?>
-<?php $dailyStock = ($controller == 'Dailymonitor') ? 'active' : ''; ?>
-<?php $intransit = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
+     <?php $polickActive = ($controller == 'PurchaseOrders' && $action == 'index') ? 'active' : ''; ?>
+     <?php $createAsnActive = ($controller == 'PurchaseOrders' && $action == 'createAsn' || $action == 'asnMaterials') ? 'active' : ''; ?>
+     <?php $dashactive = ($controller == 'Dashboard') ? 'active' : ''; ?>
+     <?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
+     <?php $profileActive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
+     <?php $rfqlickActive = ($controller == 'Rfqs') ? 'active' : ''; ?>
+     <?php $asnActive = ($controller == 'Asn') ? 'active' : '';?>
+     <?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : '';?>
+     <?php $materialMaster = ($controller == 'Materials') ? 'active' : ''; ?>
+     <?php $stocksUpload = ($controller == 'StockUploads') ? 'active' : ''; ?>
+     <?php $productionLine = ($controller == 'ProductionLines') ? 'active' : ''; ?>
+     <?php $dailyStock = ($controller == 'Dailymonitor') ? 'active' : ''; ?>
+     <?php $intransit = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
+     <?php $lineMaster = ($controller == 'LineMaters') ? 'active' : ''; ?>
 
+     
 
 <style>
   .container,
@@ -116,7 +118,10 @@
       <?= $this->Html->link(__('<i class="fas fa-boxes nav-icon"></i><p>Material Master</p>'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Line Master</p>'), ['controller' => 'line-masters', 'action' => 'index'], ['class' => "nav-link $lineMaster", 'escape' => false]) ?>
+    </li>
+    <li class="nav-item ">
+    <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
       <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Production Line</p>'), ['controller' => 'ProductionLines', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>

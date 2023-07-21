@@ -21,11 +21,12 @@ class LineMastersFixture extends TestFixture
             [
                 'id' => 1,
                 'sap_vendor_code' => 'Lorem ip',
-                'name' => 1,
+                'name' => 'Lorem ipsum dolor ',
+                'capacity' => 1.5,
                 'uom' => 'L',
                 'status' => 1,
-                'added_date' => '2023-07-19 11:00:47',
-                'updated_date' => '2023-07-19 11:00:47',
+                'added_date' => '2023-07-19 18:14:38',
+                'updated_date' => '2023-07-19 18:14:38',
             ],
         ];
         parent::init();
