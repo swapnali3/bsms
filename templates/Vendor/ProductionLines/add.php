@@ -10,7 +10,7 @@
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
 <?= $this->Html->css('v_index.css') ?>
-<?= $this->Form->create($productionline) ?>
+<?= $this->Form->create($productionline, ['id' => 'productionLineForm']) ?>
 <div class="card">
     <div class="card-header pb-1 pt-2">
         <div class="row">
@@ -74,9 +74,93 @@
 
 <script>
     function showConfirmationModal() {
-        $('#modal-sm').modal('show');
+        if ($('#productionLineForm').valid()) {
+            $('#modal-sm').modal('show');
+        }
     }
 
+
+    $("#productionLineForm").validate({
+        rules: {
+            vendor_material_code: {
+                required: true
+            },
+            description: {
+                required: true
+            },
+            uom: {
+                required: true
+            },
+            name: {
+                required: true
+            },
+            capacity: {
+                required: true,
+                number: true
+            }
+        },
+        messages: {
+            vendor_material_code: {
+                required: "Please select a material code"
+            },
+            name: {
+                required: "Please enter a line description"
+            },
+            description: {
+                required: "Please enter a material description"
+            },
+            uom: {
+                required: "Please enter a unit of measurement"
+            },
+            capacity: {
+                required: "Please enter the capacity",
+                number: "Please enter a valid number"
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function(error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+        submitHandler: function(form, event) {
+            // Prevent the default form submission
+            event.preventDefault();
+            $('#productionLineForm')[0].submit();
+        }
+    });
+
+    $("#descripe").change(function() {
+        var vendorId = $(this).val();
+        if (vendorId != "") {
+            $.ajax({
+                type: "get",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'material')); ?>/" + vendorId,
+                dataType: "json",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(
+                        "Content-type",
+                        "application/x-www-form-urlencoded"
+                    );
+                },
+                success: function(response) {
+                    if (response.status == "1") {
+                        $("#description").val(response.data.description);
+                        $("#uom").val(response.data.uom);
+                    }
+                },
+                error: function(e) {
+                    alert("An error occurred: " + e.responseText.message);
+                    console.log(e);
+                },
+            });
+        }
+    });
 
     $("#descripe").change(function() {
             var vendorId = $(this).val();

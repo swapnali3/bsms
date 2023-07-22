@@ -32,6 +32,7 @@
                         </thead>
                         <tbody>
                             <?php foreach ($lineMasters as $lineMaster): ?>
+                                
                             <tr>
                                 <td>
                                     <?= $lineMaster->name ?>
@@ -43,7 +44,11 @@
                                     <?= h($lineMaster->uom) ?>
                                 </td>
                                 <td>
-                                    <?= $this->Number->format($lineMaster->status) ?>
+                                    <?php if($lineMaster->status == 1) : ?>
+                                    Active
+                                    <?php else : ?>
+                                    Inactive
+                                    <?php endif; ?>
                                 </td>
                                 <td class="actions">
                                     <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $lineMaster->id]) ?> -->

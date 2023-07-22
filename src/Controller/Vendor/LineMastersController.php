@@ -55,6 +55,9 @@ class LineMastersController extends VendorAppController
     {
         $session = $this->getRequest()->getSession();
         $lineMaster = $this->LineMasters->newEmptyEntity();
+        $this->loadModel("Materials");
+        $uom = $this->Materials->find('list',['keyField' => 'uom', 'valueField' => 'uom'])->select(['uom'])
+        ->distinct(['uom']);
         if ($this->request->is('post')) {
             $lineMaster = $this->LineMasters->patchEntity($lineMaster, $this->request->getData());
             $lineMaster->sap_vendor_code = $session->read('vendor_code');
@@ -72,7 +75,7 @@ class LineMastersController extends VendorAppController
                 $this->Flash->error(__($e->getMessage()));
             }
         }
-        $this->set(compact('lineMaster'));
+        $this->set(compact('lineMaster','uom'));
     }
 
     /**

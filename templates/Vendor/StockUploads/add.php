@@ -35,7 +35,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('description', array('type' => 'text','class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Description', 'readonly')); ?>
+                    <?php echo $this->Form->control('description', array('type' => 'text', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Material Description', 'readonly')); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3">
@@ -47,11 +47,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
             <div class="col-sm-8 col-md-3">
                 <div class="form-group">
-                    <?php echo $this->Form->control('opening_stock', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group')); ?>
+                    <?php echo $this->Form->control('opening_stock', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'min' => "1", 'style' => "height: unset !important;", 'div' => 'form-group')); ?>
                 </div>
             </div>
             <div class="col-sm-8 col-md-3 d-flex justify-content-start align-items-end">
-                <button type="button" class="btn btn-custom" data-toggle="modal" data-target="#modal-sm" id="stockClick">Submit</button>
+                <button type="button" class="btn btn-custom" id="stockClick">Submit</button>
                 <button type="submit" style="display: none;" id="stockInputSubmit">Submit</button>
             </div>
         </div>
@@ -166,31 +166,91 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
 
 <script>
+    $("#stockuploadForm").validate({
+        rules: {
+            code: {
+                required: true
+            },
+            description: {
+                required: true
+            },
+            uom: {
+                required: true
+            },
+            opening_stock: {
+                required: true,
+                number: true
+            }
+        },
+        messages: {
+            code: {
+                required: "Please select a material code"
+            },
+            description: {
+                required: "Please enter a material description"
+            },
+            uom: {
+                required: "Please enter a unit of measurement"
+            },
+            opening_stock: {
+                required: "Please enter the opening stock quantity",
+                number: "Please enter a valid number"
+            }
+        },
+        errorElement: 'span',
+        errorPlacement: function(error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+        submitHandler: function(form, event) {
+            event.preventDefault();
+            $('#modal-confirm').modal('show');
+            return false;
+        }
+    });
 
-    
-   
+
     $('#stockClick').click(function() {
-        submitStatus = true
+        if ($('#stockuploadForm').valid()) {
+            $('#modal-sm').modal('show');
+            submitStatus = true
+        }
     });
 
     $('#sapvendorcode').click(function() {
-        submitStatus = false
-        console.log(submitStatus);
+        $('#modal-sm').modal('show');
+            submitStatus = false
     });
 
 
     $('.addSubmit').click(function() {
         if (submitStatus) {
-            $("#stockInputSubmit").trigger('click');   
-        }
-        else{
-            $("#stockFileSubmit").trigger('click');  
+            if ($('#stockuploadForm').valid()) {
+                $('#modal-sm').modal('hide');
+                $('#stockuploadForm')[0].submit();
+            }
+        } else {
+            $('#modal-sm').modal('hide');
+            $('#sapvendorcodeform')[0].submit();
         }
     });
 
 
     $(document).ready(function() {
-
+        var submitStatus;
+       if(submitStatus) {
+        console.log(submitStatus);
+        var csrf = $("input[name=_csrfToken]").val();
+        $("input").val("");
+        $('select').prop('selectedIndex', 0);
+        $("input[name=_csrfToken]").val(csrf);
+       }
         $('#OpenImgUpload').click(function() {
             $('#vendorCodeInput').trigger('click');
         });

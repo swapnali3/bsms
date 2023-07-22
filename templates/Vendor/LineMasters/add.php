@@ -23,7 +23,8 @@
                         <?php echo $this->Form->control('capacity', ['class'=> 'form-control']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <?php echo $this->Form->control('uom', ['class'=> 'form-control']); ?>
+                    <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'style' => "height: unset !important;", 'empty' => 'Please Select','label'=>'Unit Of Measurement')); ?>
+                        <?php echo $this->Form->control('status', ['value'=> 1, 'style' => 'visibility: hidden; position: absolute;','label' => false]); ?>
                     </div>
                 </div>
             </div>
