@@ -35,25 +35,25 @@
                     </thead>
                     <tbody>
                         <?php if (isset($vendorMaterial)) : ?>
-                        <?php foreach ($vendorMaterial as $vendorMaterials) : ?>
-                        <tr>
-                            <td>
-                                <?= h($vendorMaterials->code) ?>
-                            </td>
-                            <td>
-                                <?= h($vendorMaterials->description) ?>
-                            </td>
-                            <td>
-                                <?= h($vendorMaterials->minimum_stock . " " . $vendorMaterials->uom) ?>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
+                            <?php foreach ($vendorMaterial as $vendorMaterials) : ?>
+                            <tr>
+                                <td>
+                                    <?= h($vendorMaterials->code) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorMaterials->description) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorMaterials->minimum_stock . " " . $vendorMaterials->uom) ?>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
                         <?php else : ?>
-                        <tr>
-                            <td colspan="5">
-                                No Records Found
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="5">
+                                    No Records Found
+                                </td>
+                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>

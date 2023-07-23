@@ -23,38 +23,38 @@
                                 <th>Capacity</th>
                                 <th>UOM</th>
                                 <th>Status</th>
-                                <th class="actions">
-                                    <?= __('Actions') ?>
-                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($lineMasters as $lineMaster): ?>
-                                
-                            <tr>
-                                <td>
-                                    <?= $lineMaster->name ?>
-                                </td>
-                                <td>
-                                    <?= $this->Number->format($lineMaster->capacity) ?>
-                                </td>
-                                <td>
-                                    <?= h($lineMaster->uom) ?>
-                                </td>
-                                <td>
-                                    <?php if($lineMaster->status == 1) : ?>
-                                    Active
-                                    <?php else : ?>
-                                    Inactive
-                                    <?php endif; ?>
-                                </td>
-                                <td class="actions">
-                                    <!-- <?= $this->Html->link(__('View'), ['action' => 'view', $lineMaster->id]) ?> -->
-                                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $lineMaster->id], ['class'=>'btn bg-gradient-button btn-sm',]) ?>
-                                    <!-- <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $lineMaster->id], ['confirm' => __('Are you sure you want to delete # {0}?', $lineMaster->id)]) ?> -->
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
+                            <?php if (isset($lineMasters)) : ?>
+                                <?php foreach ($lineMasters as $lineMaster): ?>
+                                <tr class="redirect"
+                                    data-href="<?= $this->Url->build('/') ?>vendor/line-masters/edit/<?= $lineMaster->id ?>">
+                                    <td>
+                                        <?= $lineMaster->name ?>
+                                    </td>
+                                    <td>
+                                        <?= $this->Number->format($lineMaster->capacity) ?>
+                                    </td>
+                                    <td>
+                                        <?= h($lineMaster->uom) ?>
+                                    </td>
+                                    <td>
+                                        <?php if($lineMaster->status == 1) : ?>
+                                        Active
+                                        <?php else : ?>
+                                        Inactive
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <tr>
+                                    <td colspan="5">
+                                        No Records Found
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
                         </tbody>
                     </table>
                 </div>

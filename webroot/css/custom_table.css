@@ -243,3 +243,39 @@ body {
     transition: 0.5s ease-in-out;
 }
 /* v_index */
+
+/* warn Button */
+.bg-gradient-warn {
+    background: #ff2700 linear-gradient(180deg, #ff2700, #c71f00) repeat-x !important;
+    border-color: #ff2700;
+    color: #fff;
+}
+
+.bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
+.show>.bg-gradient-warn.btn.dropdown-toggle {
+    background-image: none !important;
+}
+
+.bg-gradient-warn.btn:hover {
+    background: #ff2700 linear-gradient(180deg, #ff2700, #ff836c) repeat-x !important;
+    border-color: #ff2700;
+    color: #fff;
+}
+
+.bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
+.bg-gradient-warn.btn:active,
+.bg-gradient-warn.btn.active {
+    background: #ff2700 linear-gradient(180deg, #ff836c, #ff2700) repeat-x !important;
+    border-color: #ff2700;
+    color: #fff;
+}
+
+.bg-gradient-warn.btn:disabled,
+.bg-gradient-warn.btn.disabled {
+    background-image: none !important;
+    border-color: #ff2700;
+    color: #fff;
+}
+/* Reject Button */
