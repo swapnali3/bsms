@@ -12,7 +12,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header pb-1 pt-2">
+            <div class="card-header">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start">
                         <h5>Vendor Materials</h5>
@@ -24,8 +24,8 @@
                 </div>
             </div>
 
-            <div class="card-header p-0 mb-0 mt-3 ml-3 mr-3">
-                <table class="table table-hover" id="example1">
+            <div class="card-body">
+                <table class="table table-hover table-striped table-bordered" id="example1">
                     <thead>
                         <tr>
                             <th>Material Code</th>

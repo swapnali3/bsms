@@ -122,16 +122,16 @@ th {
 .bg-gradient-submit.btn:not(:disabled):not(.disabled).active,
 .bg-gradient-submit.btn:active,
 .bg-gradient-submit.btn.active {
-    background: #ADEFD1FF linear-gradient(180deg, #7bdbb0, #a5ffd6) repeat-x !important;
+    background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
     border-color: #ffffff;
-    color: #2d4053;
+    color: #fff;
 }
 
 .bg-gradient-submit.btn:disabled,
 .bg-gradient-submit.btn.disabled {
     background-image: none !important;
     border-color: #ffffff;
-    color: #2d4053;
+    color: #fff;
 }
 /* Submit Button */
 
