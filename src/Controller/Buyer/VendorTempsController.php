@@ -127,7 +127,6 @@ class VendorTempsController extends BuyerAppController
                 if ($this->VendorTemps->save($newrecord)) {
                     if ($this->VendorTemps->save($oldrecord)) {
                         $flash = ['type'=>'success', 'msg'=>'Vendor Details Updated'];
-                        $flash = ['type'=>'error', 'msg'=>'Failed'];
                     }
                         $flash = ['type'=>'error', 'msg'=>'Failed'];
                     }

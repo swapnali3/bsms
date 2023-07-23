@@ -72,16 +72,18 @@
             "searching": false,
             "ordering": false,
             "destroy": true,
-            "columns": [
-                {
+            "columns": [{
                     "data": "code"
                 },
                 {
                     "data": "description"
                 },
                 {
-                    "data": "minimum_stock"
-                },
+                    "data": "minimum_stock",
+                    // "render": function(data, type, row) {
+                    //     return data + " " + row.uom;
+                    // }
+                }
             ]
         });
 

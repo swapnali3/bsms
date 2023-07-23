@@ -264,4 +264,80 @@ class StockUploadsController extends VendorAppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function upload()
+    {
+        $response['status'] = 0;
+        $response['message'] = 'upload fail';
+        $this->autoRender = false;
+        $session = $this->getRequest()->getSession();
+        
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            try {
+            
+
+                $uploadData = [];
+                if (isset($_FILES['upload_file']) && $_FILES['upload_file']['name'] != "" && isset($_FILES['upload_file']['name'])) {
+
+                    $this->loadModel("Materials");
+                    $materials = $this->Materials->find('list')
+                    ->select(['id', 'code'])
+                    ->where(['sap_vendor_code' => $session->read('vendor_code')])->toArray();
+
+                    //echo '<pre>'; print_r($materials);  exit;
+
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($_FILES['upload_file']['tmp_name']);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($_FILES['upload_file']['tmp_name']);
+                    $worksheet = $spreadsheet->getActiveSheet();
+                    $highestRow = $worksheet->getHighestRow(); 
+                    $highestColumn = $worksheet->getHighestColumn();
+                    $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
+
+                    $tmp = [];
+                    for ($row = 3; $row <= $highestRow; ++$row) {
+                        
+                        $tmp['sap_vendor_code']  = $session->read('vendor_code');
+                        for ($col = 1; $col <= $highestColumnIndex; ++$col) {
+                            $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+                            if($col == 1) {
+                                $tmp['material_id'] = array_search ($value, $materials);
+                            } else if($col == 2) {
+                                $tmp['opening_stock'] = $value;
+                            }
+                        }
+
+                        $uploadData[] = $tmp;
+                    }
+                    
+                    $columns = array_keys($uploadData[0]);
+                    $upsertQuery = $this->StockUploads->query();
+                    $upsertQuery->insert($columns);
+
+                    foreach($uploadData as $row) {
+                        $upsertQuery->values($row);
+                        $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `material_id`=VALUES(`material_id`), `opening_stock`=VALUES(`opening_stock`)')
+                        ->execute();
+                    }
+
+                    $response['status'] = 1;
+                    $response['message'] = 'uploaded Successfully';
+                } else {
+                    $response['status'] = 0;
+                    $response['message'] = 'file not uploaded';
+                }
+
+                
+            } catch (\PDOException $e) {
+                $response['status'] = 0;
+                $response['message'] = $e->getMessage();
+            } catch (\Exception $e) {
+                $response['status'] = 0;
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+        echo json_encode($response); exit;
+    }
+
 }

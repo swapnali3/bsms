@@ -17,7 +17,6 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <?php echo $this->Form->control('sap_vendor_code', ['value'=> $_SESSION['vendor_code'], 'style' => 'visibility: hidden; position: absolute;','label' => false]); ?>
                         <?php echo $this->Form->control('name', ['class'=> 'form-control']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
@@ -37,3 +36,66 @@
         <?= $this->Form->end() ?>
     </div>
 </div>
+
+<?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/line-masters', 'action' => 'upload']]) ?>
+<div class="card">
+    <div class="card-header">
+        <h5><b>Bulk upload Line Master</b></h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-lg-2">
+                <?= $this->Form->control('upload_file', ['id' => 'bulk_file','type' => 'file']); ?>
+                <span id="filessnames"></span>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-2">
+                <button type="button" class="btn btn-primary" id="id_exportme">IMPORT FILE</button>
+            </div>
+            <div class="col-12 pt-2">
+                <i style="color: black;">
+                    <a href="<?= $this->Url->build('/') ?>webroot/templates/line_master_upload.xlsx"
+                        target="_blank" rel="noopener noreferrer">Master Template.xlsx</a>
+                </i>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<?= $this->Form->end() ?>
+
+<script>
+    $("#id_exportme").click(function() {
+    var fd = new FormData($('#formUpload')[0]);
+
+    $.ajax({
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/line-masters', 'action' => 'upload')); ?>",
+        type: "post",
+        dataType: 'json',
+        processData: false, // important
+        contentType: false, // important
+        data: fd,
+        success: function(response) {
+            if(response.status) {
+                Toast.fire({
+                icon: 'success',
+                title: response.message
+              });
+
+              //setTimeout(function() {history.go(-1);}, 1000);
+              
+            } else {
+                Toast.fire({
+                icon: 'error',
+                title: response.message
+              });
+            }
+        },
+        error: function() {
+            Toast.fire({
+                icon: 'error',
+                title: 'An error occured, please try again.'
+              });
+        }
+    });
+});
+    </script>
