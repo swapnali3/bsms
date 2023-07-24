@@ -42,7 +42,7 @@
                         <div class="col-sm-12 col-lg-6">
                             <div class="d-flex justify-content-end">
                                 <button class="btn btn-custom-2 mb-0 mrk mr-2" data-toggle="modal"
-                                    data-target="#modal-confirm">Mark Delivered</button>
+                                    data-target="#modal-confirm">Mark Dispatched</button>
                                 <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
 
                                     if (!empty($files)) {
@@ -61,7 +61,7 @@
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
                                     <div class="modal-body text-center">
-                                        <h6>Are you sure you want to mark delivered ?</h6>
+                                        <h6>Are you sure you want to mark dispatched ?</h6>
                                     </div>
                                     <div class="modal-footer justify-content-between p-1">
                                         <button type="button" class="btn btn-sm btn-link"

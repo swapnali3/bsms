@@ -618,7 +618,7 @@ class PurchaseOrdersController extends VendorAppController
 
         $data = $this->PoHeaders->find('all')
 
-            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'PoItemSchedules.delivery_date'])
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'PoItemSchedules.delivery_date'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
             ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
@@ -626,7 +626,7 @@ class PurchaseOrdersController extends VendorAppController
             ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0'])
             ->limit(1);
 
-        //echo '<pre>'; print_r($data); exit;
+        // echo '<pre>'; print_r($data); exit;
 
         $html = '';
         if ($data->count() > 0) {
@@ -638,6 +638,7 @@ class PurchaseOrdersController extends VendorAppController
                     </th>
                     <th>Item</th>
                     <th>Material</th>
+                    <th>Delivery Date</th>
                     <th>Short Text</th>
                     <th>Pending Qty</th>
                     <th>Set Delivery Qty</th>
@@ -647,13 +648,15 @@ class PurchaseOrdersController extends VendorAppController
             $totalQty = 0;
             foreach ($data as $row) {
                 // print_r($row); 
+                $maxqty = $row->actual_qty+$row->actual_qty*0.05;
                 $html .= '<tr>
                 <td><input type="checkbox" name="footer_id[]" value="' . $row->PoFooters['id'] . '" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="' . $row->actual_qty . '" data-id="' . $row->PoItemSchedules['id'] . '"></td>
                  <td>' . $row->PoFooters['item'] . '</td>
                  <td>' . $row->PoFooters['material'] . '</td>
+                 <td>' . $row->delivery_date . '</td>
                  <td>' . $row->PoFooters['short_text'] . '</td>
                  <td>' . $row->actual_qty . ' ' . $row->PoFooters['order_unit'] . '</td>
-                 <td><input type="number" name="" class="form-control form-control-sm check_qty" required="required" data-item="' . $row->PoFooters['item'] . '" id="qty' . $row->PoItemSchedules['id'] . '" value="0"></td>
+                 <td><input type="number" name="" class="form-control form-control-sm check_qty" data-max="'. $maxqty .'" max="'. $maxqty .'" required="required" data-item="' . $row->PoFooters['item'] . '" id="qty' . $row->PoItemSchedules['id'] . '" value="0"></td>
                  
                 </tr>';
             }
@@ -774,7 +777,7 @@ class PurchaseOrdersController extends VendorAppController
             }
 
             $poHeader = $this->PoHeaders->find('all')
-                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'PoItemSchedules.delivery_date'])
+                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'PoItemSchedules.delivery_date'])
                 ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
                 ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
                 ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
