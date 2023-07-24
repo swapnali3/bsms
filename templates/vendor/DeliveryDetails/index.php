@@ -49,7 +49,7 @@
                                 <?= h($deliveryDetail->invoice_value).' '. h($deliveryDetail->po_header->currency)?>
                             </td>
                             <td>
-                                <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">Delivered</span>' : '<span class="badge bg-warning">INTRANSIT</span>' ?>
+                                <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">Dispatched</span>' : '<span class="badge bg-warning">INTRANSIT</span>' ?>
                             </td>
 
                         </tr>

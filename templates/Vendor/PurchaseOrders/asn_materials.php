@@ -71,7 +71,7 @@
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
 
-              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'max'=>'20', 'div' => 'form-group', 'required')); ?>
             </div>
 
           </div>
@@ -151,6 +151,9 @@
                       <?= __('Material') ?>
                     </th>
                     <th>
+                      <?= __('Delivery Date') ?>
+                    </th>
+                    <th>
                       <?= __('Short Text') ?>
                     </th>
                     <th>
@@ -180,6 +183,9 @@
                       <?= h($row['PoFooters']['material']) ?>
                     </td>
                     <td>
+                      <?= h($row['delivery_date']) ?>
+                    </td>
+                    <td>
                       <?= h($row['PoFooters']['short_text']) ?>
                     </td>
                     <td>
@@ -194,7 +200,7 @@
                       <div class="form-group mb-0">
                         <?= $this->form->control('po_footer_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoFooters']['id']]) ?>
                         <?= $this->form->control('schedule_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoItemSchedules']['id']]) ?>
-                        <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'class' => 'form-control check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'max' => $row['actual_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
+                        <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'disabled' => 'disabled', 'class' => 'form-control check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'max' => $row['actual_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
                       </div>
                     </td>
                     <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>">

@@ -6,7 +6,7 @@
 ?>
 
 <!-- <?= $this->Html->css('cstyle.css') ?> -->
- <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('custom') ?>
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
 <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
@@ -62,10 +62,12 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <input type="checkbox" class="form-control form-control-sm" style="max-width: 20px;" id="ckbCheckAll">
+                                    <input type="checkbox" class="form-control form-control-sm" style="max-width: 20px;"
+                                        id="ckbCheckAll">
                                 </th>
                                 <th>Item</th>
                                 <th>Material</th>
+                                <th>Delivery Date</th>
                                 <th>Short Text</th>
                                 <th>Pending Qty</th>
                                 <th>Set Delivery Qty</th>
@@ -147,7 +149,7 @@
                     if (response.status == 'success') { div.html(response.html).removeClass('loading'); }
                     else { div.html(response.message).removeClass('loading'); }
                 },
-                complete: function () {$("#loaderss").hide();}
+                complete: function () { $("#loaderss").hide(); }
             });
 
             return div;
@@ -207,7 +209,7 @@
         $(document).on("click", "#ckbCheckAll", function () {
             if (this.checked) {
                 $('.checkBoxClass').each(function () {
-                    $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
+                    if ($("#qty" + $(this).data("id")).val() == "") { $("#qty" + $(this).data("id")).val($(this).data("pendingqty")); }
                     this.checked = true;
                     $("#select" + $(this).data("id")).trigger("change");
                 });
@@ -227,8 +229,8 @@
         });
 
         $(document).on("change", ".checkBoxClass", function () {
-            if ($(this).is(':checked')) { $("#qty" + $(this).data("id")).val($(this).data("pendingqty")); }
-            else { $("#qty" + $(this).data("id")).val('0'); }
+            if ($(this).is(':checked')) { if ($("#qty" + $(this).data("id")).val() == "0"|| $("#qty" + $(this).data("id")).val() == "") { $("#qty" + $(this).data("id")).val($(this).data("pendingqty")); } }
+            else { $("#qty" + $(this).data("id")).val(''); }
         });
 
         $(document).on("change", ".checkBoxClass", function () {
@@ -238,5 +240,8 @@
             if ($('.checkBoxClass:checked').length) { $(".continue_btn").addClass('btn-success').removeAttr('disabled').removeClass('btn-secondary'); }
             else { $(".continue_btn").addClass('btn-secondary ').removeClass('btn-success').attr('disabled', 'disabled'); }
         });
+    });
+    $(document).on("change focusout", ".check_qty", function () {
+        if ($(this).val() > $(this).data('max')){$(this).val($(this).data('max'))}
     });
 </script>
