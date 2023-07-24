@@ -45,6 +45,7 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/toastr/toastr.min.css') ?>
+    <?= $this->Html->css('custom_table.css') ?>
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
 

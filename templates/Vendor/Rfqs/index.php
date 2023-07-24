@@ -7,8 +7,6 @@
 <!-- <?= $this->Html->css('cstyle.css') ?> -->
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
-<?= $this->Html->css('v_index.css') ?>
-<?= $this->Html->css('custom_table.css') ?>
 <!-- <?= $this->Html->css('v_vendorCustom') ?> -->
 <div class="row">
     <div class="col-12">

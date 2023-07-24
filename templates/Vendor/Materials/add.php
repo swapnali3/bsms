@@ -101,7 +101,7 @@
                         position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput']);
                 ?>
                 <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
-                'button', 'label' => 'Upload File', 'class' => 'd-block btn btn-secondary mb-0 file-upld-btn']); ?>
+                'button', 'label' => 'Upload File', 'class' => 'd-block btn bg-gradient-button mb-0 file-upld-btn']); ?>
                 <span id="filessnames"></span>
             </div>
             <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">

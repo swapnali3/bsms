@@ -8,8 +8,6 @@
 <!-- <?= $this->Html->css('cstyle.css') ?> -->
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
-<?= $this->Html->css('v_index.css') ?>
-<?= $this->Html->css('custom_table.css') ?>
 <?= $this->Html->css('v_purchaseorder_index') ?>
 <!-- <?= $this->Html->css('v_vendorCustom') ?> -->
 <div class="poHeaders index content card purchase-order">
@@ -73,7 +71,7 @@
 
   <div class="row">
     <div class="col-lg-12 mb-2 pe-4 d-flex justify-content-end flagButton">
-      <button type="button" data-id="" class="btn btn-primary notify mb-0">
+      <button type="button" data-id="" class="btn bg-gradient-button notify mb-0">
         <i class="fa fa-envelope"></i> Acknowledge
       </button>
     </div>

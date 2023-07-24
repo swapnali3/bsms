@@ -44,8 +44,8 @@
                 </div>
             </div>
             <div class="card-footer">
-                <?= $this->Form->button(__('Submit'), ['class'=> 'btn btn-gradient-true']) ?>
-                <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'btn btn-gradient-false']) ?>
+                <?= $this->Form->button(__('Submit'), ['class'=> 'btn bg-gradient-submit']) ?>
+                <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'btn bg-gradient-cancel']) ?>
             </div>
         </div>
         <?= $this->Form->end() ?>

@@ -9,8 +9,6 @@
 <!-- <?= $this->Html->css('custom') ?> -->
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
-<?= $this->Html->css('custom_table.css') ?>
-<?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_dashboard_index.css') ?>
 
 <div class="row p-1">
@@ -32,7 +30,7 @@
 
       <hr class="dark horizontal my-0">
       <div class="card-footer p-3">
-        <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'small-box-footer button btn-custom', 'escape' => false]) ?>
+        <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'small-box-footer btn bg-gradient-button', 'escape' => false]) ?>
       </div>
     </div>
   </div> -->
@@ -54,7 +52,7 @@
 
       <hr class="dark horizontal my-0">
       <div class="card-footer p-3">
-        <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer button btn-custom', 'escape' => false]) ?>
+        <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer btn bg-gradient-button', 'escape' => false]) ?>
       </div>
     </div>
   </div> -->
@@ -77,7 +75,7 @@
       </div>
       <hr class="horizontal my-0 dark">
       <div class="card-footer p-3">
-        <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'small-box-footer button btn-custom', 'escape' => false]) ?>
+        <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'small-box-footer btn bg-gradient-button', 'escape' => false]) ?>
       </div>
     </div>
   </div> -->
@@ -96,7 +94,7 @@
         </div>
       </div>
       <div class="btn-action">
-        <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'btn ', 'escape' => false]) ?>
+        <?= $this->Html->link(__('More Info'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => 'btn bg-gradient-button', 'escape' => false]) ?>
       </div>
     </div>
   </div>
@@ -115,7 +113,7 @@
         </div>
       </div>
       <div class="btn-action">
-        <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'btn', 'escape' => false]) ?>
+        <?= $this->Html->link(__('More Info'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => 'btn bg-gradient-button', 'escape' => false]) ?>
       </div>
     </div>
   </div>
@@ -247,7 +245,7 @@
       </div>
       <hr class="horizontal my-0 dark">
       <div class="card-footer p-3">
-        <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer button btn-custom', 'escape' => false]) ?>
+        <?= $this->Html->link(__('More Info'), '#', ['class' => 'small-box-footer btn bg-gradient-button', 'escape' => false]) ?>
       </div>
     </div>
   </div> -->
