@@ -165,6 +165,9 @@
                     <th>
                       <?= __('Net Value') ?>
                     </th>
+                    <th>
+                      <?= __('Current Stock') ?>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -197,6 +200,7 @@
                     <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>">
                       <?= ($row['PoFooters']['net_price'] * $row['actual_qty']) ?>
                     </td>
+                    <td><?php echo $materialStock->current_stock?></td>
                   </tr>
                   <?php endforeach; ?>
                 </tbody>

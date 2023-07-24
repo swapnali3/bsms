@@ -23,23 +23,6 @@ class DailymonitorController extends VendorAppController
         $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code')]])
         ->contain(['ProductionLines','ProductionLines.LineMasters', 'Materials']);
         $this->set(compact('dailymonitor'));
-
-        //echo '<pre>'; print_r($dailymonitor); exit;
-        /*->select([
-            'id','sap_vendor_code','production_line_id','material_id', 'plan_date','target_production','confirm_production','status','added_date', 'updated_date',
-            'prdline_description' => 'prdline.name','material_description' => 'vendormat.description'])
-            ->join([
-            'table' => 'production_lines',
-            'alias' => 'prdline',
-            'type' => 'LEFT',
-            'conditions' => 'prdline.id = Dailymonitor.production_line_id',
-        ])->join([
-            'table' => 'materials',
-            'alias' => 'vendormat',
-            'type' => 'LEFT',
-            'conditions' => 'vendormat.id = Dailymonitor.material_id',
-        ]); */
-        // echo '<pre>'; print_r($dailymonitor); exit;
         
     }
 
@@ -58,12 +41,29 @@ class DailymonitorController extends VendorAppController
 
     public function confirmedproduction($id=null, $confirm_production=null)
     {
+        $this->loadModel("StockUploads");
+        $session = $this->getRequest()->getSession();
+
         $response = ['status'=>0,'message'=>''];
         $dailymonitor = $this->Dailymonitor->get($id);
         $dailymonitor->confirm_production = $confirm_production;
         $dailymonitor->status= 3;
-        if ($this->Dailymonitor->save($dailymonitor)) { $response = ['status'=>1,'message'=>$dailymonitor]; }
-        else { $response = ['status'=>0,'message'=>'Failed']; }
+        
+        if ($this->Dailymonitor->save($dailymonitor)) { 
+            
+            $stockUpload = $this->StockUploads->find()
+                    ->where(['sap_vendor_code' => $session->read('vendor_code'),
+                     'material_id' => $dailymonitor->material_id])
+                    ->first();
+
+            $stockUpload->current_stock = $stockUpload->current_stock + $confirm_production;
+            $this->StockUploads->save($stockUpload);
+
+            $response = ['status'=>1,'message'=>$dailymonitor]; 
+        }
+        else { 
+            $response = ['status'=>0,'message'=>'Failed']; 
+        }
         echo json_encode($response); exit;
     }
     public function dailyentry()
@@ -78,27 +78,13 @@ class DailymonitorController extends VendorAppController
         ->order(['Dailymonitor.plan_date' => 'DESC']);
         $this->set(compact('dailymonitor'));
         
-        /*->select([
-            'id','sap_vendor_code','production_line_id','material_id', 'plan_date','target_production','confirm_production','status',
-            'prdline_description' => 'prdline.name','material_description' => 'vendormat.description'])->join([
-            'table' => 'production_lines',
-            'alias' => 'prdline',
-            'type' => 'LEFT',
-            'conditions' => 'prdline.id = Dailymonitor.production_line_id',
-        ])->join([
-            'table' => 'materials',
-            'alias' => 'vendormat',
-            'type' => 'LEFT',
-            'conditions' => 'vendormat.id = Dailymonitor.material_id',
-        ])->order(['Dailymonitor.plan_date' => 'DESC']);*/
-        
     }
 
     public function add()
     {
         $flash = [];
         $this->loadModel("Materials");
-        $this->loadModel("ProductionLines");
+        $this->loadModel("LineMasters");
         
         $dailymonitor = $this->Dailymonitor->newEmptyEntity();
         $session = $this->getRequest()->getSession();
@@ -118,7 +104,7 @@ class DailymonitorController extends VendorAppController
             $this->set('flash', $flash);
         }
         $vendor_mateial = $this->Materials->find('list', [ 'conditions' => ['Materials.sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'description' ])->all();
-        $productionline = $this->ProductionLines->find('list', [ 'conditions' => ['ProductionLines.sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'name' ])->all();
+        $productionline = $this->LineMasters->find('list', [ 'conditions' => ['sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'name' ])->all();
 
         $this->set(compact('dailymonitor', 'vendor_mateial', 'productionline'));
     }
@@ -135,7 +121,7 @@ class DailymonitorController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $flash = [];
         $this->loadModel("Materials");
-        $this->loadModel("ProductionLines");
+        $this->loadModel("LineMasters");
         $dailymonitor = $this->Dailymonitor->get($id);
         
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -149,7 +135,7 @@ class DailymonitorController extends VendorAppController
             $this->set('flash', $flash);
         }
         $vendor_mateial = $this->Materials->find('list', [ 'conditions' => ['Materials.sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'description' ])->all();
-        $productionline = $this->ProductionLines->find('list', [ 'conditions' => ['ProductionLines.sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'name' ])->all();
+        $productionline = $this->LineMasters->find('list', [ 'conditions' => ['sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'name' ])->all();
         $this->set(compact('dailymonitor','vendor_mateial', 'productionline'));
     }
 

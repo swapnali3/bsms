@@ -112,30 +112,17 @@ class VendorTempsController extends VendorAppController
         $this->loadModel("VendorTemps");
         $this->loadModel("Users");
         $vendorTemp = $this->VendorTemps->get($id);
-        $buyer = $this->Users->get($vendorTemp->buyer_id)->toArray();
+        $buyer = $this->Users->get($vendorTemp->buyer_id);
+ 
+        //print_r($buyer); exit;
         $updaterequest = $this->VendorTemps->find('all')->where(['update_flag >' => 0])->count();
         if ($updaterequest == 0) {
             if ($this->request->is(['patch', 'post', 'put'])) {
                 $resp = $this->request->getData();
-                $vendorTempData = $vendorTemp->toArray();      
-                $newvt = $this->VendorTemps->newEntity($vendorTemp->toArray());  
+                $resp['update_flag'] = 1;
+                $newvt = $this->VendorTemps->patchEntity($vendorTemp, $resp);
                 if ($this->VendorTemps->save($newvt)) {
-                    $vt = array();
-                    $vt['name'] = $resp['name'];
-                    $vt['address'] = $resp['address'];
-                    $vt['city'] = $resp['city'];
-                    $vt['pincode'] = $resp['pincode'];
-                    $vt['country'] = $resp['country'];
-                    $vt['order_currency'] = $resp['order_currency'];
-                    $vt['contact_email'] = $resp['contact_email'];
-                    $vt['contact_person'] = $resp['contact_person'];
-                    $vt['contact_mobile'] = $resp['contact_mobile'];
-                    $vt['contact_department'] = $resp['contact_department'];
-                    $vt['contact_designation'] = $resp['contact_designation'];
-                    $vt['update_flag'] = $vendorTemp->id;
-                    $newvt = $this->VendorTemps->patchEntity($newvt, $vt);
-                }
-                if ($this->VendorTemps->save($newvt)) {
+             
                     // print_r($buyer->username);exit;
                     $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
                     $mailer = new Mailer('default');
@@ -143,10 +130,9 @@ class VendorTempsController extends VendorAppController
                         ->setTransport('smtp')
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                         ->setTo($buyer->username)
-                        // ->setTo('abhisheky@fts-pl.com')
                         ->setEmailFormat('html')
                         ->setSubject('Vendor Portal - Review Vendor Update')
-                        ->deliver('Dear Buyer, <br/><br/>' . $vendorTempData['name'] . ' Send You a Profile Update Request. Kindly Check and Review.<br/> <a href="' . $link . '">Click here</a>');
+                        ->deliver('Dear Buyer, <br/><br/>' . $vendorTemp->name . ' Send You a Profile Update Request. Kindly Check and Review.<br/> <a href="' . $link . '">Click here</a>');
                     $flash = ['type'=>'success', 'msg'=>'The Vendor successfully Updated'];
                     $this->set('flash', $flash);
                     return $this->redirect(['action' => 'view', $id]);

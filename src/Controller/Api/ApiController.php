@@ -244,8 +244,8 @@ class ApiController extends ApiAppController
             if (true) { //|| $response->isOk()) 
                 //$result = json_decode($response->getStringBody());
                 $result = json_decode('{"RESPONSE":{"SUCCESS":1,"MESSAGE":"Success",
-                    "MAT_LIST" :[{"LIFNR":"0000100186", "MATNR":"KT12445", "MAKTX":"Sand", "MIN_STOCK":1200,"MEINS":"KG"},
-                    {"LIFNR":"0000100186", "MATNR":"HT142323", "MAKTX":"Alluminium", "MIN_STOCK":900,"MEINS":"KG"}]
+                    "MAT_LIST" :[{"LIFNR":"0000100186", "MATNR":"PHFG0411", "MAKTX":"Ethyl-2-(3-hydroxyphenyl)acetate", "MIN_STOCK":1200,"MEINS":"KG"},
+                    {"LIFNR":"0000100186", "MATNR":"PHFG0417", "MAKTX":"1-(3-Methyl -1-Phenyl-5-pyrazolyl)piper", "MIN_STOCK":900,"MEINS":"KG"}]
                     }}');
                 if ($result->RESPONSE->SUCCESS) {
                     $rows = [];

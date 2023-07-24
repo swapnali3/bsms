@@ -757,6 +757,7 @@ class PurchaseOrdersController extends VendorAppController
             $id = $request['po_header_id'];
             $this->loadModel('PoHeaders');
             $this->loadModel('PoItemSchedules');
+            $this->loadModel("StockUploads");
 
             $conditions = array();
             $whereFooterIds = "";
@@ -780,8 +781,13 @@ class PurchaseOrdersController extends VendorAppController
                 ->limit(1)
                 ->toArray();
 
-
-            //echo '<pre>'; print_r($poHeader); exit;
+            
+                
+                $materialStock = $this->StockUploads->find('all')
+                    ->contain(['Materials' => function($query) use ($poHeader){
+                        return $query->where(['Materials.code' => $poHeader[0]->PoFooters['material']]);
+                        //return $query;
+                    }])->first();
 
 
             foreach ($poHeader as &$row) {
@@ -795,7 +801,7 @@ class PurchaseOrdersController extends VendorAppController
 
 
 
-            $this->set(compact('poHeader'));
+            $this->set(compact('poHeader', 'materialStock'));
         } else {
             return $this->redirect(['action' => 'create-asn']);
         }

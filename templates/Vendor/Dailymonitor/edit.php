@@ -24,12 +24,12 @@
             <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <div class="form-group">
-                        <?php echo $this->Form->control('production_line_id', array('name'=>'productionline_id','class' => 'form-control w-100', 'options' => $productionline, 'style' => "height: unset !important;")); ?>
+                        <?php echo $this->Form->control('production_line_id', array('class' => 'form-control w-100', 'options' => $productionline, 'style' => "height: unset !important;", 'disabled')); ?>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <div class="form-group">
-                        <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'style' => "height: unset !important;", 'empty' => 'Please Select')); ?>
+                        <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'style' => "height: unset !important;", 'empty' => 'Please Select', 'disabled')); ?>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <div class="form-group">
-                        <?php echo $this->Form->control('plan_date', array('class' => 'form-control w-100')); ?>
+                        <?php echo $this->Form->control('plan_date', array('class' => 'form-control w-100', 'disabled')); ?>
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4 mt-4">
