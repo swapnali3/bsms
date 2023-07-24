@@ -5,11 +5,11 @@
  */
 
 ?>
-<?= $this->Html->css('cstyle.css') ?>
-<?= $this->Html->css('custom') ?>
-<?= $this->Html->css('table.css') ?>
-<?= $this->Html->css('listing.css') ?>
-<?= $this->Html->css('b_index.css') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('custom') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
+<!-- <?= $this->Html->css('listing.css') ?> -->
+<!-- <?= $this->Html->css('b_index.css') ?> -->
 <?= $this->Html->css('b_vendortemps_index') ?>
 
 <div class="row">
@@ -20,7 +20,7 @@
                     <table class="table table-hover" id="example1">
                         <thead>
                             <tr>
-                                <th><span class="float-left mr-2" style="min-width:25px;"><input id="vcheckbox" type="checkbox" class="form-control mr-0" id=""></span></th>
+                                <th class="py-0"><span class="float-left mr-2" style="min-width:25px;"><input id="vcheckbox" type="checkbox" class="form-control mr-0" id=""></span></th>
                                 <th><?= h('Name') ?></th>
                                 <th><?= h('Email') ?></th>
                                 <th><?= h('Mobile') ?></th>
@@ -59,7 +59,7 @@
                                 }
                             ?>
                                 <tr>
-                                    <td>
+                                    <td class="py-0">
                                         <span class="float-left mr-2" style="min-width:25px;"><input type="checkbox" data-user_id="<?= $user_id->id ?>" class="form-control mr-0 vcheckbox" id=""></span>
                                         <?= $status ?>
                                         <span type="button" id="unread<?= $vendorTemp->id ?>" class="badge badge-light chatload" data-modalbody="id_oldmsg" data-sender_group_id="<?= $user_id->group_id ?>" data-sender_id="<?= $user_id->id ?>" data-sender_name="<?= h($vendorTemp->name) ?>" data-toggle="modal" data-target="#modal-lg" data-table_name="vendor_temps" data-table_pk="<?= $vendorTemp->id ?>" data-placement="right"  title="Chat"><i class="fas fa-comments text-info"></i></span>
