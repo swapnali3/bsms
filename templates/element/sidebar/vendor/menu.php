@@ -128,9 +128,6 @@
     <li class="nav-item ">
       <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Production Line</p>'), ['controller' => 'ProductionLines', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
     </li>
-    <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Line Master</p>'), ['controller' => 'linemasters', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
-    </li>
   </ul>
 </li>
 

@@ -1,5 +1,6 @@
 .content-wrapper {
     min-height: 750px !important;
+    height: unset;
 }
 
 aside.main-sidebar {

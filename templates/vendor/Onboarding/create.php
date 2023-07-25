@@ -13,13 +13,14 @@
 <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
 <?= $this->Html->css('CakeLte./AdminLTE/plugins/summernote/summernote.min.css') ?>
 
+
 <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
 
-<?= $this->Html->css('cstyle.css') ?>
-<?= $this->Html->css('table.css') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
 <style>
     .label {
         font-size: 10px
@@ -65,7 +66,7 @@
         font-size: 0.9rem;
     }
 </style>
-<?= $this->Html->css('listing.css') ?>
+<!-- <?= $this->Html->css('listing.css') ?> -->
 <!-- <?= $this->Html->css('v_index.css') ?> -->
 
 <div class="row">
@@ -255,7 +256,39 @@
                             <div class="row">
                                 <div class="col-12 mb-3">
                                     <label>Registered Office Address:</label>
-                                    <textarea placeholder="Address" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('address', ['class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('address_2', ['label' => 'Address 1', 'class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('city', ['class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                    </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
@@ -275,8 +308,42 @@
                             <div class="row">
                                 <div class="col-lg-12 col-sm-12">
                                     <label>Branch Office:</label>
-                                    <textarea placeholder="Address" class="form-control" cols="30" rows="3"></textarea>
                                 </div>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('address', ['class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('address_2', ['label' => 'Address 1', 'class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('city', ['class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                    </div>
+                                </div>
+
+                               
                                 <div class="col-lg-3 col-sm-6 mt-3">
                                     <div class="form-group">
                                         <?php echo $this->Form->control('tan_no', ['type' => 'number', 'class' => 'form-control', 'label' => 'Branch Tel. No.']); ?>
@@ -292,10 +359,41 @@
                             <hr>
 
                             <div class="row">
-                                <div class="col-lg-12 col-sm-12">
-                                    <label>Factory Address:</label>
-                                    <textarea placeholder="Address" class="form-control" cols="30" rows="3"></textarea>
+                                <label>Factory Address:</label>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('address', ['class' => 'form-control']); ?>
+                                    </div>
                                 </div>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('address_2', ['label' => 'Address 1', 'class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('city', ['class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                    </div>
+                                </div>
+
 
                             </div>
                             <div class="row mt-3" style="border-right: 1px solid #dee2e6;">
@@ -617,10 +715,44 @@
                                     <label for="">Name:</label>
                                     <input type="text" name="" class="form-control">
                                 </div>
-                                <div class="col-12 mt-1">
+                                <!-- <div class="col-12 mt-1">
                                     <label for="">Address:</label>
                                     <textarea name="" class="form-control" cols="30" rows="3"></textarea>
+                                </div> -->
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('address', ['class' => 'form-control']); ?>
+                                    </div>
                                 </div>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('address_2', ['label' => 'Address 1', 'class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('pincode', ['class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('city', ['class' => 'form-control']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                    </div>
+                                </div>
+
+                                <div class="col-3 mt-3 col-md-3">
+                                    <div class="form-group">
+                                        <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                    </div>
+                                </div>
+
                             </div>
 
                         </div>
@@ -765,8 +897,7 @@
                             <div class="row">
                                 <label>Bank Details</label>
                                 <div class="col-3 mt-3">
-                                    <label for="id_bankcountry">Bank Country</label>
-                                    <input type="text" class="form-control" id="id_bankcountry" name="">
+                                    <?php echo $this->Form->control('Bank_Country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                 </div>
 
                                 <div class="col-3 mt-3">
