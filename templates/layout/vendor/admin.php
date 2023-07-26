@@ -30,9 +30,20 @@
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 
+    <!-- jQuery -->
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
+
+
+    <!-- DataTables  & Plugins -->
     <?= $this->Html->css('CakeLte./AdminLTE//plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>
 
     <!-- Ionicons -->
@@ -41,6 +52,7 @@
     <!-- Theme style -->
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/summernote/summernote.min.css') ?>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <?= $this->Html->css('CakeLte.style') ?>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
@@ -49,20 +61,22 @@
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
 
-    <!-- jQuery -->
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
+
     <!-- Bootstrap 4 -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
     <!-- AdminLTE App -->
     <?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
 
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
+
+    <!-- sweetalert2 -->
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.css') ?>
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.js") ?>
+
+    <!-- toastr -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
-
+    <script>var baseurl = "<?= $this->Url->build('/') ?>";</script>
 </head>
-
-
 
 <body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
     <!-- <div class="loader-container" id="loaderss">
@@ -87,13 +101,6 @@
             </a>
 
             <div class="sidebar" id="id_sidebar">
-                <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="text-light">
-                        Welcome,
-                        <?=$full_name?> (
-                        <?=$group_name?> )
-                    </div>
-                </div> -->
                 <?= $this->element('sidebar/vendor/main') ?>
 
             </div>
@@ -138,18 +145,9 @@
 
     <!-- DataTables  & Plugins -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/summernote/summernote.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
-
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>
     <?= $this->Html->script('/js/common.js') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
-    <?= $this->element('layout/script') ?>
-    <?= $this->fetch('script') ?>
     <script>
         var Toast = Swal.mixin({
             toast: true,
@@ -158,16 +156,17 @@
             timer: 3000
         });
         <?php if($flash) : ?>
-        Toast.fire({
-            icon: "<?= $flash['type'] ?>",
-            title: "<?= $flash['msg'] ?>",
-        });
+            Toast.fire({
+                icon: "<?= $flash['type'] ?>",
+                title: "<?= $flash['msg'] ?>",
+            });
         <?php endif; ?>
-        var baseurl = "<?= $this->Url->build('/') ?>";
         // $(document).ready(function() {});
         $(window).on('load', function () { $('#loaderss').hide(); });
         $(function () { $('[data-toggle="tooltip"]').tooltip(); $('#summernote').summernote({ width: 1000, }); });
     </script>
+<?= $this->element('layout/script') ?>
+<?= $this->fetch('script') ?>
 </body>
 
 </html>

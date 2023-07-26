@@ -1,5 +1,6 @@
 .content-wrapper {
     min-height: 750px !important;
+    height: unset;
 }
 
 aside.main-sidebar {
@@ -26,7 +27,7 @@ aside.main-sidebar {
     z-index: 9999;
 }
 
-body,
+/* body,
 h5,
 h6,
 p,
@@ -34,7 +35,7 @@ h4,
 h3,
 label {
     font-family: 'Roboto', sans-serif !important;
-}
+} */
 
 div#id_sidebar {
     transition: 0.5s ease all;

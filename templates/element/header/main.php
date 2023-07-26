@@ -112,9 +112,7 @@
 </ul>
 
 <div class="navbar card-header" style="margin-top:0.3vw;border-bottom:none;">
-    <h4><b>
-            <?= (isset($headTitle)) ? $headTitle : '' ?>
-        </b></h4>
+    <h4><b><?= (isset($headTitle)) ? $headTitle : '' ?></b></h4>
     <!-- <b>
     <img src="<?= $this->Url->build('/') ?>img/rect_logo.png" alt="vekpro" style="width: 8vw;">
   </b> -->

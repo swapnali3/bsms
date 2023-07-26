@@ -8,46 +8,59 @@
  * @var \Cake\Collection\CollectionInterface|string[] $schemaGroups
  */
 ?>
-<?= $this->Html->css('cstyle.css') ?>
-<?= $this->Html->css('custom') ?>
-<?= $this->Html->css('table.css') ?>
-<?= $this->Html->css('listing.css') ?>
-<?= $this->Html->css('b_index.css') ?>
-<div class="row sap-vendor">
-
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('custom') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
+<!-- <?= $this->Html->css('listing.css') ?> -->
+<!-- <?= $this->Html->css('b_index.css') ?> -->
+<style>
+    .vl {
+        border-left: 6px solid #17a2b8;
+        margin-left: 20px;
+    }
+</style>
+<div class="row">
     <div class="col-12">
+        <?= $this->Form->create(null, ['type' => 'file', 'id' => 'sapvendorcodeform']); ?>
         <div class="card">
-            <?= $this->Form->create(null, ['type' => 'file', 'id' => 'sapvendorcodeform']); ?>
             <div class="card-body ">
                 <div class="row">
-                    <div class="col-sm-4 col-md-4">
-                        <?php echo $this->Form->control('sap_vendor_code', array('class' =>
-                        'form-control rounded-0', 'div' => 'form-group', 'autocomplete' => "off"));
-                        ?>
-                    </div>
-                    <div class="errorSubmit mt-2" style="color: red; display: none">
-                        Please enter a vendor code or select a file.
-                    </div>
-                </div>
-                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="row">
+                            <div class="col-12">
+                                <?php echo $this->Form->control('sap_vendor_code', array('class' =>
+                                'form-control rounded-0', 'div' => 'form-group', 'autocomplete' => "off"));
+                                ?>
 
-                    <div class="col-sm-2 col-md-2 mt-3">
+                            </div>
+                            <div class="col-sm-2 col-md-2 mt-3">
+                                <button class="btn bg-gradient-submit" id="sapvendorcode" type="button">
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-5 vl">
                         <?= $this->Form->control('vendor_code', ['type' => 'file', 'label' =>
                         false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden;
                         position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput']);
                         ?>
 
                         <?= $this->Form->button('Import File', ['id' => 'OpenImgUpload', 'type' =>
-                        'button', 'class' => 'd-block btn btn-secondary mb-0 file-upld-btn']); ?>
+                        'button', 'class' => 'd-block btn bg-gradient-button mb-3 file-upld-btn']); ?>
                         <span id="filessnames"></span>
-                    </div>
-                    <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-end align-items-baseline">
-                        <button class="btn btn-custom" id="sapvendorcode" type="button">
-                            Submit
-                        </button>
-                    </div>
 
+                        <i style="color: black;" class="pt-5">
+                            <a href="<?= $this->Url->build('/') ?>webroot/templates/SAP_Vendor_Import.xlsx" download>
+                                SAP Import Template
+                            </a>
+                        </i>
+                    </div>
+                    <div class="errorSubmit mt-2" style="color: red; display: none">
+                        Please enter a vendor code or select a file.
+                    </div>
                 </div>
+
                 <div class="row">
                     <!-- <div class="col-sm-3">
                         <p style="font-weight: 500;">Sample File Excel:
@@ -58,97 +71,110 @@
                     </div> -->
 
                     <div class="col-3">
-                        <i style="color: black;">
-                            <a href="<?= $this->Url->build('/') ?>webroot/templates/SAP_Vendor_Import.xlsx" download>SAP
-                                Import Template</a>
-                        </i>
+                        
                     </div>
                 </div>
             </div>
-            <?= $this->Form->end() ?>
+            <?php if (isset($vendorData)) : ?>
+            <div class="card-footer vendor-list">
+                <div class="table-responsive">
+                    <table class="table table-hover" id="example1">
+                        <thead>
+                            <tr>
+                                <th>Vendor Code</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($vendorData as $vendorTemp) :
+                                        // print_r($vendorData);
+                                        // exit;                    
+                                        switch ($vendorTemp["status"]) {
+                                            case 0:
+                                                $status = '<span class="badge bg-warning">Sent to Vendor</span>';
+                                                break;
+                                            case 1:
+                                                $status = '<span class="badge bg-info">Pending for approval</span>';
+                                                break;
+                                            case 2:
+                                                $status = '<span class="badge bg-info">Sent to SAP</span>';
+                                                break;
+                                            case 3:
+                                                $status = '<span class="badge bg-success">Approved</span>';
+                                                break;
+                                            case 4:
+                                                $status = '<span class="badge bg-danger">Rejected</span>';
+                                                break;
+                                            case 5:
+                                                $status = '<span class="badge bg-info">Sap Import</span>';
+                                                break;
+                                        }
+                                    ?>
+                            <?php if ($vendorTemp['status']) : ?>
+
+                            <tr>
+                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                                    id"]) ?>">
+                                    <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
+                                </td>
+                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                                    id"]) ?>">
+                                    <?= h($vendorTemp['data']["name"]) ?>
+                                </td>
+                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                                    id"]) ?>">
+                                    <?= h($vendorTemp['data']["email"]) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorTemp['data']["mobile"]) ?>
+                                </td>
+                                <td class="statusVendor"
+                                    redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                                    id"]) ?>">
+                                    <?= $status ?>
+                                </td>
+                                <td>
+                                    <a href="" data-id="<?= $vendorTemp['data'][" id"] ?>" class="btn btn-info btn-sm
+                                        mb-0
+                                        notify">Send Credentials</a>
+                                </td>
+                            </tr>
+
+                            <?php else : ?>
+                            <tr>
+                                <td>
+                                    <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
+                                </td>
+                                <td colspan="4"></td>
+                                <td class="text-danger text-left">
+                                    <?= h($vendorTemp["msg"]) ?>
+                                </td>
+                            </tr>
+                            <?php endif; ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
+        <?= $this->Form->end() ?>
     </div>
 </div>
 
-<div class="card-body vendor-list">
-    <div class="table-responsive">
-        <table class="table table-hover" id="example1">
-            <thead>
-                <tr>
-                    <th>Vendor Code</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Mobile</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (isset($vendorData)) : ?>
-                    <?php foreach ($vendorData as $vendorTemp) :
-                            // print_r($vendorData);
-                            // exit;                    
-                            switch ($vendorTemp["status"]) {
-                                case 0:
-                                    $status = '<span class="badge bg-warning">Sent to Vendor</span>';
-                                    break;
-                                case 1:
-                                    $status = '<span class="badge bg-info">Pending for approval</span>';
-                                    break;
-                                case 2:
-                                    $status = '<span class="badge bg-info">Sent to SAP</span>';
-                                    break;
-                                case 3:
-                                    $status = '<span class="badge bg-success">Approved</span>';
-                                    break;
-                                case 4:
-                                    $status = '<span class="badge bg-danger">Rejected</span>';
-                                    break;
-                                case 5:
-                                    $status = '<span class="badge bg-info">Sap Import</span>';
-                                    break;
-                            }
-                        ?>
-                        <?php if ($vendorTemp['status']) : ?>
+<div class="row sap-vendor">
 
-                        <tr>
-                            <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["id"]) ?>">
-                                <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
-                            </td>
-                            <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["id"]) ?>">
-                                <?= h($vendorTemp['data']["name"]) ?>
-                            </td>
-                            <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["id"]) ?>">
-                                <?= h($vendorTemp['data']["email"]) ?>
-                            </td>
-                            <td>
-                                <?= h($vendorTemp['data']["mobile"]) ?>
-                            </td>
-                            <td class="statusVendor"
-                                redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["id"]) ?>">
-                                <?= $status ?>
-                            </td>
-                            <td>
-                                <a href="" data-id="<?= $vendorTemp['data'][" id"] ?>" class="btn btn-info btn-sm mb-0 notify">Send Credentials</a>
-                            </td>
-                        </tr>
+    <div class="col-12">
 
-                        <?php else : ?>
-                        <tr>
-                            <td>
-                                <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
-                            </td>
-                            <td colspan="4"></td>
-                            <td class="text-danger text-left">
-                                <?= h($vendorTemp["msg"]) ?>
-                            </td>
-                        </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
     </div>
+</div>
+
+<div class="card-body">
+
 </div>
 
 
@@ -176,7 +202,7 @@
                         Toast.fire({ icon: "error", title: response.message });
                     }
                 },
-                error: function (xhr, status, error) {}
+                error: function (xhr, status, error) { }
             });
         });
 

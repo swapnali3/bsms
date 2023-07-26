@@ -4,173 +4,135 @@
  * @var \App\Model\Entity\AdminUser[]|\ ake\Collection\CollectionInterface $adminUsers
  */
 ?>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
-
-<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
-<style>
-    aside.main-sidebar {
-    background-color: #08132F !important;
-    }
-    .nav-link.active {
-        background-color: #8E9B2C !important;
-    }
-    .content-wrapper{
-      min-height: 780px !important;
-    }
-  
-</style>
-<?= $this->Html->css('table.css') ?>
-<?= $this->Html->css('listing.css') ?>
-<?= $this->Html->css('b_index.css') ?>
-<div class="buyer-dash">
-<div class="row mt-4 mx-1 mb-1 first-row">
-  
+<div class="row buyer-dash">
 
-  <div class="col-sm-12 col-lg-3">
+  <div class="col-sm-12 col-md-3 col-lg-3">
     <div class="card">
       <div class="card-header">
         <h1 class="card-title">Vendors</h1>
-
-
       </div>
-
-      <?php  
-      $totalVendorTemps  = $totalVendorOnboarding + $totalVendorApproved + $totalSentSap
-       ?>
-      <!-- /.card-header -->
-      <div class="card-body p-0">
+      <?php $totalVendorTemps  = $totalVendorOnboarding + $totalVendorApproved + $totalSentSap ?>
+      <div class="card-body py-0">
         <ul class="products-list product-list-in-card">
           <li class="item">
             <div class="product-img">
-            <i class="fas fa-th-large text-info"></i>
+              <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
               <a href="javascript:void(0)" class="product-title">Total</a>
-              <span class="p-value"><?= h($totalVendorTemps) ?></span>
+              <span class="p-value">
+                <?= h($totalVendorTemps) ?>
+              </span>
             </div>
           </li>
-          <!-- /.item -->
           <li class="item">
             <div class="product-img">
-            <i class="fas fa-user-plus text-danger"></i>
-
+              <i class="fas fa-user-plus text-danger"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Onboarding
-               </a>
-                <span class="p-value"><?= h($totalVendorOnboarding) ?></span>
+              </a>
+              <span class="p-value">
+                <?= h($totalVendorOnboarding) ?>
+              </span>
             </div>
           </li>
-          <!-- /.item -->
           <li class="item">
             <div class="product-img">
-            <i class="far fa-check-square text-success"></i>
+              <i class="far fa-check-square text-success"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Approved
-               </a>
-                <span class="p-value"><?= h($totalVendorApproved) ?></span>
+              </a>
+              <span class="p-value">
+                <?= h($totalVendorApproved) ?>
+              </span>
             </div>
           </li>
-          <!-- /.item -->
           <li class="item">
             <div class="product-img">
-            <i class="fas fa-share-square text-warning"></i>
+              <i class="fas fa-share-square text-warning"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Sent to SAP
-              
-        </a>
-                <span class="p-value"><?= h($totalSentSap) ?></span>
+              </a>
+              <span class="p-value">
+                <?= h($totalSentSap) ?>
+              </span>
             </div>
           </li>
-          <!-- /.item -->
         </ul>
       </div>
-
-      <!-- /.card-footer -->
     </div>
-    
   </div>
 
-  <div class="col-sm-12 col-lg-3">
-    <div class="card">
+  <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="card" style="min-height: 93%;">
       <div class="card-header">
         <h3 class="card-title">Purchase Orders</h3>
-
-        
       </div>
-      <!-- /.card-header -->
-      <div class="card-body p-0">
+      <div class="card-body py-0" style="min-height: 100%;">
         <ul class="products-list product-list-in-card">
           <li class="item">
             <div class="product-img">
-            <i class="fas fa-th-large text-info"></i>
+              <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
               <a href="javascript:void(0)" class="product-title">Total</a>
-              <span class="p-value"><?= h($totalPos) ?></span>
+              <span class="p-value">
+                <?= h($totalPos) ?>
+              </span>
             </div>
           </li>
-          <!-- /.item -->
           <li class="item">
             <div class="product-img">
-            <i class="far fa-calendar-check text-success"></i>
+              <i class="far fa-calendar-check text-success"></i>
 
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Completed</a>
-              <span class="p-value"><?= h($poCompleteCount) ?></span>
+              <span class="p-value">
+                <?= h($poCompleteCount) ?>
+              </span>
             </div>
           </li>
-          <?php  
-            $poPending = $totalPos - $poCompleteCount
-          ?>
-          <!-- /.item -->
+          <?php $poPending = $totalPos - $poCompleteCount ?>
           <li class="item">
             <div class="product-img">
-            <i class="far fa-clock text-danger"></i>
+              <i class="far fa-clock text-danger"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Pending</a>
-                <span class="p-value"><?= $poPending ?></span>
+              <span class="p-value">
+                <?= $poPending ?>
+              </span>
             </div>
           </li>
-         
         </ul>
       </div>
-    
-      <!-- /.card-body -->
-
-      <!-- /.card-footer -->
     </div>
   </div>
 
-  <div class="col-sm-12 col-lg-3" style="display:none;">
-    <div class="card">
+  <div class="col-sm-12 col-md-3 col-lg-3" style="display: none;">
+    <div class="card" style="min-height: 93%;">
       <div class="card-header">
         <h3 class="card-title">Payments</h3>
       </div>
-      <!-- /.card-header -->
-      <div class="card-body p-0">
+      <div class="card-body py-0">
         <ul class="products-list product-list-in-card">
           <li class="item">
             <div class="product-img">
-            <i class="fas fa-th-large text-info"></i>
+              <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
               <a href="javascript:void(0)" class="product-title">Total Amount</a>
               <span class="p-value">500000.00</span>
             </div>
           </li>
-          <!-- /.item -->
           <li class="item">
             <div class="product-img">
-            <i class="far fa-calendar-check text-warning"></i>
+              <i class="far fa-calendar-check text-warning"></i>
 
             </div>
             <div class="product-info" style="font-size: smaller;">
@@ -178,122 +140,66 @@
               <span class="p-value">400000.00</span>
             </div>
           </li>
-          <!-- /.item -->
           <li class="item">
             <div class="product-img">
-            <i class="fas fa-balance-scale text-success"></i>
+              <i class="fas fa-balance-scale text-success"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Balance</a>
-                <span class="p-value">100000.00</span>
+              <span class="p-value">100000.00</span>
             </div>
           </li>
-         
         </ul>
       </div>
-    
-      <!-- /.card-body -->
-
-      <!-- /.card-footer -->
     </div>
   </div>
 
-  <div class="col-sm-12 col-lg-3">
-    <div class="card">
+  <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="card" style="min-height: 93%;">
       <div class="card-header">
         <h3 class="card-title">ASN</h3>
-
       </div>
-      <!-- /.card-header -->
-      <div class="card-body p-0">
+      <div class="card-body py-0">
         <ul class="products-list product-list-in-card">
           <li class="item">
             <div class="product-img">
-            <i class="fas fa-th-large text-info"></i>
+              <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
               <a href="javascript:void(0)" class="product-title">Created</a>
-              <span class="p-value"><?= h($totalAsnCreated) ?></span>
+              <span class="p-value">
+                <?= h($totalAsnCreated) ?>
+              </span>
             </div>
           </li>
-          <!-- /.item -->
           <li class="item">
             <div class="product-img">
-            <i class="far fa-calendar-check text-warning"></i>
-
+              <i class="far fa-calendar-check text-warning"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Intransit</a>
-              <span class="p-value"><?= h($totalAsnIntransit) ?></span>
+              <span class="p-value">
+                <?= h($totalAsnIntransit) ?>
+              </span>
             </div>
           </li>
-          <!-- /.item -->
           <li class="item">
             <div class="product-img">
-            <i class="fas fa-truck text-info"></i>
+              <i class="fas fa-truck text-info"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Received</a>
-                <span class="p-value"><?= h($totalAsnReceived) ?></span>
+              <span class="p-value">
+                <?= h($totalAsnReceived) ?>
+              </span>
             </div>
           </li>
-         
         </ul>
       </div>
-      <!-- <div class="card-body p-0">
-        <ul class="products-list product-list-in-card pl-2 pr-2">
-          <li class="item">
-            <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
-            </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Dispatched
-                <span class="badge badge-warning float-right">10</span></a>
-              <span class="product-description">
-                
-              </span>
-            </div>
-          </li>
-          <li class="item">
-            <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
-            </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Intrasit
-                <span class="badge badge-warning float-right">5</span></a>
-              <span class="product-description">
-                
-              </span>
-            </div>
-          </li>
-          <li class="item">
-            <div class="product-img">
-              <img src="<?= $this->Url->build('/') ?>img/checklist.png" alt="Product Image" class=""
-                style="width: 2vw;height: auto;">
-            </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Delivered
-                <span class="badge badge-warning float-right">5</span></a>
-              <span class="product-description">
-                
-              </span>
-            </div>
-          </li>
-          
-        </ul>
-      </div> -->
-      <!-- /.card-body -->
-
-      <!-- /.card-footer -->
     </div>
-    
   </div>
 
-</div>
-<div class="row mx-1">
-  <div class="col-sm-12 col-lg-6">
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <div class="card card-default">
       <div class="card-header">
         <h3 class="card-title">Top Vendors by order Value</h3>
@@ -317,8 +223,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-lg-6">
-
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <div class="card card-dafault">
       <div class="card-header">
         <h3 class="card-title">Po order value by period</h3>
@@ -343,12 +248,8 @@
       <!-- /.card-body -->
     </div>
   </div>
-
-
-</div>
-<div class="row mx-1">
-  <div class="col-sm-12 col-lg-6">
-
+  
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <div class="card card-default btm-card">
       <div class="card-header">
         <h3 class="card-title">Top Material by quantity</h3>
@@ -370,11 +271,9 @@
       </div>
       <!-- /.card-body -->
     </div>
-
   </div>
 
-  <div class="col-sm-12 col-lg-6">
-
+  <div class="col-sm-12 col-md-6 col-lg-6">
     <div class="card card-default btm-card">
       <div class="card-header">
         <h3 class="card-title">Top Material by order value</h3>
@@ -399,9 +298,11 @@
       <!-- /.card-body -->
     </div>
   </div>
+
 </div>
-</div>
+
 <script src="<?= $this->Url->build('/') ?>js/chart.js"></script>
+
 <script>
   //-------------
   //- BAR CHART -
@@ -495,7 +396,7 @@
     labels: [
       'PHFG0411',
       'PHFG0417',
-  
+
     ],
     datasets: [
       {
@@ -514,12 +415,3 @@
     options: donutOptions1
   })
 </script>
-
-<!-- <script>
-  $(document).ready(function () {
-    var table = $("#example1").DataTable({
-      "paging": true,
-      "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
-    });
-  });
-</script> -->
