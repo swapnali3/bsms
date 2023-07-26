@@ -171,6 +171,9 @@
                     <th>
                       <?= __('Current Stock') ?>
                     </th>
+                    <th>
+                      <?= __('Min. Stock') ?>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -206,11 +209,13 @@
                     <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>">
                       <?= ($row['PoFooters']['net_price'] * $row['actual_qty']) ?>
                     </td>
-                    <td><?php echo $materialStock->current_stock?></td>
+                    <td><span id="current_stock"><?php echo $materialStock->current_stock?></span></td>
+                    <td><span id="minimum_stock"><?php echo $materialStock->material->minimum_stock?></span></td>
                   </tr>
                   <?php endforeach; ?>
                 </tbody>
               </table>
+              <span id="error_msg" class="text-danger"></span>
             </div>
           </div>
           <div class="col-10"></div>
@@ -439,5 +444,14 @@
       });
       return false; // cancel the event
     });
+
+    var currStock = $("#current_stock").text();
+    var minStock = $("#minimum_stock").text();
+
+    console.log('stock=' + currStock+"="+minStock );
+    if(currStock < minStock) {
+        $("#Create-btn").attr('disabled', 'disabled');
+        $("#error_msg").text('Please maintain minimum stocks');
+    }
   });
 </script>

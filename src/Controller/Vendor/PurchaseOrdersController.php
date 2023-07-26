@@ -761,6 +761,7 @@ class PurchaseOrdersController extends VendorAppController
             $this->loadModel('PoHeaders');
             $this->loadModel('PoItemSchedules');
             $this->loadModel("StockUploads");
+            $this->loadModel("Materials");
 
             $conditions = array();
             $whereFooterIds = "";
@@ -786,13 +787,12 @@ class PurchaseOrdersController extends VendorAppController
 
             
                 
-                $materialStock = $this->StockUploads->find('all')
-                    ->contain(['Materials' => function($query) use ($poHeader){
-                        return $query->where(['Materials.code' => $poHeader[0]->PoFooters['material']]);
-                        //return $query;
-                    }])->first();
-
-
+            $materialStock = $this->StockUploads->find('all')
+                ->contain(['Materials' => function($query) use ($poHeader){
+                    return $query->where(['Materials.code' => $poHeader[0]->PoFooters['material']]);
+                    //return $query;
+                }])->first();
+            
             foreach ($poHeader as &$row) {
                 foreach ($request['footer_id'] as $key => $footer_id) {
                     if ($row->PoFooters['id'] == $footer_id) {
