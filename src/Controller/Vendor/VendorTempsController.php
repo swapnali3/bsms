@@ -119,9 +119,11 @@ class VendorTempsController extends VendorAppController
         $vendorTemp = $this->VendorTemps->get($id);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+                echo '<pre>'; echo json_encode($request);exit;
+
             try {
-                $request = $this->request->getData();
-                echo '<pre>'; print_r($request);exit;
+                
             } catch (\PDOException $e) {
 
             }
