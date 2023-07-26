@@ -236,7 +236,7 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_pincode', ['name' => 'address[register_office][pincode]','lable' => 'Pincode','class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('register_office_pincode', ['name' => 'address[register_office][pincode]', 'label' => 'Pincode', 'class' => 'form-control']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
@@ -246,12 +246,12 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_country', ['name' => 'address[register_office][country]','class' => 'selectpicker form-control my-select', 'options' => $countries,'lable'=>'Country','data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                            <?php echo $this->Form->control('register_office_country', ['name' => 'address[register_office][country]','class' => 'selectpicker form-control my-select', 'options' => $countries,'label'=>'Country','data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_state', ['name' => 'address[register_office][state]','class' => 'selectpicker form-control my-select', 'options' => $states, 'lable'=>'State', 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                            <?php echo $this->Form->control('register_office_state', ['name' => 'address[register_office][state]','class' => 'selectpicker form-control my-select', 'options' => $states, 'label'=>'State', 'data-live-search' => 'true', 'title' => 'Select State']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 col-md-3 mt-3">
@@ -492,15 +492,8 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-sm-6 col-lg-4">
                                         <label class="form-label">Registration Certificate</label>
-                                        <div class="custom-file">
-                                            <input name="branchfactory[registration_certificate]" type="file" class=""
-                                                id="exampleInputFile">
-                                            <label class="custom-file-label" for="exampleInputFile">
-                                                Choose file
-                                            </label>
-                                        </div>
+                                        <input class="" name="branchfactory[registration_certificate]" type="file" accept=".pdf" name="" id="">
                                     </div>
-
                                 </div>
 
                                 <div class="row mt-3">
@@ -529,7 +522,8 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-sm-6 col-lg-2">
                                         <label>Year:</label>
-                                        <input type="number" name="branchfactory[small_scale_year]" class="form-control">
+                                        <input type="number" name="branchfactory[small_scale_year]"
+                                            class="form-control">
                                     </div>
                                     <div class="col-sm-6 col-lg-4">
                                         <label>Registration No.</label>
@@ -549,38 +543,58 @@ switch ($vendorTemp->status) {
                             <div class="tab-pane fade" id="custom-tabs-four-productionfaculty" role="tabpanel"
                                 aria-labelledby="tab_productionfaculty" style="background-color: white;">
 
+                                <div class="col-lg-3 col-sm-3 mt-3">
+                                    <div class="form-group">
+                                        <label>Branch of Address</label>
+                                        <select class="form-control">
+                                            <option disabled>Please Select</option>
+                                            <option value="address1">Address1</option>
+                                        </select>
+                                    </div>
+                                </div>
+                               
                                 <div class="row">
                                     <div class="col-lg-3 col-sm-3 mt-3">
                                         <label>Installed Capacity</label>
-                                        <input type="text" name="productionFacility[installed_capacity]"
+                                        <input type="text" name="productionFacility[branchaddress][0][installed_capacity]"
                                             class="form-control">
                                     </div>
 
 
                                     <div class="col-lg-3 col-sm-2 mt-3">
                                         <label>Power Avialable</label>
-                                        <input type="text" name="productionFacility[power_avialable]"
+                                        <input type="text" name="productionFacility[branchaddress][0][power_avialable]"
                                             class="form-control">
                                     </div>
 
 
                                     <div class="col-lg-3 col-sm-2 mt-3">
                                         <label>Machinery Avialable</label>
-                                        <input type="text" name="productionFacility[machinery_avialable]"
+                                        <input type="text" name="productionFacility[branchaddress][0][machinery_avialable]"
                                             class="form-control">
                                     </div>
 
                                     <div class="col-lg-3 col-sm-2 mt-3">
                                         <label>Raw Material Avi. and Source</label>
-                                        <input type="text" name="productionFacility[raw_material]" class="form-control">
+                                        <input type="text" name="productionFacility[branchaddress][0][raw_material]" class="form-control">
                                     </div>
 
                                     <div class="col-lg-3 col-sm-2 mt-3">
                                         <label>Upload File</label>
-                                        <input class="form-control" name="productionFacility[product_facility_file]"
+                                        <input class="form-control" name="productionFacility[branchaddress][0][product_facility_file]"
                                             type="file" accept=".pdf" name="" id="">
                                     </div>
 
+                                </div>
+
+                                <div class="col-lg-3 col-sm-3 mt-3">
+                                    <div class="form-group">
+                                        <label>Branch of factory</label>
+                                        <select class="form-control">
+                                            <option disabled>Please Select</option>
+                                            <option value="address1">Address1</option>
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="row mt-3">
@@ -1011,8 +1025,7 @@ switch ($vendorTemp->status) {
                                     <label>Whether the item is completely manufactured in applicant's
                                         factory?</label>
                                     <div class="col-lg-12 mt-3">
-                                        <input type="radio" name="certificate[fully_manufactured]" checked
-                                            value="yes">
+                                        <input type="radio" name="certificate[fully_manufactured]" checked value="yes">
                                         <label>Yes</label>
                                         <input type="radio" name="certificate[fully_manufactured]" value="no">
                                         <label>No</label>
