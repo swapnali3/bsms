@@ -22,7 +22,14 @@
     padding: 7px;
     background-color: lavender;
     color: green;
+ 
 } 
+
+#custom-tabs-four-branch .lgreenbadge {
+    position: absolute;
+    right: 16px;
+    top: 10%;
+}
 
 
 .redbadge {
