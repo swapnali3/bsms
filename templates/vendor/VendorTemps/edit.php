@@ -182,29 +182,29 @@ switch ($vendorTemp->status) {
                                 <div class="row">
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('address', ['name' => 'address[address]','class' => 'form-control', 'label' => "Address 1"]); ?>
+                                            <?php echo $this->Form->control('address', ['name' => 'address[address]', 'class' => 'form-control','id'=>'id_address1', 'label' => "Address 1"]); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('address_2', ['name' => 'address[address_2]','label' => 'Address 2', 'class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('address_2', ['name' => 'address[address_2]','label' => 'Address 2','id'=>'id_address2', 'class' => 'form-control']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('pincode', ['name' => 'address[pincode]','class' => 'form-control']); ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-3 mt-3 col-md-3">
-                                        <div class="form-group">
-                                            <?php echo $this->Form->control('city', ['name' => 'address[city]','class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('pincode', ['name' => 'address[pincode]','class' => 'form-control ','id'=>'id_pincode']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('country', ['name' => 'address[country]','id'=>'id_country','class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                            <?php echo $this->Form->control('city', ['name' => 'address[city]','class' => 'form-control','id'=>'id_city']); ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3 mt-3 col-md-3">
+                                        <div class="form-group">
+                                            <?php echo $this->Form->control('country', ['name' => 'address[country]','id'=>'id_country','class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                         </div>
                                     </div>
 
@@ -222,7 +222,7 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-3 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'address[faxno]','type' => 'number', 'class' => 'form-control', 'label' => 'FAX NO.']); ?>
+                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'address[faxno]', 'id' => 'id_faxno','type' => 'number', 'class' => 'form-control', 'label' => 'FAX NO.']); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -242,37 +242,38 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_address2', ['name' => 'register_office[address2]','label' => 'Address 2', 'class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('register_office_address2', ['name' => 'register_office[address2]','label' => 'Address 2', 'class' => 'form-control','id'=>'register_office_address2']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_pincode', ['name' => 'register_office[pincode]', 'label' => 'Pincode', 'class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('register_office_pincode', ['name' => 'register_office[pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'register_office_pincode']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_city', ['name' => 'register_office[city]','class' => 'form-control','label' =>'City']); ?>
+                                            <?php echo $this->Form->control('register_office_city', ['name' => 'register_office[city]','class' => 'form-control','label' =>'City','id'=>'register_office_city']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_country', ['name' => 'register_office[country]','class' => 'selectpicker form-control my-select', 'options' => $countries,'label'=>'Country','data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                            <?php echo $this->Form->control('register_office_country', ['name' => 'register_office[country]','class' => 'selectpicker form-control my-select', 'options' => $countries,'label'=>'Country','data-live-search' => 'true', 'title' => 'Select Country','id'=>'register_office_county']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_state', ['name' => 'register_office[state]','class' => 'selectpicker form-control my-select', 'options' => $states, 'label'=>'State', 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                            <?php echo $this->Form->control('register_office_state', ['name' => 'register_office[state]','class' => 'selectpicker form-control my-select', 'options' => $states, 'label'=>'State', 'data-live-search' => 'true', 'title' => 'Select State','id'=>'register_office_stat']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_telno', ['name' => 'register_office[telno]','type' => 'number', 'class' => 'form-control', 'label' => 'TEL. NO.']); ?>
+                                            <?php echo $this->Form->control('register_office_telno', ['name' => 'register_office[telno]','type' => 'number', 'class' => 'form-control', 'id'=>'register_office_telno','label' => 'TEL. NO.']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'register_office[faxno]','type' => 'number', 'class' => 'form-control', 'label' => 'FAX NO.']); ?>
+                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'register_office[faxno]','type' => 'number',
+                                            'id'=>'register_office_faxno' ,'class' => 'form-control', 'label' => 'FAX NO.']); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -282,148 +283,102 @@ switch ($vendorTemp->status) {
                                 aria-labelledby="tab_branchoffice" style="background-color: white;">
 
                                 <div class="row">
-                                    <div class="col-lg-12 col-sm-12">
+                                    <div class="col-md-12">
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h6 class="modal-title">Branch Office:</h6>
+                                                <span class="badge lgreenbadge mt-2" id="id_branch_office_add"
+                                                    data-toggle="tooltip" data-placement="right" title="Add Address">
+                                                    <i class="fas fa-plus-circle"></i>
+                                                </span>
+                                            </div>
+                                            <div class="card-body p-0 address-card">
+                                                <div class="row p-3">
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="register_office_country">Country</label>
+                                                            <select name="register_office_country"
+                                                                id="register_office_country"
+                                                                class="selectpicker form-control form-control-sm my-select"
+                                                                data-live-search="true" title="Select Country">
+                                                                <?php foreach ($countries as $country): ?>
+                                                                <option value="<?php echo $country; ?>">
+                                                                    <?php echo $country; ?>
+                                                                </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
 
-                                        <label>
-                                            Branch Office:
-                                        </label>
-                                        <span class="badge lgreenbadge mt-2" data-toggle="tooltip"
-                                            data-placement="right" id="addressButton" title=""
-                                            data-original-title="Add Address">
-                                            <i class="fas fa-plus-circle"></i>
-                                        </span>
+                                                        </div>
+                                                    </div>
 
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="register_office_state">State</label>
+                                                            <select name="register_office_state"
+                                                                id="register_office_state"
+                                                                class="selectpicker form-control form-control-sm my-select"
+                                                                data-live-search="true" title="Select State">
+                                                                <?php foreach ($states as $state): ?>
+                                                                <option value="<?php echo $state; ?>">
+                                                                    <?php echo $state; ?>
+                                                                </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <?php echo $this->Form->control('city', ['name' => '','class' => 'form-control form-control-sm','id'=>'']); ?>
+                                                        </div>
+                                                    </div>
 
-                                        <div class="card">
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <th>Address 1</th>
-                                                        <th>Address 2</th>
-                                                        <th>Pincode</th>
-                                                        <th>City</th>
-                                                        <th>State</th>
-                                                        <th>Country</th>
-                                                        <th>Tan No</th>
-                                                        <th>Fax No</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="hidden"
+                                                    <div class="col-6  col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="address1">Address 1</label>
+                                                            <input type="text" class="form-control form-control-sm"
                                                                 name="branchfactory[branchoffice][0]['address1']">
-                                                            Kanakia road homes
-                                                        </td>
-                                                        <td>
-                                                            <input type="hidden"
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6  col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="address2">Address 2</label>
+                                                            <input type="text" class="form-control form-control-sm"
                                                                 name="branchfactory[branchoffice][0]['address2']">
-                                                            Address 2
-                                                        </td>
-                                                        <td>
-                                                            <input type="hidden"
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4  col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="pincode">Pincode</label>
+                                                            <input type="number" class="form-control form-control-sm"
                                                                 name="branchfactory[branchoffice][0]['pincode']">
-                                                            401107
-                                                        </td>
-                                                        <td><input type="hidden"
-                                                                name="branchfactory[branchoffice][0]['city']">Mumbai
-                                                        </td>
-                                                        <td><input type="hidden"
-                                                                name="branchfactory[branchoffice][0]['state']">Maharashtra
-                                                        </td>
-                                                        <td><input type="hidden"
-                                                                name="branchfactory[branchoffice][0]['country']">India
-                                                        </td>
-                                                        <td><input type="hidden"
-                                                                name="branchfactory[branchoffice][0]['tanno']">1234567890
-                                                        </td>
-                                                        <td><input type="hidden"
-                                                                name="branchfactory[branchoffice][0]['faxno']">334755
-                                                        </td>
-                                                        <td>
-                                                            <span class="badge lgreenbadge mt-2" id="editAdress"
-                                                                data-toggle="tooltip" data-placement="right" title=""
-                                                                data-original-title="Edit">
-                                                                <i class="fas fa-user-edit"></i>
-                                                            </span>
-                                                            <span class="badge redbadge mt-2" data-toggle="tooltip"
-                                                                data-placement="right" title=""
-                                                                data-original-title="Delete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-4  col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="id_telephone">Telephone</label>
+                                                            <input type="text" id="" name=""
+                                                                class="form-control form-control-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3 col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="faxno">Fax No</label>
+                                                            <input type="number" class="form-control form-control-sm"
+                                                                name="branchfactory[branchoffice][0]['faxno']">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-1 col-md-1 mt-4">
+                                                        <span class="badge redbadge delete-branch" data-toggle="tooltip"
+                                                            data-placement="right" title="Delete">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
-                                <div class="row">
-                                    <label>
-                                        Factory Address:
-                                        <span class="badge lgreenbadge mt-2" data-toggle="tooltip"
-                                            data-placement="right" id="" title="" data-original-title="Add Address">
-                                            <i class="fas fa-plus-circle"></i>
-                                        </span>
-                                    </label>
-
-                                    <div class="card">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Address 1</th>
-                                                    <th>Address 2</th>
-                                                    <th>Pincode</th>
-                                                    <th>City</th>
-                                                    <th>State</th>
-                                                    <th>Country</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <th>
-                                                        <input type="hidden"
-                                                            name="branchfactory[factoryoffice][0]['address1']">
-                                                        Kanakia road homes
-                                                    </th>
-                                                    <th>
-                                                        <input type="hidden"
-                                                            name="branchfactory[factoryoffice][0]['address2']">
-                                                        Address 2
-                                                    </th>
-                                                    <td>
-                                                        <input type="hidden"
-                                                            name="branchfactory[factoryoffice][0]['pincode']">
-                                                        401107
-                                                    </td>
-                                                    <td><input type="hidden"
-                                                            name="branchfactory[factoryoffice][0]['city']">Mumbai
-                                                    </td>
-                                                    <td><input type="hidden"
-                                                            name="branchfactory[factoryoffice][0]['State']">Maharashtra
-                                                    </td>
-                                                    <td><input type="hidden"
-                                                            name="branchfactory[factoryoffice][0]['country']">India
-                                                    </td>
-                                                    <td><span class="badge lgreenbadge mt-2" id="" data-toggle="tooltip"
-                                                            data-placement="right" title="" data-original-title="Edit">
-                                                            <i class="fas fa-user-edit"></i>
-                                                        </span>
-                                                        <span class="badge redbadge mt-2" data-toggle="tooltip"
-                                                            data-placement="right" title=""
-                                                            data-original-title="Delete">
-                                                            <i class="fas fa-trash"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-
                                 <div class="modal fade" id="modal-lg">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -496,7 +451,7 @@ switch ($vendorTemp->status) {
                                 <div class="row mt-3">
                                     <label>Small Scale Industry</label>
 
-                                    <div class="col-sm-6 col-lg-2">
+                                    <div class="col-sm-2 col-lg-2">
                                         <label>Year:</label>
                                         <input type="number" name="branchfactory[small_scale_year]"
                                             class="form-control">
@@ -517,8 +472,9 @@ switch ($vendorTemp->status) {
                                     </div>
 
                                 </div>
+                               
                                 <div class="row mt-3" style="border-right: 1px solid #dee2e6;">
-                                    <div class="col-sm-6 col-lg-3">
+                                    <div class="col-sm-2 col-lg-2">
                                         <label>Year of Registration:</label>
                                         <input name="branchfactory[year_of_registration]" type="number"
                                             class="form-control">
@@ -537,21 +493,22 @@ switch ($vendorTemp->status) {
                                         </div>
                                     </div>
                                 </div>
+                                <hr style="border-top: 1px solid rgb(0 0 0 / 10%);">
                                 <div class="card mt-2">
                                     <div class="row mt-3">
 
-                                        <div class="col-sm-6 col-lg-4">
+                                        <div class="col-sm-2 col-lg-2">
                                             <label>Year Of Commencement Of Production:</label>
                                             <input type="number" name="branchfactory[commencement_production]"
                                                 class="form-control">
                                         </div>
 
-                                        <div class="col-sm-6 col-lg-4">
+                                        <div class="col-sm-6 col-lg-4 mt-4">
                                             <div class="form-group">
                                                 <?php echo $this->Form->control('commencement_item', ['name'=>'branchfactory[commencement_item]','type' => 'text', 'class' => 'form-control', 'label' => 'Item']); ?>
                                             </div>
                                         </div>
-                                        <div class="col-sm-1 col-lg-1 mt-4">
+                                        <div class="col-sm-1 col-lg-1 mt-5">
                                             <span class="badge lgreenbadge mt-2" data-toggle="tooltip"
                                                 data-placement="right" id="" title="" data-original-title="Add">
                                                 <i class="fas fa-plus-circle"></i>
@@ -580,8 +537,12 @@ switch ($vendorTemp->status) {
                                     <div class="col-lg-4">
                                         <div class="lab_facilities-info" style="display: none;">
                                             <div class="text-container" id="lab_facilities_text">
-                                                <input type="text" name="productionFacility[lab_facilities_text]"
-                                                    class="form-control">
+                                                <!-- <input type="text" name="productionFacility[lab_facilities_text]"
+                                                    class="form-control"> -->
+                                                <div class="custom-file">
+                                                    <input name="" type="file" accept=".pdf" class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -596,8 +557,10 @@ switch ($vendorTemp->status) {
                                     <div class="col-lg-4">
                                         <div class="isi_registration-info" style="display: none;">
                                             <div class="text-container" id="isi_registration-text">
-                                                <input type="text" name="productionFacility[lab_facilities_text]"
-                                                    class="form-control">
+                                                <div class="custom-file">
+                                                    <input name="" type="file" accept=".pdf" class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -613,8 +576,10 @@ switch ($vendorTemp->status) {
                                     <div class="col-lg-4">
                                         <div class="test_facilities-info" style="display: none;">
                                             <div class="text-container" id="test_facilities-info">
-                                                <input type="text" name="productionFacility[test_facilities-info]"
-                                                    class="form-control">
+                                                <div class="custom-file">
+                                                    <input name="" type="file" accept=".pdf" class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -629,8 +594,10 @@ switch ($vendorTemp->status) {
                                     <div class="col-lg-4">
                                         <div class="sales_services-info" style="display: none;">
                                             <div class="text-container" id="sales_services_text">
-                                                <input type="text" name="productionFacility[sales_services_text]"
-                                                    class="form-control">
+                                                <div class="custom-file">
+                                                    <input name="" type="file" accept=".pdf" class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -646,8 +613,10 @@ switch ($vendorTemp->status) {
                                     <div class="col-lg-4">
                                         <div class="quality-control-info" style="display: none;">
                                             <div class="text-container" id="quality-control_text">
-                                                <input type="text" name="productionFacility[quality-control_text]"
-                                                    class="form-control">
+                                                <div class="custom-file">
+                                                    <input name="" type="file" accept=".pdf" class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -657,7 +626,7 @@ switch ($vendorTemp->status) {
 
                                 <hr>
                                 <div class="row">
-                                    <label>Annual turn over in last 3 years(In Rupess):</label>
+                                    <label>Annual turn over in last 3 years(In Rupee):</label>
                                     <div class="col-lg-3">
                                         <label id="year1"></label>
                                         <input type="text" class="form-control" name="productionFacility[turn_over1]"
@@ -722,7 +691,7 @@ switch ($vendorTemp->status) {
                                     </div>
                                 </div>
 
-                                <div class="col-lg-3 col-sm-3 mt-3">
+                                <!-- <div class="col-lg-3 col-sm-3 mt-3">
                                     <div class="form-group">
                                         <label>Factory of Address</label>
                                         <select class="form-control">
@@ -730,86 +699,188 @@ switch ($vendorTemp->status) {
                                             <option value="address1">Address1</option>
                                         </select>
                                     </div>
+                                </div> -->
+
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h6 class="modal-title">Factory Address:</h6>
+                                                <span class="badge lgreenbadge mt-2" id="id_factory_office_add"
+                                                    data-toggle="tooltip" data-placement="right" title="Add Address">
+                                                    <i class="fas fa-plus-circle"></i>
+                                                </span>
+                                            </div>
+                                            <div class="card-body p-0 factory-office-card">
+                                                <div class="row p-3">
+
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="register_office_country">Country</label>
+                                                            <select name="register_office_country"
+                                                                id="register_office_country"
+                                                                class="selectpicker form-control form-control-sm my-select"
+                                                                data-live-search="true" title="Select Country">
+                                                                <?php foreach ($countries as $country): ?>
+                                                                <option value="<?php echo $country; ?>">
+                                                                    <?php echo $country; ?>
+                                                                </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="register_office_state">State</label>
+                                                            <select name="register_office_state"
+                                                                id="register_office_state"
+                                                                class="selectpicker form-control form-control-sm my-select"
+                                                                data-live-search="true" title="Select State">
+                                                                <?php foreach ($states as $state): ?>
+                                                                <option value="<?php echo $state; ?>">
+                                                                    <?php echo $state; ?>
+                                                                </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <?php echo $this->Form->control('city', ['name' => '','class' => 'form-control form-control-sm','id'=>'']); ?>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-6  col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="address1">Address 1</label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                name="branchfactory[branchoffice][0]['address1']">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6  col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="address2">Address 2</label>
+                                                            <input type="text" class="form-control form-control-sm"
+                                                                name="branchfactory[branchoffice][0]['address2']">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4  col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="pincode">Pincode</label>
+                                                            <input type="number" class="form-control form-control-sm"
+                                                                name="branchfactory[branchoffice][0]['pincode']">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-4  col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="id_telephone">Telephone</label>
+                                                            <input type="text" id="" name=""
+                                                                class="form-control form-control-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3 col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="faxno">Fax No</label>
+                                                            <input type="number" class="form-control form-control-sm"
+                                                                name="branchfactory[branchoffice][0]['faxno']">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row  m-2">
+                                                    <div class="col-lg-12 col-sm-12">
+                                                        <div class="card">
+                                                            <div class="row m-1">
+                                                                <div class="col-3">
+                                                                    <lable>Installed Capacity</lable>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm" name=""
+                                                                        id="">
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <div class="custom-file">
+                                                                        <input name="" type="file" accept=".pdf"
+                                                                            class="custom-file-input">
+                                                                        <label class="custom-file-label">Choose
+                                                                            File</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row m-1">
+                                                                <div class="col-3">
+                                                                    <lable>Power Available</lable>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm" name=""
+                                                                        id="">
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <div class="custom-file">
+                                                                        <input name="" type="file" accept=".pdf"
+                                                                            class="custom-file-input">
+                                                                        <label class="custom-file-label">Choose
+                                                                            File</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="row m-1">
+                                                                <div class="col-3">
+                                                                    <lable>Machinery Available</lable>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm" name=""
+                                                                        id="">
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <div class="custom-file">
+                                                                        <input name="" type="file" accept=".pdf"
+                                                                            class="custom-file-input">
+                                                                        <label class="custom-file-label">Choose
+                                                                            File</label>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div class="row m-1">
+                                                                <div class="col-3">
+                                                                    <lable>Raw Material Avi. and Source</lable>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <input type="text"
+                                                                        class="form-control form-control-sm" name=""
+                                                                        id="">
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <div class="custom-file">
+                                                                        <input name="" type="file" accept=".pdf"
+                                                                            class="custom-file-input">
+                                                                        <label class="custom-file-label">Choose
+                                                                            File</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-6 col-sm-6 mt-3">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                Installed Capacity
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-6">
 
-                                                        <input type="text" class="form-control" name="" id="">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="file" class="form-control" name="" id="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-6 mt-3">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                Power Avialable
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-6">
-
-                                                        <input type="text" class="form-control" name="" id="">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="file" class="form-control" name="" id="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-6 mt-3">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                Machinery Avialable
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-6">
-
-                                                        <input type="text" class="form-control" name="" id="">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="file" class="form-control" name="" id="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-sm-6 mt-3">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                Raw Material Avi. and Source
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-6">
-
-                                                        <input type="text" class="form-control" name="" id="">
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <input type="file" class="form-control" name="" id="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
 
                                 <div class="row">
                                     <div class="col-12">
@@ -894,13 +965,13 @@ switch ($vendorTemp->status) {
                                             <div class="card-header">
                                                 Add Proprietor / Partner / Director
                                                 <span class="badge lgreenbadge mt-2" data-toggle="tooltip"
-                                                    data-placement="right" id="addressButton" title=""
+                                                    data-placement="right" id="cuntact_person_add" title=""
                                                     data-original-title="Add">
                                                     <i class="fas fa-plus-circle"></i>
                                                 </span>
                                             </div>
 
-                                            <div class="card-body">
+                                            <div class="card-body customer-card">
                                                 <div class="row">
                                                     <div class="col-2 mt-1">
                                                         <input type="radio" name="contact_person[alternate][type]"
@@ -918,45 +989,77 @@ switch ($vendorTemp->status) {
                                                         <label>Director</label>
                                                     </div>
 
+
+
+
                                                     <div class="col-12 mt-1">
                                                         <label>Name:</label>
                                                         <input type="text" name="contact_person[alternate][name]"
-                                                            class="form-control">
+                                                            class="form-control form-control-sm">
                                                     </div>
-                                                    <div class="col-3 mt-3 col-md-3">
+                                                    
+                                                   
+                                                     <div class="col-6  col-md-6">
+                                                         <div class="form-group">
+                                                             <label for="address1">Address 1</label>
+                                                             <input type="text" class="form-control form-control-sm"
+                                                                 name="">
+                                                         </div>
+                                                     </div>
+                                                     <div class="col-6  col-md-6">
+                                                         <div class="form-group">
+                                                             <label for="address2">Address 2</label>
+                                                             <input type="text" class="form-control form-control-sm"
+                                                                 name="">
+                                                         </div>
+                                                     </div>
+                                                     <div class="col-4  col-md-4">
+                                                         <div class="form-group">
+                                                             <label for="pincode">Pincode</label>
+                                                             <input type="number" class="form-control form-control-sm"
+                                                                 name="">
+                                                         </div>
+                                                     </div>
+                                                     <div class="col-4 col-md-4">
                                                         <div class="form-group">
-                                                            <?php echo $this->Form->control("contact_person[alternate][address]", ['class' => 'form-control', 'label' => 'Address 1']); ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control("contact_person[alternate][address_2]", ['class' => 'form-control', 'label' => 'Address 2']); ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control("contact_person[alternate][pincode]", ['class' => 'form-control', 'label' => 'Address 2']); ?>
+                                                          <label for="">City</label>
+                                                          <input type="text" class="form-control form-control-sm"
+                                                              name="">
+                                                       </div>
+                                                     </div>
+                                                     <div class="col-4 col-md-4">
+                                                     <div class="form-group">
+                                                         <label for="register_office_country">Country</label>
+                                                         <select name="register_office_country"
+                                                             id="register_office_country"
+                                                             class="selectpicker form-control form-control-sm my-select"
+                                                             data-live-search="true" title="Select Country">
+                                                             <?php foreach ($countries as $country): ?>
+                                                             <option value="<?php echo $country; ?>">
+                                                                 <?php echo $country; ?>
+                                                             </option>
+                                                             <?php endforeach; ?>
+                                                         </select>
+                                                  
+                                                     </div>
+                                                  </div>
+                                                  
+                                                     <div class="col-4 col-md-4">
+                                                         <div class="form-group">
+                                                             <label for="register_office_state">State</label>
+                                                             <select name="register_office_state"
+                                                                 id="register_office_state"
+                                                                 class="selectpicker form-control form-control-sm my-select"
+                                                                 data-live-search="true" title="Select State">
+                                                                 <?php foreach ($states as $state): ?>
+                                                                 <option value="<?php echo $state; ?>">
+                                                                     <?php echo $state; ?>
+                                                                 </option>
+                                                                 <?php endforeach; ?>
+                                                             </select>
+                                                         </div>
+                                                     </div>
 
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control("contact_person[alternate][city]", ['class' => 'form-control', 'label' => 'City']); ?>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('contact_person[alternate][state]', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'label' => 'State', 'data-live-search' => 'true', 'title' => 'Select State']); ?>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('contact_person[alternate][country]', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1185,9 +1288,10 @@ switch ($vendorTemp->status) {
                                     <label>Whether the item is completely manufactured in applicant's
                                         factory?</label>
                                     <div class="col-lg-12 mt-3">
-                                        <input  type="radio" name="certificate[fully_manufactured]" checked value="yes">
+                                        <input type="radio" name="certificate[fully_manufactured]" checked value="yes">
                                         <label>Yes</label>
-                                        <input class="fully_manufactured_radio" type="radio" name="certificate[fully_manufactured]" value="no">
+                                        <input class="fully_manufactured_radio" type="radio"
+                                            name="certificate[fully_manufactured]" value="no">
                                         <label>No</label>
                                     </div>
 
@@ -1206,7 +1310,7 @@ switch ($vendorTemp->status) {
                             <div class="tab-pane fade" id="custom-tabs-four-questionnaire" role="tabpanel"
                                 aria-labelledby="tab_questionnaire" style="background-color: white;">
                                 <div class="row mt-3">
-                            
+
                                     <div class="col-lg-12 mt-3">
                                         <h5>Other information considered relevent to be furnished by supplier</h5>
                                         <hr>
@@ -1246,84 +1350,101 @@ switch ($vendorTemp->status) {
                             <div class="tab-pane fade" id="custom-tabs-four-customerAddress" role="tabpanel"
                                 aria-labelledby="tab_customerAddress" style="background-color: white;">
                                 <div class="row">
-                                    <div class="col-lg-12 col-sm-12">
+                                    <div class="col-md-12">
+                                        <div class="card mb-3">
+                                            <div class="card-header">
+                                                <h6 class="modal-title">Address of your reputed customers to whom reference can be made (use separate sheet) if necessary.</h6>
+                                                <span class="badge lgreenbadge mt-2" id="id_customer_address_add"
+                                                    data-toggle="tooltip" data-placement="right" title="Add Address">
+                                                    <i class="fas fa-plus-circle"></i>
+                                                </span>
+                                            </div>
+                                            <div class="card-body p-0 customer-address">
+                                                <div class="row p-3">
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="register_office_country">Country</label>
+                                                            <select name="register_office_country"
+                                                                id="register_office_country"
+                                                                class="selectpicker form-control form-control-sm my-select"
+                                                                data-live-search="true" title="Select Country">
+                                                                <?php foreach ($countries as $country): ?>
+                                                                <option value="<?php echo $country; ?>">
+                                                                    <?php echo $country; ?>
+                                                                </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
 
-                                        <label>
-                                            Address of your reputed customers to whom reference can be made (use
-                                            separate sheet) if necessary.
-                                        </label>
-                                        <span class="badge lgreenbadge mt-2" data-toggle="tooltip"
-                                            data-placement="right" id="addressButton" title=""
-                                            data-original-title="Add Address">
-                                            <i class="fas fa-plus-circle"></i>
-                                        </span>
+                                                        </div>
+                                                    </div>
 
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="register_office_state">State</label>
+                                                            <select name="register_office_state"
+                                                                id="register_office_state"
+                                                                class="selectpicker form-control form-control-sm my-select"
+                                                                data-live-search="true" title="Select State">
+                                                                <?php foreach ($states as $state): ?>
+                                                                <option value="<?php echo $state; ?>">
+                                                                    <?php echo $state; ?>
+                                                                </option>
+                                                                <?php endforeach; ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 col-md-4">
+                                                        <div class="form-group">
+                                                            <?php echo $this->Form->control('city', ['name' => '','class' => 'form-control form-control-sm','id'=>'']); ?>
+                                                        </div>
+                                                    </div>
 
-                                        <div class="card mt-3">
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                        <th>Address 1</th>
-                                                        <th>Address 2</th>
-                                                        <th>Pincode</th>
-                                                        <th>City</th>
-                                                        <th>State</th>
-                                                        <th>Country</th>
-                                                        <th>Tan No</th>
-                                                        <th>Fax No</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="hidden"
+                                                    <div class="col-6  col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="address1">Address 1</label>
+                                                            <input type="text" class="form-control form-control-sm"
                                                                 name="branchfactory[branchoffice][0]['address1']">
-                                                            Kanakia road homes
-                                                        </td>
-                                                        <td>
-                                                            <input type="hidden"
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6  col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="address2">Address 2</label>
+                                                            <input type="text" class="form-control form-control-sm"
                                                                 name="branchfactory[branchoffice][0]['address2']">
-                                                            Address 2
-                                                        </td>
-                                                        <td>
-                                                            <input type="hidden"
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4  col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="pincode">Pincode</label>
+                                                            <input type="number" class="form-control form-control-sm"
                                                                 name="branchfactory[branchoffice][0]['pincode']">
-                                                            401107
-                                                        </td>
-                                                        <td><input type="hidden"
-                                                                name="branchfactory[branchoffice][0]['city']">Mumbai
-                                                        </td>
-                                                        <td><input type="hidden"
-                                                                name="branchfactory[branchoffice][0]['state']">Maharashtra
-                                                        </td>
-                                                        <td><input type="hidden"
-                                                                name="branchfactory[branchoffice][0]['country']">India
-                                                        </td>
-                                                        <td><input type="hidden"
-                                                                name="branchfactory[branchoffice][0]['tanno']">1234567890
-                                                        </td>
-                                                        <td><input type="hidden"
-                                                                name="branchfactory[branchoffice][0]['faxno']">334755
-                                                        </td>
-                                                        <td>
-                                                            <span class="badge lgreenbadge mt-2" id="editAdress"
-                                                                data-toggle="tooltip" data-placement="right" title=""
-                                                                data-original-title="Edit">
-                                                                <i class="fas fa-user-edit"></i>
-                                                            </span>
-                                                            <span class="badge redbadge mt-2" data-toggle="tooltip"
-                                                                data-placement="right" title=""
-                                                                data-original-title="Delete">
-                                                                <i class="fas fa-trash"></i>
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-4  col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="id_telephone">Telephone</label>
+                                                            <input type="text" id="" name=""
+                                                                class="form-control form-control-sm">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3 col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="faxno">Fax No</label>
+                                                            <input type="number" class="form-control form-control-sm"
+                                                                name="branchfactory[branchoffice][0]['faxno']">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-1 col-md-1 mt-4">
+                                                        <span class="badge redbadge delete-customer_address" data-toggle="tooltip"
+                                                            data-placement="right" title="Delete">
+                                                            <i class="fas fa-trash"></i>
+                                                        </span>
+                                                    </div> -->
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 
