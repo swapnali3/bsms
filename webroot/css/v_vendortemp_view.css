@@ -9,8 +9,12 @@
     font-size: 0.9rem;
 }
 
+#custom-tabs-four-branch td{
+    font-size: 0.8rem;
+}
+
 #custom-tabs-four-branch th{
-    font-size: 1rem;
+    font-size: 0.8rem;
 }
 
 .lgreenbadge {
