@@ -9,7 +9,6 @@
  */
 
 ?>
-
 <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
 <?= $this->Html->css('CakeLte./AdminLTE/plugins/summernote/summernote.min.css') ?>
 
@@ -17,9 +16,6 @@
 <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 <!-- <?= $this->Html->css('CakeLte.style') ?> -->
-
-<?= $this->Html->css('cstyle.css') ?>
-<?= $this->Html->css('table.css') ?>
 <style>
     .label {
         font-size: 10px
@@ -60,9 +56,6 @@
         color: #999;
     }
 </style>
-<?= $this->Html->css('listing.css') ?>
-<?= $this->Html->css('v_index.css') ?>
-
 <div class="row">
     <div class="column-responsive column-80">
         <?= $this->Form->create($vendorTemp, ['type' => 'file', 'id' => 'onbordingSubmit', 'class' => 'mb-0']) ?>

@@ -1,0 +1,44 @@
+.nav-link.active {
+    background-color: #649bca !important;
+    color: #fff !important;
+    border-top: unset;
+}
+
+
+.card .nav-tabs .nav-link {
+    font-size: 0.9rem;
+}
+
+#custom-tabs-four-branch td{
+    font-size: 0.8rem;
+}
+
+#custom-tabs-four-branch th{
+    font-size: 0.8rem;
+}
+
+.lgreenbadge {
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: green;
+ 
+} 
+
+#custom-tabs-four-branch .lgreenbadge {
+    position: absolute;
+    right: 16px;
+    top: 10%;
+}
+
+
+.redbadge {
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #f11e00;
+}
+
+#custom-tabs-four-branch tr{
+    font-size: 1rem;
+}
