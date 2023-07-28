@@ -34,14 +34,7 @@ class PurchaseOrdersController extends BuyerAppController
 
         $this->set(compact('poHeaders'));
     }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Po Header id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    
     public function view()
     {
         $this->set('headTitle', 'PO Detail');
@@ -54,6 +47,19 @@ class PurchaseOrdersController extends BuyerAppController
 
         $this->set(compact('poHeaders'));
     }
+
+    // public function view()
+    // {
+    //     $this->set('headTitle', 'PO Detail');
+    //     $this->loadModel('PoHeaders');
+    //     $poHeaders = $this->PoHeaders->find()
+    //         ->select(['id', 'po_no', 'sap_vendor_code'])->toArray();
+
+    //     $session = $this->getRequest()->getSession();
+
+
+    //     $this->set(compact('poHeaders'));
+    // }
 
 
     public function poApi($search = null)
@@ -222,39 +228,38 @@ class PurchaseOrdersController extends BuyerAppController
         $this->loadModel("PoItemSchedules");
  
 
-        $sapVendorcode = $this->PoHeaders->find()
-            ->select(['sap_vendor_code'])
-            ->where(['id' => $this->request->getData('po_header_id')])
-            ->first();
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            $status = true;
+            foreach ($data as $row) {
+            try {
+                    $sapVendorcode = $this->PoHeaders->find()
+                        ->select(['sap_vendor_code'])
+                        ->where(['id' => $row['po_header_id']])
+                        ->first();
 
-          //  print_r($sapVendorcode['sap_vendor_code']);
-
-            $conn = ConnectionManager::get('default');
-            $query = "SELECT COUNT(update_flag) AS count FROM vendor_temps WHERE update_flag > 0 AND sap_vendor_code = :sapVendorcode";
-            $params = ['sapVendorcode' => $sapVendorcode['sap_vendor_code']];
-            $result = $conn->execute($query, $params)->fetch('assoc');
-
-         //   print_r($result);
-            
-            
-        if ($result['count'] > 0) {
-            $response['status'] = 'fail';
-            $response['message'] = 'Vendor details pending for review';
-        } else {
-            if ($this->request->is(['patch', 'post', 'put'])) {
-                try {
-                    $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
-                    $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $this->request->getData());
-                    // echo '<pre>'; print_r($PoItemSchedule); exit();
-
-                    if ($this->PoItemSchedules->save($PoItemSchedule)) {
-                        $response['status'] = 'success';
-                        $response['message'] = 'Record save successfully';
+                    $conn = ConnectionManager::get('default');
+                    $query = "SELECT COUNT(update_flag) AS count FROM vendor_temps WHERE update_flag > 0 AND sap_vendor_code = :sapVendorcode";
+                    $params = ['sapVendorcode' => $sapVendorcode['sap_vendor_code']];
+                    $result = $conn->execute($query, $params)->fetch('assoc'); 
+                        
+                    if ($result['count'] > 0) {
+                        $response['status'] = 'fail';
+                        $response['message'] = 'Vendor details pending for review';
+                    } else {
+                        $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
+                        $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $row);
+                        if ($this->PoItemSchedules->save($PoItemSchedule) && $status) { $status = true; }
+                        else{ $status = false; }
                     }
                 } catch (\Exception $e) {
                     $response['status'] = 'fail';
                     $response['message'] = $e->getMessage();
                 }
+            }
+            if ($status) { 
+                $response['status'] = 'success';
+                $response['message'] = 'Record save successfully';
             }
         }
         echo json_encode($response);
@@ -312,6 +317,24 @@ class PurchaseOrdersController extends BuyerAppController
         //echo '<pre>'; print_r($data); exit;
 
 
+        echo json_encode($response);
+    }
+
+    public function getSchedulelist($id = null)
+    {
+        $this->autoRender = false;
+        $this->loadModel("PoItemSchedules");
+        $response = ['status'=>0, 'message'=>'', 'totalQty'=>''];
+        $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id]]);
+        
+        if ($data->count() > 0) {
+            $totalQty = 0;
+            foreach ($data as $row) { $totalQty += $row->actual_qty;}
+            $response['status'] = 1;
+            $response['message'] = $data;
+            $response['totalQty'] = $totalQty;
+        } else { $response = ['status'=>0, 'message'=>'No schedule data', 'totalQty'=>0]; }
+        // echo '<pre>'; print_r(json_encode($response)); exit;
         echo json_encode($response);
     }
 

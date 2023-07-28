@@ -19,7 +19,7 @@
                         <h5>Production Planner</h5>
                     </div>
                     <div class="col-lg-6 d-flex justify-content-end text-align-end">
-                        <a href="<?= $this->Url->build('/') ?>vendor/dailymonitor/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Monitor</button></a>
+                        <a href="<?= $this->Url->build('/') ?>vendor/dailymonitor/add"><button type="button" id="continueSub" class="btn continue_btn bg-gradient-button">Add Monitor</button></a>
                     </div>
                 </div>
             </div>
