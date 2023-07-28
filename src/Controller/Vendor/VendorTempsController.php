@@ -120,13 +120,9 @@ class VendorTempsController extends VendorAppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
-                echo '<pre>'; echo json_encode($request);exit;
-
             try {
-                
-            } catch (\PDOException $e) {
-
-            }
+                echo '<pre>'; print_r($request);exit;
+            } catch (\PDOException $e) { }
         }        
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
