@@ -129,13 +129,15 @@ $(document).on("click", ".schedule_item", function () {
 
 $(document).on("click", ".check", function () {
     var check_cnt = uncheck_cnt = 0;
-    $(".check").each(function (key, val) { if ($(val).is(':checked')) { check_cnt++ } else { uncheck_cnt++; } });
-    if (check_cnt == 0) { $(".checkall").prop('checked', false); }
-    if (uncheck_cnt == 0) { $(".checkall").prop('checked', true); }
+    $(".check").each(function (key, val) { if ($(val).is(':checked')) { check_cnt++; $("#action_schedule").attr('disabled', false); } else { uncheck_cnt++; } });
+    if (check_cnt == 0) { $(".checkall").prop('checked', false); $("#action_schedule").attr('disabled', true); }
+    if (uncheck_cnt == 0) { $(".checkall").prop('checked', true); $("#action_schedule").attr('disabled', false); }
 });
 
 $(document).on("click", ".checkall", function () {
     var checkall = $(this).is(':checked');
+    if (checkall) { $("#action_schedule").attr('disabled', false); }
+    else { $("#action_schedule").attr('disabled', true); }
     $(".check").each(function (key, val) { $(val).prop('checked', checkall); });
 });
 
@@ -386,20 +388,40 @@ $(document).ready(function () {
 });
 
 $('.btnSub').click(function (event) {
+    var status = true;
+
     // jthayil
+    $(".act_qty").each(function (key, obj) {
+        if ($(obj).val() == "" || $(obj).val() == null || $(obj).val() == undefined) {
+            $("#error_msg").text("Actual Qty Mandatory");
+            status = false;
+            $(obj).focus();
+        } else if ($(obj).attr('max') < $(obj).val()) {
+            $("#error_msg").text("Actual Qty exceeds pending max PO Qty");
+            status = false;
+            $(obj).focus();
+        }
+    });
 
-
+    if (status) {
+        $(".dly_dt").each(function (key, obj) {
+            if ($(obj).val() == null || $(obj).val() == undefined || $(obj).val() == "") {
+                $("#error_msg").text("Schedule Date Mandatory");
+                status = false;
+                $(obj).focus();
+            }
+        });
+    }
 
     // Display alert body and OK button
-    $('.a-data').addClass('d-none');
-    $('.alert-body').removeClass('d-none');
-    $('.btnSub').addClass('d-none');
-    $('#btnClose').removeClass('d-none');
-    $('#error_msg').hide();
-    $('.dismiss-btn').hide();
-    $('.btn-success').removeClass('d-none');
-
-
+    if (status) {
+        $('.a-data').addClass('d-none');
+        $('.alert-body').removeClass('d-none');
+        $('.btnSub').addClass('d-none');
+        $('#btnClose').removeClass('d-none');
+        $('.dismiss-btn').hide();
+        $('.btn-success').removeClass('d-none');
+    }
 });
 
 $('#btnClose').click(function () {

@@ -30,7 +30,7 @@
     
     <div class="related card">
       <div class="card-header">
-        <button type="button" class="btn bg-gradient-button" onclick="prepare()"  data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#scheduleModal" >Schedule</button>
+        <button type="button" disabled class="btn bg-gradient-button" id="action_schedule" onclick="prepare()"  data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#scheduleModal" >Schedule</button>
       </div>
       <div class="table-responsive card-body" id="id_potableresp" style="display:none;"></div>
     </div>
@@ -158,9 +158,8 @@
             <tbody id="id_scheduletbl"></tbody>
           </table>
         </div>
-
+        <div id="error_msg" class="text-danger"></div>
       </div>
-      <div id="error_msg"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary dismiss-btn" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-secondary d-none" id="btnClose">Close</button>
