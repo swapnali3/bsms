@@ -34,6 +34,199 @@ switch ($vendorTemp->status) {
 <!-- <?= $this->Html->css('v_index.css') ?> -->
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>
+<style>
+    .hide{
+        display: none;
+    }
+
+    /* Default Button */
+    .bg-gradient-button {
+        background: #F2EDD7FF linear-gradient(180deg, #F2EDD7FF, #e5e1cc) repeat-x !important;
+        color: #755139FF !important;
+    }
+
+    .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
+    .bg-gradient-button.btn:not(:disabled):not(.disabled).active,
+    .show>.bg-gradient-button.btn.dropdown-toggle {
+        background-image: none !important;
+    }
+
+    .bg-gradient-button.btn:hover {
+        background: #F2EDD7FF linear-gradient(180deg, #e5e1cc, #F2EDD7FF) repeat-x !important;
+        border-color: #F2EDD7FF;
+        color: #755139FF !important;
+    }
+
+    .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
+    .bg-gradient-button.btn:not(:disabled):not(.disabled).active,
+    .bg-gradient-button.btn:active,
+    .bg-gradient-button.btn.active {
+        background: #F2EDD7FF linear-gradient(180deg, #e5e1cc, #e5e1cc) repeat-x !important;
+        border-color: #F2EDD7FF;
+        color: #755139FF !important;
+    }
+
+    .bg-gradient-button.btn:disabled,
+    .bg-gradient-button.btn.disabled {
+        background-image: none !important;
+        border-color: #F2EDD7FF;
+        color: #755139FF !important;
+    }
+
+    /* Default Button */
+
+
+    /* Submit Button */
+    .bg-gradient-submit {
+        background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
+        border-color: #ffffff;
+        color: #fff;
+    }
+
+    .bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
+    .bg-gradient-submit.btn:not(:disabled):not(.disabled).active,
+    .show>.bg-gradient-submit.btn.dropdown-toggle {
+        background-image: none !important;
+    }
+
+    .bg-gradient-submit.btn:hover {
+        background: #08132f linear-gradient(180deg, #102b71, #5b8aff) repeat-x !important;
+        border-color: #ffffff;
+        color: #fff;
+    }
+
+    .bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
+    .bg-gradient-submit.btn:not(:disabled):not(.disabled).active,
+    .bg-gradient-submit.btn:active,
+    .bg-gradient-submit.btn.active {
+        background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
+        border-color: #ffffff;
+        color: #fff;
+    }
+
+    .bg-gradient-submit.btn:disabled,
+    .bg-gradient-submit.btn.disabled {
+        background-image: none !important;
+        border-color: #ffffff;
+        color: #fff;
+    }
+
+    /* Submit Button */
+
+    /* Reject Button */
+    .bg-gradient-reject {
+        background: #F1F4FFFF linear-gradient(180deg, #F1F4FFFF, #ffc8be) repeat-x !important;
+        border-color: #F1F4FFFF;
+        color: #990011FF;
+    }
+
+    .bg-gradient-reject.btn:not(:disabled):not(.disabled):active,
+    .bg-gradient-reject.btn:not(:disabled):not(.disabled).active,
+    .show>.bg-gradient-reject.btn.dropdown-toggle {
+        background-image: none !important;
+    }
+
+    .bg-gradient-reject.btn:hover {
+        background: #F1F4FFFF linear-gradient(180deg, #ffc8be, #F1F4FFFF) repeat-x !important;
+        border-color: #F1F4FFFF;
+        color: #990011FF;
+    }
+
+    .bg-gradient-reject.btn:not(:disabled):not(.disabled):active,
+    .bg-gradient-reject.btn:not(:disabled):not(.disabled).active,
+    .bg-gradient-reject.btn:active,
+    .bg-gradient-reject.btn.active {
+        background: #F1F4FFFF linear-gradient(180deg, #ffc8be, #F1F4FFFF) repeat-x !important;
+        border-color: #F1F4FFFF;
+        color: #990011FF;
+    }
+
+    .bg-gradient-reject.btn:disabled,
+    .bg-gradient-reject.btn.disabled {
+        background-image: none !important;
+        border-color: #F1F4FFFF;
+        color: #990011FF;
+    }
+
+    /* Reject Button */
+
+
+    /* Cancel Button */
+    .bg-gradient-cancel {
+        background: #F1F4FFFF linear-gradient(180deg, #edeff7, #ccd7fd) repeat-x !important;
+        border-color: #F1F4FFFF;
+        color: #496e97;
+    }
+
+    .bg-gradient-cancel.btn:not(:disabled):not(.disabled):active,
+    .bg-gradient-cancel.btn:not(:disabled):not(.disabled).active,
+    .show>.bg-gradient-cancel.btn.dropdown-toggle {
+        background-image: none !important;
+    }
+
+    .bg-gradient-cancel.btn:hover {
+        background: #F1F4FFFF linear-gradient(180deg, #ccd7fd, #edeff7) repeat-x !important;
+        border-color: #F1F4FFFF;
+        color: #496e97;
+    }
+
+    .bg-gradient-cancel.btn:not(:disabled):not(.disabled):active,
+    .bg-gradient-cancel.btn:not(:disabled):not(.disabled).active,
+    .bg-gradient-cancel.btn:active,
+    .bg-gradient-cancel.btn.active {
+        background: #F1F4FFFF linear-gradient(180deg, #ccd7fd, #edeff7) repeat-x !important;
+        border-color: #F1F4FFFF;
+        color: #496e97;
+    }
+
+    .bg-gradient-cancel.btn:disabled,
+    .bg-gradient-cancel.btn.disabled {
+        background-image: none !important;
+        background-color: #F1F4FFFF !important;
+        border-color: #F1F4FFFF;
+        color: #496e97;
+    }
+
+    /* Cancel Button */
+
+    /* warn Button */
+    .bg-gradient-warn {
+        background: #ff2700 linear-gradient(180deg, #ff2700, #c71f00) repeat-x !important;
+        border-color: #ff2700;
+        color: #fff;
+    }
+
+    .bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
+    .bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
+    .show>.bg-gradient-warn.btn.dropdown-toggle {
+        background-image: none !important;
+    }
+
+    .bg-gradient-warn.btn:hover {
+        background: #ff2700 linear-gradient(180deg, #ff2700, #ff836c) repeat-x !important;
+        border-color: #ff2700;
+        color: #fff;
+    }
+
+    .bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
+    .bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
+    .bg-gradient-warn.btn:active,
+    .bg-gradient-warn.btn.active {
+        background: #ff2700 linear-gradient(180deg, #ff836c, #ff2700) repeat-x !important;
+        border-color: #ff2700;
+        color: #fff;
+    }
+
+    .bg-gradient-warn.btn:disabled,
+    .bg-gradient-warn.btn.disabled {
+        background-image: none !important;
+        border-color: #ff2700;
+        color: #fff;
+    }
+
+    /* Reject Button */
+</style>
+
 <div class="row">
     <div class="col-sm-12 col-md-3 col-lg-3">
         <div class="card">
@@ -82,6 +275,7 @@ switch ($vendorTemp->status) {
         </div>
     </div>
     <div class="col-sm-12 col-md-9 col-lg-9">
+        <?= $this->Form->create($vendorTemp, ['type' => 'file', 'id' => 'onbordingSubmit', 'class' => 'mb-0']) ?>
         <div class="row">
             <div class="col-sm-12 col-md-12 col-lg-12">
                 <div class="card">
@@ -108,9 +302,7 @@ switch ($vendorTemp->status) {
                                         'PUBLIC_LIMITED' => 'Public Limited Company',
                                         'PRIVATE_LIMITED' => 'Private Limited Company'
                                     ];
-                                    echo $this->Form->control('status', [
-                                        'class' => 'form-control', 'options' => $businessTypes, 'label' => 'Status'
-                                    ]);
+                                    echo $this->Form->control('status', ['class' => 'form-control', 'options' => $businessTypes, 'label' => 'Status']);
                                     ?>
                                 </div>
                             </div>
@@ -119,7 +311,6 @@ switch ($vendorTemp->status) {
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 col-lg-12">
-                <?= $this->Form->create($vendorTemp, ['type' => 'file', 'id' => 'onbordingSubmit', 'class' => 'mb-0']) ?>
                 <div class="card card-outline card-outline-tabs">
                     <div class="card-header p-0">
                         <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
@@ -131,8 +322,7 @@ switch ($vendorTemp->status) {
                             <li class="nav-item">
                                 <a class="nav-link" id="tab_branchoffice" data-toggle="pill"
                                     href="#custom-tabs-four-branch" role="tab" aria-controls="custom-tabs-four-branch"
-                                    aria-selected="false">Branch Office /
-                                    Factory</a>
+                                    aria-selected="false">Branch Office</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="tab_productionfaculty" data-toggle="pill"
@@ -169,111 +359,101 @@ switch ($vendorTemp->status) {
                             <li class="nav-item">
                                 <a class="nav-link" id="tab_customerAddress" data-toggle="pill"
                                     href="#custom-tabs-four-customerAddress" role="tab"
-                                    aria-controls="custom-tabs-four-customerAddress" aria-selected="false">Customer
-                                    Address</a>
+                                    aria-controls="custom-tabs-four-customerAddress" aria-selected="false">Reputed
+                                    Customer</a>
                             </li>
                         </ul>
                     </div>
                     <div class="card-body">
                         <div class="tab-content" id="custom-tabs-four-tabContent">
-
                             <div class="tab-pane fade active show" id="custom-tabs-four-profile" role="tabpanel"
                                 aria-labelledby="tab_address" style="background-color: white;">
+                                <h5>Permanent Address</h5>
                                 <div class="row">
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('address', ['name' => 'address[address]', 'class' => 'form-control','id'=>'id_address1', 'label' => "Address 1"]); ?>
+                                            <?php echo $this->Form->control('address', ['name' => 'permanent_address[address]', 'class' => 'form-control','id'=>'id_permanent_address_address1', 'label' => "Address"]); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('address_2', ['name' => 'address[address_2]','label' => 'Address 2','id'=>'id_address2', 'class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('address_2', ['name' => 'permanent_address[address_2]','label' => 'Address 1','id'=>'id_permanent_address_address2', 'class' => 'form-control']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('pincode', ['name' => 'address[pincode]','class' => 'form-control ','id'=>'id_pincode']); ?>
+                                            <?php echo $this->Form->control('pincode', ['name' => 'permanent_address[pincode]','class' => 'form-control ','id'=>'id_permanent_address_pincode']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('city', ['name' => 'address[city]','class' => 'form-control','id'=>'id_city']); ?>
+                                            <?php echo $this->Form->control('city', ['name' => 'permanent_address[city]','class' => 'form-control','id'=>'id_permanent_address_city']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('country', ['name' => 'address[country]','id'=>'id_country','class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                            <?php echo $this->Form->control('country', ['name' => 'permanent_address[country]','id'=>'id_permanent_address_country','class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('state', ['name' => 'address[state]','id'=>'id_state','class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                            <?php echo $this->Form->control('state', ['name' => 'permanent_address[state]','id'=>'id_permanent_address_state','class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <label for="id_telephone">Telephone</label>
-                                            <input type="text" id="id_telephone" name="address[telephone]"
-                                                class="form-control">
+                                            <?php echo $this->Form->control('Telephone', ['name' => 'permanent_address[telephone]','type'=>'number','class' => 'form-control','id'=>'id_permanent_address_telephone']); ?>
                                         </div>
                                     </div>
-                                    <div class="col-3 col-md-3 mt-3">
+                                    <div class="col-sm-12 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'address[faxno]', 'id' => 'id_faxno','type' => 'number', 'class' => 'form-control', 'label' => 'FAX NO.']); ?>
+                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'permanent_address[faxno]', 'id' => 'id_permanent_address_faxno','type' => 'number', 'class' => 'form-control', 'label' => 'Fax No.']); ?>
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
+                                <hr style="border: revert;">
+                                <h5>Registered Office Address</h5>
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="copypermanant">
+                                    <label for="copypermanant">Same as Permanent Address</label>
+                                </div>
                                 <div class="row">
-                                    <div class="icheck-primary">
-                                        <input type="checkbox" id="checkboxPrimary1">
-                                        <label for="checkboxPrimary1">Same as Above</label>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <label>Registered Office Address:</label>
-                                    </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_address1', ['name' => 'register_office[address1]','class' => 'form-control', 'label' => "Address 1"]); ?>
+                                            <?php echo $this->Form->control('register_office_address1', ['name' => 'registered_office[address1]','id'=>'register_office_address1','class' => 'form-control', 'label' => "Address 1"]); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_address2', ['name' => 'register_office[address2]','label' => 'Address 2', 'class' => 'form-control','id'=>'register_office_address2']); ?>
+                                            <?php echo $this->Form->control('register_office_address2', ['name' => 'registered_office[address2]','label' => 'Address 2', 'class' => 'form-control','id'=>'register_office_address2']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_pincode', ['name' => 'register_office[pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'register_office_pincode']); ?>
+                                            <?php echo $this->Form->control('register_office_pincode', ['name' => 'registered_office[pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'register_office_pincode']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_city', ['name' => 'register_office[city]','class' => 'form-control','label' =>'City','id'=>'register_office_city']); ?>
+                                            <?php echo $this->Form->control('register_office_city', ['name' => 'registered_office[city]','class' => 'form-control','label' =>'City','id'=>'register_office_city']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_country', ['name' => 'register_office[country]','class' => 'selectpicker form-control my-select', 'options' => $countries,'label'=>'Country','data-live-search' => 'true', 'title' => 'Select Country','id'=>'register_office_county']); ?>
+                                            <?php echo $this->Form->control('register_office_country', ['name' => 'registered_office[country]','class' => 'selectpicker form-control my-select', 'options' => $countries,'label'=>'Country','data-live-search' => 'true', 'title' => 'Select Country','id'=>'register_office_country']); ?>
                                         </div>
                                     </div>
-                                    <div class="col-3 col-md-3 mt-3">
+                                    <div class="col-sm-12 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_state', ['name' => 'register_office[state]','class' => 'selectpicker form-control my-select', 'options' => $states, 'label'=>'State', 'data-live-search' => 'true', 'title' => 'Select State','id'=>'register_office_stat']); ?>
+                                            <?php echo $this->Form->control('register_office_state', ['name' => 'registered_office[state]','class' => 'selectpicker form-control my-select', 'options' => $states, 'label'=>'State', 'data-live-search' => 'true', 'title' => 'Select State','id'=>'register_office_state']); ?>
                                         </div>
                                     </div>
-                                    <div class="col-3 col-md-3 mt-3">
+                                    <div class="col-sm-12 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_telno', ['name' => 'register_office[telno]','type' => 'number', 'class' => 'form-control', 'id'=>'register_office_telno','label' => 'TEL. NO.']); ?>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 col-md-3 mt-3">
-                                        <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'register_office[faxno]','type' => 'number',
-                                            'id'=>'register_office_faxno' ,'class' => 'form-control', 'label' => 'FAX NO.']); ?>
+                                            <?php echo $this->Form->control('Telephone', ['name' => 'registered_office[telephone]','type' => 'number', 'class' => 'form-control','id'=>'register_office_telephone']); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -281,1026 +461,811 @@ switch ($vendorTemp->status) {
 
                             <div class="tab-pane fade" id="custom-tabs-four-branch" role="tabpanel"
                                 aria-labelledby="tab_branchoffice" style="background-color: white;">
-
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card mb-3">
-                                            <div class="card-header">
-                                                <h6 class="modal-title">Branch Office:</h6>
-                                                <span class="badge lgreenbadge mt-2" id="id_branch_office_add"
-                                                    data-toggle="tooltip" data-placement="right" title="Add Address">
-                                                    <i class="fas fa-plus-circle"></i>
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h5>Branch Office Address</h5>
+                                        <span data-class="branch_office" class="badge lgreenbadge mt-2 add"
+                                            id="id_branch_office_add" data-toggle="tooltip" data-placement="right"
+                                            title="Add Address">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </span>
+                                    </div>
+                                    <div class="card-body branch_office_card_body">
+                                        <div class="row branch_office branch_office_0" data-id="0" id="branch_office_0">
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_address1', ['name' => 'branch[branch_office][0][address1]', 'id'=>'branch_office_0_address1','class' => 'form-control', 'label' => "Address 1"]); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_address2', ['name' => 'branch[branch_office][0][address2]', 'id'=>'branch_office_0_address2','label' => 'Address 2', 'class' => 'form-control']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_pincode', ['name' => 'branch[branch_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'branch_office_0_pincode']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_city', ['name' => 'branch[branch_office][0][city]','class' => 'form-control','label' =>'City','id'=>'branch_office_0_city']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_country', ['name' => 'branch[branch_office][0][country]','class' => 'selectpicker form-control my-select', 'options' => $countries,'label'=>'Country','data-live-search' => 'true', 'title' => 'Select Country','id'=>'branch_office_0_country']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 mt-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_state', ['name' => 'branch[branch_office][0][state]','class' => 'selectpicker form-control my-select', 'options' => $states, 'label'=>'State', 'data-live-search' => 'true', 'title' => 'Select State','id'=>'branch_office_0_state']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 mt-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_telno', ['name' => 'branch[branch_office][0][telno]','type' => 'number', 'class' => 'form-control', 'id'=>'branch_office_0_telno','label' => 'Tel No']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 col-md-3 mt-4 pt-4 hide">
+                                                <span class="badge redbadge delete" data-toggle="tooltip" data-class="branch_office" data-placement="right" data-id="0" data-original-title="Delete">
+                                                    <i class="fas fa-trash"></i>
                                                 </span>
                                             </div>
-                                            <div class="card-body p-0 address-card">
-                                                <div class="row p-3">
-                                                    <div class="col-4 col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="register_office_country">Country</label>
-                                                            <select name="register_office_country"
-                                                                id="register_office_country"
-                                                                class="selectpicker form-control form-control-sm my-select"
-                                                                data-live-search="true" title="Select Country">
-                                                                <?php foreach ($countries as $country): ?>
-                                                                <option value="<?php echo $country; ?>">
-                                                                    <?php echo $country; ?>
-                                                                </option>
-                                                                <?php endforeach; ?>
-                                                            </select>
+                                        </div>
+                                        <hr class="branch_office_0" style="border: revert;">
+                                    </div>
+                                </div>
 
-                                                        </div>
-                                                    </div>
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h5>Small Scale Industry</h5>
+                                    </div>
+                                    <div class="card-body address-card">
+                                        <div class="row">
+                                            <div class="col-sm-4 col-lg-2">
+                                                <label>Year:</label>
+                                                <input type="number" name="branch[small_scale][year]" class="form-control">
+                                            </div>
 
-                                                    <div class="col-4 col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="register_office_state">State</label>
-                                                            <select name="register_office_state"
-                                                                id="register_office_state"
-                                                                class="selectpicker form-control form-control-sm my-select"
-                                                                data-live-search="true" title="Select State">
-                                                                <?php foreach ($states as $state): ?>
-                                                                <option value="<?php echo $state; ?>">
-                                                                    <?php echo $state; ?>
-                                                                </option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4 col-md-4">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('city', ['name' => '','class' => 'form-control form-control-sm','id'=>'']); ?>
-                                                        </div>
-                                                    </div>
+                                            <div class="col-sm-4 col-lg-4">
+                                                <label>Registration No.</label>
+                                                <input type="text" name="branch[small_scale][registration_no]"
+                                                    class="form-control">
+                                            </div>
 
-                                                    <div class="col-6  col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="address1">Address 1</label>
-                                                            <input type="text" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['address1']">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6  col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="address2">Address 2</label>
-                                                            <input type="text" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['address2']">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4  col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="pincode">Pincode</label>
-                                                            <input type="number" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['pincode']">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-4  col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="id_telephone">Telephone</label>
-                                                            <input type="text" id="" name=""
-                                                                class="form-control form-control-sm">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <label for="faxno">Fax No</label>
-                                                            <input type="number" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['faxno']">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-1 col-md-1 mt-4">
-                                                        <span class="badge redbadge delete-branch" data-toggle="tooltip"
-                                                            data-placement="right" title="Delete">
-                                                            <i class="fas fa-trash"></i>
-                                                        </span>
-                                                    </div>
+                                            <div class="col-sm-4 col-lg-4">
+                                                <label class="form-label">Upload File</label>
+                                                <div class="custom-file">
+                                                    <input name="branch[small_scale][certificate]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="modal fade" id="modal-lg">
-                                    <div class="modal-dialog modal-lg">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Branch Office Address</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
+
+                                <div class="card card-primary card-outline">
+                                    <div class="card-body">
+                                        <div class="row">
+
+                                            <div class="col-sm-12 col-lg-4">
+                                                <label>Year of Registration:</label>
+                                                <input name="branch[vendor][year]" type="number" class="form-control">
                                             </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-sm-12">
-                                                        <label>Branch Office:</label>
-                                                    </div>
 
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('country', ['name' => '','class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states,'name' => '','data-live-search' => 'true', 'title' => 'Select State']); ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('branch_address', ['class' => 'form-control', 'label' => 'Address 1','name' => '']); ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('branch_address_2', ['label' => 'Address 2', 'class' => 'form-control','name' => '']); ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('branch_pincode', ['class' => 'form-control','name' => '']); ?>
-                                                        </div>
-                                                    </div>
+                                            <div class="col-sm-12 col-lg-4">
+                                                <label>Registration No.</label>
+                                                <input name="branch[vendor][registration_no]" type="text" class="form-control">
+                                            </div>
 
-                                                    <div class="col-3 mt-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('branch_city', ['class' => 'form-control','name' => '']); ?>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-lg-3 col-sm-6 mt-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('branch_tan_no', ['type' => 'number', 'class' => 'form-control', 'label' => 'Branch Tel. No.','name' => '']); ?>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-sm-6 mt-3">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('branch_fax_no', ['type' => 'number', 'class' => 'form-control', 'label' => 'FAX NO.','name' => '']); ?>
-                                                        </div>
-                                                    </div>
+                                            <div class="col-sm-12 col-lg-4">
+                                                <label class="form-label">Registration Certificate</label>
+                                                <div class="custom-file">
+                                                    <input name="branch[vendor][certificate]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-custom">Save</button>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3">
-                                    <label>Small Scale Industry</label>
-
-                                    <div class="col-sm-2 col-lg-2">
-                                        <label>Year:</label>
-                                        <input type="number" name="branchfactory[small_scale_year]"
-                                            class="form-control">
-                                    </div>
-                                    <div class="col-sm-6 col-lg-4">
-                                        <label>Registration No.</label>
-                                        <input type="text" name="branchfactory[small_scale_registration_no]"
-                                            class="form-control">
-                                    </div>
-
-                                    <div class="col-sm-6 col-lg-4">
-                                        <label class="form-label">Upload File</label>
-                                        <div class="custom-file">
-                                            <input name="branchfactory[small_scale_file]" type="file" accept=".pdf"
-                                                class="custom-file-input">
-                                            <label class="custom-file-label">Choose File</label>
-                                        </div>
-                                    </div>
-
-                                </div>
-                               
-                                <div class="row mt-3" style="border-right: 1px solid #dee2e6;">
-                                    <div class="col-sm-2 col-lg-2">
-                                        <label>Year of Registration:</label>
-                                        <input name="branchfactory[year_of_registration]" type="number"
-                                            class="form-control">
-                                    </div>
-                                    <div class="col-sm-6 col-lg-4">
-                                        <label>Registration No.</label>
-                                        <input name="branchfactory[registration_no]" type="text" class="form-control">
-                                    </div>
-
-                                    <div class="col-sm-6 col-lg-4">
-                                        <label class="form-label">Registration Certificate</label>
-                                        <div class="custom-file">
-                                            <input name="branchfactory[registration_certificate]" type="file"
-                                                accept=".pdf" class="custom-file-input">
-                                            <label class="custom-file-label">Choose File</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr style="border-top: 1px solid rgb(0 0 0 / 10%);">
-                                <div class="card mt-2">
-                                    <div class="row mt-3">
-
-                                        <div class="col-sm-2 col-lg-2">
-                                            <label>Year Of Commencement Of Production:</label>
-                                            <input type="number" name="branchfactory[commencement_production]"
-                                                class="form-control">
-                                        </div>
-
-                                        <div class="col-sm-6 col-lg-4 mt-4">
-                                            <div class="form-group">
-                                                <?php echo $this->Form->control('commencement_item', ['name'=>'branchfactory[commencement_item]','type' => 'text', 'class' => 'form-control', 'label' => 'Item']); ?>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-1 col-lg-1 mt-5">
-                                            <span class="badge lgreenbadge mt-2" data-toggle="tooltip"
-                                                data-placement="right" id="" title="" data-original-title="Add">
-                                                <i class="fas fa-plus-circle"></i>
-                                            </span>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                                <hr>
-
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-productionfaculty" role="tabpanel"
                                 aria-labelledby="tab_productionfaculty" style="background-color: white;">
-
+                                <h5>
+                                    Facility Details
+                                </h5>
                                 <div class="row">
-                                    <div class="col-lg-12 mt-3">
-                                        <label>Laboratory facilities available:</label>
-                                        <input type="radio" name="productionFacility[lab_facilities]" value="yes">
-                                        <label>Yes</label>
-                                        <input type="radio" name="productionFacility[lab_facilities]" value="no">
-                                        <label>No</label>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="lab_facilities-info" style="display: none;">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
+                                        <label>Laboratory facilities available:</label><br>
+                                        <input type="radio" name="production_facility[laboratory][a]" value="yes" class="showme" data-trigger="yes" data-show="lab_facilities">
+                                        <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
+                                        <input type="radio" name="production_facility[laboratory][a]" value="no" class="showme" data-trigger="yes" data-show="lab_facilities">
+                                        <label>No</label><br>
+                                        <div id="lab_facilities" style="display: none;">
                                             <div class="text-container" id="lab_facilities_text">
-                                                <!-- <input type="text" name="productionFacility[lab_facilities_text]"
-                                                    class="form-control"> -->
                                                 <div class="custom-file">
-                                                    <input name="" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[laboratory][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 mt-3">
-                                        <label>Whether there is any isi registration :</label>
 
-                                        <input type="radio" name="productionFacility[isi_registration]" value="yes">
-                                        <label>Yes</label>
-                                        <input type="radio" name="productionFacility[isi_registration]" value="no">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
+                                        <label>Whether there is any isi registration :</label><br>
+                                        <input type="radio" name="production_facility[isi_registration][a]" value="yes" class="showme" data-trigger="yes" data-show="isi_registration">
+                                        <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
+                                        <input type="radio" name="production_facility[isi_registration][a]" value="no" class="showme" data-trigger="yes" data-show="isi_registration">
                                         <label>No</label>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="isi_registration-info" style="display: none;">
+                                        <div id="isi_registration" style="display: none;">
                                             <div class="text-container" id="isi_registration-text">
                                                 <div class="custom-file">
-                                                    <input name="" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[isi_registration][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <div class="col-lg-12 mt-3">
-                                        <label>Test facilities available</label>
 
-                                        <input type="radio" name="productionFacility[test_facilities]" value="yes">
-                                        <label>Yes</label>
-                                        <input type="radio" name="productionFacility[test_facilities]" value="no">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
+                                        <label>Test facilities available</label><br>
+                                        <input type="radio" name="production_facility[test_facility][a]" value="yes" class="showme" data-trigger="yes" data-show="test_facilities">
+                                        <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
+                                        <input type="radio" name="production_facility[test_facility][a]" value="no" class="showme" data-trigger="yes" data-show="test_facilities">
                                         <label>No</label>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="test_facilities-info" style="display: none;">
+                                        <div id="test_facilities" style="display: none;">
                                             <div class="text-container" id="test_facilities-info">
                                                 <div class="custom-file">
-                                                    <input name="" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[test_facility][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 mt-3">
-                                        <label>Facilities for effective after sales services</label>
 
-                                        <input type="radio" name="productionFacility[sales_services]" value="yes">
-                                        <label>Yes</label>
-                                        <input type="radio" name="productionFacility[sales_services]" value="no">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
+                                        <label>Facilities for effective after sales services</label><br>
+                                        <input type="radio" name="production_facility[sales_services][a]" value="yes" class="showme" data-trigger="yes" data-show="sales_services">
+                                        <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
+                                        <input type="radio" name="production_facility[sales_services][a]" value="no" class="showme" data-trigger="yes" data-show="sales_services">
                                         <label>No</label>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="sales_services-info" style="display: none;">
+                                        <div id="sales_services" style="display: none;">
                                             <div class="text-container" id="sales_services_text">
                                                 <div class="custom-file">
-                                                    <input name="" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[sales_services][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
-                                    <div class="col-lg-12 mt-3">
-                                        <label>Quality control procedure adopted.</label>
 
-                                        <input type="radio" name="productionFacility[quality-control]" value="yes">
-                                        <label>Yes</label>
-                                        <input type="radio" name="productionFacility[quality-control]" value="no">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
+                                        <label>Quality control procedure adopted.</label><br>
+                                        <input type="radio" name="production_facility[quality_control][a]" value="yes" class="showme" data-trigger="yes" data-show="quality_control">
+                                        <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
+                                        <input type="radio" name="production_facility[quality_control][a]" value="no" class="showme" data-trigger="yes" data-show="quality_control">
                                         <label>No</label>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="quality-control-info" style="display: none;">
+                                        <div id="quality_control" style="display: none;">
                                             <div class="text-container" id="quality-control_text">
                                                 <div class="custom-file">
-                                                    <input name="" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[quality_control][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
-
-
-                                <hr>
-                                <div class="row">
-                                    <label>Annual turn over in last 3 years(In Rupee):</label>
-                                    <div class="col-lg-3">
-                                        <label id="year1"></label>
-                                        <input type="text" class="form-control" name="productionFacility[turn_over1]"
-                                            id="">
+                                <div class="row mb-3">
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <label>Annual turn over in last 3 years (In Rupee):</label>
                                     </div>
-                                    <div class="col-lg-3">
-                                        <label id="year2"></label>
-                                        <input type="text" class="form-control" name="productionFacility[turn_over2]"
-                                            id="">
+                                    <div class="col-sm-12 col-md-4 col-lg-4">
+                                        <input type="hidden" name="annual_turnover[0][q]" class="year1">
+                                        <input type="number" class="form-control placeholder1" name="annual_turnover[0][a]">
                                     </div>
-                                    <div class="col-lg-4">
-                                        <label id="year3"></label>
-                                        <input type="text" class="form-control" name="productionFacility[turn_over3]"
-                                            id="">
+                                    <div class="col-sm-12 col-md-4 col-lg-4">
+                                        <input type="hidden" name="annual_turnover[1][q]" class="year2">
+                                        <input type="number" class="form-control placeholder2" name="annual_turnover[1][a]">
                                     </div>
-
-                                    <span style="font-size: smaller;display:none">
-                                        <i>
-                                            AVERAGE VALUE OF RAW MATERIALS HELD IN RESPECT OF ITEM FOR WHICH
-                                            REGISTRATION IS SOUGHT.
-                                        </i>
-                                    </span>
+                                    <div class="col-sm-12 col-md-4 col-lg-4">
+                                        <input type="hidden" name="annual_turnover[2][q]" class="year3">
+                                        <input type="number" class="form-control placeholder3" name="annual_turnover[2][a]">
+                                    </div>
                                 </div>
-
-                                <hr>
-                                <div class="row">
-                                    <label>Income tax cleaning certificate</label>
-                                    <div class="col-lg-3">
-                                        <label>CERTIFICATE No</label>
-                                        <input type="number" name="productionFacility[income_certificate_no]"
-                                            class="form-control">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        Income tax cleaning certificate
                                     </div>
-                                    <div class="col-lg-3">
-                                        <label>Date</label>
-                                        <input type="date" name="productionFacility[income_date]" class="form-control">
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <label class="form-label">Documents</label>
-                                        <div class="custom-file">
-                                            <input name="" type="file" accept=".pdf" class="custom-file-input">
-                                            <label class="custom-file-label">Choose File</label>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <label>Certificate No</label>
+                                                <input type="number" name="income_tax[registration_no]"
+                                                    class="form-control">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label>Date</label>
+                                                <input type="date" name="income_tax[year]" class="form-control">
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label class="form-label">Documents</label>
+                                                <div class="custom-file">
+                                                    <input name="income_tax[certificate]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-                                </div>
-
-                                <hr>
-                                <div class="row">
-                                    <div class="col-6 mt-3">
-                                        <label class="form-label">Latest Copy of Balance Sheet</label>
-                                        <div class="custom-file">
-                                            <input name="productionFacility[balance_sheet_file]" type="file"
-                                                accept=".pdf" class="custom-file-input">
-                                            <label class="custom-file-label">Choose File</label>
+                                    <div class="card-footer">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <label class="form-label">Latest Copy of Balance Sheet</label>
+                                                <div class="custom-file">
+                                                    <input name="balance_sheet" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
+                                                <a href="/bsms/webroot/templates/stock_upload.xlsx"
+                                                    download="">sample_file_template</a>
+                                            </div>
                                         </div>
-
-
-                                        <i class="mt-2" style="color: black;">
-                                            <a href="/bsms/webroot/templates/stock_upload.xlsx"
-                                                download="">sample_file_template</a>
-                                        </i>
                                     </div>
                                 </div>
 
-                                <!-- <div class="col-lg-3 col-sm-3 mt-3">
-                                    <div class="form-group">
-                                        <label>Factory of Address</label>
-                                        <select class="form-control">
-                                            <option disabled>Please Select</option>
-                                            <option value="address1">Address1</option>
-                                        </select>
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        Factory Address
+                                        <span class="badge lgreenbadge float-right add" id="id_factory_office_add" data-toggle="tooltip" data-class="factory_office" data-id="0" data-placement="right" title="Add Address">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </span>
                                     </div>
-                                </div> -->
-
-                                <div class="row mt-3">
-                                    <div class="col-md-12">
-                                        <div class="card mb-3">
-                                            <div class="card-header">
-                                                <h6 class="modal-title">Factory Address:</h6>
-                                                <span class="badge lgreenbadge mt-2" id="id_factory_office_add"
-                                                    data-toggle="tooltip" data-placement="right" title="Add Address">
-                                                    <i class="fas fa-plus-circle"></i>
+                                    <div class="card-body factory_office_card_body">
+                                        <div class="row factory_office factory_office_0" data-id="0" id="factory_office_0">
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_address1', ['name' => 'prdflt[factory_office][0][address1]', 'id'=>'factory_0_address1','class' => 'form-control', 'label' => "Address 1"]); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_address2', ['name' => 'prdflt[factory_office][0][address2]', 'id'=>'factory_0_address2','label' => 'Address 2', 'class' => 'form-control']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_pincode', ['name' => 'prdflt[factory_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'factory_0_pincode']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_city', ['name' => 'prdflt[factory_office][0][city]','class' => 'form-control','label' =>'City','id'=>'factory_0_city']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_country', ['name' => 'prdflt[factory_office][0][country]','class' => 'selectpicker form-control my-select', 'options' => $countries,'label'=>'Country','data-live-search' => 'true', 'title' => 'Select Country','id'=>'factory_0_country']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 mt-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_state', ['name' => 'prdflt[factory_office][0][state]','class' => 'selectpicker form-control my-select', 'options' => $states, 'label'=>'State', 'data-live-search' => 'true', 'title' => 'Select State','id'=>'factory_0_state']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 mt-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_telno', ['name' => 'prdflt[factory_office][0][telno]','type' => 'number', 'class' => 'form-control', 'id'=>'factory_0_telno','label' => 'Tel No']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 mt-4 pt-4 hide">
+                                                <span class="badge redbadge delete" data-toggle="tooltip"  data-id="0" data-placement="right" data-class="factory_office" data-original-title="Delete Address">
+                                                    <i class="fas fa-trash"></i>
                                                 </span>
                                             </div>
-                                            <div class="card-body p-0 factory-office-card">
-                                                <div class="row p-3">
-
-                                                    <div class="col-4 col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="register_office_country">Country</label>
-                                                            <select name="register_office_country"
-                                                                id="register_office_country"
-                                                                class="selectpicker form-control form-control-sm my-select"
-                                                                data-live-search="true" title="Select Country">
-                                                                <?php foreach ($countries as $country): ?>
-                                                                <option value="<?php echo $country; ?>">
-                                                                    <?php echo $country; ?>
-                                                                </option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-
-                                                        </div>
+                                            <div class="col-12 col-md-6 col-lg-6 mt-4">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                                                        <label class="text-info">Installed Capacity</label>
                                                     </div>
-
-                                                    <div class="col-4 col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="register_office_state">State</label>
-                                                            <select name="register_office_state"
-                                                                id="register_office_state"
-                                                                class="selectpicker form-control form-control-sm my-select"
-                                                                data-live-search="true" title="Select State">
-                                                                <?php foreach ($states as $state): ?>
-                                                                <option value="<?php echo $state; ?>">
-                                                                    <?php echo $state; ?>
-                                                                </option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-                                                        </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][installed_capacity][a]"
+                                                            placeholder="Installed Capacity" id="">
                                                     </div>
-                                                    <div class="col-4 col-md-4">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('city', ['name' => '','class' => 'form-control form-control-sm','id'=>'']); ?>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-6  col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="address1">Address 1</label>
-                                                            <input type="text" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['address1']">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6  col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="address2">Address 2</label>
-                                                            <input type="text" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['address2']">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4  col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="pincode">Pincode</label>
-                                                            <input type="number" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['pincode']">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-4  col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="id_telephone">Telephone</label>
-                                                            <input type="text" id="" name=""
-                                                                class="form-control form-control-sm">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <label for="faxno">Fax No</label>
-                                                            <input type="number" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['faxno']">
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="row  m-2">
-                                                    <div class="col-lg-12 col-sm-12">
-                                                        <div class="card">
-                                                            <div class="row m-1">
-                                                                <div class="col-3">
-                                                                    <lable>Installed Capacity</lable>
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm" name=""
-                                                                        id="">
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <div class="custom-file">
-                                                                        <input name="" type="file" accept=".pdf"
-                                                                            class="custom-file-input">
-                                                                        <label class="custom-file-label">Choose
-                                                                            File</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div class="row m-1">
-                                                                <div class="col-3">
-                                                                    <lable>Power Available</lable>
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm" name=""
-                                                                        id="">
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <div class="custom-file">
-                                                                        <input name="" type="file" accept=".pdf"
-                                                                            class="custom-file-input">
-                                                                        <label class="custom-file-label">Choose
-                                                                            File</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-                                                            <div class="row m-1">
-                                                                <div class="col-3">
-                                                                    <lable>Machinery Available</lable>
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm" name=""
-                                                                        id="">
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <div class="custom-file">
-                                                                        <input name="" type="file" accept=".pdf"
-                                                                            class="custom-file-input">
-                                                                        <label class="custom-file-label">Choose
-                                                                            File</label>
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div class="row m-1">
-                                                                <div class="col-3">
-                                                                    <lable>Raw Material Avi. and Source</lable>
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm" name=""
-                                                                        id="">
-                                                                </div>
-                                                                <div class="col-3">
-                                                                    <div class="custom-file">
-                                                                        <input name="" type="file" accept=".pdf"
-                                                                            class="custom-file-input">
-                                                                        <label class="custom-file-label">Choose
-                                                                            File</label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                                        <div class="custom-file">
+                                                            <input name="prdflt[factory_office][0][installed_capacity][f]" type="file" accept=".pdf"
+                                                                class="custom-file-input">
+                                                            <label class="custom-file-label">Choose
+                                                                File</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div class="col-12 col-md-6 col-lg-6 mt-4">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                                                        <label class="text-info">Power Available</label>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][power_available][a]"
+                                                            placeholder="Power Available" id="">
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                                        <div class="custom-file">
+                                                            <input name="prdflt[factory_office][0][power_available][f]" type="file" accept=".pdf"
+                                                                class="custom-file-input">
+                                                            <label class="custom-file-label">Choose
+                                                                File</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 col-lg-6 mt-4">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                                                        <label class="text-info">Machinery Available</label>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][machinery_available][a]"
+                                                            placeholder="Machinery Available" id="">
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                                        <div class="custom-file">
+                                                            <input name="prdflt[factory_office][0][machinery_available][f]" type="file" accept=".pdf"
+                                                                class="custom-file-input">
+                                                            <label class="custom-file-label">Choose
+                                                                File</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 col-md-6 col-lg-6 mt-4">
+                                                <div class="row">
+                                                    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
+                                                        <label class="text-info">Raw Material Avi. and Source</label>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][raw_material][a]"
+                                                            placeholder="Raw Material Avi. and Source" id="">
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-6 col-lg-6">
+                                                        <div class="custom-file">
+                                                            <input name="prdflt[factory_office][0][raw_material][f]" type="file" accept=".pdf"
+                                                                class="custom-file-input">
+                                                            <label class="custom-file-label">Choose
+                                                                File</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-12 col-lg-12 mt-4">
+                                                <div class="card card-primary card-outline">
+                                                    <div class="card-header">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <h5>Actual production during preceding 3 years</h5>
+                                                            </div>
+                                                            <div class="col-2">
+                                                                <span class="badge lgreenbadge add float-right" data-toggle="tooltip" data-class="factory_office_0_commencement" data-placement="right" id="id_commencement_add" title="" data-original-title="Add Commencement">
+                                                                    <i class="fas fa-plus-circle"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body factory_office_0_commencement_card_body">
+                                                        <div class="row mb-3 factory_office_0_commencement factory_office_0_commencement_0" data-id="0" id="factory_office_0_commencement_0">
+                                                            <div class="col-sm-12 col-md-3 col-lg-3">
+                                                                <label for="">Year Of Commencement Of Production</label>
+                                                                <input type="text" class="form-control" name="prdflt[factory_office][0][factory_office_0_commencement][0][year]" id="factory_0">
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-2 col-lg-2">
+                                                                <label for="">Material</label>
+                                                                <input type="text" class="form-control" name="prdflt[factory_office][0][factory_office_0_commencement][0][material]" id=""
+                                                                    placeholder="Material">
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-2 col-lg-2">
+                                                                <label id="productionyear1">2020-2021</label>
+                                                                <input type="hidden" class="year1" name="prdflt[factory_office][0][factory_office_0_commencement][0][production][0][year]" id="">
+                                                                <input type="text" class="form-control placeholder1" name="prdflt[factory_office][0][factory_office_0_commencement][0][production][0][qty]" id="factory_0">
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-2 col-lg-2">
+                                                                <label id="productionyear2">2021-2022</label>
+                                                                <input type="hidden" class="year2" name="prdflt[factory_office][0][factory_office_0_commencement][0][production][1][year]" id="">
+                                                                <input type="text" class="form-control placeholder2"
+                                                                    name="prdflt[factory_office][0][factory_office_0_commencement][0][production][1][qty]" id="">
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-2 col-lg-2">
+                                                                <label id="productionyear3">2022-2023</label>
+                                                                <input type="hidden" class="year3" name="prdflt[factory_office][0][factory_office_0_commencement][0][production][2][year]" id="">
+                                                                <input type="text" class="form-control placeholder3"
+                                                                    name="prdflt[factory_office][0][factory_office_0_commencement][0][production][2][qty]" id="">
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-1 col-lg-1 mt-3 pt-3 hide">
+                                                                <span class="badge redbadge delete" data-toggle="tooltip"  data-id="0" data-placement="right" 
+                                                                data-class="factory_office_0_commencement" data-original-title="Delete Address">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="commencement_0" style="border: revert;">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <hr class="factory_office_0" style="border: revert;">
                                     </div>
                                 </div>
-
-
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                Actual production during preceding 3 years
-                                            </div>
-                                            <div class="card-body">
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Material</th>
-                                                            <th>2020-2021</th>
-                                                            <th>2021-2022</th>
-                                                            <th>2023-2023</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <select name="" id="" class="form-control">
-                                                                    <option value="">Material A</option>
-                                                                    <option value="">Material A</option>
-                                                                    <option value="">Material A</option>
-                                                                    <option value="">Material A</option>
-                                                                    <option value="">Material A</option>
-                                                                </select>
-                                                            </td>
-                                                            <td><input type="text" name="" class="form-control" id="">
-                                                            </td>
-                                                            <td><input type="text" name="" class="form-control" id="">
-                                                            </td>
-                                                            <td><input type="text" name="" class="form-control" id="">
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-contactperson" role="tabpanel"
                                 aria-labelledby="tab_contactperson" style="background-color: white;">
                                 <div class="row">
-                                    <div class="col-3 mt-1">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_person', ['name' => 'contact_person[contact_person]', 'class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('contact_person', ['name' => 'contact_person[name]', 'class' => 'form-control']); ?>
                                         </div>
                                     </div>
 
-                                    <div class="col-3 mt-1">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_email', ['name' => 'contact_person[contact_email]','class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('contact_email', ['name' => 'contact_person[email]','class' => 'form-control']); ?>
                                         </div>
                                     </div>
 
-                                    <div class="col-3 mt-1">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_mobile', ['name' => 'contact_person[contact_mobile]','class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('contact_mobile', ['name' => 'contact_person[mobile]','class' => 'form-control']); ?>
                                         </div>
                                     </div>
-                                    <div class="col-3 mt-1">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_department', ['name' => 'contact_person[contact_department]','class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('contact_department', ['name' => 'contact_person[department]','class' => 'form-control']); ?>
                                         </div>
                                     </div>
-                                    <div class="col-3 mt-1">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_designation', ['name' => 'contact_person[contact_designation]','class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('contact_designation', ['name' => 'contact_person[designation]','class' => 'form-control']); ?>
                                         </div>
                                     </div>
                                 </div>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                Add Proprietor / Partner / Director
-                                                <span class="badge lgreenbadge mt-2" data-toggle="tooltip"
-                                                    data-placement="right" id="cuntact_person_add" title=""
-                                                    data-original-title="Add">
-                                                    <i class="fas fa-plus-circle"></i>
+
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        Address of Proprietor / Partner / Director
+                                        <span data-class="other_address" class="badge lgreenbadge mt-2 add" id="id_other_address_add" data-toggle="tooltip" data-placement="right" title="" data-original-title="Add Proprietor / Partner / Director">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </span>
+                                    </div>
+                                    <div class="card-body other_address_card_body">
+                                        <div class="row other_address other_address_0" data-id="0" id="other_address_0">
+                                            <div class="col-2 mt-1">
+                                                <input type="radio" name="contact_person[other_address][0][type]" value="Proprietor">
+                                                <label>Proprietor</label>
+                                            </div>
+                                            <div class="col-2 mt-1">
+                                                <input type="radio" name="contact_person[other_address][0][type]" value="Partner">
+                                                <label>Partner</label>
+                                            </div>
+                                            <div class="col-2 mt-1">
+                                                <input type="radio" name="contact_person[other_address][0][type]" checked
+                                                    value="Director">
+                                                <label>Director</label>
+                                            </div>
+
+                                            <div class="col-3 col-md-3 hide">
+                                                <span class="badge redbadge delete" data-toggle="tooltip" data-id="0" data-class="other_address" data-placement="right" data-original-title="Delete">
+                                                    <i class="fas fa-trash"></i>
                                                 </span>
                                             </div>
 
-                                            <div class="card-body customer-card">
-                                                <div class="row">
-                                                    <div class="col-2 mt-1">
-                                                        <input type="radio" name="contact_person[alternate][type]"
-                                                            value="Proprietor">
-                                                        <label>Proprietor</label>
-                                                    </div>
-                                                    <div class="col-2 mt-1">
-                                                        <input type="radio" name="contact_person[alternate][type]"
-                                                            value="Partner">
-                                                        <label>Partner</label>
-                                                    </div>
-                                                    <div class="col-2 mt-1">
-                                                        <input type="radio" name="contact_person[alternate][type]"
-                                                            checked value="Director">
-                                                        <label>Director</label>
-                                                    </div>
+                                            <div class="col-12 mt-1">
+                                                <label>Name:</label>
+                                                <input type="text" name="contact_person[other_address][0][name]"
+                                                    class="form-control form-control-sm">
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('address', ['name' => 'contact_person[other_address][0][address]', 'class' => 'form-control','id'=>'id_address1', 'label' => "Address"]); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('address_2', ['name' => 'contact_person[other_address][0][address_2]','label' => 'Address 1','id'=>'id_address2', 'class' => 'form-control']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('pincode', ['name' => 'contact_person[other_address][0][pincode]','class' => 'form-control ','id'=>'id_pincode']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('city', ['name' => 'contact_person[other_address][0][city]','class' => 'form-control','id'=>'id_city']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('country', ['name' => 'contact_person[other_address][0][country]','id'=>'id_country','class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('state', ['name' => 'contact_person[other_address][0][state]','id'=>'id_state','class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="id_telephone">Telephone</label>
+                                                    <input type="number" id="id_telephone"
+                                                        name="contact_person[other_address][0][telephone]" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 mt-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_faxno', ['name' => 'contact_person[other_address][0][faxno]', 'id' => 'id_faxno','type' => 'number', 'class' => 'form-control', 'label' => 'Fax No.']); ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr class="other_address_0" style="border: revert;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel"
+                                aria-labelledby="tab_paymentdetails" style="background-color: white;">
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        Bank Details
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-3 mt-3">
+                                                <label for="id_bank_name">Bank name</label>
+                                                <input type="text" name="bank[name]" class="form-control"
+                                                    id="id_bank_name">
+                                            </div>
 
 
+                                            <div class="col-3 mt-3">
+                                                <label for="id_bank_key">Bank Key (Account No.)</label>
+                                                <input type="text" name="bank[key]" class="form-control"
+                                                    id="id_bank_key">
+                                            </div>
+
+                                            <div class="col-3 mt-3">
+                                                <label for="id_bank_no">Bank number</label>
+                                                <input type="text" class="form-control" id="id_bank_no"
+                                                    name="bank[number]">
+                                            </div>
+
+                                            <div class="col-3 mt-3">
+                                                <label for="id_bank_branch">Bank Branch</label>
+                                                <input type="text" class="form-control" id="id_bank_branch"
+                                                    name="bank[branch]">
+                                            </div>
+
+                                            <div class="col-3 mt-3">
+                                                <?php echo $this->Form->control('bank_country', ['name' => 'bank[country]','id'=>'id_bank_country','class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                            </div>
+
+                                            <div class="col-3 mt-3">
+                                                <label for="id_bank_city">City</label>
+                                                <input type="text" class="form-control" id="id_bank_city"
+                                                    name="bank[city]">
+                                            </div>
 
 
-                                                    <div class="col-12 mt-1">
-                                                        <label>Name:</label>
-                                                        <input type="text" name="contact_person[alternate][name]"
-                                                            class="form-control form-control-sm">
-                                                    </div>
-                                                    
-                                                   
-                                                     <div class="col-6  col-md-6">
-                                                         <div class="form-group">
-                                                             <label for="address1">Address 1</label>
-                                                             <input type="text" class="form-control form-control-sm"
-                                                                 name="">
-                                                         </div>
-                                                     </div>
-                                                     <div class="col-6  col-md-6">
-                                                         <div class="form-group">
-                                                             <label for="address2">Address 2</label>
-                                                             <input type="text" class="form-control form-control-sm"
-                                                                 name="">
-                                                         </div>
-                                                     </div>
-                                                     <div class="col-4  col-md-4">
-                                                         <div class="form-group">
-                                                             <label for="pincode">Pincode</label>
-                                                             <input type="number" class="form-control form-control-sm"
-                                                                 name="">
-                                                         </div>
-                                                     </div>
-                                                     <div class="col-4 col-md-4">
-                                                        <div class="form-group">
-                                                          <label for="">City</label>
-                                                          <input type="text" class="form-control form-control-sm"
-                                                              name="">
-                                                       </div>
-                                                     </div>
-                                                     <div class="col-4 col-md-4">
-                                                     <div class="form-group">
-                                                         <label for="register_office_country">Country</label>
-                                                         <select name="register_office_country"
-                                                             id="register_office_country"
-                                                             class="selectpicker form-control form-control-sm my-select"
-                                                             data-live-search="true" title="Select Country">
-                                                             <?php foreach ($countries as $country): ?>
-                                                             <option value="<?php echo $country; ?>">
-                                                                 <?php echo $country; ?>
-                                                             </option>
-                                                             <?php endforeach; ?>
-                                                         </select>
-                                                  
-                                                     </div>
-                                                  </div>
-                                                  
-                                                     <div class="col-4 col-md-4">
-                                                         <div class="form-group">
-                                                             <label for="register_office_state">State</label>
-                                                             <select name="register_office_state"
-                                                                 id="register_office_state"
-                                                                 class="selectpicker form-control form-control-sm my-select"
-                                                                 data-live-search="true" title="Select State">
-                                                                 <?php foreach ($states as $state): ?>
-                                                                 <option value="<?php echo $state; ?>">
-                                                                     <?php echo $state; ?>
-                                                                 </option>
-                                                                 <?php endforeach; ?>
-                                                             </select>
-                                                         </div>
-                                                     </div>
+                                            <div class="col-3 mt-3">
+                                                <label for="id_swift_bic">SWIFT/BIC</label>
+                                                <input type="text" class="form-control" id="id_swift_bic"
+                                                    name="bank[swift]">
+                                            </div>
 
+                                            <div class="col-3 mt-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('tan_no', ['name' => 'bank[tan_no]','class' => 'form-control']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('cin_no', ['name' => 'bank[cin_no]','class' => 'form-control', 'label' => 'CIN No.']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3">
+                                                <?php echo $this->Form->control('order_currency', ['name' => 'bank[order_currency]','disabled' => 'disabled', 'class' => 'form-control']); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-3 mt-3">
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-body p-2">
+                                                <label for="">Vat Registration No</label>
+                                                <input type="text" name="bank[other][vat_registration][a]" class="form-control" id="">
+                                            </div>
+                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
+                                                <div class="custom-file">
+                                                    <input name="bank[other][vat_registration][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel"
-                                aria-labelledby="tab_paymentdetails" style="background-color: white;">
-                                <div class="row">
-                                    <label>Bank Details</label>
                                     <div class="col-3 mt-3">
-                                        <label for="id_bankcountry">Bank Country</label>
-                                        <input type="text" name="paymentdetails[bank_country]" class="form-control"
-                                            id="id_bankcountry">
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <label for="id_bank_key">Bank Key (Account No.)</label>
-                                        <input type="text" name="paymentdetails[bank_key]" class="form-control"
-                                            id="id_bank_key">
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <label for="id_bank_name">Bank name</label>
-                                        <input type="text" name="paymentdetails[bank_name]" class="form-control"
-                                            id="id_bank_name">
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <label for="id_bank_city">City</label>
-                                        <input type="text" class="form-control" id="id_bank_city"
-                                            name="paymentdetails[bank_city]">
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <label for="id_bank_no">Bank number</label>
-                                        <input type="text" class="form-control" id="id_bank_no"
-                                            name="paymentdetails[bank_number]">
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <label for="id_swift_bic">SWIFT/BIC</label>
-                                        <input type="text" class="form-control" id="id_swift_bic"
-                                            name="paymentdetails[swift]">
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <label for="id_bank_branch">Bank Branch</label>
-                                        <input type="text" class="form-control" id="id_bank_branch"
-                                            name="paymentdetails[bank_branch]">
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <div class="form-group">
-                                            <?php echo $this->Form->control('tan_no', ['name' => 'paymentdetails[tan_no]','class' => 'form-control']); ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <div class="form-group">
-                                            <?php echo $this->Form->control('cin_no', ['name' => 'paymentdetails[cin_no]','class' => 'form-control', 'label' => 'CIN No.']); ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <?php echo $this->Form->control('order_currency', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row mt-3">
-                                    <div class="col-3 mt-3">
-                                        <div class="form-group">
-                                            <?php echo $this->Form->control('gst_no', ['name' =>'paymentdetails[gst_no]','class' => 'form-control']); ?>
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-body p-2">
+                                                <label for="">C.S.T No</label>
+                                                <input type="text" name="bank[other][cst][a]" class="form-control" id="">
+                                            </div>
+                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
+                                                <div class="custom-file">
+                                                    <input name="bank[other][cst][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3">
-                                        <label class="form-label">GST Certificate</label>
-                                        <div class="custom-file">
-                                            <input name="paymentdetails[gst_file]" type="file" accept=".pdf"
-                                                class="custom-file-input">
-                                            <label class="custom-file-label">Choose File</label>
-                                            <small class="text-warning info-msg">Upload only PDF file</small>
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-body p-2">
+                                                <label for="">Excise No</label>
+                                                <input type="text" name="bank[other][excise][a]" class="form-control" id="">
+                                            </div>
+                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
+                                                <div class="custom-file">
+                                                    <input name="bank[other][excise][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6 mt-3"></div>
                                     <div class="col-3 mt-3">
-                                        <div class="form-group">
-                                            <?php echo $this->Form->control('pan_no', ['name' =>'paymentdetails[pan_no]', 'class' => 'form-control']); ?>
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-body p-2">
+                                                <label for="">GST No</label>
+                                                <input type="text" name="bank[other][gst][a]" class="form-control" id="">
+                                            </div>
+                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
+                                                <div class="custom-file">
+                                                    <input name="bank[other][gst][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3">
-                                        <label class="form-label">Pan Card Document</label>
-                                        <div class="custom-file">
-                                            <input name="paymentdetails[pan_file]" type="file" accept=".pdf"
-                                                class="custom-file-input">
-                                            <label class="custom-file-label">Choose File</label>
-                                            <small class="text-warning info-msg">Upload only PDF file</small>
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-body p-2">
+                                                <label for="">PAN No</label>
+                                                <input type="text" name="bank[other][pan][a]" class="form-control" id="">
+                                            </div>
+                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
+                                                <div class="custom-file">
+                                                    <input name="bank[other][pan][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-6 mt-3"></div>
-                                    <div class="col-4 mt-3">
-                                        <label class="form-label">Upload Cancelled Cheque</label>
-                                        <div class="custom-file">
-                                            <input name="paymentdetails[bank_file]" type="file" accept=".pdf"
-                                                class="custom-file-input">
-                                            <label class="custom-file-label">Choose File</label>
-                                            <small class="text-warning info-msg">Upload only PDF file</small>
+                                    <div class="col-3 mt-3">
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
+                                                <label for="">Cancelled Cheque</label>
+                                                <div class="custom-file">
+                                                    <input type="hidden" name="bank[other][cancelled_cheque][a]">
+                                                    <input name="bank[other][cancelled_cheque][f]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-
-                                </div>
-                                <hr>
-                                <div class="row mt-3">
-                                    <div class="col-3 mt-3">
-                                        <label>Vat Registration No.</label>
-                                        <input type="number" class="form-control" id=""
-                                            name="paymentdetails[vat_registration]">
-                                    </div>
-                                    <div class="col-3 mt-5">
-                                        <input type="file" class="form-control" name="" id="">
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <label>Vat Registration No.</label>
-                                        <input type="number" class="form-control" id=""
-                                            name="paymentdetails[vat_registration]">
-
-                                    </div>
-                                    <div class="col-3 mt-5">
-                                        <input type="file" class="form-control" name="" id="">
-                                    </div>
-
-                                    <div class="col-3 mt-3">
-                                        <label>C.S.T Details:</label>
-                                        <input type="text" class="form-control" id=""
-                                            name="paymentdetails[cst_details]">
-
-                                    </div>
-
-                                    <div class="col-3 mt-5">
-                                        <input type="file" class="form-control" name="" id="">
-                                    </div>
-
-
-
-                                    <div class="col-3 mt-3">
-                                        <label>Excise No:</label>
-                                        <input type="text" class="form-control" id="" name="paymentdetails[excise_no]">
-
-                                    </div>
-                                    <div class="col-3 mt-5">
-                                        <input type="file" class="form-control" name="" id="">
-                                    </div>
-
                                 </div>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-certificate" role="tabpanel"
                                 aria-labelledby="tab_certificate" style="background-color: white;">
                                 <div class="row">
-                                    <div class="col-sm-6 col-lg-4 mt-3">
-                                        <label>Registration No.</label>
-                                        <input type="number" class="form-control"
-                                            name="certificate[certificate_registration_no]">
-                                    </div>
-                                    <div class="col-6 mt-3">
-                                        <label class="form-label">ISO Registration / Certificate</label>
-                                        <div class="custom-file">
-                                            <input name="certificate[iso_registration_file]" type="file" accept=".pdf"
-                                                class="custom-file-input">
-                                            <label class="custom-file-label">Choose File</label>
+                                    <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
+                                        <div class="form-group">
+                                            <label for="id_sigma">Six Sigma</label>
+                                            <textarea id="id_sigma" name="certificate[six_sigma][a]" cols="30" rows="1" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                </div>
-                                <hr>
-                                <div class="card">
-                                    <div class="row p-3">
-                                        <div class="col-6 mt-3 col-md-12">
-                                            <div class="form-group">
-                                                <label for="id_sigma">Six Sigma</label>
-                                                <textarea id="id_sigma" name="certificate[six_sigma]" cols="30" rows="3"
-                                                    class="form-control"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-6 mt-2">
-                                            <label class="form-label">Upload File</label>
-                                            <div class="custom-file">
-                                                <input name="certificate[certificate_file]" type="file" accept=".pdf"
-                                                    class="custom-file-input">
-                                                <label class="custom-file-label">Choose File</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="row mt-1">
-                                    <label>HALAL Registration / certificate</label>
-                                    <!-- <p>Please Attach copy and send our declaration form along with this form.</p> -->
-                                    <div class="col-6 mt-3" style="border-right: 1px solid #dee2e6;">
+                                    <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
                                         <label class="form-label">Upload File</label>
                                         <div class="custom-file">
-                                            <input name="certificate[halal_registration_file]" type="file" accept=".pdf"
+                                            <input name="certificate[six_sigma][f]" type="file" accept=".pdf"
                                                 class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                     </div>
-                                    <div class="col-6 mt-3">
-                                        <label class="form-label">Declaration</label>
+                                    <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
+                                        <label>Registration No.</label>
+                                        <input type="number" class="form-control" name="certificate[registration_no][a]">
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
+                                        <label class="form-label">ISO Registration / Certificate</label>
                                         <div class="custom-file">
-                                            <input name="certificate[halal_declaration_file]" type="file" accept=".pdf"
+                                            <input name="certificate[registration_no][f]" type="file" accept=".pdf"
                                                 class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
-
-                                        <i class="mt-2" style="color: black;">
-                                            <a href="/bsms/webroot/templates/stock_upload.xlsx"
-                                                download="">sample_file_template</a>
-                                        </i>
                                     </div>
                                 </div>
-                                <hr>
+
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        HALAL Registration / certificate
+                                    </div>
+                                    <div class="card-body p-2">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6 col-lg-6 mt-3"
+                                                style="border-right: 1px solid #dee2e6;">
+                                                <label class="form-label">Certificate File</label>
+                                                <div class="custom-file">
+                                                    <input name="halal[certificate]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-lg-6 mt-3">
+                                                <label class="form-label">Declaration</label>
+                                                <div class="custom-file">
+                                                    <input name="halal[declaration]" type="file" accept=".pdf"
+                                                        class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
+                                                </div>
+                                                <i class="mt-2" style="color: black;">
+                                                    <a href="/bsms/webroot/templates/stock_upload.xlsx"
+                                                        download="">sample_file_template</a>
+                                                </i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row">
-                                    <label>Other Quality Certification</label>
+                                    <h5>Other Quality Certification</h5>
                                     <label>Whether the item is completely manufactured in applicant's
                                         factory?</label>
                                     <div class="col-lg-12 mt-3">
-                                        <input type="radio" name="certificate[fully_manufactured]" checked value="yes">
+                                        <input class="fully_manufactured_radio" type="radio"
+                                            name="fully_manufactured[a]" value="yes">
                                         <label>Yes</label>
                                         <input class="fully_manufactured_radio" type="radio"
-                                            name="certificate[fully_manufactured]" value="no">
+                                            name="fully_manufactured[a]" value="no">
                                         <label>No</label>
                                     </div>
-
-
-
                                     <div class="sub-contractors-info" style="display: none;">
                                         <div class="col-6 mt-1">
                                             <div class="form-group">
-                                                <?php echo $this->Form->control('sub-contractor', ['name' =>'certificate[sub-contractor]','class' => 'form-control', 'label' => 'Names']); ?>
+                                                <?php echo $this->Form->control('sub-contractor', ['id'=>'other_manufacturer', 'name' =>'fully_manufactured[f]','class' => 'form-control', 'label' => 'Names']); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -1309,149 +1274,121 @@ switch ($vendorTemp->status) {
 
                             <div class="tab-pane fade" id="custom-tabs-four-questionnaire" role="tabpanel"
                                 aria-labelledby="tab_questionnaire" style="background-color: white;">
-                                <div class="row mt-3">
-
+                                <h5>Other information considered relevent to be furnished by supplier</h5>
+                                <div class="row">
                                     <div class="col-lg-12 mt-3">
-                                        <h5>Other information considered relevent to be furnished by supplier</h5>
-                                        <hr>
-                                    </div>
-                                    <div class="col-lg-12 mt-3">
-                                        <label>Does the company have any policy wrt to child labour appoint in work
+                                        <label>Does the company have any policy wrt to child labour appoint in
+                                            work
                                             place</label>
-                                        <textarea placeholder="" name="questionnaire[questionnaire2]"
-                                            class="form-control" cols="30" rows="3"></textarea>
+                                        <input type="hidden" name="questionnaire[0][q]"
+                                            value="Does the company have any policy wrt to child labour appoint in work place">
+                                        <textarea placeholder="" name="questionnaire[0][a]" class="form-control"
+                                            cols="30" rows="3"></textarea>
                                     </div>
                                     <div class="col-lg-12 mt-3">
                                         <label>Does your company follow any anit - corruption policy (zero
-                                            corruption ) &
+                                            corruption )
+                                            &
                                             has follow ethical code of code / corporate social
                                             responsibilities:-</label>
-                                        <textarea placeholder="" name="questionnaire[questionnaire3]"
-                                            class="form-control" cols="30" rows="3"></textarea>
+                                        <input type="hidden" name="questionnaire[1][q]"
+                                            value="Does your company follow any anit - corruption policy (zero corruption ) & has follow ethical code of code / corporate social responsibilities">
+                                        <textarea placeholder="" name="questionnaire[1][a]" class="form-control"
+                                            cols="30" rows="3"></textarea>
                                     </div>
                                     <div class="col-lg-12 mt-3">
-                                        <label>Does the company have policy &decimate between sexual worker wrt
+                                        <label>Does the company have policy & decimate between sexual worker wrt
                                             cast,
                                             gender, religion and harassment at work place</label>
-                                        <textarea placeholder="" name="questionnaire[questionnaire4]"
-                                            class="form-control" cols="30" rows="3"></textarea>
+                                        <input type="hidden" name="questionnaire[2][q]"
+                                            value="Does the company have policy & decimate between sexual worker wrt cast, gender, religion and harassment at work place">
+                                        <textarea placeholder="" name="questionnaire[2][a]" class="form-control"
+                                            cols="30" rows="3"></textarea>
                                     </div>
                                     <div class="col-lg-12 my-3">
                                         <label>Does the company use any product in the manufacturing of material
                                             through
                                             recycled material :-</label>
-                                        <textarea placeholder="" name="questionnaire[questionnaire5]"
-                                            class="form-control" cols="30" rows="3"></textarea>
+                                        <input type="hidden" name="questionnaire[3][q]"
+                                            value="Does the company use any product in the manufacturing of material through recycled material">
+                                        <textarea placeholder="" name="questionnaire[3][a]" class="form-control"
+                                            cols="30" rows="3"></textarea>
                                     </div>
-
                                 </div>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-customerAddress" role="tabpanel"
                                 aria-labelledby="tab_customerAddress" style="background-color: white;">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card mb-3">
-                                            <div class="card-header">
-                                                <h6 class="modal-title">Address of your reputed customers to whom reference can be made (use separate sheet) if necessary.</h6>
-                                                <span class="badge lgreenbadge mt-2" id="id_customer_address_add"
-                                                    data-toggle="tooltip" data-placement="right" title="Add Address">
-                                                    <i class="fas fa-plus-circle"></i>
-                                                </span>
-                                            </div>
-                                            <div class="card-body p-0 customer-address">
-                                                <div class="row p-3">
-                                                    <div class="col-4 col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="register_office_country">Country</label>
-                                                            <select name="register_office_country"
-                                                                id="register_office_country"
-                                                                class="selectpicker form-control form-control-sm my-select"
-                                                                data-live-search="true" title="Select Country">
-                                                                <?php foreach ($countries as $country): ?>
-                                                                <option value="<?php echo $country; ?>">
-                                                                    <?php echo $country; ?>
-                                                                </option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-4 col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="register_office_state">State</label>
-                                                            <select name="register_office_state"
-                                                                id="register_office_state"
-                                                                class="selectpicker form-control form-control-sm my-select"
-                                                                data-live-search="true" title="Select State">
-                                                                <?php foreach ($states as $state): ?>
-                                                                <option value="<?php echo $state; ?>">
-                                                                    <?php echo $state; ?>
-                                                                </option>
-                                                                <?php endforeach; ?>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4 col-md-4">
-                                                        <div class="form-group">
-                                                            <?php echo $this->Form->control('city', ['name' => '','class' => 'form-control form-control-sm','id'=>'']); ?>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-6  col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="address1">Address 1</label>
-                                                            <input type="text" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['address1']">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-6  col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="address2">Address 2</label>
-                                                            <input type="text" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['address2']">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-4  col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="pincode">Pincode</label>
-                                                            <input type="number" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['pincode']">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-4  col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="id_telephone">Telephone</label>
-                                                            <input type="text" id="" name=""
-                                                                class="form-control form-control-sm">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3 col-md-3">
-                                                        <div class="form-group">
-                                                            <label for="faxno">Fax No</label>
-                                                            <input type="number" class="form-control form-control-sm"
-                                                                name="branchfactory[branchoffice][0]['faxno']">
-                                                        </div>
-                                                    </div>
-                                                    <!-- <div class="col-1 col-md-1 mt-4">
-                                                        <span class="badge redbadge delete-customer_address" data-toggle="tooltip"
-                                                            data-placement="right" title="Delete">
-                                                            <i class="fas fa-trash"></i>
-                                                        </span>
-                                                    </div> -->
+                                <div class="card card-primary card-outline">
+                                    <div class="card-header">
+                                        <h5 class="modal-title">
+                                            Address of your reputed customers to whom reference can be made (use
+                                            separate sheet) if necessary
+                                            <span data-class="customer" class="badge lgreenbadge mt-2 add" id="id_customer_add" data-toggle="tooltip" data-placement="right" title="Add Reputed Customer">
+                                                <i class="fas fa-plus-circle"></i>
+                                            </span>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body customer_card_body">
+                                        <div class="row customer customer_0" data-id="0" id="customer_0">
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('name', ['name' => 'reputed[customer][0][name]', 'class' => 'form-control','id'=>'id_name', 'label' => "Name"]); ?>
                                                 </div>
                                             </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('address_2', ['name' => 'reputed[customer][0][address]','label' => 'Address','id'=>'id_address2', 'class' => 'form-control']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('pincode', ['name' => 'reputed[customer][0][pincode]','class' => 'form-control ','id'=>'id_pincode']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('city', ['name' => 'reputed[customer][0][city]','class' => 'form-control','id'=>'id_city']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('country', ['name' => 'reputed[customer][0][country]','id'=>'id_country','class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('state', ['name' => 'reputed[customer][0][state]','id'=>'id_state','class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="id_telephone">Telephone</label>
+                                                    <input type="number" id="id_telephone" name="reputed[customer][0][telephone]" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-2 mt-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('register_office_faxno', ['name' => 'reputed[customer][0][faxno]', 'id' => 'id_faxno','type' => 'number', 'class' => 'form-control', 'label' => 'Fax No.']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-1 mt-4 pt-4 hide">
+                                                <span class="badge redbadge delete" data-toggle="tooltip" data-id="0" data-class="customer" data-placement="right" data-original-title="Delete">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                                            </div>
                                         </div>
+                                        <hr class="customer_0" style="border: revert;">
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <?php echo $this->Form->button('Submit', array('class' => 'btn bg-gradient-submit', 'type' => 'submit', 'id' => 'id_fksubmit', 'style' => 'background-color: #8E9B2C; color: #fff; font-size: 14px; line-height: 1.1rem; padding: 10px 20px;')); ?>
+                    <div class="card-footer p-3" style="background-color: whitesmoke;">
+                        <?php echo $this->Form->button('Submit', array('class' => 'btn bg-gradient-submit mb-0', 'type' => 'submit', 'id' => 'id_fksubmit')); ?>
                     </div>
                 </div>
                 <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
@@ -1469,9 +1406,10 @@ switch ($vendorTemp->status) {
                         </div>
                     </div>
                 </div>
-                <?= $this->Form->end() ?>
             </div>
         </div>
+        <?= $this->Form->end() ?>
     </div>
 </div>
+
 <?= $this->Html->script('v_vendortemps_edit') ?>
