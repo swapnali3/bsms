@@ -858,43 +858,43 @@ switch ($vendorTemp->status) {
                                                                 <h5>Actual production during preceding 3 years</h5>
                                                             </div>
                                                             <div class="col-2">
-                                                                <span class="badge lgreenbadge add float-right" data-toggle="tooltip" data-class="factory_office_0_commencement" data-placement="right" id="id_commencement_add" title="" data-original-title="Add Commencement">
+                                                                <span class="badge lgreenbadge add float-right" data-toggle="tooltip" data-class="commencement" data-placement="right" id="id_commencement_add" title="" data-original-title="Add Commencement">
                                                                     <i class="fas fa-plus-circle"></i>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-body factory_office_0_commencement_card_body">
-                                                        <div class="row mb-3 factory_office_0_commencement factory_office_0_commencement_0" data-id="0" id="factory_office_0_commencement_0">
+                                                    <div class="card-body commencement_card_body">
+                                                        <div class="row mb-3 commencement commencement_0" data-id="0" id="commencement_0">
                                                             <div class="col-sm-12 col-md-3 col-lg-3">
                                                                 <label for="">Year Of Commencement Of Production</label>
-                                                                <input type="text" class="form-control" name="prdflt[factory_office][0][factory_office_0_commencement][0][year]" id="factory_0">
+                                                                <input type="number" class="form-control" name="prdflt[factory_office][0][commencement][0][year]" id="factory_0">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label for="">Material</label>
-                                                                <input type="text" class="form-control" name="prdflt[factory_office][0][factory_office_0_commencement][0][material]" id=""
+                                                                <input type="text" class="form-control" name="prdflt[factory_office][0][commencement][0][material]" id=""
                                                                     placeholder="Material">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear1">2020-2021</label>
-                                                                <input type="hidden" class="year1" name="prdflt[factory_office][0][factory_office_0_commencement][0][production][0][year]" id="">
-                                                                <input type="text" class="form-control placeholder1" name="prdflt[factory_office][0][factory_office_0_commencement][0][production][0][qty]" id="factory_0">
+                                                                <input type="hidden" class="year1" name="prdflt[factory_office][0][commencement][0][production][0][year]" id="">
+                                                                <input type="number" class="form-control placeholder1" name="prdflt[factory_office][0][commencement][0][production][0][qty]" id="factory_0">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear2">2021-2022</label>
-                                                                <input type="hidden" class="year2" name="prdflt[factory_office][0][factory_office_0_commencement][0][production][1][year]" id="">
-                                                                <input type="text" class="form-control placeholder2"
-                                                                    name="prdflt[factory_office][0][factory_office_0_commencement][0][production][1][qty]" id="">
+                                                                <input type="hidden" class="year2" name="prdflt[factory_office][0][commencement][0][production][1][year]" id="">
+                                                                <input type="number" class="form-control placeholder2"
+                                                                    name="prdflt[factory_office][0][commencement][0][production][1][qty]" id="">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear3">2022-2023</label>
-                                                                <input type="hidden" class="year3" name="prdflt[factory_office][0][factory_office_0_commencement][0][production][2][year]" id="">
-                                                                <input type="text" class="form-control placeholder3"
-                                                                    name="prdflt[factory_office][0][factory_office_0_commencement][0][production][2][qty]" id="">
+                                                                <input type="hidden" class="year3" name="prdflt[factory_office][0][commencement][0][production][2][year]" id="">
+                                                                <input type="number" class="form-control placeholder3"
+                                                                    name="prdflt[factory_office][0][commencement][0][production][2][qty]" id="">
                                                             </div>
                                                             <div class="col-sm-12 col-md-1 col-lg-1 mt-3 pt-3 hide">
                                                                 <span class="badge redbadge delete" data-toggle="tooltip"  data-id="0" data-placement="right" 
-                                                                data-class="factory_office_0_commencement" data-original-title="Delete Address">
+                                                                data-class="commencement" data-original-title="Delete Address">
                                                                     <i class="fas fa-trash"></i>
                                                                 </span>
                                                             </div>
