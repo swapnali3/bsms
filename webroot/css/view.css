@@ -94,3 +94,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
 .user-info h6 {
     white-space: initial;
 }
+
+.navbar-nav .notification-list  {
+    cursor: pointer;
+}

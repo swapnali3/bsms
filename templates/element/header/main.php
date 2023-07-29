@@ -102,6 +102,9 @@
     .notification-lists .notificationTittle {
         color: #16181b;
     }
+    .navbar-nav .notification-list  {
+    cursor: pointer;
+}
 </style>
 
 <ul class="navbar-nav">

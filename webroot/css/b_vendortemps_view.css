@@ -29,7 +29,7 @@ p { margin-bottom: 0px;}
 
 
 
-.nav-link.active {
+#custom-tabs-one-tab .nav-link.active {
     background-color: #649bca !important;
     color: #fff !important;
 }

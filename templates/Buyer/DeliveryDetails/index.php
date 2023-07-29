@@ -5,7 +5,7 @@
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
  */
 ?>
-  <?= $this->Html->css('cstyle.css') ?>
+  <!-- <?= $this->Html->css('cstyle.css') ?> -->
   <?= $this->Html->css('custom') ?>
   <?= $this->Html->css('table.css') ?>
   <?= $this->Html->css('listing.css') ?>
@@ -15,7 +15,7 @@
     <!-- <div class="card-header">
         <h5><b><?= __('DELIVERY DETAIL') ?></b></h5>
     </div> -->
-    <div class="card-body table-responsive">
+    <div class="card-body p-0 mt-3 table-responsive">
         <table class="table table-hover" id="example1">
             <thead>
                 <tr>
@@ -32,7 +32,16 @@
             <tbody>
           
 
-                <?php foreach ($deliveryDetails as $deliveryDetail) : ?>
+                <?php foreach ($deliveryDetails as $deliveryDetail) : 
+                     switch ($deliveryDetail->status) {
+                        case 2:
+                            $status = '<a class="btn btn-light text-primary" style="border: 1px solid lightblue;"><i class="fas fa-truck" data-toggle="tooltip" title="In Transit" data-widget="chat-pane-toggle"></i></a>';
+                            break;
+                        case 3:
+                            $status = '<a class="btn btn-light text-success" style="border: 1px solid lightblue;"><i class="fas fa-truck-loading" data-toggle="tooltip" title="Received" data-widget="chat-pane-toggle"></i></a>';
+                            break;
+
+                        } ?>
                     <tr onclick="window.location.href = '<?= $this->Url->build(['controller' => 'asn', 'action' => 'view', $deliveryDetail->id]) ?>';">
 
                         <td>
@@ -55,7 +64,7 @@
                             <?= h($deliveryDetail->invoice_value) . ' ' . h($deliveryDetail->po_header->currency) ?>
                         </td>
                         <td>
-                            <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">In Transit</span>' : '<span class="badge bg-warning">INTRANSIT</span>' ?>
+                            <?= $status ?>
                         </td>
 
                     </tr>

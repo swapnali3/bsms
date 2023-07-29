@@ -77,7 +77,7 @@ $(function () {
 
                      message.attr('data-class', notification.notification_type);
                 
-                    var clearButton = $('<span class="clearNotifications float-end" style="color:#004d87">Clear</span>');
+                    var clearButton = $('<span class="clearNotifications float-right" style="color:#004d87">Clear</span>');
                     clearButton.attr('id', notification.id);
                     notificationItem.append(message);
                     notificationItem.append(clearButton);

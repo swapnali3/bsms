@@ -10,7 +10,7 @@
 ?>
 <!-- <?= $this->Html->css('cstyle.css') ?> -->
 <!-- <?= $this->Html->css('custom') ?> -->
-<!-- <?= $this->Html->css('table.css') ?> -->
+<?= $this->Html->css('table.css') ?>
 <!-- <?= $this->Html->css('listing.css') ?> -->
 <!-- <?= $this->Html->css('b_index.css') ?> -->
 <style>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-5 vl">
+                    <div class="col-sm-12 col-md-5 vl mt-3">
                         <?= $this->Form->control('vendor_code', ['type' => 'file', 'label' =>
                         false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden;
                         position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput']);
@@ -50,7 +50,7 @@
                         'button', 'class' => 'd-block btn bg-gradient-button mb-3 file-upld-btn']); ?>
                         <span id="filessnames"></span>
 
-                        <i style="color: black;" class="pt-5">
+                        <i style="color: black;">
                             <a href="<?= $this->Url->build('/') ?>webroot/templates/SAP_Vendor_Import.xlsx" download>
                                 SAP Import Template
                             </a>
@@ -58,6 +58,20 @@
                     </div>
                     <div class="errorSubmit mt-2" style="color: red; display: none">
                         Please enter a vendor code or select a file.
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <h6>Are you sure you want to add vendor?</h6>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn addVendor" style="border:1px solid #28a745">Ok</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -71,95 +85,94 @@
                     </div> -->
 
                     <div class="col-3">
-                        
+
                     </div>
                 </div>
             </div>
             <?php if (isset($vendorData)) : ?>
-            <div class="card-footer vendor-list">
-                <div class="table-responsive">
-                    <table class="table table-hover" id="example1">
-                        <thead>
-                            <tr>
-                                <th>Vendor Code</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Mobile</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($vendorData as $vendorTemp) :
-                                        // print_r($vendorData);
-                                        // exit;                    
-                                        switch ($vendorTemp["status"]) {
-                                            case 0:
-                                                $status = '<span class="badge bg-warning">Sent to Vendor</span>';
-                                                break;
-                                            case 1:
-                                                $status = '<span class="badge bg-info">Pending for approval</span>';
-                                                break;
-                                            case 2:
-                                                $status = '<span class="badge bg-info">Sent to SAP</span>';
-                                                break;
-                                            case 3:
-                                                $status = '<span class="badge bg-success">Approved</span>';
-                                                break;
-                                            case 4:
-                                                $status = '<span class="badge bg-danger">Rejected</span>';
-                                                break;
-                                            case 5:
-                                                $status = '<span class="badge bg-info">Sap Import</span>';
-                                                break;
-                                        }
-                                    ?>
-                            <?php if ($vendorTemp['status']) : ?>
+                <div class="card-footer vendor-list">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="example1">
+                            <thead>
+                                <tr>
+                                    <th>Vendor Code</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($vendorData as $vendorTemp) :
+                                    // print_r($vendorData);
+                                    // exit;                    
+                                    switch ($vendorTemp["status"]) {
+                                        case 0:
+                                            $status = '<span class="badge bg-warning">Sent to Vendor</span>';
+                                            break;
+                                        case 1:
+                                            $status = '<span class="badge bg-info">Pending for approval</span>';
+                                            break;
+                                        case 2:
+                                            $status = '<span class="badge bg-info">Sent to SAP</span>';
+                                            break;
+                                        case 3:
+                                            $status = '<span class="badge bg-success">Approved</span>';
+                                            break;
+                                        case 4:
+                                            $status = '<span class="badge bg-danger">Rejected</span>';
+                                            break;
+                                        case 5:
+                                            $status = '<span class="badge bg-info">Sap Import</span>';
+                                            break;
+                                    }
+                                ?>
+                                    <?php if ($vendorTemp['status']) : ?>
 
-                            <tr>
-                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                                        <tr>
+                                            <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
                                     id"]) ?>">
-                                    <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
-                                </td>
-                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                                                <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
+                                            </td>
+                                            <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
                                     id"]) ?>">
-                                    <?= h($vendorTemp['data']["name"]) ?>
-                                </td>
-                                <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                                                <?= h($vendorTemp['data']["name"]) ?>
+                                            </td>
+                                            <td redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
                                     id"]) ?>">
-                                    <?= h($vendorTemp['data']["email"]) ?>
-                                </td>
-                                <td>
-                                    <?= h($vendorTemp['data']["mobile"]) ?>
-                                </td>
-                                <td class="statusVendor"
-                                    redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
+                                                <?= h($vendorTemp['data']["email"]) ?>
+                                            </td>
+                                            <td>
+                                                <?= h($vendorTemp['data']["mobile"]) ?>
+                                            </td>
+                                            <td class="statusVendor" redirect="<?= $this->Url->build('/') ?>buyer/vendor-temps/sapView/<?= h($vendorTemp['data']["
                                     id"]) ?>">
-                                    <?= $status ?>
-                                </td>
-                                <td>
-                                    <a href="" data-id="<?= $vendorTemp['data'][" id"] ?>" class="btn btn-info btn-sm
+                                                <?= $status ?>
+                                            </td>
+                                            <td>
+                                                <a href="" data-id="<?= $vendorTemp['data'][" id"] ?>" class="btn btn-info btn-sm
                                         mb-0
                                         notify">Send Credentials</a>
-                                </td>
-                            </tr>
+                                            </td>
+                                        </tr>
 
-                            <?php else : ?>
-                            <tr>
-                                <td>
-                                    <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
-                                </td>
-                                <td colspan="4"></td>
-                                <td class="text-danger text-left">
-                                    <?= h($vendorTemp["msg"]) ?>
-                                </td>
-                            </tr>
-                            <?php endif; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                                    <?php else : ?>
+                                        <tr>
+                                            <td>
+                                                <?= h($vendorTemp['data']["sap_vendor_code"]) ?>
+                                            </td>
+                                            <td colspan="4"></td>
+                                            <td class="text-danger text-left">
+                                                <?= h($vendorTemp["msg"]) ?>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
             <?php endif; ?>
         </div>
         <?= $this->Form->end() ?>
@@ -180,29 +193,40 @@
 
 
 <script>
-    $(document).ready(function () {
-        $('#OpenImgUpload').click(function () { $('#vendorCodeInput').trigger('click'); });
-        $('#vendorCodeInput').change(function () { var file = $(this).prop('files')[0].name; $("#filessnames").append(file); });
+    $(document).ready(function() {
+        $('#OpenImgUpload').click(function() {
+            $('#vendorCodeInput').trigger('click');
+        });
+        $('#vendorCodeInput').change(function() {
+            var file = $(this).prop('files')[0].name;
+            $("#filessnames").append(file);
+        });
 
         // Users crendential send api
-        $('.notify').click(function (e) {
+        $('.notify').click(function(e) {
             e.preventDefault();
             var $id = $(this).attr('data-id');
             $.ajax({
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>/" + $id,
                 dataType: 'json',
-                success: function (response) {
+                success: function(response) {
                     if (response.status == "1") {
-                        Toast.fire({ icon: "success", title: response.message });
+                        Toast.fire({
+                            icon: "success",
+                            title: response.message
+                        });
 
                         $(".statusVendor span").text("Approved");
                         $(".notify").text("sended credential").removeClass("notify");
                     } else {
-                        Toast.fire({ icon: "error", title: response.message });
+                        Toast.fire({
+                            icon: "error",
+                            title: response.message
+                        });
                     }
                 },
-                error: function (xhr, status, error) { }
+                error: function(xhr, status, error) {}
             });
         });
 
@@ -213,22 +237,34 @@
         //     timer: 3000,
         // });
 
-        $('#sapvendorcode').click(function () {
+        $('#sapvendorcode').click(function() {
 
             var vendorCode = $("input[name='sap_vendor_code']").val();
             var file = $('#filessnames').text();
 
-            if (vendorCode.trim() === '' && file.trim() === '') { $('.errorSubmit').show(); console.log(vendorCode); }
-            else { $('.errorSubmit').hide(); $('#sapvendorcodeform').trigger('submit'); }
+            if (vendorCode.trim() === '' && file.trim() === '') {
+                $('.errorSubmit').show();
+                console.log(vendorCode);
+            } else {
+                $('.errorSubmit').hide();
+                $('#modal-sm').modal('show');
 
+            }
         });
 
-        $('#example1').on('click', 'tbody tr td', function (event) {
+        $('#addVendor').click(function() {
+            $('#modal-sm').modal('hide');
+            ('#sapvendorcodeform').trigger('submit');
+        });
+
+        $('#example1').on('click', 'tbody tr td', function(event) {
             event.preventDefault();
             var redirectUrl = $(this).closest('td').attr('redirect');
 
             console.log(redirectUrl);
-            if (redirectUrl !== undefined && redirectUrl !== "") { window.open(redirectUrl, '_blank'); }
+            if (redirectUrl !== undefined && redirectUrl !== "") {
+                window.open(redirectUrl, '_blank');
+            }
         });
     });
 </script>

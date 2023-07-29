@@ -4,7 +4,7 @@
 <?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
 <?php $settingactive = ($controller == 'Settings') ? 'active' : ''; ?>
 <?php $temvenactive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
-<?php $tempindctive = ($controller == 'VendorTemps' && $action == 'index') ? 'active' : ''; ?>
+<?php $vendorIndex = ($controller == 'VendorTemps' && $action == 'index') ? 'active' : ''; ?>
 <?php $createvendactive = ($controller == 'VendorTemps' && $action == 'add') ? 'active' : ''; ?>
 <?php $creatsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'active' : ''; ?>
 <?php $rfqactive = ($controller == 'Rfqs') ? 'active' : ''; ?>
@@ -25,7 +25,7 @@
 </li>
 
 <li class="nav-item <?= $temvenmenuopen ?> <?= $buyvendaddactive ?>">
-  <a href="#" class="nav-link <?= $tempindctive ?> <?= $createvendactive ?> <?= $creatsaevendactive ?>">
+  <a href="#" class="nav-link <?= $vendorIndex ?> <?= $createvendactive ?> <?= $creatsaevendactive ?>">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
       Vendor Management
@@ -34,7 +34,7 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item ">
-      <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link vendor_material<?= $tempindctive ?>">
+      <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link vendor_material <?= $vendorIndex ?>">
         <i class="nav-icon fas fa-users"></i>
         <p>Vendors</p>
       </a>
