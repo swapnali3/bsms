@@ -1147,55 +1147,7 @@ switch ($vendorTemp->status) {
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-3 mt-3">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-body p-2">
-                                                <label for="">Vat Registration No</label>
-                                                <input type="text" name="bank[other][vat_registration][a]"
-                                                    class="form-control" id="">
-                                            </div>
-                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
-                                                <div class="custom-file">
-                                                    <input name="bank[other][vat_registration][f]" type="file"
-                                                        accept=".pdf" class="custom-file-input">
-                                                    <label class="custom-file-label">Choose File</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 mt-3">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-body p-2">
-                                                <label for="">C.S.T No</label>
-                                                <input type="text" name="bank[other][cst][a]" class="form-control"
-                                                    id="">
-                                            </div>
-                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
-                                                <div class="custom-file">
-                                                    <input name="bank[other][cst][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
-                                                    <label class="custom-file-label">Choose File</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 mt-3">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-body p-2">
-                                                <label for="">Excise No</label>
-                                                <input type="text" name="bank[other][excise][a]" class="form-control"
-                                                    id="">
-                                            </div>
-                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
-                                                <div class="custom-file">
-                                                    <input name="bank[other][excise][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
-                                                    <label class="custom-file-label">Choose File</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 mt-3">
+                                   <div class="col-3 mt-3">
                                         <div class="card card-primary card-outline">
                                             <div class="card-body p-2">
                                                 <label for="">GST No</label>

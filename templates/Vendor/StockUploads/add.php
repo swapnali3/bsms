@@ -158,98 +158,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 </div>
 
 
-
-<div class="card">
-    <div class="card-header pb-1 pt-2">
-        <div class="row">
-            <div class="col-lg-6 d-flex justify-content-start">
-                <h5><b>UPLOAD STOCKS</b></h5>
-            </div>
-        </div>
-    </div>
-
-    <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-sm-2 col-md-2 mt-3">
-                <?= $this->Form->control('upload_file', ['id' => 'bulk_file', 'type' => 'file']); ?>
-
-                <span id="filessnames"></span>
-            </div>
-            <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">
-                <button class="btn btn-custom" id="stockFileSubmit" type="button">
-                    Submit
-                </button>
-                <button type="button" style="display: none;" id="id_import">Submit</button>
-            </div>
-            <div class="col-sm-12 col-md-12 mt-3">
-                <i style="color: black;">
-                    <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload.xlsx" download>stock_upload_template</a>
-                </i>
-            </div>
-        </div>
-    </div>
-    <?= $this->Form->end() ?>
-</div>
-<div class="card">
-    <div class="card-header p-0 mb-0 mt-3 ml-3 mr-3" id="id_pohead">
-        <table class="table table-hover" id="example1">
-            <thead>
-                <tr>
-                    <th>Material Description</th>
-                    <th>Material Code</th>
-                    <th>Unit Of Measurement</th>
-                    <th>Opening Stock</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (isset($stockuploadData)) : ?>
-
-                    <?php foreach ($stockuploadData as $stockuploads) :  ?>
-                        <?php if ($stockuploads['status']) : ?>
-
-                            <tr>
-                                <td>
-                                    <?= h($stockuploads['data']['desc']) ?>
-                                </td>
-                                <td>
-                                    <?= h($stockuploads['data']['material_code']) ?>
-                                </td>
-                                <td>
-                                    <?= h($stockuploads['data']['uoms']) ?>
-                                </td>
-                                <td>
-                                    <?= h($stockuploads['data']["opening_stock"]) ?>
-                                </td>
-                                <td>
-                                    <?= h($stockuploads["msg"]) ?>
-                                </td>
-                            </tr>
-                        <?php else : ?>
-                            <tr>
-                                <td>
-                                    <?= h($stockuploads['data']['desc']) ?>
-                                </td>
-                                <td>
-                                    <?= h($stockuploads['data']['material_code']) ?>
-                                </td>
-                                <td colspan="2"></td>
-                                <td class="text-danger text-left">
-                                    <?= h($stockuploads["msg"]) ?>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-
-
 <script>
     $("#stockuploadForm").validate({
         rules: {
@@ -337,7 +245,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
         $("input[name=_csrfToken]").val(csrf);
 
         $('#OpenImgUpload').click(function() {
-            $('#vendorCodeInput').trigger('click');
+            $('#bulk_file').trigger('click');
         });
         $('#bulk_file').change(function () {
             var file = $(this).prop('files')[0].name;

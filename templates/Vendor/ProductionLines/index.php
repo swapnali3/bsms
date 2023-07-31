@@ -30,7 +30,7 @@
                     <th>Production Line</th>
                     <th>Material Code</th>
                     <th>Material Description</th>
-                    <th>Capacity</th>
+                    <th>Capacity (Per Day)</th>
                 </tr>
             </thead>
             <tbody>
