@@ -26,8 +26,10 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\Datasource\ConnectionManager;
-use Cake\Routing\Router;
+use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
+use Cake\Mailer\TransportFactory;
+use Cake\Routing\Router;
 
 /**
  * Static content controller
@@ -154,16 +156,31 @@ class DashboardController extends AdminAppController
 
                 $User = $this->Users->patchEntity($User, $data);
                 if ($this->Users->save($User)) {
-                    $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                    // $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                    // $mailer = new Mailer('default');
+                    // $mailer
+                    //     ->setTransport('smtp')
+                    //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    //     ->setTo($data['username'])
+                    //     ->setEmailFormat('html')
+                    //     ->setSubject('' . $groupName . ' Portal - Account created')
+                    //     ->deliver('Hi ' . $data['first_name'] . ' <br/>Welcome to ' . $groupName . ' portal. <br/> <br/> Username: ' . $data['username'] .
+                    //         '<br/>Password:' . $data['password'] . '<br/> <a href="' . $link . '">Click here</a>');
+
+                    $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
+                        ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to ' . $groupName . ' portal. <br/> <br/> Username: ' . $data['username'] . '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                         ->setTo($data['username'])
                         ->setEmailFormat('html')
-                        ->setSubject('' . $groupName . ' Portal - Account created')
-                        ->deliver('Hi ' . $data['first_name'] . ' <br/>Welcome to ' . $groupName . ' portal. <br/> <br/> Username: ' . $data['username'] .
-                            '<br/>Password:' . $data['password'] . '<br/> <a href="' . $link . '">Click here</a>');
+                        ->setSubject('Vendor Portal - Account created')
+                        ->viewBuilder()
+                            ->setTemplate('mail_template');
+                    $mailer->deliver();
+
+
                     $response['status'] = '1';
                     $response['message'] = 'User Added successfully';
                 } else {

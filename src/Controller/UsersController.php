@@ -6,6 +6,8 @@ namespace App\Controller;
 
 use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
+use Cake\Mailer\TransportFactory;
+use Cake\Routing\Router;
 
 /**
  * Users Controller
@@ -252,14 +254,27 @@ class UsersController extends AppController
                 if ($this->Users->save($user)) {
                     //$t = $this->Sms->sendOTP($this->request->getData('mobile'), 'Portal Login OTP :: '. $otp);
 
+                    // $mailer = new Mailer('default');
+                    // $mailer
+                    //     ->setTransport('smtp')
+                    //     ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                    //     ->setTo($result[0]->username)
+                    //     ->setEmailFormat('html')
+                    //     ->setSubject('Login OTP')
+                    //     ->deliver('Hi ' . $result[0]->username . '<br/> OTP :: ' . $otp);
+                    
+                    $visit_url = Router::url('/', true);
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
-                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                        ->setViewVars([ 'subject' => 'Hi ' . $result[0]->username, 'mailbody' => 'OTP :: ' . $otp, 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                         ->setTo($result[0]->username)
                         ->setEmailFormat('html')
-                        ->setSubject('Login OTP')
-                        ->deliver('Hi ' . $result[0]->username . '<br/> OTP :: ' . $otp);
+                        ->setSubject('Vendor Portal - Login OTP')
+                        ->viewBuilder()
+                            ->setTemplate('mail_template');
+                    $mailer->deliver();
                 }
 
 
