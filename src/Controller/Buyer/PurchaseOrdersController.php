@@ -5,6 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Buyer;
 
 use Cake\Datasource\ConnectionManager;
+use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
+use Cake\Mailer\TransportFactory;
+use Cake\Routing\Router;
 
 /**
  * PoHeaders Controller
@@ -253,7 +257,8 @@ class PurchaseOrdersController extends BuyerAppController
         $this->loadModel('PoHeaders');
         $this->loadModel("Notifications");
         $this->loadModel("PoItemSchedules");
-
+        $this->loadModel("VendorTemps");
+ 
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
@@ -278,9 +283,22 @@ class PurchaseOrdersController extends BuyerAppController
                         $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $row);
                         if ($this->PoItemSchedules->save($PoItemSchedule) && $status) {
                             $status = true;
-                        } else {
-                            $status = false;
+                            $poHeader = $this->PoHeaders->get($PoItemSchedule['po_header_id']);
+                            $vt = $this->VendorTemps->find()->where(['sap_vendor_code' => $poHeader['sap_vendor_code']])->limit(1)->toArray();
+                            $visit_url = Router::url('/', true);
+                            $mailer = new Mailer('default');
+                            $mailer
+                                ->setTransport('smtp')
+                                ->setViewVars([ 'subject' => 'Hi ' . $vt[0]['name'], 'mailbody' => 'A new PO has been schedule. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                                ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                                ->setTo($vt[0]['email'])
+                                ->setEmailFormat('html')
+                                ->setSubject('Vendor Portal - Schedule created')
+                                ->viewBuilder()
+                                    ->setTemplate('mail_template');
+                            $mailer->deliver();
                         }
+                        else{ $status = false; }
                     }
                 } catch (\Exception $e) {
                     $response['status'] = 'fail';

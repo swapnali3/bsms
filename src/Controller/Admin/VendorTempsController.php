@@ -75,16 +75,28 @@ class VendorTempsController extends AdminAppController
             //echo '<pre>'; print_r($data); exit;
             if ($this->VendorTemps->save($vendorTemp)) {
                 $quryString = $data['email'].'||'.$vendorTemp->id;
-                $link = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                // $link = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                // $mailer = new Mailer('default');
+                // $mailer
+                //     ->setTransport('smtp')
+                //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                //     ->setTo($data['email'])
+                //     ->setEmailFormat('html')
+                //     ->setSubject('Verify New Account')
+                //     ->deliver('Hi '.$data['name'].'<br/>Welcome to Vendor portal. <br/>' . $link);
 
+                $visit_url = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
+                    ->setViewVars([ 'subject' => 'Hi '.$data['name'], 'mailbody' => 'Welcome to Vekpro', 'link' => $visit_url, 'linktext' => 'Click Here' ])
                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                     ->setTo($data['email'])
                     ->setEmailFormat('html')
-                    ->setSubject('Verify New Account')
-                    ->deliver('Hi '.$data['name'].'<br/>Welcome to Vendor portal. <br/>' . $link);
+                    ->setSubject('Vendor Portal - Verify New Account')
+                    ->viewBuilder()
+                        ->setTemplate('mail_template');
+                $mailer->deliver();
 
                 $flash = ['type'=>'success', 'msg'=>'The vendor temp has been saved'];
                 $this->set('flash', $flash);

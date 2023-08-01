@@ -93,14 +93,27 @@ class OnboardingController extends VendorAppController
             $VendorTempOtp = $this->VendorTempOtps->newEmptyEntity();
             $vendorOtp = $this->VendorTempOtps->patchEntity($VendorTempOtp, $data);
             if ($this->VendorTempOtps->save($vendorOtp)) {
+                // $mailer = new Mailer('default');
+                //     $mailer
+                //         ->setTransport('smtp')
+                //         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                //         ->setTo($vendorTemp->email)
+                //         ->setEmailFormat('html')
+                //         ->setSubject('Verify New Account otp')
+                //         ->deliver('Hi '.$vendorTemp->name.'<br/>OTP : ' . $otp);
+                
+                $visit_url = Router::url('/', true);
                 $mailer = new Mailer('default');
-                    $mailer
-                        ->setTransport('smtp')
-                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                        ->setTo($vendorTemp->email)
-                        ->setEmailFormat('html')
-                        ->setSubject('Verify New Account otp')
-                        ->deliver('Hi '.$vendorTemp->name.'<br/>OTP : ' . $otp);
+                $mailer
+                    ->setTransport('smtp')
+                    ->setViewVars([ 'subject' => 'Hi '.$vendorTemp->name, 'mailbody' => 'OTP : ' . $otp, 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    ->setTo($vendorTemp->email)
+                    ->setEmailFormat('html')
+                    ->setSubject('Vendor Portal - Verify New Account OTP')
+                    ->viewBuilder()
+                        ->setTemplate('mail_template');
+                $mailer->deliver();
             }
         }
 
@@ -125,17 +138,28 @@ class OnboardingController extends VendorAppController
             //echo '<pre>'; print_r($data); exit;
             if ($this->VendorTemps->save($vendorTemp)) {
 
-                $link = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'create', base64_encode($data['email']), '_full' => true, 'escape' => true]);
+                // $link = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'create', base64_encode($data['email']), '_full' => true, 'escape' => true]);
+                // $mailer = new Mailer('default');
+                // $mailer
+                //     ->setTransport('smtp')
+                //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                //     ->setTo($data['email'])
+                //     ->setEmailFormat('html')
+                //     ->setSubject('Verify New Account')
+                //     ->deliver('Hi '.$data['name'].'<br/>Welcome to Vekpro.' . $link);
 
+                $visit_url = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'create', base64_encode($data['email']), '_full' => true, 'escape' => true]);
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
+                    ->setViewVars([ 'subject' => 'Hi '.$data['name'], 'mailbody' => 'Welcome to Vekpro', 'link' => $visit_url, 'linktext' => 'Click Here' ])
                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                     ->setTo($data['email'])
                     ->setEmailFormat('html')
-                    ->setSubject('Verify New Account')
-                    ->deliver('Hi '.$data['name'].'<br/>Welcome to Vekpro.' . $link);
-                    
+                    ->setSubject('Vendor Portal - Verify New Account')
+                    ->viewBuilder()
+                        ->setTemplate('mail_template');
+                $mailer->deliver();
 
                 $flash = ['type'=>'success', 'msg'=>'The vendor temp has been saved'];
                 $this->set('flash', $flash);

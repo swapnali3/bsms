@@ -542,16 +542,30 @@ class VendorTempsController extends BuyerAppController
                 $vendor->remark = $remarks;
                 $this->VendorTemps->save($vendor);
                 $quryString = $vendor->email . '||' . $vendor->id;
-                $link = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                
+                // $link = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                // $mailer = new Mailer('default');
+                // $mailer
+                //     ->setTransport('smtp')
+                //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                //     ->setTo($vendor->email)
+                //     ->setEmailFormat('html')
+                //     ->setSubject('Vendor KYC Process')
+                //     ->deliver('Hi ' . $vendor->name . '<br/>Your form has been rejected. Kindly Resubmit. <br/> <br/>Please find below the buyers remarks <br/>'.$remarks.'<br/> <br/>' . $link);
 
+                $visit_url = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
+                    ->setViewVars([ 'subject' => 'Hi ' . $vendor->name, 'mailbody' => 'Your form has been rejected. Kindly Resubmit. <br/> <br/>Please find below the buyers remarks <br/>'.$remarks, 'link' => $visit_url, 'linktext' => 'Click Here' ])
                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                     ->setTo($vendor->email)
                     ->setEmailFormat('html')
-                    ->setSubject('Vendor KYC Process')
-                    ->deliver('Hi ' . $vendor->name . '<br/>Your form has been rejected. Kindly Resubmit. <br/> <br/>Please find below the buyers remarks <br/>'.$remarks.'<br/> <br/>' . $link);
+                    ->setSubject('Vendor Portal - Vendor KYC Process')
+                    ->viewBuilder()
+                        ->setTemplate('mail_template');
+                $mailer->deliver();
+
                 $flash = ['type'=>'success', 'msg'=>'The Vendor successfully rejected'];
             } else {
                 $flash = ['type'=>'success', 'msg'=>'Issue in vendor rejection'];
@@ -626,16 +640,30 @@ class VendorTempsController extends BuyerAppController
                         $adminUser = $this->Users->patchEntity($adminUser, $data);
 
                         if ($this->Users->save($adminUser)) {
-                            $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                            // $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                            // $mailer = new Mailer('default');
+                            // $mailer
+                            //     ->setTransport('smtp')
+                            //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                            //     ->setTo($data['username'])
+                            //     ->setEmailFormat('html')
+                            //     ->setSubject('Vendor Portal - Account created')
+                            //     ->deliver('Hi ' . $data['first_name'] . ' <br/>Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
+                            //         '<br/>Password:' . $data['password'] . '<br/> <a href="' . $link . '">Click here</a>');
+                                
+                            $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
+                                ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
+                                '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
                                 ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                                 ->setTo($data['username'])
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Account created')
-                                ->deliver('Hi ' . $data['first_name'] . ' <br/>Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
-                                    '<br/>Password:' . $data['password'] . '<br/> <a href="' . $link . '">Click here</a>');
+                                ->viewBuilder()
+                                    ->setTemplate('mail_template');
+                            $mailer->deliver();
                         }
                     }
 
@@ -701,16 +729,29 @@ class VendorTempsController extends BuyerAppController
                     $response['status'] = 'success';
                     $response['message'] = 'Record save successfully';
                     $quryString = $data['email'] . '||' . $VendorTemp->id;
-                    $link = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
 
+                    // $link = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                    // $mailer = new Mailer('default');
+                    // $mailer
+                    //     ->setTransport('smtp')
+                    //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    //     ->setTo($data['email'])
+                    //     ->setEmailFormat('html')
+                    //     ->setSubject('Verify New Account')
+                    //     ->deliver('Hi ' . $data['name'] . '<br/>Welcome to Vendor portal. <br/>' . $link);
+
+                    $visit_url = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
+                        ->setViewVars([ 'subject' => 'Hi ' . $data['name'], 'mailbody' => 'Welcome to Vendor portal', 'link' => $visit_url, 'linktext' => 'Click Here' ])
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                         ->setTo($data['email'])
                         ->setEmailFormat('html')
-                        ->setSubject('Verify New Account')
-                        ->deliver('Hi ' . $data['name'] . '<br/>Welcome to Vendor portal. <br/>' . $link);
+                        ->setSubject('Vendor Portal - Verify New Account')
+                        ->viewBuilder()
+                            ->setTemplate('mail_template');
+                    $mailer->deliver();
                 }
             } catch (\Exception $e) {
                 $response['status'] = 'fail';
@@ -823,16 +864,30 @@ class VendorTempsController extends BuyerAppController
 
 
                 foreach ($query as $val) {
-                    $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                    // $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                    // $mailer = new Mailer('default');
+                    // $mailer
+                    //     ->setTransport('smtp')
+                    //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    //     ->setTo($val->username)
+                    //     ->setEmailFormat('html')
+                    //     ->setSubject('Vendor Portal - Account created')
+                    //     ->deliver('Hi ' . $val->first_name . ' <br/>Welcome to Vendor portal. <br/> <br/> Username: ' . $val->username .
+                    //         '<br/>Password:' . $val->mobile . '<br/> <a href="' . $link . '">Click here</a>');
+                    
+                    $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
+                        ->setViewVars([ 'subject' => 'Hi ' . $val->first_name, 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $val->username .
+                        '<br/>Password:' . $val->mobile, 'link' => $visit_url, 'linktext' => 'Click Here' ])
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                         ->setTo($val->username)
                         ->setEmailFormat('html')
                         ->setSubject('Vendor Portal - Account created')
-                        ->deliver('Hi ' . $val->first_name . ' <br/>Welcome to Vendor portal. <br/> <br/> Username: ' . $val->username .
-                            '<br/>Password:' . $val->mobile . '<br/> <a href="' . $link . '">Click here</a>');
+                        ->viewBuilder()
+                            ->setTemplate('mail_template');
+                    $mailer->deliver();
                 }
             } else {
                 $response['status'] = 0;

@@ -79,28 +79,53 @@ class PurchaseOrdersController extends VendorAppController
 
 
         if ($poHeader->acknowledge == 0) {
+            $visit_url = Router::url('/', true);
             if ($user["username"] !== "") {
+
+                // $mailer = new Mailer('default');
+                // $mailer
+                //     ->setTransport('smtp')
+                //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                //     // ->setTo($user["username"])
+                //     ->setTo('abhisheky@fts-pl.com')
+                //     ->setEmailFormat('html')
+                //     ->setSubject('Vendor Portal - Order acknowledgement ')
+                //     ->deliver('Dear Buyer, <br/><br/> This email is to inform you that your PO has been successfully acknowledged.');
 
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
+                    ->setViewVars([ 'subject' => 'Dear Buyer', 'mailbody' => 'This email is to inform you that your PO has been successfully acknowledged', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                    // ->setTo($user["username"])
-                    ->setTo('abhisheky@fts-pl.com')
+                    ->setTo($user["username"])
                     ->setEmailFormat('html')
-                    ->setSubject('Vendor Portal - Order acknowledgement ')
-                    ->deliver('Dear Buyer, <br/><br/> This email is to inform you that your PO has been successfully acknowledged.');
+                    ->setSubject('Vendor Portal - Order Acknowledgement')
+                    ->viewBuilder()
+                        ->setTemplate('mail_template');
+                $mailer->deliver();
             }
             if ($quary["email"] !== "") {
+                // $mailer = new Mailer('default');
+                // $mailer
+                //     ->setTransport('smtp')
+                //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                //     // ->setTo($quary['email'])
+                //     ->setTo('abhisheky@fts-pl.com')
+                //     ->setEmailFormat('html')
+                //     ->setSubject('Vendor Portal - Order acknowledgement')
+                //     ->deliver('Dear Vendor, <br/><br/>This email is to inform you that your PO has been successfully acknowledged.');
+
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
+                    ->setViewVars([ 'subject' => 'Dear Vendor', 'mailbody' => 'This email is to inform you that your PO has been successfully acknowledged', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                    // ->setTo($quary['email'])
-                    ->setTo('abhisheky@fts-pl.com')
+                    ->setTo($quary['email'])
                     ->setEmailFormat('html')
-                    ->setSubject('Vendor Portal - Order acknowledgement')
-                    ->deliver('Dear Vendor, <br/><br/>This email is to inform you that your PO has been successfully acknowledged.');
+                    ->setSubject('Vendor Portal - Order Acknowledgement')
+                    ->viewBuilder()
+                        ->setTemplate('mail_template');
+                $mailer->deliver();
 
 
                 $response['status'] = '1';

@@ -450,7 +450,7 @@
 
     console.log('stock=' + currStock+"="+minStock );
     if(currStock < minStock) {
-        $("#Create-btn").attr('disabled', 'disabled');
+        //$("#Create-btn").attr('disabled', 'disabled');
         $("#error_msg").text('Please maintain minimum stocks');
     }
   });
