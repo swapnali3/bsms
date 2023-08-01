@@ -1,0 +1,34 @@
+.lbluebadge {
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #17a2b8;
+}
+
+.redbadge {
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #f11e00;
+}
+
+.lgreenbadge{
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: green;
+}
+
+.dbluebadge {
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #004a9f;
+}
+
+
+
+div#modal-cancel .btn {
+    padding: 6px 20px;
+    font-size: 12px !important;
+}

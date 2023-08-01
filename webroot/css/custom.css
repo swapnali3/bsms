@@ -130,7 +130,7 @@ table#example1 span.material-symbols-outlined.flu {
     border: 1px solid #ddd;
 }
 
-div#scheduleModal .btn {
+div#scheduleModal .btn,div#modal-sm .btn {
     padding: 6px 20px;
     font-size: 12px !important;
 }
@@ -168,6 +168,10 @@ table#example1 tr td {
     padding: 3px 10px;
     margin-bottom: 0px !important;
     font-size: 12px;
+}
+
+#example2 a.schedule_update_button {
+    font-size: 0.8rem;
 }
 
 .related #example1_wrapper ul.pagination li a {
