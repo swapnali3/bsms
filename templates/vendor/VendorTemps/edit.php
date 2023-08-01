@@ -35,196 +35,196 @@ switch ($vendorTemp->status) {
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>
 <style>
-    .hide{
-        display: none;
-    }
+.hide {
+    display: none;
+}
 
-    /* Default Button */
-    .bg-gradient-button {
-        background: #F2EDD7FF linear-gradient(180deg, #F2EDD7FF, #e5e1cc) repeat-x !important;
-        color: #755139FF !important;
-    }
+/* Default Button */
+.bg-gradient-button {
+    background: #F2EDD7FF linear-gradient(180deg, #F2EDD7FF, #e5e1cc) repeat-x !important;
+    color: #755139FF !important;
+}
 
-    .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-button.btn:not(:disabled):not(.disabled).active,
-    .show>.bg-gradient-button.btn.dropdown-toggle {
-        background-image: none !important;
-    }
+.bg-gradient-button.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-button.btn:not(:disabled):not(.disabled).active,
+.show>.bg-gradient-button.btn.dropdown-toggle {
+    background-image: none !important;
+}
 
-    .bg-gradient-button.btn:hover {
-        background: #F2EDD7FF linear-gradient(180deg, #e5e1cc, #F2EDD7FF) repeat-x !important;
-        border-color: #F2EDD7FF;
-        color: #755139FF !important;
-    }
+.bg-gradient-button.btn:hover {
+    background: #F2EDD7FF linear-gradient(180deg, #e5e1cc, #F2EDD7FF) repeat-x !important;
+    border-color: #F2EDD7FF;
+    color: #755139FF !important;
+}
 
-    .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-button.btn:not(:disabled):not(.disabled).active,
-    .bg-gradient-button.btn:active,
-    .bg-gradient-button.btn.active {
-        background: #F2EDD7FF linear-gradient(180deg, #e5e1cc, #e5e1cc) repeat-x !important;
-        border-color: #F2EDD7FF;
-        color: #755139FF !important;
-    }
+.bg-gradient-button.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-button.btn:not(:disabled):not(.disabled).active,
+.bg-gradient-button.btn:active,
+.bg-gradient-button.btn.active {
+    background: #F2EDD7FF linear-gradient(180deg, #e5e1cc, #e5e1cc) repeat-x !important;
+    border-color: #F2EDD7FF;
+    color: #755139FF !important;
+}
 
-    .bg-gradient-button.btn:disabled,
-    .bg-gradient-button.btn.disabled {
-        background-image: none !important;
-        border-color: #F2EDD7FF;
-        color: #755139FF !important;
-    }
+.bg-gradient-button.btn:disabled,
+.bg-gradient-button.btn.disabled {
+    background-image: none !important;
+    border-color: #F2EDD7FF;
+    color: #755139FF !important;
+}
 
-    /* Default Button */
-
-
-    /* Submit Button */
-    .bg-gradient-submit {
-        background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
-        border-color: #ffffff;
-        color: #fff;
-    }
-
-    .bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-submit.btn:not(:disabled):not(.disabled).active,
-    .show>.bg-gradient-submit.btn.dropdown-toggle {
-        background-image: none !important;
-    }
-
-    .bg-gradient-submit.btn:hover {
-        background: #08132f linear-gradient(180deg, #102b71, #5b8aff) repeat-x !important;
-        border-color: #ffffff;
-        color: #fff;
-    }
-
-    .bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-submit.btn:not(:disabled):not(.disabled).active,
-    .bg-gradient-submit.btn:active,
-    .bg-gradient-submit.btn.active {
-        background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
-        border-color: #ffffff;
-        color: #fff;
-    }
-
-    .bg-gradient-submit.btn:disabled,
-    .bg-gradient-submit.btn.disabled {
-        background-image: none !important;
-        border-color: #ffffff;
-        color: #fff;
-    }
-
-    /* Submit Button */
-
-    /* Reject Button */
-    .bg-gradient-reject {
-        background: #F1F4FFFF linear-gradient(180deg, #F1F4FFFF, #ffc8be) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #990011FF;
-    }
-
-    .bg-gradient-reject.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-reject.btn:not(:disabled):not(.disabled).active,
-    .show>.bg-gradient-reject.btn.dropdown-toggle {
-        background-image: none !important;
-    }
-
-    .bg-gradient-reject.btn:hover {
-        background: #F1F4FFFF linear-gradient(180deg, #ffc8be, #F1F4FFFF) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #990011FF;
-    }
-
-    .bg-gradient-reject.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-reject.btn:not(:disabled):not(.disabled).active,
-    .bg-gradient-reject.btn:active,
-    .bg-gradient-reject.btn.active {
-        background: #F1F4FFFF linear-gradient(180deg, #ffc8be, #F1F4FFFF) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #990011FF;
-    }
-
-    .bg-gradient-reject.btn:disabled,
-    .bg-gradient-reject.btn.disabled {
-        background-image: none !important;
-        border-color: #F1F4FFFF;
-        color: #990011FF;
-    }
-
-    /* Reject Button */
+/* Default Button */
 
 
-    /* Cancel Button */
-    .bg-gradient-cancel {
-        background: #F1F4FFFF linear-gradient(180deg, #edeff7, #ccd7fd) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #496e97;
-    }
+/* Submit Button */
+.bg-gradient-submit {
+    background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
+    border-color: #ffffff;
+    color: #fff;
+}
 
-    .bg-gradient-cancel.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-cancel.btn:not(:disabled):not(.disabled).active,
-    .show>.bg-gradient-cancel.btn.dropdown-toggle {
-        background-image: none !important;
-    }
+.bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-submit.btn:not(:disabled):not(.disabled).active,
+.show>.bg-gradient-submit.btn.dropdown-toggle {
+    background-image: none !important;
+}
 
-    .bg-gradient-cancel.btn:hover {
-        background: #F1F4FFFF linear-gradient(180deg, #ccd7fd, #edeff7) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #496e97;
-    }
+.bg-gradient-submit.btn:hover {
+    background: #08132f linear-gradient(180deg, #102b71, #5b8aff) repeat-x !important;
+    border-color: #ffffff;
+    color: #fff;
+}
 
-    .bg-gradient-cancel.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-cancel.btn:not(:disabled):not(.disabled).active,
-    .bg-gradient-cancel.btn:active,
-    .bg-gradient-cancel.btn.active {
-        background: #F1F4FFFF linear-gradient(180deg, #ccd7fd, #edeff7) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #496e97;
-    }
+.bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-submit.btn:not(:disabled):not(.disabled).active,
+.bg-gradient-submit.btn:active,
+.bg-gradient-submit.btn.active {
+    background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
+    border-color: #ffffff;
+    color: #fff;
+}
 
-    .bg-gradient-cancel.btn:disabled,
-    .bg-gradient-cancel.btn.disabled {
-        background-image: none !important;
-        background-color: #F1F4FFFF !important;
-        border-color: #F1F4FFFF;
-        color: #496e97;
-    }
+.bg-gradient-submit.btn:disabled,
+.bg-gradient-submit.btn.disabled {
+    background-image: none !important;
+    border-color: #ffffff;
+    color: #fff;
+}
 
-    /* Cancel Button */
+/* Submit Button */
 
-    /* warn Button */
-    .bg-gradient-warn {
-        background: #ff2700 linear-gradient(180deg, #ff2700, #c71f00) repeat-x !important;
-        border-color: #ff2700;
-        color: #fff;
-    }
+/* Reject Button */
+.bg-gradient-reject {
+    background: #F1F4FFFF linear-gradient(180deg, #F1F4FFFF, #ffc8be) repeat-x !important;
+    border-color: #F1F4FFFF;
+    color: #990011FF;
+}
 
-    .bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
-    .show>.bg-gradient-warn.btn.dropdown-toggle {
-        background-image: none !important;
-    }
+.bg-gradient-reject.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-reject.btn:not(:disabled):not(.disabled).active,
+.show>.bg-gradient-reject.btn.dropdown-toggle {
+    background-image: none !important;
+}
 
-    .bg-gradient-warn.btn:hover {
-        background: #ff2700 linear-gradient(180deg, #ff2700, #ff836c) repeat-x !important;
-        border-color: #ff2700;
-        color: #fff;
-    }
+.bg-gradient-reject.btn:hover {
+    background: #F1F4FFFF linear-gradient(180deg, #ffc8be, #F1F4FFFF) repeat-x !important;
+    border-color: #F1F4FFFF;
+    color: #990011FF;
+}
 
-    .bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
-    .bg-gradient-warn.btn:active,
-    .bg-gradient-warn.btn.active {
-        background: #ff2700 linear-gradient(180deg, #ff836c, #ff2700) repeat-x !important;
-        border-color: #ff2700;
-        color: #fff;
-    }
+.bg-gradient-reject.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-reject.btn:not(:disabled):not(.disabled).active,
+.bg-gradient-reject.btn:active,
+.bg-gradient-reject.btn.active {
+    background: #F1F4FFFF linear-gradient(180deg, #ffc8be, #F1F4FFFF) repeat-x !important;
+    border-color: #F1F4FFFF;
+    color: #990011FF;
+}
 
-    .bg-gradient-warn.btn:disabled,
-    .bg-gradient-warn.btn.disabled {
-        background-image: none !important;
-        border-color: #ff2700;
-        color: #fff;
-    }
+.bg-gradient-reject.btn:disabled,
+.bg-gradient-reject.btn.disabled {
+    background-image: none !important;
+    border-color: #F1F4FFFF;
+    color: #990011FF;
+}
 
-    /* Reject Button */
+/* Reject Button */
+
+
+/* Cancel Button */
+.bg-gradient-cancel {
+    background: #F1F4FFFF linear-gradient(180deg, #edeff7, #ccd7fd) repeat-x !important;
+    border-color: #F1F4FFFF;
+    color: #496e97;
+}
+
+.bg-gradient-cancel.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-cancel.btn:not(:disabled):not(.disabled).active,
+.show>.bg-gradient-cancel.btn.dropdown-toggle {
+    background-image: none !important;
+}
+
+.bg-gradient-cancel.btn:hover {
+    background: #F1F4FFFF linear-gradient(180deg, #ccd7fd, #edeff7) repeat-x !important;
+    border-color: #F1F4FFFF;
+    color: #496e97;
+}
+
+.bg-gradient-cancel.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-cancel.btn:not(:disabled):not(.disabled).active,
+.bg-gradient-cancel.btn:active,
+.bg-gradient-cancel.btn.active {
+    background: #F1F4FFFF linear-gradient(180deg, #ccd7fd, #edeff7) repeat-x !important;
+    border-color: #F1F4FFFF;
+    color: #496e97;
+}
+
+.bg-gradient-cancel.btn:disabled,
+.bg-gradient-cancel.btn.disabled {
+    background-image: none !important;
+    background-color: #F1F4FFFF !important;
+    border-color: #F1F4FFFF;
+    color: #496e97;
+}
+
+/* Cancel Button */
+
+/* warn Button */
+.bg-gradient-warn {
+    background: #ff2700 linear-gradient(180deg, #ff2700, #c71f00) repeat-x !important;
+    border-color: #ff2700;
+    color: #fff;
+}
+
+.bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
+.show>.bg-gradient-warn.btn.dropdown-toggle {
+    background-image: none !important;
+}
+
+.bg-gradient-warn.btn:hover {
+    background: #ff2700 linear-gradient(180deg, #ff2700, #ff836c) repeat-x !important;
+    border-color: #ff2700;
+    color: #fff;
+}
+
+.bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
+.bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
+.bg-gradient-warn.btn:active,
+.bg-gradient-warn.btn.active {
+    background: #ff2700 linear-gradient(180deg, #ff836c, #ff2700) repeat-x !important;
+    border-color: #ff2700;
+    color: #fff;
+}
+
+.bg-gradient-warn.btn:disabled,
+.bg-gradient-warn.btn.disabled {
+    background-image: none !important;
+    border-color: #ff2700;
+    color: #fff;
+}
+
+/* Reject Button */
 </style>
 
 <div class="row">
@@ -508,7 +508,9 @@ switch ($vendorTemp->status) {
                                                 </div>
                                             </div>
                                             <div class="col-3 col-md-3 mt-4 pt-4 hide">
-                                                <span class="badge redbadge delete" data-toggle="tooltip" data-class="branch_office" data-placement="right" data-id="0" data-original-title="Delete">
+                                                <span class="badge redbadge delete" data-toggle="tooltip"
+                                                    data-class="branch_office" data-placement="right" data-id="0"
+                                                    data-original-title="Delete">
                                                     <i class="fas fa-trash"></i>
                                                 </span>
                                             </div>
@@ -525,7 +527,8 @@ switch ($vendorTemp->status) {
                                         <div class="row">
                                             <div class="col-sm-4 col-lg-2">
                                                 <label>Year:</label>
-                                                <input type="number" name="branch[small_scale][year]" class="form-control">
+                                                <input type="number" name="branch[small_scale][year]"
+                                                    class="form-control">
                                             </div>
 
                                             <div class="col-sm-4 col-lg-4">
@@ -537,8 +540,8 @@ switch ($vendorTemp->status) {
                                             <div class="col-sm-4 col-lg-4">
                                                 <label class="form-label">Upload File</label>
                                                 <div class="custom-file">
-                                                    <input name="branch[small_scale][certificate]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
+                                                    <input name="branch[small_scale][certificate]" type="file"
+                                                        accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -557,7 +560,8 @@ switch ($vendorTemp->status) {
 
                                             <div class="col-sm-12 col-lg-4">
                                                 <label>Registration No.</label>
-                                                <input name="branch[vendor][registration_no]" type="text" class="form-control">
+                                                <input name="branch[vendor][registration_no]" type="text"
+                                                    class="form-control">
                                             </div>
 
                                             <div class="col-sm-12 col-lg-4">
@@ -581,15 +585,17 @@ switch ($vendorTemp->status) {
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
                                         <label>Laboratory facilities available:</label><br>
-                                        <input type="radio" name="production_facility[laboratory][a]" value="yes" class="showme" data-trigger="yes" data-show="lab_facilities">
+                                        <input type="radio" name="production_facility[laboratory][a]" value="yes"
+                                            class="showme" data-trigger="yes" data-show="lab_facilities">
                                         <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" name="production_facility[laboratory][a]" value="no" class="showme" data-trigger="yes" data-show="lab_facilities">
+                                        <input type="radio" name="production_facility[laboratory][a]" value="no"
+                                            class="showme" data-trigger="yes" data-show="lab_facilities">
                                         <label>No</label><br>
                                         <div id="lab_facilities" style="display: none;">
                                             <div class="text-container" id="lab_facilities_text">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[laboratory][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
+                                                    <input name="production_facility[laboratory][f]" type="file"
+                                                        accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -598,15 +604,17 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
                                         <label>Whether there is any isi registration :</label><br>
-                                        <input type="radio" name="production_facility[isi_registration][a]" value="yes" class="showme" data-trigger="yes" data-show="isi_registration">
+                                        <input type="radio" name="production_facility[isi_registration][a]" value="yes"
+                                            class="showme" data-trigger="yes" data-show="isi_registration">
                                         <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" name="production_facility[isi_registration][a]" value="no" class="showme" data-trigger="yes" data-show="isi_registration">
+                                        <input type="radio" name="production_facility[isi_registration][a]" value="no"
+                                            class="showme" data-trigger="yes" data-show="isi_registration">
                                         <label>No</label>
                                         <div id="isi_registration" style="display: none;">
                                             <div class="text-container" id="isi_registration-text">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[isi_registration][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
+                                                    <input name="production_facility[isi_registration][f]" type="file"
+                                                        accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -615,15 +623,17 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
                                         <label>Test facilities available</label><br>
-                                        <input type="radio" name="production_facility[test_facility][a]" value="yes" class="showme" data-trigger="yes" data-show="test_facilities">
+                                        <input type="radio" name="production_facility[test_facility][a]" value="yes"
+                                            class="showme" data-trigger="yes" data-show="test_facilities">
                                         <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" name="production_facility[test_facility][a]" value="no" class="showme" data-trigger="yes" data-show="test_facilities">
+                                        <input type="radio" name="production_facility[test_facility][a]" value="no"
+                                            class="showme" data-trigger="yes" data-show="test_facilities">
                                         <label>No</label>
                                         <div id="test_facilities" style="display: none;">
                                             <div class="text-container" id="test_facilities-info">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[test_facility][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
+                                                    <input name="production_facility[test_facility][f]" type="file"
+                                                        accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -632,15 +642,17 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
                                         <label>Facilities for effective after sales services</label><br>
-                                        <input type="radio" name="production_facility[sales_services][a]" value="yes" class="showme" data-trigger="yes" data-show="sales_services">
+                                        <input type="radio" name="production_facility[sales_services][a]" value="yes"
+                                            class="showme" data-trigger="yes" data-show="sales_services">
                                         <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" name="production_facility[sales_services][a]" value="no" class="showme" data-trigger="yes" data-show="sales_services">
+                                        <input type="radio" name="production_facility[sales_services][a]" value="no"
+                                            class="showme" data-trigger="yes" data-show="sales_services">
                                         <label>No</label>
                                         <div id="sales_services" style="display: none;">
                                             <div class="text-container" id="sales_services_text">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[sales_services][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
+                                                    <input name="production_facility[sales_services][f]" type="file"
+                                                        accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -649,15 +661,17 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
                                         <label>Quality control procedure adopted.</label><br>
-                                        <input type="radio" name="production_facility[quality_control][a]" value="yes" class="showme" data-trigger="yes" data-show="quality_control">
+                                        <input type="radio" name="production_facility[quality_control][a]" value="yes"
+                                            class="showme" data-trigger="yes" data-show="quality_control">
                                         <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" name="production_facility[quality_control][a]" value="no" class="showme" data-trigger="yes" data-show="quality_control">
+                                        <input type="radio" name="production_facility[quality_control][a]" value="no"
+                                            class="showme" data-trigger="yes" data-show="quality_control">
                                         <label>No</label>
                                         <div id="quality_control" style="display: none;">
                                             <div class="text-container" id="quality-control_text">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[quality_control][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
+                                                    <input name="production_facility[quality_control][f]" type="file"
+                                                        accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -670,15 +684,18 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4">
                                         <input type="hidden" name="annual_turnover[0][q]" class="year1">
-                                        <input type="number" class="form-control placeholder1" name="annual_turnover[0][a]">
+                                        <input type="number" class="form-control placeholder1"
+                                            name="annual_turnover[0][a]">
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4">
                                         <input type="hidden" name="annual_turnover[1][q]" class="year2">
-                                        <input type="number" class="form-control placeholder2" name="annual_turnover[1][a]">
+                                        <input type="number" class="form-control placeholder2"
+                                            name="annual_turnover[1][a]">
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4">
                                         <input type="hidden" name="annual_turnover[2][q]" class="year3">
-                                        <input type="number" class="form-control placeholder3" name="annual_turnover[2][a]">
+                                        <input type="number" class="form-control placeholder3"
+                                            name="annual_turnover[2][a]">
                                     </div>
                                 </div>
                                 <div class="card card-primary card-outline">
@@ -725,12 +742,15 @@ switch ($vendorTemp->status) {
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
                                         Factory Address
-                                        <span class="badge lgreenbadge float-right add" id="id_factory_office_add" data-toggle="tooltip" data-class="factory_office" data-id="0" data-placement="right" title="Add Address">
+                                        <span class="badge lgreenbadge float-right add" id="id_factory_office_add"
+                                            data-toggle="tooltip" data-class="factory_office" data-id="0"
+                                            data-placement="right" title="Add Address">
                                             <i class="fas fa-plus-circle"></i>
                                         </span>
                                     </div>
                                     <div class="card-body factory_office_card_body">
-                                        <div class="row factory_office factory_office_0" data-id="0" id="factory_office_0">
+                                        <div class="row factory_office factory_office_0" data-id="0"
+                                            id="factory_office_0">
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
                                                     <?php echo $this->Form->control('register_office_address1', ['name' => 'prdflt[factory_office][0][address1]', 'id'=>'factory_0_address1','class' => 'form-control', 'label' => "Address 1"]); ?>
@@ -767,7 +787,9 @@ switch ($vendorTemp->status) {
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3 mt-4 pt-4 hide">
-                                                <span class="badge redbadge delete" data-toggle="tooltip"  data-id="0" data-placement="right" data-class="factory_office" data-original-title="Delete Address">
+                                                <span class="badge redbadge delete" data-toggle="tooltip" data-id="0"
+                                                    data-placement="right" data-class="factory_office"
+                                                    data-original-title="Delete Address">
                                                     <i class="fas fa-trash"></i>
                                                 </span>
                                             </div>
@@ -777,13 +799,15 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Installed Capacity</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][installed_capacity][a]"
+                                                        <input type="text" class="form-control"
+                                                            name="prdflt[factory_office][0][installed_capacity][a]"
                                                             placeholder="Installed Capacity" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][0][installed_capacity][f]" type="file" accept=".pdf"
-                                                                class="custom-file-input">
+                                                            <input
+                                                                name="prdflt[factory_office][0][installed_capacity][f]"
+                                                                type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -797,13 +821,14 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Power Available</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][power_available][a]"
+                                                        <input type="text" class="form-control"
+                                                            name="prdflt[factory_office][0][power_available][a]"
                                                             placeholder="Power Available" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][0][power_available][f]" type="file" accept=".pdf"
-                                                                class="custom-file-input">
+                                                            <input name="prdflt[factory_office][0][power_available][f]"
+                                                                type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -817,13 +842,15 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Machinery Available</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][machinery_available][a]"
+                                                        <input type="text" class="form-control"
+                                                            name="prdflt[factory_office][0][machinery_available][a]"
                                                             placeholder="Machinery Available" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][0][machinery_available][f]" type="file" accept=".pdf"
-                                                                class="custom-file-input">
+                                                            <input
+                                                                name="prdflt[factory_office][0][machinery_available][f]"
+                                                                type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -837,13 +864,14 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Raw Material Avi. and Source</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][raw_material][a]"
+                                                        <input type="text" class="form-control"
+                                                            name="prdflt[factory_office][0][raw_material][a]"
                                                             placeholder="Raw Material Avi. and Source" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][0][raw_material][f]" type="file" accept=".pdf"
-                                                                class="custom-file-input">
+                                                            <input name="prdflt[factory_office][0][raw_material][f]"
+                                                                type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -858,43 +886,62 @@ switch ($vendorTemp->status) {
                                                                 <h5>Actual production during preceding 3 years</h5>
                                                             </div>
                                                             <div class="col-2">
-                                                                <span class="badge lgreenbadge add float-right" data-toggle="tooltip" data-class="commencement" data-placement="right" id="id_commencement_add" title="" data-original-title="Add Commencement">
+                                                                <span class="badge lgreenbadge add float-right"
+                                                                    data-toggle="tooltip" data-class="commencement"
+                                                                    data-placement="right" id="id_commencement_add"
+                                                                    title="" data-original-title="Add Commencement">
                                                                     <i class="fas fa-plus-circle"></i>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="card-body commencement_card_body">
-                                                        <div class="row mb-3 commencement commencement_0" data-id="0" id="commencement_0">
+                                                        <div class="row mb-3 commencement commencement_0" data-id="0"
+                                                            id="commencement_0">
                                                             <div class="col-sm-12 col-md-3 col-lg-3">
                                                                 <label for="">Year Of Commencement Of Production</label>
-                                                                <input type="number" class="form-control" name="prdflt[factory_office][0][commencement][0][year]" id="factory_0">
+                                                                <input type="number" class="form-control"
+                                                                    name="prdflt[factory_office][0][commencement][0][year]"
+                                                                    id="factory_0">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label for="">Material</label>
-                                                                <input type="text" class="form-control" name="prdflt[factory_office][0][commencement][0][material]" id=""
-                                                                    placeholder="Material">
+                                                                <input type="text" class="form-control"
+                                                                    name="prdflt[factory_office][0][commencement][0][material]"
+                                                                    id="" placeholder="Material">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear1">2020-2021</label>
-                                                                <input type="hidden" class="year1" name="prdflt[factory_office][0][commencement][0][production][0][year]" id="">
-                                                                <input type="number" class="form-control placeholder1" name="prdflt[factory_office][0][commencement][0][production][0][qty]" id="factory_0">
+                                                                <input type="hidden" class="year1"
+                                                                    name="prdflt[factory_office][0][commencement][0][production][0][year]"
+                                                                    id="">
+                                                                <input type="number" class="form-control placeholder1"
+                                                                    name="prdflt[factory_office][0][commencement][0][production][0][qty]"
+                                                                    id="factory_0">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear2">2021-2022</label>
-                                                                <input type="hidden" class="year2" name="prdflt[factory_office][0][commencement][0][production][1][year]" id="">
+                                                                <input type="hidden" class="year2"
+                                                                    name="prdflt[factory_office][0][commencement][0][production][1][year]"
+                                                                    id="">
                                                                 <input type="number" class="form-control placeholder2"
-                                                                    name="prdflt[factory_office][0][commencement][0][production][1][qty]" id="">
+                                                                    name="prdflt[factory_office][0][commencement][0][production][1][qty]"
+                                                                    id="">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear3">2022-2023</label>
-                                                                <input type="hidden" class="year3" name="prdflt[factory_office][0][commencement][0][production][2][year]" id="">
+                                                                <input type="hidden" class="year3"
+                                                                    name="prdflt[factory_office][0][commencement][0][production][2][year]"
+                                                                    id="">
                                                                 <input type="number" class="form-control placeholder3"
-                                                                    name="prdflt[factory_office][0][commencement][0][production][2][qty]" id="">
+                                                                    name="prdflt[factory_office][0][commencement][0][production][2][qty]"
+                                                                    id="">
                                                             </div>
                                                             <div class="col-sm-12 col-md-1 col-lg-1 mt-3 pt-3 hide">
-                                                                <span class="badge redbadge delete" data-toggle="tooltip"  data-id="0" data-placement="right" 
-                                                                data-class="commencement" data-original-title="Delete Address">
+                                                                <span class="badge redbadge delete"
+                                                                    data-toggle="tooltip" data-id="0"
+                                                                    data-placement="right" data-class="commencement"
+                                                                    data-original-title="Delete Address">
                                                                     <i class="fas fa-trash"></i>
                                                                 </span>
                                                             </div>
@@ -944,81 +991,85 @@ switch ($vendorTemp->status) {
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
                                         Address of Proprietor / Partner / Director
-                                        <span data-class="other_address" class="badge lgreenbadge mt-2 add" id="id_other_address_add" data-toggle="tooltip" data-placement="right" title="" data-original-title="Add Proprietor / Partner / Director">
+                                        <span data-class="other_address" class="badge lgreenbadge mt-2 add"
+                                            id="id_other_address_add" data-toggle="tooltip" data-placement="right"
+                                            title="" data-original-title="Add Proprietor / Partner / Director">
                                             <i class="fas fa-plus-circle"></i>
                                         </span>
                                     </div>
                                     <div class="card-body other_address_card_body">
                                         <div class="row other_address other_address_0" data-id="0" id="other_address_0">
                                             <div class="col-2 mt-1">
-                                                <input type="radio" name="contact_person[other_address][0][type]" value="Proprietor">
+                                                <input type="radio" name="contact_person[other_address][0][type]"
+                                                    value="Proprietor">
                                                 <label>Proprietor</label>
                                             </div>
                                             <div class="col-2 mt-1">
-                                                <input type="radio" name="contact_person[other_address][0][type]" value="Partner">
+                                                <input type="radio" name="contact_person[other_address][0][type]"
+                                                    value="Partner">
                                                 <label>Partner</label>
                                             </div>
                                             <div class="col-2 mt-1">
-                                                <input type="radio" name="contact_person[other_address][0][type]" checked
-                                                    value="Director">
+                                                <input type="radio" name="contact_person[other_address][0][type]"
+                                                    checked value="Director">
                                                 <label>Director</label>
                                             </div>
 
                                             <div class="col-3 col-md-3 hide">
-                                                <span class="badge redbadge delete" data-toggle="tooltip" data-id="0" data-class="other_address" data-placement="right" data-original-title="Delete">
+                                                <span class="badge redbadge delete" data-toggle="tooltip" data-id="0"
+                                                    data-class="other_address" data-placement="right"
+                                                    data-original-title="Delete">
                                                     <i class="fas fa-trash"></i>
                                                 </span>
                                             </div>
 
                                             <div class="col-12 mt-1">
-                                                <label>Name:</label>
-                                                <input type="text" name="contact_person[other_address][0][name]"
-                                                    class="form-control form-control-sm">
-                                            </div>
-
-                                            <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('address', ['name' => 'contact_person[other_address][0][address]', 'class' => 'form-control','id'=>'id_address1', 'label' => "Address"]); ?>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 mt-3 col-md-3">
-                                                <div class="form-group">
-                                                    <?php echo $this->Form->control('address_2', ['name' => 'contact_person[other_address][0][address_2]','label' => 'Address 1','id'=>'id_address2', 'class' => 'form-control']); ?>
-                                                </div>
-                                            </div>
-                                            <div class="col-3 mt-3 col-md-3">
-                                                <div class="form-group">
-                                                    <?php echo $this->Form->control('pincode', ['name' => 'contact_person[other_address][0][pincode]','class' => 'form-control ','id'=>'id_pincode']); ?>
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][name]',['class' => 'form-control form-control-sm', 'label' => "Name"]); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('city', ['name' => 'contact_person[other_address][0][city]','class' => 'form-control','id'=>'id_city']); ?>
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][address]',['class' => 'form-control','id'=>'id_address1', 'label' => "Address 1"]); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][address_2]', ['label' => 'Address 2','id'=>'id_address2', 'class' => 'form-control']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][pincode]', ['class' => 'form-control ','id'=>'id_pincode', 'label' => 'Pincode']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('country', ['name' => 'contact_person[other_address][0][country]','id'=>'id_country','class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][city]', ['class' => 'form-control','id'=>'id_city' ,'label' => 'City']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('state', ['name' => 'contact_person[other_address][0][state]','id'=>'id_state','class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][country]', ['id'=>'id_country','class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Please select','label' => 'Country','    empty' => '']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][state]', ['id'=>'id_state','class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State','label' => 'State']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="id_telephone">Telephone</label>
-                                                    <input type="number" id="id_telephone"
-                                                        name="contact_person[other_address][0][telephone]" class="form-control">
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][telephone]', ['id' => 'id_telephone','type' => 'number', 'class' => 'form-control', 'label' => 'Telephone']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_faxno', ['name' => 'contact_person[other_address][0][faxno]', 'id' => 'id_faxno','type' => 'number', 'class' => 'form-control', 'label' => 'Fax No.']); ?>
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][faxno]', ['id' => 'id_faxno','type' => 'number', 'class' => 'form-control', 'label' => 'Fax No.']); ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1096,56 +1147,12 @@ switch ($vendorTemp->status) {
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-3 mt-3">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-body p-2">
-                                                <label for="">Vat Registration No</label>
-                                                <input type="text" name="bank[other][vat_registration][a]" class="form-control" id="">
-                                            </div>
-                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
-                                                <div class="custom-file">
-                                                    <input name="bank[other][vat_registration][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
-                                                    <label class="custom-file-label">Choose File</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 mt-3">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-body p-2">
-                                                <label for="">C.S.T No</label>
-                                                <input type="text" name="bank[other][cst][a]" class="form-control" id="">
-                                            </div>
-                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
-                                                <div class="custom-file">
-                                                    <input name="bank[other][cst][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
-                                                    <label class="custom-file-label">Choose File</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 mt-3">
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-body p-2">
-                                                <label for="">Excise No</label>
-                                                <input type="text" name="bank[other][excise][a]" class="form-control" id="">
-                                            </div>
-                                            <div class="card-footer p-2" style="background-color: whitesmoke;">
-                                                <div class="custom-file">
-                                                    <input name="bank[other][excise][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
-                                                    <label class="custom-file-label">Choose File</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 mt-3">
+                                   <div class="col-3 mt-3">
                                         <div class="card card-primary card-outline">
                                             <div class="card-body p-2">
                                                 <label for="">GST No</label>
-                                                <input type="text" name="bank[other][gst][a]" class="form-control" id="">
+                                                <input type="text" name="bank[other][gst][a]" class="form-control"
+                                                    id="">
                                             </div>
                                             <div class="card-footer p-2" style="background-color: whitesmoke;">
                                                 <div class="custom-file">
@@ -1160,7 +1167,8 @@ switch ($vendorTemp->status) {
                                         <div class="card card-primary card-outline">
                                             <div class="card-body p-2">
                                                 <label for="">PAN No</label>
-                                                <input type="text" name="bank[other][pan][a]" class="form-control" id="">
+                                                <input type="text" name="bank[other][pan][a]" class="form-control"
+                                                    id="">
                                             </div>
                                             <div class="card-footer p-2" style="background-color: whitesmoke;">
                                                 <div class="custom-file">
@@ -1177,8 +1185,8 @@ switch ($vendorTemp->status) {
                                                 <label for="">Cancelled Cheque</label>
                                                 <div class="custom-file">
                                                     <input type="hidden" name="bank[other][cancelled_cheque][a]">
-                                                    <input name="bank[other][cancelled_cheque][f]" type="file" accept=".pdf"
-                                                        class="custom-file-input">
+                                                    <input name="bank[other][cancelled_cheque][f]" type="file"
+                                                        accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -1193,7 +1201,8 @@ switch ($vendorTemp->status) {
                                     <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
                                         <div class="form-group">
                                             <label for="id_sigma">Six Sigma</label>
-                                            <textarea id="id_sigma" name="certificate[six_sigma][a]" cols="30" rows="1" class="form-control"></textarea>
+                                            <textarea id="id_sigma" name="certificate[six_sigma][a]" cols="30" rows="1"
+                                                class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
@@ -1206,7 +1215,8 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
                                         <label>Registration No.</label>
-                                        <input type="number" class="form-control" name="certificate[registration_no][a]">
+                                        <input type="number" class="form-control"
+                                            name="certificate[registration_no][a]">
                                     </div>
 
                                     <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
@@ -1324,7 +1334,9 @@ switch ($vendorTemp->status) {
                                         <h5 class="modal-title">
                                             Address of your reputed customers to whom reference can be made (use
                                             separate sheet) if necessary
-                                            <span data-class="customer" class="badge lgreenbadge mt-2 add" id="id_customer_add" data-toggle="tooltip" data-placement="right" title="Add Reputed Customer">
+                                            <span data-class="customer" class="badge lgreenbadge mt-2 add"
+                                                id="id_customer_add" data-toggle="tooltip" data-placement="right"
+                                                title="Add Reputed Customer">
                                                 <i class="fas fa-plus-circle"></i>
                                             </span>
                                         </h5>
@@ -1333,50 +1345,53 @@ switch ($vendorTemp->status) {
                                         <div class="row customer customer_0" data-id="0" id="customer_0">
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('name', ['name' => 'reputed[customer][0][name]', 'class' => 'form-control','id'=>'id_name', 'label' => "Name"]); ?>
+                                                    <?php echo $this->Form->control('reputed[customer][0][name]',['class' => 'form-control','id'=>'id_name', 'label' => "Name"]); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('address_2', ['name' => 'reputed[customer][0][address]','label' => 'Address','id'=>'id_address2', 'class' => 'form-control']); ?>
+                                                    <?php echo $this->Form->control('reputed[customer][0][address]', ['label' => 'Address', 'class' => 'form-control']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('pincode', ['name' => 'reputed[customer][0][pincode]','class' => 'form-control ','id'=>'id_pincode']); ?>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-3 mt-3 col-md-3">
-                                                <div class="form-group">
-                                                    <?php echo $this->Form->control('city', ['name' => 'reputed[customer][0][city]','class' => 'form-control','id'=>'id_city']); ?>
+                                                    <?php echo $this->Form->control('reputed[customer][0][pincode]', ['class' => 'form-control ','id'=>'','label' => 'Pincode']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('country', ['name' => 'reputed[customer][0][country]','id'=>'id_country','class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                                    <?php echo $this->Form->control('reputed[customer][0][city]',['class' => 'form-control','id'=>'','label' => 'City']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('state', ['name' => 'reputed[customer][0][state]','id'=>'id_state','class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                                    <?php echo $this->Form->control('reputed[customer][0][country]', ['class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country','label' => 'Country']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('reputed[customer][0][state]', ['name' => 'reputed[customer][0][state]','id'=>'','class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State','label' => 'State']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
                                                     <label for="id_telephone">Telephone</label>
-                                                    <input type="number" id="id_telephone" name="reputed[customer][0][telephone]" class="form-control">
+                                                    <input type="number" id="" name="reputed[customer][0][telephone]"
+                                                        class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-2 mt-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_faxno', ['name' => 'reputed[customer][0][faxno]', 'id' => 'id_faxno','type' => 'number', 'class' => 'form-control', 'label' => 'Fax No.']); ?>
+                                                    <?php echo $this->Form->control('register_office_faxno', ['name' => 'reputed[customer][0][faxno]', 'id' => '','type' => 'number', 'class' => 'form-control', 'label' => 'Fax No.']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-1 mt-4 pt-4 hide">
-                                                <span class="badge redbadge delete" data-toggle="tooltip" data-id="0" data-class="customer" data-placement="right" data-original-title="Delete">
+                                                <span class="badge redbadge delete" data-toggle="tooltip" data-id="0"
+                                                    data-class="customer" data-placement="right"
+                                                    data-original-title="Delete">
                                                     <i class="fas fa-trash"></i>
                                                 </span>
                                             </div>

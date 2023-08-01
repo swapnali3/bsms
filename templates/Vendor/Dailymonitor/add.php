@@ -57,6 +57,20 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-body text-center">
+                        <h6>Are you sure you want to Add?</h6>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn" style="border:1px solid #28a745">Ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <?= $this->Form->end() ?>
     </div>
     <div class="col-12">
@@ -98,13 +112,6 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Plan Date</td>
-                            <td>Production Line</td>
-                            <td>Material</td>
-                            <td>Target Production</td>
-                            <td></td>
-                        </tr>
-                        <tr>
                             <td colspan="5" class="text-center">No data found !</td>
                         </tr>
                     </tbody>
@@ -115,18 +122,5 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-body text-center">
-                <h6>Are you sure you want to Add?</h6>
-            </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn" style="border:1px solid #28a745">Ok</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <?= $this->Html->script('v_dailymonitor_add') ?>

@@ -144,7 +144,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
     padding-left: 0.6rem
   } */
 
-  /* .nav-sidebar>.nav-item .nav-icon.fa,
+  .nav-sidebar>.nav-item .nav-icon.fa,
   .nav-sidebar>.nav-item .nav-icon.fab,
   .nav-sidebar>.nav-item .nav-icon.fad,
   .nav-sidebar>.nav-item .nav-icon.fal,
@@ -153,7 +153,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
   .nav-sidebar>.nav-item .nav-icon.ion,
   .nav-sidebar>.nav-item .nav-icon.svg-inline--fa {
     font-size: 0.8rem;
-  } */
+  }
 
 /* Table */
 table {
@@ -373,7 +373,7 @@ th {
 
 .nav-link.active {
     background-color: #8E9B2C !important;
-
+    color: #fff !important;
 }
 
 aside.main-sidebar {

@@ -54,8 +54,8 @@ $.validator.setDefaults({
 
   
 $('#id_addvendor').click(function(){
-  if ($("#addvendorform").valid()) { // Check form validation
-    $('#modal-sm').modal('show'); // Show the modal
+  if ($("#addvendorform").valid()) { 
+    $('#modal-sm').modal('show'); 
   }
 });
 
