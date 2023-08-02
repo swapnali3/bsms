@@ -75,18 +75,18 @@
     <script>var baseurl = "<?= $this->Url->build('/') ?>";</script>
 </head>
 
-<body class="layout-fixed sidebar-mini sidebar-closed sidebar-collapse">
+<body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
     <div class="wrapper">
         <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">
-            <?= $this->element('header/notifications') ?>
+            <?= $this->element('header/main') ?>
         </nav>
 
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>" style="background-color:#482668;">
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
-                style="text-align-last:center;background-color:#fff;">
-                <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '1']) ?>
+                style="background-color:#ffffff; text-align-last:center;">
+                <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'mt-1 ft_rect_logo brand-image', 'data-image' => '2']) ?>
                 <span class="brand-text">
-                    <?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?>
+                    <?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '2']) ?>
                 </span>
             </a>
             <div class="sidebar" id="id_sidebar">
@@ -96,9 +96,9 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-                <div class="content">
-                    <div class="container-fluid">
-                    <?= $this->element('content/header') ?>
+            <?= $this->element('content/header') ?>
+            <div class="content">
+                <div class="container-fluid">
                     <?= $this->Flash->render() ?>
                     <?= $this->fetch('content') ?>
                 </div>
@@ -132,15 +132,9 @@
                 title: "<?= $flash['msg'] ?>",
             });
         <?php endif; ?>
-        $(function () {
-            $(".ftimage").trigger('click');
-            $('[data-toggle="tooltip"]').tooltip();
-            $('#summernote').summernote({ width: 1000, });
-        });
-
-        $(window).on('load', function () {
-            $('#loaderss').hide();
-        });
+        // $(document).ready(function() {});
+        $(window).on('load', function () { $('#loaderss').hide(); });
+        $(function () { $('[data-toggle="tooltip"]').tooltip(); $('#summernote').summernote({ width: 1000, }); });
     </script>
     <?= $this->element('layout/script') ?>
     <?= $this->fetch('script') ?>

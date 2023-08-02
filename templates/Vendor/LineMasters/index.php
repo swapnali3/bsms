@@ -20,7 +20,7 @@
                         <thead>
                             <tr>
                                 <th>Line Description</th>
-                                <th>Capacity</th>
+                                <th>Capacity (Per Day)</th>
                                 <th>UOM</th>
                                 <th>Status</th>
                             </tr>
