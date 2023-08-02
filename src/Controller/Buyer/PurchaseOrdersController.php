@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Controller\Buyer;
+
 use Cake\Datasource\ConnectionManager;
 use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
@@ -20,10 +21,10 @@ class PurchaseOrdersController extends BuyerAppController
     public function initialize(): void
     {
         parent::initialize();
-        $flash = [];  
+        $flash = [];
         $this->set('flash', $flash);
     }
-    
+
     var $uses = array('PoHeaders');
     /**
      * Index method
@@ -38,7 +39,7 @@ class PurchaseOrdersController extends BuyerAppController
 
         $this->set(compact('poHeaders'));
     }
-    
+
     public function view()
     {
         $this->set('headTitle', 'PO Detail');
@@ -148,6 +149,32 @@ class PurchaseOrdersController extends BuyerAppController
         exit;
     }
 
+
+    public function update($id = null)
+    {
+        $this->loadModel('PoItemSchedules');
+        $response['status'] = 'fail';
+        $response['message'] = '';
+        $this->autoRender = false;
+        $PoItemSchedule = $this->PoItemSchedules->get($id, [
+            'contain' => [],
+        ]);
+
+        if ($this->request->is(['patch', 'get', 'put'])) {
+            $data = $this->request->getData();
+            $data['status'] = 0;
+            $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $data);
+
+            if ($this->PoItemSchedules->save($PoItemSchedule)) {
+                $response['status'] = 'success';
+                $response['message'] = 'schedule status updated successfully';
+            } else {
+                $response['status'] = 'fail';
+                $response['message'] = 'failed to update schedule status';
+            }
+        }
+        echo json_encode($response);
+    }
     /**
      * Add method
      *
@@ -160,12 +187,12 @@ class PurchaseOrdersController extends BuyerAppController
         if ($this->request->is('post')) {
             $poHeader = $this->PoHeaders->patchEntity($poHeader, $this->request->getData());
             if ($this->PoHeaders->save($poHeader)) {
-                $flash = ['type'=>'success', 'msg'=>'The po header has been saved'];
+                $flash = ['type' => 'success', 'msg' => 'The po header has been saved'];
                 $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $flash = ['type'=>'error', 'msg'=>'The po header could not be saved. Please, try again'];
+            $flash = ['type' => 'error', 'msg' => 'The po header could not be saved. Please, try again'];
             $this->set('flash', $flash);
         }
         $this->set(compact('poHeader'));
@@ -187,12 +214,12 @@ class PurchaseOrdersController extends BuyerAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $poHeader = $this->PoHeaders->patchEntity($poHeader, $this->request->getData());
             if ($this->PoHeaders->save($poHeader)) {
-                $flash = ['type'=>'error', 'msg'=>'The po header has been saved'];
+                $flash = ['type' => 'error', 'msg' => 'The po header has been saved'];
                 $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $flash = ['type'=>'error', 'msg'=>'The po header could not be saved. Please, try again'];
+            $flash = ['type' => 'error', 'msg' => 'The po header could not be saved. Please, try again'];
             $this->set('flash', $flash);
         }
         $this->set(compact('poHeader'));
@@ -211,10 +238,10 @@ class PurchaseOrdersController extends BuyerAppController
         $this->request->allowMethod(['post', 'delete']);
         $poHeader = $this->PoHeaders->get($id);
         if ($this->PoHeaders->delete($poHeader)) {
-            $flash = ['type'=>'error', 'msg'=>'The po header has been deleted'];
+            $flash = ['type' => 'error', 'msg' => 'The po header has been deleted'];
             $this->set('flash', $flash);
         } else {
-            $flash = ['type'=>'error', 'msg'=>'The po header could not be deleted. Please, try again'];
+            $flash = ['type' => 'error', 'msg' => 'The po header could not be deleted. Please, try again'];
             $this->set('flash', $flash);
         }
 
@@ -237,7 +264,7 @@ class PurchaseOrdersController extends BuyerAppController
             $data = $this->request->getData();
             $status = true;
             foreach ($data as $row) {
-            try {
+                try {
                     $sapVendorcode = $this->PoHeaders->find()
                         ->select(['sap_vendor_code'])
                         ->where(['id' => $row['po_header_id']])
@@ -246,8 +273,8 @@ class PurchaseOrdersController extends BuyerAppController
                     $conn = ConnectionManager::get('default');
                     $query = "SELECT COUNT(update_flag) AS count FROM vendor_temps WHERE update_flag > 0 AND sap_vendor_code = :sapVendorcode";
                     $params = ['sapVendorcode' => $sapVendorcode['sap_vendor_code']];
-                    $result = $conn->execute($query, $params)->fetch('assoc'); 
-                        
+                    $result = $conn->execute($query, $params)->fetch('assoc');
+
                     if ($result['count'] > 0) {
                         $response['status'] = 'fail';
                         $response['message'] = 'Vendor details pending for review';
@@ -278,7 +305,7 @@ class PurchaseOrdersController extends BuyerAppController
                     $response['message'] = $e->getMessage();
                 }
             }
-            if ($status) { 
+            if ($status) {
                 $response['status'] = 'success';
                 $response['message'] = 'Record save successfully';
             }
@@ -286,6 +313,35 @@ class PurchaseOrdersController extends BuyerAppController
         echo json_encode($response);
     }
 
+
+    public function createScheduleUpdate($id = null)
+    {
+        $response = array();
+        $response['status'] = '';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->loadModel("PoItemSchedules");
+
+
+        // $flash = [];
+        $PoItemSchedule = $this->PoItemSchedules->get($id, [
+            'contain' => [],
+        ]);
+
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $this->request->getData());
+            if ($this->PoItemSchedules->save($PoItemSchedule)) {
+                $response['status'] = 'success';
+                $response['message'] = 'Delivery Date Update.';
+            } else {
+                $response['status'] = 'fail';
+                $response['message'] = 'Failed';
+            }
+        }
+        echo json_encode($response);
+    }
     public function getSchedules($id = null)
     {
         $response = array();
@@ -345,16 +401,20 @@ class PurchaseOrdersController extends BuyerAppController
     {
         $this->autoRender = false;
         $this->loadModel("PoItemSchedules");
-        $response = ['status'=>0, 'message'=>'', 'totalQty'=>''];
+        $response = ['status' => 0, 'message' => '', 'totalQty' => ''];
         $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id]]);
-        
+
         if ($data->count() > 0) {
             $totalQty = 0;
-            foreach ($data as $row) { $totalQty += $row->actual_qty;}
+            foreach ($data as $row) {
+                $totalQty += $row->actual_qty;
+            }
             $response['status'] = 1;
             $response['message'] = $data;
             $response['totalQty'] = $totalQty;
-        } else { $response = ['status'=>0, 'message'=>'No schedule data', 'totalQty'=>0]; }
+        } else {
+            $response = ['status' => 0, 'message' => 'No schedule data', 'totalQty' => 0];
+        }
         // echo '<pre>'; print_r(json_encode($response)); exit;
         echo json_encode($response);
     }
