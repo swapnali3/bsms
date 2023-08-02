@@ -484,110 +484,42 @@
 
         $(".chatload").each(function () {
             $('#unread' + $(this).data('sender_id')).empty();
-            getbadge($(this).data('sender_id'), getchaturl, "vendor_temps", $(this).data('table_pk'), 'unread' + $(this).data('sender_id'))
+            getbadge($(this).data('sender_id'), getchaturl, "vendor_temps", $(this).data('table_pk'), 'unread' + $(this).data('sender_id'));
         });
         $("#onbordingSubmit").validate({
             rules: {
-                address: {
-                    required: true
-                },
-                city: {
-                    required: true
-                },
-                state: {
-                    required: true
-                },
-                pincode: {
-                    required: true,
-                    digits: true
-                },
-                country: {
-                    required: true
-                },
-                payment_term: {
-                    required: true
-                },
-                order_currency: {
-                    required: true
-                },
-                tan_no: {
-                    required: true
-                },
-                cin_no: {
-                    required: true
-                },
-                gst_no: {
-                    required: true
-                },
-                pan_no: {
-                    required: true
-                },
-                contact_person: {
-                    required: true
-                },
-                contact_email: {
-                    required: true,
-                    email: true
-                },
-                contact_mobile: {
-                    required: true,
-                    number: true,
-                    minlength: 10,
-                    maxlength: 10
-                },
-                contact_department: {
-                    required: true
-                },
-                contact_designation: {
-                    required: true
-                }
+                address: { required: true },
+                city: { required: true },
+                state: { required: true },
+                pincode: { required: true, digits: true },
+                country: { required: true },
+                payment_term: { required: true },
+                order_currency: { required: true },
+                tan_no: { required: true },
+                cin_no: { required: true },
+                gst_no: { required: true },
+                pan_no: { required: true },
+                contact_person: { required: true },
+                contact_email: { required: true, email: true },
+                contact_mobile: { required: true, number: true, minlength: 10, maxlength: 10 },
+                contact_department: { required: true},
+                contact_designation: { required: true }
             },
             messages: {
-                address: {
-                    required: "Please enter a Address"
-                },
-                city: {
-                    required: "Please enter a city"
-                },
-                state: {
-                    required: "Please enter a state"
-                },
-                pincode: {
-                    required: "Please enter a pincode",
-                    digits: true
-                },
-                country: {
-                    required: "Please enter a country"
-                },
-                tan_no: {
-                    required: "Please enter a tan no"
-                },
-                cin_no: {
-                    required: "Please enter a cin no"
-                },
-                gst_no: {
-                    required: "Please enter a gst no"
-                },
-                pan_no: {
-                    required: "Please enter a pam no"
-                },
-                contact_person: {
-                    required: "Please enter a contact person"
-                },
-                contact_email: {
-                    required: "Please enter a contact email",
-                    email: "Please enter a valid email address"
-                },
-                contact_mobile: {
-                    required: "Please enter a contact mobile",
-                    number: "Please enter a valid mobile number"
-                },
-                contact_department: {
-                    required: "Please enter a contact department"
-                },
-                contact_designation: {
-                    required: "Please enter a contact designation"
-                },
+                address: { required: "Please enter a Address" },
+                city: { required: "Please enter a city" },
+                state: { required: "Please enter a state" },
+                pincode: { required: "Please enter a pincode", digits: true },
+                country: { required: "Please enter a country" },
+                tan_no: { required: "Please enter a tan no" },
+                cin_no: { required: "Please enter a cin no" },
+                gst_no: { required: "Please enter a gst no" },
+                pan_no: { required: "Please enter a pam no" },
+                contact_person: { required: "Please enter a contact person" },
+                contact_email: { required: "Please enter a contact email", email: "Please enter a valid email address" },
+                contact_mobile: { required: "Please enter a contact mobile", number: "Please enter a valid mobile number" },
+                contact_department: { required: "Please enter a contact department" },
+                contact_designation: { required: "Please enter a contact designation" },
             },
             errorElement: "span",
             errorPlacement: function(error, element) {

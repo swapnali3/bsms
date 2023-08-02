@@ -733,6 +733,9 @@ class PurchaseOrdersController extends VendorAppController
                     <th>Material</th>
                     <th>Short Text</th>
                     <th>Quantity</th>
+                    <th>Delivered</th>
+                    <th>Pending</th>
+                    <th>ASN In-transit</th>
                     <th>Base Value</th>
                     <th>Net Value</th>
             
@@ -748,6 +751,9 @@ class PurchaseOrdersController extends VendorAppController
                  <td>' . $row->PoFooters['material'] . '</td>
                  <td>' . $row->PoFooters['short_text'] . '</td>
                  <td>' . $row->PoFooters['po_qty'] . ' ' . $row->PoFooters['order_unit'] . '</td>
+                 <td></td>
+                 <td></td>
+                 <td></td>
                  <td>' . $row->PoFooters['net_price'] . '</td>
                  <td>' . $row->PoFooters['net_value'] . '</td>
                  

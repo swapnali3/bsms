@@ -9,21 +9,21 @@ function chat(modalBody, sender_id, url, table_name = null, table_pk = null, mt3
                 chatdata = resp;
                 $("#" + modalBody).empty();
                 $.each(resp, function (index, row) {
-                    $("#" + modalBody).append(`<div class="card card-widget">
-                                                    <div class="card-header">
-                                                        <div class="user-block">
-                                                            <img class="img-circle" src="\\img\\`+ Array.from(row['fullname'])[0] + `.png" alt="User Image">
-                                                            <span class="username">` + row['fullname'] + `</span>
-                                                            <span class="description">` + row['updateddate'] + `</span>
-                                                        </div>
-                                                    <div class="card-tools">
-                                                        <button type="button" class="btn btn-tool `+ mt3 + `" id="minimise` + row['id'] + `" data-card-widget="collapse">
-                                                            <i class="fas fa-minus"></i>
-                                                        </button>         
+                    $("#" + modalBody).html(`<div class="card card-widget">
+                                                <div class="card-header">
+                                                    <div class="user-block">
+                                                        <img class="img-circle" src="`+ baseurl + `/img/` + Array.from(row['fullname'])[0] + `.png" alt="User Image">
+                                                        <span class="username">` + row['fullname'] + `</span>
+                                                        <span class="description">` + row['updateddate'] + `</span>
                                                     </div>
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool `+ mt3 + `" id="minimise` + row['id'] + `" data-card-widget="collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>         
                                                 </div>
-                                                <div class="card-body" style="display: block;margin: 6px 24px;"><p>` + row['message'] + `</p></div>
-                                                </div>`);
+                                            </div>
+                                            <div class="card-body" style="display: block;margin: 6px 24px;"><p>` + row['message'] + `</p></div>
+                                            </div>`);
                     if (index != 0 && (row['seen'] == "1" || row['sender_id'] != sender_id)) { $("#minimise" + row["id"]).trigger("click"); }
                 });
             }
@@ -56,11 +56,11 @@ function getbadge(sender_id, url, table_name, table_pk, badge = null) {
         dataType: "json",
         async: false,
         success: function (resp) {
-            var unread = "";
+            var unread = 0;
             if (resp.length > 0) {
                 $.each(resp, function (index, row) { if (row['seen'] == 0 && row['sender_id'] == sender_id) { unread++; } });
             }
-            if (badge > 0) { $("#" + badge).prepend(unread + " "); }
+            if (badge != null) { $("#" + badge).prepend(unread + " "); }
             // return unread;
         },
     });
