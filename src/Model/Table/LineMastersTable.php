@@ -40,6 +40,14 @@ class LineMastersTable extends Table
         $this->setTable('line_masters');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('Factories', [
+            'foreignKey' => 'factory_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->hasMany('ProductionLines', [
+            'foreignKey' => 'line_master_id',
+        ]);
     }
 
     /**
@@ -50,6 +58,10 @@ class LineMastersTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
+        $validator
+            ->integer('factory_id')
+            ->allowEmptyString('factory_id');
+
         $validator
             ->scalar('sap_vendor_code')
             ->maxLength('sap_vendor_code', 10)
@@ -74,6 +86,7 @@ class LineMastersTable extends Table
             ->notEmptyString('uom');
 
         $validator
+            ->boolean('status')
             ->notEmptyString('status');
 
         $validator
@@ -97,6 +110,7 @@ class LineMastersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['sap_vendor_code', 'name']), ['errorField' => 'sap_vendor_code']);
+        $rules->add($rules->existsIn('factory_id', 'Factories'), ['errorField' => 'factory_id']);
 
         return $rules;
     }

@@ -66,6 +66,7 @@ class DailymonitorController extends VendorAppController
         }
         echo json_encode($response); exit;
     }
+
     public function dailyentry()
     {
         $session = $this->getRequest()->getSession();
@@ -78,6 +79,88 @@ class DailymonitorController extends VendorAppController
         ->order(['Dailymonitor.plan_date' => 'DESC']);
         $this->set(compact('dailymonitor'));
         
+    }
+
+    public function upload()
+    {
+        $this->loadModel("Materials");
+        $this->loadModel("ProductionLines");
+        $this->loadModel("LineMasters");
+        $response['status'] = 0;
+        $response['message'] = 'upload fail';
+        $this->autoRender = false;
+        $session = $this->getRequest()->getSession();
+        
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            try {
+                $uploadData = [];
+                if (isset($_FILES['upload_file']) && $_FILES['upload_file']['name'] != "" && isset($_FILES['upload_file']['name'])) {
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($_FILES['upload_file']['tmp_name']);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($_FILES['upload_file']['tmp_name']);
+                    $worksheet = $spreadsheet->getActiveSheet();
+                    $highestRow = $worksheet->getHighestRow(); 
+                    $highestColumn = $worksheet->getHighestColumn();
+                    $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
+
+                    $tmp = [];
+                    for ($row = 2; $row <= $highestRow; $row++) {
+                        $tmp['sap_vendor_code']  = $session->read('vendor_code');
+                        $status = true;
+                        for ($col = 1; $col <= $highestColumnIndex; $col++) {
+                            $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+                            if($col == 1) {
+                                $lm = $this->LineMasters->find()
+                                ->where(['sap_vendor_code' => $session->read('vendor_code'),
+                                'name' => $value])->first();
+                                if($lm){
+                                    $pl = $this->ProductionLines->find()
+                                    ->where(['sap_vendor_code' => $session->read('vendor_code'),
+                                    'line_master_id' => $lm->id])->first();
+                                    if($pl){ $tmp['production_line_id'] = $pl->id; }
+                                    else{break;}
+                                }
+                            } else if($col == 2) {
+                                $mat = $this->Materials->find()
+                                ->where(['sap_vendor_code' => $session->read('vendor_code'),
+                                'description' => $value])->first();
+                                if($mat){ $tmp['material_id'] = $mat->id; }
+                                else{break;}
+                            } else if($col == 3) {
+                                if ($value < 1 || $value == "" || $value == null){ break; }
+                                else{ $tmp['target_production'] = $value; }
+                            } else {
+                                $mat = $this->Dailymonitor->find()
+                                ->where(['sap_vendor_code' => $session->read('vendor_code'),
+                                'production_line_id' => $tmp['production_line_id'],
+                                'material_id' => $tmp['material_id'],
+                                'target_production' => $tmp['target_production'],
+                                'plan_date'=>date('y-m-d')])->first();
+                                $mat->confirm_production = $value;
+                                $mat->status = 3;
+                                if($this->Dailymonitor->save($mat)){
+                                    $response['status'] = 1;
+                                    $response['message'] = 'uploaded Successfully';
+                                } else {
+                                    $status = false;
+                                    $response['status'] = 0;
+                                    $response['message'] = 'file not uploaded';
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    $response['status'] = 0;
+                    $response['message'] = 'file not uploaded';
+                }
+            } catch (\Exception $e) {
+                $response['status'] = 0;
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+        echo json_encode($response);
     }
 
     public function add()

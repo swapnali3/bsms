@@ -12,6 +12,8 @@ use Cake\Validation\Validator;
  * ProductionLines Model
  *
  * @property \App\Model\Table\MaterialsTable&\Cake\ORM\Association\BelongsTo $Materials
+ * @property \App\Model\Table\LineMastersTable&\Cake\ORM\Association\BelongsTo $LineMasters
+ * @property \App\Model\Table\DailymonitorTable&\Cake\ORM\Association\HasMany $Dailymonitor
  *
  * @method \App\Model\Entity\ProductionLine newEmptyEntity()
  * @method \App\Model\Entity\ProductionLine newEntity(array $data, array $options = [])
@@ -84,8 +86,8 @@ class ProductionLinesTable extends Table
             ->notEmptyString('capacity');
 
         $validator
-            ->integer('status')
-            ->allowEmptyString('status');
+            ->boolean('status')
+            ->notEmptyString('status');
 
         $validator
             ->dateTime('added_date')
@@ -107,7 +109,6 @@ class ProductionLinesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['sap_vendor_code', 'material_id', 'line_master_id']), ['errorField' => 'sap_vendor_code']);
         $rules->add($rules->existsIn('material_id', 'Materials'), ['errorField' => 'material_id']);
         $rules->add($rules->existsIn('line_master_id', 'LineMasters'), ['errorField' => 'line_master_id']);
 

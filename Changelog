@@ -292,3 +292,20 @@ CREATE TABLE `line_masters` (
   PRIMARY KEY (`id`)
 );
 // ==================== ============= ====================
+
+CREATE TABLE `db_bsms`.`factories` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `vendor_temps_id` int DEFAULT NULL,
+  `sap_vendor_code` varchar(10) DEFAULT NULL,
+  `factory_code` varchar(45) NOT NULL,
+  `address` VARCHAR(255) NULL,
+  `address_2` VARCHAR(100) NULL,
+  `pincode` VARCHAR(6) NULL,
+  `city` VARCHAR(50) NULL,
+  `state` VARCHAR(100) NULL,
+  `country` VARCHAR(50) NULL,
+  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE `line_masters` ADD COLUMN `factory_id` INT NULL AFTER `id`;
