@@ -6,21 +6,24 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * StockUpload Entity
+ * Factory Entity
  *
  * @property int $id
- * @property string $opening_stock
- * @property string $current_stock
- * @property string $asn_stock
- * @property int $material_id
- * @property int $factories_id
- * @property string $sap_vendor_code
+ * @property int|null $vendor_temps_id
+ * @property string|null $sap_vendor_code
+ * @property string $factory_code
+ * @property string|null $address
+ * @property string|null $address_2
+ * @property string|null $pincode
+ * @property string|null $city
+ * @property string|null $state
+ * @property string|null $country
  * @property \Cake\I18n\FrozenTime|null $added_date
  * @property \Cake\I18n\FrozenTime|null $updated_date
  *
- * @property \App\Model\Entity\Material $material
+ * @property \App\Model\Entity\VendorTemp $vendor_temp
  */
-class StockUpload extends Entity
+class Factory extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -32,14 +35,17 @@ class StockUpload extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'opening_stock' => true,
-        'current_stock' => true,
-        'asn_stock' => true,
-        'material_id' => true,
-        'factories_id' => true,
+        'vendor_temps_id' => true,
         'sap_vendor_code' => true,
+        'factory_code' => true,
+        'address' => true,
+        'address_2' => true,
+        'pincode' => true,
+        'city' => true,
+        'state' => true,
+        'country' => true,
         'added_date' => true,
         'updated_date' => true,
-        'material' => true,
+        'vendor_temp' => true,
     ];
 }

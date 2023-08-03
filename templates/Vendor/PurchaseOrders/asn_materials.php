@@ -71,7 +71,7 @@
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
 
-              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxmaxlength'=>'20', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required')); ?>
             </div>
 
           </div>
@@ -399,6 +399,13 @@
       }
     });
 
+
+    $("#vehicle-no").on("keyup", function() {
+    const currentValue = $(this).val();
+    const capitalizedValue = currentValue.slice(0, 2).toUpperCase() + currentValue.slice(2);
+    $(this).val(capitalizedValue);
+  });
+
     $("#Create-btn").click(function () {
       if ($("#asnForm").valid()) { // Check form validation
         $('#modal-confirm').modal('show'); // Show the modal
@@ -452,8 +459,8 @@
       return false; // cancel the event
     });
 
-    var currStock = $("#current_stock").text();
-    var minStock = $("#minimum_stock").text();
+    var currStock = parseFloat($("#current_stock").text());
+    var minStock = parseFloat($("#minimum_stock").text());
 
     console.log('stock=' + currStock+"="+minStock );
     if(currStock < minStock) {
