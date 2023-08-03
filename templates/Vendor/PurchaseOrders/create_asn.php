@@ -208,8 +208,10 @@
 
         $(document).on("click", "#ckbCheckAll", function () {
             if (this.checked) {
-                $('.checkBoxClass').each(function () {
-                    if ($("#qty" + $(this).data("id")).val() == "") { $("#qty" + $(this).data("id")).val($(this).data("pendingqty")); }
+                $('.checkBoxClass').each(function (key, val) {
+                 
+                    if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")); }
+                    // var 
                     this.checked = true;
                     $("#select" + $(this).data("id")).trigger("change");
                 });

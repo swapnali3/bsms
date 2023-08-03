@@ -31,13 +31,13 @@
               </b>
             </h6>
           </div>
-          <div class="col-6"></div>
+          <div class="col-5"></div>
           <div class="col-md-1">
             <a href="/bsms/vendorpurchase-orders/create-asn" id="id_backmodal"
               class="btn bg-gradient-cancel float-right">
               <i class="fas fa-angle-double-left"></i> BACK</a>
           </div>
-          <div class="col-md-1">
+          <div class="col-md-2 text-center">
             <button type="button" class="btn bg-gradient-submit" id="Create-btn">Create ASN</button>
             <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
               <div class="modal-dialog modal-sm">
@@ -94,7 +94,7 @@
           </div>
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0','type' => 'text','div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -328,11 +328,18 @@
       $('#invoice_value').val(subTotal + gst)
     });
 
+    $.validator.addMethod("validateVehicleNo", function (value, element) {
+    const pattern = /^[A-Z]{2}\d{2}[a-z]{2,}\d{4}$/;
+    return this.optional(element) || pattern.test(value);
+  }, "Please enter a valid vehicle number (e.g., MH02vd2626)");
+
+
 
     $("#asnForm").validate({
       rules: {
         vehicle_no: {
-          required: true
+          required: true,
+          validateVehicleNo: true
         },
         driver_name: {
           required: true,
