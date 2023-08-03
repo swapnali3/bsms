@@ -1,28 +1,23 @@
-<?php $polickActive = ($controller == 'PurchaseOrders') ? 'active' : ''; ?>
-<?php $prlickActive = ($controller == 'PurchaseRequisitions') ? 'active' : ''; ?>
+<?php $polickActive = ($controller == 'PurchaseOrders' && $action == 'index') ? 'active' : ''; ?>
+<?php $createAsnActive = ($controller == 'PurchaseOrders' && $action == 'createAsn' || $action == 'asnMaterials') ? 'active' : ''; ?>
 <?php $dashactive = ($controller == 'Dashboard') ? 'active' : ''; ?>
 <?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
-<?php $settingactive = ($controller == 'Settings') ? 'active' : ''; ?>
-<?php $temvenactive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
-<?php $vendorIndex = ($controller == 'VendorTemps' && $action == 'index') ? 'active' : ''; ?>
-<?php $createvendactive = ($controller == 'VendorTemps' && $action == 'add') ? 'active' : ''; ?>
-<?php $creatsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'active' : ''; ?>
-<?php $rfqactive = ($controller == 'Rfqs') ? 'active' : ''; ?>
-
-<?php $temvenmenuopen = ($controller == 'VendorTemps') ? 'menu-open' : ''; ?>
-<?php $settingmenuopen = ($controller == 'Settings') ? 'menu-open' : ''; ?>
-<?php $temvenactive = ($controller == 'buyervendor-temps') ? 'active' : ''; ?>
-<?php $buyvendaddactive = ($controller == 'buyervendor-temps' && $action == 'add') ? 'menu-open' : ''; ?>
-<?php $buyvendsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'menu-open' : ''; ?>
-<?php $asnactive = ($controller == 'Asn') ? 'active' : ''; ?>
-
-<?php $settingBuyerActive = ($controller == 'Settings' && $action == 'buyerManagement') ? 'active' : ''; ?>
-<?php $settingVendorActive = ($controller == 'Settings' && $action == 'vendorManagement') ? 'active' : ''; 
-?>
+<?php $profileActive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
+<?php $rfqlickActive = ($controller == 'Rfqs') ? 'active' : ''; ?>
+<?php $asnActive = ($controller == 'Asn') ? 'active' : '';?>
+<?php $stockActive = ($controller == 'VendorMaterialStocks') ? 'active' : '';?>
+<?php $materialMaster = ($controller == 'Materials') ? 'active' : ''; ?>
+<?php $stocksUpload = ($controller == 'StockUploads') ? 'active' : ''; ?>
+<?php $productionLine = ($controller == 'ProductionLines') ? 'active' : ''; ?>
+<?php $dailymonitor = ($controller == 'Dailymonitor') ? 'active' : ''; ?>
+<?php $dailyStock = ($controller == 'Dailymonitor' && $action == 'index') ? 'active' : ''; ?>
+<?php $planner = ($controller == 'Dailymonitor' && $action == 'dailyentry') ? 'active' : ''; ?>
+<?php $intransit = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
+<?php $lineMaster = ($controller == 'LineMaters') ? 'active' : ''; ?>
 
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container-fluid">
-        <a href="" class="navbar-brand pl-5 ml-4">
+        <a href="" class="navbar-brand pl-4 ml-4">
             <?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ml-5 ft-text', 'data-image' => '2']) ?>
         </a>
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
@@ -38,36 +33,54 @@
                 <li class="nav-item">
                     <?= $this->Html->link(__('Dashboard'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
                 </li>
-                <li class="nav-item dropdown">
-                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle <?= $vendorIndex ?><?= $createvendactive ?><?= $creatsaevendactive ?>">Vendor Management</a>
-                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                        <li>
-                            <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link vendor_material <?= $vendorIndex ?>">
-                                <p>Vendors</p>
-                              </a>
-                        </li>
-                        <li>
-                            <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/add" class="nav-link <?= $createvendactive ?>">
-                                <p>Add Vendor</p>
-                              </a>
-                        </li>
-                        <li>
-                            <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>">
-                                <p>SAP Vendor Import</p>
-                              </a>
-                        </li>
-                    </ul>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('Purchase Orders'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link po_acknowledge $polickActive" , 'escape' => false]) ?>
                 </li>
                 <li class="nav-item">
-                    <?= $this->Html->link(__('Purchase Orders'), ['controller' => '/purchase-orders', 'action' => 'view'], ['class' => "nav-link po_acknowledge $polickActive", 'escape' => false]) ?>
-                </li>
-                <li class="nav-item">
-                    <?= $this->Html->link(__('Intransit ASN'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
-                </li>
-                <li class="nav-item">
-                    <?= $this->Html->link(__('Gate Entry'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
+                    <?= $this->Html->link(__('Create ASN'), ['controller' => '/purchase-orders', 'action' => 'create-asn'], ['class' => "nav-link $createAsnActive" , 'escape' => false]) ?>
                 </li>
                 
+                <li class="nav-item ">
+                <?= $this->Html->link(__('ASN List'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
+                </li>                  
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        class="nav-link dropdown-toggle <?= $materialMaster ?><?= $lineMaster ?><?= $stocksUpload ?><?= $productionLine ?>">
+                    Vendor Master    
+                    </a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li class="nav-item ">
+                            <?= $this->Html->link(__('Material Master'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
+                          </li>
+                          <li class="nav-item ">
+                            <?= $this->Html->link(__('Line Master'), ['controller' => 'line-masters', 'action' => 'index'], ['class' => "nav-link $lineMaster", 'escape' => false]) ?>
+                          </li>
+                          <li class="nav-item ">
+                            <?= $this->Html->link(__('Stocks Upload'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+                          </li>
+                          <li class="nav-item ">
+                            <?= $this->Html->link(__('Production Line'), ['controller' => 'ProductionLines', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
+                          </li>
+                    </ul>
+                </li>                  
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        class="nav-link dropdown-toggle <?= h($dailymonitor) ?><?= h($planner) ?>">
+                        Production  
+                    </a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li class="nav-item ">
+                            <?= $this->Html->link(__('Planner'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
+                          </li>
+                          <li class="nav-item ">
+                            <?= $this->Html->link(__('Confirmation'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link $planner", 'escape' => false]) ?>
+                          </li>
+                    </ul>
+                </li>
+                <li class="nav-item ">
+                    <?= $this->Html->link(__('Intransit'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intransit", 'escape' => false]) ?>
+                </li>
+
                 <?= $this->element('header/menu') ?>
             </ul>
         </div>
