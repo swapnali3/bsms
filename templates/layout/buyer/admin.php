@@ -75,11 +75,9 @@
     <script>var baseurl = "<?= $this->Url->build('/') ?>";</script>
 </head>
 
-<body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
+<body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
-        <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">
-            <?= $this->element('header/main') ?>
-        </nav>
+        <?= $this->element('header/main') ?>
 
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>" style="background-color:#482668;">
             <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
