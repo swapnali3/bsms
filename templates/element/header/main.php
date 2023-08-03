@@ -1,242 +1,107 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-<style>
-    body,
-    h5,
-    h6,
-    p,
-    h4,
-    h3,
-    label {
-        font-family: 'Roboto', sans-serif !important;
-    }
+<?php $polickActive = ($controller == 'PurchaseOrders') ? 'active' : ''; ?>
+<?php $prlickActive = ($controller == 'PurchaseRequisitions') ? 'active' : ''; ?>
+<?php $dashactive = ($controller == 'Dashboard') ? 'active' : ''; ?>
+<?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
+<?php $settingactive = ($controller == 'Settings') ? 'active' : ''; ?>
+<?php $temvenactive = ($controller == 'VendorTemps') ? 'active' : ''; ?>
+<?php $vendorIndex = ($controller == 'VendorTemps' && $action == 'index') ? 'active' : ''; ?>
+<?php $createvendactive = ($controller == 'VendorTemps' && $action == 'add') ? 'active' : ''; ?>
+<?php $creatsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'active' : ''; ?>
+<?php $rfqactive = ($controller == 'Rfqs') ? 'active' : ''; ?>
 
-    .custom-i {
-        background-color: #ffc107 !important;
-    }
+<?php $temvenmenuopen = ($controller == 'VendorTemps') ? 'menu-open' : ''; ?>
+<?php $settingmenuopen = ($controller == 'Settings') ? 'menu-open' : ''; ?>
+<?php $temvenactive = ($controller == 'buyervendor-temps') ? 'active' : ''; ?>
+<?php $buyvendaddactive = ($controller == 'buyervendor-temps' && $action == 'add') ? 'menu-open' : ''; ?>
+<?php $buyvendsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'menu-open' : ''; ?>
+<?php $asnactive = ($controller == 'Asn') ? 'active' : ''; ?>
 
-    .navbar {
-        padding: 0rem 0rem
-    }
+<?php $settingBuyerActive = ($controller == 'Settings' && $action == 'buyerManagement') ? 'active' : ''; ?>
+<?php $settingVendorActive = ($controller == 'Settings' && $action == 'vendorManagement') ? 'active' : ''; 
+?>
 
-    .brand-link {
-        padding: 0.4rem 0.4rem
-    }
-
-    .user-panel img {
-        width: 1.5rem
-    }
-
-    /* aside.main-sidebar:hover {
-    width: 210px !important;
-} */
-    .main-sidebar,
-    .main-sidebar::before {
-        width: 207px
-    }
-
-    .layout-fixed .brand-link {
-        width: 207px
-    }
-
-    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
-    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
-    body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
-        margin-left: 209px
-    }
-
-    .user-panel .image {
-        padding-left: 0px;
-    }
-
-    .badge-warning {
-        background-color: #ffc107
-    }
-
-    .navbar.card-header h4 {
-        color: #004d87;
-        text-transform: uppercase;
-        font-size: 20px;
-        letter-spacing: 0.04rem;
-        margin-bottom: 0px;
-        margin-top: 0px;
-    }
-
-    .navbar-nav .nav-item i.fas.fa-bars {
-        line-height: 1.6rem;
-    }
-
-    .nav-sidebar .nav-item .nav-link p {
-        font-size: 13px;
-    }
-
-    .user .thumb {
-        margin-right: 10px;
-        height: 35px;
-        width: 35px;
-        border-radius: 50px;
-        color: #fff;
-        text-align: center;
-    }
-
-    .user .thumb img {
-        width: 35px;
-    }
-
-    .user {
-        display: flex;
-        align-items: center;
-    }
-
-    .user-setting {
-        width: auto;
-        max-width: 250px;
-        min-width: 200px;
-    }
-
-    .user-info h6 {
-        white-space: initial;
-    }
-
-    .notification-lists .notificationTittle {
-        color: #16181b;
-    }
-    .navbar-nav .notification-list  {
-    cursor: pointer;
-}
-</style>
-
-<ul class="navbar-nav">
-    <li class="nav-item">
-        <a class="nav-link ftimage" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-    </li>
-    <?= $this->element('header/menu') ?>
-</ul>
-
-<div class="navbar card-header" style="margin-top:0.3vw;border-bottom:none;">
-    <h4><b><?= (isset($headTitle)) ? $headTitle : '' ?></b></h4>
-    <!-- <b>
-    <img src="<?= $this->Url->build('/') ?>img/rect_logo.png" alt="vekpro" style="width: 8vw;">
-  </b> -->
-    <!-- </span> - &nbsp; <b>Vendor Customer Procurement</b> -->
-</div>
-
-<ul class="navbar-nav ml-auto">
-    <li class="nav-item">
-        <!-- <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-      <i class="fas fa-expand-arrows-alt"></i>
-    </a> -->
-    </li>
-    <li class="nav-item dropdown show">
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-            <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge custom-i">0</span>
+<nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+    <div class="container-fluid">
+        <a href="" class="navbar-brand pl-5 ml-4">
+            <?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ml-5 ft-text', 'data-image' => '2']) ?>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list"
-            style="left: inherit; right: 0px;">
-            <div class="d-flex justify-content-between">
-                <span class="dropdown-header notifyView"> Notifications</span>
-                <span class="dropdown-header  clearNotificationsAll" style="color:#004d87">Clear All</span>
-            </div>
+        <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="dropdown-divider"></div>
-
-            <div class="notification-lists">
-
-            </div>
-
-            <!-- <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope text-info mr-2"></i>Asn Material
-                        <span class="float-right text-muted text-sm">3 mins</span>
-                    </a>
-                    <div class="dropdown-divider"></div> -->
-
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('Dashboard'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
+                </li>
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle <?= $vendorIndex ?><?= $createvendactive ?><?= $creatsaevendactive ?>">Vendor Management</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li>
+                            <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps" class="nav-link vendor_material <?= $vendorIndex ?>">
+                                <p>Vendors</p>
+                              </a>
+                        </li>
+                        <li>
+                            <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/add" class="nav-link <?= $createvendactive ?>">
+                                <p>Add Vendor</p>
+                              </a>
+                        </li>
+                        <li>
+                            <a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>">
+                                <p>SAP Vendor Import</p>
+                              </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('Purchase Orders'), ['controller' => '/purchase-orders', 'action' => 'view'], ['class' => "nav-link po_acknowledge $polickActive", 'escape' => false]) ?>
+                </li>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('Intransit ASN'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
+                </li>
+                <li class="nav-item">
+                    <?= $this->Html->link(__('Gate Entry'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
+                </li>
+                
+                <?= $this->element('header/menu') ?>
+            </ul>
         </div>
-    </li>
 
-    <li class="nav-item dropdown show">
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-            <div class="user-panel d-flex">
-                <div class="image">
-                    <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2"
-                        alt="User Image" style="box-shadow:none !important;margin-right:15px">
-                </div>
-            </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting"
-            style="left: inherit; right: 10px;">
-            <span class="dropdown-header">
-                <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png"
-                            class="img-circle" alt=""></span>
-                    <div class="user-info text-left">
-                        <h6 class="mb-0 text-info">
-                            <?php echo $this->getRequest()->getSession()->read('first_name'); ?>
-                        </h6>
+        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            <li class="nav-item dropdown show">
+                <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+                    <i class="far fa-bell"></i>
+                    <span class="badge badge-warning navbar-badge custom-i">0</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list"
+                    style="left: inherit; right: 0px;">
+                    <div class="d-flex justify-content-between">
+                        <span class="dropdown-header notifyView"> Notifications</span>
+                        <span class="dropdown-header  clearNotificationsAll" style="color:#004d87">Clear All</span>
+                    </div>
+                    <div class="dropdown-divider"></div>
+                    <div class="notification-lists">
                     </div>
                 </div>
-                <!-- <p class="unm">Snehal</p>
-                <p class="role">Vendor</p> -->
-            </span>
-            <div class="dropdown-divider"></div>
-
-            <?php if ($role == 2) : ?>
-            <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>"
-                class="dropdown-item">
-                <i class="fas fa-user-cog text-info mr-2"></i>
-                <span>Profile</span>
-            </a>
-            <?php endif; ?>
-            <?php if ($role == 3) : ?>
-            <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>"
-                class="dropdown-item">
-                <i class="fas fa-user-cog text-info mr-2"></i>
-                <span>Profile</span>
-            </a>
-            <?php endif; ?>
-            <div class="dropdown-divider"></div>
-            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>"
-                class="dropdown-item">
-                <i class="fas fa-power-off text-danger mr-2"></i>
-                <span>Logout</span>
-            </a>
-
-        </div>
-    </li>
-
-
-
-
-    <!-- <div style="font-size: small; color: darkcyan; padding: 0vw .5vw;">
-        <b><?= $full_name ?></b>
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-          <i class="far fa-bell"></i>
-          <b class="badge badge-warning navbar-badge">15</b>
-          
-        </a>
-      </div> -->
-
-</ul>
+            </li>
+        </ul>
+    </div>
+</nav>
 
 
 <script>
-
-
     $(document).on("click", ".notificationTittle", function (event) {
         var menu_class = $(this).data("class");
         var targetElement = document.querySelector("." + menu_class);
-
-        if (targetElement) {
-            targetElement.click();
-        }
-
-
+        if (targetElement) { targetElement.click(); }
     });
 
-
-
     $(document).ready(function () {
-
         $(document).on("click", ".clearNotifications", function (event) {
             event.stopPropagation();
             var dataId = $(this).attr('id');
@@ -262,14 +127,12 @@
                             $('.dropdown-header.notifyView').text(newCount + ' Notifications');
                         }
                     }
-
                 },
                 error: function (xhr, status, error) {
                     console.log(error);
                 }
             });
         });
-
 
         $('.clearNotificationsAll').click(function (event) {
 
@@ -301,6 +164,5 @@
                 }
             });
         });
-
     })
 </script>
