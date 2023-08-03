@@ -133,7 +133,7 @@
                 <th>Material</th>
                 <th>Opening Stock</th>
                 <th>Production Stock</th>
-                <th>ASN Stock</th>
+                <th>ASN / IN transit</th>
                 <th>Closing Stock</th>
               </tr>
             </thead>

@@ -17,7 +17,7 @@
 		rel="stylesheet" type="text/css" />
 	<?= $this->Html->css(['cake', 'bootstrap', 'style', 'dark', 'font-icons', 'animate', 'magnific-popup', 'components/bs-select.css', 'custom', 'settings', 'layers', 'navigation', 'custom']) ?>
 	<script>
-		var baseUrl = '<?= $this->Url->build('/') ?>';
+		var baseurl = '<?= $this->Url->build('/') ?>';
 	</script>
 	<?= $this->fetch('meta') ?>
 	<?= $this->fetch('css') ?>
