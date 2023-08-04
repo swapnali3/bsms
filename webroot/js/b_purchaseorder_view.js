@@ -330,7 +330,7 @@ $(document).on("click", ".flu", function () {
         if (response.totalQty) {
             $(".actualTotalValue").text(response.totalQty);
         }
-        if (response.html != "") {
+        if (response.status == 1) {
             var subtable = `<td colspan="6" style="background-color:white !important;">
                                 <table class="table mb-0" id="example2">
                                 <thead>

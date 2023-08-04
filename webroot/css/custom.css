@@ -687,6 +687,7 @@ input.form-control.search {
 .buyer-dash .products-list .product-title {
     font-weight: 600;
     font-size: 14px;
+    margin-top: 5px;
     color: #999;
     margin-left: 10px;
 }

@@ -34,6 +34,8 @@ switch ($vendorTemp->status) {
 <!-- <?= $this->Html->css('v_index.css') ?> -->
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" />
+
 <style>
 .hide {
     display: none;
@@ -388,7 +390,7 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('city', ['name' => 'permanent_address[city]','class' => 'form-control','id'=>'id_permanent_address_city']); ?>
+                                            <?php echo $this->Form->control('city', ['type'=>'text', 'name' => 'permanent_address[city]','class' => 'form-control','id'=>'id_permanent_address_city']); ?>
                                         </div>
                                     </div>
 
@@ -405,7 +407,7 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('Telephone', ['name' => 'permanent_address[telephone]','type'=>'number','class' => 'form-control','id'=>'id_permanent_address_telephone']); ?>
+                                            <?php echo $this->Form->control('Telephone', ['name' => 'permanent_address[telephone]','type'=>'number','class' => 'form-control','maxlength'=>'10','id'=>'id_permanent_address_telephone']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mt-3">
@@ -433,22 +435,24 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_pincode', ['name' => 'registered_office[pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'register_office_pincode']); ?>
+                                            <?php echo $this->Form->control('register_office_pincode', 
+                                            ['type'=>'number','name' => 'registered_office[pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'register_office_pincode']); ?>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="col-3 mt-3 col-md-3">
+                                        <div class="form-group">
+                                            <?php echo $this->Form->control('register_office_city', ['type'=>'text','name' => 'registered_office[city]','class' => 'form-control','label' =>'City','id'=>'register_office_city']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_city', ['name' => 'registered_office[city]','class' => 'form-control','label' =>'City','id'=>'register_office_city']); ?>
-                                        </div>
-                                    </div>
-                                    <div class="col-3 mt-3 col-md-3">
-                                        <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_country', ['name' => 'registered_office[country]','class' => 'selectpicker form-control my-select', 'options' => $countries,'label'=>'Country','data-live-search' => 'true', 'title' => 'Select Country','id'=>'register_office_country']); ?>
+                                            <?php echo $this->Form->control('register_office_country', ['name' => 'registered_office[country]','class' => 'selectpicker show-menu-arrow form-control my-select1', 'options' => $countries,'label'=>'Country','data-live-search' => 'true', 'title' => 'Select Country','id'=>'register_office_country']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_state', ['name' => 'registered_office[state]','class' => 'selectpicker form-control my-select', 'options' => $states, 'label'=>'State', 'data-live-search' => 'true', 'title' => 'Select State','id'=>'register_office_state']); ?>
+                                            <?php echo $this->Form->control('register_office_state', ['name' => 'registered_office[state]','class' => 'selectpicker form-control my-select1', 'options' => $states, 'label'=>'State', 'data-live-search' => 'true', 'title' => 'Select State','id'=>'register_office_state']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mt-3">
@@ -474,22 +478,22 @@ switch ($vendorTemp->status) {
                                         <div class="row branch_office branch_office_0" data-id="0" id="branch_office_0">
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_address1', ['name' => 'branch[branch_office][0][address1]', 'id'=>'branch_office_0_address1','class' => 'form-control', 'label' => "Address 1"]); ?>
+                                                    <?php echo $this->Form->control('register_office_address1', ['type' => 'text','name' => 'branch[branch_office][0][address1]', 'id'=>'branch_office_0_address1','class' => 'form-control', 'label' => "Address 1"]); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_address2', ['name' => 'branch[branch_office][0][address2]', 'id'=>'branch_office_0_address2','label' => 'Address 2', 'class' => 'form-control']); ?>
+                                                    <?php echo $this->Form->control('register_office_address2', ['type' => 'text','name' => 'branch[branch_office][0][address2]', 'id'=>'branch_office_0_address2','label' => 'Address 2', 'class' => 'form-control']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_pincode', ['name' => 'branch[branch_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'branch_office_0_pincode']); ?>
+                                                    <?php echo $this->Form->control('register_office_pincode', ['type' => 'number','name' => 'branch[branch_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'branch_office_0_pincode']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_city', ['name' => 'branch[branch_office][0][city]','class' => 'form-control','label' =>'City','id'=>'branch_office_0_city']); ?>
+                                                    <?php echo $this->Form->control('register_office_city', ['type' => 'text','name' => 'branch[branch_office][0][city]','class' => 'form-control','label' =>'City','id'=>'branch_office_0_city']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
@@ -763,12 +767,12 @@ switch ($vendorTemp->status) {
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_pincode', ['name' => 'prdflt[factory_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'factory_0_pincode']); ?>
+                                                    <?php echo $this->Form->control('register_office_pincode', ['type'=>'number','name' => 'prdflt[factory_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'factory_0_pincode']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_city', ['name' => 'prdflt[factory_office][0][city]','class' => 'form-control','label' =>'City','id'=>'factory_0_city']); ?>
+                                                    <?php echo $this->Form->control('register_office_city', ['type'=>'text','name' => 'prdflt[factory_office][0][city]','class' => 'form-control','label' =>'City','id'=>'factory_0_city']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
@@ -967,13 +971,13 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_email', ['name' => 'contact_person[email]','class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('contact_email', ['type'=>'email','name' => 'contact_person[email]','class' => 'form-control']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_mobile', ['name' => 'contact_person[mobile]','class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('contact_mobile', ['type'=>'number','name' => 'contact_person[mobile]','class' => 'form-control']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
@@ -1041,7 +1045,7 @@ switch ($vendorTemp->status) {
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][pincode]', ['class' => 'form-control ','id'=>'id_pincode', 'label' => 'Pincode']); ?>
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][pincode]', ['type'=>'number','class' => 'form-control ','id'=>'id_pincode', 'label' => 'Pincode']); ?>
                                                 </div>
                                             </div>
 
@@ -1094,14 +1098,14 @@ switch ($vendorTemp->status) {
 
 
                                             <div class="col-3 mt-3">
-                                                <label for="id_bank_key">Bank Key (Account No.)</label>
+                                                <label for="id_bank_key">Bank Key (IFSC Code)</label>
                                                 <input type="text" name="bank[key]" class="form-control"
                                                     id="id_bank_key">
                                             </div>
 
                                             <div class="col-3 mt-3">
                                                 <label for="id_bank_no">Bank number</label>
-                                                <input type="text" class="form-control" id="id_bank_no"
+                                                <input type="number" class="form-control" id="id_bank_no"
                                                     name="bank[number]">
                                             </div>
 
@@ -1331,9 +1335,8 @@ switch ($vendorTemp->status) {
                                 aria-labelledby="tab_customerAddress" style="background-color: white;">
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
-                                        <h5 class="modal-title">
-                                            Address of your reputed customers to whom reference can be made (use
-                                            separate sheet) if necessary
+                                        <h5 class="modal-title" style="text-transform: lowercase;">
+                                            Address of your reputed customers to whom reference can be made (use separate sheet) if necessary
                                             <span data-class="customer" class="badge lgreenbadge mt-2 add"
                                                 id="id_customer_add" data-toggle="tooltip" data-placement="right"
                                                 title="Add Reputed Customer">
@@ -1355,7 +1358,7 @@ switch ($vendorTemp->status) {
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('reputed[customer][0][pincode]', ['class' => 'form-control ','id'=>'','label' => 'Pincode']); ?>
+                                                    <?php echo $this->Form->control('reputed[customer][0][pincode]', ['type'=>'number','class' => 'form-control ','id'=>'','label' => 'Pincode']); ?>
                                                 </div>
                                             </div>
 
@@ -1383,7 +1386,7 @@ switch ($vendorTemp->status) {
                                                         class="form-control">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-2 mt-3">
+                                            <div class="col-sm-12 col-md-3 mt-3">
                                                 <div class="form-group">
                                                     <?php echo $this->Form->control('register_office_faxno', ['name' => 'reputed[customer][0][faxno]', 'id' => '','type' => 'number', 'class' => 'form-control', 'label' => 'Fax No.']); ?>
                                                 </div>
@@ -1426,5 +1429,5 @@ switch ($vendorTemp->status) {
         <?= $this->Form->end() ?>
     </div>
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
 <?= $this->Html->script('v_vendortemps_edit') ?>
