@@ -293,6 +293,8 @@ CREATE TABLE `line_masters` (
 );
 // ==================== ============= ====================
 
+// ==================== factories =======================
+// ==================== ============= ====================
 CREATE TABLE `db_bsms`.`factories` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `vendor_temps_id` int DEFAULT NULL,
@@ -309,3 +311,23 @@ CREATE TABLE `db_bsms`.`factories` (
   PRIMARY KEY (`id`));
 
 ALTER TABLE `line_masters` ADD COLUMN `factory_id` INT NULL AFTER `id`;
+// ==================== ============= ====================
+
+
+
+// ====================  stock_uploads =======================
+// ==================== ============= ===============
+DROP TABLE IF EXISTS `stock_uploads`;
+CREATE TABLE IF NOT EXISTS `stock_uploads` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `opening_stock` decimal(12,2) NOT NULL,
+  `current_stock` decimal(12,2) NOT NULL,
+  `asn_stock` decimal(12,2) NOT NULL,
+  `material_id` int NOT NULL,
+  `factories_id` int NOT NULL,
+  `sap_vendor_code` varchar(10) NOT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `material_id` (`material_id`,`sap_vendor_code`)
+);

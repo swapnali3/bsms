@@ -8,7 +8,7 @@
 <?php $createvendactive = ($controller == 'VendorTemps' && $action == 'add') ? 'active' : ''; ?>
 <?php $creatsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'active' : ''; ?>
 <?php $rfqactive = ($controller == 'Rfqs') ? 'active' : ''; ?>
-
+<?php $stocksUpload = ($controller == 'StockUploads') ? 'active' : ''; ?>
 <?php $temvenmenuopen = ($controller == 'VendorTemps') ? 'menu-open' : ''; ?>
 <?php $settingmenuopen = ($controller == 'Settings') ? 'menu-open' : ''; ?>
 <?php $temvenactive = ($controller == 'buyervendor-temps') ? 'active' : ''; ?>
@@ -89,6 +89,10 @@
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fa fa-universal-access nav-icon"></i><p>Gate Entry</p>'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
 </li>
+
+<li class="nav-item ">
+      <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => '/stock-uploads', 'action' => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+  </li>
 
 <!-- <li class="nav-item">  <?= $this->Html->link(__('<i class="fas fa-vector-square nav-icon"></i><p>Vendor Material Master</p>'), ['controller' => 'vendormaterial', 'action' => 'index'], ['class' => "nav-link vmmactive" , 'escape' => false]) ?> </li> -->
 
