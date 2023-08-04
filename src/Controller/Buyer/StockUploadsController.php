@@ -315,8 +315,11 @@ class StockUploadsController extends BuyerAppController
                                 $datas['line_item'] = $value;
                             }
                              else if ($col == 5) {
-                            
-                               $tmp['material_id'] = 1;
+                                $materials = $this->Materials->find('all')
+                                ->select(['id', 'code'])
+                                ->where(['code IN' => $value])->first();
+    
+                               $tmp['material_id'] = $materials['id'] ? $materials['id'] : null;
                                $datas['material_id'] = $value;
                             }
                             else if($col == 6) {
@@ -326,6 +329,7 @@ class StockUploadsController extends BuyerAppController
                             else if($col == 7) {
                                 $tmp['opening_stock'] = $value;
                                 $datas['opening_stock'] = $value;
+                                $tmp['current_stock'] = $value;
                             }
                             else if($col == 8) {
                                 $datas['uom'] = $value;
@@ -333,13 +337,11 @@ class StockUploadsController extends BuyerAppController
                             
                         }
                         $stockData[] = $datas;
-                        $tmp['current_stock'] = 3000;
                         $tmp['asn_stock'] = 0;
                         $uploadData[] = $tmp;   
                     }
 
-                   
-
+      
                     $columns = array_keys($uploadData[0]);
                     $upsertQuery = $this->StockUploads->query();
                     $upsertQuery->insert($columns);
