@@ -226,6 +226,11 @@ switch ($vendorTemp->status) {
     color: #fff;
 }
 
+#onbordingSubmit .form-control[disabled] {
+    padding: 0 !important;
+    line-height: 1.45 !important;
+}
+
 /* Reject Button */
 </style>
 
