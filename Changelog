@@ -332,6 +332,10 @@ CREATE TABLE IF NOT EXISTS `stock_uploads` (
   UNIQUE KEY `material_id` (`material_id`,`sap_vendor_code`)
 );
 
+// ==================== Line Master ====================
+author: JThayil
+date: 05.08.2023
+// ==================== ============= ====================
 ALTER TABLE `payment_terms` CHANGE COLUMN `description` `description` VARCHAR(250) NULL DEFAULT NULL ;
 
 INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('1',    '0001', '0001 - Payable immediately Due net', '1');
