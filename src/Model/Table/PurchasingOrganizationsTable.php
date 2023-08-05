@@ -57,6 +57,11 @@ class PurchasingOrganizationsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->scalar('code')
+            ->maxLength('code', 15)
+            ->allowEmptyString('code');
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 50)
             ->requirePresence('name', 'create')
@@ -71,7 +76,6 @@ class PurchasingOrganizationsTable extends Table
 
         $validator
             ->dateTime('updated_date')
-            ->requirePresence('updated_date', 'create')
             ->notEmptyDateTime('updated_date');
 
         return $validator;
