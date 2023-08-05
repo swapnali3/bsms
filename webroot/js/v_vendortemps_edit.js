@@ -69,6 +69,44 @@ $(document).on("click", ".add", function () {
         </span>
     </div>`;
     $("." + clas + "_card_body").append('<div class="row ' + clas + ' ' + clas + '_' + nextid + '" data-id="' + nextid + '" id="' + clas + '_' + nextid + '">' + str + '</div><hr class="' + clas + '_' + nextid + '" style="border: revert;">');
+
+    // $('.' + clas + '_' + nextid + ' .my-select').selectpicker('refresh');
+    // initializeSelectpicker('.' + clas + '_' + nextid + ' .my-select');
+
+});
+
+function initializeSelectpicker(select) {
+    $(select).selectpicker('refresh');
+}
+
+function validateMaxLength(inputElement) {
+    var inputValue = inputElement.val();
+    var maxLength = parseInt(inputElement.attr('maxlength'));
+    if (inputValue.length > maxLength) {
+        inputValue = inputValue.slice(0, maxLength);
+        inputElement.val(inputValue);
+    }
+}
+
+$(document).on('input', '.pincode-input', function () {
+    validateMaxLength($(this));
+});
+
+
+$(document).on('input', '.tel-no', function () {
+    validateMaxLength($(this));
+});
+
+
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+$(document).on('input', '.capitalize-first-letter', function () {
+    var inputValue = $(this).val();
+    if (inputValue.length > 0) {
+        $(this).val(capitalizeFirstLetter(inputValue));
+    }
 });
 
 
