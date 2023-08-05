@@ -6,8 +6,6 @@ namespace App\Controller\Vendor;
 
 use Cake\Datasource\ConnectionManager;
 
-
-
 use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
@@ -15,19 +13,9 @@ use Cake\Routing\Router;
 use Cake\Http\Client;
 
 
-/**
- * VendorTemps Controller
- *
- * @property \App\Model\Table\VendorTempsTable $VendorTemps
- * @method \App\Model\Entity\VendorTemp[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class VendorTempsController extends VendorAppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
+
     public function initialize(): void
     {
         parent::initialize();
@@ -35,13 +23,7 @@ class VendorTempsController extends VendorAppController
         $this->set('flash', $flash);
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Vendor Temp id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    
     public function view($id = null)
     {
         $flash = [];
@@ -100,30 +82,37 @@ class VendorTempsController extends VendorAppController
     }
 
 
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Vendor Temp id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit($id = null)
     {
 
-        // print_r($id);exit;
         $this->loadModel("VendorTemps");
+        $this->loadModel("Factories");
         $this->loadModel("Countries");
         $this->loadModel("States");
         $this->loadModel("Users");
+        $session = $this->getRequest()->getSession();
         $vendorTemp = $this->VendorTemps->get($id);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
             try {
-                echo '<pre>'; print_r($request);exit;
-            } catch (\PDOException $e) { }
-        }        
+                echo '<pre>';
+                foreach ($request["prdflt"]["factory_office"] as $key => $value) {
+                    $factory = $this->Factories->newEmptyEntity();
+                    $value["vendor_temps_id"] = $id;
+                    $value["sap_vendor_code"] = $vendorTemp->sap_vendor_code;
+                    $value["factory_code"] = substr(strtoupper($value['country']), 0, 2)."_".substr(strtoupper($value['state']), 0, 2)."_".substr(strtoupper($value['city']), 0, 2)."_Unit".($key+1);
+                    $factory = $this->Factories->patchEntity($factory, $value);
+                    if ($this->Factories->save($factory)) {
+                        print_r($key); print_r($value);
+                    }
+                }
+                exit;
+            } catch (\PDOException $e) {
+                $flash = ['type' => 'error', 'msg' => ($e->getMessage())];
+            }
+        }
+
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
@@ -131,8 +120,6 @@ class VendorTempsController extends VendorAppController
         $countries = $this->Countries->find('list', ['keyField' => 'country_name', 'valueField' => 'country_name'])->all();
         $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
 
-        
-      
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));
 
 
