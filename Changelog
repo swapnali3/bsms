@@ -95,19 +95,19 @@ END
 author: JThayil
 date: 22.06.2023
 // ==================== ============= ====================
-CREATE TABLE `db_bsms`.`vendor_status` (
+CREATE TABLE `vendor_status` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `status` INT NOT NULL,
   `description` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `status_UNIQUE` (`status` ASC) VISIBLE);
 
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('0', 'Sent to Vendor');
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('1', 'Pending for approval');
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('2', 'Sent to SAP');
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('3', 'Approved');
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('4', 'Rejected');
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('5', 'SAP Import');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('0', 'Sent to Vendor');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('1', 'Pending for approval');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('2', 'Sent to SAP');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('3', 'Approved');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('4', 'Rejected');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('5', 'SAP Import');
 // ==================== Vendor Status ====================
 
 
@@ -131,7 +131,7 @@ ALTER TABLE `vendor_temps` ADD COLUMN `update_flag` INT NULL DEFAULT '0' ;
 author: JThayil
 date: 29.06.2023
 // ==================== ============= ====================
-ALTER TABLE `db_bsms`.`vendor_temps` DROP INDEX `email_UNIQUE` ;
+ALTER TABLE `vendor_temps` DROP INDEX `email_UNIQUE` ;
 // ==================== Vendor Update ====================
 
 
@@ -293,23 +293,24 @@ CREATE TABLE `line_masters` (
 );
 // ==================== ============= ====================
 
-// ==================== factroes =======================
+// ==================== factories =======================
 // ==================== ============= ====================
 CREATE TABLE `factories` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `vendor_temps_id` int DEFAULT NULL,
   `sap_vendor_code` varchar(10) DEFAULT NULL,
   `factory_code` varchar(45) NOT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `address_2` varchar(100) DEFAULT NULL,
-  `pincode` varchar(6) DEFAULT NULL,
-  `city` varchar(50) DEFAULT NULL,
-  `state` varchar(100) DEFAULT NULL,
-  `country` varchar(50) DEFAULT NULL,
-  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `address` VARCHAR(255) NULL,
+  `address_2` VARCHAR(100) NULL,
+  `pincode` VARCHAR(6) NULL,
+  `city` VARCHAR(50) NULL,
+  `state` VARCHAR(100) NULL,
+  `country` VARCHAR(50) NULL,
+  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE `line_masters` ADD COLUMN `factory_id` INT NULL AFTER `id`;
 // ==================== ============= ====================
 
 
@@ -323,19 +324,337 @@ CREATE TABLE IF NOT EXISTS `stock_uploads` (
   `current_stock` decimal(12,2) NOT NULL,
   `asn_stock` decimal(12,2) NOT NULL,
   `material_id` int NOT NULL,
-  `factories_id` int NOT NULL,
+  `factories_id` int NULL,
   `sap_vendor_code` varchar(10) NOT NULL,
   `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
   `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `material_id` (`material_id`,`sap_vendor_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+);
 
---
--- Dumping data for table `stock_uploads`
---
+ALTER TABLE `payment_terms` CHANGE COLUMN `description` `description` VARCHAR(250) NULL DEFAULT NULL ;
 
-INSERT INTO `stock_uploads` (`id`, `opening_stock`, `current_stock`, `asn_stock`, `material_id`, `factories_id`, `sap_vendor_code`, `added_date`, `updated_date`) VALUES
-(1, '100.00', '3000.00', '0.00', 1, 1, '0000100186', '2023-08-03 17:14:17', '2023-08-03 17:14:17'),
-(2, '101.00', '3000.00', '0.00', 1, 1, '0000100187', '2023-08-03 17:14:17', '2023-08-03 17:14:17');
-COMMIT;
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('1',    '0001', '0001 - Payable immediately Due net', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('2',    '0002', '0002 - within 14 days 2 % cash discount', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('3',    '0002', '0002 - within 30 days Due net', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('4',    '0003', '0003 - within 14 days 3 % cash discount', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('5',    '0003', '0003 - within 20 days 2 % cash discount', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('6',    '0003', '0003 - within 30 days Due net', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('7',    '0004', '0004 - Payable immediately Due net', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('8',    '0004', '0004 - Baseline date on End of the month', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('9',    '0005', '0005 - Payable immediately Due net', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('10',   '0005', '0005 - Baseline date on 10 of next month', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('11',   '0006', '0006 - Before End of the month 4 % cash discount', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('12',   '0006', '0006 - Before 15 of the next month ;; 2 % cash discount', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('13',   '0006', '0006 - Before 15 in 2 months Due net', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('14',   '0007', '0007 - For incoming invoices until 15 of the month', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('15',   '0007', '0007 - Before 15 of the next month ;; 2 % cash discount', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('16',   '0007', '0007 - Before End of the next month ;; Due net', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('17',   '0007', '0007 - For incoming invoices until End  of the month', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('18',   '0007', '0007 - Before End of the next month ;; 2 % cash discoun', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('19',   '0007', '0007 - Before 15 in 2 months Due net', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('20',   '0008', '0008 - For incoming invoices until 15 of the month', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('21',   '0008', '0008 - within 14 days 2 % cash discount', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('22',   '0008', '0008 - within 30 days 1.5 % cash discount', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('23',   '0008', '0008 - within 45 days Due net', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('24',   '0008', '0008 - Baseline date on 30 of the month', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('25',   '0008', '0008 - For incoming invoices until End  of the month', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('26',   '0008', '0008 - within 14 days 2 % cash discount', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('27',   '0008', '0008 - within 30 days 1.5 % cash discount', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('28',   '0008', '0008 - within 45 days Due net', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('29',   '0008', '0008 - Baseline date on 15 of next month', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('30',   '0009', '0009 - Payable in 3 partial amounts', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('31',   '0009', '0009 - 1 installment: 30.000 % with payment term 0001', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('32',   '0009', '0009 - 2 installment: 40.000 % with payment term 0001', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('33',   '0009', '0009 - 3 installment: 30.000 % with payment term 0001', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('34',   'A01',  'A01 - Advance', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('35',   'B01',  'B01 - Immediately bank thruogh', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('36',   'B02',  'B02 - Within 15 days bank thruogh', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('37',   'B03',  'B03 - Within 30 days bank thruogh', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('38',   'B04',  'B04 - Within 60 days  through bank', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('39',   'B05',  'B05 - Within 90 days thruogh bank', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('40',   'B07',  'B07 - Payment against documents', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('41',   'D001', 'D001 - 10% ADVANCE', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('42',   'D002', 'D002 - 80% base Price', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('43',   'D003', 'D003 - 10% retention base Price', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('44',   'D005', 'D005 - Sales tax    Invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('45',   'D006', 'D006 - Freight Invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('46',   'D007', 'D007 - Insurance Invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('47',   'D01',  'D01 - Immediately direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('48',   'D010', 'D010 - 10% ADVANCESales Order date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('49',   'D011', 'D011 - 80% Material received date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('50',   'D012', 'D012 - 10% RETENTION CERTIFICATE DATE', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('51',   'D013', 'D013 - advance Proforma invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('52',   'D014', 'D014 - 15% advance 7 days from  order date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('53',   'D015', 'D015 - 85% Invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('54',   'D016', 'D016 - 100/30days from bill of lading', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('55',   'D017', 'D017 - 100/60days from bill of lading', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('56',   'D018', 'D018 - 100/15dys after receipt of mat', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('57',   'D019', 'D019 - 100% base amt+taxes/30invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('58',   'D02',  'D02 - Within 7 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('59',   'D020', 'D020 - 100%/60frm submission of invoice', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('60',   'D021', 'D021 - 100 % date of receipt of  LR', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('61',   'D022', 'D022 - 100 % /45 from invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('62',   'D023', 'D023 - 100 %  proforma invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('63',   'D024', 'D024 - 100 % dispatch date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('64',   'D025', 'D025 - 100%includes tax/45 frm dispatch date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('65',   'D026', 'D026 - 100%/15 days after FOB', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('66',   'D027', 'D027 - 100%frm date of subm of invoice under lc', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('67',   'D028', 'D028 - 100%/90days frm bill of exc date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('68',   'D029', 'D029 - 100%/45 days frm bill of lading', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('69',   'D03',  'D03 - Within 15 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('70',   'D030', 'D030 - 100%/15 days frm bill of lading', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('71',   'D031', 'D031 - 100%/90 days frm bill of lading', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('72',   'D032', 'D032 - 100% base amt +taxes frm invoi', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('73',   'D033', 'D033 - 100%/30 of dispatch date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('74',   'D034', 'D034 - 100%/180usance lc frm invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('75',   'D035', 'D035 - 90%/15 after docu submission date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('76',   'D036', 'D036 - 10%from issue of TOC date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('77',   'D037', 'D037 - Excise D90%/15after doc subm', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('78',   'D039', 'D039 - Insuarence 90%/15after doc subm', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('79',   'D04',  'D04 - Within 30 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('80',   'D040', 'D040 - 100%/30days after lorry receipt', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('81',   'D041', 'D041 - 100%/120days of LR receipt', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('82',   'D042', 'D042 - 100%/60days bill of lading dat', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('83',   'D043', 'D043 - 15%/date of subm of document', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('84',   'D044', 'D044 - 100% tax &85%base price/30days invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('85',   'D046', 'D046 - 10%(base +frt & ins)/30 frm SR notes', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('86',   'D047', 'D047 - 80%(base +frt & ins)/MRdate', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('87',   'D048', 'D048 - 20%(base+frt&ins)/30frm SR', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('88',   'D049', 'D049 - 95%/100%/80%from MRI date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('89',   'D05',  'D05 - Within 45 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('90',   'D050', 'D050 - 95%/100%/80%from MRI date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('91',   'D051', 'D051 - 80%/100%/30days after TRC da', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('92',   'D052', 'D052 - 20% base price/45/SR notes', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('93',   'D053', 'D053 - 100%/45daysdate of MR', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('94',   'D054', 'D054 - 100%/ proforma invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('95',   'D055', 'D055 - 100%60days /invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('96',   'D056', 'D056 - 100%/receipt of material+7days', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('97',   'D057', 'D057 - 100%/reipt of material+30days', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('98',   'D058', 'D058 - 100%dispa date+ 60days', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('99',   'D059', 'D059 - 90%/10%date of  Lorry receipt', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('100',  'D06',  'D06 - Within 60 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('101',  'D060', 'D060 - 10%base price/date of insp certificate', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('102',  'D061', 'D061 - 100% payment Invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('103',  'D068', 'D068 - 80%/60 days after Document sub date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('104',  'D069', 'D069 - 80%/90 days after Document sub date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('105',  'D07',  'D07 - Within 90 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('106',  'D070', 'D070 - 80%/120 days after Document sub date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('107',  'D071', 'D071 - 80%/150 days after Document sub date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('108',  'D072', 'D072 - 80%/180 days after Document sub date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('109',  'D073', 'D073 - 90%/30days after Document sub date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('110',  'D074', 'D074 - 90%/60days after Document sub date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('111',  'D076', 'D076 - 90%/120days after Document sub date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('112',  'D077', 'D077 - 90%/150days after Document sub date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('113',  'D078', 'D078 - 90%/180days after Document sub date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('114',  'D079', 'D079 - Excise Duty90%/30 days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('115',  'D08',  'D08 - Within 120 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('116',  'D080', 'D080 - Excise Duty90%/60 days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('117',  'D081', 'D081 - Excise Duty90%/90 days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('118',  'D082', 'D082 - Excise Duty90%/120 days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('119',  'D083', 'D083 - Excise Duty90%/150 days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('120',  'D084', 'D084 - Excise Duty90%/180 days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('121',  'D085', 'D085 - Freight when 90%paid/30 days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('122',  'D086', 'D086 - Freight when 90%paid/60 days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('123',  'D087', 'D087 - Freight when 90%paid/90 days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('124',  'D088', 'D088 - Freight when 90%paid/120days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('125',  'D089', 'D089 - Freight when 90%paid/150days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('126',  'D09',  'D09 - 95% AGST PRESENTATION/5% RECEIPT', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('127',  'D090', 'D090 - Freight when 90%paid/180days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('128',  'D091', 'D091 - Freight when 90%paid/30days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('129',  'D092', 'D092 - Freight when 90%paid/60days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('130',  'D094', 'D094 - Freight when 90%paid/120days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('131',  'D095', 'D095 - Freight when 90%paid/150days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('132',  'D096', 'D096 - Freight when 90%paid/180days after doc submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('133',  'D097', 'D097 - 100%Payment against Sight Irrevokable LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('134',  'D10',  'D10 - 50%ADVANCE/50%ON INSPECTION', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('135',  'D11',  'D11 - 100% PAYMENT AFTER RECPT OF MATERIAL', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('136',  'D12',  'D12 - 90% RECT OF MAT/10%ON RCPT OF SR NOTE', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('137',  'D13',  'D13 - Free sample', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('138',  'D14',  'D14 - 100% AFTER APPROVAL OF MATERIAL', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('139',  'D15',  'D15 - 50% AGST DELV/30DAY/50% AFTER TRIAL/90DAYS', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('140',  'D16',  'D16 - 30% PDC AFTER RECEIPT OF MATERIAL', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('141',  'D17',  'D17 - 60 days P.D.C.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('142',  'D18',  'D18 - 45 days P.D.C.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('143',  'D19',  'D19 - 100% ag. cpy 1,2,5 of i/n  duly rctd by consignee', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('144',  'D20',  'D20 - 95% with i/note and d/c and5%within30 days', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('145',  'D21',  'D21 - 100 % on r/note', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('146',  'D22',  'D22 - 100 % on recpt and accept of mtl by consingee', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('147',  'D23',  'D23 - 90 days pdc', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('148',  'D24',  'D24 - Within 180 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('149',  'D25',  'D25 - Within 100 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('150',  'D26',  'D26 - Free Replacemen', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('151',  'D27',  'D27 - 98% AGAINST  I/C & Docu & 2% AGNST R/NOTE', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('152',  'D28',  'D28 - Within 75 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('153',  'D29',  'D29 - 10% advance, bal. against delivery.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('154',  'D290', 'D290 - 95% AGAINST LC/BAL WITHIN 60 DAYS AGAINST 5% PBG', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('155',  'D30',  'D30 - 20% advance balance against delivery', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('156',  'L01',  'L01 - Within 30 days against L.C.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('157',  'L02',  'L02 - Within 45 days against L.C.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('158',  'L03',  'L03 - Within 60 days against L.C.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('159',  'L04',  'L04 - Within 90 days against LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('160',  'L05',  'L05 - Within 120 days against L.C.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('161',  'L06',  'L06 - Within 180 days against L.C.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('162',  'L07',  'L07 - By irrevocable L/C at sight.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('163',  'L08',  'L08 - STANDBY L/C', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('164',  'L09',  'L09 - within 75 days aganist LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('165',  'L10',  'L10 - 90% payment by L/C at 60 days/10% at 85 days CHA', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('166',  'L11',  'L11 - Within  360 days against LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('167',  'L12',  'L12 - 10% advance by T.T. and balance 90% through L/C', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('168',  'L13',  'L13 - 15% advance by T.T. and balance 85% through L/C', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('169',  'L15',  'L15 - 30 Days from Bill of Lading Date through LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('170',  'L16',  'L16 - 60 Days from Bill of Lading Date through LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('171',  'L17',  'L17 - 90 Days from Bill of Lading Date through LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('172',  'L18',  'L18 - 180 Days from Bill of Lading Date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('173',  'L19',  'L19 - 180 Days from Air Way Bill Date through LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('174',  'L20',  'L20 - 30 Days from the Date of Dispatch through LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('175',  'L21',  'L21 - 60 Days from the Date of Dispatch through LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('176',  'L22',  'L22 - 90 Days from the Date of Dispatch through LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('177',  'L23',  'L23 - 150 days from the date of BL against the LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('178',  'N01',  'N01 - Not applicable:free sample', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('179',  'N02',  'N02 - Not applicable:internal consumption', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('180',  'N03',  'N03 - Not applicable:stock transfer', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('181',  'N04',  'N04 - Added to migrate customer', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('182',  'P01',  'P01 - 100 % against delivery.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('183',  'P02',  'P02 - 100 % advance with order', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('184',  'P03',  'P03 - Within 30 days after receipt and approval of mater', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('185',  'P04',  'P04 - Within 60 days after receipt and approval of mater', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('186',  'P05',  'P05 - Within 90 days after receipt and approval  of the', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('187',  'P06',  'P06 - 10% advance, bal. against delivery.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('188',  'P07',  'P07 - 20% advance balance against delivery', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('189',  'P08',  'P08 - 30% advance and balance against delivery', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('190',  'P09',  'P09 - 10% advance with P.O.balance after comp of wO/7DAY', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('191',  'P10',  'P10 - 20% advance with P.O.balance after completion of w', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('192',  'P11',  'P11 - 30% advance with P.O.balance after completion of w', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('193',  'P12',  'P12 - 100% advance through T.T.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('194',  'P13',  'P13 - 100% through L.C.within 90 days', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('195',  'P14',  'P14 - 100% through L.C.within 120 days', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('196',  'P15',  'P15 - 100% through L.C.within 180 days', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('197',  'P16',  'P16 - 10% advance with P.O.balance against P.I.before de', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('198',  'P17',  'P17 - 20%advance with P.O.balance against P.I.before des', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('199',  'P18',  'P18 - 30% advance with P.O.balance against P.I.before de', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('200',  'P19',  'P19 - 25% advance every quarter', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('201',  'P20',  'P20 - 15 Days P.D.C', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('202',  'P21',  'P21 - Wthin 90 Days Aftr Rect of Mat', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('203',  'P22',  'P22 - With in 120 Days After Receipt of Material', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('204',  'P23',  'P23 - With in 75 Days Direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('205',  'P24',  'P24 - With in 30 Days on Receipt of Material & Invoice', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('206',  'P25',  'P25 - With In 150 Days Against L.C.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('207',  'P26',  'P26 - Against Delivery', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('208',  'P27',  'P27 - 100% Against Profarma Invoice', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('209',  'P28',  'P28 - With in 45 Days After Receipt of Material', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('210',  'P29',  'P29 - 150 Days Direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('211',  'P30',  'P30 - Wthin 15 Days Aftr Rect & Aprv', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('212',  'P31',  'P31 - 30 Days P.D.C.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('213',  'P32',  'P32 - With in 150 Days Direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('214',  'P33',  'P33 - With in 45 Days Bank Through', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('215',  'P34',  'P34 - 20% A01 Along with Purchase Order', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('216',  'P35',  'P35 - Immediately after Receipt of Material.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('217',  'P36',  'P36 - Immediately after Completion of Job.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('218',  'P37',  'P37 - 30 Days after Completion of Job.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('219',  'P38',  'P38 - 15 Days after Completion of Job.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('220',  'P39',  'P39 - RTGS (Real Time Gross Settlement).', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('221',  'P40',  'P40 - NEFT (National Electronic Funds Transfer', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('222',  'P41',  'P41 - Within 20 days after receipt of material.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('223',  'P42',  'P42 - Within 15 days after receipt of material', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('224',  'P43',  'P43 - Within 7 days after receipt of material', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('225',  'P44',  'P44 - Cash Purchases', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('226',  'P45',  'P45 - 50% WITH PO .BAL AFTER 6 MTHS', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('227',  'P46',  'P46 - 25% WITH PO,BAL AGAINST DELIVERY', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('228',  'P47',  'P47 - PAYMENT THROUGH ECB 8 DAYS', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('229',  'P48',  'P48 - 30%Advance-50%on Supply-20% on Installment', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('230',  'P49',  'P49 - within 7 days after compl.of serv.&submis of Bill', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('231',  'P50',  'P50 - 10% ADVANCE', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('232',  'P51',  'P51 - Within 7 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('233',  'P52',  'P52 - Within 15 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('234',  'P53',  'P53 - Within 30 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('235',  'P54',  'P54 - Within 45 days direct', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('236',  'P55',  'P55 - 35%Advance-60%against PI-5% after installation', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('237',  'P56',  'P56 - 90 days after completion of job', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('238',  'P57',  'P57 - 100% Irre.180days Ussan.LC.Ben.to be paid at sight', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('239',  'P58',  'P58 - 100% Irrevocable 180 days Ussance LC', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('240',  'P59',  'P59 - 90 days under vendor invoice discounting', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('241',  'P60',  'P60 - 100% after 45 days from the date of Invoice submit', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('242',  'P61',  'P61 - 30days from receipt of invoice with all supporting', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('243',  'P62',  'P62 - 10 DAYS FROM SOB DATE', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('244',  'P63',  'P63 - 10DAYS FROM RECEIPT OF PROOF OF DELIVERY AT DESTIN', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('245',  'P64',  'P64 - within 7 days from the date of  submission of POD', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('246',  'P65',  'P65 - 7 Days from Bill of landing release date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('247',  'P66',  'P66 - 7 Days from vessel Sailing Date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('248',  'P67',  'P67 - BL against Payment', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('249',  'P68',  'P68 - 30% Advance,Balance after 45days from Invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('250',  'P69',  'P69 - 40% Advance,Balance after 45days from Invoice date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('251',  'P70',  'P70 - 15 days from bills submission', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('252',  'P71',  'P71 - 40% Adv against RR, Bal after 45days inv.submitted', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('253',  'P72',  'P72 - 60 Days from Bill of Lading Date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('254',  'P73',  'P73 - 15 Days from receipt of Invoice with all Supp.doc.', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('255',  'P74',  'P74 - Within 90 days from B/L date', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('256',  'P75',  'P75 - 50% Advance With P.O.25% off after 6-month 25% end', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('257',  'P76',  'P76 - 30% Advance through T/T& balanced 70%before delver', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('258',  'P77',  'P77 - 70%Adv.,25% after Insp.&5% at the time of delivery', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('259',  'P84',  'P84 - 60% Adv agst PI and Balance 40% Agst Clean POD', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('260',  'S01',  'S01 - Stock transfer', '1');
+INSERT INTO `payment_terms` (`id`, `code`, `description`, `status`) VALUES ('261',  'S02',  'S02 - Payment after approval of material', '1');
+
+ALTER TABLE `schema_groups` ADD COLUMN `code` VARCHAR(15) NULL AFTER `id`;
+
+INSERT INTO `schema_groups` (`id`, `name`, `status`, `added_date`, `updated_date`) VALUES ('1', 'Standard schema vendor', '1', '2023-01-02 13:13:22', '2023-08-04 17:38:02');
+INSERT INTO `schema_groups` (`id`, `code`, `name`, `status`, `added_date`, `updated_date`) VALUES ('2', '01', '01 - Schema vendor 01', '1', '2023-01-02 13:13:22', '2023-08-04 17:38:05');
+INSERT INTO `schema_groups` (`id`, `code`, `name`, `status`, `added_date`, `updated_date`) VALUES ('3', '02', '02 - Schema vendor 02', '1', '2023-08-04 17:38:51', '2023-08-04 17:38:51');
+INSERT INTO `schema_groups` (`id`, `code`, `name`, `status`, `added_date`, `updated_date`) VALUES ('4', '03', '03 - Schema for Import Vendor', '1', '2023-08-04 17:38:53', '2023-08-04 17:38:53');
+
+ALTER TABLE `account_groups` ADD COLUMN `code` VARCHAR(15) NULL AFTER `id`;
+ALTER TABLE `account_groups` CHANGE COLUMN `updated_date` `updated_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
+
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('1',  '0001', '0001 - Vendor', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('2',  '0002', '0002 - Goods supplier', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('3',  '0003', '0003 - Alternative payee', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('4',  '0004', '0004 - Invoicing Party', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('5',  '0005', '0005 - Forwarding agent', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('6',  '0006', '0006 - Ordering address', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('7',  '0007', '0007 - Plants', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('8',  '0012', '0012 - Hierarchy Node', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('9',  '0015', '0015 - One-time vend.(int.no.assgnmt)', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('10', '0016', '0016 - Domestic Vendor', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('11', '0017', '0017 - Import Vendor', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('12', '0018', '0018 - Small Scale Vendor', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('13', '0019', '0019 - Micro Scale Vendor', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('14', '0020', '0020 - Medium Scale Vendor', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('15', '0021', '0021 - Stores and Spares Vendor', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('16', '0022', '0022 - Transport Vendor', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('17', '0023', '0023 - Other Services Vendor', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('18', '0024', '0024 - CHA', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('19', '0025', '0025 - Forwarding Agent', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('20', '0026', '0026 - Flexi Operator', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('21', '0028', '0028 - Dealer', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('22', '0029', '0029 - Contract Labour', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('23', '0030', '0030 - Security', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('24', '0031', '0031 - Civil Work Contract', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('25', '0100', '0100 - Vendor distribution center', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('26', 'CPD',  'CPD - One-time vend.(int.no.assgnmt)', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('27', 'CPDL', 'CPDL - One-time vend.(ext.no.assgnmt)', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('28', 'DARL', 'DARL - Lender', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('29', 'HOL',  'HOL - Handover Location Address', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('30', 'KRED', 'KRED - Vendor (int.number assgnmnt)', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('31', 'LIEF', 'LIEF - Vendor (ext.number assgnmnt)', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('32', 'MNFR', 'MNFR - Manufacturer (ext.no.assgnmnt)', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('33', 'REIS', 'REIS - Commercial traveller', '1');
+INSERT INTO `account_groups` (`id`, `code`, `name`, `status`) VALUES ('34', 'VERT', 'VERT - Representative', '1');
+
+ALTER TABLE `purchasing_organizations` ADD COLUMN `code` VARCHAR(15) NULL AFTER `id`,
+CHANGE COLUMN `updated_date` `updated_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
+
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('1',  '0001', '0001 - Einkaufsorg. 0001', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('2',  '1000', '1000 - Purch Orgn Oil', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('3',  '1001', '1001 - Purch Orgn Dis.& Log', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('4',  '2000', '2000 - Purch Orgn Conductor', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('5',  '2001', '2001 - Purch Orgn Apar', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('6',  '3000', '3000 - Purch Orgn Polymer', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('7',  '4000', '4000 - Purch Orgn Corporate', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('8',  '5000', '5000 - Purchase Org E-Beam', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('9',  '6000', '6000 - Purchase Org Uniflex', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('10', '7000', '7000 - Purchase Org PSPL', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('11', '8000', '8000 - Purch Orgn ATDPPL', '1');
+INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('12', '9000', '9000 - Purchase Org CEMA', '1');
+
+

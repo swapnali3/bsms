@@ -20,6 +20,7 @@
                         <thead>
                             <tr>
                                 <th>Line Description</th>
+                                <th>Factory</th>
                                 <th>Capacity (Per Day)</th>
                                 <th>UOM</th>
                                 <th>Status</th>
@@ -32,6 +33,9 @@
                                     data-href="<?= $this->Url->build('/') ?>vendor/line-masters/edit/<?= $lineMaster->id ?>">
                                     <td>
                                         <?= $lineMaster->name ?>
+                                    </td>
+                                    <td>
+                                        <?= h($lineMaster->factory['factory_code']) ?>
                                     </td>
                                     <td>
                                         <?= $this->Number->format($lineMaster->capacity) ?>

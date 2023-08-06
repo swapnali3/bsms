@@ -45,7 +45,7 @@
                                         $status = '<span class="badge dbluebadge mt-2" data-toggle="tooltip" data-placement="right" title="Pending for approval"><i class="fas fa-user-clock"></i></span>';
                                         break;
                                     case 2:
-                                        $status = '<span class="badge purplebadge mt-2" data-toggle="tooltip" data-placement="right" title="Sent to SAP"><i class="fas fa-user-plus"></i></span>';
+                                        $status = '<span class="badge purplebadge mt-2" data-toggle="tooltip" data-placement="right" title="Profile Pending"><i class="fas fa-user-plus"></i></span>';
                                         break;
                                     case 3:
                                         $status = '<span class="badge lgreenbadge mt-2" data-toggle="tooltip" data-placement="right" title="Approved"><i class="fas fa-user-check"></i></span>';

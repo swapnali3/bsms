@@ -308,7 +308,7 @@ class VendorTempsController extends BuyerAppController
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
-        $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'code', 'valueField' => 'code'])->all();
+        $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'code', 'valueField' => 'description'])->all();
 
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'payment_term', 'latestVendors'));
     }

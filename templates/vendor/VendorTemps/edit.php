@@ -28,9 +28,9 @@ switch ($vendorTemp->status) {
 
 ?>
 
-<?= $this->Html->css('cstyle.css') ?>
-<!--<?= $this->Html->css('table.css') ?>
-<?= $this->Html->css('listing.css') ?> -->
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
+<!-- <?= $this->Html->css('listing.css') ?> -->
 <!-- <?= $this->Html->css('v_index.css') ?> -->
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>

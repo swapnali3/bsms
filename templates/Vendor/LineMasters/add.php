@@ -12,18 +12,21 @@
         <?= $this->Form->create($lineMaster) ?>
         <div class="card">
             <div class="card-header">
-
+                <h5>Line Master</h5>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <?php echo $this->Form->control('name', ['class'=> 'form-control']); ?>
+                        <?php echo $this->Form->control('name', ['class'=> 'form-control','label'=>'Line Name']); ?>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <?php echo $this->Form->control('factory_id', array('class' => 'form-control w-100', 'options' => $factory, 'style' => "height: unset !important;", 'empty' => 'Please Select','label'=>'Factories')); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
                         <?php echo $this->Form->control('capacity', ['class'=> 'form-control']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                    <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'style' => "height: unset !important;", 'empty' => 'Please Select','label'=>'Unit Of Measurement')); ?>
+                        <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'style' => "height: unset !important;", 'empty' => 'Please Select','label'=>'Unit Of Measurement')); ?>
                         <?php echo $this->Form->control('status', ['value'=> 1, 'style' => 'visibility: hidden; position: absolute;','label' => false]); ?>
                     </div>
                 </div>

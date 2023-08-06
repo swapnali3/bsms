@@ -13,11 +13,13 @@ use Cake\ORM\Entity;
  * @property int $material_id
  * @property int $line_master_id
  * @property string $capacity
- * @property int|null $status
+ * @property bool $status
  * @property \Cake\I18n\FrozenTime|null $added_date
  * @property \Cake\I18n\FrozenTime|null $updated_date
  *
  * @property \App\Model\Entity\Material $material
+ * @property \App\Model\Entity\LineMaster $line_master
+ * @property \App\Model\Entity\Dailymonitor[] $dailymonitor
  */
 class ProductionLine extends Entity
 {
@@ -39,5 +41,7 @@ class ProductionLine extends Entity
         'added_date' => true,
         'updated_date' => true,
         'material' => true,
+        'line_master' => true,
+        'dailymonitor' => true,
     ];
 }
