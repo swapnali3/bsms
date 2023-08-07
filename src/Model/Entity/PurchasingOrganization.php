@@ -9,6 +9,7 @@ use Cake\ORM\Entity;
  * PurchasingOrganization Entity
  *
  * @property int $id
+ * @property string|null $code
  * @property string $name
  * @property int $status
  * @property \Cake\I18n\FrozenTime $added_date
@@ -28,6 +29,7 @@ class PurchasingOrganization extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        'code' => true,
         'name' => true,
         'status' => true,
         'added_date' => true,

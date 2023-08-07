@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * Factories Model
  *
  * @property \App\Model\Table\VendorTempsTable&\Cake\ORM\Association\BelongsTo $VendorTemps
+ * @property \App\Model\Table\LineMastersTable&\Cake\ORM\Association\HasMany $LineMasters
  *
  * @method \App\Model\Entity\Factory newEmptyEntity()
  * @method \App\Model\Entity\Factory newEntity(array $data, array $options = [])
@@ -45,6 +46,9 @@ class FactoriesTable extends Table
 
         $this->belongsTo('VendorTemps', [
             'foreignKey' => 'vendor_temps_id',
+        ]);
+        $this->hasMany('LineMasters', [
+            'foreignKey' => 'factory_id',
         ]);
     }
 

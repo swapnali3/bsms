@@ -9,7 +9,7 @@
 <!-- <?= $this->Html->css('custom') ?> -->
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
-<?= $this->Form->create($productionline) ?>
+<?= $this->Form->create($productionline, ['id'=>'productionLineForm']) ?>
 <div class="row">
     <div class="col-12">
         <div class="card">

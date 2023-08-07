@@ -22,6 +22,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime|null $updated_date
  *
  * @property \App\Model\Entity\VendorTemp $vendor_temp
+ * @property \App\Model\Entity\LineMaster[] $line_masters
  */
 class Factory extends Entity
 {
@@ -47,5 +48,6 @@ class Factory extends Entity
         'added_date' => true,
         'updated_date' => true,
         'vendor_temp' => true,
+        'line_masters' => true,
     ];
 }

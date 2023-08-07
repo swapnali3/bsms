@@ -58,7 +58,7 @@ class PaymentTermsTable extends Table
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 20)
+            ->maxLength('description', 250)
             ->allowEmptyString('description');
 
         $validator
