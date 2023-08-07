@@ -31,13 +31,13 @@
               </b>
             </h6>
           </div>
-          <div class="col-5"></div>
-          <div class="col-md-1">
+          <div class="col-6"></div>
+          <div class="col-1">
             <a href="/bsms/vendorpurchase-orders/create-asn" id="id_backmodal"
               class="btn bg-gradient-cancel float-right">
               <i class="fas fa-angle-double-left"></i> BACK</a>
           </div>
-          <div class="col-md-2 text-center">
+          <div class="col-1 text-center">
             <button type="button" class="btn bg-gradient-submit" id="Create-btn">Create ASN</button>
             <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
               <div class="modal-dialog modal-sm">

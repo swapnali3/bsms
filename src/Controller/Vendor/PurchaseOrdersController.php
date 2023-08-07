@@ -728,7 +728,6 @@ class PurchaseOrdersController extends VendorAppController
             $html .= '<table class="table table-bordered material-list" id="example2">
             <thead>
                 <tr>
-                
                     <th>Item</th>
                     <th>Material</th>
                     <th>Short Text</th>
@@ -738,7 +737,6 @@ class PurchaseOrdersController extends VendorAppController
                     <th>ASN In-transit</th>
                     <th>Base Value</th>
                     <th>Net Value</th>
-            
                 </tr>
             </thead>
             <tbody>';
@@ -751,9 +749,9 @@ class PurchaseOrdersController extends VendorAppController
                  <td>' . $row->PoFooters['material'] . '</td>
                  <td>' . $row->PoFooters['short_text'] . '</td>
                  <td>' . $row->PoFooters['po_qty'] . ' ' . $row->PoFooters['order_unit'] . '</td>
-                 <td></td>
-                 <td></td>
-                 <td></td>
+                 <td>-</td>
+                 <td>-</td>
+                 <td>-</td>
                  <td>' . $row->PoFooters['net_price'] . '</td>
                  <td>' . $row->PoFooters['net_value'] . '</td>
                  
