@@ -347,16 +347,9 @@ class StockUploadsController extends BuyerAppController
                     $upsertQuery->insert($columns);
                     foreach ($uploadData as $data) {
                         $upsertQuery->values($data);
+                        $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `material_id`=VALUES(`material_id`),`opening_stock`=VALUES(`opening_stock`)')
+                        ->execute();
                     }
-
-                    $upsertQuery->execute();
-
-                    // foreach($uploadData as $row) {
-                    //     $upsertQuery->values($row);
-                    //     $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `material_id`=VALUES(`material_id`), `opening_stock`=VALUES(`opening_stock`)')
-                    //     ->execute();
-                    // }
-
                     $response['status'] = 1;
                     $response['data'] = $stockData;
                     $response['message'] = 'uploaded Successfully';

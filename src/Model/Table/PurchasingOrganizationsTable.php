@@ -43,6 +43,9 @@ class PurchasingOrganizationsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('CompanyCodes', [
+            'foreignKey' => 'company_code_id',
+        ]);
         $this->hasMany('VendorTemps', [
             'foreignKey' => 'purchasing_organization_id',
         ]);
@@ -62,6 +65,10 @@ class PurchasingOrganizationsTable extends Table
             ->allowEmptyString('code');
 
         $validator
+            ->integer('company_code_id')
+            ->allowEmptyString('company_code_id');
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 50)
             ->requirePresence('name', 'create')
@@ -79,5 +86,19 @@ class PurchasingOrganizationsTable extends Table
             ->notEmptyDateTime('updated_date');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn('company_code_id', 'CompanyCodes'), ['errorField' => 'company_code_id']);
+
+        return $rules;
     }
 }

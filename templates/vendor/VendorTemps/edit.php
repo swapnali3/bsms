@@ -226,6 +226,11 @@ switch ($vendorTemp->status) {
     color: #fff;
 }
 
+#onbordingSubmit .form-control[disabled] {
+    padding: 0 !important;
+    line-height: 1.45 !important;
+}
+
 /* Reject Button */
 </style>
 
@@ -767,12 +772,12 @@ switch ($vendorTemp->status) {
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_pincode', ['type'=>'number','name' => 'prdflt[factory_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control','id'=>'factory_0_pincode']); ?>
+                                                    <?php echo $this->Form->control('register_office_pincode', ['type'=>'number','name' => 'prdflt[factory_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control pincode-input','id'=>'factory_0_pincode','maxlength' => '6']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_city', ['type'=>'text','name' => 'prdflt[factory_office][0][city]','class' => 'form-control','label' =>'City','id'=>'factory_0_city']); ?>
+                                                    <?php echo $this->Form->control('register_office_city', ['type'=>'text','name' => 'prdflt[factory_office][0][city]','class' => 'form-control capitalize-first-letter','label' =>'City','id'=>'factory_0_city']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
@@ -787,7 +792,7 @@ switch ($vendorTemp->status) {
                                             </div>
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_telno', ['name' => 'prdflt[factory_office][0][telno]','type' => 'number', 'class' => 'form-control', 'id'=>'factory_0_telno','label' => 'Tel No']); ?>
+                                                    <?php echo $this->Form->control('register_office_telno', ['name' => 'prdflt[factory_office][0][telno]','type' => 'number', 'class' => 'form-control tel-no', 'id'=>'factory_0_telno','label' => 'Tel No','maxlength'=>'10']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3 mt-4 pt-4 hide">
@@ -1266,7 +1271,7 @@ switch ($vendorTemp->status) {
 
                                 <div class="row">
                                     <h5>Other Quality Certification</h5>
-                                    <label>Whether the item is completely manufactured in applicant's
+                                    <p>Whether the item is completely manufactured in applicant's
                                         factory?</label>
                                     <div class="col-lg-12 mt-3">
                                         <input class="fully_manufactured_radio" type="radio"
