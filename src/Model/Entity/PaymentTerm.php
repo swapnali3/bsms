@@ -14,6 +14,7 @@ use Cake\ORM\Entity;
  * @property bool $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
+ * @property int|null $company_code_id
  */
 class PaymentTerm extends Entity
 {
@@ -32,5 +33,6 @@ class PaymentTerm extends Entity
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
+        'company_code_id' => true,
     ];
 }

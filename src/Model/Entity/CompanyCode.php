@@ -6,19 +6,22 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * AccountGroup Entity
+ * CompanyCode Entity
  *
  * @property int $id
- * @property string|null $code
+ * @property string $code
  * @property string $name
  * @property int $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
- * @property int|null $company_code_id
  *
- * @property \App\Model\Entity\VendorTemp[] $vendor_temps
+ * @property \App\Model\Entity\AccountGroup[] $account_groups
+ * @property \App\Model\Entity\PaymentTerm[] $payment_terms
+ * @property \App\Model\Entity\PurchasingOrganization[] $purchasing_organizations
+ * @property \App\Model\Entity\ReconciliationAccount[] $reconciliation_accounts
+ * @property \App\Model\Entity\SchemaGroup[] $schema_groups
  */
-class AccountGroup extends Entity
+class CompanyCode extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -35,7 +38,10 @@ class AccountGroup extends Entity
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
-        'company_code_id' => true,
-        'vendor_temps' => true,
+        'account_groups' => true,
+        'payment_terms' => true,
+        'purchasing_organizations' => true,
+        'reconciliation_accounts' => true,
+        'schema_groups' => true,
     ];
 }

@@ -1271,7 +1271,7 @@ switch ($vendorTemp->status) {
 
                                 <div class="row">
                                     <h5>Other Quality Certification</h5>
-                                    <label>Whether the item is completely manufactured in applicant's
+                                    <p>Whether the item is completely manufactured in applicant's
                                         factory?</label>
                                     <div class="col-lg-12 mt-3">
                                         <input class="fully_manufactured_radio" type="radio"

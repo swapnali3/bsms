@@ -172,6 +172,9 @@ class VendorTempsController extends BuyerAppController
         $this->loadModel("VendorTemps");
         $this->loadModel("VendorStatus");
         $this->loadModel("PaymentTerms");
+        $this->loadModel("CompanyCodes");
+        $this->loadModel("ReconciliationAccounts");
+        $this->loadModel("PaymentTerms");
 
         $latestVendors = $this->VendorTemps
         ->find('all')
@@ -309,8 +312,11 @@ class VendorTempsController extends BuyerAppController
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
         $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'code', 'valueField' => 'description'])->all();
+        $company_codes = $this->CompanyCodes->find('list', ['keyField' => 'code', 'valueField' => 'name'])->all();
+        $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'code', 'valueField' => 'description'])->all();
+        $reconciliation_account = $this->ReconciliationAccounts->find('list', ['keyField' => 'code', 'valueField' => 'name'])->all();
 
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'payment_term', 'latestVendors'));
+        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'payment_term', 'reconciliation_account', 'company_codes', 'latestVendors'));
     }
 
     public function sapAdd()
@@ -580,6 +586,34 @@ class VendorTempsController extends BuyerAppController
         }
 
         if ($this->VendorTemps->save($vendor)) {
+            // Code for Demo Start
+            $this->loadModel("Users");
+            $adminUser = $this->Users->newEmptyEntity();
+            $data = array();
+            $data['first_name'] = $vendor->name;
+            $data['last_name'] = $vendor->name;
+            $data['username'] = $vendor->email;
+            $data['mobile'] = $vendor->mobile;
+            $data['password'] = $vendor->mobile;
+            $data['group_id'] = 3;
+            $adminUser = $this->Users->patchEntity($adminUser, $data);
+
+            if ($this->Users->save($adminUser)) {                               
+                $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                $mailer = new Mailer('default');
+                $mailer
+                    ->setTransport('smtp')
+                    ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
+                    '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    ->setTo($data['username'])
+                    ->setEmailFormat('html')
+                    ->setSubject('Vendor Portal - Account created')
+                    ->viewBuilder()
+                        ->setTemplate('mail_template');
+                $mailer->deliver();
+            }
+            // Code for Demo End
 
             $data['DATA'] = array();
 

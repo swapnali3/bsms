@@ -254,6 +254,14 @@ class VendorTempsTable extends Table
             ->integer('update_flag')
             ->allowEmptyString('update_flag');
 
+        $validator
+            ->integer('reconciliation_accounts')
+            ->allowEmptyString('reconciliation_accounts');
+
+        $validator
+            ->integer('company_codes')
+            ->allowEmptyString('company_codes');
+
         return $validator;
     }
 

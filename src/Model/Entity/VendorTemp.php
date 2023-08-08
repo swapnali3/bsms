@@ -44,7 +44,10 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
  * @property int|null $update_flag
+ * @property int|null $reconciliation_accounts
+ * @property int|null $company_codes
  *
+ * @property \App\Model\Entity\VendorStatus $vendor_status
  * @property \App\Model\Entity\PurchasingOrganization $purchasing_organization
  * @property \App\Model\Entity\AccountGroup $account_group
  * @property \App\Model\Entity\SchemaGroup $schema_group
@@ -99,6 +102,9 @@ class VendorTemp extends Entity
         'added_date' => true,
         'updated_date' => true,
         'update_flag' => true,
+        'reconciliation_accounts' => true,
+        'company_codes' => true,
+        'vendor_status' => true,
         'purchasing_organization' => true,
         'account_group' => true,
         'schema_group' => true,
