@@ -43,6 +43,9 @@ class AccountGroupsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('CompanyCodes', [
+            'foreignKey' => 'company_code_id',
+        ]);
         $this->hasMany('VendorTemps', [
             'foreignKey' => 'account_group_id',
         ]);
@@ -78,6 +81,24 @@ class AccountGroupsTable extends Table
             ->dateTime('updated_date')
             ->notEmptyDateTime('updated_date');
 
+        $validator
+            ->integer('company_code_id')
+            ->allowEmptyString('company_code_id');
+
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->existsIn('company_code_id', 'CompanyCodes'), ['errorField' => 'company_code_id']);
+
+        return $rules;
     }
 }
