@@ -81,6 +81,15 @@ class VendorTempsController extends VendorAppController
         $this->set(compact('vendorTemp'));
     }
 
+    public function stateByCountryId($name = null)
+    {
+        $this->autoRender = false;
+        $response = ["status"=> 0, 'message' =>'Empty request'];
+        $this->loadModel("Countries");
+        $query = $this->Countries->find()->where(['country_name =' => $name])->first();
+        $response = ["status"=> 1, 'message' =>$query['country_currency']];
+        echo json_encode($response);
+    }
 
     public function edit($id = null)
     {
@@ -117,7 +126,14 @@ class VendorTempsController extends VendorAppController
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
 
-        $countries = $this->Countries->find('list', ['keyField' => 'country_name', 'valueField' => 'country_name'])->all();
+        $countries = $this->Countries->find('list', ['keyField' => 'country_name', 'valueField' => 'country_name'])->toArray();
+
+        $hasIndia = array_key_exists('India', $countries);
+        if ($hasIndia) {
+            unset($countries['India']);
+            $countries = ['India' => 'India'] + $countries;
+        }
+
         $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
 
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));

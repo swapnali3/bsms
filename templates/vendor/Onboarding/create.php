@@ -14,7 +14,7 @@
 
 <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> -->
 <!-- <?= $this->Html->css('CakeLte.style') ?> -->
 <style>
     .label {
@@ -216,68 +216,72 @@
                         </div>
                         <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="tab_paymentdetails" style="background-color: white;">
                             <div class="row">
-                                <div class="col-3 mt-3">
+                                <div class="col-3 mb-3">
                                     <label for="id_bank_name">Bank name</label>
-                                    <input type="text" class="form-control" id="id_bank_name" name="">
-                                </div>
-                                <div class="col-3 mt-3">
-                                    <div class="form-group">
-                                        <label for="id_bank_key">Bank Key (IFSC Code)</label>
-                                        <input type="text" maxlength="11" class="form-control" id="id_bank_key" name="ifsc_code">
-                                    </div>
+                                    <input type="text" name="bank[name]" class="form-control" id="id_bank_name">
                                 </div>
 
-                                <div class="col-3 mt-3">
-                                    <label for="id_bank_no">Bank number</label>
-                                    <input type="number" maxlength="18" class="form-control" id="id_bank_no" name="">
-                                </div>
-                                <div class="col-3 mt-3">
+                                <div class="col-3 mb-3">
                                     <label for="id_bank_branch">Bank Branch</label>
-                                    <input type="text" class="form-control" id="id_bank_branch" name="">
+                                    <input type="text" class="form-control" id="id_bank_branch" name="bank[branch]">
                                 </div>
 
-                                <div class="col-3 mt-3">
-                                    <?php echo $this->Form->control('bank_country', ['id' => 'id_bankcountry', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                <div class="col-3 mb-3">
+                                    <label for="id_bank_no">Bank number</label>
+                                    <input type="number" maxlength="18" class="form-control" id="id_bank_no" name="bank[number]">
                                 </div>
-                                <div class="col-3 mt-3">
+
+                                <div class="col-3 mb-3">
+                                    <label for="id_bank_ifsc">IFSC Code</label>
+                                    <input type="text" maxlength="11" name="bank[ifsc_code]" class="form-control" id="id_bank_ifsc">
+                                </div>
+
+                                <div class="col-3 mb-3">
+                                    <label for="id_bank_key">Bank Key</label>
+                                    <input type="text" maxlength="11" name="bank[key]" class="form-control" id="id_bank_key">
+                                </div>
+
+
+                                <div class="col-3 mb-3">
+                                    <?php echo $this->Form->control('bank_country', ['name' => 'bank[country]', 'id' => 'id_bank_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                </div>
+
+                                <div class="col-3 mb-3">
                                     <label for="id_bank_city">City</label>
-                                    <input type="text" class="form-control" id="id_bank_city" name="">
+                                    <input type="text" class="form-control capitalize" id="id_bank_city" name="bank[city]">
                                 </div>
 
+                                <div class="col-3 mb-3">
+                                    <?php echo $this->Form->control('order_currency', ['name' => 'bank[order_currency]', 'readonly' => 'readonly', 'class' => 'form-control']); ?>
+                                </div>
 
-                                <div class="col-3 mt-3" style="display: none;">
+                                <div class="col-3 mb-3">
                                     <label for="id_swift_bic">SWIFT/BIC</label>
-                                    <input type="text" class="form-control" id="id_swift_bic" name="">
+                                    <input type="text" class="form-control" id="id_swift_bic" name="bank[swift]">
                                 </div>
 
-
-                                <div class="col-3 mt-3">
+                                <div class="col-3 mb-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('tan_no', ['class' => 'form-control']); ?>
+                                        <?php echo $this->Form->control('tan_no', ['name' => 'bank[tan_no]', 'class' => 'form-control', 'label' => 'TAN No']); ?>
                                     </div>
                                 </div>
 
-                                <div class="col-3 mt-3">
+                                <div class="col-3 mb-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('cin_no', ['class' => 'form-control']); ?>
+                                        <?php echo $this->Form->control('cin_no', ['name' => 'bank[cin_no]', 'class' => 'form-control', 'label' => 'CIN No.']); ?>
                                     </div>
                                 </div>
-                                <div class="col-3 mt-3">
+                                <div class="col-3 mb-3">
                                     <div class="form-group">
                                         <?php echo $this->Form->control('gst_no', ['class' => 'form-control']); ?>
                                     </div>
                                 </div>
 
-                                <div class="col-3 mt-3">
+                                <div class="col-3 mb-3">
                                     <div class="form-group">
                                         <?php echo $this->Form->control('pan_no', ['class' => 'form-control']); ?>
                                     </div>
                                 </div>
-
-                                <div class="col-3 mt-3">
-                                    <?php echo $this->Form->control('order_currency', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
-                                </div>
-
                             </div>
                         </div>
 
@@ -391,8 +395,8 @@
     $(document).on("click", "#id_fksubmit", function() {
         var submitcall = true;
         var tab = {
-            // "tab_address": ["address", "address-2", "pincode", "city", "country", "state"],
-            // "tab_contactperson": ["contact-person", "contact-person", "contact-mobile", "contact-department", "contact-designation"],
+            "tab_address": ["address", "address-2", "pincode", "city", "country", "state"],
+            "tab_contactperson": ["contact-person", "contact-person", "contact-mobile", "contact-department", "contact-designation"],
             "tab_paymentdetails": ["cin-no", "gst-no", "pan-no"],
             "tab_document": ["formFileMultiple1", "formFileMultiple2", "formFileMultiple3"]
         }
@@ -466,14 +470,17 @@
         });
 
 
-        $("#id_bank_key,#tan-no,#cin-no,#gst-no,#pan-no").on("keyup", function() {
+        $("#id_bank_ifsc,#tan-no,#cin-no,#gst-no,#pan-no").on("keyup", function() {
             var capitalizedText = $(this).val().toUpperCase();
             $(this).val(capitalizedText);
         });
 
-        $("#id_bank_name").on("keyup", function() {
-            var text = $(this).val().toLowerCase();
-            var words = text.split(' ');
+
+        const bankNameInput = $('#id_bank_name');
+
+        bankNameInput.on('keyup', function() {
+            var text = $(this).val().replace(/\d/g, ''); // Remove numbers
+            var words = text.toLowerCase().split(' ');
 
             for (var i = 0; i < words.length; i++) {
                 if (words[i].length > 0) {
@@ -500,7 +507,7 @@
         });
 
         $("#id_bank_branch").on("keyup", function() {
-            var text = $(this).val();
+            var text = $(this).val().replace(/\d/g, ''); // Remove numbers
             var capitalizedText = capitalizeFirstLetter(text);
             $(this).val(capitalizedText);
         });
@@ -517,12 +524,36 @@
             validateMaxLength($(this));
         });
 
-        $('#id_bankcountry').on('change', function() {
+        $("#id_bank_country").change(function() {
             var swiftBicField = $('#id_swift_bic').closest('.col-3');
             if ($(this).val() === 'India') {
                 swiftBicField.hide();
             } else {
                 swiftBicField.show();
+            }
+
+            var coutryName = $(this).val();
+            if (coutryName != "") {
+                $.ajax({
+                    type: "get",
+                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'state-by-countryId')); ?>"+'/' + coutryName,
+                    dataType: "json",
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader(
+                            "Content-type",
+                            "application/x-www-form-urlencoded"
+                        );
+                    },
+                    success: function(response) {
+                        if (response.status == 1) {
+                            $("#order-currency").val(response.message);
+                        }
+                    },
+                    error: function(e) {
+                        alert("An error occurred: " + e.responseText.message);
+                        console.log(e);
+                    },
+                });
             }
         });
 
