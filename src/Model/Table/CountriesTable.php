@@ -68,6 +68,12 @@ class CountriesTable extends Table
             ->requirePresence('country_name', 'create')
             ->notEmptyString('country_name');
 
+        $validator
+            ->scalar('country_currency')
+            ->maxLength('country_currency', 45)
+            ->requirePresence('country_currency', 'create')
+            ->notEmptyString('country_currency');
+
         return $validator;
     }
 }

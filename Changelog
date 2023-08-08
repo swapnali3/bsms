@@ -661,6 +661,502 @@ INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES (
 INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('11', '8000', '8000 - Purch Orgn ATDPPL', '1');
 INSERT INTO `purchasing_organizations` (`id`, `code`, `name`, `status`) VALUES ('12', '9000', '9000 - Purchase Org CEMA', '1');
 
+// ==================== country Currency =======================
+// ==================== ============= ===============
+ALTER TABLE `db_bsms`.`countries` 
+ADD COLUMN `country_currency` VARCHAR(45) NOT NULL AFTER `country_name`;
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'American Samoa');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Anguilla');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Antarctica');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Aruba');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Bermuda');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Bouvet Island');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'British Indian Ocean Territory');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Cape Verde');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Cayman Islands');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Christmas Island');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Cocos (Keeling) Islands');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Croatia (Hrvatska)');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'East Timor');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Falkland Islands (Malvinas)');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Faroe Islands');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'France, Metropolitan');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'French Guiana');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'French Polynesia');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'French Southern Territories');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Gibraltar');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Guernsey');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Greenland');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Guadeloupe');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Guam');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Guinea-Bissau');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Heard and Mc Donald Islands');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Hong Kong');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Isle of Man');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Iran (Islamic Republic of)');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Ivory Coast');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Jersey');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = "Korea, Democratic People's Republic of");
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Korea, Republic of');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Kosovo');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Libyan Arab Jamahiriya');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Liechtenstein');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Macau');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Macedonia');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Martinique');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Mayotte');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Micronesia, Federated States of');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Moldova, Republic of');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Montserrat');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Netherlands Antilles');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'New Caledonia');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Norfolk Island');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Northern Mariana Islands');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Palestine');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Pitcairn');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Puerto Rico');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Reunion');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'South Georgia South Sandwich Islands');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'St. Helena');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'St. Pierre and Miquelon');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Svalbard and Jan Mayen Islands');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Swaziland');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Syrian Arab Republic');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Taiwan');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Tanzania, United Republic of');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Tokelau');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Turks and Caicos Islands');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'United States');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'United States minor outlying islands');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Vatican City State');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Venezuela');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Vietnam');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Virgin Islands (British)');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Virgin Islands (U.S.)');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Wallis and Futuna Islands');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Western Sahara');
+
+UPDATE `countries` SET `country_currency` = '' WHERE (`country_name` = 'Zaire');
+
+UPDATE `countries` SET `country_currency` = 'AED' WHERE (`country_name` = 'United Arab Emirates');
+
+UPDATE `countries` SET `country_currency` = 'AFN' WHERE (`country_name` = 'Afghanistan');
+
+UPDATE `countries` SET `country_currency` = 'ALL' WHERE (`country_name` = 'Albania');
+
+UPDATE `countries` SET `country_currency` = 'AMD' WHERE (`country_name` = 'Armenia');
+
+UPDATE `countries` SET `country_currency` = 'AON' WHERE (`country_name` = 'Angola');
+
+UPDATE `countries` SET `country_currency` = 'ARS' WHERE (`country_name` = 'Argentina');
+
+UPDATE `countries` SET `country_currency` = 'AUD' WHERE (`country_name` = 'Australia');
+
+UPDATE `countries` SET `country_currency` = 'AUD' WHERE (`country_name` = 'Kiribati');
+
+UPDATE `countries` SET `country_currency` = 'AUD' WHERE (`country_name` = 'Nauru');
+
+UPDATE `countries` SET `country_currency` = 'AUD' WHERE (`country_name` = 'Tuvalu');
+
+UPDATE `countries` SET `country_currency` = 'AZN' WHERE (`country_name` = 'Azerbaijan');
+
+UPDATE `countries` SET `country_currency` = 'BAM' WHERE (`country_name` = 'Bosnia and Herzegovina');
+
+UPDATE `countries` SET `country_currency` = 'BBD' WHERE (`country_name` = 'Barbados');
+
+UPDATE `countries` SET `country_currency` = 'BDT' WHERE (`country_name` = 'Bangladesh');
+
+UPDATE `countries` SET `country_currency` = 'BGL' WHERE (`country_name` = 'Bulgaria');
+
+UPDATE `countries` SET `country_currency` = 'BHD' WHERE (`country_name` = 'Bahrain');
+
+UPDATE `countries` SET `country_currency` = 'BIF' WHERE (`country_name` = 'Burundi');
+
+UPDATE `countries` SET `country_currency` = 'BND' WHERE (`country_name` = 'Brunei Darussalam');
+
+UPDATE `countries` SET `country_currency` = 'BOB' WHERE (`country_name` = 'Bolivia');
+
+UPDATE `countries` SET `country_currency` = 'BRL' WHERE (`country_name` = 'Brazil');
+
+UPDATE `countries` SET `country_currency` = 'BSD' WHERE (`country_name` = 'Bahamas');
+
+UPDATE `countries` SET `country_currency` = 'BTN' WHERE (`country_name` = 'Bhutan');
+
+UPDATE `countries` SET `country_currency` = 'BWP' WHERE (`country_name` = 'Botswana');
+
+UPDATE `countries` SET `country_currency` = 'BYN' WHERE (`country_name` = 'Belarus');
+
+UPDATE `countries` SET `country_currency` = 'BZD' WHERE (`country_name` = 'Belize');
+
+UPDATE `countries` SET `country_currency` = 'CAD' WHERE (`country_name` = 'Canada');
+
+UPDATE `countries` SET `country_currency` = 'CHF' WHERE (`country_name` = 'Switzerland');
+
+UPDATE `countries` SET `country_currency` = 'CLP' WHERE (`country_name` = 'Chile');
+
+UPDATE `countries` SET `country_currency` = 'CNY' WHERE (`country_name` = 'China');
+
+UPDATE `countries` SET `country_currency` = 'COP' WHERE (`country_name` = 'Colombia');
+
+UPDATE `countries` SET `country_currency` = 'CRC' WHERE (`country_name` = 'Costa Rica');
+
+UPDATE `countries` SET `country_currency` = 'CUP' WHERE (`country_name` = 'Cuba');
+
+UPDATE `countries` SET `country_currency` = 'DJF' WHERE (`country_name` = 'Djibouti');
+
+UPDATE `countries` SET `country_currency` = 'DKK' WHERE (`country_name` = 'Denmark');
+
+UPDATE `countries` SET `country_currency` = 'DOP' WHERE (`country_name` = 'Dominican Republic');
+
+UPDATE `countries` SET `country_currency` = 'DZD' WHERE (`country_name` = 'Algeria');
+
+UPDATE `countries` SET `country_currency` = 'EGP' WHERE (`country_name` = 'Egypt');
+
+UPDATE `countries` SET `country_currency` = 'ERN' WHERE (`country_name` = 'Eritrea');
+
+UPDATE `countries` SET `country_currency` = 'ETB' WHERE (`country_name` = 'Ethiopia');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Andorra');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Austria');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Belgium');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Cyprus');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Czech Republic');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Estonia');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Finland');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'France');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Germany');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Greece');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Ireland');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Italy');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Latvia');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Lithuania');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Luxembourg');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Malta');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Monaco');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Montenegro');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Netherlands');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Portugal');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'San Marino');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Slovakia');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Slovenia');
+
+UPDATE `countries` SET `country_currency` = 'EUR' WHERE (`country_name` = 'Spain');
+
+UPDATE `countries` SET `country_currency` = 'FJD' WHERE (`country_name` = 'Fiji');
+
+UPDATE `countries` SET `country_currency` = 'GBP' WHERE (`country_name` = 'United Kingdom');
+
+UPDATE `countries` SET `country_currency` = 'GEL' WHERE (`country_name` = 'Georgia');
+
+UPDATE `countries` SET `country_currency` = 'GHC' WHERE (`country_name` = 'Ghana');
+
+UPDATE `countries` SET `country_currency` = 'GMD' WHERE (`country_name` = 'Gambia');
+
+UPDATE `countries` SET `country_currency` = 'GNF' WHERE (`country_name` = 'Guinea');
+
+UPDATE `countries` SET `country_currency` = 'GTQ' WHERE (`country_name` = 'Guatemala');
+
+UPDATE `countries` SET `country_currency` = 'GYD' WHERE (`country_name` = 'Guyana');
+
+UPDATE `countries` SET `country_currency` = 'HNL' WHERE (`country_name` = 'Honduras');
+
+UPDATE `countries` SET `country_currency` = 'HTG' WHERE (`country_name` = 'Haiti');
+
+UPDATE `countries` SET `country_currency` = 'HUF' WHERE (`country_name` = 'Hungary');
+
+UPDATE `countries` SET `country_currency` = 'IDR' WHERE (`country_name` = 'Indonesia');
+
+UPDATE `countries` SET `country_currency` = 'ILS' WHERE (`country_name` = 'Israel');
+
+UPDATE `countries` SET `country_currency` = 'INR' WHERE (`country_name` = 'India');
+
+UPDATE `countries` SET `country_currency` = 'IQD' WHERE (`country_name` = 'Iraq');
+
+UPDATE `countries` SET `country_currency` = 'ISK' WHERE (`country_name` = 'Iceland');
+
+UPDATE `countries` SET `country_currency` = 'JMD' WHERE (`country_name` = 'Jamaica');
+
+UPDATE `countries` SET `country_currency` = 'JOD' WHERE (`country_name` = 'Jordan');
+
+UPDATE `countries` SET `country_currency` = 'JPY' WHERE (`country_name` = 'Japan');
+
+UPDATE `countries` SET `country_currency` = 'KES' WHERE (`country_name` = 'Kenya');
+
+UPDATE `countries` SET `country_currency` = 'KGS' WHERE (`country_name` = 'Kyrgyzstan');
+
+UPDATE `countries` SET `country_currency` = 'KHR' WHERE (`country_name` = 'Cambodia');
+
+UPDATE `countries` SET `country_currency` = 'KMF' WHERE (`country_name` = 'Comoros');
+
+UPDATE `countries` SET `country_currency` = 'KWD' WHERE (`country_name` = 'Kuwait');
+
+UPDATE `countries` SET `country_currency` = 'KZT' WHERE (`country_name` = 'Kazakhstan');
+
+UPDATE `countries` SET `country_currency` = 'LAK' WHERE (`country_name` = 'Lao Peoples Democratic Republic');
+
+UPDATE `countries` SET `country_currency` = 'LBP' WHERE (`country_name` = 'Lebanon');
+
+UPDATE `countries` SET `country_currency` = 'LKR' WHERE (`country_name` = 'Sri Lanka');
+
+UPDATE `countries` SET `country_currency` = 'LRD' WHERE (`country_name` = 'Liberia');
+
+UPDATE `countries` SET `country_currency` = 'LSL' WHERE (`country_name` = 'Lesotho');
+
+UPDATE `countries` SET `country_currency` = 'MAD' WHERE (`country_name` = 'Morocco');
+
+UPDATE `countries` SET `country_currency` = 'MGA' WHERE (`country_name` = 'Madagascar');
+
+UPDATE `countries` SET `country_currency` = 'MMK' WHERE (`country_name` = 'Myanmar');
+
+UPDATE `countries` SET `country_currency` = 'MNT' WHERE (`country_name` = 'Mongolia');
+
+UPDATE `countries` SET `country_currency` = 'MRU' WHERE (`country_name` = 'Mauritania');
+
+UPDATE `countries` SET `country_currency` = 'MUR' WHERE (`country_name` = 'Mauritius');
+
+UPDATE `countries` SET `country_currency` = 'MVR' WHERE (`country_name` = 'Maldives');
+
+UPDATE `countries` SET `country_currency` = 'MWK' WHERE (`country_name` = 'Malawi');
+
+UPDATE `countries` SET `country_currency` = 'MXN' WHERE (`country_name` = 'Mexico');
+
+UPDATE `countries` SET `country_currency` = 'MYR' WHERE (`country_name` = 'Malaysia');
+
+UPDATE `countries` SET `country_currency` = 'MZM' WHERE (`country_name` = 'Mozambique');
+
+UPDATE `countries` SET `country_currency` = 'NAD' WHERE (`country_name` = 'Namibia');
+
+UPDATE `countries` SET `country_currency` = 'NGN' WHERE (`country_name` = 'Nigeria');
+
+UPDATE `countries` SET `country_currency` = 'NIO' WHERE (`country_name` = 'Nicaragua');
+
+UPDATE `countries` SET `country_currency` = 'NOK' WHERE (`country_name` = 'Norway');
+
+UPDATE `countries` SET `country_currency` = 'NPR' WHERE (`country_name` = 'Nepal');
+
+UPDATE `countries` SET `country_currency` = 'NZD' WHERE (`country_name` = 'Cook Islands');
+
+UPDATE `countries` SET `country_currency` = 'NZD' WHERE (`country_name` = 'New Zealand');
+
+UPDATE `countries` SET `country_currency` = 'NZD' WHERE (`country_name` = 'Niue');
+
+UPDATE `countries` SET `country_currency` = 'OMR' WHERE (`country_name` = 'Oman');
+
+UPDATE `countries` SET `country_currency` = 'PAB' WHERE (`country_name` = 'Panama');
+
+UPDATE `countries` SET `country_currency` = 'PEN' WHERE (`country_name` = 'Peru');
+
+UPDATE `countries` SET `country_currency` = 'PGK' WHERE (`country_name` = 'Papua New Guinea');
+
+UPDATE `countries` SET `country_currency` = 'PHP' WHERE (`country_name` = 'Philippines');
+
+UPDATE `countries` SET `country_currency` = 'PKR' WHERE (`country_name` = 'Pakistan');
+
+UPDATE `countries` SET `country_currency` = 'PLN' WHERE (`country_name` = 'Poland');
+
+UPDATE `countries` SET `country_currency` = 'PYG' WHERE (`country_name` = 'Paraguay');
+
+UPDATE `countries` SET `country_currency` = 'QAR' WHERE (`country_name` = 'Qatar');
+
+UPDATE `countries` SET `country_currency` = 'RON' WHERE (`country_name` = 'Romania');
+
+UPDATE `countries` SET `country_currency` = 'RSD' WHERE (`country_name` = 'Serbia');
+
+UPDATE `countries` SET `country_currency` = 'RUB' WHERE (`country_name` = 'Russian Federation');
+
+UPDATE `countries` SET `country_currency` = 'RWF' WHERE (`country_name` = 'Rwanda');
+
+UPDATE `countries` SET `country_currency` = 'SAR' WHERE (`country_name` = 'Saudi Arabia');
+
+UPDATE `countries` SET `country_currency` = 'SBD' WHERE (`country_name` = 'Solomon Islands');
+
+UPDATE `countries` SET `country_currency` = 'SCR' WHERE (`country_name` = 'Seychelles');
+
+UPDATE `countries` SET `country_currency` = 'SDG' WHERE (`country_name` = 'Sudan');
+
+UPDATE `countries` SET `country_currency` = 'SEK' WHERE (`country_name` = 'Sweden');
+
+UPDATE `countries` SET `country_currency` = 'SGD' WHERE (`country_name` = 'Singapore');
+
+UPDATE `countries` SET `country_currency` = 'SLL' WHERE (`country_name` = 'Sierra Leone');
+
+UPDATE `countries` SET `country_currency` = 'SOS' WHERE (`country_name` = 'Somalia');
+
+UPDATE `countries` SET `country_currency` = 'SRD' WHERE (`country_name` = 'Suriname');
+
+UPDATE `countries` SET `country_currency` = 'STN' WHERE (`country_name` = 'Sao Tome and Principe');
+
+UPDATE `countries` SET `country_currency` = 'THB' WHERE (`country_name` = 'Thailand');
+
+UPDATE `countries` SET `country_currency` = 'TJS' WHERE (`country_name` = 'Tajikistan');
+
+UPDATE `countries` SET `country_currency` = 'TMT' WHERE (`country_name` = 'Turkmenistan');
+
+UPDATE `countries` SET `country_currency` = 'TND' WHERE (`country_name` = 'Tunisia');
+
+UPDATE `countries` SET `country_currency` = 'TOP' WHERE (`country_name` = 'Tonga');
+
+UPDATE `countries` SET `country_currency` = 'TRY' WHERE (`country_name` = 'Turkey');
+
+UPDATE `countries` SET `country_currency` = 'TTD' WHERE (`country_name` = 'Trinidad and Tobago');
+
+UPDATE `countries` SET `country_currency` = 'UAH' WHERE (`country_name` = 'Ukraine');
+
+UPDATE `countries` SET `country_currency` = 'UGS' WHERE (`country_name` = 'Uganda');
+
+UPDATE `countries` SET `country_currency` = 'USD' WHERE (`country_name` = 'Ecuador');
+
+UPDATE `countries` SET `country_currency` = 'USD' WHERE (`country_name` = 'El Salvador');
+
+UPDATE `countries` SET `country_currency` = 'USD' WHERE (`country_name` = 'Marshall Islands');
+
+UPDATE `countries` SET `country_currency` = 'USD' WHERE (`country_name` = 'Palau');
+
+UPDATE `countries` SET `country_currency` = 'UYU' WHERE (`country_name` = 'Uruguay');
+
+UPDATE `countries` SET `country_currency` = 'UZS' WHERE (`country_name` = 'Uzbekistan');
+
+UPDATE `countries` SET `country_currency` = 'VUV' WHERE (`country_name` = 'Vanuatu');
+
+UPDATE `countries` SET `country_currency` = 'WST' WHERE (`country_name` = 'Samoa');
+
+UPDATE `countries` SET `country_currency` = 'XAF' WHERE (`country_name` = 'Cameroon');
+
+UPDATE `countries` SET `country_currency` = 'XAF' WHERE (`country_name` = 'Central African Republic');
+
+UPDATE `countries` SET `country_currency` = 'XAF' WHERE (`country_name` = 'Chad');
+
+UPDATE `countries` SET `country_currency` = 'XAF' WHERE (`country_name` = 'Congo');
+
+UPDATE `countries` SET `country_currency` = 'XAF' WHERE (`country_name` = 'Equatorial Guinea');
+
+UPDATE `countries` SET `country_currency` = 'XAF' WHERE (`country_name` = 'Gabon');
+
+UPDATE `countries` SET `country_currency` = 'XCD' WHERE (`country_name` = 'Antigua and Barbuda');
+
+UPDATE `countries` SET `country_currency` = 'XCD' WHERE (`country_name` = 'Dominica');
+
+UPDATE `countries` SET `country_currency` = 'XCD' WHERE (`country_name` = 'Grenada');
+
+UPDATE `countries` SET `country_currency` = 'XCD' WHERE (`country_name` = 'Saint Kitts and Nevis');
+
+UPDATE `countries` SET `country_currency` = 'XCD' WHERE (`country_name` = 'Saint Lucia');
+
+UPDATE `countries` SET `country_currency` = 'XCD' WHERE (`country_name` = 'Saint Vincent and the Grenadines');
+
+UPDATE `countries` SET `country_currency` = 'XOF' WHERE (`country_name` = 'Benin');
+
+UPDATE `countries` SET `country_currency` = 'XOF' WHERE (`country_name` = 'Burkina Faso');
+
+UPDATE `countries` SET `country_currency` = 'XOF' WHERE (`country_name` = 'Mali');
+
+UPDATE `countries` SET `country_currency` = 'XOF' WHERE (`country_name` = 'Niger');
+
+UPDATE `countries` SET `country_currency` = 'XOF' WHERE (`country_name` = 'Senegal');
+
+UPDATE `countries` SET `country_currency` = 'XOF' WHERE (`country_name` = 'Togo');
+
+UPDATE `countries` SET `country_currency` = 'YER' WHERE (`country_name` = 'Yemen');
+
+UPDATE `countries` SET `country_currency` = 'ZAR' WHERE (`country_name` = 'South Africa');
+
+UPDATE `countries` SET `country_currency` = 'ZMK' WHERE (`country_name` = 'Zambia');
+
+UPDATE `countries` SET `country_currency` = 'ZWD' WHERE (`country_name` = 'Zimbabwe');
+
+
 CREATE TABLE `company_codes` (
 `id` INT NOT NULL AUTO_INCREMENT,
 `code` VARCHAR(45) NOT NULL,

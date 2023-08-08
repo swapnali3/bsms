@@ -6,37 +6,47 @@ var year1 = year2 - 1;
 var year0 = year1 - 1;
 
 $(function () {
-    $("#productionyear3").text(year2 + '-' + year3);
-    $("#productionyear2").text(year1 + '-' + year2);
-    $("#productionyear1").text(year0 + '-' + year1);
-    $(".placeholder3").attr('placeholder', year2 + ' - ' + year3);
-    $(".placeholder2").attr('placeholder', year1 + ' - ' + year2);
-    $(".placeholder1").attr('placeholder', year0 + ' - ' + year1);
-    $(".year3").val(year2 + ' - ' + year3);
-    $(".year2").val(year1 + ' - ' + year2);
-    $(".year1").val(year0 + ' - ' + year1);
+    $("#productionyear3").text(year2 + "-" + year3);
+    $("#productionyear2").text(year1 + "-" + year2);
+    $("#productionyear1").text(year0 + "-" + year1);
+    $(".placeholder3").attr("placeholder", year2 + " - " + year3);
+    $(".placeholder2").attr("placeholder", year1 + " - " + year2);
+    $(".placeholder1").attr("placeholder", year0 + " - " + year1);
+    $(".year3").val(year2 + " - " + year3);
+    $(".year2").val(year1 + " - " + year2);
+    $(".year1").val(year0 + " - " + year1);
     bsCustomFileInput.init();
 });
 
 $(document).on("change", "#copypermanant", function () {
     if ($(this).is(":checked")) {
-        $("#register_office_address1").val($("#id_permanent_address_address1").val());
-        $("#register_office_address2").val($("#id_permanent_address_address2").val());
-        $("#register_office_pincode").val($("#id_permanent_address_pincode").val());
+        $("#register_office_address1").val(
+            $("#id_permanent_address_address1").val()
+        );
+        $("#register_office_address2").val(
+            $("#id_permanent_address_address2").val()
+        );
+        $("#register_office_pincode").val(
+            $("#id_permanent_address_pincode").val()
+        );
         $("#register_office_city").val($("#id_permanent_address_city").val());
-        $("#register_office_country").val($("#id_permanent_address_country").val());
+        $("#register_office_country").val(
+            $("#id_permanent_address_country").val()
+        );
         $("#register_office_state").val($("#id_permanent_address_state").val());
-        $("#register_office_telephone").val($("#id_permanent_address_telephone").val());
+        $("#register_office_telephone").val(
+            $("#id_permanent_address_telephone").val()
+        );
         $("#register_office_faxno").val($("#id_permanent_address_faxno").val());
     } else {
-        $("#register_office_address1").val('');
-        $("#register_office_address2").val('');
-        $("#register_office_pincode").val('');
-        $("#register_office_city").val('');
-        $("#register_office_country").val('');
-        $("#register_office_state").val('');
-        $("#register_office_telno").val('');
-        $("#register_office_faxno").val('');
+        $("#register_office_address1").val("");
+        $("#register_office_address2").val("");
+        $("#register_office_pincode").val("");
+        $("#register_office_city").val("");
+        $("#register_office_country").val("");
+        $("#register_office_state").val("");
+        $("#register_office_telno").val("");
+        $("#register_office_faxno").val("");
     }
 });
 
@@ -45,90 +55,195 @@ $(document).on("click", ".fully_manufactured_radio", function () {
         $(".sub-contractors-info").show();
     } else {
         $(".sub-contractors-info").hide();
-        $("#other_manufacturer").val('');
+        $("#other_manufacturer").val("");
     }
 });
 
 $(document).on("click", ".add", function () {
-    var clas = $(this).data('class');
+    var clas = $(this).data("class");
     var getarray = [];
     var lastid;
-    $('.' + clas).each(function (i, obj) {
-        lastid = $(obj).data('id');
+    $("." + clas).each(function (i, obj) {
+        lastid = $(obj).data("id");
         getarray.push(lastid);
     });
     var str = $("#" + clas + "_" + lastid).html();
     nextid = lastid + 1;
     str = str.replaceAll(clas + "_" + lastid + "_", clas + "_" + nextid + "_");
     str = str.replaceAll(" hide", "");
-    str = str.replaceAll("[" + clas + "]" + "[" + lastid + "]", "[" + clas + "]" + "[" + nextid + "]");
-    str = str.replaceAll('data-id="' + lastid + '"', 'data-id="' + nextid + '"');
-    var delte = `<div class="col-sm-12 col-md-3 mt-4 pt-4">
-        <span class="badge redbadge delete" data-toggle="tooltip"  data-id="0" data-placement="right" data-class="`+ clas + `" data-original-title="Delete Address">
+    str = str.replaceAll(
+        "[" + clas + "]" + "[" + lastid + "]",
+        "[" + clas + "]" + "[" + nextid + "]"
+    );
+    str = str.replaceAll(
+        'data-id="' + lastid + '"',
+        'data-id="' + nextid + '"'
+    );
+    var delte =
+        `<div class="col-sm-12 col-md-3 mt-4 pt-4">
+        <span class="badge redbadge delete" data-toggle="tooltip"  data-id="0" data-placement="right" data-class="` +
+        clas +
+        `" data-original-title="Delete Address">
             <i class="fas fa-trash"></i>
         </span>
     </div>`;
-    $("." + clas + "_card_body").append('<div class="row ' + clas + ' ' + clas + '_' + nextid + '" data-id="' + nextid + '" id="' + clas + '_' + nextid + '">' + str + '</div><hr class="' + clas + '_' + nextid + '" style="border: revert;">');
+    $("." + clas + "_card_body").append(
+        '<div class="row ' +
+            clas +
+            " " +
+            clas +
+            "_" +
+            nextid +
+            '" data-id="' +
+            nextid +
+            '" id="' +
+            clas +
+            "_" +
+            nextid +
+            '">' +
+            str +
+            '</div><hr class="' +
+            clas +
+            "_" +
+            nextid +
+            '" style="border: revert;">'
+    );
 
     // $('.' + clas + '_' + nextid + ' .my-select').selectpicker('refresh');
     // initializeSelectpicker('.' + clas + '_' + nextid + ' .my-select');
-
 });
 
-function initializeSelectpicker(select) {
-    $(select).selectpicker('refresh');
-}
+// function initializeSelectpicker(select) {
+//     $(select).selectpicker("refresh");
+// }
 
+// maximum length validation funcation
 function validateMaxLength(inputElement) {
     var inputValue = inputElement.val();
-    var maxLength = parseInt(inputElement.attr('maxlength'));
+    var maxLength = parseInt(inputElement.attr("maxlength"));
     if (inputValue.length > maxLength) {
         inputValue = inputValue.slice(0, maxLength);
         inputElement.val(inputValue);
     }
 }
 
-$(document).on('input', '.pincode-input', function () {
+$(document).on("input", ".maxlength_validation", function () {
     validateMaxLength($(this));
 });
 
-
-$(document).on('input', '.tel-no', function () {
-    validateMaxLength($(this));
+$(document).on("keypress", ".alphaonly", function (event) {
+    var regex = new RegExp("^[A-Za-z ]+$");
+    var key = String.fromCharCode(
+        !event.charCode ? event.which : event.charCode
+    );
+    if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+    }
 });
 
+
+
+$(".UpperCase").on("keyup", function() {
+    var upperCaseText = $(this).val().toUpperCase();
+    $(this).val(upperCaseText);
+});
+
+
+$('#id_bank_country').on('change', function() {
+    var swiftBicField = $('#id_swift_bic').closest('.col-3');
+    if ($(this).val() === 'India') {
+        swiftBicField.hide().val('');
+        id_swift_bic
+    } else {
+        swiftBicField.show();
+    }
+});
+
+$(document).ready(function () {
+    var isFirstInput = true;
+
+    $(document).on("keypress", ".alphaafternumberonly", function (event) {
+        var key = String.fromCharCode(
+            !event.charCode ? event.which : event.charCode
+        );
+
+        if (isFirstInput) {
+            if (/^[0-9]+$/.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+            isFirstInput = false;
+        } else {
+            if (!/^[A-Za-z0-9 ]+$/.test(key)) {
+                event.preventDefault();
+                return false;
+            }
+        }
+    });
+});
 
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-$(document).on('input', '.capitalize-first-letter', function () {
+$(document).on("input", ".capitalize", function () {
     var inputValue = $(this).val();
     if (inputValue.length > 0) {
         $(this).val(capitalizeFirstLetter(inputValue));
     }
 });
 
+datePickerId.max = new Date().toISOString().split("T")[0];
 
 $(document).on("click", ".showme", function () {
-    var trigger = $(this).data('trigger');
+    var trigger = $(this).data("trigger");
     if ($(this).val() == trigger) {
-        $("#" + $(this).data('show')).show();
+        $("#" + $(this).data("show")).show();
     } else {
-        $("#" + $(this).data('show')).hide();
+        $("#" + $(this).data("show")).hide();
     }
 });
 
 $(document).on("click", ".delete", function () {
-    var nextid = $(this).data('id');
-    var clas = $(this).data('class');
+    var nextid = $(this).data("id");
+    var clas = $(this).data("class");
     var getarray = [];
     var lastid;
-    $('.' + clas).each(function (i, obj) {
-        lastid = $(obj).data('id');
+    $("." + clas).each(function (i, obj) {
+        lastid = $(obj).data("id");
         getarray.push(lastid);
     });
-    if (getarray.length != 1) { $("." + clas + '_' + nextid).remove(); }
+    if (getarray.length != 1) {
+        $("." + clas + "_" + nextid).remove();
+    }
+});
+
+
+$("#id_bank_country").change(function () {
+    var coutryName = $(this).val();
+    if (coutryName != "") {
+        $.ajax({
+            type: "get",
+            url: vendorLink +'/'+coutryName,
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(
+                    "Content-type",
+                    "application/x-www-form-urlencoded"
+                );
+            },
+            success: function (response) {
+                if (response.status == 1) {
+                    $("#order-currency").val(response.message);
+                }
+            },
+            error: function (e) {
+                alert("An error occurred: " + e.responseText.message);
+                console.log(e);
+            },
+        });
+    }
 });
 // $('input[name="productionFacility[lab_facilities]"]').on("change", function () {
 //     if ($(this).val() === "yes") {
