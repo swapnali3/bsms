@@ -1,6 +1,6 @@
 var branch_office = [0];
 var today = new Date();
-var year3 = today.getFullYear();
+var year3 = today.getMonth() > 3 ? today.getFullYear() : (today.getFullYear() -1);
 var year2 = year3 - 1;
 var year1 = year2 - 1;
 var year0 = year1 - 1;
