@@ -1,6 +1,6 @@
 var branch_office = [0];
 var today = new Date();
-var year3 = today.getFullYear();
+var year3 = today.getMonth() > 3 ? today.getFullYear() : (today.getFullYear() -1);
 var year2 = year3 - 1;
 var year1 = year2 - 1;
 var year0 = year1 - 1;
@@ -88,25 +88,7 @@ $(document).on("click", ".add", function () {
         </span>
     </div>`;
     $("." + clas + "_card_body").append(
-        '<div class="row ' +
-            clas +
-            " " +
-            clas +
-            "_" +
-            nextid +
-            '" data-id="' +
-            nextid +
-            '" id="' +
-            clas +
-            "_" +
-            nextid +
-            '">' +
-            str +
-            '</div><hr class="' +
-            clas +
-            "_" +
-            nextid +
-            '" style="border: revert;">'
+        '<div class="row ' +clas +" " +clas +"_" +nextid +'" data-id="' +nextid +'" id="' +clas +"_" +nextid +'">' +str +'</div><hr class="' +clas +"_" +nextid +'" style="border: revert;">'
     );
 
     // $('.' + clas + '_' + nextid + ' .my-select').selectpicker('refresh');

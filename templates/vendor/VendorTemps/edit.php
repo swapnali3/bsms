@@ -366,7 +366,7 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('address_2', ['name' => 'permanent_address[address_2]', 'label' => 'Address 1', 'id' => 'id_permanent_address_address2', 'class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('address_2', ['name' => 'permanent_address[address1]', 'label' => 'Address 1', 'id' => 'id_permanent_address_address2', 'class' => 'form-control']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
@@ -412,12 +412,12 @@ switch ($vendorTemp->status) {
                                 <div class="row">
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_address1', ['name' => 'registered_office[address1]', 'id' => 'register_office_address1', 'class' => 'form-control', 'label' => "Address 1"]); ?>
+                                            <?php echo $this->Form->control('register_office_address1', ['name' => 'registered_office[address]', 'id' => 'register_office_address1', 'class' => 'form-control', 'label' => "Address"]); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_address2', ['name' => 'registered_office[address2]', 'label' => 'Address 2', 'class' => 'form-control', 'id' => 'register_office_address2']); ?>
+                                            <?php echo $this->Form->control('register_office_address2', ['name' => 'registered_office[address1]', 'label' => 'Address 1', 'class' => 'form-control', 'id' => 'register_office_address2']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
@@ -464,12 +464,12 @@ switch ($vendorTemp->status) {
                                         <div class="row branch_office branch_office_0" data-id="0" id="branch_office_0">
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_address1', ['type' => 'text', 'name' => 'branch[branch_office][0][address1]', 'id' => 'branch_office_0_address1', 'class' => 'form-control', 'label' => "Address 1"]); ?>
+                                                    <?php echo $this->Form->control('register_office_address1', ['type' => 'text', 'name' => 'branch[branch_office][0][address]', 'id' => 'branch_office_0_address1', 'class' => 'form-control', 'label' => "Address"]); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_address2', ['type' => 'text', 'name' => 'branch[branch_office][0][address2]', 'id' => 'branch_office_0_address2', 'label' => 'Address 2', 'class' => 'form-control']); ?>
+                                                    <?php echo $this->Form->control('register_office_address2', ['type' => 'text', 'name' => 'branch[branch_office][0][address1]', 'id' => 'branch_office_0_address2', 'label' => 'Address 1', 'class' => 'form-control']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
@@ -515,7 +515,7 @@ switch ($vendorTemp->status) {
                                         <div class="row">
                                             <div class="col-sm-12 col-lg-4">
                                                 <label>Year:</label>
-                                                <input type="number" name="branch[small_scale][year]" class="form-control">
+                                                <input type="number" name="branch[small_scale][year]" class="form-control maxlength_validation" maxlength="4">
                                             </div>
 
                                             <div class="col-sm-4 col-lg-4">
@@ -540,7 +540,7 @@ switch ($vendorTemp->status) {
 
                                             <div class="col-sm-12 col-lg-4">
                                                 <label>Year of Registration:</label>
-                                                <input name="branch[vendor][year]" type="number" class="form-control">
+                                                <input name="branch[vendor][year]" type="number" class="form-control maxlength_validation" maxlength="4">
                                             </div>
 
                                             <div class="col-sm-12 col-lg-4">
@@ -711,12 +711,12 @@ switch ($vendorTemp->status) {
                                         <div class="row factory_office factory_office_0" data-id="0" id="factory_office_0">
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_address1', ['name' => 'prdflt[factory_office][0][address1]', 'id' => 'factory_0_address1', 'class' => 'form-control', 'label' => "Address 1"]); ?>
+                                                    <?php echo $this->Form->control('register_office_address1', ['name' => 'prdflt[factory_office][0][address]', 'id' => 'factory_0_address1', 'class' => 'form-control', 'label' => "Address"]); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_address2', ['name' => 'prdflt[factory_office][0][address2]', 'id' => 'factory_0_address2', 'label' => 'Address 2', 'class' => 'form-control']); ?>
+                                                    <?php echo $this->Form->control('register_office_address2', ['name' => 'prdflt[factory_office][0][address1]', 'id' => 'factory_0_address2', 'label' => 'Address 1', 'class' => 'form-control']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
@@ -942,12 +942,12 @@ switch ($vendorTemp->status) {
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][address]', ['class' => 'form-control', 'id' => 'id_address1', 'label' => "Address 1"]); ?>
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][address]', ['class' => 'form-control', 'id' => 'id_address1', 'label' => "Address"]); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][address_2]', ['label' => 'Address 2', 'id' => 'id_address2', 'class' => 'form-control']); ?>
+                                                    <?php echo $this->Form->control('contact_person[other_address][0][address1]', ['label' => 'Address 1', 'id' => 'id_address2', 'class' => 'form-control']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
@@ -1156,16 +1156,16 @@ switch ($vendorTemp->status) {
 
                                 <div class="row">
                                     <h5>Other Quality Certification</h5>
-                                    <p>Whether the item is completely manufactured in applicant's
-                                        factory?</label>
                                     <div class="col-lg-12 mt-3">
+                                    <p>Whether the item is completely manufactured in applicant's
+                                        factory?</p>
                                         <input class="fully_manufactured_radio" type="radio" name="fully_manufactured[a]" value="yes">
                                         <label>Yes</label>
                                         <input class="fully_manufactured_radio ml-5" type="radio" name="fully_manufactured[a]" value="no">
                                         <label>No</label>
                                     </div>
 
-                                    <div class="col-6 mt-1">
+                                    <div class="col-lg-12 mt-1">
                                         <div class="sub-contractors-info" style="display: none;">
                                             <div class="form-group">
                                                 <?php echo $this->Form->control('sub-contractor', ['id' => 'other_manufacturer', 'name' => 'fully_manufactured[f]', 'class' => 'form-control', 'label' => 'Suppliers Name']); ?>
@@ -1262,7 +1262,7 @@ switch ($vendorTemp->status) {
                                                     <input type="number" id="reputed_telephone" name="reputed[customer][0][telephone]" class="form-control maxlength_validation" maxlength="10">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-3 mt-3">
+                                            <div class="col-sm-12 col-md-2 mt-3">
                                                 <div class="form-group">
                                                     <?php echo $this->Form->control('register_office_faxno', ['name' => 'reputed[customer][0][faxno]', 'id' => 'reputed_faxno', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Fax No.', 'maxlength' => '10']); ?>
                                                 </div>
