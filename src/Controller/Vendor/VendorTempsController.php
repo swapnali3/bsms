@@ -93,9 +93,19 @@ class VendorTempsController extends VendorAppController
 
     public function edit($id = null)
     {
-
         $this->loadModel("VendorTemps");
-        $this->loadModel("Factories");
+        $this->loadModel("VendorRegisteredOffices");
+        $this->loadModel("VendorBranchOffices");
+        $this->loadModel("VendorSmallScales");
+        $this->loadModel("VendorFacilities");
+        $this->loadModel("VendorTurnovers");
+        $this->loadModel("VendorIncometaxes");
+        $this->loadModel("VendorFactories");
+        $this->loadModel("VendorPartnerAddress");
+        $this->loadModel("VendorOtherdetails");
+        $this->loadModel("VendorCommencements");
+        $this->loadModel("VendorQuestionnaires");
+        $this->loadModel("VendorReputedCustomers");
         $this->loadModel("Countries");
         $this->loadModel("States");
         $this->loadModel("Users");
@@ -105,17 +115,132 @@ class VendorTempsController extends VendorAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
             try {
-                echo '<pre>';
-                foreach ($request["prdflt"]["factory_office"] as $key => $value) {
-                    $factory = $this->Factories->newEmptyEntity();
+                echo '<pre>'; print_r($request);
+
+                // Basic details
+                $vendorTemp["business_type"] = $request["business_type"];
+                $vendorTemp["address"] = $request["address"];
+                $vendorTemp["address_2"] = $request["address_2"];
+                $vendorTemp["pincode"] = $request["pincode"];
+                $vendorTemp["city"] = $request["city"];
+                $vendorTemp["country"] = $request["country"];
+                $vendorTemp["state"] = $request["state"];
+                $vendorTemp["telephone"] = $request["address_2"];
+                $vendorTemp["fax_no"] = $request["fax_no"];
+
+                // Registered Office
+                $regoffc = $this->VendorRegisteredOffices->newEmptyEntity();
+                $regoffc["vendor_temps_id"] = $id;
+                $regoffc = $this->VendorRegisteredOffices->patchEntity($regoffc, $request["registered_office"]);
+                if ($this->VendorRegisteredOffices->save($regoffc)) { }
+                
+                // Branch Office
+                foreach ($request["branch"]["branch_office"] as $key => $value) {
+                    $branch = $this->VendorBranchOffices->newEmptyEntity();
                     $value["vendor_temps_id"] = $id;
-                    $value["sap_vendor_code"] = $vendorTemp->sap_vendor_code;
+                    $branch = $this->VendorBranchOffices->patchEntity($branch, $value);
+                    if ($this->VendorBranchOffices->save($branch)) { }
+                }
+
+                // Small Scale
+                $smallscale = $this->VendorSmallScales->newEmptyEntity();
+                $smallscale["vendor_temps_id"] = $id;
+                $smallscale = $this->VendorSmallScales->patchEntity($smallscale, $request["small_scale"]);
+                if ($this->VendorSmallScales->save($smallscale)) { }
+                
+                // Other Details
+                foreach ($request["facility"] as $key => $value) {
+                    $intax = $this->VendorFacility->newEmptyEntity();
+                    $value["vendor_temps_id"] = $id;
+                    $intax = $this->VendorFacility->patchEntity($intax, $value);
+                    if ($this->VendorFacility->save($intax)) { }
+                }
+
+                // Turn Over
+                foreach ($request["annual_turnover"] as $key => $value) {
+                    $turnovr = $this->VendorTurnovers->newEmptyEntity();
+                    $value["vendor_temps_id"] = $id;
+                    $turnovr = $this->VendorTurnovers->patchEntity($turnovr, $value);
+                    if ($this->VendorTurnovers->save($turnovr)) { }
+                }
+                
+                // Income Tax
+                $intax = $this->VendorIncometaxes->newEmptyEntity();
+                $intax["vendor_temps_id"] = $id;
+                $intax = $this->VendorIncometaxes->patchEntity($intax, $request["income_tax"]);
+                if ($this->VendorIncometaxes->save($intax)) { }
+
+                // Factory Address
+                foreach ($request["prdflt"]["factory_office"] as $key => $value) {
+                    $factory = $this->VendorFactories->newEmptyEntity();
+                    $value["vendor_temps_id"] = $id;
+                    // $value["sap_vendor_code"] = $vendorTemp->sap_vendor_code;
                     $value["factory_code"] = substr(strtoupper($value['country']), 0, 2)."_".substr(strtoupper($value['state']), 0, 2)."_".substr(strtoupper($value['city']), 0, 2)."_Unit".($key+1);
-                    $factory = $this->Factories->patchEntity($factory, $value);
-                    if ($this->Factories->save($factory)) {
-                        print_r($key); print_r($value);
+                    $factory = $this->VendorFactories->patchEntity($factory, $value);
+                    if ($factory_id = $this->VendorFactories->save($factory)) {                        
+                        $commencement = $this->VendorCommencements->newEmptyEntity();
+                        $value["vendor_factory_id"] = $factory_id;
+                        $value["vendor_temp_id"] = $id;
+                        $commencement = $this->VendorCommencements->patchEntity($commencement, $value);
+                        if ($this->VendorCommencements->save($commencement)) {  }
                     }
                 }
+
+                $vendorTemp["contact_person"] = $request["contact_person"];
+                $vendorTemp["contact_email"] = $request["contact_email"];
+                $vendorTemp["contact_mobile"] = $request["contact_mobile"];
+                $vendorTemp["contact_department"] = $request["contact_department"];
+                $vendorTemp["contact_designation"] = $request["contact_designation"];
+
+                // Parter Address
+                foreach ($request["other_address"] as $key => $value) {
+                    $partneraddr = $this->VendorPartnerAddress->newEmptyEntity();
+                    $value["vendor_temps_id"] = $id;
+                    $partneraddr = $this->VendorPartnerAddress->patchEntity($partneraddr, $value);
+                    if ($this->VendorPartnerAddress->save($partneraddr)) { }
+                }
+
+                $vendorTemp["bank_name"] = $request["bank_name"];
+                $vendorTemp["bank_branch"] = $request["bank_branch"];
+                $vendorTemp["bank_number"] = $request["bank_number"];
+                $vendorTemp["bank_ifsc"] = $request["bank_ifsc"];
+                $vendorTemp["bank_key"] = $request["bank_key"];
+                $vendorTemp["bank_country"] = $request["bank_country"];
+                $vendorTemp["bank_city"] = $request["contact_email"];
+                $vendorTemp["bank_swift"] = $request["bank_swift"];
+                $vendorTemp["order_currency"] = $request["order_currency"];
+                $vendorTemp["tan_no"] = $request["tan_no"];
+                $vendorTemp["cin_no"] = $request["cin_no"];
+                $vendorTemp["gst_no"] = $request["gst_no"];
+                $vendorTemp["pan_no"] = $request["pan_no"];
+                $vendorTemp["gst_file"] = $request["gst_file"];
+                $vendorTemp["pan_file"] = $request["pan_file"];
+                $vendorTemp["bank_file"] = $request["bank_file"];
+
+                // Other Detail
+                $other = $this->VendorOtherdetails->newEmptyEntity();
+                $other["vendor_factory_id"] = $factory_id;
+                $other["vendor_temp_id"] = $id;
+                $other = $this->VendorOtherdetails->patchEntity($other, $value['other']);
+                if ($this->VendorOtherdetails->save($other)) {  }
+
+
+                // Questionnaire Address
+                foreach ($request["questionnaire"] as $key => $value) {
+                    $partneraddr = $this->VendorQuestionnaires->newEmptyEntity();
+                    $value["vendor_temps_id"] = $id;
+                    $partneraddr = $this->VendorQuestionnaires->patchEntity($partneraddr, $value);
+                    if ($this->VendorQuestionnaires->save($partneraddr)) { }
+                }
+
+                // Reputed Customers
+                foreach ($request["reputed"]["customer"] as $key => $value) {
+                    $partneraddr = $this->VendorReputedCustomers->newEmptyEntity();
+                    $value["vendor_temps_id"] = $id;
+                    $partneraddr = $this->VendorReputedCustomers->patchEntity($partneraddr, $value);
+                    if ($this->VendorReputedCustomers->save($partneraddr)) { }
+                }
+
                 exit;
             } catch (\PDOException $e) {
                 $flash = ['type' => 'error', 'msg' => ($e->getMessage())];
@@ -137,55 +262,5 @@ class VendorTempsController extends VendorAppController
         $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
 
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));
-
-
-
-        //     $flash = [];
-        //     $this->loadModel("VendorTemps");
-        //     $this->loadModel("Countries");
-        //     $this->loadModel("States");
-        //     $this->loadModel("Users");
-        //     $vendorTemp = $this->VendorTemps->get($id);
-        //     $buyer = $this->Users->get($vendorTemp->buyer_id);
-
-        //     //print_r($buyer); exit;
-        //     $updaterequest = $this->VendorTemps->find('all')->where(['update_flag >' => 0])->count();
-        //     if ($updaterequest == 0) {
-        //         if ($this->request->is(['patch', 'post', 'put'])) {
-        //             $resp = $this->request->getData();
-        //             $resp['update_flag'] = 1;
-        //             $newvt = $this->VendorTemps->patchEntity($vendorTemp, $resp);
-        //             if ($this->VendorTemps->save($newvt)) {
-
-        //                 // print_r($buyer->username);exit;
-        //                 $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-        //                 $mailer = new Mailer('default');
-        //                 $mailer
-        //                     ->setTransport('smtp')
-        //                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-        //                     ->setTo($buyer->username)
-        //                     ->setEmailFormat('html')
-        //                     ->setSubject('Vendor Portal - Review Vendor Update')
-        //                     ->deliver('Dear Buyer, <br/><br/>' . $vendorTemp->name . ' Send You a Profile Update Request. Kindly Check and Review.<br/> <a href="' . $link . '">Click here</a>');
-        //                 $flash = ['type'=>'success', 'msg'=>'The Vendor successfully Updated'];
-        //                 $this->set('flash', $flash);
-        //                 return $this->redirect(['action' => 'view', $id]);
-        //             } else {
-        //                 $flash = ['type'=>'error', 'msg'=>'The vendor could not be saved. Please, try again'];
-        //                 $this->set('flash', $flash);}
-        //         }
-        //     } else {
-        //         $flash = ['type'=>'success', 'msg'=>'Previous Update Request is under review'];
-        //         $this->set('flash', $flash);
-        //         return $this->redirect(['action' => 'view', $id]);
-        //     }
-        //     $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
-        //     $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
-        //     $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
-
-        //     $countries = $this->Countries->find('list', ['keyField' => 'country_name', 'valueField' => 'country_name'])->all();
-        //     $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
-
-        //     $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups','countries', 'states'));
     }
 }
