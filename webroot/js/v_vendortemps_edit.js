@@ -88,25 +88,7 @@ $(document).on("click", ".add", function () {
         </span>
     </div>`;
     $("." + clas + "_card_body").append(
-        '<div class="row ' +
-            clas +
-            " " +
-            clas +
-            "_" +
-            nextid +
-            '" data-id="' +
-            nextid +
-            '" id="' +
-            clas +
-            "_" +
-            nextid +
-            '">' +
-            str +
-            '</div><hr class="' +
-            clas +
-            "_" +
-            nextid +
-            '" style="border: revert;">'
+        '<div class="row ' +clas +" " +clas +"_" +nextid +'" data-id="' +nextid +'" id="' +clas +"_" +nextid +'">' +str +'</div><hr class="' +clas +"_" +nextid +'" style="border: revert;">'
     );
 
     // $('.' + clas + '_' + nextid + ' .my-select').selectpicker('refresh');
