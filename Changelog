@@ -1209,6 +1209,205 @@ INSERT INTO `reconciliation_accounts` (`code`, `name`, `status`) VALUES ('500020
 INSERT INTO `reconciliation_accounts` (`code`, `name`, `status`) VALUES ('50003000', 'Bank Guarantee - Other Creditor', '1');
 INSERT INTO `reconciliation_accounts` (`code`, `name`, `status`) VALUES ('50005000', 'Down payment request Vendor', '1');
 
+CREATE TABLE `vendor_bank details` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `bank_name` varchar(45) DEFAULT NULL,
+  `bank_key` varchar(45) DEFAULT NULL,
+  `bank_number` varchar(45) DEFAULT NULL,
+  `bank_branch` varchar(45) DEFAULT NULL,
+  `branch_country` varchar(45) DEFAULT NULL,
+  `branch_city` varchar(45) DEFAULT NULL,
+  `swift/bic` varchar(45) DEFAULT NULL,
+  `tan` varchar(45) DEFAULT NULL,
+  `cin` varchar(45) DEFAULT NULL,
+  `order_currrency` varchar(10) DEFAULT NULL,
+  `gst_no` varchar(25) DEFAULT NULL,
+  `pan_no` varchar(25) DEFAULT NULL,
+  `cheque_cancelled` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_branch_offices` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `address_2` varchar(45) DEFAULT NULL,
+  `pincode` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `country` varchar(45) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `telephone` varchar(45) DEFAULT NULL,
+  `registration_year` varchar(4) DEFAULT NULL,
+  `registration_no` varchar(15) DEFAULT NULL,
+  `registration_certificate` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_certificates` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `six_sigma` varchar(45) DEFAULT NULL,
+  `six_sigma_certificate` varchar(250) DEFAULT NULL,
+  `registration` varchar(45) DEFAULT NULL,
+  `iso_registration` varchar(45) DEFAULT NULL,
+  `certificate_file` varchar(45) DEFAULT NULL,
+  `declaration_file` varchar(45) DEFAULT NULL,
+  `independent_mfg` varchar(45) DEFAULT NULL,
+  `v_suppliers` varchar(45) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_commencements` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_factory_id` int NOT NULL,
+  `vendor_temp_id` int NOT NULL,
+  `commencement_year` varchar(45) DEFAULT NULL,
+  `commencement_material` varchar(45) DEFAULT NULL,
+  `first_year` int DEFAULT NULL,
+  `first_year_qty` varchar(45) DEFAULT NULL,
+  `second_year` int DEFAULT NULL,
+  `second_year_qty` varchar(45) DEFAULT NULL,
+  `third_year` int DEFAULT NULL,
+  `third_year_qty` varchar(45) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_facilities` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` varchar(45) DEFAULT NULL,
+  `lab_facility` varchar(45) DEFAULT NULL,
+  `lab_facility_file` varchar(250) DEFAULT NULL,
+  `isi_registration` varchar(45) DEFAULT NULL,
+  `isi_registration_file` varchar(250) DEFAULT NULL,
+  `test_facility` varchar(45) DEFAULT NULL,
+  `test_facility_file` varchar(250) DEFAULT NULL,
+  `sales_services` varchar(45) DEFAULT NULL,
+  `sales_services_file` varchar(250) DEFAULT NULL,
+  `quality_control` varchar(45) DEFAULT NULL,
+  `quality_control_file` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_factories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temps_id` int DEFAULT NULL,
+  `factory_code` varchar(45) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `address_2` varchar(100) DEFAULT NULL,
+  `pincode` varchar(6) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `country` varchar(50) DEFAULT NULL,
+  `installed_capacity` varchar(45) DEFAULT NULL,
+  `installed_capacity_file` varchar(250) DEFAULT NULL,
+  `machinery_available` varchar(45) DEFAULT NULL,
+  `machinery_available_file` varchar(250) DEFAULT NULL,
+  `power_available` varchar(45) DEFAULT NULL,
+  `power_available_file` varchar(250) DEFAULT NULL,
+  `raw_material` varchar(45) DEFAULT NULL,
+  `raw_material_file` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_incometaxes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `certificate_no` varchar(45) DEFAULT NULL,
+  `certificate_date` date DEFAULT NULL,
+  `certificate_file` varchar(250) DEFAULT NULL,
+  `balance_sheet_file` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_material_stocks` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sap_vendor_code` varchar(10) NOT NULL,
+  `material` varchar(18) DEFAULT NULL,
+  `part_code` varchar(20) NOT NULL,
+  `material_desc` varchar(40) DEFAULT NULL,
+  `current_stock` decimal(15,2) NOT NULL,
+  `production_stock` decimal(15,2) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `added_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_otherdetails` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `six_sigma` varchar(250) NOT NULL,
+  `six_sigma_file` tinyint(1) NOT NULL,
+  `iso` varchar(250) NOT NULL,
+  `iso_file` varchar(250) DEFAULT NULL,
+  `halal_file` varchar(250) DEFAULT NULL,
+  `declaration_file` varchar(250) DEFAULT NULL,
+  `fully_manufactured` varchar(250) DEFAULT NULL,
+  `suppliers_name` varchar(250) DEFAULT NULL,
+  `added_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_partner_address` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `address_2` varchar(250) DEFAULT NULL,
+  `pincode` varchar(250) DEFAULT NULL,
+  `city` varchar(250) DEFAULT NULL,
+  `country` varchar(250) DEFAULT NULL,
+  `state` varchar(250) DEFAULT NULL,
+  `telephone` varchar(50) DEFAULT NULL,
+  `fax_no` varchar(50) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_production_histories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `year_of_commercement` varchar(45) DEFAULT NULL,
+  `material` date DEFAULT NULL,
+  `first_year` varchar(250) DEFAULT NULL,
+  `first_yearproduction` varchar(250) DEFAULT NULL,
+  `second_year` varchar(250) DEFAULT NULL,
+  `second_yearproduction` varchar(250) DEFAULT NULL,
+  `third_year` varchar(250) DEFAULT NULL,
+  `third_yearproduction` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_questionnaires` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int DEFAULT NULL,
+  `question` varchar(250) DEFAULT NULL,
+  `answer` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
 CREATE TABLE `vendor_registered_offices` (
   `id` int NOT NULL AUTO_INCREMENT,
   `vendor_temp_id` int NOT NULL,
@@ -1224,173 +1423,112 @@ CREATE TABLE `vendor_registered_offices` (
   PRIMARY KEY (`id`)
 );
 
+CREATE TABLE `vendor_reputed_customers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `customer_name` varchar(45) DEFAULT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `pincode` varchar(250) DEFAULT NULL,
+  `city` varchar(250) DEFAULT NULL,
+  `country` varchar(250) DEFAULT NULL,
+  `state` varchar(250) DEFAULT NULL,
+  `telephone` varchar(250) DEFAULT NULL,
+  `fax_no` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
 
-CREATE TABLE `vendor_branch_office` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NULL,
-  `address` VARCHAR(45) NULL,
-  `address1` VARCHAR(45) NULL,
-  `pincode` VARCHAR(45) NULL,
-  `city` VARCHAR(45) NULL,
-  `country` VARCHAR(45) NULL,
-  `state` VARCHAR(45) NULL,
-  `telephone` VARCHAR(45) NULL,
-  `year` VARCHAR(45) NULL,
-  `registration_no` VARCHAR(45) NULL,
-  `certificate` VARCHAR(45) NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
+CREATE TABLE `vendor_small_scales` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int DEFAULT NULL,
+  `year` int DEFAULT NULL,
+  `registration_no` varchar(45) DEFAULT NULL,
+  `certificate_file` varchar(45) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
 
-CREATE TABLE `vendor_small_scale` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NULL,
-  `year` INT(4) NULL,
-  `registration_no` VARCHAR(45) NULL,
-  `certificate_file` VARCHAR(45) NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
+CREATE TABLE `vendor_temps` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `purchasing_organization_id` int NOT NULL,
+  `account_group_id` int NOT NULL,
+  `schema_group_id` int NOT NULL,
+  `sap_vendor_code` varchar(10) DEFAULT NULL,
+  `title` varchar(15) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `address_2` varchar(100) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `pincode` varchar(6) DEFAULT NULL,
+  `mobile` varchar(12) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `country` varchar(50) DEFAULT NULL,
+  `payment_term` varchar(50) NOT NULL,
+  `order_currency` varchar(10) NOT NULL DEFAULT 'INR',
+  `gst_no` varchar(20) DEFAULT NULL,
+  `pan_no` varchar(20) DEFAULT NULL,
+  `contact_person` varchar(50) DEFAULT NULL,
+  `contact_email` varchar(50) DEFAULT NULL,
+  `contact_mobile` varchar(12) DEFAULT NULL,
+  `contact_department` varchar(50) DEFAULT NULL,
+  `contact_designation` varchar(50) DEFAULT NULL,
+  `cin_no` varchar(25) DEFAULT NULL,
+  `tan_no` varchar(25) DEFAULT NULL,
+  `gst_file` varchar(255) DEFAULT NULL,
+  `pan_file` varchar(255) DEFAULT NULL,
+  `bank_file` varchar(255) DEFAULT NULL,
+  `status` smallint NOT NULL DEFAULT '0',
+  `valid_date` datetime NOT NULL,
+  `remark` text,
+  `buyer_id` int NOT NULL,
+  `added_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_flag` int DEFAULT '0',
+  `reconciliation_account_id` int DEFAULT NULL,
+  `company_code_id` int DEFAULT NULL,
+  `business_type` varchar(45) DEFAULT NULL,
+  `telephone` varchar(15) DEFAULT NULL,
+  `fax_no` varchar(15) DEFAULT NULL,
+  `bank_name` varchar(45) DEFAULT NULL,
+  `bank_branch` varchar(45) DEFAULT NULL,
+  `bank_number` varchar(45) DEFAULT NULL,
+  `bank_ifsc` varchar(45) DEFAULT NULL,
+  `bank_key` varchar(45) DEFAULT NULL,
+  `bank_country` varchar(45) DEFAULT NULL,
+  `bank_city` varchar(45) DEFAULT NULL,
+  `bank_swift` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
 
-CREATE TABLE `vendor_facility` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` VARCHAR(45) NULL,
-  `year` INT(4) NULL,
-  `registration_no` VARCHAR(45) NULL,
-  `certificate` VARCHAR(250) NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
+CREATE TABLE `vendor_turnovers` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int DEFAULT NULL,
+  `first_year` varchar(45) DEFAULT NULL,
+  `first_year_turnonver` int DEFAULT NULL,
+  `second_year` varchar(45) DEFAULT NULL,
+  `second_year_turnonver` int DEFAULT NULL,
+  `third_year` varchar(45) DEFAULT NULL,
+  `third_year_turnonver` int DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+);
 
-CREATE TABLE `vendor_turnover` (
-  `ID` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NULL,
-  `year` INT(4) NULL,
-  `turnover` VARCHAR(50) NULL,
-  PRIMARY KEY (`ID`));
 
-CREATE TABLE `vendor_incometax` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NOT NULL,
-  `certificate_no` VARCHAR(45) NULL DEFAULT NULL,
-  `certificate_date` DATE NULL DEFAULT NULL,
-  `certificate_file` VARCHAR(250) NULL DEFAULT NULL,
-  `balancesheet` VARCHAR(250) NULL DEFAULT NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
-
-CREATE TABLE `vendor_production_histories` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NOT NULL,
-  `year_of_commercement` VARCHAR(45) NULL DEFAULT NULL,
-  `material` DATE NULL DEFAULT NULL,
-  `first_year` VARCHAR(250) NULL DEFAULT NULL,
-  `first_yearproduction` VARCHAR(250) NULL DEFAULT NULL,
-  `second_year` VARCHAR(250) NULL DEFAULT NULL,
-  `second_yearproduction` VARCHAR(250) NULL DEFAULT NULL,
-  `third_year` VARCHAR(250) NULL DEFAULT NULL,
-  `third_yearproduction` VARCHAR(250) NULL DEFAULT NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
-
-CREATE TABLE `vendor_partner_address` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NOT NULL,
-  `type` VARCHAR(45) NULL DEFAULT NULL,
-  `name` VARCHAR(45) NULL DEFAULT NULL,
-  `address` VARCHAR(250) NULL DEFAULT NULL,
-  `address1` VARCHAR(250) NULL DEFAULT NULL,
-  `pincode` VARCHAR(250) NULL DEFAULT NULL,
-  `city` VARCHAR(250) NULL DEFAULT NULL,
-  `country` VARCHAR(250) NULL DEFAULT NULL,
-  `state` VARCHAR(250) NULL DEFAULT NULL,
-  `telephone` VARCHAR(50) NULL DEFAULT NULL,
-  `fax_no` VARCHAR(50) NULL DEFAULT NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
-
-  CREATE TABLE `vendor_bank details` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NOT NULL,
-  `bank_name` VARCHAR(45) NULL DEFAULT NULL,
-  `bank_key` VARCHAR(45) NULL DEFAULT NULL,
-  `bank_number` VARCHAR(45) NULL DEFAULT NULL,
-  `bank_branch` VARCHAR(45) NULL DEFAULT NULL,
-  `branch_country` VARCHAR(45) NULL DEFAULT NULL,
-  `branch_city` VARCHAR(45) NULL DEFAULT NULL,
-  `swift/bic` VARCHAR(45) NULL DEFAULT NULL,
-  `tan` VARCHAR(45) NULL DEFAULT NULL,
-  `cin` VARCHAR(45) NULL DEFAULT NULL,
-  `order_currrency` VARCHAR(10) NULL DEFAULT NULL,
-  `gst_no` VARCHAR(25) NULL DEFAULT NULL,
-  `pan_no` VARCHAR(25) NULL DEFAULT NULL,
-  `cheque_cancelled` VARCHAR(250) NULL DEFAULT NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
-
-  CREATE TABLE `vendor_certificate` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NOT NULL,
-  `six_sigma` VARCHAR(45) NULL DEFAULT NULL,
-  `six_sigma_certificate` VARCHAR(250) NULL DEFAULT NULL,
-  `registration` VARCHAR(45) NULL DEFAULT NULL,
-  `iso_registration` VARCHAR(45) NULL DEFAULT NULL,
-  `certificate_file` VARCHAR(45) NULL DEFAULT NULL,
-  `declaration_file` VARCHAR(45) NULL DEFAULT NULL,
-  `independent_mfg` VARCHAR(45) NULL DEFAULT NULL,
-  `v_suppliers` VARCHAR(45) NULL DEFAULT NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
-
-  CREATE TABLE `vendor_certificate` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NOT NULL,
-  `question` VARCHAR(45) NULL DEFAULT NULL,
-  `answer` VARCHAR(250) NULL DEFAULT NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
-
-  CREATE TABLE `vendor_reputed_customer` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NOT NULL,
-  `customer_name` VARCHAR(45) NULL DEFAULT NULL,
-  `address` VARCHAR(250) NULL DEFAULT NULL,
-  `pincode` VARCHAR(250) NULL DEFAULT NULL,
-  `city` VARCHAR(250) NULL DEFAULT NULL,
-  `country` VARCHAR(250) NULL DEFAULT NULL,
-  `state` VARCHAR(250) NULL DEFAULT NULL,
-  `telephone` VARCHAR(250) NULL DEFAULT NULL,
-  `fax_no` VARCHAR(250) NULL DEFAULT NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
-  
 ALTER TABLE `vendor_temps` ADD COLUMN `business_type` VARCHAR(45) NULL DEFAULT NULL;
 ALTER TABLE `vendor_temps` ADD COLUMN `telephone` VARCHAR(15) NULL DEFAULT NULL;
 ALTER TABLE `vendor_temps` ADD COLUMN `faxno` VARCHAR(15) NULL DEFAULT NULL;
-
-CREATE TABLE `db_bsms`.`vendor_questionnaires` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NULL,
-  `question` VARCHAR(250) NULL,
-  `answer` VARCHAR(250) NULL,
-  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
-
-CREATE TABLE `db_bsms`.`vendor_otherdetails` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `vendor_temp_id` INT NOT NULL,
-  `facility_type` VARCHAR(250) NOT NULL,
-  `facility_option` TINYINT(1) NOT NULL,
-  `facility_value` VARCHAR(250) NOT NULL,
-  `added_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`));
-
+ALTER TABLE `vendor_temps` ADD COLUMN `reconciliation_account_id` int NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `company_code_id` int NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_name` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_branch` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_number` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_ifsc` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_key` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_country` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_city` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_swift` VARCHAR(45) NULL DEFAULT NULL;
