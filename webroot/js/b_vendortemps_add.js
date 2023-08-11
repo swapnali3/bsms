@@ -91,3 +91,30 @@ $('#addvendorform').validate({
   highlight: function (element, errorClass, validClass) { $(element).addClass('is-invalid'); },
   unhighlight: function (element, errorClass, validClass) { $(element).removeClass('is-invalid'); },
 });
+
+function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
+  var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
+  if (convertapi) { return JSON.parse(resp); }
+  return resp;
+}
+
+$(document).on("change", "#company-code-id", function () {
+  var companycode = $(this).val();
+  var resp = getRemote(baseurl + "buyer/vendor-temps/masterByCompanyCode/" + companycode);
+  var opt = "<option selected=''>Please Select</option>";
+  resp = resp["message"];
+  $.each(resp["PurchasingOrganizations"], function(i, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
+  $("#purchasing-organization-id").html(opt);
+  opt = "<option selected=''>Please Select</option>";
+  $.each(resp["AccountGroups"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
+  $("#account-group-id").html(opt);
+  opt = "<option selected=''>Please Select</option>";
+  $.each(resp["ReconciliationAccounts"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
+  $("#reconciliation-account-id").html(opt);
+  opt = "<option selected=''>Please Select</option>";
+  $.each(resp["PaymentTerms"], function(id, v){opt += `<option value="`+v.id+`">`+v.description+`</option>`;})
+  $("#payment-term").html(opt);
+  opt = "<option selected=''>Please Select</option>";
+  $.each(resp["SchemaGroups"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
+  $("#schema-group-id").html(opt);
+});

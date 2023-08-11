@@ -162,6 +162,26 @@ class VendorTempsController extends BuyerAppController
 
         $this->set(compact('vendorTemp'));
     }
+    
+    public function masterByCompanyCode($id = null)
+    {
+        $this->autoRender = false;
+        $response = ["status"=>0, 'message' =>'Empty request'];
+        $this->loadModel("PurchasingOrganizations");
+        $this->loadModel("AccountGroups");
+        $this->loadModel("ReconciliationAccounts");
+        $this->loadModel("PaymentTerms");
+        $this->loadModel("SchemaGroups");
+        $this->loadModel("CompanyCodes");
+        $po = $this->PurchasingOrganizations->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        $ag = $this->AccountGroups->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        $ra = $this->ReconciliationAccounts->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        $pt = $this->PaymentTerms->find()->select(['id', 'description'])->where(['company_code_id =' => $id])->toArray();
+        $sg = $this->SchemaGroups->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$po,'AccountGroups'=>$ag,'ReconciliationAccounts'=>$ra,'PaymentTerms'=>$pt,'SchemaGroups'=>$sg]];
+        echo json_encode($response);
+    }
+    
 
     public function add()
     {
@@ -174,7 +194,7 @@ class VendorTempsController extends BuyerAppController
         $this->loadModel("PaymentTerms");
         $this->loadModel("CompanyCodes");
         $this->loadModel("ReconciliationAccounts");
-        $this->loadModel("PaymentTerms");
+        $this->loadModel("PurchasingOrganizations");
 
         $latestVendors = $this->VendorTemps
         ->find('all')
@@ -312,7 +332,7 @@ class VendorTempsController extends BuyerAppController
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
         $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'code', 'valueField' => 'description'])->all();
-        $company_codes = $this->CompanyCodes->find('list', ['keyField' => 'code', 'valueField' => 'name'])->all();
+        $company_codes = $this->CompanyCodes->find('list', ['keyField' => 'id', 'valueField' => 'name'])->all();
         $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'code', 'valueField' => 'description'])->all();
         $reconciliation_account = $this->ReconciliationAccounts->find('list', ['keyField' => 'code', 'valueField' => 'name'])->all();
 

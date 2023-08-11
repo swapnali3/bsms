@@ -309,7 +309,7 @@ switch ($vendorTemp->status) {
                                         'PUBLIC_LIMITED' => 'Public Limited Company',
                                         'PRIVATE_LIMITED' => 'Private Limited Company'
                                     ];
-                                    echo $this->Form->control('status', ['class' => 'form-control', 'options' => $businessTypes, 'label' => 'Status']);
+                                    echo $this->Form->control('status', ['name'=>'business_type', 'class' => 'form-control', 'options' => $businessTypes, 'label' => 'Status']);
                                     ?>
                                 </div>
                             </div>
@@ -361,45 +361,45 @@ switch ($vendorTemp->status) {
                                 <div class="row">
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('address', ['name' => 'permanent_address[address]', 'class' => 'form-control ', 'id' => 'id_permanent_address_address1', 'label' => "Address"]); ?>
+                                            <?php echo $this->Form->control('address', ['name' => 'address', 'class' => 'form-control ', 'id' => 'id_permanent_address_address1', 'label' => "Address"]); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('address_2', ['name' => 'permanent_address[address1]', 'label' => 'Address 1', 'id' => 'id_permanent_address_address2', 'class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('address_2', ['name' => 'address_2', 'label' => 'Address 1', 'id' => 'id_permanent_address_address2', 'class' => 'form-control']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('pincode', ['name' => 'permanent_address[pincode]', 'class' => 'form-control ', 'id' => 'id_permanent_address_pincode']); ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-3 mt-3 col-md-3">
-                                        <div class="form-group">
-                                            <?php echo $this->Form->control('city', ['type' => 'text', 'name' => 'permanent_address[city]', 'class' => 'form-control alphaonly capitalize', 'id' => 'id_permanent_address_city']); ?>
+                                            <?php echo $this->Form->control('pincode', ['name' => 'pincode', 'class' => 'form-control ', 'id' => 'id_permanent_address_pincode']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('country', ['name' => 'permanent_address[country]', 'id' => 'id_permanent_address_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                            <?php echo $this->Form->control('city', ['type' => 'text', 'name' => 'city', 'class' => 'form-control alphaonly capitalize', 'id' => 'id_permanent_address_city']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('state', ['name' => 'permanent_address[state]', 'id' => 'id_permanent_address_state', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                            <?php echo $this->Form->control('country', ['name' => 'country', 'id' => 'id_permanent_address_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3 mt-3 col-md-3">
+                                        <div class="form-group">
+                                            <?php echo $this->Form->control('state', ['name' => 'state', 'id' => 'id_permanent_address_state', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('Telephone', ['name' => 'permanent_address[telephone]', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'maxlength' => '10', 'id' => 'id_permanent_address_telephone']); ?>
+                                            <?php echo $this->Form->control('Telephone', ['name' => 'telephone', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'maxlength' => '10', 'id' => 'id_permanent_address_telephone']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'permanent_address[faxno]', 'id' => 'id_permanent_address_faxno', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Fax No.', 'maxlength' => '10']); ?>
+                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'fax_no', 'id' => 'id_permanent_address_faxno', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Fax No.', 'maxlength' => '10']); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -417,7 +417,7 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_address2', ['name' => 'registered_office[address1]', 'label' => 'Address 1', 'class' => 'form-control', 'id' => 'register_office_address2']); ?>
+                                            <?php echo $this->Form->control('register_office_address2', ['name' => 'registered_office[address_2]', 'label' => 'Address 1', 'class' => 'form-control', 'id' => 'register_office_address2']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
@@ -469,7 +469,7 @@ switch ($vendorTemp->status) {
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_address2', ['type' => 'text', 'name' => 'branch[branch_office][0][address1]', 'id' => 'branch_office_0_address2', 'label' => 'Address 1', 'class' => 'form-control']); ?>
+                                                    <?php echo $this->Form->control('register_office_address2', ['type' => 'text', 'name' => 'branch[branch_office][0][address_2]', 'id' => 'branch_office_0_address2', 'label' => 'Address 1', 'class' => 'form-control']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
@@ -494,7 +494,24 @@ switch ($vendorTemp->status) {
                                             </div>
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_telno', ['name' => 'branch[branch_office][0][telno]', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'branch_office_0_telno', 'label' => 'Tel No', 'maxlength' => '10']); ?>
+                                                    <?php echo $this->Form->control('register_office_telno', ['name' => 'branch[branch_office][0][telephone]', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'branch_office_0_telno', 'label' => 'Tel No', 'maxlength' => '10']); ?>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3 mt-3">
+                                                <label>Year of Registration:</label>
+                                                <input name="branch[branch_office][0][registration_year]" type="number" class="form-control maxlength_validation" maxlength="4">
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-3 mt-3">
+                                                <label>Registration No.</label>
+                                                <input name="branch[branch_office][0][registration_no]" type="text" class="form-control">
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-3 mt-3">
+                                                <label class="form-label">Registration Certificate</label>
+                                                <div class="custom-file">
+                                                    <input name="branch[branch_office][0][registration_certificate]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
                                             <div class="col-3 col-md-3 mt-4 pt-4 hide">
@@ -515,43 +532,18 @@ switch ($vendorTemp->status) {
                                         <div class="row">
                                             <div class="col-sm-12 col-lg-4">
                                                 <label>Year:</label>
-                                                <input type="number" name="branch[small_scale][year]" class="form-control maxlength_validation" maxlength="4">
+                                                <input type="number" name="small_scale[year]" class="form-control maxlength_validation" maxlength="4">
                                             </div>
 
                                             <div class="col-sm-4 col-lg-4">
                                                 <label>Registration No.</label>
-                                                <input type="text" name="branch[small_scale][registration_no]" class="form-control">
+                                                <input type="text" name="small_scale[registration_no]" class="form-control">
                                             </div>
 
                                             <div class="col-sm-4 col-lg-4">
                                                 <label class="form-label">Upload File</label>
                                                 <div class="custom-file">
-                                                    <input name="branch[small_scale][certificate]" type="file" accept=".pdf" class="custom-file-input">
-                                                    <label class="custom-file-label">Choose File</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card card-primary card-outline">
-                                    <div class="card-body">
-                                        <div class="row">
-
-                                            <div class="col-sm-12 col-lg-4">
-                                                <label>Year of Registration:</label>
-                                                <input name="branch[vendor][year]" type="number" class="form-control maxlength_validation" maxlength="4">
-                                            </div>
-
-                                            <div class="col-sm-12 col-lg-4">
-                                                <label>Registration No.</label>
-                                                <input name="branch[vendor][registration_no]" type="text" class="form-control">
-                                            </div>
-
-                                            <div class="col-sm-12 col-lg-4">
-                                                <label class="form-label">Registration Certificate</label>
-                                                <div class="custom-file">
-                                                    <input name="branch[vendor][certificate]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="small_scale[certificate]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -567,14 +559,14 @@ switch ($vendorTemp->status) {
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
                                         <label>Laboratory facilities available:</label><br>
-                                        <input type="radio" name="production_facility[laboratory][a]" value="yes" class="showme" data-trigger="yes" data-show="lab_facilities">
+                                        <input type="radio" name="production_facility[lab_facility]" value="yes" class="showme" data-trigger="yes" data-show="lab_facilities">
                                         <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" name="production_facility[laboratory][a]" value="no" class="showme" data-trigger="yes" data-show="lab_facilities">
+                                        <input type="radio" name="production_facility[lab_facility]" value="no" class="showme" data-trigger="yes" data-show="lab_facilities">
                                         <label>No</label><br>
                                         <div id="lab_facilities" style="display: none;">
                                             <div class="text-container" id="lab_facilities_text">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[laboratory][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[lab_facility_file]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -582,15 +574,15 @@ switch ($vendorTemp->status) {
                                     </div>
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
-                                        <label>Whether there is any isi registration :</label><br>
-                                        <input type="radio" name="production_facility[isi_registration][a]" value="yes" class="showme" data-trigger="yes" data-show="isi_registration">
+                                        <label>Whether there is any ISI registration :</label><br>
+                                        <input type="radio" name="production_facility[isi_registration]" value="yes" class="showme" data-trigger="yes" data-show="isi_registration">
                                         <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" name="production_facility[isi_registration][a]" value="no" class="showme" data-trigger="yes" data-show="isi_registration">
+                                        <input type="radio" name="production_facility[isi_registration]" value="no" class="showme" data-trigger="yes" data-show="isi_registration">
                                         <label>No</label>
                                         <div id="isi_registration" style="display: none;">
                                             <div class="text-container" id="isi_registration-text">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[isi_registration][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[isi_registration_file]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -599,14 +591,14 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
                                         <label>Test facilities available</label><br>
-                                        <input type="radio" name="production_facility[test_facility][a]" value="yes" class="showme" data-trigger="yes" data-show="test_facilities">
+                                        <input type="radio" name="production_facility[test_facility]" value="yes" class="showme" data-trigger="yes" data-show="test_facilities">
                                         <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" name="production_facility[test_facility][a]" value="no" class="showme" data-trigger="yes" data-show="test_facilities">
+                                        <input type="radio" name="production_facility[test_facility]" value="no" class="showme" data-trigger="yes" data-show="test_facilities">
                                         <label>No</label>
                                         <div id="test_facilities" style="display: none;">
                                             <div class="text-container" id="test_facilities-info">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[test_facility][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[test_facility_file]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -615,14 +607,14 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
                                         <label>Facilities for effective after sales services</label><br>
-                                        <input type="radio" name="production_facility[sales_services][a]" value="yes" class="showme" data-trigger="yes" data-show="sales_services">
+                                        <input type="radio" name="production_facility[sales_services]" value="yes" class="showme" data-trigger="yes" data-show="sales_services">
                                         <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" name="production_facility[sales_services][a]" value="no" class="showme" data-trigger="yes" data-show="sales_services">
+                                        <input type="radio" name="production_facility[sales_services]" value="no" class="showme" data-trigger="yes" data-show="sales_services">
                                         <label>No</label>
                                         <div id="sales_services" style="display: none;">
                                             <div class="text-container" id="sales_services_text">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[sales_services][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[sales_services_file]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -631,14 +623,14 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mb-5">
                                         <label>Quality control procedure adopted.</label><br>
-                                        <input type="radio" name="production_facility[quality_control][a]" value="yes" class="showme" data-trigger="yes" data-show="quality_control">
+                                        <input type="radio" name="production_facility[quality_control]" value="yes" class="showme" data-trigger="yes" data-show="quality_control">
                                         <label>Yes</label>&nbsp; &nbsp; &nbsp; &nbsp;
-                                        <input type="radio" name="production_facility[quality_control][a]" value="no" class="showme" data-trigger="yes" data-show="quality_control">
+                                        <input type="radio" name="production_facility[quality_control]" value="no" class="showme" data-trigger="yes" data-show="quality_control">
                                         <label>No</label>
                                         <div id="quality_control" style="display: none;">
                                             <div class="text-container" id="quality-control_text">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[quality_control][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[quality_control]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -650,16 +642,16 @@ switch ($vendorTemp->status) {
                                         <label>Annual turn over in last 3 years (In Rupee):</label>
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4">
-                                        <input type="hidden" name="annual_turnover[0][q]" class="year1">
-                                        <input type="number" class="form-control placeholder1" name="annual_turnover[0][a]">
+                                        <input type="hidden" name="annual_turnover[first_year]" class="year1">
+                                        <input type="number" class="form-control placeholder1" name="annual_turnover[first_year_turnonver]">
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4">
-                                        <input type="hidden" name="annual_turnover[1][q]" class="year2">
-                                        <input type="number" class="form-control placeholder2" name="annual_turnover[1][a]">
+                                        <input type="hidden" name="annual_turnover[second_year]" class="year2">
+                                        <input type="number" class="form-control placeholder2" name="annual_turnover[second_year_turnonver]">
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4">
-                                        <input type="hidden" name="annual_turnover[2][q]" class="year3">
-                                        <input type="number" class="form-control placeholder3" name="annual_turnover[2][a]">
+                                        <input type="hidden" name="annual_turnover[third_year]" class="year3">
+                                        <input type="number" class="form-control placeholder3" name="annual_turnover[third_year_turnonver]">
                                     </div>
                                 </div>
                                 <div class="card card-primary card-outline">
@@ -755,11 +747,11 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Installed Capacity</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][installed_capacity][a]" placeholder="Installed Capacity" id="">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][installed_capacity]" placeholder="Installed Capacity" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][0][installed_capacity][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                            <input name="prdflt[factory_office][installed_capacity_file]" type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -773,11 +765,11 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Power Available</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][power_available][a]" placeholder="Power Available" id="">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][power_available]" placeholder="Power Available" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][0][power_available][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                            <input name="prdflt[factory_office][power_available_file]" type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -791,11 +783,11 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Machinery Available</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][machinery_available][a]" placeholder="Machinery Available" id="">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][machinery_available]" placeholder="Machinery Available" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][0][machinery_available][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                            <input name="prdflt[factory_office][machinery_available_file]" type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -809,11 +801,11 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Raw Material Avi. and Source</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][raw_material][a]" placeholder="Raw Material Avi. and Source" id="">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][raw_material]" placeholder="Raw Material Avi. and Source" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][0][raw_material][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                            <input name="prdflt[factory_office][raw_material_file]" type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -838,26 +830,26 @@ switch ($vendorTemp->status) {
                                                         <div class="row mb-3 commencement commencement_0" data-id="0" id="commencement_0">
                                                             <div class="col-sm-12 col-md-3 col-lg-3">
                                                                 <label for="">Year Of Commencement Of Production</label>
-                                                                <input type="number" class="form-control" name="prdflt[factory_office][0][commencement][0][year]" id="factory_0">
+                                                                <input type="number" class="form-control" name="prdflt[factory_office][0][commencement][commencement_year]" id="factory_0">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label for="">Material</label>
-                                                                <input type="text" class="form-control" name="prdflt[factory_office][0][commencement][0][material]" id="" placeholder="Material">
+                                                                <input type="text" class="form-control" name="prdflt[factory_office][0][commencement][commencement_material]" id="" placeholder="Material">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear1">2020-2021</label>
-                                                                <input type="hidden" class="year1" name="prdflt[factory_office][0][commencement][0][production][0][year]" id="">
-                                                                <input type="number" class="form-control placeholder1" name="prdflt[factory_office][0][commencement][0][production][0][qty]" id="factory_0">
+                                                                <input type="hidden" class="year1" name="prdflt[factory_office][0][commencement][first_year]" id="">
+                                                                <input type="number" class="form-control placeholder1" name="prdflt[factory_office][0][commencement][first_year_qty]" id="factory_0">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear2">2021-2022</label>
-                                                                <input type="hidden" class="year2" name="prdflt[factory_office][0][commencement][0][production][1][year]" id="">
-                                                                <input type="number" class="form-control placeholder2" name="prdflt[factory_office][0][commencement][0][production][1][qty]" id="">
+                                                                <input type="hidden" class="year2" name="prdflt[factory_office][0][commencement][second_year]" id="">
+                                                                <input type="number" class="form-control placeholder2" name="prdflt[factory_office][0][commencement][second_year_qty]" id="">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear3">2022-2023</label>
-                                                                <input type="hidden" class="year3" name="prdflt[factory_office][0][commencement][0][production][2][year]" id="">
-                                                                <input type="number" class="form-control placeholder3" name="prdflt[factory_office][0][commencement][0][production][2][qty]" id="">
+                                                                <input type="hidden" class="year3" name="prdflt[factory_office][0][commencement][third_year]" id="">
+                                                                <input type="number" class="form-control placeholder3" name="prdflt[factory_office][0][commencement][third_year_file]" id="">
                                                             </div>
                                                             <div class="col-sm-12 col-md-1 col-lg-1 mt-3 pt-3 hide">
                                                                 <span class="badge redbadge delete" data-toggle="tooltip" data-id="0" data-placement="right" data-class="commencement" data-original-title="Delete Address">
@@ -879,29 +871,29 @@ switch ($vendorTemp->status) {
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_person', ['name' => 'contact_person[name]', 'class' => 'form-control capitalize alphaonly', 'label' => 'Name']); ?>
+                                            <?php echo $this->Form->control('contact_person', ['name' => 'contact_person', 'class' => 'form-control capitalize alphaonly', 'label' => 'Name']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_email', ['type' => 'email', 'name' => 'contact_person[email]', 'class' => 'form-control', 'label' => 'Email']); ?>
+                                            <?php echo $this->Form->control('contact_email', ['type' => 'email', 'name' => 'contact_email', 'class' => 'form-control', 'label' => 'Email']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_mobile', ['type' => 'number', 'name' => 'contact_person[mobile]', 'class' => 'form-control maxlength_validation', 'label' => 'Mobile', 'maxlength' => '10']); ?>
+                                            <?php echo $this->Form->control('contact_mobile', ['type' => 'number', 'name' => 'contact_mobile', 'class' => 'form-control maxlength_validation', 'label' => 'Mobile', 'maxlength' => '10']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_department', ['name' => 'contact_person[department]', 'class' => 'form-control capitalize alphaafternumberonly', 'label' => 'Department']); ?>
+                                            <?php echo $this->Form->control('contact_department', ['name' => 'contact_department', 'class' => 'form-control capitalize alphaafternumberonly', 'label' => 'Department']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_designation', ['name' => 'contact_person[designation]', 'class' => 'form-control capitalize alphaafternumberonly', 'label' => 'Designation']); ?>
+                                            <?php echo $this->Form->control('contact_designation', ['name' => 'contact_designation', 'class' => 'form-control capitalize alphaafternumberonly', 'label' => 'Designation']); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -916,15 +908,15 @@ switch ($vendorTemp->status) {
                                     <div class="card-body other_address_card_body">
                                         <div class="row other_address other_address_0" data-id="0" id="other_address_0">
                                             <div class="col-2 mt-1">
-                                                <input type="radio" name="contact_person[other_address][0][type]" value="Proprietor">
+                                                <input type="radio" name="other_address[0][type]" value="Proprietor">
                                                 <label>Proprietor</label>
                                             </div>
                                             <div class="col-2 mt-1">
-                                                <input type="radio" name="contact_person[other_address][0][type]" value="Partner">
+                                                <input type="radio" name="other_address[0][type]" value="Partner">
                                                 <label>Partner</label>
                                             </div>
                                             <div class="col-2 mt-1">
-                                                <input type="radio" name="contact_person[other_address][0][type]" checked value="Director">
+                                                <input type="radio" name="other_address[0][type]" checked value="Director">
                                                 <label>Director</label>
                                             </div>
 
@@ -936,51 +928,51 @@ switch ($vendorTemp->status) {
 
                                             <div class="col-12 mt-1">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][name]', ['class' => 'form-control form-control-sm alphaonly capitalize', 'label' => "Name"]); ?>
+                                                    <?php echo $this->Form->control('other_address[0][name]', ['class' => 'form-control form-control-sm alphaonly capitalize', 'label' => "Name"]); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][address]', ['class' => 'form-control', 'id' => 'id_address1', 'label' => "Address"]); ?>
+                                                    <?php echo $this->Form->control('other_address[0][address]', ['class' => 'form-control', 'id' => 'id_address1', 'label' => "Address"]); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][address1]', ['label' => 'Address 1', 'id' => 'id_address2', 'class' => 'form-control']); ?>
+                                                    <?php echo $this->Form->control('other_address[0][address1]', ['label' => 'Address 1', 'id' => 'id_address2', 'class' => 'form-control']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][pincode]', ['type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'id_pincode', 'label' => 'Pincode', 'maxlength' => '6']); ?>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-3 mt-3 col-md-3">
-                                                <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][city]', ['class' => 'form-control alphaonly capitalize', 'id' => 'id_city', 'label' => 'City']); ?>
+                                                    <?php echo $this->Form->control('other_address[0][pincode]', ['type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'id_pincode', 'label' => 'Pincode', 'maxlength' => '6']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][country]', ['id' => 'id_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Please select', 'label' => 'Country', '    empty' => '']); ?>
+                                                    <?php echo $this->Form->control('other_address[0][city]', ['class' => 'form-control alphaonly capitalize', 'id' => 'id_city', 'label' => 'City']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][state]', ['id' => 'id_state', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State', 'label' => 'State']); ?>
+                                                    <?php echo $this->Form->control('other_address[0][country]', ['id' => 'id_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Please select', 'label' => 'Country', '    empty' => '']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('other_address[0][state]', ['id' => 'id_state', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State', 'label' => 'State']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][telephone]', ['id' => 'id_telephone', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Telephone', 'maxlength' => '10']); ?>
+                                                    <?php echo $this->Form->control('other_address[0][telephone]', ['id' => 'id_telephone', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Telephone', 'maxlength' => '10']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('contact_person[other_address][0][faxno]', ['id' => 'id_faxno', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Fax No.', 'maxlength' => '10']); ?>
+                                                    <?php echo $this->Form->control('other_address[0][fax_no]', ['id' => 'id_faxno', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Fax No.', 'maxlength' => '10']); ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -998,57 +990,57 @@ switch ($vendorTemp->status) {
                                         <div class="row">
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_name">Bank name</label>
-                                                <input type="text" name="bank[name]" class="form-control alphaonly capitalize" id="id_bank_name">
+                                                <input type="text" name="bank_name" class="form-control alphaonly capitalize" id="id_bank_name">
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_branch">Bank Branch</label>
-                                                <input type="text" class="form-control alphaonly capitalize" id="id_bank_branch" name="bank[branch]">
+                                                <input type="text" class="form-control alphaonly capitalize" id="id_bank_branch" name="bank_branch">
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_no">Bank number</label>
-                                                <input type="number" maxlength="18" class="form-control maxlength_validation" id="id_bank_no" name="bank[number]">
+                                                <input type="number" maxlength="18" class="form-control maxlength_validation" id="id_bank_no" name="bank_number">
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_ifsc">IFSC Code</label>
-                                                <input type="text" maxlength="11" name="bank[ifsc_code]" class="form-control maxlength_validation UpperCase" id="id_bank_ifsc">
+                                                <input type="text" maxlength="11" name="bank_ifsc" class="form-control maxlength_validation UpperCase" id="id_bank_ifsc">
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_key">Bank Key</label>
-                                                <input type="text" maxlength="11" name="bank[key]" class="form-control" id="id_bank_key">
+                                                <input type="text" maxlength="11" name="bank_key" class="form-control" id="id_bank_key">
                                             </div>
 
 
                                             <div class="col-3 mb-3">
-                                                <?php echo $this->Form->control('bank_country', ['name' => 'bank[country]', 'id' => 'id_bank_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                                <?php echo $this->Form->control('bank_country', ['name' => 'bank_country', 'id' => 'id_bank_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_city">City</label>
-                                                <input type="text" class="form-control capitalize" id="id_bank_city" name="bank[city]">
+                                                <input type="text" class="form-control capitalize" id="id_bank_city" name="bank_city">
                                             </div>
 
                                             <div class="col-3 mb-3">
-                                                <?php echo $this->Form->control('order_currency', ['name' => 'bank[order_currency]', 'readonly' => 'readonly', 'class' => 'form-control']); ?>
+                                                <?php echo $this->Form->control('order_currency', ['name' => 'order_currency', 'readonly' => 'readonly', 'class' => 'form-control']); ?>
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_swift_bic">SWIFT/BIC</label>
-                                                <input type="text" class="form-control" id="id_swift_bic" name="bank[swift]">
+                                                <input type="text" class="form-control" id="id_swift_bic" name="bank_swift">
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('tan_no', ['name' => 'bank[tan_no]', 'class' => 'form-control UpperCase', 'label' => 'TAN No']); ?>
+                                                    <?php echo $this->Form->control('tan_no', ['name' => 'tan_no', 'class' => 'form-control UpperCase', 'label' => 'TAN No']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('cin_no', ['name' => 'bank[cin_no]', 'class' => 'form-control UpperCase', 'label' => 'CIN No.']); ?>
+                                                    <?php echo $this->Form->control('cin_no', ['name' => 'cin_no', 'class' => 'form-control UpperCase', 'label' => 'CIN No.']); ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1059,11 +1051,11 @@ switch ($vendorTemp->status) {
                                         <div class="card card-primary card-outline">
                                             <div class="card-body p-2">
                                                 <label for="">GST No</label>
-                                                <input type="text" name="bank[other][gst][a]" class="form-control UpperCase" id='gst-no'>
+                                                <input type="text" name="gst_no" class="form-control UpperCase" id='gst-no'>
                                             </div>
                                             <div class="card-footer p-2" style="background-color: whitesmoke;">
                                                 <div class="custom-file">
-                                                    <input name="bank[other][gst][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="gst_file" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -1073,11 +1065,11 @@ switch ($vendorTemp->status) {
                                         <div class="card card-primary card-outline">
                                             <div class="card-body p-2">
                                                 <label for="">PAN No</label>
-                                                <input type="text" name="bank[other][pan][a]" class="form-control UpperCase" id="pan-no">
+                                                <input type="text" name="pan_no" class="form-control UpperCase" id="pan-no">
                                             </div>
                                             <div class="card-footer p-2" style="background-color: whitesmoke;">
                                                 <div class="custom-file">
-                                                    <input name="bank[other][pan][f]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="pan_file" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -1088,8 +1080,8 @@ switch ($vendorTemp->status) {
                                             <div class="card-footer p-2" style="background-color: whitesmoke;">
                                                 <label for="">Cancelled Cheque</label>
                                                 <div class="custom-file">
-                                                    <input type="hidden" name="bank[other][cancelled_cheque][a]">
-                                                    <input name="bank[other][cancelled_cheque][f]" type="file" accept=".pdf,image/jpeg, image/png" class="custom-file-input">
+                                                    <input type="hidden" name="bank_file">
+                                                    <input name="bank_file" type="file" accept=".pdf,image/jpeg, image/png" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -1103,25 +1095,25 @@ switch ($vendorTemp->status) {
                                     <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
                                         <div class="form-group">
                                             <label for="id_sigma">Six Sigma</label>
-                                            <textarea id="id_sigma" name="certificate[six_sigma][a]" cols="30" rows="1" class="form-control"></textarea>
+                                            <textarea id="id_sigma" name="other[six_sigma]" cols="30" rows="1" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
                                         <label class="form-label">Upload File</label>
                                         <div class="custom-file">
-                                            <input name="certificate[six_sigma][f]" type="file" accept=".pdf" class="custom-file-input">
+                                            <input name="other[six_sigma_file]" type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
                                         <label>Registration No.</label>
-                                        <input type="number" class="form-control" name="certificate[registration_no][a]">
+                                        <input type="number" class="form-control" name="other[iso]">
                                     </div>
 
                                     <div class="col-sm-12 col-md-3 col-lg-3 mt-3">
                                         <label class="form-label">ISO Registration / Certificate</label>
                                         <div class="custom-file">
-                                            <input name="certificate[registration_no][f]" type="file" accept=".pdf" class="custom-file-input">
+                                            <input name="other[iso_file]" type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                     </div>
@@ -1136,14 +1128,14 @@ switch ($vendorTemp->status) {
                                             <div class="col-sm-12 col-md-6 col-lg-6 mt-3" style="border-right: 1px solid #dee2e6;">
                                                 <label class="form-label">Certificate File</label>
                                                 <div class="custom-file">
-                                                    <input name="halal[certificate]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="other[halal_file]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 col-lg-6 mt-3">
                                                 <label class="form-label">Declaration</label>
                                                 <div class="custom-file">
-                                                    <input name="halal[declaration]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="other[declaration_file]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                                 <i class="mt-2" style="color: black;">
@@ -1159,16 +1151,16 @@ switch ($vendorTemp->status) {
                                     <div class="col-lg-12 mt-3">
                                     <p>Whether the item is completely manufactured in applicant's
                                         factory?</p>
-                                        <input class="fully_manufactured_radio" type="radio" name="fully_manufactured[a]" value="yes">
+                                        <input class="fully_manufactured_radio" type="radio" name="other[fully_manufactured]" value="yes">
                                         <label>Yes</label>
-                                        <input class="fully_manufactured_radio ml-5" type="radio" name="fully_manufactured[a]" value="no">
+                                        <input class="fully_manufactured_radio ml-5" type="radio" name="other[fully_manufactured]" value="no">
                                         <label>No</label>
                                     </div>
 
                                     <div class="col-lg-12 mt-1">
                                         <div class="sub-contractors-info" style="display: none;">
                                             <div class="form-group">
-                                                <?php echo $this->Form->control('sub-contractor', ['id' => 'other_manufacturer', 'name' => 'fully_manufactured[f]', 'class' => 'form-control', 'label' => 'Suppliers Name']); ?>
+                                                <?php echo $this->Form->control('sub-contractor', ['id' => 'other_manufacturer', 'name' => 'other[suppliers_name]', 'class' => 'form-control', 'label' => 'Suppliers Name']); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -1182,8 +1174,8 @@ switch ($vendorTemp->status) {
                                         <label>Does the company have any policy wrt to child labour appoint in
                                             work
                                             place</label>
-                                        <input type="hidden" name="questionnaire[0][q]" value="Does the company have any policy wrt to child labour appoint in work place">
-                                        <textarea placeholder="" name="questionnaire[0][a]" class="form-control" cols="30" rows="3"></textarea>
+                                        <input type="hidden" name="questionnaire[0][question]" value="Does the company have any policy wrt to child labour appoint in work place">
+                                        <textarea placeholder="" name="questionnaire[0][answer]" class="form-control" cols="30" rows="3"></textarea>
                                     </div>
                                     <div class="col-lg-12 mt-3">
                                         <label>Does your company follow any anit - corruption policy (zero
@@ -1191,22 +1183,22 @@ switch ($vendorTemp->status) {
                                             &
                                             has follow ethical code of code / corporate social
                                             responsibilities:-</label>
-                                        <input type="hidden" name="questionnaire[1][q]" value="Does your company follow any anit - corruption policy (zero corruption ) & has follow ethical code of code / corporate social responsibilities">
-                                        <textarea placeholder="" name="questionnaire[1][a]" class="form-control" cols="30" rows="3"></textarea>
+                                        <input type="hidden" name="questionnaire[1][question]" value="Does your company follow any anit - corruption policy (zero corruption ) & has follow ethical code of code / corporate social responsibilities">
+                                        <textarea placeholder="" name="questionnaire[1][answer]" class="form-control" cols="30" rows="3"></textarea>
                                     </div>
                                     <div class="col-lg-12 mt-3">
                                         <label>Does the company have policy & decimate between sexual worker wrt
                                             cast,
                                             gender, religion and harassment at work place</label>
-                                        <input type="hidden" name="questionnaire[2][q]" value="Does the company have policy & decimate between sexual worker wrt cast, gender, religion and harassment at work place">
-                                        <textarea placeholder="" name="questionnaire[2][a]" class="form-control" cols="30" rows="3"></textarea>
+                                        <input type="hidden" name="questionnaire[2][question]" value="Does the company have policy & decimate between sexual worker wrt cast, gender, religion and harassment at work place">
+                                        <textarea placeholder="" name="questionnaire[2][answer]" class="form-control" cols="30" rows="3"></textarea>
                                     </div>
                                     <div class="col-lg-12 my-3">
                                         <label>Does the company use any product in the manufacturing of material
                                             through
                                             recycled material :-</label>
-                                        <input type="hidden" name="questionnaire[3][q]" value="Does the company use any product in the manufacturing of material through recycled material">
-                                        <textarea placeholder="" name="questionnaire[3][a]" class="form-control" cols="30" rows="3"></textarea>
+                                        <input type="hidden" name="questionnaire[3][question]" value="Does the company use any product in the manufacturing of material through recycled material">
+                                        <textarea placeholder="" name="questionnaire[3][answer]" class="form-control" cols="30" rows="3"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -1225,46 +1217,46 @@ switch ($vendorTemp->status) {
                                         <div class="row customer customer_0" data-id="0" id="customer_0">
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('reputed[customer][0][name]', ['class' => 'form-control alphaonly capitalize', 'id' => 'id_name', 'label' => "Customer Name"]); ?>
+                                                    <?php echo $this->Form->control('reputed[0][customer_name]', ['class' => 'form-control alphaonly capitalize', 'id' => 'id_name', 'label' => "Customer Name"]); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('reputed[customer][0][address]', ['label' => 'Address', 'class' => 'form-control']); ?>
+                                                    <?php echo $this->Form->control('reputed[0][address]', ['label' => 'Address', 'class' => 'form-control']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('reputed[customer][0][pincode]', ['type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'reputed_pincode', 'label' => 'Pincode', 'maxlength' => '6']); ?>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-3 mt-3 col-md-3">
-                                                <div class="form-group">
-                                                    <?php echo $this->Form->control('reputed[customer][0][city]', ['class' => 'form-control alphaonly capitalize', 'id' => '', 'label' => 'City']); ?>
+                                                    <?php echo $this->Form->control('reputed[0][pincode]', ['type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'reputed_pincode', 'label' => 'Pincode', 'maxlength' => '6']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('reputed[customer][0][country]', ['class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country', 'label' => 'Country']); ?>
+                                                    <?php echo $this->Form->control('reputed[0][city]', ['class' => 'form-control alphaonly capitalize', 'id' => '', 'label' => 'City']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('reputed[customer][0][state]', ['name' => 'reputed[customer][0][state]', 'id' => '', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State', 'label' => 'State']); ?>
+                                                    <?php echo $this->Form->control('reputed[0][country]', ['class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country', 'label' => 'Country']); ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-3 mt-3 col-md-3">
+                                                <div class="form-group">
+                                                    <?php echo $this->Form->control('reputed[0][state]', ['name' => 'reputed[0][state]', 'id' => '', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State', 'label' => 'State']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
                                                     <label for="id_telephone">Telephone</label>
-                                                    <input type="number" id="reputed_telephone" name="reputed[customer][0][telephone]" class="form-control maxlength_validation" maxlength="10">
+                                                    <input type="number" id="reputed_telephone" name="reputed[0][telephone]" class="form-control maxlength_validation" maxlength="10">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-2 mt-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_faxno', ['name' => 'reputed[customer][0][faxno]', 'id' => 'reputed_faxno', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Fax No.', 'maxlength' => '10']); ?>
+                                                    <?php echo $this->Form->control('register_office_faxno', ['name' => 'reputed[0][fax_no]', 'id' => 'reputed_faxno', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Fax No.', 'maxlength' => '10']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-1 mt-4 pt-4 hide">
