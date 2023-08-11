@@ -1,6 +1,6 @@
 var branch_office = [0];
 var today = new Date();
-var year3 = today.getMonth() > 3 ? today.getFullYear() : (today.getFullYear() -1);
+var year3 = today.getMonth() > 3 ? today.getFullYear() : (today.getFullYear() - 1);
 var year2 = year3 - 1;
 var year1 = year2 - 1;
 var year0 = year1 - 1;
@@ -61,43 +61,33 @@ $(document).on("click", ".fully_manufactured_radio", function () {
 
 $(document).on("click", ".add", function () {
     var clas = $(this).data("class");
-    var getarray = [];
+    var sub = $(this).data("sub");
+    var havesub = $(this).data("havesub");
     var lastid;
-    $("." + clas).each(function (i, obj) {
-        lastid = $(obj).data("id");
-        getarray.push(lastid);
-    });
+    $("." + clas).each(function (i, obj) { lastid = $(this).data("sub") == "1" ? $(this).data("sub_id") : $(this).data("id"); });
+    
     var str = $("#" + clas + "_" + lastid).html();
     nextid = lastid + 1;
-    str = str.replaceAll(clas + "_" + lastid + "_", clas + "_" + nextid + "_");
-    str = str.replaceAll(" hide", "");
-    str = str.replaceAll(
-        "[" + clas + "]" + "[" + lastid + "]",
-        "[" + clas + "]" + "[" + nextid + "]"
-    );
-    str = str.replaceAll(
-        'data-id="' + lastid + '"',
-        'data-id="' + nextid + '"'
-    );
-    var delte =
-        `<div class="col-sm-12 col-md-3 mt-4 pt-4">
-        <span class="badge redbadge delete" data-toggle="tooltip"  data-id="0" data-placement="right" data-class="` +
-        clas +
-        `" data-original-title="Delete Address">
-            <i class="fas fa-trash"></i>
-        </span>
-    </div>`;
-    $("." + clas + "_card_body").append(
-        '<div class="row ' +clas +" " +clas +"_" +nextid +'" data-id="' +nextid +'" id="' +clas +"_" +nextid +'">' +str +'</div><hr class="' +clas +"_" +nextid +'" style="border: revert;">'
-    );
-
-    // $('.' + clas + '_' + nextid + ' .my-select').selectpicker('refresh');
-    // initializeSelectpicker('.' + clas + '_' + nextid + ' .my-select');
+    
+    str = str.replaceAll(clas + "_" + lastid + "_", clas + "_" + nextid + "_"); // Change id
+    str = str.replaceAll(" hide", ""); // Show Delete
+    str = str.replaceAll("[" + clas + "]" + "[" + lastid + "]", "[" + clas + "]" + "[" + nextid + "]"); // Change name
+    str = str.replaceAll('data-id="' + lastid + '"', 'data-id="' + nextid + '"'); // Change data-id
+    
+    if (sub == 1) { str = str.replaceAll('data-sub_id="' + lastid + '"', 'data-sub_id="' + nextid + '"'); }
+    else { str = str.replaceAll('data-id="' + lastid + '"', 'data-id="' + nextid + '"'); }
+    $("." + clas + "_card_body").append('<div class="row ' + clas + " " + clas + "_" + nextid + '" data-id="' + nextid + '" id="' + clas + "_" + nextid + '">' + str + '</div><hr class="' + clas + "_" + nextid + '" style="border: revert;">');
+    
+    if (havesub == 1) {
+        var subclass = $(this).data("subclass");
+        $("." + clas + "_" + nextid + "_" + subclass).each(function (i, obj) {
+            if (i > 0) {
+                $(obj).remove();
+                $("." + clas + "_" + nextid + "_" + subclass + "_" + i).remove();
+            }
+        });
+    }
 });
-
-// function initializeSelectpicker(select) {
-//     $(select).selectpicker("refresh");
-// }
 
 // maximum length validation funcation
 function validateMaxLength(inputElement) {
@@ -126,13 +116,13 @@ $(document).on("keypress", ".alphaonly", function (event) {
 
 
 
-$(".UpperCase").on("keyup", function() {
+$(".UpperCase").on("keyup", function () {
     var upperCaseText = $(this).val().toUpperCase();
     $(this).val(upperCaseText);
 });
 
 
-$('#id_bank_country').on('change', function() {
+$('#id_bank_country').on('change', function () {
     var swiftBicField = $('#id_swift_bic').closest('.col-3');
     if ($(this).val() === 'India') {
         swiftBicField.hide().val('');
@@ -207,7 +197,7 @@ $("#id_bank_country").change(function () {
     if (coutryName != "") {
         $.ajax({
             type: "get",
-            url: vendorLink +'/'+coutryName,
+            url: vendorLink + '/' + coutryName,
             dataType: "json",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(

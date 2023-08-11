@@ -695,52 +695,60 @@ switch ($vendorTemp->status) {
                                 <div class="card card-primary card-outline">
                                     <div class="card-header">
                                         Factory Address
-                                        <span class="badge lgreenbadge float-right add" id="id_factory_office_add" data-toggle="tooltip" data-class="factory_office" data-id="0" data-placement="right" title="Add Address">
+                                        <span class="badge lgreenbadge float-right add" id="id_factory_office_add" data-toggle="tooltip" data-class="factory_office" data-id="0" data-sub="0" data-havesub="1" data-subclass="commencement" data-placement="right" title="Add Address">
                                             <i class="fas fa-plus-circle"></i>
                                         </span>
                                     </div>
                                     <div class="card-body factory_office_card_body">
-                                        <div class="row factory_office factory_office_0" data-id="0" id="factory_office_0">
+                                        <div class="row factory_office factory_office_0" data-id="0" data-sub="0" id="factory_office_0">
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
                                                     <?php echo $this->Form->control('register_office_address1', ['name' => 'prdflt[factory_office][0][address]', 'id' => 'factory_0_address1', 'class' => 'form-control', 'label' => "Address"]); ?>
                                                 </div>
                                             </div>
+
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
                                                     <?php echo $this->Form->control('register_office_address2', ['name' => 'prdflt[factory_office][0][address1]', 'id' => 'factory_0_address2', 'label' => 'Address 1', 'class' => 'form-control']); ?>
                                                 </div>
                                             </div>
+
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
                                                     <?php echo $this->Form->control('register_office_pincode', ['type' => 'number', 'name' => 'prdflt[factory_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control maxlength_validation', 'id' => 'factory_0_pincode', 'maxlength' => '6']); ?>
                                                 </div>
                                             </div>
+
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
                                                     <?php echo $this->Form->control('register_office_city', ['type' => 'text', 'name' => 'prdflt[factory_office][0][city]', 'class' => 'form-control alphaonly capitalize', 'label' => 'City', 'id' => 'factory_0_city']); ?>
                                                 </div>
                                             </div>
+
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
                                                     <?php echo $this->Form->control('register_office_country', ['name' => 'prdflt[factory_office][0][country]', 'class' => 'selectpicker form-control my-select', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'factory_0_country']); ?>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <div class="form-group">
                                                     <?php echo $this->Form->control('register_office_state', ['name' => 'prdflt[factory_office][0][state]', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'label' => 'State', 'data-live-search' => 'true', 'title' => 'Select State', 'id' => 'factory_0_state']); ?>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <div class="form-group">
                                                     <?php echo $this->Form->control('register_office_telno', ['name' => 'prdflt[factory_office][0][telno]', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'factory_0_telno', 'label' => 'Tel No', 'maxlength' => '10']); ?>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-3 mt-4 pt-4 hide">
                                                 <span class="badge redbadge delete" data-toggle="tooltip" data-id="0" data-placement="right" data-class="factory_office" data-original-title="Delete Address">
                                                     <i class="fas fa-trash"></i>
                                                 </span>
                                             </div>
+
                                             <div class="col-12 col-md-6 col-lg-6 mt-4">
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 text-center">
@@ -820,44 +828,44 @@ switch ($vendorTemp->status) {
                                                                 <h5>Actual production during preceding 3 years</h5>
                                                             </div>
                                                             <div class="col-2">
-                                                                <span class="badge lgreenbadge add float-right" data-toggle="tooltip" data-class="commencement" data-placement="right" id="id_commencement_add" title="" data-original-title="Add Commencement">
+                                                                <span class="badge lgreenbadge add float-right" data-id="0" data-sub="1" data-sub_id="0" data-toggle="tooltip" data-class="factory_office_0_commencement" data-placement="right" id="id_commencement_add" title="" data-original-title="Add Commencement">
                                                                     <i class="fas fa-plus-circle"></i>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="card-body commencement_card_body">
-                                                        <div class="row mb-3 commencement commencement_0" data-id="0" id="commencement_0">
+                                                    <div class="card-body factory_office_0_commencement_card_body">
+                                                        <div class="row mb-3 factory_office_0_commencement" data-id="0" data-sub="1" data-sub_id="0" id="factory_office_0_commencement_0">
                                                             <div class="col-sm-12 col-md-3 col-lg-3">
                                                                 <label for="">Year Of Commencement Of Production</label>
-                                                                <input type="number" class="form-control" name="prdflt[factory_office][0][commencement][commencement_year]" id="factory_0">
+                                                                <input type="number" class="form-control" name="prdflt[factory_office][0][commencement][0][commencement_year]" id="factory_office_0_commencement_0_commencement_year">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label for="">Material</label>
-                                                                <input type="text" class="form-control" name="prdflt[factory_office][0][commencement][commencement_material]" id="" placeholder="Material">
+                                                                <input type="text" class="form-control" name="prdflt[factory_office][0][commencement][0][commencement_material]" id="factory_office_0_commencement_0_commencement_material" placeholder="Material">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear1">2020-2021</label>
-                                                                <input type="hidden" class="year1" name="prdflt[factory_office][0][commencement][first_year]" id="">
-                                                                <input type="number" class="form-control placeholder1" name="prdflt[factory_office][0][commencement][first_year_qty]" id="factory_0">
+                                                                <input type="hidden" class="year1" name="prdflt[factory_office][0][commencement][0][first_year]" id="factory_office_0_commencement_0_first_year">
+                                                                <input type="number" class="form-control placeholder1" name="prdflt[factory_office][0][commencement][0][first_year_qty]" id="factory_office_0_commencement_0_first_year_qty">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear2">2021-2022</label>
-                                                                <input type="hidden" class="year2" name="prdflt[factory_office][0][commencement][second_year]" id="">
-                                                                <input type="number" class="form-control placeholder2" name="prdflt[factory_office][0][commencement][second_year_qty]" id="">
+                                                                <input type="hidden" class="year2" name="prdflt[factory_office][0][commencement][0][second_year]" id="">
+                                                                <input type="number" class="form-control placeholder2" name="prdflt[factory_office][0][commencement][0][second_year_qty]" id="factory_office_0_commencement_0_second_year_qty">
                                                             </div>
                                                             <div class="col-sm-12 col-md-2 col-lg-2">
                                                                 <label id="productionyear3">2022-2023</label>
-                                                                <input type="hidden" class="year3" name="prdflt[factory_office][0][commencement][third_year]" id="">
-                                                                <input type="number" class="form-control placeholder3" name="prdflt[factory_office][0][commencement][third_year_file]" id="">
+                                                                <input type="hidden" class="year3" name="prdflt[factory_office][0][commencement][0][third_year]" id="factory_office_0_commencement_0_third_year">
+                                                                <input type="number" class="form-control placeholder3" name="prdflt[factory_office][0][commencement][0][third_year_qty]" id="factory_office_0_commencement_0_third_year_qty">
                                                             </div>
                                                             <div class="col-sm-12 col-md-1 col-lg-1 mt-3 pt-3 hide">
-                                                                <span class="badge redbadge delete" data-toggle="tooltip" data-id="0" data-placement="right" data-class="commencement" data-original-title="Delete Address">
+                                                                <span class="badge redbadge delete" data-toggle="tooltip" data-id="0" data-placement="right" data-class="factory_office_0_commencement" data-original-title="Delete Address">
                                                                     <i class="fas fa-trash"></i>
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <hr class="commencement_0" style="border: revert;">
+                                                        <hr class="factory_office_0_commencement_0" style="border: revert;">
                                                     </div>
                                                 </div>
                                             </div>
