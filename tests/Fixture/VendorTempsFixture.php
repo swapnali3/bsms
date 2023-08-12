@@ -20,6 +20,7 @@ class VendorTempsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
+                'company_code_id' => 1,
                 'purchasing_organization_id' => 1,
                 'account_group_id' => 1,
                 'schema_group_id' => 1,
@@ -49,11 +50,11 @@ class VendorTempsFixture extends TestFixture
                 'pan_file' => 'Lorem ipsum dolor sit amet',
                 'bank_file' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'valid_date' => '2023-07-06 14:18:25',
+                'valid_date' => '2023-08-12 15:50:30',
                 'remark' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'buyer_id' => 1,
-                'added_date' => '2023-07-06 14:18:25',
-                'updated_date' => '2023-07-06 14:18:25',
+                'added_date' => '2023-08-12 15:50:30',
+                'updated_date' => '2023-08-12 15:50:30',
                 'update_flag' => 1,
             ],
         ];

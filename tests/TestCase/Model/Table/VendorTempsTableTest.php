@@ -25,6 +25,7 @@ class VendorTempsTableTest extends TestCase
      */
     protected $fixtures = [
         'app.VendorTemps',
+        'app.VendorStatus',
         'app.PurchasingOrganizations',
         'app.AccountGroups',
         'app.SchemaGroups',

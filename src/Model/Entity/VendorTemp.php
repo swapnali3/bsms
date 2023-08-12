@@ -9,6 +9,7 @@ use Cake\ORM\Entity;
  * VendorTemp Entity
  *
  * @property int $id
+ * @property int $company_code_id
  * @property int $purchasing_organization_id
  * @property int $account_group_id
  * @property int $schema_group_id
@@ -44,8 +45,6 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
  * @property int|null $update_flag
- * @property int|null $reconciliation_accounts
- * @property int|null $company_codes
  *
  * @property \App\Model\Entity\VendorStatus $vendor_status
  * @property \App\Model\Entity\PurchasingOrganization $purchasing_organization
@@ -67,6 +66,7 @@ class VendorTemp extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        'company_code_id' => true,
         'purchasing_organization_id' => true,
         'account_group_id' => true,
         'schema_group_id' => true,
@@ -102,8 +102,6 @@ class VendorTemp extends Entity
         'added_date' => true,
         'updated_date' => true,
         'update_flag' => true,
-        'reconciliation_accounts' => true,
-        'company_codes' => true,
         'vendor_status' => true,
         'purchasing_organization' => true,
         'account_group' => true,

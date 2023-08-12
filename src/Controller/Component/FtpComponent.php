@@ -31,6 +31,10 @@ class FtpComponent extends Component
         return false;
     }
 
+    function uploadFile($conn, $content, $fileName) {
+        return $conn->put($fileName, $content);
+    }
+
 }
 
 ?>

@@ -50,6 +50,10 @@ class VendorTempsTable extends Table
 
         $this->belongsTo('VendorStatus', [
             'foreignKey' => 'status',
+        ]);
+        
+        $this->belongsTo('CompanyCodes', [
+            'foreignKey' => 'company_code_id',
             'joinType' => 'INNER',
         ]);
         $this->belongsTo('PurchasingOrganizations', [
@@ -70,7 +74,46 @@ class VendorTempsTable extends Table
         $this->hasMany('Rfqs', [
             'foreignKey' => 'vendor_temp_id',
         ]);
+        $this->hasMany('VendorBankDetails', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorBranchOffices', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorCertificates', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorCommencements', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorFacilities', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorIncometaxes', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorOtherdetails', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorPartnerAddress', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorProductionHistories', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorQuestionnaires', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorRegisteredOffices', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorReputedCustomers', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
         $this->hasMany('VendorTempOtps', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorTurnovers', [
             'foreignKey' => 'vendor_temp_id',
         ]);
     }
@@ -83,6 +126,10 @@ class VendorTempsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
+        $validator
+            ->integer('company_code_id')
+            ->notEmptyString('company_code_id');
+
         $validator
             ->integer('purchasing_organization_id')
             ->notEmptyString('purchasing_organization_id');
@@ -254,14 +301,6 @@ class VendorTempsTable extends Table
             ->integer('update_flag')
             ->allowEmptyString('update_flag');
 
-        $validator
-            ->integer('reconciliation_accounts')
-            ->allowEmptyString('reconciliation_accounts');
-
-        $validator
-            ->integer('company_codes')
-            ->allowEmptyString('company_codes');
-
         return $validator;
     }
 
@@ -275,6 +314,7 @@ class VendorTempsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->existsIn('company_code_id', 'CompanyCodes'), ['errorField' => 'company_code_id']);
         $rules->add($rules->existsIn('purchasing_organization_id', 'PurchasingOrganizations'), ['errorField' => 'purchasing_organization_id']);
         $rules->add($rules->existsIn('account_group_id', 'AccountGroups'), ['errorField' => 'account_group_id']);
         $rules->add($rules->existsIn('schema_group_id', 'SchemaGroups'), ['errorField' => 'schema_group_id']);
