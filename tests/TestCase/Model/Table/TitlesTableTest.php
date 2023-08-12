@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\StatesTable;
+use App\Model\Table\TitlesTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\StatesTable Test Case
+ * App\Model\Table\TitlesTable Test Case
  */
-class StatesTableTest extends TestCase
+class TitlesTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\StatesTable
+     * @var \App\Model\Table\TitlesTable
      */
-    protected $States;
+    protected $Titles;
 
     /**
      * Fixtures
@@ -24,7 +24,7 @@ class StatesTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.States',
+        'app.Titles',
     ];
 
     /**
@@ -35,8 +35,8 @@ class StatesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('States') ? [] : ['className' => StatesTable::class];
-        $this->States = $this->getTableLocator()->get('States', $config);
+        $config = $this->getTableLocator()->exists('Titles') ? [] : ['className' => TitlesTable::class];
+        $this->Titles = $this->getTableLocator()->get('Titles', $config);
     }
 
     /**
@@ -46,7 +46,7 @@ class StatesTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->States);
+        unset($this->Titles);
 
         parent::tearDown();
     }
@@ -55,20 +55,9 @@ class StatesTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\StatesTable::validationDefault()
+     * @uses \App\Model\Table\TitlesTable::validationDefault()
      */
     public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     * @uses \App\Model\Table\StatesTable::buildRules()
-     */
-    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

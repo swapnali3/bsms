@@ -40,10 +40,6 @@ class PaymentTermsTable extends Table
         $this->setTable('payment_terms');
         $this->setDisplayField('code');
         $this->setPrimaryKey('id');
-
-        $this->belongsTo('CompanyCodes', [
-            'foreignKey' => 'company_code_id',
-        ]);
     }
 
     /**
@@ -58,12 +54,14 @@ class PaymentTermsTable extends Table
             ->scalar('code')
             ->maxLength('code', 5)
             ->requirePresence('code', 'create')
-            ->notEmptyString('code');
+            ->notEmptyString('code')
+            ->add('code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 250)
-            ->allowEmptyString('description');
+            ->maxLength('description', 50)
+            ->requirePresence('description', 'create')
+            ->notEmptyString('description');
 
         $validator
             ->boolean('status')
@@ -77,10 +75,6 @@ class PaymentTermsTable extends Table
             ->dateTime('updated_date')
             ->notEmptyDateTime('updated_date');
 
-        $validator
-            ->integer('company_code_id')
-            ->allowEmptyString('company_code_id');
-
         return $validator;
     }
 
@@ -93,7 +87,7 @@ class PaymentTermsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn('company_code_id', 'CompanyCodes'), ['errorField' => 'company_code_id']);
+        $rules->add($rules->isUnique(['code']), ['errorField' => 'code']);
 
         return $rules;
     }

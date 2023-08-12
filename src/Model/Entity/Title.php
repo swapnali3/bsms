@@ -6,20 +6,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * PurchasingOrganization Entity
+ * Title Entity
  *
  * @property int $id
- * @property int $company_code_id
  * @property string $code
  * @property string $name
- * @property int $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
- *
- * @property \App\Model\Entity\CompanyCode $company_code
- * @property \App\Model\Entity\VendorTemp[] $vendor_temps
  */
-class PurchasingOrganization extends Entity
+class Title extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -31,13 +26,9 @@ class PurchasingOrganization extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'company_code_id' => true,
         'code' => true,
         'name' => true,
-        'status' => true,
         'added_date' => true,
         'updated_date' => true,
-        'company_code' => true,
-        'vendor_temps' => true,
     ];
 }

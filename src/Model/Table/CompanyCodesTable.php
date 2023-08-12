@@ -11,11 +11,7 @@ use Cake\Validation\Validator;
 /**
  * CompanyCodes Model
  *
- * @property \App\Model\Table\AccountGroupsTable&\Cake\ORM\Association\HasMany $AccountGroups
- * @property \App\Model\Table\PaymentTermsTable&\Cake\ORM\Association\HasMany $PaymentTerms
  * @property \App\Model\Table\PurchasingOrganizationsTable&\Cake\ORM\Association\HasMany $PurchasingOrganizations
- * @property \App\Model\Table\ReconciliationAccountsTable&\Cake\ORM\Association\HasMany $ReconciliationAccounts
- * @property \App\Model\Table\SchemaGroupsTable&\Cake\ORM\Association\HasMany $SchemaGroups
  *
  * @method \App\Model\Entity\CompanyCode newEmptyEntity()
  * @method \App\Model\Entity\CompanyCode newEntity(array $data, array $options = [])
@@ -47,21 +43,10 @@ class CompanyCodesTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('AccountGroups', [
-            'foreignKey' => 'company_code_id',
-        ]);
-        $this->hasMany('PaymentTerms', [
-            'foreignKey' => 'company_code_id',
-        ]);
         $this->hasMany('PurchasingOrganizations', [
             'foreignKey' => 'company_code_id',
         ]);
-        $this->hasMany('ReconciliationAccounts', [
-            'foreignKey' => 'company_code_id',
-        ]);
-        $this->hasMany('SchemaGroups', [
-            'foreignKey' => 'company_code_id',
-        ]);
+        
     }
 
     /**
@@ -76,7 +61,8 @@ class CompanyCodesTable extends Table
             ->scalar('code')
             ->maxLength('code', 45)
             ->requirePresence('code', 'create')
-            ->notEmptyString('code');
+            ->notEmptyString('code')
+            ->add('code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('name')
@@ -85,7 +71,7 @@ class CompanyCodesTable extends Table
             ->notEmptyString('name');
 
         $validator
-            ->requirePresence('status', 'create')
+            ->boolean('status')
             ->notEmptyString('status');
 
         $validator
@@ -97,5 +83,19 @@ class CompanyCodesTable extends Table
             ->notEmptyDateTime('updated_date');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['code']), ['errorField' => 'code']);
+
+        return $rules;
     }
 }

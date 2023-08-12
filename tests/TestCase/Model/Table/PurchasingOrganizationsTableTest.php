@@ -25,6 +25,7 @@ class PurchasingOrganizationsTableTest extends TestCase
      */
     protected $fixtures = [
         'app.PurchasingOrganizations',
+        'app.CompanyCodes',
         'app.VendorTemps',
     ];
 
@@ -59,6 +60,17 @@ class PurchasingOrganizationsTableTest extends TestCase
      * @uses \App\Model\Table\PurchasingOrganizationsTable::validationDefault()
      */
     public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses \App\Model\Table\PurchasingOrganizationsTable::buildRules()
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

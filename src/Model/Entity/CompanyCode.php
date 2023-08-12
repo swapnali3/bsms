@@ -11,15 +11,11 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $code
  * @property string $name
- * @property int $status
+ * @property bool $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
  *
- * @property \App\Model\Entity\AccountGroup[] $account_groups
- * @property \App\Model\Entity\PaymentTerm[] $payment_terms
  * @property \App\Model\Entity\PurchasingOrganization[] $purchasing_organizations
- * @property \App\Model\Entity\ReconciliationAccount[] $reconciliation_accounts
- * @property \App\Model\Entity\SchemaGroup[] $schema_groups
  */
 class CompanyCode extends Entity
 {
@@ -38,10 +34,6 @@ class CompanyCode extends Entity
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
-        'account_groups' => true,
-        'payment_terms' => true,
         'purchasing_organizations' => true,
-        'reconciliation_accounts' => true,
-        'schema_groups' => true,
     ];
 }

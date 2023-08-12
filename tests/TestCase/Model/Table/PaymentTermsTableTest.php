@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\StatesTable;
+use App\Model\Table\PaymentTermsTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\StatesTable Test Case
+ * App\Model\Table\PaymentTermsTable Test Case
  */
-class StatesTableTest extends TestCase
+class PaymentTermsTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\StatesTable
+     * @var \App\Model\Table\PaymentTermsTable
      */
-    protected $States;
+    protected $PaymentTerms;
 
     /**
      * Fixtures
@@ -24,7 +24,7 @@ class StatesTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.States',
+        'app.PaymentTerms',
     ];
 
     /**
@@ -35,8 +35,8 @@ class StatesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('States') ? [] : ['className' => StatesTable::class];
-        $this->States = $this->getTableLocator()->get('States', $config);
+        $config = $this->getTableLocator()->exists('PaymentTerms') ? [] : ['className' => PaymentTermsTable::class];
+        $this->PaymentTerms = $this->getTableLocator()->get('PaymentTerms', $config);
     }
 
     /**
@@ -46,7 +46,7 @@ class StatesTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->States);
+        unset($this->PaymentTerms);
 
         parent::tearDown();
     }
@@ -55,20 +55,9 @@ class StatesTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\StatesTable::validationDefault()
+     * @uses \App\Model\Table\PaymentTermsTable::validationDefault()
      */
     public function testValidationDefault(): void
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     * @uses \App\Model\Table\StatesTable::buildRules()
-     */
-    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

@@ -6,9 +6,9 @@ namespace App\Test\Fixture;
 use Cake\TestSuite\Fixture\TestFixture;
 
 /**
- * SchemaGroupsFixture
+ * PaymentTermsFixture
  */
-class SchemaGroupsFixture extends TestFixture
+class PaymentTermsFixture extends TestFixture
 {
     /**
      * Init method
@@ -20,11 +20,11 @@ class SchemaGroupsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
-                'code' => 'Lorem ip',
-                'name' => 'Lorem ipsum dolor sit amet',
+                'code' => 'Lor',
+                'description' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'added_date' => '2023-08-11 20:00:04',
-                'updated_date' => '2023-08-11 20:00:04',
+                'added_date' => '2023-08-11 19:38:33',
+                'updated_date' => '2023-08-11 19:38:33',
             ],
         ];
         parent::init();

@@ -9,13 +9,13 @@ use Cake\ORM\Entity;
  * SchemaGroup Entity
  *
  * @property int $id
- * @property string|null $code
+ * @property string $code
  * @property string $name
  * @property int $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
- * @property int|null $company_code_id
  *
+ * @property \App\Model\Entity\CompanyCode $company_code
  * @property \App\Model\Entity\VendorTemp[] $vendor_temps
  */
 class SchemaGroup extends Entity
@@ -35,7 +35,7 @@ class SchemaGroup extends Entity
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
-        'company_code_id' => true,
+        'company_code' => true,
         'vendor_temps' => true,
     ];
 }

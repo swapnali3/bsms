@@ -27,20 +27,7 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                         <div class="form-group">
-                            <?php
-                            echo $this->Form->control('title', [
-                                'class' => 'form-control',
-                                'label' => 'Title',
-                                'options' => [
-                                    'Company' => 'Company',
-                                    'M/S' => 'M/S',
-                                    'Mr.' => 'Mr.',
-                                    'Ms.' => 'Ms.'
-                                ],
-                                'empty' => 'Select',
-                                'required' => 'required'
-                            ]);
-                            ?>
+                        <?php echo $this->Form->control('title', array('class' => 'form-control', 'options' => $titles, 'required' => 'required', 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-3 mb-3">

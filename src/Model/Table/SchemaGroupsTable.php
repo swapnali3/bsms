@@ -43,9 +43,6 @@ class SchemaGroupsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('CompanyCodes', [
-            'foreignKey' => 'company_code_id',
-        ]);
         $this->hasMany('VendorTemps', [
             'foreignKey' => 'schema_group_id',
         ]);
@@ -61,8 +58,10 @@ class SchemaGroupsTable extends Table
     {
         $validator
             ->scalar('code')
-            ->maxLength('code', 15)
-            ->allowEmptyString('code');
+            ->maxLength('code', 10)
+            ->requirePresence('code', 'create')
+            ->notEmptyString('code')
+            ->add('code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('name')
@@ -79,11 +78,8 @@ class SchemaGroupsTable extends Table
 
         $validator
             ->dateTime('updated_date')
+            ->requirePresence('updated_date', 'create')
             ->notEmptyDateTime('updated_date');
-
-        $validator
-            ->integer('company_code_id')
-            ->allowEmptyString('company_code_id');
 
         return $validator;
     }
@@ -97,7 +93,7 @@ class SchemaGroupsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn('company_code_id', 'CompanyCodes'), ['errorField' => 'company_code_id']);
+        $rules->add($rules->isUnique(['code']), ['errorField' => 'code']);
 
         return $rules;
     }

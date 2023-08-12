@@ -100,13 +100,13 @@ function getRemote(remote_url, method = "GET", type = "json", convertapi = true)
 
 $(document).on("change", "#company-code-id", function () {
   var companycode = $(this).val();
-  var resp = getRemote(baseurl + "buyer/vendor-temps/masterByCompanyCode/" + companycode);
+  var resp = getRemote(baseurl + "buyer/vendor-temps/master-by-company-code/" + companycode);
   var opt = "<option selected=''>Please Select</option>";
   resp = resp["message"];
   $.each(resp["PurchasingOrganizations"], function(i, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
   $("#purchasing-organization-id").html(opt);
   opt = "<option selected=''>Please Select</option>";
-  $.each(resp["AccountGroups"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
+  /*$.each(resp["AccountGroups"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
   $("#account-group-id").html(opt);
   opt = "<option selected=''>Please Select</option>";
   $.each(resp["ReconciliationAccounts"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
@@ -116,5 +116,5 @@ $(document).on("change", "#company-code-id", function () {
   $("#payment-term").html(opt);
   opt = "<option selected=''>Please Select</option>";
   $.each(resp["SchemaGroups"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
-  $("#schema-group-id").html(opt);
+  $("#schema-group-id").html(opt);*/
 });

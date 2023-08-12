@@ -11,8 +11,6 @@ use Cake\Validation\Validator;
 /**
  * States Model
  *
- * @property \App\Model\Table\CountriesTable&\Cake\ORM\Association\BelongsTo $Countries
- *
  * @method \App\Model\Entity\State newEmptyEntity()
  * @method \App\Model\Entity\State newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\State[] newEntities(array $data, array $options = [])
@@ -42,11 +40,6 @@ class StatesTable extends Table
         $this->setTable('states');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
-
-        $this->belongsTo('Countries', [
-            'foreignKey' => 'country_id',
-            'joinType' => 'INNER',
-        ]);
     }
 
     /**
@@ -58,14 +51,31 @@ class StatesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->scalar('region_code')
+            ->maxLength('region_code', 10)
+            ->requirePresence('region_code', 'create')
+            ->notEmptyString('region_code')
+            ->add('region_code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 30)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
 
         $validator
-            ->integer('country_id')
-            ->notEmptyString('country_id');
+            ->scalar('country_code')
+            ->maxLength('country_code', 10)
+            ->requirePresence('country_code', 'create')
+            ->notEmptyString('country_code');
+
+        $validator
+            ->dateTime('added_date')
+            ->notEmptyDateTime('added_date');
+
+        $validator
+            ->dateTime('updated_date')
+            ->notEmptyDateTime('updated_date');
 
         return $validator;
     }
@@ -79,7 +89,7 @@ class StatesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn('country_id', 'Countries'), ['errorField' => 'country_id']);
+        $rules->add($rules->isUnique(['region_code']), ['errorField' => 'region_code']);
 
         return $rules;
     }
