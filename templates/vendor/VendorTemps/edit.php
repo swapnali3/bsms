@@ -383,7 +383,7 @@ switch ($vendorTemp->status) {
 
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('country', ['name' => 'country', 'id' => 'id_permanent_address_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                            <?php echo $this->Form->control('country', ['name' => 'country', 'id' => 'id_permanent_address_country','data-state' =>'id_permanent_address_state', 'class' => 'selectpicker form-control my-select my-country', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                         </div>
                                     </div>
 
@@ -436,7 +436,7 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_country', ['name' => 'registered_office[country]', 'class' => 'selectpicker show-menu-arrow form-control my-select1', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'register_office_country']); ?>
+                                            <?php echo $this->Form->control('register_office_country', ['name' => 'registered_office[country]','data-state' =>'register_office_state', 'class' => 'selectpicker show-menu-arrow form-control my-select1 my-country', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'register_office_country']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mt-3">
@@ -484,7 +484,7 @@ switch ($vendorTemp->status) {
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_country', ['name' => 'branch[branch_office][0][country]', 'class' => 'selectpicker form-control my-select', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'branch_office_0_country']); ?>
+                                                    <?php echo $this->Form->control('register_office_country', ['name' => 'branch[branch_office][0][country]','data-state' =>'branch_office_0_state', 'class' => 'selectpicker form-control my-select my-country', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'branch_office_0_country']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3 mt-3">
@@ -727,7 +727,7 @@ switch ($vendorTemp->status) {
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_country', ['name' => 'prdflt[factory_office][0][country]', 'class' => 'selectpicker form-control my-select', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'factory_0_country']); ?>
+                                                    <?php echo $this->Form->control('register_office_country', ['name' => 'prdflt[factory_office][0][country]','data-state' =>'factory_0_state', 'class' => 'selectpicker form-control my-select my-country', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'factory_0_country']); ?>
                                                 </div>
                                             </div>
 
@@ -964,7 +964,7 @@ switch ($vendorTemp->status) {
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('other_address[0][country]', ['id' => 'id_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Please select', 'label' => 'Country', '    empty' => '']); ?>
+                                                    <?php echo $this->Form->control('other_address[0][country]', ['id' => 'id_country','data-state' =>'id_state', 'class' => 'selectpicker form-control my-select my-country', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Please select', 'label' => 'Country', '    empty' => '']); ?>
                                                 </div>
                                             </div>
 
@@ -1023,7 +1023,7 @@ switch ($vendorTemp->status) {
 
 
                                             <div class="col-3 mb-3">
-                                                <?php echo $this->Form->control('bank_country', ['name' => 'bank_country', 'id' => 'id_bank_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                                <?php echo $this->Form->control('bank_country', ['name' => 'bank_country', 'id' => 'id_bank_country','data-state' =>'id_permanent_address_state', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                             </div>
 
                                             <div class="col-3 mb-3">
@@ -1247,13 +1247,13 @@ switch ($vendorTemp->status) {
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('reputed[0][country]', ['class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country', 'label' => 'Country']); ?>
+                                                    <?php echo $this->Form->control('reputed[0][country]', ['class' => 'selectpicker form-control my-select my-country','data-state' =>'reputed[0][state]', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country', 'label' => 'Country']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('reputed[0][state]', ['name' => 'reputed[0][state]', 'id' => '', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State', 'label' => 'State']); ?>
+                                                    <?php echo $this->Form->control('reputed[0][state]', ['name' => 'reputed[0][state]', 'id' => 'reputed[0][state]', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State', 'label' => 'State']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">

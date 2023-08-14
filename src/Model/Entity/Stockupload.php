@@ -13,7 +13,7 @@ use Cake\ORM\Entity;
  * @property string $current_stock
  * @property string $asn_stock
  * @property int $material_id
- * @property int $factories_id
+ * @property int|null $factories_id
  * @property string $sap_vendor_code
  * @property \Cake\I18n\FrozenTime|null $added_date
  * @property \Cake\I18n\FrozenTime|null $updated_date

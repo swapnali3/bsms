@@ -217,10 +217,20 @@ $("#id_bank_country").change(function () {
         });
     }
 });
-// $('input[name="productionFacility[lab_facilities]"]').on("change", function () {
-//     if ($(this).val() === "yes") {
-//         $(".lab_facilities-info").show();
-//     } else {
-//         $(".lab_facilities-info").hide();
-//     }
-// });
+
+function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
+    var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
+    if (convertapi) { return JSON.parse(resp); }
+    return resp;
+  }  
+
+$(document).on("change", ".my-country", function () {
+    var country_code = $(this).val();
+    var resp = getRemote(baseurl + "vendor/vendor-temps/country-by-state/" + country_code);
+    var opt = "<option selected=''>Please Select</option>";
+    resp = resp["message"];
+    $.each(resp["States"], function(i, v){opt += `<option value="`+v.region_code+`">`+v.name+`</option>`;})
+  //  $("#id_permanent_address_state").html(opt);
+    $("#" +$(this).data('state')).html(opt);
+  });
+  

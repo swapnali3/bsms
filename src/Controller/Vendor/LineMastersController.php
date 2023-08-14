@@ -18,7 +18,9 @@ class LineMastersController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $lineMasters = $this->LineMasters->find('all', [
             'conditions' => ['LineMasters.sap_vendor_code' => $session->read('vendor_code')]
-        ])->contain(['Factories'])->toArray();
+        ])->contain(['VendorFactories'])->toArray();
+
+     //  echo "<pre>"; print_r($lineMasters);exit;
         
         // $lineMasters = $this->paginate($this->LineMasters);
 
@@ -36,35 +38,37 @@ class LineMastersController extends VendorAppController
 
     public function add()
     {
-        $this->loadModel('Factories');
+        $flash = [];
+        $this->loadModel('VendorFactories');
         $session = $this->getRequest()->getSession();
         $lineMaster = $this->LineMasters->newEmptyEntity();
         $this->loadModel("Materials");
         $uom = $this->Materials->find('list',['keyField' => 'uom', 'valueField' => 'uom'])->select(['uom'])->distinct(['uom']);
-        $factory = $this->Factories->find('list',['keyField' => 'id', 'valueField' => 'factory_code']);
+        $factory = $this->VendorFactories->find('list',['keyField' => 'id', 'valueField' => 'factory_code']);
         if ($this->request->is('post')) {
             $lineMaster = $this->LineMasters->patchEntity($lineMaster, $this->request->getData());
             $lineMaster->sap_vendor_code = $session->read('vendor_code');
-            // echo '<pre>'; print_r($lineMaster); exit;
+             //echo '<pre>'; print_r($lineMaster); exit;
             try {
                 if ($this->LineMasters->save($lineMaster)) {
                     $this->Flash->success(__('The line master has been saved.'));
                     return $this->redirect(['action' => 'index']);
                 }
-                $this->Flash->error(__('The line master could not be saved. Please, try again.'));
-                
+                $flash = ['type'=>'error', 'msg'=>'The line master could not be saved. Please, try again.'];
             } catch (\PDOException $e) {
                 $this->Flash->error(__($e->getMessage()));
             } catch (\Exception $e) {
                 $this->Flash->error(__($e->getMessage()));
             }
         }
+        $this->set('flash', $flash);
         $this->set(compact('lineMaster','uom','factory'));
     }
 
     public function edit($id = null)
     {
         $lineMaster = $this->LineMasters->get($id);
+          $this->loadModel('VendorFactories');
         if ($this->request->is(['patch', 'post', 'put'])) {
             $lineMaster = $this->LineMasters->patchEntity($lineMaster, $this->request->getData());
             if ($this->LineMasters->save($lineMaster)) {
@@ -74,7 +78,8 @@ class LineMastersController extends VendorAppController
             }
             $this->Flash->error(__('The line master could not be saved. Please, try again.'));
         }
-        $this->set(compact('lineMaster'));
+        $factory = $this->VendorFactories->find('list',['keyField' => 'id', 'valueField' => 'factory_code']);
+        $this->set(compact('lineMaster','factory'));
     }
 
     public function delete($id = null)
@@ -111,6 +116,7 @@ class LineMastersController extends VendorAppController
                     $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
 
                     $tmp = [];
+                    $this->loadModel("VendorFactories");
                     for ($row = 3; $row <= $highestRow; ++$row) {
                         
                         $tmp['sap_vendor_code']  = $session->read('vendor_code');
@@ -119,7 +125,11 @@ class LineMastersController extends VendorAppController
                             if($col == 1) {
                                 $tmp['name'] = $value;
                             } else if($col == 2) {
-                                $tmp['factory_id'] = $value;
+                                $factory = $this->VendorFactories->find('list')
+                                ->select(['id'])
+                                ->where(['factory_code' => $value])
+                                ->first();
+                                $tmp['factory_id'] = $factory ? $factory : null;
                             } else if($col == 3) {
                                 $tmp['capacity'] = $value;
                             } else {
@@ -130,6 +140,8 @@ class LineMastersController extends VendorAppController
 
                         $uploadData[] = $tmp;
                     }
+
+                   // print_r($uploadData);exit;
                     
                     $columns = array_keys($uploadData[0]);
                     $upsertQuery = $this->LineMasters->query();

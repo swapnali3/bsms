@@ -18,6 +18,9 @@ use Cake\ORM\Entity;
  * @property int|null $status
  * @property \Cake\I18n\FrozenTime|null $added_date
  * @property \Cake\I18n\FrozenTime|null $updated_date
+ *
+ * @property \App\Model\Entity\ProductionLine $production_line
+ * @property \App\Model\Entity\Material $material
  */
 class Dailymonitor extends Entity
 {
@@ -40,5 +43,7 @@ class Dailymonitor extends Entity
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
+        'production_line' => true,
+        'material' => true,
     ];
 }
