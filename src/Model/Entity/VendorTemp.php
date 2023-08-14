@@ -13,6 +13,7 @@ use Cake\ORM\Entity;
  * @property int $purchasing_organization_id
  * @property int $account_group_id
  * @property int $schema_group_id
+ * @property int $reconciliation_account_id
  * @property string|null $sap_vendor_code
  * @property string $title
  * @property string $name
@@ -47,12 +48,26 @@ use Cake\ORM\Entity;
  * @property int|null $update_flag
  *
  * @property \App\Model\Entity\VendorStatus $vendor_status
+ * @property \App\Model\Entity\CompanyCode $company_code
  * @property \App\Model\Entity\PurchasingOrganization $purchasing_organization
  * @property \App\Model\Entity\AccountGroup $account_group
  * @property \App\Model\Entity\SchemaGroup $schema_group
  * @property \App\Model\Entity\RfqCommunication[] $rfq_communications
  * @property \App\Model\Entity\Rfq[] $rfqs
+ * @property \App\Model\Entity\VendorBankDetail[] $vendor_bank_details
+ * @property \App\Model\Entity\VendorBranchOffice[] $vendor_branch_offices
+ * @property \App\Model\Entity\VendorCertificate[] $vendor_certificates
+ * @property \App\Model\Entity\VendorCommencement[] $vendor_commencements
+ * @property \App\Model\Entity\VendorFacility[] $vendor_facilities
+ * @property \App\Model\Entity\VendorIncometax[] $vendor_incometaxes
+ * @property \App\Model\Entity\VendorOtherdetail[] $vendor_otherdetails
+ * @property \App\Model\Entity\VendorPartnerAddres[] $vendor_partner_address
+ * @property \App\Model\Entity\VendorProductionHistory[] $vendor_production_histories
+ * @property \App\Model\Entity\VendorQuestionnaire[] $vendor_questionnaires
+ * @property \App\Model\Entity\VendorRegisteredOffice[] $vendor_registered_offices
+ * @property \App\Model\Entity\VendorReputedCustomer[] $vendor_reputed_customers
  * @property \App\Model\Entity\VendorTempOtp[] $vendor_temp_otps
+ * @property \App\Model\Entity\VendorTurnover[] $vendor_turnovers
  */
 class VendorTemp extends Entity
 {
@@ -70,6 +85,7 @@ class VendorTemp extends Entity
         'purchasing_organization_id' => true,
         'account_group_id' => true,
         'schema_group_id' => true,
+        'reconciliation_account_id' => true,
         'sap_vendor_code' => true,
         'title' => true,
         'name' => true,
@@ -103,11 +119,25 @@ class VendorTemp extends Entity
         'updated_date' => true,
         'update_flag' => true,
         'vendor_status' => true,
+        'company_code' => true,
         'purchasing_organization' => true,
         'account_group' => true,
         'schema_group' => true,
         'rfq_communications' => true,
         'rfqs' => true,
+        'vendor_bank_details' => true,
+        'vendor_branch_offices' => true,
+        'vendor_certificates' => true,
+        'vendor_commencements' => true,
+        'vendor_facilities' => true,
+        'vendor_incometaxes' => true,
+        'vendor_otherdetails' => true,
+        'vendor_partner_address' => true,
+        'vendor_production_histories' => true,
+        'vendor_questionnaires' => true,
+        'vendor_registered_offices' => true,
+        'vendor_reputed_customers' => true,
         'vendor_temp_otps' => true,
+        'vendor_turnovers' => true,
     ];
 }

@@ -170,17 +170,18 @@ class VendorTempsController extends BuyerAppController
         $response = ["status"=>0, 'message' =>'Empty request'];
         $this->loadModel("CompanyCodes");
         $this->loadModel("PurchasingOrganizations");
+        $this->loadModel("ReconciliationAccounts");
         //$this->loadModel("AccountGroups");
-        //$this->loadModel("ReconciliationAccounts");
         //$this->loadModel("PaymentTerms");
         //$this->loadModel("SchemaGroups");
         
         $po = $this->PurchasingOrganizations->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        $ra = $this->ReconciliationAccounts->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
         //$ag = $this->AccountGroups->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
-        //$ra = $this->ReconciliationAccounts->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        
         //$pt = $this->PaymentTerms->find()->select(['id', 'description'])->where(['company_code_id =' => $id])->toArray();
         //$sg = $this->SchemaGroups->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
-        $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$po]];
+        $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$po, 'ReconciliationAccounts' => $ra]];
         echo json_encode($response);
     }
     
@@ -562,7 +563,7 @@ class VendorTempsController extends BuyerAppController
     {
         $flash = [];
         $this->loadModel("VendorTemps");
-        $vendor = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','PurchasingOrganizations','AccountGroups']]);
+        $vendor = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','PurchasingOrganizations','AccountGroups', 'ReconciliationAccounts']]);
 
         if ($action == 'rej') {
             if ($this->request->is(['patch', 'post', 'put'])) {
@@ -621,7 +622,7 @@ class VendorTempsController extends BuyerAppController
             $data['DATA']['SMTP_ADDR'] = $vendor->email;
             $data['DATA']['MOB_NUMBER'] = $vendor->mobile;
 
-            $data['DATA']['AKONT'] = '100110';
+            $data['DATA']['AKONT'] = $vendor->reconciliation_account->code;
             $data['DATA']['ZUAWA'] = '001';
             $data['DATA']['SPRAS'] = 'EN';
             $data['DATA']['TAXTYPE'] = 'IN3';

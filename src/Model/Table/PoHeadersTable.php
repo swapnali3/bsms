@@ -114,4 +114,9 @@ class PoHeadersTable extends Table
 
         return $validator;
     }
+
+    public function buildRules(RulesChecker $rules): RulesChecker {
+        $rules->add($rules->isUnique(['po_no']), ['errorField' => 'po_no', 'message' => 'PO already exists']);
+        return $rules;
+    }
 }

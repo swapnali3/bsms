@@ -11,12 +11,26 @@ use Cake\Validation\Validator;
 /**
  * VendorTemps Model
  *
+ * @property \App\Model\Table\CompanyCodesTable&\Cake\ORM\Association\BelongsTo $CompanyCodes
  * @property \App\Model\Table\PurchasingOrganizationsTable&\Cake\ORM\Association\BelongsTo $PurchasingOrganizations
  * @property \App\Model\Table\AccountGroupsTable&\Cake\ORM\Association\BelongsTo $AccountGroups
  * @property \App\Model\Table\SchemaGroupsTable&\Cake\ORM\Association\BelongsTo $SchemaGroups
  * @property \App\Model\Table\RfqCommunicationsTable&\Cake\ORM\Association\HasMany $RfqCommunications
  * @property \App\Model\Table\RfqsTable&\Cake\ORM\Association\HasMany $Rfqs
+ * @property \App\Model\Table\VendorBankDetailsTable&\Cake\ORM\Association\HasMany $VendorBankDetails
+ * @property \App\Model\Table\VendorBranchOfficesTable&\Cake\ORM\Association\HasMany $VendorBranchOffices
+ * @property \App\Model\Table\VendorCertificatesTable&\Cake\ORM\Association\HasMany $VendorCertificates
+ * @property \App\Model\Table\VendorCommencementsTable&\Cake\ORM\Association\HasMany $VendorCommencements
+ * @property \App\Model\Table\VendorFacilitiesTable&\Cake\ORM\Association\HasMany $VendorFacilities
+ * @property \App\Model\Table\VendorIncometaxesTable&\Cake\ORM\Association\HasMany $VendorIncometaxes
+ * @property \App\Model\Table\VendorOtherdetailsTable&\Cake\ORM\Association\HasMany $VendorOtherdetails
+ * @property \App\Model\Table\VendorPartnerAddressTable&\Cake\ORM\Association\HasMany $VendorPartnerAddress
+ * @property \App\Model\Table\VendorProductionHistoriesTable&\Cake\ORM\Association\HasMany $VendorProductionHistories
+ * @property \App\Model\Table\VendorQuestionnairesTable&\Cake\ORM\Association\HasMany $VendorQuestionnaires
+ * @property \App\Model\Table\VendorRegisteredOfficesTable&\Cake\ORM\Association\HasMany $VendorRegisteredOffices
+ * @property \App\Model\Table\VendorReputedCustomersTable&\Cake\ORM\Association\HasMany $VendorReputedCustomers
  * @property \App\Model\Table\VendorTempOtpsTable&\Cake\ORM\Association\HasMany $VendorTempOtps
+ * @property \App\Model\Table\VendorTurnoversTable&\Cake\ORM\Association\HasMany $VendorTurnovers
  *
  * @method \App\Model\Entity\VendorTemp newEmptyEntity()
  * @method \App\Model\Entity\VendorTemp newEntity(array $data, array $options = [])
@@ -66,6 +80,10 @@ class VendorTempsTable extends Table
         ]);
         $this->belongsTo('SchemaGroups', [
             'foreignKey' => 'schema_group_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('ReconciliationAccounts', [
+            'foreignKey' => 'reconciliation_account_id',
             'joinType' => 'INNER',
         ]);
         $this->hasMany('RfqCommunications', [
@@ -141,6 +159,10 @@ class VendorTempsTable extends Table
         $validator
             ->integer('schema_group_id')
             ->notEmptyString('schema_group_id');
+
+        $validator
+            ->integer('reconciliation_account_id')
+            ->notEmptyString('reconciliation_account_id');
 
         $validator
             ->scalar('sap_vendor_code')
@@ -318,6 +340,7 @@ class VendorTempsTable extends Table
         $rules->add($rules->existsIn('purchasing_organization_id', 'PurchasingOrganizations'), ['errorField' => 'purchasing_organization_id']);
         $rules->add($rules->existsIn('account_group_id', 'AccountGroups'), ['errorField' => 'account_group_id']);
         $rules->add($rules->existsIn('schema_group_id', 'SchemaGroups'), ['errorField' => 'schema_group_id']);
+        $rules->add($rules->existsIn('reconciliation_account_id', 'ReconciliationAccounts'), ['errorField' => 'reconciliation_account_id']);
 
         return $rules;
     }

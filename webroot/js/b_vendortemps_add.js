@@ -106,7 +106,11 @@ $(document).on("change", "#company-code-id", function () {
   $.each(resp["PurchasingOrganizations"], function(i, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
   $("#purchasing-organization-id").html(opt);
   opt = "<option selected=''>Please Select</option>";
-  /*$.each(resp["AccountGroups"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
+  $.each(resp["ReconciliationAccounts"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
+  $("#reconciliation-account-id").html(opt);
+  /*
+  opt = "<option selected=''>Please Select</option>";
+  $.each(resp["AccountGroups"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
   $("#account-group-id").html(opt);
   opt = "<option selected=''>Please Select</option>";
   $.each(resp["ReconciliationAccounts"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})

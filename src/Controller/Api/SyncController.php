@@ -47,11 +47,13 @@ class SyncController extends ApiAppController
         
         $ftpConn = $this->Ftp->connection();
         //$list = $this->Ftp->getList($ftpConn);
-        $data  = $this->Ftp->getMasterData($ftpConn, 'master.json');
+        $data  = $this->Ftp->downloadFile($ftpConn, 'master.json');
         
         if($data) {
 
+            $data = trim(preg_replace('/\s+/', ' ', $data));
             $d = json_decode($data);
+
             foreach($d->ORG_MASTER as $mKey => $mVal) {
                 if($mKey == 'M_TITLE') {
                     $response['message'][] = $this->saveTitles((array)$mVal);
@@ -77,6 +79,12 @@ class SyncController extends ApiAppController
                 if($mKey == 'SCH_GRP') {
                     $response['message'][] =$this->saveSchemaGroups((array)$mVal);
                 }
+
+                if($mKey == 'REC_ACC') {
+                    $response['message'][] =$this->saveReconciliationAccounts((array)$mVal);
+                }
+
+                
             }
         }
 
@@ -120,6 +128,28 @@ class SyncController extends ApiAppController
                 return 'Purchase Organization sync successfully!';
             } else {
                 return 'Purchase Organization sync fail!';
+            }
+        }
+    }
+
+    function saveReconciliationAccounts($reconcAcMaster) {
+        if(!empty($reconcAcMaster)) {
+            $this->loadModel("CompanyCodes");
+            $this->loadModel("ReconciliationAccounts");
+
+            $company_codes = $this->CompanyCodes->find('list', ['keyField' => 'code', 'valueField' => 'id'])->toArray();
+            $columns = array('code', 'name', 'company_code_id');
+            $upsertQuery = $this->ReconciliationAccounts->query();
+            $upsertQuery->insert($columns);
+
+            foreach($reconcAcMaster as $k => $v) {
+                $upsertQuery->values(array('code' => $v->SAKNR, 'name' => $v->TXT20, 'company_code_id' => $company_codes[$v->BUKRS]));
+            }
+            
+            if($upsertQuery->epilog('ON DUPLICATE KEY UPDATE `name`=VALUES(`name`)')->execute()) {
+                return 'Reconciliation Accounts sync successfully!';
+            } else {
+                return 'Reconciliation Accounts sync fail!';
             }
         }
     }
@@ -238,5 +268,84 @@ class SyncController extends ApiAppController
         } 
     }
     
+
+    public function purchaseOrder()  {
+        set_time_limit(300);
+        $response = array();
+        $response['message'] = [];
+        
+        $ftpConn = $this->Ftp->connection();
+        //$list = $this->Ftp->getList($ftpConn);
+        $data  = $this->Ftp->downloadFile($ftpConn, 'po_list.json');
+        
+        if($data) {
+            $this->loadModel("PoHeaders");
+            $this->loadModel("PoFooters");
+
+            $data = trim(preg_replace('/\s+/', ' ', $data));
+            $d = json_decode($data);
+
+            //echo '<pre>'; print_r($d); exit;
+            foreach($d->PO_LIST as $key => $row) {
+                $hederData = array();
+                $footerData = array();
+
+                $hederData['sap_vendor_code'] = $row->LIFNR;
+                $hederData['po_no'] = $row->EBELN;
+                $hederData['document_type'] = $row->BSART;
+                $hederData['created_on'] = date("Y-m-d H:i:s", strtotime($row->AEDAT));
+                $hederData['created_by'] = $row->ERNAM;
+                $hederData['pay_terms'] = $row->ZTERM;
+                $hederData['currency'] = $row->WAERS;
+                $hederData['exchange_rate'] = $row->WKURS;
+                $hederData['release_status'] = $row->FRGZU;
+
+                $poInstance = $this->PoHeaders->newEmptyEntity();
+                $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
+
+                try {
+                    if ($this->PoHeaders->save($poInstance)) {
+                        $po_header_id = $poInstance->id;
+
+                        foreach ($row->ITEM as $no => $item) {
+                            $tmp = array();
+                            $tmp['po_header_id'] = $po_header_id;
+                            $tmp['item'] = $item->EBELP;
+                            $tmp['deleted_indication'] = $item->LOEKZ;
+                            $tmp['material'] = $item->MATNR;
+                            $tmp['short_text'] = $item->TXZ01;
+                            $tmp['po_qty'] = $item->MENGE;
+                            $tmp['grn_qty'] = $item->R_QTY;
+                            $tmp['pending_qty'] = $item->P_QTY;
+                            $tmp['order_unit'] = $item->MEINS;
+                            $tmp['net_price'] = $item->NETPR;
+                            $tmp['price_unit'] = $item->PEINH;
+                            $tmp['net_value'] = $item->NETWR;
+                            $tmp['gross_value'] = $item->BRTWR;
+
+                            $footerData[] = $tmp;
+                        }
+
+                        $poItemsInstance = $this->PoFooters->newEntities($footerData);
+                        #print_r($poItemsInstance);
+                        if ($this->PoFooters->saveMany($poItemsInstance)) {
+                            $response['message'][] = 'PO : '.$row->EBELN.' saved successfully';
+                        } else {
+                            $response['message'][] = 'PO :'.$row->EBELN.' Items save fail';
+                        }
+                    } else if($poInstance->getError('po_no')) {
+                        $response['message'][] = $poInstance->getError('po_no');
+                    }else {
+                        $response['message'][] = 'PO :'.$row->EBELN.' save fail';
+                    }
+                } catch (\PDOException $e) {
+                    $response['message'][] = $e->getMessage();
+                } catch (\Exception $e) {
+                    $response['message'][] = $e->getMessage();
+                }
+            }
+        }
+        echo json_encode($response);
+    }
 
 }

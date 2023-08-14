@@ -9,12 +9,12 @@ use Cake\ORM\Entity;
  * ReconciliationAccount Entity
  *
  * @property int $id
+ * @property int|null $company_code_id
  * @property string $code
  * @property string $name
  * @property int $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
- * @property int|null $company_code_id
  *
  * @property \App\Model\Entity\CompanyCode $company_code
  */
@@ -30,12 +30,12 @@ class ReconciliationAccount extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        'company_code_id' => true,
         'code' => true,
         'name' => true,
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
-        'company_code_id' => true,
         'company_code' => true,
     ];
 }

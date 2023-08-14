@@ -22,7 +22,7 @@ class FtpComponent extends Component
         return $result;
     }
 
-    function getMasterData($conn, $fileName) {
+    function downloadFile($conn, $fileName) {
         if($conn->file_exists($fileName)) {
             //$t = $conn->stat($fileName);
             return $conn->get($fileName, false, 0);

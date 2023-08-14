@@ -57,6 +57,10 @@ class ReconciliationAccountsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->integer('company_code_id')
+            ->allowEmptyString('company_code_id');
+
+        $validator
             ->scalar('code')
             ->maxLength('code', 45)
             ->requirePresence('code', 'create')
@@ -69,7 +73,6 @@ class ReconciliationAccountsTable extends Table
             ->notEmptyString('name');
 
         $validator
-            ->requirePresence('status', 'create')
             ->notEmptyString('status');
 
         $validator
@@ -79,10 +82,6 @@ class ReconciliationAccountsTable extends Table
         $validator
             ->dateTime('updated_date')
             ->notEmptyDateTime('updated_date');
-
-        $validator
-            ->integer('company_code_id')
-            ->allowEmptyString('company_code_id');
 
         return $validator;
     }
