@@ -3,7 +3,7 @@ table{
 }
 
 thead {
-    background-color: #527195 !important;
+    background-color: #F79E33 !important;
     color: white;
 
 }
@@ -44,9 +44,7 @@ div#past_messages::-webkit-scrollbar-track {
     border-radius: 20px;
 }
 
-.create-asn td.details-control.ponum {
-    padding: 20px;
-}
+.create-asn td.details-control.ponum { padding: 20px;}
 
 .create-asn .po-box {
     border-right: 1px solid #ccc;
@@ -56,13 +54,8 @@ div#past_messages::-webkit-scrollbar-track {
     color: #999;
 }
 
-.create-asn .po-box:hover {
-    background-color: #ddd;
-}
-
-.create-asn .active {
-    background-color: #d4ddf7;
-}
+.create-asn .po-box:hover { background-color: #fff;}
+.create-asn .active { background-color: #fff;}
 
 .create-asn .polist .d-flex {
     overflow-y: hidden;
@@ -71,7 +64,7 @@ div#past_messages::-webkit-scrollbar-track {
 
 .create-asn .polist {
     border: 1px solid #ddd;
-    background-color: #f5f7fd;
+    background-color: #F4F6F9;
 }
 
 .search-bar {

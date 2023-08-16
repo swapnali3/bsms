@@ -88,9 +88,9 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
     line-height: 1.6rem;
 }
 
-.nav-sidebar .nav-item .nav-link p {
+/* .nav-sidebar .nav-item .nav-link p {
     font-size: 13px;
-}
+} */
 
 /* nav.main-header {
     height: 52px;
@@ -157,16 +157,16 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-head
 
 /* Table */
 table {
-    font-size: small;
+    font-size: smaller;
 }
 
 thead {
-    background-color: #527195 !important;
+    background-color: #F79E33 !important;
     color: white;
 }
 
 td {
-    font-weight: 100;
+    font-weight: 500;
     padding: .5rem !important;
 }
 
@@ -222,8 +222,8 @@ th {
 
 /* Default Button */
 .bg-gradient-button {
-    background: #F2EDD7FF linear-gradient(180deg, #F2EDD7FF, #e5e1cc) repeat-x !important;
-    color: #755139FF !important;
+    /* background: #F2EDD7FF linear-gradient(180deg, #F2EDD7FF, #e5e1cc) repeat-x !important; */
+    color: #F7941D !important;
 }
 
 .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
@@ -233,9 +233,8 @@ th {
 }
 
 .bg-gradient-button.btn:hover {
-    background: #F2EDD7FF linear-gradient(180deg, #e5e1cc, #F2EDD7FF) repeat-x !important;
-    border-color: #F2EDD7FF;
-    color: #755139FF !important;
+    background-color: #FFD580;
+    color: #fff !important;
 }
 
 .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
@@ -372,12 +371,14 @@ th {
 }
 
 .nav-link.active {
-    background-color: #649bca !important;
-    color: #fff !important;
+    /* font-weight: 600; */
+    background-color: #FEF4E8 !important;
+    color: #F7941D !important;
+    box-shadow: none !important;
 }
 
 aside.main-sidebar {
-    background-color: #08132F !important;
+    background-color: #fff !important;
 }
 
 body {
@@ -436,3 +437,31 @@ body {
     color: #fff;
 }
 /* Reject Button */
+
+/* Nav bar styling start here */
+.navbar-expand-md .navbar-collapse{ justify-content: center;}
+.navbar-brand { padding-left: 0 !important;}
+.navbar-brand img{ margin-left: 0 !important;}
+.collapse .nav-link { margin: 0 7px;}
+/* Nav bar styling end here */
+
+/* table styling start here */
+.table-bordered td, .table-bordered th {
+    border: none !important;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.03)!important;
+}
+/* table styling end here */
+
+/* submit button styling start here */
+#id_fksubmit {
+    background: linear-gradient(90deg, #F7941D, #ED1C24) !important;
+}
+
+/* #id_fksubmit:hover {
+    border: 1px solid #F7941D !important;
+    color: #F7941D;
+    background-color: #fff;
+} */
+/* submit button styling end here */
