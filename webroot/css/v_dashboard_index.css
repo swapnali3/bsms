@@ -4,18 +4,16 @@
 }
 
 .i .fas.fa-truck {
-    border: 1px solid #ED1C24;
-    color: #ED1C24;
-    background-color: #fff;
+    color: #fff;
+    background-color: #E46161;
     padding: 15px;
     border-radius: 8px;
     font-size: 21px;
 }
 
 .i .fa-cart-plus {
-    border: 1px solid #F7941D;
-    color: #F7941D;
-    background-color: #fff;
+    color: #fff;
+    background-color: #B1BD68;
     padding: 15px;
     border-radius: 8px;
     font-size: 21px;
@@ -38,15 +36,14 @@
 }
 
 .btn-action .btn {
-    font-weight: 500;
+    color: #fff;
+    font-weight: 600;
     font-size: 12px;
     padding: 5px 10px;
     margin-top: 15px;
     margin-bottom: 0px;
-    background-color: #fff;
-    border: 1px solid #FFD580;
+    background-color: #112A68;
 }
-
 
 .txt h5 {
     font-size: 28px;
@@ -60,15 +57,3 @@
     box-shadow: 0 3px 3px rgba(56, 65, 74, 0.1);
     border-radius: 5px;
 }
-
-/* .badge-warning {
-    border-radius: 50%;
-    color: #fff;
-    background-color: #F7941D;
-}
-
-.nav-link {
-    display: block;
-    padding: 0.5rem 0rem;
-    margin: 0 5px;
-} */

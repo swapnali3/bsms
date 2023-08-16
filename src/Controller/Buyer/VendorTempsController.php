@@ -537,6 +537,48 @@ class VendorTempsController extends BuyerAppController
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups'));
     }
 
+    public function vendor($id = null)
+    {
+        $this->autoRender = false;
+        $this->loadModel("VendorBranchOffices");
+        $this->loadModel("VendorCommencements");
+        $this->loadModel("VendorFacilities");
+        $this->loadModel("VendorFactories");
+        $this->loadModel("VendorIncometaxes");
+        $this->loadModel("VendorOtherdetails");
+        $this->loadModel("VendorPartnerAddress");
+        $this->loadModel("VendorQuestionnaires");
+        $this->loadModel("VendorRegisteredOffices");
+        $this->loadModel("VendorReputedCustomers");
+        $this->loadModel("VendorSmallScales");
+        $this->loadModel("VendorTemps");
+        $this->loadModel("VendorTurnovers");
+        $this->loadModel("CompanyCodes");
+        $vendortemp = $this->VendorTemps->find('all')
+        ->join([
+            'table' => 'company_codes',
+            'alias' => 'CompanyCodes',
+            'type' => 'LEFT',
+            'conditions' => 'CompanyCodes.id = VendorTemps.company_code_id',
+            ])
+        ->where(['VendorTemps.id' => $id])
+        ->toArray();
+        $vendortemp[0]['branch_office'] = $this->VendorBranchOffices->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['commencement'] = $this->VendorCommencements->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['facility'] = $this->VendorFacilities->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['factory'] = $this->VendorFactories->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['income_tax'] = $this->VendorIncometaxes->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['other_details'] = $this->VendorOtherdetails->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['partner_address'] = $this->VendorPartnerAddress->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['questionnaire'] = $this->VendorQuestionnaires->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['registered_office'] = $this->VendorRegisteredOffices->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['reputed_customer'] = $this->VendorReputedCustomers->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['small_scale'] = $this->VendorSmallScales->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['turnover'] = $this->VendorTurnovers->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $response = array('status'=>1, 'message'=>$vendortemp);
+        echo json_encode($response); exit;
+    }
+
     /**
      * Delete method
      *

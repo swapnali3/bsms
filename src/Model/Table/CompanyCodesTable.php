@@ -46,7 +46,12 @@ class CompanyCodesTable extends Table
         $this->hasMany('PurchasingOrganizations', [
             'foreignKey' => 'company_code_id',
         ]);
-        
+        $this->hasMany('ReconciliationAccounts', [
+            'foreignKey' => 'company_code_id',
+        ]);
+        $this->hasMany('VendorTemps', [
+            'foreignKey' => 'company_code_id',
+        ]);
     }
 
     /**

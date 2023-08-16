@@ -126,7 +126,7 @@ class VendorTempsController extends VendorAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
             try {
-                echo '<pre>'; print_r($request);
+                // echo '<pre>';  print_r($request);
 
                 // Basic details
                 $vendorTemp["business_type"] = $request["business_type"];
@@ -167,7 +167,6 @@ class VendorTempsController extends VendorAppController
                 $imagePath = WWW_ROOT . "uploads/smallscale/" . $fileName;
                 $data["certificate_file"]->moveTo($imagePath);
                 $data["certificate_file"]= "uploads/smallscale/" . $fileName;
-                // print_r($data);
 
                 $smallscale = $this->VendorSmallScales->patchEntity($smallscale, $data);
                 if ($this->VendorSmallScales->save($smallscale)) { }
@@ -284,15 +283,13 @@ class VendorTempsController extends VendorAppController
                     $imagePath = WWW_ROOT . "uploads/raw_material/" . $fileName;
                     $value["raw_material_file"]->moveTo($imagePath);
                     $value["raw_material_file"]= "uploads/raw_material/" . $fileName;
-                    // print_r($factory);
                     $factory = $this->VendorFactories->patchEntity($factory, $value);
                     if ($factory_id = $this->VendorFactories->save($factory)) {
-                        foreach ($request["prdflt"]["factory_office"] as $key => $value) {
+                        foreach ($value["commencement"] as $key => $value) {
                             $commencement = $this->VendorCommencements->newEmptyEntity();
-                            $value["vendor_factory_id"] = $factory_id;
+                            $value["vendor_factory_id"] = $factory_id->id;
                             $value["vendor_temp_id"] = $id;
                             $commencement = $this->VendorCommencements->patchEntity($commencement, $value);
-                            print_r($commencement);
                             if ($this->VendorCommencements->save($commencement)) {  }
                         }
                     }
@@ -354,7 +351,6 @@ class VendorTempsController extends VendorAppController
                     $partneraddr = $this->VendorQuestionnaires->newEmptyEntity();
                     $value["vendor_temp_id"] = $id;
                     $partneraddr = $this->VendorQuestionnaires->patchEntity($partneraddr, $value);
-                    print_r($partneraddr);
                     if ($this->VendorQuestionnaires->save($partneraddr)) { }
                 }
 
@@ -365,8 +361,6 @@ class VendorTempsController extends VendorAppController
                     $partneraddr = $this->VendorReputedCustomers->patchEntity($partneraddr, $value);
                     if ($this->VendorReputedCustomers->save($partneraddr)) { }
                 }
-
-                exit;
             } catch (\PDOException $e) {
                 $flash = ['type' => 'error', 'msg' => ($e->getMessage())];
             }
@@ -375,10 +369,9 @@ class VendorTempsController extends VendorAppController
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
-
         $countries = $this->Countries->find('list', ['keyField' => 'country_code', 'valueField' => 'country_name'])->toArray();
-
         $hasIndia = array_key_exists('IN', $countries);
+        
         if ($hasIndia) {
             unset($countries['India']);
             $countries = ['India' => 'India'] + $countries;

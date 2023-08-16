@@ -81,7 +81,8 @@ class VendorCommencementsTable extends Table
             ->allowEmptyString('commencement_material');
 
         $validator
-            ->integer('first_year')
+            ->scalar('first_year')
+            ->maxLength('first_year', 45)
             ->allowEmptyString('first_year');
 
         $validator
@@ -90,7 +91,8 @@ class VendorCommencementsTable extends Table
             ->allowEmptyString('first_year_qty');
 
         $validator
-            ->integer('second_year')
+            ->scalar('second_year')
+            ->maxLength('second_year', 45)
             ->allowEmptyString('second_year');
 
         $validator
@@ -99,7 +101,8 @@ class VendorCommencementsTable extends Table
             ->allowEmptyString('second_year_qty');
 
         $validator
-            ->integer('third_year')
+            ->scalar('third_year')
+            ->maxLength('third_year', 45)
             ->allowEmptyString('third_year');
 
         $validator
