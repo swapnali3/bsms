@@ -15,6 +15,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\PurchasingOrganizationsTable&\Cake\ORM\Association\BelongsTo $PurchasingOrganizations
  * @property \App\Model\Table\AccountGroupsTable&\Cake\ORM\Association\BelongsTo $AccountGroups
  * @property \App\Model\Table\SchemaGroupsTable&\Cake\ORM\Association\BelongsTo $SchemaGroups
+ * @property \App\Model\Table\ReconciliationAccountsTable&\Cake\ORM\Association\BelongsTo $ReconciliationAccounts
  * @property \App\Model\Table\RfqCommunicationsTable&\Cake\ORM\Association\HasMany $RfqCommunications
  * @property \App\Model\Table\RfqsTable&\Cake\ORM\Association\HasMany $Rfqs
  * @property \App\Model\Table\VendorBankDetailsTable&\Cake\ORM\Association\HasMany $VendorBankDetails
@@ -84,6 +85,18 @@ class VendorTempsTable extends Table
         ]);
         $this->belongsTo('ReconciliationAccounts', [
             'foreignKey' => 'reconciliation_account_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('States', [
+            'foreignKey' => 'state_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('Countries', [
+            'foreignKey' => 'country_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('PaymentTerms', [
+            'foreignKey' => 'payment_term_id',
             'joinType' => 'INNER',
         ]);
         $this->hasMany('RfqCommunications', [
@@ -197,9 +210,8 @@ class VendorTempsTable extends Table
             ->allowEmptyString('city');
 
         $validator
-            ->scalar('state')
-            ->maxLength('state', 100)
-            ->allowEmptyString('state');
+            ->integer('state_id')
+            ->notEmptyString('state_id');
 
         $validator
             ->scalar('pincode')
@@ -219,15 +231,12 @@ class VendorTempsTable extends Table
             ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
-            ->scalar('country')
-            ->maxLength('country', 50)
-            ->allowEmptyString('country');
+            ->integer('country_id')
+            ->notEmptyString('country_id');
 
         $validator
-            ->scalar('payment_term')
-            ->maxLength('payment_term', 50)
-            ->requirePresence('payment_term', 'create')
-            ->notEmptyString('payment_term');
+            ->integer('payment_term_id')
+            ->notEmptyString('payment_term_id');
 
         $validator
             ->scalar('order_currency')
@@ -341,6 +350,9 @@ class VendorTempsTable extends Table
         $rules->add($rules->existsIn('account_group_id', 'AccountGroups'), ['errorField' => 'account_group_id']);
         $rules->add($rules->existsIn('schema_group_id', 'SchemaGroups'), ['errorField' => 'schema_group_id']);
         $rules->add($rules->existsIn('reconciliation_account_id', 'ReconciliationAccounts'), ['errorField' => 'reconciliation_account_id']);
+        $rules->add($rules->existsIn('state_id', 'States'), ['errorField' => 'state_id']);
+        $rules->add($rules->existsIn('country_id', 'Countries'), ['errorField' => 'country_id']);
+        $rules->add($rules->existsIn('payment_term_id', 'PaymentTerms'), ['errorField' => 'payment_term_id']);
 
         return $rules;
     }
