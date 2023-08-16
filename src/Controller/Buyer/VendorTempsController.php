@@ -617,16 +617,17 @@ class VendorTempsController extends BuyerAppController
             $data['DATA']['CITY1'] = $vendor->city;
             $data['DATA']['POST_CODE1'] = $vendor->pincode;
 
-            $data['DATA']['REGION'] = $vendor->state;
-            $data['DATA']['COUNTRY'] = $vendor->country;
+            $data['DATA']['REGION'] = $vendor->state->region_code;
+            $data['DATA']['COUNTRY'] = $vendor->country->country_code;
             $data['DATA']['SMTP_ADDR'] = $vendor->email;
             $data['DATA']['MOB_NUMBER'] = $vendor->mobile;
 
             $data['DATA']['AKONT'] = $vendor->reconciliation_account->code;
-            $data['DATA']['ZUAWA'] = '001';
-            $data['DATA']['SPRAS'] = 'EN';
-            $data['DATA']['TAXTYPE'] = 'IN3';
-            $data['DATA']['ZTERM'] = $vendor->payment_term;
+            $data['DATA']['ZUAWA'] = '';
+            $data['DATA']['SPRAS'] = '';
+            $data['DATA']['TAXTYPE'] = '';
+            $data['DATA']['GSIN'] = $vendor->gst_no;
+            $data['DATA']['ZTERM'] = $vendor->payment_term->code;
             $data['DATA']['WAERS'] = $vendor->order_currency;
 
 

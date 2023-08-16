@@ -20,12 +20,12 @@ use Cake\ORM\Entity;
  * @property string|null $address
  * @property string|null $address_2
  * @property string|null $city
- * @property string|null $state
+ * @property int $state_id
  * @property string|null $pincode
  * @property string $mobile
  * @property string $email
- * @property string|null $country
- * @property string $payment_term
+ * @property int $country_id
+ * @property int $payment_term_id
  * @property string $order_currency
  * @property string|null $gst_no
  * @property string|null $pan_no
@@ -52,6 +52,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\PurchasingOrganization $purchasing_organization
  * @property \App\Model\Entity\AccountGroup $account_group
  * @property \App\Model\Entity\SchemaGroup $schema_group
+ * @property \App\Model\Entity\ReconciliationAccount $reconciliation_account
  * @property \App\Model\Entity\RfqCommunication[] $rfq_communications
  * @property \App\Model\Entity\Rfq[] $rfqs
  * @property \App\Model\Entity\VendorBankDetail[] $vendor_bank_details
@@ -92,12 +93,12 @@ class VendorTemp extends Entity
         'address' => true,
         'address_2' => true,
         'city' => true,
-        'state' => true,
+        'state_id' => true,
         'pincode' => true,
         'mobile' => true,
         'email' => true,
-        'country' => true,
-        'payment_term' => true,
+        'country_id' => true,
+        'payment_term_id' => true,
         'order_currency' => true,
         'gst_no' => true,
         'pan_no' => true,
@@ -123,6 +124,7 @@ class VendorTemp extends Entity
         'purchasing_organization' => true,
         'account_group' => true,
         'schema_group' => true,
+        'reconciliation_account' => true,
         'rfq_communications' => true,
         'rfqs' => true,
         'vendor_bank_details' => true,

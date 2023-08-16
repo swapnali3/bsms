@@ -30,6 +30,7 @@ class VendorTempsTableTest extends TestCase
         'app.PurchasingOrganizations',
         'app.AccountGroups',
         'app.SchemaGroups',
+        'app.ReconciliationAccounts',
         'app.RfqCommunications',
         'app.Rfqs',
         'app.VendorBankDetails',

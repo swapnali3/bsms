@@ -39,15 +39,14 @@ class SyncController extends ApiAppController
     }
 
 
-    public function master()    
-    {
+    public function master() {
         set_time_limit(300);
         $response = array();
         $response['message'] = [];
         
         $ftpConn = $this->Ftp->connection();
         //$list = $this->Ftp->getList($ftpConn);
-        $data  = $this->Ftp->downloadFile($ftpConn, 'master.json');
+        $data  = $this->Ftp->downloadFile($ftpConn, 'MASTER.JSON');
         
         if($data) {
 
@@ -320,8 +319,13 @@ class SyncController extends ApiAppController
                 $hederData['exchange_rate'] = $row->WKURS;
                 $hederData['release_status'] = $row->FRGZU;
 
-                $poInstance = $this->PoHeaders->newEmptyEntity();
-                $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
+                if($this->PoHeaders->exists(['po_no' => $row->EBELN])) {
+                    $poInstance = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
+                    $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
+                } else {
+                    $poInstance = $this->PoHeaders->newEmptyEntity();
+                    $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
+                }
 
                 try {
                     if ($this->PoHeaders->save($poInstance)) {
@@ -343,16 +347,29 @@ class SyncController extends ApiAppController
                             $tmp['net_value'] = $item->NETWR;
                             $tmp['gross_value'] = $item->BRTWR;
 
-                            $footerData[] = $tmp;
+                            $footerData = $tmp;
+                            if($this->PoFooters->exists(['po_header_id' => $po_header_id, 'item' => $item->EBELP])) {
+                                $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
+                                $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $hederData);
+                            }  else {
+                                $poItemsInstance = $this->PoFooters->newEmptyEntity();
+                                $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
+                            }
+
+                            if ($this->PoFooters->save($poItemsInstance)) {
+                                $response['message'][] = 'PO : '.$row->EBELN.' Item : '.$item->EBELP.' saved successfully';
+                            } else {
+                                $response['message'][] = 'PO :'.$row->EBELN.' Item : '.$item->EBELP.' save fail';
+                            }
                         }
 
-                        $poItemsInstance = $this->PoFooters->newEntities($footerData);
-                        #print_r($poItemsInstance);
+                        /*$poItemsInstance = $this->PoFooters->newEntities($footerData);
+                        
                         if ($this->PoFooters->saveMany($poItemsInstance)) {
                             $response['message'][] = 'PO : '.$row->EBELN.' saved successfully';
                         } else {
                             $response['message'][] = 'PO :'.$row->EBELN.' Items save fail';
-                        }
+                        } */
                     } else if($poInstance->getError('po_no')) {
                         $response['message'][] = $poInstance->getError('po_no');
                     }else {
@@ -368,4 +385,48 @@ class SyncController extends ApiAppController
         echo json_encode($response);
     }
 
+    public function vendorData() {
+        set_time_limit(300);
+        $response = array();
+        $response['message'] = [];
+        
+        $ftpConn = $this->Ftp->connection();
+        //$list = $this->Ftp->getList($ftpConn);
+        $data  = $this->Ftp->downloadFile($ftpConn, 'VENDOR_PULL_LIST.JSON');
+        if($data) {
+            $this->loadModel("VendorTemps");
+
+            $data = trim(preg_replace('/\s+/', ' ', $data));
+            $d = json_decode($data);
+
+            //echo '<pre>'; print_r($d); exit;
+            foreach($d->VENDOR_LIST as $key => $row) {
+
+                $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
+                $puOrg = $this->VendorTemps->PurchasingOrganizations->findByCode($row->EKORG)->first();
+                $accGrp = $this->VendorTemps->AccountGroups->findByCode($row->KTOKK)->first();
+                $reconAccount = $this->VendorTemps->ReconciliationAccounts->findByCode($row->AKONT)->first();
+                $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
+
+                $vendor = $this->VendorTemps->newEmptyEntity();
+
+                echo '<pre>'; print_r($vendor); exit;
+                $vendor->sap_vendor_code = $row->LIFNR;
+                $vendor->company_code_id = $companyCode->id;
+                $vendor->purchasing_organization_id = $puOrg->id;
+                $vendor->account_group_id = $accGrp->id;
+                $vendor->reconciliation_account_id = $reconAccount->id;
+                $vendor->title = $row->TITLE_MEDI;
+                $vendor->name = $row->NAME1;
+                $vendor->sap_vendor_code = $row->LIFNR;
+                $vendor->sap_vendor_code = $row->LIFNR;
+                $vendor->sap_vendor_code = $row->LIFNR;
+                $vendor->sap_vendor_code = $row->LIFNR;
+
+
+
+                echo '<pre>'; print_r($puOrg); exit;
+            }
+        }
+    }
 }

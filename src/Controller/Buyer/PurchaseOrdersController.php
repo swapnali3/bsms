@@ -82,7 +82,7 @@ class PurchaseOrdersController extends BuyerAppController
         $session = $this->getRequest()->getSession();
 
         $data = $this->PoHeaders->find('all')
-            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code', 'PoFooters.item'])
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
             ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->join([
@@ -99,7 +99,7 @@ class PurchaseOrdersController extends BuyerAppController
                 ]
             ]);
 
-        //print_r($data);exit;
+        //echo '<pre>';print_r($data);exit;
 
         if ($data->count() > 0) {
             $response['status'] = 'success';

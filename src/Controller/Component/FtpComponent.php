@@ -13,7 +13,7 @@ class FtpComponent extends Component
     function connection() {
         $this->conn = new SFTP('182.66.82.11');
         $this->conn->login('root', 'pro@2017');
-        $this->conn->chdir('/vendor_portal_upload'); 
+        $this->conn->chdir('/vendor_portal_upload/TO_PORTAL'); 
         return $this->conn;
     }
 
