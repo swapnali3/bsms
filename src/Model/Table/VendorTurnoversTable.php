@@ -66,8 +66,8 @@ class VendorTurnoversTable extends Table
             ->allowEmptyString('first_year');
 
         $validator
-            ->integer('first_year_turnonver')
-            ->allowEmptyString('first_year_turnonver');
+            ->integer('first_year_turnover')
+            ->allowEmptyString('first_year_turnover');
 
         $validator
             ->scalar('second_year')
@@ -75,8 +75,8 @@ class VendorTurnoversTable extends Table
             ->allowEmptyString('second_year');
 
         $validator
-            ->integer('second_year_turnonver')
-            ->allowEmptyString('second_year_turnonver');
+            ->integer('second_year_turnover')
+            ->allowEmptyString('second_year_turnover');
 
         $validator
             ->scalar('third_year')
@@ -84,8 +84,8 @@ class VendorTurnoversTable extends Table
             ->allowEmptyString('third_year');
 
         $validator
-            ->integer('third_year_turnonver')
-            ->allowEmptyString('third_year_turnonver');
+            ->integer('third_year_turnover')
+            ->allowEmptyString('third_year_turnover');
 
         $validator
             ->dateTime('added_date')

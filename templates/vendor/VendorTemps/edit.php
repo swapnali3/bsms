@@ -543,7 +543,7 @@ switch ($vendorTemp->status) {
                                             <div class="col-sm-4 col-lg-4">
                                                 <label class="form-label">Upload File</label>
                                                 <div class="custom-file">
-                                                    <input name="small_scale[certificate]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="small_scale[certificate_file]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -630,7 +630,7 @@ switch ($vendorTemp->status) {
                                         <div id="quality_control" style="display: none;">
                                             <div class="text-container" id="quality-control_text">
                                                 <div class="custom-file">
-                                                    <input name="production_facility[quality_control]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="production_facility[quality_control_file]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -643,15 +643,15 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4">
                                         <input type="hidden" name="annual_turnover[first_year]" class="year1">
-                                        <input type="number" class="form-control placeholder1" name="annual_turnover[first_year_turnonver]">
+                                        <input type="number" class="form-control placeholder1" name="annual_turnover[first_year_turnover]">
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4">
                                         <input type="hidden" name="annual_turnover[second_year]" class="year2">
-                                        <input type="number" class="form-control placeholder2" name="annual_turnover[second_year_turnonver]">
+                                        <input type="number" class="form-control placeholder2" name="annual_turnover[second_year_turnover]">
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4">
                                         <input type="hidden" name="annual_turnover[third_year]" class="year3">
-                                        <input type="number" class="form-control placeholder3" name="annual_turnover[third_year_turnonver]">
+                                        <input type="number" class="form-control placeholder3" name="annual_turnover[third_year_turnover]">
                                     </div>
                                 </div>
                                 <div class="card card-primary card-outline">
@@ -662,16 +662,16 @@ switch ($vendorTemp->status) {
                                         <div class="row">
                                             <div class="col-lg-3">
                                                 <label>Certificate No</label>
-                                                <input type="number" name="income_tax[registration_no]" class="form-control">
+                                                <input type="number" name="income_tax[certificate_no]" class="form-control">
                                             </div>
                                             <div class="col-lg-3">
                                                 <label>Date</label>
-                                                <input type="date" id="datePickerId" name="income_tax[year]" class="form-control">
+                                                <input type="date" id="datePickerId" name="income_tax[certificate_date]" class="form-control">
                                             </div>
                                             <div class="col-lg-3">
                                                 <label class="form-label">Documents</label>
                                                 <div class="custom-file">
-                                                    <input name="income_tax[certificate]" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="income_tax[certificate_file]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                             </div>
@@ -682,7 +682,7 @@ switch ($vendorTemp->status) {
                                             <div class="col-4">
                                                 <label class="form-label">Latest Copy of Balance Sheet</label>
                                                 <div class="custom-file">
-                                                    <input name="balance_sheet" type="file" accept=".pdf" class="custom-file-input">
+                                                    <input name="income_tax[balance_sheet_file]" type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                                 <!-- <a href="/bsms/webroot/templates/stock_upload.xlsx"
@@ -739,7 +739,7 @@ switch ($vendorTemp->status) {
 
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_telno', ['name' => 'prdflt[factory_office][0][telno]', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'factory_0_telno', 'label' => 'Tel No', 'maxlength' => '10']); ?>
+                                                    <?php echo $this->Form->control('register_office_telephone', ['name' => 'prdflt[factory_office][0][telephone]', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'factory_0_telephone', 'label' => 'Tel No', 'maxlength' => '10']); ?>
                                                 </div>
                                             </div>
 
@@ -755,11 +755,11 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Installed Capacity</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][installed_capacity]" placeholder="Installed Capacity" id="">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][installed_capacity]" placeholder="Installed Capacity" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][installed_capacity_file]" type="file" accept=".pdf" class="custom-file-input">
+                                                            <input name="prdflt[factory_office][0][installed_capacity_file]" type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -773,11 +773,11 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Power Available</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][power_available]" placeholder="Power Available" id="">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][power_available]" placeholder="Power Available" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][power_available_file]" type="file" accept=".pdf" class="custom-file-input">
+                                                            <input name="prdflt[factory_office][0][power_available_file]" type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -791,11 +791,11 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Machinery Available</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][machinery_available]" placeholder="Machinery Available" id="">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][machinery_available]" placeholder="Machinery Available" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][machinery_available_file]" type="file" accept=".pdf" class="custom-file-input">
+                                                            <input name="prdflt[factory_office][0][machinery_available_file]" type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>
@@ -809,11 +809,11 @@ switch ($vendorTemp->status) {
                                                         <label class="text-info">Raw Material Avi. and Source</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
-                                                        <input type="text" class="form-control" name="prdflt[factory_office][raw_material]" placeholder="Raw Material Avi. and Source" id="">
+                                                        <input type="text" class="form-control" name="prdflt[factory_office][0][raw_material]" placeholder="Raw Material Avi. and Source" id="">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input name="prdflt[factory_office][raw_material_file]" type="file" accept=".pdf" class="custom-file-input">
+                                                            <input name="prdflt[factory_office][0][raw_material_file]" type="file" accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label">Choose
                                                                 File</label>
                                                         </div>

@@ -11,11 +11,11 @@ use Cake\ORM\Entity;
  * @property int $ID
  * @property int|null $vendor_temp_id
  * @property string|null $first_year
- * @property int|null $first_year_turnonver
+ * @property int|null $first_year_turnover
  * @property string|null $second_year
- * @property int|null $second_year_turnonver
+ * @property int|null $second_year_turnover
  * @property string|null $third_year
- * @property int|null $third_year_turnonver
+ * @property int|null $third_year_turnover
  * @property \Cake\I18n\FrozenTime|null $added_date
  * @property \Cake\I18n\FrozenTime|null $updated_date
  *
@@ -35,11 +35,11 @@ class VendorTurnover extends Entity
     protected $_accessible = [
         'vendor_temp_id' => true,
         'first_year' => true,
-        'first_year_turnonver' => true,
+        'first_year_turnover' => true,
         'second_year' => true,
-        'second_year_turnonver' => true,
+        'second_year_turnover' => true,
         'third_year' => true,
-        'third_year_turnonver' => true,
+        'third_year_turnover' => true,
         'added_date' => true,
         'updated_date' => true,
         'vendor_temp' => true,

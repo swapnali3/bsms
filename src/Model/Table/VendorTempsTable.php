@@ -16,11 +16,12 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\AccountGroupsTable&\Cake\ORM\Association\BelongsTo $AccountGroups
  * @property \App\Model\Table\SchemaGroupsTable&\Cake\ORM\Association\BelongsTo $SchemaGroups
  * @property \App\Model\Table\ReconciliationAccountsTable&\Cake\ORM\Association\BelongsTo $ReconciliationAccounts
+ * @property \App\Model\Table\StatesTable&\Cake\ORM\Association\BelongsTo $States
+ * @property \App\Model\Table\CountriesTable&\Cake\ORM\Association\BelongsTo $Countries
+ * @property \App\Model\Table\PaymentTermsTable&\Cake\ORM\Association\BelongsTo $PaymentTerms
  * @property \App\Model\Table\RfqCommunicationsTable&\Cake\ORM\Association\HasMany $RfqCommunications
  * @property \App\Model\Table\RfqsTable&\Cake\ORM\Association\HasMany $Rfqs
- * @property \App\Model\Table\VendorBankDetailsTable&\Cake\ORM\Association\HasMany $VendorBankDetails
  * @property \App\Model\Table\VendorBranchOfficesTable&\Cake\ORM\Association\HasMany $VendorBranchOffices
- * @property \App\Model\Table\VendorCertificatesTable&\Cake\ORM\Association\HasMany $VendorCertificates
  * @property \App\Model\Table\VendorCommencementsTable&\Cake\ORM\Association\HasMany $VendorCommencements
  * @property \App\Model\Table\VendorFacilitiesTable&\Cake\ORM\Association\HasMany $VendorFacilities
  * @property \App\Model\Table\VendorIncometaxesTable&\Cake\ORM\Association\HasMany $VendorIncometaxes
@@ -63,10 +64,6 @@ class VendorTempsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('VendorStatus', [
-            'foreignKey' => 'status',
-        ]);
-        
         $this->belongsTo('CompanyCodes', [
             'foreignKey' => 'company_code_id',
             'joinType' => 'INNER',
@@ -105,19 +102,16 @@ class VendorTempsTable extends Table
         $this->hasMany('Rfqs', [
             'foreignKey' => 'vendor_temp_id',
         ]);
-        $this->hasMany('VendorBankDetails', [
-            'foreignKey' => 'vendor_temp_id',
-        ]);
         $this->hasMany('VendorBranchOffices', [
-            'foreignKey' => 'vendor_temp_id',
-        ]);
-        $this->hasMany('VendorCertificates', [
             'foreignKey' => 'vendor_temp_id',
         ]);
         $this->hasMany('VendorCommencements', [
             'foreignKey' => 'vendor_temp_id',
         ]);
         $this->hasMany('VendorFacilities', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorFactories', [
             'foreignKey' => 'vendor_temp_id',
         ]);
         $this->hasMany('VendorIncometaxes', [
@@ -139,6 +133,9 @@ class VendorTempsTable extends Table
             'foreignKey' => 'vendor_temp_id',
         ]);
         $this->hasMany('VendorReputedCustomers', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorSmallScales', [
             'foreignKey' => 'vendor_temp_id',
         ]);
         $this->hasMany('VendorTempOtps', [
@@ -331,6 +328,46 @@ class VendorTempsTable extends Table
         $validator
             ->integer('update_flag')
             ->allowEmptyString('update_flag');
+
+        $validator
+            ->scalar('bank_name')
+            ->maxLength('bank_name', 250)
+            ->allowEmptyString('bank_name');
+
+        $validator
+            ->scalar('bank_branch')
+            ->maxLength('bank_branch', 250)
+            ->allowEmptyString('bank_branch');
+
+        $validator
+            ->scalar('bank_number')
+            ->maxLength('bank_number', 250)
+            ->allowEmptyString('bank_number');
+
+        $validator
+            ->scalar('bank_ifsc')
+            ->maxLength('bank_ifsc', 250)
+            ->allowEmptyString('bank_ifsc');
+
+        $validator
+            ->scalar('bank_key')
+            ->maxLength('bank_key', 250)
+            ->allowEmptyString('bank_key');
+
+        $validator
+            ->scalar('bank_country')
+            ->maxLength('bank_country', 250)
+            ->allowEmptyString('bank_country');
+
+        $validator
+            ->scalar('bank_city')
+            ->maxLength('bank_city', 250)
+            ->allowEmptyString('bank_city');
+
+        $validator
+            ->scalar('bank_swift')
+            ->maxLength('bank_swift', 250)
+            ->allowEmptyString('bank_swift');
 
         return $validator;
     }
