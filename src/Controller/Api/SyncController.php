@@ -83,8 +83,9 @@ class SyncController extends ApiAppController
                 if($mKey == 'REC_ACC') {
                     $response['message'][] =$this->saveReconciliationAccounts((array)$mVal);
                 }
-
-                
+                if($mKey == 'CURRENCY') {
+                    $response['message'][] =$this->saveCurrencies((array)$mVal);
+                }
             }
         }
 
@@ -264,6 +265,25 @@ class SyncController extends ApiAppController
                 return 'Titles sync successfully!';
             } else {
                 return 'Titles sync fail!';
+            }
+        } 
+    }
+
+    function savecurrencies($CurrencyMaster = array()) {
+        //echo '<pre>'; print_r($schimaGroupMaster); exit;
+        if(!empty($CurrencyMaster)) {
+            $this->loadModel("Currencies");
+            $columns = array('code', 'name');
+            $upsertQuery = $this->Currencies->query();
+            $upsertQuery->insert($columns);
+            foreach($CurrencyMaster as $k => $v) {
+                $upsertQuery->values(array('code' => $v->WAERS, 'name' => $v->KTEXT));
+            }
+
+            if($upsertQuery->epilog('ON DUPLICATE KEY UPDATE `name`=VALUES(`name`)')->execute()) {
+                return 'Currencies sync successfully!';
+            } else {
+                return 'Currencies sync fail!';
             }
         } 
     }
