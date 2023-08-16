@@ -90,50 +90,24 @@ class DashboardController extends BuyerAppController
 
         $conn = ConnectionManager::get('default');
 
-        $query = "SELECT COUNT(complete) 
-        FROM (
-        SELECT 1 AS complete, pf.po_qty, SUM(af.qty) AS delivered
-        FROM po_headers ph
-        LEFT JOIN po_footers pf ON ph.id = pf.po_header_id
-        LEFT JOIN asn_headers ah ON ph.id = ah.po_header_id
-        LEFT JOIN asn_footers af ON ah.id = af.asn_header_id AND pf.id = af.po_footer_id) a
-        WHERE a.po_qty = a.delivered;";
+        $query = "select count(1) complete from (SELECT sum(pf.pending_qty)
+        from po_headers PH	
+        join po_footers pf on pf.po_header_id = PH.id
+        group by PH.id
+        having sum(pf.pending_qty) = 0
+    ) a";
 
         $result = $conn->execute($query)->fetch('assoc');
-        $poCompleteCount = $result['COUNT(complete)'];
+        $poCompleteCount = $result['complete'];
 
-        $topVendor = $conn->execute("SELECT MAX(po_footers.po_qty) AS max_qty FROM po_headers
-        INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
-        WHERE po_headers.sap_vendor_code = 'LARET0' GROUP By po_footers.po_header_id 
-        ORDER BY po_footers.po_qty DESC LIMIT 5");
+        $topVendor = $conn->execute("select * from (SELECT ph.sap_vendor_code, sum(pf.po_qty) total
+        from po_headers PH	
+        join po_footers pf on pf.po_header_id = PH.id
+        group by PH.sap_vendor_code
+    ) a order by total desc limit 5 ");
         $topVendors = $topVendor->fetchAll('assoc');
 
-        // print_r($countComplete);exit;
 
-        // $totalAsn = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();
-
-        $query = $this->RfqDetails->find()
-            ->select(['RfqDetails.id', 'RfqDetails.rfq_no', 'Products.name', 'RfqDetails.added_date', 'RfqInquiries.reach', 'RfqInquiries.respond'])
-            ->contain(['Products'])
-            ->leftJoin(
-                ['RfqInquiries' => '(select rfq_item_id, count(seller_id) reach, count(inquiry) respond FROM rfq_inquiries group by rfq_inquiries.rfq_item_id)'],
-                ['RfqInquiries.rfq_item_id = RfqDetails.id']
-            )
-            ->where(['RfqDetails.buyer_seller_user_id' => $session->read('id')]);
-
-        $rfqDetails = $this->paginate($query);
-
-        //print_r($query); exit;
-        //$rfqsummary = $conn->execute("SELECT rfq_id, U.company_name, rate, created_date FROM rfq_inquiries RI join buyer_seller_users U on (U.id = RI.seller_id) WHERE rate = ( SELECT MIN( RI2.rate ) FROM rfq_inquiries RI2 WHERE RI.rfq_id = RI2.rfq_id ) ORDER BY rfq_id");
-
-
-
-        // Getting paginated result based on page #
-
-        $this->set('rfqDetails', $rfqDetails);
-        //$this->set('rfqsummary', $rfqsummary);
-
-        $totalRfqDetails = $this->RfqDetails->find('all', array('conditions' => array('status' => 1, 'buyer_seller_user_id' => $session->read('id'))))->count();
 
         // echo $totalVendorTemps;exit;
 

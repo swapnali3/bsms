@@ -68,7 +68,8 @@ class VendorFactoriesTable extends Table
             ->scalar('factory_code')
             ->maxLength('factory_code', 45)
             ->requirePresence('factory_code', 'create')
-            ->notEmptyString('factory_code');
+            ->notEmptyString('factory_code')
+            ->add('factory_code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('address')
@@ -160,6 +161,7 @@ class VendorFactoriesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        $rules->add($rules->isUnique(['factory_code']), ['errorField' => 'factory_code']);
         $rules->add($rules->existsIn('vendor_temps_id', 'VendorTemps'), ['errorField' => 'vendor_temps_id']);
 
         return $rules;
