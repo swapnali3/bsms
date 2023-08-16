@@ -155,7 +155,7 @@
 
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                        <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select my-country','data-state' =>'state', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                     </div>
                                 </div>
 
@@ -430,6 +430,24 @@
         }
     });
 
+    function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
+        var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
+        if (convertapi) { return JSON.parse(resp); }
+        return resp;
+    }  
+
+    $(document).on("change", '.my-country', function () {
+        var country_code = $(this).val();
+        var resp = getRemote(baseurl + "vendor/vendor-temps/country-by-state/" + country_code);
+        var opt = "<option selected=''>Please Select</option>";
+        resp = resp["message"];
+        $.each(resp["States"], function(i, v){opt += `<option value="`+v.region_code+`">`+v.name+`</option>`;})
+    //  $("#id_permanent_address_state").html(opt);
+        $("#" +$(this).data('state')).html(opt);
+        $("#" +$(this).data('state')).selectpicker('refresh');
+     });
+
+
     $(document).on("click", "#add_comm", function() {
         var formdata = new FormData($("#communiSubmit")[0]);
         formdata.append("table_name", "vendor_temps");
@@ -681,4 +699,5 @@
         });
 
     });
+  
 </script>

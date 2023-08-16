@@ -35,7 +35,7 @@
                                         <?= $lineMaster->name ?>
                                     </td>
                                     <td>
-                                        <?= h($lineMaster->factory['factory_code']) ?>
+                                        <?= h($lineMaster->vendor_factory->factory_code) ?>
                                     </td>
                                     <td>
                                         <?= $this->Number->format($lineMaster->capacity) ?>

@@ -17,6 +17,9 @@ use Cake\ORM\Entity;
  * @property bool $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
+ *
+ * @property \App\Model\Entity\VendorFactory $vendor_factory
+ * @property \App\Model\Entity\ProductionLine[] $production_lines
  */
 class LineMaster extends Entity
 {
@@ -38,5 +41,7 @@ class LineMaster extends Entity
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
+        'vendor_factory' => true,
+        'production_lines' => true,
     ];
 }

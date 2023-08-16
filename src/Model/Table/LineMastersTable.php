@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * LineMasters Model
  *
+ * @property \App\Model\Table\ProductionLinesTable&\Cake\ORM\Association\HasMany $ProductionLines
+ *
  * @method \App\Model\Entity\LineMaster newEmptyEntity()
  * @method \App\Model\Entity\LineMaster newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\LineMaster[] newEntities(array $data, array $options = [])
@@ -41,9 +43,9 @@ class LineMastersTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Factories', [
-            'foreignKey' => 'factory_id',
-            'joinType' => 'INNER',
+        $this->belongsTo('VendorFactories', [
+            'className' => 'VendorFactories', 
+            'foreignKey' => 'factory_id', 
         ]);
         $this->hasMany('ProductionLines', [
             'foreignKey' => 'line_master_id',
@@ -110,7 +112,6 @@ class LineMastersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['sap_vendor_code', 'name']), ['errorField' => 'sap_vendor_code']);
-        $rules->add($rules->existsIn('factory_id', 'Factories'), ['errorField' => 'factory_id']);
 
         return $rules;
     }

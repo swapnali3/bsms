@@ -81,6 +81,17 @@ class VendorTempsController extends VendorAppController
         $this->set(compact('vendorTemp'));
     }
 
+
+    public function countryByState($id = null)
+    {
+        $this->autoRender = false;
+        $response = ["status"=>0, 'message' =>'Empty request'];
+        $this->loadModel("States");
+        $states = $this->States->find()->select(['region_code', 'name'])->where(['country_code =' => $id])->toArray();
+        $response = ["status"=> 1, 'message' =>['States'=>$states]];
+        echo json_encode($response);
+    }
+
     public function stateByCountryId($name = null)
     {
         $this->autoRender = false;
@@ -251,15 +262,15 @@ class VendorTempsController extends VendorAppController
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
 
-        $countries = $this->Countries->find('list', ['keyField' => 'country_name', 'valueField' => 'country_name'])->toArray();
+        $countries = $this->Countries->find('list', ['keyField' => 'country_code', 'valueField' => 'country_name'])->toArray();
 
-        $hasIndia = array_key_exists('India', $countries);
+        $hasIndia = array_key_exists('IN', $countries);
         if ($hasIndia) {
             unset($countries['India']);
             $countries = ['India' => 'India'] + $countries;
         }
 
-        $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
+        $states = $this->States->find('list', ['keyField' => 'region_code', 'valueField' => 'name'])->all();
 
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));
     }

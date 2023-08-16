@@ -71,7 +71,9 @@ $('#addvendorform').validate({
     payment_term: { required: true },
     purchasing_organization_id: { required: true },
     account_group_id: { required: true },
-    schema_group_id: { required: true }
+    schema_group_id: { required: true },
+    company_code_id:{required : true},
+    reconciliation_account_id:{required:true}
   },
   messages: {
     name: { required: "Please provide name" },
@@ -80,7 +82,9 @@ $('#addvendorform').validate({
     payment_term: { required: "Please select payment_term" },
     purchasing_organization_id: { required: "Please select Purchasing Organization" },
     account_group_id: { required: "Please select Account Group" },
-    schema_group_id: { required: "Please select Schema Group" }
+    schema_group_id: { required: "Please select Schema Group" },
+    company_code_id : {required: "Please select Company Code"},
+    reconciliation_account_id :{required: "Please select Reconciliation Account"}
   },
 
   errorElement: 'span',
