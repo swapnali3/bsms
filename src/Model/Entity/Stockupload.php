@@ -10,7 +10,10 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $opening_stock
+ * @property string $current_stock
+ * @property string $asn_stock
  * @property int $material_id
+ * @property int|null $factories_id
  * @property string $sap_vendor_code
  * @property \Cake\I18n\FrozenTime|null $added_date
  * @property \Cake\I18n\FrozenTime|null $updated_date
@@ -30,7 +33,10 @@ class StockUpload extends Entity
      */
     protected $_accessible = [
         'opening_stock' => true,
+        'current_stock' => true,
+        'asn_stock' => true,
         'material_id' => true,
+        'factories_id' => true,
         'sap_vendor_code' => true,
         'added_date' => true,
         'updated_date' => true,

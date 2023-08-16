@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\LineMaster $lineMaster
@@ -12,24 +13,27 @@
         <?= $this->Form->create($lineMaster) ?>
         <div class="card">
             <div class="card-header">
-
+                <h5>Line Master</h5>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <?php echo $this->Form->control('name', ['class'=> 'form-control']); ?>
+                        <?php echo $this->Form->control('name', ['class' => 'form-control', 'label' => 'Line Name']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <?php echo $this->Form->control('capacity', ['class'=> 'form-control']); ?>
+                        <?php echo $this->Form->control('factory_id', array('class' => 'form-control w-100', 'options' => $factory, 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Factories')); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                    <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'style' => "height: unset !important;", 'empty' => 'Please Select','label'=>'Unit Of Measurement')); ?>
-                        <?php echo $this->Form->control('status', ['value'=> 1, 'style' => 'visibility: hidden; position: absolute;','label' => false]); ?>
+                        <?php echo $this->Form->control('capacity', ['class' => 'form-control']); ?>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Unit Of Measurement')); ?>
+                        <?php echo $this->Form->control('status', ['value' => 1, 'style' => 'visibility: hidden; position: absolute;', 'label' => false]); ?>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <?= $this->Form->button(__('Submit'), ['class'=> 'btn bg-gradient-submit']) ?>
+                <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit']) ?>
                 <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'btn bg-gradient-cancel']) ?>
             </div>
         </div>
@@ -56,49 +60,56 @@
             </div>
             <div class="col-12 pt-2">
                 <i style="color: black;">
-                    <a href="<?= $this->Url->build('/') ?>webroot/templates/line_master_upload.xlsx"
-                        target="_blank" rel="noopener noreferrer">Master Template.xlsx</a>
+                    <a href="<?= $this->Url->build('/') ?>webroot/templates/line_master_upload.xlsx" target="_blank" rel="noopener noreferrer">Master Template.xlsx</a>
                 </i>
             </div>
         </div>
     </div>
-    
+
 </div>
 <?= $this->Form->end() ?>
 
 <script>
-    $("#id_exportme").click(function() {
-    var fd = new FormData($('#formUpload')[0]);
-
-    $.ajax({
-        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/line-masters', 'action' => 'upload')); ?>",
-        type: "post",
-        dataType: 'json',
-        processData: false, // important
-        contentType: false, // important
-        data: fd,
-        success: function(response) {
-            if(response.status) {
-                Toast.fire({
-                icon: 'success',
-                title: response.message
-              });
-
-              //setTimeout(function() {history.go(-1);}, 1000);
-              
-            } else {
-                Toast.fire({
-                icon: 'error',
-                title: response.message
-              });
-            }
-        },
-        error: function() {
-            Toast.fire({
-                icon: 'error',
-                title: 'An error occured, please try again.'
-              });
-        }
+    $('#OpenImgUpload').click(function() {
+        $('#bulk_file').trigger('click');
     });
-});
-    </script>
+    $('#bulk_file').change(function() {
+        var file = $(this).prop('files')[0].name;
+        $("#filessnames").append(file);
+    });
+
+    $("#id_exportme").click(function() {
+        var fd = new FormData($('#formUpload')[0]);
+
+        $.ajax({
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/line-masters', 'action' => 'upload')); ?>",
+            type: "post",
+            dataType: 'json',
+            processData: false, // important
+            contentType: false, // important
+            data: fd,
+            success: function(response) {
+                if (response.status) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    });
+
+                    //setTimeout(function() {history.go(-1);}, 1000);
+
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: response.message
+                    });
+                }
+            },
+            error: function() {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'An error occured, please try again.'
+                });
+            }
+        });
+    });
+</script>

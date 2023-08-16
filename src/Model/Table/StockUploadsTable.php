@@ -47,6 +47,10 @@ class StockUploadsTable extends Table
             'foreignKey' => 'material_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('Factories', [
+            'foreignKey' => 'factories_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**
@@ -63,8 +67,22 @@ class StockUploadsTable extends Table
             ->notEmptyString('opening_stock');
 
         $validator
+            ->decimal('current_stock')
+            ->requirePresence('current_stock', 'create')
+            ->notEmptyString('current_stock');
+
+        $validator
+            ->decimal('asn_stock')
+            ->requirePresence('asn_stock', 'create')
+            ->notEmptyString('asn_stock');
+
+        $validator
             ->integer('material_id')
             ->notEmptyString('material_id');
+
+        $validator
+            ->integer('factories_id')
+            ->notEmptyString('factories_id');
 
         $validator
             ->scalar('sap_vendor_code')
@@ -93,6 +111,7 @@ class StockUploadsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn('material_id', 'Materials'), ['errorField' => 'material_id']);
+        $rules->add($rules->existsIn('factories_id', 'Factories'), ['errorField' => 'factories_id']);
 
         return $rules;
     }

@@ -54,12 +54,14 @@ class PaymentTermsTable extends Table
             ->scalar('code')
             ->maxLength('code', 5)
             ->requirePresence('code', 'create')
-            ->notEmptyString('code');
+            ->notEmptyString('code')
+            ->add('code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 20)
-            ->allowEmptyString('description');
+            ->maxLength('description', 50)
+            ->requirePresence('description', 'create')
+            ->notEmptyString('description');
 
         $validator
             ->boolean('status')
@@ -74,5 +76,19 @@ class PaymentTermsTable extends Table
             ->notEmptyDateTime('updated_date');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['code']), ['errorField' => 'code']);
+
+        return $rules;
     }
 }

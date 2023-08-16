@@ -26,6 +26,7 @@ class VendorTempsController extends BuyerAppController
         parent::initialize();
         $flash = [];  
         $this->set('flash', $flash);
+        $this->loadComponent('Ftp');
     }
     
     /**
@@ -162,6 +163,28 @@ class VendorTempsController extends BuyerAppController
 
         $this->set(compact('vendorTemp'));
     }
+    
+    public function masterByCompanyCode($id = null)
+    {
+        $this->autoRender = false;
+        $response = ["status"=>0, 'message' =>'Empty request'];
+        $this->loadModel("CompanyCodes");
+        $this->loadModel("PurchasingOrganizations");
+        $this->loadModel("ReconciliationAccounts");
+        //$this->loadModel("AccountGroups");
+        //$this->loadModel("PaymentTerms");
+        //$this->loadModel("SchemaGroups");
+        
+        $po = $this->PurchasingOrganizations->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        $ra = $this->ReconciliationAccounts->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        //$ag = $this->AccountGroups->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        
+        //$pt = $this->PaymentTerms->find()->select(['id', 'description'])->where(['company_code_id =' => $id])->toArray();
+        //$sg = $this->SchemaGroups->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$po, 'ReconciliationAccounts' => $ra]];
+        echo json_encode($response);
+    }
+    
 
     public function add()
     {
@@ -169,9 +192,13 @@ class VendorTempsController extends BuyerAppController
         $session = $this->getRequest()->getSession();
 
         $this->set('headTitle', 'Create Vendor');
+        $this->loadModel("Titles");
         $this->loadModel("VendorTemps");
         $this->loadModel("VendorStatus");
         $this->loadModel("PaymentTerms");
+        $this->loadModel("CompanyCodes");
+        $this->loadModel("ReconciliationAccounts");
+        $this->loadModel("PurchasingOrganizations");
 
         $latestVendors = $this->VendorTemps
         ->find('all')
@@ -305,12 +332,15 @@ class VendorTempsController extends BuyerAppController
                 $this->set('flash', $flash);
             }
         }
+        $titles = $this->Titles->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
-        $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'code', 'valueField' => 'code'])->all();
+        $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'code', 'valueField' => 'description'])->all();
+        $company_codes = $this->CompanyCodes->find('list', ['keyField' => 'id', 'valueField' => 'name'])->all();
+        $reconciliation_account = $this->ReconciliationAccounts->find('list', ['keyField' => 'code', 'valueField' => 'name'])->all();
 
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'payment_term', 'latestVendors'));
+        $this->set(compact('vendorTemp','titles', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'payment_term', 'reconciliation_account', 'company_codes', 'latestVendors'));
     }
 
     public function sapAdd()
@@ -533,7 +563,7 @@ class VendorTempsController extends BuyerAppController
     {
         $flash = [];
         $this->loadModel("VendorTemps");
-        $vendor = $this->VendorTemps->get($id);
+        $vendor = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','PurchasingOrganizations','AccountGroups', 'ReconciliationAccounts']]);
 
         if ($action == 'rej') {
             if ($this->request->is(['patch', 'post', 'put'])) {
@@ -542,17 +572,7 @@ class VendorTempsController extends BuyerAppController
                 $vendor->remark = $remarks;
                 $this->VendorTemps->save($vendor);
                 $quryString = $vendor->email . '||' . $vendor->id;
-                
-                // $link = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
-                // $mailer = new Mailer('default');
-                // $mailer
-                //     ->setTransport('smtp')
-                //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                //     ->setTo($vendor->email)
-                //     ->setEmailFormat('html')
-                //     ->setSubject('Vendor KYC Process')
-                //     ->deliver('Hi ' . $vendor->name . '<br/>Your form has been rejected. Kindly Resubmit. <br/> <br/>Please find below the buyers remarks <br/>'.$remarks.'<br/> <br/>' . $link);
-
+               
                 $visit_url = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
                 $mailer = new Mailer('default');
                 $mailer
@@ -583,29 +603,44 @@ class VendorTempsController extends BuyerAppController
 
             $data['DATA'] = array();
 
+            $data['DATA']['VENDOR_PORTAL_ID'] = $vendor->id;
             $data['DATA']['LIFNR'] = $vendor->sap_vendor_code;
-            $data['DATA']['BUKRS'] = '1000';
-            $data['DATA']['EKORG'] = '1000'; //$vendor->purchasing_organization_id;
-            $data['DATA']['KTOKK'] = 'ZZ01'; //$vendor->account_group_id;
-            $data['DATA']['TITLE_MEDI'] = 'MR.';
+            $data['DATA']['BUKRS'] = $vendor->company_code->code;
+            $data['DATA']['EKORG'] = $vendor->purchasing_organization->code;
+            $data['DATA']['KTOKK'] = $vendor->account_group->code;
+            $data['DATA']['TITLE_MEDI'] = $vendor->title;
             $data['DATA']['NAME1'] = $vendor->name;
             $data['DATA']['NAME2'] = $vendor->name;
 
-            $data['DATA']['SORT1'] = 'Sort';
-            $data['DATA']['STREET'] = $vendor->city;
+            $data['DATA']['SORT1'] = $vendor->name;
+            $data['DATA']['STREET'] = $vendor->address;
             $data['DATA']['CITY1'] = $vendor->city;
             $data['DATA']['POST_CODE1'] = $vendor->pincode;
 
-            $data['DATA']['REGION'] = 'MH';
-            $data['DATA']['COUNTRY'] = 'IN';
+            $data['DATA']['REGION'] = $vendor->state->region_code;
+            $data['DATA']['COUNTRY'] = $vendor->country->country_code;
             $data['DATA']['SMTP_ADDR'] = $vendor->email;
             $data['DATA']['MOB_NUMBER'] = $vendor->mobile;
 
-            $data['DATA']['AKONT'] = '100110';
-            $data['DATA']['ZUAWA'] = '001';
-            $data['DATA']['ZTERM'] = '0001';
+            $data['DATA']['AKONT'] = $vendor->reconciliation_account->code;
+            $data['DATA']['ZUAWA'] = '';
+            $data['DATA']['SPRAS'] = '';
+            $data['DATA']['TAXTYPE'] = '';
+            $data['DATA']['GSIN'] = $vendor->gst_no;
+            $data['DATA']['ZTERM'] = $vendor->payment_term->code;
             $data['DATA']['WAERS'] = $vendor->order_currency;
 
+
+            $uploadFileContent = json_encode($data);
+            $uploadfileName = 'vendor_new_req_'.$vendor->id.'.json';
+            $ftpConn = $this->Ftp->connection();
+            if($this->Ftp->uploadFile($ftpConn, $uploadFileContent, $uploadfileName)) {
+                $flash = ['type'=>'success', 'msg'=>' Vendor sent to SAP for approval'];
+            } else {
+                $flash = ['type'=>'error', 'msg'=>' Vendor sent to SAP fail'];
+            }
+
+            /*
             $http = new Client();
             $response = $http->post(
                 'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
@@ -613,6 +648,7 @@ class VendorTempsController extends BuyerAppController
                 ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
             );
 
+            
             if ($response->isOk()) {
                 $result = json_decode($response->getStringBody());
 
@@ -635,22 +671,10 @@ class VendorTempsController extends BuyerAppController
                         $data['password'] = $vendor->mobile;
                         $data['group_id'] = 3;
 
-
-
                         $adminUser = $this->Users->patchEntity($adminUser, $data);
 
                         if ($this->Users->save($adminUser)) {
-                            // $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-                            // $mailer = new Mailer('default');
-                            // $mailer
-                            //     ->setTransport('smtp')
-                            //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                            //     ->setTo($data['username'])
-                            //     ->setEmailFormat('html')
-                            //     ->setSubject('Vendor Portal - Account created')
-                            //     ->deliver('Hi ' . $data['first_name'] . ' <br/>Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
-                            //         '<br/>Password:' . $data['password'] . '<br/> <a href="' . $link . '">Click here</a>');
-                                
+                           
                             $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
                             $mailer = new Mailer('default');
                             $mailer
@@ -662,7 +686,7 @@ class VendorTempsController extends BuyerAppController
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Account created')
                                 ->viewBuilder()
-                                    ->setTemplate('mail_template');
+                                ->setTemplate('mail_template');
                             $mailer->deliver();
                         }
                     }
@@ -677,8 +701,8 @@ class VendorTempsController extends BuyerAppController
                     $flash = ['type'=>'success', 'msg'=>__('The Vendor successfully approved', array('action' => 'index'), 30)];
                 }
             } else {
-                $flash = ['type'=>'success', 'msg'=>'e Vendor sent to SAP for approval'];
-            }
+                $flash = ['type'=>'success', 'msg'=>' Vendor sent to SAP for approval'];
+            } */
         } else {
             $flash = ['type'=>'error', 'msg'=>'The Vendor detail could not be updated. Please, try again'];
         }

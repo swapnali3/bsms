@@ -266,10 +266,10 @@ class ApiController extends ApiAppController
 
                     foreach($rows as $row) {
                         $upsertQuery->values($row);
-                        $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
+                    }
+                    $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
                         `description`=VALUES(`description`), `minimum_stock`=VALUES(`minimum_stock`), `uom`=VALUES(`uom`)')
                         ->execute();
-                    }
 
                     $materialHistories = $this->MaterialHistories->newEntities($rows);
                     $this->MaterialHistories->saveMany($materialHistories);

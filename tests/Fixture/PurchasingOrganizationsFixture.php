@@ -20,10 +20,12 @@ class PurchasingOrganizationsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
+                'company_code_id' => 1,
+                'code' => 'Lorem ipsum d',
                 'name' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'added_date' => '2023-01-02 07:45:11',
-                'updated_date' => '2023-01-02 07:45:11',
+                'added_date' => '2023-08-12 15:26:18',
+                'updated_date' => '2023-08-12 15:26:18',
             ],
         ];
         parent::init();

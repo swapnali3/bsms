@@ -11,6 +11,9 @@ use Cake\Validation\Validator;
 /**
  * Dailymonitor Model
  *
+ * @property \App\Model\Table\ProductionLinesTable&\Cake\ORM\Association\BelongsTo $ProductionLines
+ * @property \App\Model\Table\MaterialsTable&\Cake\ORM\Association\BelongsTo $Materials
+ *
  * @method \App\Model\Entity\Dailymonitor newEmptyEntity()
  * @method \App\Model\Entity\Dailymonitor newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Dailymonitor[] newEntities(array $data, array $options = [])
@@ -107,7 +110,7 @@ class DailymonitorTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->existsIn('production_line_id', 'ProductionLines'), ['errorField' => 'production_line_id']);
+        // $rules->add($rules->existsIn('production_line_id', 'ProductionLines'), ['errorField' => 'production_line_id']);
         $rules->add($rules->existsIn('material_id', 'Materials'), ['errorField' => 'material_id']);
 
         return $rules;

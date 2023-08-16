@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * LineMasters Model
  *
+ * @property \App\Model\Table\ProductionLinesTable&\Cake\ORM\Association\HasMany $ProductionLines
+ *
  * @method \App\Model\Entity\LineMaster newEmptyEntity()
  * @method \App\Model\Entity\LineMaster newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\LineMaster[] newEntities(array $data, array $options = [])
@@ -40,6 +42,14 @@ class LineMastersTable extends Table
         $this->setTable('line_masters');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('VendorFactories', [
+            'className' => 'VendorFactories', 
+            'foreignKey' => 'factory_id', 
+        ]);
+        $this->hasMany('ProductionLines', [
+            'foreignKey' => 'line_master_id',
+        ]);
     }
 
     /**
@@ -50,6 +60,10 @@ class LineMastersTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
+        $validator
+            ->integer('factory_id')
+            ->allowEmptyString('factory_id');
+
         $validator
             ->scalar('sap_vendor_code')
             ->maxLength('sap_vendor_code', 10)
@@ -74,6 +88,7 @@ class LineMastersTable extends Table
             ->notEmptyString('uom');
 
         $validator
+            ->boolean('status')
             ->notEmptyString('status');
 
         $validator

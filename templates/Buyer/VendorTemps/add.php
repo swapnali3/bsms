@@ -25,22 +25,9 @@
             <div class="card-body fm">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
-                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
+                    <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                         <div class="form-group">
-                            <?php
-                            echo $this->Form->control('title', [
-                                'class' => 'form-control',
-                                'label' => 'Title',
-                                'options' => [
-                                    'Company' => 'Company',
-                                    'M/S' => 'M/S',
-                                    'Mr.' => 'Mr.',
-                                    'Ms.' => 'Ms.'
-                                ],
-                                'empty' => 'Select',
-                                'required' => 'required'
-                            ]);
-                            ?>
+                        <?php echo $this->Form->control('title', array('class' => 'form-control', 'options' => $titles, 'required' => 'required', 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
@@ -73,30 +60,40 @@
                             <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0', 'placeholder' => 'please enter email id')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('payment_term', array('class' => 'form-control', 'options' => $payment_term, 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('company_code_id', array('class' => 'form-control', 'options' => $company_codes, 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <div class="form-group">
                             <?php echo $this->Form->control('purchasing_organization_id', array('class' => 'form-control', 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <div class="form-group">
                             <?php echo $this->Form->control('account_group_id', array('class' => 'form-control', 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
+                        <div class="form-group">
+                            <?php echo $this->Form->control('reconciliation_account_id', array('class' => 'form-control', 'options' => $reconciliation_account, 'empty' => 'Please Select')); ?>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
+                        <div class="form-group">
+                            <?php echo $this->Form->control('payment_term', array('class' => 'form-control', 'options' => $payment_term, 'empty' => 'Please Select')); ?>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <div class="form-group">
                             <?php echo $this->Form->control('schema_group_id', array('class' => 'form-control', 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-lg-12 col-md-12">
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_addvendor', 'type' => 'button']) ?>
                     </div>
-                    <div class="col-sm-12 col-md-12 col-lg- mb-3">
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <span class="errorm">
                             <?= $this->Flash->render() ?>
                         </span>

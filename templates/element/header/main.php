@@ -8,6 +8,7 @@
 <?php $createvendactive = ($controller == 'VendorTemps' && $action == 'add') ? 'active' : ''; ?>
 <?php $creatsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'active' : ''; ?>
 <?php $rfqactive = ($controller == 'Rfqs') ? 'active' : ''; ?>
+<?php $stocksUpload = ($controller == 'StockUploads') ? 'active' : ''; ?>
 
 <?php $temvenmenuopen = ($controller == 'VendorTemps') ? 'menu-open' : ''; ?>
 <?php $settingmenuopen = ($controller == 'Settings') ? 'menu-open' : ''; ?>
@@ -65,7 +66,10 @@
                     <?= $this->Html->link(__('Intransit ASN'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
                 </li>
                 <li class="nav-item">
-                    <?= $this->Html->link(__('Gate Entry'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive" , 'escape' => false]) ?>
+                    <?= $this->Html->link(__('Gate Entry'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive", 'escape' => false]) ?>
+                </li>
+                <li class="nav-item ">
+                    <?= $this->Html->link(__('Stocks Upload'), ['controller' => '/stock-uploads', 'action' => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
                 </li>
                 
                 <?= $this->element('header/menu') ?>
@@ -78,8 +82,7 @@
                     <i class="far fa-bell"></i>
                     <span class="badge badge-warning navbar-badge custom-i">0</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list"
-                    style="left: inherit; right: 0px;">
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;cursor: pointer;">
                     <div class="d-flex justify-content-between">
                         <span class="dropdown-header notifyView"> Notifications</span>
                         <span class="dropdown-header  clearNotificationsAll" style="color:#004d87">Clear All</span>
@@ -87,6 +90,47 @@
                     <div class="dropdown-divider"></div>
                     <div class="notification-lists">
                     </div>
+                </div>
+            </li>
+        </ul>
+
+        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+            <li class="nav-item dropdown show">
+                <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+                    <div class="user-panel d-flex">
+                        <div class="image">
+                            <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2" alt="User Image" style="box-shadow:none !important;margin-right:15px; ">
+                        </div>
+                    </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting" style="left: inherit; right: 10px;">
+                    <span class="dropdown-header">
+                        <div class="user">
+                            <div class="user-info text-left p-2">
+                                <h6 class="mb-0 text-info">
+                                    <?php echo $this->getRequest()->getSession()->read('first_name'); ?>
+                                </h6>
+                            </div>
+                        </div>
+                    </span>
+                    <div class="dropdown-divider"></div>
+                    <?php if ($role == 2) : ?>
+                        <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>" class="dropdown-item">
+                            <i class="fas fa-user-cog text-info mr-2"></i>
+                            <span>Profile</span>
+                        </a>
+                    <?php endif; ?>
+                    <?php if ($role == 3) : ?>
+                        <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>" class="dropdown-item">
+                            <i class="fas fa-user-cog text-info mr-2"></i>
+                            <span>Profile</span>
+                        </a>
+                    <?php endif; ?>
+                    <div class="dropdown-divider"></div>
+                    <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>" class="dropdown-item">
+                        <i class="fas fa-power-off text-danger mr-2"></i>
+                        <span>Logout</span>
+                    </a>
                 </div>
             </li>
         </ul>
@@ -136,14 +180,17 @@
 
         $('.clearNotificationsAll').click(function (event) {
 
+
             event.stopPropagation();
             var ids = [];
 
+            
             $('.notificationId').each(function () {
                 var dataId = $(this).data('id');
                 ids.push(dataId);
             });
-
+            
+            //console.log(ids);
             $.ajax({
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'dashboard', 'action' => 'clear-message-count')); ?>",

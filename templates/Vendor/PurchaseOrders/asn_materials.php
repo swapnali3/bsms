@@ -32,12 +32,12 @@
             </h6>
           </div>
           <div class="col-6"></div>
-          <div class="col-md-1">
+          <div class="col-1">
             <a href="/bsms/vendorpurchase-orders/create-asn" id="id_backmodal"
               class="btn bg-gradient-cancel float-right">
               <i class="fas fa-angle-double-left"></i> BACK</a>
           </div>
-          <div class="col-md-1">
+          <div class="col-1 text-center">
             <button type="button" class="btn bg-gradient-submit" id="Create-btn">Create ASN</button>
             <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
               <div class="modal-dialog modal-sm">
@@ -71,7 +71,7 @@
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
 
-              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxmaxlength'=>'20', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required')); ?>
             </div>
 
           </div>
@@ -94,7 +94,7 @@
           </div>
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0','type' => 'text','div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -328,11 +328,18 @@
       $('#invoice_value').val(subTotal + gst)
     });
 
+    $.validator.addMethod("validateVehicleNo", function (value, element) {
+    const pattern = /^[A-Z]{2}\d{2}[a-z]{2,}\d{4}$/;
+    return this.optional(element) || pattern.test(value);
+  }, "Please enter a valid vehicle number (e.g., MH02vd2626)");
+
+
 
     $("#asnForm").validate({
       rules: {
         vehicle_no: {
-          required: true
+          required: true,
+          validateVehicleNo: true
         },
         driver_name: {
           required: true,
@@ -392,6 +399,13 @@
       }
     });
 
+
+    $("#vehicle-no").on("keyup", function() {
+    const currentValue = $(this).val();
+    const capitalizedValue = currentValue.slice(0, 2).toUpperCase() + currentValue.slice(2);
+    $(this).val(capitalizedValue);
+  });
+
     $("#Create-btn").click(function () {
       if ($("#asnForm").valid()) { // Check form validation
         $('#modal-confirm').modal('show'); // Show the modal
@@ -445,8 +459,8 @@
       return false; // cancel the event
     });
 
-    var currStock = $("#current_stock").text();
-    var minStock = $("#minimum_stock").text();
+    var currStock = parseFloat($("#current_stock").text());
+    var minStock = parseFloat($("#minimum_stock").text());
 
     console.log('stock=' + currStock+"="+minStock );
     if(currStock < minStock) {

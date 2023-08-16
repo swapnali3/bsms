@@ -27,15 +27,15 @@ switch ($vendorTemp->status) {
 }
 
 ?>
-<?= $this->Html->css('cstyle.css') ?>
-<style>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <style>
     tr{
         border-bottom: 1px solid lightgrey;
     }
     td{
         padding: .2rem;
     }
-</style>
+</style> -->
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
 <?= $this->Html->css('v_index.css') ?>

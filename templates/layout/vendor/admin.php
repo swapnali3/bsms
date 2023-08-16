@@ -21,7 +21,6 @@
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
 
- 
     <!-- Google Font: Source Sans Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,16 +77,12 @@
     <script>var baseurl = "<?= $this->Url->build('/') ?>";</script>
 </head>
 
-<body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
+<body class="hold-transition sidebar-collapse layout-top-nav">
     <!-- <div class="loader-container" id="loaderss">
         <img src="<?= $this->Url->build('/') ?>img/loaders.gif" alt="Loader" class="loader">
     </div> -->
     <div class="wrapper">
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">
-            <?= $this->element('header/main') ?>
-        </nav>
-        <!-- /.navbar -->
+            <?= $this->element('header/vendor/main') ?>
 
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>" style="background-color:#482668;">
@@ -102,19 +97,12 @@
 
             <div class="sidebar" id="id_sidebar">
                 <?= $this->element('sidebar/vendor/main') ?>
-
             </div>
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <!-- <div class="content-header"> -->
-            <!-- <div class="container-fluid"> -->
             <?= $this->element('content/header') ?>
-            <!-- </div> -->
-            <!-- /.container-fluid -->
-            <!-- </div> -->
 
             <!-- Main content -->
             <div class="content">

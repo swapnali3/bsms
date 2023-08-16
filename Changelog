@@ -95,19 +95,19 @@ END
 author: JThayil
 date: 22.06.2023
 // ==================== ============= ====================
-CREATE TABLE `db_bsms`.`vendor_status` (
+CREATE TABLE `vendor_status` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `status` INT NOT NULL,
   `description` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `status_UNIQUE` (`status` ASC) VISIBLE);
 
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('0', 'Sent to Vendor');
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('1', 'Pending for approval');
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('2', 'Sent to SAP');
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('3', 'Approved');
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('4', 'Rejected');
-INSERT INTO `db_bsms`.`vendor_status` (`status`, `description`) VALUES ('5', 'SAP Import');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('0', 'Sent to Vendor');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('1', 'Pending for approval');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('2', 'Sent to SAP');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('3', 'Approved');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('4', 'Rejected');
+INSERT INTO `vendor_status` (`status`, `description`) VALUES ('5', 'SAP Import');
 // ==================== Vendor Status ====================
 
 
@@ -131,7 +131,7 @@ ALTER TABLE `vendor_temps` ADD COLUMN `update_flag` INT NULL DEFAULT '0' ;
 author: JThayil
 date: 29.06.2023
 // ==================== ============= ====================
-ALTER TABLE `db_bsms`.`vendor_temps` DROP INDEX `email_UNIQUE` ;
+ALTER TABLE `vendor_temps` DROP INDEX `email_UNIQUE` ;
 // ==================== Vendor Update ====================
 
 
@@ -292,3 +292,365 @@ CREATE TABLE `line_masters` (
   PRIMARY KEY (`id`)
 );
 // ==================== ============= ====================
+
+// ==================== factories =======================
+// ==================== ============= ====================
+CREATE TABLE `factories` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `vendor_temps_id` int DEFAULT NULL,
+  `sap_vendor_code` varchar(10) DEFAULT NULL,
+  `factory_code` varchar(45) NOT NULL,
+  `address` VARCHAR(255) NULL,
+  `address_2` VARCHAR(100) NULL,
+  `pincode` VARCHAR(6) NULL,
+  `city` VARCHAR(50) NULL,
+  `state` VARCHAR(100) NULL,
+  `country` VARCHAR(50) NULL,
+  `added_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE `line_masters` ADD COLUMN `factory_id` INT NULL AFTER `id`;
+// ==================== ============= ====================
+
+
+
+// ====================  stock_uploads =======================
+// ==================== ============= ===============
+DROP TABLE IF EXISTS `stock_uploads`;
+CREATE TABLE IF NOT EXISTS `stock_uploads` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `opening_stock` decimal(12,2) NOT NULL,
+  `current_stock` decimal(12,2) NOT NULL,
+  `asn_stock` decimal(12,2) NOT NULL,
+  `material_id` int NOT NULL,
+  `factories_id` int NULL,
+  `sap_vendor_code` varchar(10) NOT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `material_id` (`material_id`,`sap_vendor_code`)
+);
+
+// ==================== Line Master ====================
+author: JThayil
+date: 05.08.2023
+// ==================== ============= ====================
+ALTER TABLE `payment_terms` CHANGE COLUMN `description` `description` VARCHAR(250) NULL DEFAULT NULL ;
+
+ALTER TABLE `schema_groups` ADD COLUMN `code` VARCHAR(15) NULL AFTER `id`;
+
+INSERT INTO `schema_groups` (`id`, `name`, `status`, `added_date`, `updated_date`) VALUES ('1', 'Standard schema vendor', '1', '2023-01-02 13:13:22', '2023-08-04 17:38:02');
+INSERT INTO `schema_groups` (`id`, `code`, `name`, `status`, `added_date`, `updated_date`) VALUES ('2', '01', '01 - Schema vendor 01', '1', '2023-01-02 13:13:22', '2023-08-04 17:38:05');
+INSERT INTO `schema_groups` (`id`, `code`, `name`, `status`, `added_date`, `updated_date`) VALUES ('3', '02', '02 - Schema vendor 02', '1', '2023-08-04 17:38:51', '2023-08-04 17:38:51');
+INSERT INTO `schema_groups` (`id`, `code`, `name`, `status`, `added_date`, `updated_date`) VALUES ('4', '03', '03 - Schema for Import Vendor', '1', '2023-08-04 17:38:53', '2023-08-04 17:38:53');
+
+ALTER TABLE `account_groups` ADD COLUMN `code` VARCHAR(15) NULL AFTER `id`;
+ALTER TABLE `account_groups` CHANGE COLUMN `updated_date` `updated_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
+
+
+ALTER TABLE `purchasing_organizations` ADD COLUMN `code` VARCHAR(15) NULL AFTER `id`,
+CHANGE COLUMN `updated_date` `updated_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ;
+
+
+// ==================== country Currency =======================
+// ==================== ============= ===============
+
+CREATE TABLE `company_codes` (
+`id` INT NOT NULL AUTO_INCREMENT,
+`code` VARCHAR(45) NOT NULL,
+`name` VARCHAR(250) NOT NULL,
+`status` TINYINT NOT NULL,
+`added_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+`updated_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY (`id`));
+
+
+ALTER TABLE `purchasing_organizations` ADD COLUMN `company_code_id` INT NULL;
+
+ALTER TABLE `account_groups` ADD COLUMN `company_code_id` INT NULL;
+
+ALTER TABLE `payment_terms` ADD COLUMN `company_code_id` INT NULL;
+
+ALTER TABLE `schema_groups` ADD COLUMN `company_code_id` INT NULL;
+
+CREATE TABLE `reconciliation_accounts` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `company_code_id` int DEFAULT NULL,
+  `code` varchar(45) NOT NULL,
+  `name` varchar(250) NOT NULL,
+  `status` tinyint NOT NULL,
+  `added_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+
+CREATE TABLE `vendor_bank details` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `bank_name` varchar(45) DEFAULT NULL,
+  `bank_key` varchar(45) DEFAULT NULL,
+  `bank_number` varchar(45) DEFAULT NULL,
+  `bank_branch` varchar(45) DEFAULT NULL,
+  `branch_country` varchar(45) DEFAULT NULL,
+  `branch_city` varchar(45) DEFAULT NULL,
+  `swift/bic` varchar(45) DEFAULT NULL,
+  `tan` varchar(45) DEFAULT NULL,
+  `cin` varchar(45) DEFAULT NULL,
+  `order_currrency` varchar(10) DEFAULT NULL,
+  `gst_no` varchar(25) DEFAULT NULL,
+  `pan_no` varchar(25) DEFAULT NULL,
+  `cheque_cancelled` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_branch_offices` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int DEFAULT NULL,
+  `address` varchar(45) DEFAULT NULL,
+  `address_2` varchar(45) DEFAULT NULL,
+  `pincode` varchar(45) DEFAULT NULL,
+  `city` varchar(45) DEFAULT NULL,
+  `country` varchar(45) DEFAULT NULL,
+  `state` varchar(45) DEFAULT NULL,
+  `telephone` varchar(45) DEFAULT NULL,
+  `registration_year` varchar(4) DEFAULT NULL,
+  `registration_no` varchar(15) DEFAULT NULL,
+  `registration_certificate` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_certificates` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `six_sigma` varchar(45) DEFAULT NULL,
+  `six_sigma_certificate` varchar(250) DEFAULT NULL,
+  `registration` varchar(45) DEFAULT NULL,
+  `iso_registration` varchar(45) DEFAULT NULL,
+  `certificate_file` varchar(45) DEFAULT NULL,
+  `declaration_file` varchar(45) DEFAULT NULL,
+  `independent_mfg` varchar(45) DEFAULT NULL,
+  `v_suppliers` varchar(45) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_commencements` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_factory_id` int NOT NULL,
+  `vendor_temp_id` int NOT NULL,
+  `commencement_year` varchar(45) DEFAULT NULL,
+  `commencement_material` varchar(45) DEFAULT NULL,
+  `first_year` varchar(45) DEFAULT NULL,
+  `first_year_qty` varchar(45) DEFAULT NULL,
+  `second_year` varchar(45) DEFAULT NULL,
+  `second_year_qty` varchar(45) DEFAULT NULL,
+  `third_year` varchar(45) DEFAULT NULL,
+  `third_year_qty` varchar(45) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_facilities` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` varchar(45) DEFAULT NULL,
+  `lab_facility` varchar(45) DEFAULT NULL,
+  `lab_facility_file` varchar(250) DEFAULT NULL,
+  `isi_registration` varchar(45) DEFAULT NULL,
+  `isi_registration_file` varchar(250) DEFAULT NULL,
+  `test_facility` varchar(45) DEFAULT NULL,
+  `test_facility_file` varchar(250) DEFAULT NULL,
+  `sales_services` varchar(45) DEFAULT NULL,
+  `sales_services_file` varchar(250) DEFAULT NULL,
+  `quality_control` varchar(45) DEFAULT NULL,
+  `quality_control_file` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_factories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temps_id` int DEFAULT NULL,
+  `factory_code` varchar(45) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `address_2` varchar(100) DEFAULT NULL,
+  `pincode` varchar(6) DEFAULT NULL,
+  `city` varchar(50) DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `country` varchar(50) DEFAULT NULL,
+  `installed_capacity` varchar(45) DEFAULT NULL,
+  `installed_capacity_file` varchar(250) DEFAULT NULL,
+  `machinery_available` varchar(45) DEFAULT NULL,
+  `machinery_available_file` varchar(250) DEFAULT NULL,
+  `power_available` varchar(45) DEFAULT NULL,
+  `power_available_file` varchar(250) DEFAULT NULL,
+  `raw_material` varchar(45) DEFAULT NULL,
+  `raw_material_file` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_incometaxes` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `certificate_no` varchar(45) DEFAULT NULL,
+  `certificate_date` date DEFAULT NULL,
+  `certificate_file` varchar(250) DEFAULT NULL,
+  `balance_sheet_file` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_material_stocks` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sap_vendor_code` varchar(10) NOT NULL,
+  `material` varchar(18) DEFAULT NULL,
+  `part_code` varchar(20) NOT NULL,
+  `material_desc` varchar(40) DEFAULT NULL,
+  `current_stock` decimal(15,2) NOT NULL,
+  `production_stock` decimal(15,2) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `added_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_otherdetails` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `six_sigma` varchar(250) NOT NULL,
+  `six_sigma_file` tinyint(1) NOT NULL,
+  `iso` varchar(250) NOT NULL,
+  `iso_file` varchar(250) DEFAULT NULL,
+  `halal_file` varchar(250) DEFAULT NULL,
+  `declaration_file` varchar(250) DEFAULT NULL,
+  `fully_manufactured` varchar(250) DEFAULT NULL,
+  `suppliers_name` varchar(250) DEFAULT NULL,
+  `added_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_partner_address` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  `name` varchar(45) DEFAULT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `address_2` varchar(250) DEFAULT NULL,
+  `pincode` varchar(250) DEFAULT NULL,
+  `city` varchar(250) DEFAULT NULL,
+  `country` varchar(250) DEFAULT NULL,
+  `state` varchar(250) DEFAULT NULL,
+  `telephone` varchar(50) DEFAULT NULL,
+  `fax_no` varchar(50) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_production_histories` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `year_of_commercement` varchar(45) DEFAULT NULL,
+  `material` date DEFAULT NULL,
+  `first_year` varchar(250) DEFAULT NULL,
+  `first_yearproduction` varchar(250) DEFAULT NULL,
+  `second_year` varchar(250) DEFAULT NULL,
+  `second_yearproduction` varchar(250) DEFAULT NULL,
+  `third_year` varchar(250) DEFAULT NULL,
+  `third_yearproduction` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_questionnaires` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int DEFAULT NULL,
+  `question` varchar(250) DEFAULT NULL,
+  `answer` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_registered_offices` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `address_2` varchar(250) DEFAULT NULL,
+  `pincode` varchar(6) DEFAULT NULL,
+  `city` varchar(200) DEFAULT NULL,
+  `country` varchar(200) DEFAULT NULL,
+  `state` varchar(200) DEFAULT NULL,
+  `telephone` varchar(15) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_reputed_customers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int NOT NULL,
+  `customer_name` varchar(45) DEFAULT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `pincode` varchar(250) DEFAULT NULL,
+  `city` varchar(250) DEFAULT NULL,
+  `country` varchar(250) DEFAULT NULL,
+  `state` varchar(250) DEFAULT NULL,
+  `telephone` varchar(250) DEFAULT NULL,
+  `fax_no` varchar(250) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_small_scales` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int DEFAULT NULL,
+  `year` int DEFAULT NULL,
+  `registration_no` varchar(45) DEFAULT NULL,
+  `certificate_file` varchar(45) DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `vendor_turnovers` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `vendor_temp_id` int DEFAULT NULL,
+  `first_year` varchar(45) DEFAULT NULL,
+  `first_year_turnonver` int DEFAULT NULL,
+  `second_year` varchar(45) DEFAULT NULL,
+  `second_year_turnonver` int DEFAULT NULL,
+  `third_year` varchar(45) DEFAULT NULL,
+  `third_year_turnonver` int DEFAULT NULL,
+  `added_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`)
+);
+
+ALTER TABLE `vendor_temps` ADD COLUMN `business_type` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `telephone` VARCHAR(15) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `faxno` VARCHAR(15) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `reconciliation_account_id` int NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `company_code_id` int NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_name` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_branch` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_number` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_ifsc` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_key` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_country` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_city` VARCHAR(45) NULL DEFAULT NULL;
+ALTER TABLE `vendor_temps` ADD COLUMN `bank_swift` VARCHAR(45) NULL DEFAULT NULL;

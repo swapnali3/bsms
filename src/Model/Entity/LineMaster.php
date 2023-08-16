@@ -9,13 +9,17 @@ use Cake\ORM\Entity;
  * LineMaster Entity
  *
  * @property int $id
+ * @property int|null $factory_id
  * @property string $sap_vendor_code
  * @property string $name
  * @property string $capacity
  * @property string $uom
- * @property int $status
+ * @property bool $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
+ *
+ * @property \App\Model\Entity\VendorFactory $vendor_factory
+ * @property \App\Model\Entity\ProductionLine[] $production_lines
  */
 class LineMaster extends Entity
 {
@@ -29,6 +33,7 @@ class LineMaster extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        'factory_id' => true,
         'sap_vendor_code' => true,
         'name' => true,
         'capacity' => true,
@@ -36,5 +41,7 @@ class LineMaster extends Entity
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
+        'vendor_factory' => true,
+        'production_lines' => true,
     ];
 }
