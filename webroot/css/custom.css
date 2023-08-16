@@ -925,6 +925,10 @@ p.po-no {
 
 .btn:hover{ color: #F7941D!important;}
 .btn { color: #F7941D!important;}
+#OpenImgUpload { color: #fff !important;}
+#OpenImgUpload:hover {
+    color: #F7941D !important;
+}
 
 .page-item.active .page-link{
     border-color: #F7941D;

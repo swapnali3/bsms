@@ -223,7 +223,8 @@ th {
 /* Default Button */
 .bg-gradient-button {
     /* background: #F2EDD7FF linear-gradient(180deg, #F2EDD7FF, #e5e1cc) repeat-x !important; */
-    color: #F7941D !important;
+    color: #fff !important;
+    background-color: #F7941D;
 }
 
 .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
@@ -233,8 +234,9 @@ th {
 }
 
 .bg-gradient-button.btn:hover {
-    background-color: #FFD580;
-    color: #fff !important;
+    border: 1px solid #F7941D;
+    color: #F7941D !important;
+    background-color: #fff;
 }
 
 .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
@@ -257,9 +259,8 @@ th {
 
 /* Submit Button */
 .bg-gradient-submit {
-    background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
-    border-color: #ffffff;
-    color: #fff;
+    color: #fff !important;
+    background-color: #F7941D;
 }
 
 .bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
@@ -269,9 +270,9 @@ th {
 }
 
 .bg-gradient-submit.btn:hover {
-    background: #08132f linear-gradient(180deg, #102b71, #5b8aff) repeat-x !important;
-    border-color: #ffffff;
-    color: #fff;
+    border: 1px solid #F7941D;
+    color: #F7941D !important;
+    background-color: #fff;
 }
 
 .bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
@@ -453,6 +454,11 @@ body {
     background-color: rgba(0,0,0,.03)!important;
 }
 /* table styling end here */
+
+.form-control { background-color: #F4F6F9 !important; }
+[class*=sidebar-dark-] .sidebar a { color: unset !important;}
+[class*=sidebar-dark] .brand-link { border-bottom: none !important;}
+.nav-sidebar>.nav-item { margin-bottom: 10px !important;}
 
 /* submit button styling start here */
 #id_fksubmit {
