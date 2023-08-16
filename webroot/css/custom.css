@@ -248,21 +248,11 @@ table#example1 tr td {
     color: #004d87 !important;
 }
 
-.gate-entry {
-    margin-left: 0px;
-}
+.gate-entry { margin-left: 0px;}
+.btn:hover { box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;}
+.modal-footer .btn { font-size: 13px;}
 
-.btn:hover {
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-
-.modal-footer .btn {
-    font-size: 13px;
-}
-
-.rfqs .card-body {
-    padding-top: 10px !important;
-}
+.rfqs .card-body { padding-top: 10px !important;}
 
 .rfq-details-head {
     padding-left: 15px;
@@ -616,7 +606,7 @@ a.back-btn:hover {
 }
 
 .text-info {
-    color: #112A68 !important;
+    color: #F7941D !important;
 }
 
 .message.danger.bg-danger {
@@ -931,4 +921,12 @@ p.po-no {
     border-radius: 3px !important;
     background-color: lavender;
     color: red;
+}
+
+.btn:hover{ color: #F7941D!important;}
+.btn { color: #F7941D!important;}
+
+.page-item.active .page-link{
+    border-color: #F7941D;
+    background-color: #F7941D;
 }
