@@ -69,15 +69,7 @@
                     <?= $this->Html->link(__('Gate Entry'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive", 'escape' => false]) ?>
                 </li>
                 <li class="nav-item ">
-<<<<<<< Updated upstream
                     <?= $this->Html->link(__('Stocks Upload'), ['controller' => '/stock-uploads', 'action' => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
-=======
-<<<<<<< Updated upstream
-                    <?= $this->Html->link(__('Stocks Upload'), ['controller' => '/stock-uploads', 'action' => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
-=======
-                    <?= $this->Html->link(__('Stocks Upload'), ['controller' => '/stock-uploads', 'action'  => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
->>>>>>> Stashed changes
->>>>>>> Stashed changes
                 </li>
                 
                 <?= $this->element('header/menu') ?>
