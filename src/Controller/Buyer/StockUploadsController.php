@@ -29,9 +29,11 @@ class StockUploadsController extends BuyerAppController
      */
     public function index()
     {
-
+        $this->loadModel("StockUploads");
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
+        $sapVendor = $session->read('vendor_code');
+        print_r($sapVendor);
         $stockupload = $this->StockUploads->find('all', [
             'conditions' => ['StockUploads.sap_vendor_code' => $session->read('vendor_code')]
         ])->select([
@@ -287,7 +289,7 @@ class StockUploadsController extends BuyerAppController
                     $highestColumn = $worksheet->getHighestColumn();
                     $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
                     $this->loadModel("Materials");
-                    $this->loadModel("Factories");
+                    $this->loadModel("VendorFactories");
                     $tmp = [];
 
                      $datas = [];
@@ -302,7 +304,7 @@ class StockUploadsController extends BuyerAppController
                                 $datas['sap_vendor_code'] = $value;
                             }
                             else if($col == 2) {
-                                $factory = $this->Factories->find('list')
+                                $factory = $this->VendorFactories->find('list')
                                 ->select(['id'])
                                 ->where(['factory_code' => $value])
                                 ->first();

@@ -11,7 +11,6 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $country_code
  * @property string $country_name
- * @property string $country_currency
  *
  * @property \App\Model\Entity\State[] $states
  */
@@ -29,7 +28,6 @@ class Country extends Entity
     protected $_accessible = [
         'country_code' => true,
         'country_name' => true,
-        'country_currency' => true,
         'states' => true,
     ];
 }

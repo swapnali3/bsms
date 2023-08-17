@@ -35,7 +35,10 @@
                             <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Material Code')); ?>
                         </div>
                     </div>
-
+  
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <?php echo $this->Form->control('factory_id', array('class' => 'form-control w-100', 'options' => $factory, 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Factories')); ?>
+                    </div>
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
                             <?php echo $this->Form->control('capacity', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'style' => "height: unset !important;", 'div' => 'form-group', 'required', 'label' => 'Capacity (Per Day)')); ?>

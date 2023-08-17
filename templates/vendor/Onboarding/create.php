@@ -17,44 +17,44 @@
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> -->
 <!-- <?= $this->Html->css('CakeLte.style') ?> -->
 <style>
-    .label {
-        font-size: 10px
-    }
+.label {
+    font-size: 10px
+}
 
-    .row {
-        margin-left: 0px;
-        margin-right: 0px
-    }
+.row {
+    margin-left: 0px;
+    margin-right: 0px
+}
 
-    img.vekpro-logo {
-        width: 100px;
-    }
+img.vekpro-logo {
+    width: 100px;
+}
 
-    .info-msg {
-        padding-left: 5px;
-        font-size: 12px;
-    }
+.info-msg {
+    padding-left: 5px;
+    font-size: 12px;
+}
 
-    img.ft-icon {
-        width: 40px;
-        margin-right: -5px;
-    }
+img.ft-icon {
+    width: 40px;
+    margin-right: -5px;
+}
 
-    .vendorTemps.form.content {
-        width: 70%;
-        margin: 0 auto;
-        background-color: #f5f7fd;
-        margin-top: 20px;
-    }
+.vendorTemps.form.content {
+    width: 70%;
+    margin: 0 auto;
+    background-color: #f5f7fd;
+    margin-top: 20px;
+}
 
-    .form-control {
-        font-size: 14px;
-    }
+.form-control {
+    font-size: 14px;
+}
 
-    label {
-        font-size: 11px;
-        color: #999;
-    }
+label {
+    font-size: 11px;
+    color: #999;
+}
 </style>
 <div class="row">
     <div class="column-responsive column-80">
@@ -65,9 +65,14 @@
                     <h4 class="text-info">
                         <legend>
                             <?= __('Onboarding') ?>
-                            <button type="button" id="needButton" data-modalbody="id_oldmsg" class="btn btn-outline-info btn-light chatload" data-sender_group_id="3" data-sender_id="<?= $vendorTemp->id ?>" data-sender_name="<?= $vendorTemp->name ?>" data-table_name="vendor_temps" data-table_pk="<?= $vendorTemp->id ?>" data-toggle="modal" data-target="#modal-lg" style="margin-left: 3em;">
+                            <button type="button" id="needButton" data-modalbody="id_oldmsg"
+                                class="btn btn-outline-info btn-light chatload" data-sender_group_id="3"
+                                data-sender_id="<?= $vendorTemp->id ?>" data-sender_name="<?= $vendorTemp->name ?>"
+                                data-table_name="vendor_temps" data-table_pk="<?= $vendorTemp->id ?>"
+                                data-toggle="modal" data-target="#modal-lg" style="margin-left: 3em;">
                                 <i class="fas fa-comments"></i> Need help
-                                <span class="badge badge-info" id="unread<?= $vendorTemp->id ?>" style="transform: translate(19px, -15px);">0</span>
+                                <span class="badge badge-info" id="unread<?= $vendorTemp->id ?>"
+                                    style="transform: translate(19px, -15px);">0</span>
                             </button>
                         </legend>
                     </h4>
@@ -80,6 +85,7 @@
             <div class="card my-2">
                 <div class="card-body">
                     <div class="row">
+
                         <div class="col-3 mb-2">
                             <?php echo $this->Form->control('title', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
                         </div>
@@ -93,10 +99,16 @@
                             <?php echo $this->Form->control('mobile', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mb-2">
+                            <?php echo $this->Form->control('company_code_id', ['disabled' => 'disabled', 'options' => $companyCodes, 'class' => 'form-control']); ?>
+                        </div>
+                        <div class="col-3 mb-2">
                             <?php echo $this->Form->control('purchasing_organization_id', ['disabled' => 'disabled', 'options' => $purchasingOrganizations, 'class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mb-2">
                             <?php echo $this->Form->control('account_group_id', ['disabled' => 'disabled', 'options' => $accountGroups, 'class' => 'form-control']); ?>
+                        </div>
+                        <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                            <?php echo $this->Form->control('reconciliation_account_id', ['disabled' => 'disabled', 'options' => $reconciliationAccount, 'class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mb-2">
                             <?php echo $this->Form->control('schema_group_id', ['disabled' => 'disabled', 'options' => $schemaGroups, 'class' => 'form-control']); ?>
@@ -111,23 +123,30 @@
                 <div class="card-header p-0 border-bottom-0">
                     <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="tab_address" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="true">Address</a>
+                            <a class="nav-link active" id="tab_address" data-toggle="pill"
+                                href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
+                                aria-selected="true">Address</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tab_contactperson" data-toggle="pill" href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages" aria-selected="false">Contact Person</a>
+                            <a class="nav-link" id="tab_contactperson" data-toggle="pill"
+                                href="#custom-tabs-four-messages" role="tab" aria-controls="custom-tabs-four-messages"
+                                aria-selected="false">Contact Person</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tab_paymentdetails" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="false">Payment
+                            <a class="nav-link" id="tab_paymentdetails" data-toggle="pill" href="#custom-tabs-four-home"
+                                role="tab" aria-controls="custom-tabs-four-home" aria-selected="false">Payment
                                 Details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="tab_document" data-toggle="pill" href="#custom-tabs-four-settings" role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Document</a>
+                            <a class="nav-link" id="tab_document" data-toggle="pill" href="#custom-tabs-four-settings"
+                                role="tab" aria-controls="custom-tabs-four-settings" aria-selected="false">Document</a>
                         </li>
                     </ul>
                 </div>
                 <div class="card-body">
                     <div class="tab-content" id="custom-tabs-four-tabContent">
-                        <div class="tab-pane fade active show" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="tab_address" style="background-color: white;">
+                        <div class="tab-pane fade active show" id="custom-tabs-four-profile" role="tabpanel"
+                            aria-labelledby="tab_address" style="background-color: white;">
 
                             <div class="row">
 
@@ -155,13 +174,13 @@
 
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('country', ['class' => 'selectpicker form-control my-select my-country','data-state' =>'state', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                        <?php echo $this->Form->control('country_id', ['class' => ' form-control my-select my-country','data-state' =>'state_id', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                     </div>
                                 </div>
 
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('state', ['class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                        <?php echo $this->Form->control('state_id', ['class' => ' form-control my-select','id' =>'state_id', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
                                     </div>
                                 </div>
 
@@ -181,7 +200,8 @@
                             </div>
 
                         </div>
-                        <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel" aria-labelledby="tab_contactperson" style="background-color: white;">
+                        <div class="tab-pane fade" id="custom-tabs-four-messages" role="tabpanel"
+                            aria-labelledby="tab_contactperson" style="background-color: white;">
 
                             <div class="row">
                                 <div class="col-3 mt-3">
@@ -214,9 +234,10 @@
                             </div>
 
                         </div>
-                        <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="tab_paymentdetails" style="background-color: white;">
+                        <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel"
+                            aria-labelledby="tab_paymentdetails" style="background-color: white;">
                             <div class="row">
-                                <div class="col-3 mb-3">
+                                <!-- <div class="col-3 mb-3">
                                     <label for="id_bank_name">Bank name</label>
                                     <input type="text" name="bank[name]" class="form-control" id="id_bank_name">
                                 </div>
@@ -228,47 +249,54 @@
 
                                 <div class="col-3 mb-3">
                                     <label for="id_bank_no">Bank number</label>
-                                    <input type="number" maxlength="18" class="form-control" id="id_bank_no" name="bank[number]">
+                                    <input type="number" maxlength="18" class="form-control" id="id_bank_no"
+                                        name="bank[number]">
                                 </div>
 
                                 <div class="col-3 mb-3">
                                     <label for="id_bank_ifsc">IFSC Code</label>
-                                    <input type="text" maxlength="11" name="bank[ifsc_code]" class="form-control" id="id_bank_ifsc">
+                                    <input type="text" maxlength="11" name="bank[ifsc_code]" class="form-control"
+                                        id="id_bank_ifsc">
                                 </div>
 
                                 <div class="col-3 mb-3">
                                     <label for="id_bank_key">Bank Key</label>
-                                    <input type="text" maxlength="11" name="bank[key]" class="form-control" id="id_bank_key">
+                                    <input type="text" maxlength="11" name="bank[key]" class="form-control"
+                                        id="id_bank_key">
                                 </div>
 
-
+ -->
                                 <div class="col-3 mb-3">
-                                    <?php echo $this->Form->control('bank_country', ['name' => 'bank[country]', 'id' => 'id_bank_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                    <?php echo $this->Form->control('bank_country', ['id' => 'id_bank_country', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                 </div>
 
                                 <div class="col-3 mb-3">
                                     <label for="id_bank_city">City</label>
-                                    <input type="text" class="form-control capitalize" id="id_bank_city" name="bank[city]">
+                                    <input type="text" class="form-control capitalize" id="id_bank_city"
+                                        name="bank_city">
                                 </div>
-
                                 <div class="col-3 mb-3">
-                                    <?php echo $this->Form->control('order_currency', ['name' => 'bank[order_currency]', 'readonly' => 'readonly', 'class' => 'form-control']); ?>
+                                    <?php echo $this->Form->control('order_currency', ['class' => 'selectpicker form-control my-select ', 'options' => $currencies, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                 </div>
+  
+                                <!-- <div class="col-3 mb-3">
+                                    <?php echo $this->Form->control('order_currency', ['name' => 'bank[order_currency]', 'readonly' => 'readonly', 'class' => 'form-control']); ?>
+                                </div> -->
 
                                 <div class="col-3 mb-3">
                                     <label for="id_swift_bic">SWIFT/BIC</label>
-                                    <input type="text" class="form-control" id="id_swift_bic" name="bank[swift]">
+                                    <input type="text" class="form-control" id="id_swift_bic" name="bank_swift">
                                 </div>
 
                                 <div class="col-3 mb-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('tan_no', ['name' => 'bank[tan_no]', 'class' => 'form-control', 'label' => 'TAN No']); ?>
+                                        <?php echo $this->Form->control('tan_no', ['name' => 'tan_no', 'class' => 'form-control', 'label' => 'TAN No']); ?>
                                     </div>
                                 </div>
 
                                 <div class="col-3 mb-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('cin_no', ['name' => 'bank[cin_no]', 'class' => 'form-control', 'label' => 'CIN No.']); ?>
+                                        <?php echo $this->Form->control('cin_no', ['name' => 'cin_no', 'class' => 'form-control', 'label' => 'CIN No.']); ?>
                                     </div>
                                 </div>
                                 <div class="col-3 mb-3">
@@ -285,22 +313,26 @@
                             </div>
                         </div>
 
-                        <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel" aria-labelledby="tab_document" style="background-color: white;">
+                        <div class="tab-pane fade" id="custom-tabs-four-settings" role="tabpanel"
+                            aria-labelledby="tab_document" style="background-color: white;">
 
                             <div class="row">
                                 <div class="col-4 mt-3">
                                     <label for="formFileMultiple" class="form-label">Upload GST no</label>
-                                    <input class="form-control" required type="file" accept=".pdf" name="gst_file" id="formFileMultiple1">
+                                    <input class="form-control" required type="file" accept=".pdf" name="gst_file"
+                                        id="formFileMultiple1">
                                     <small class="text-warning info-msg">Upload only PDF file</small>
                                 </div>
                                 <div class="col-4 mt-3">
                                     <label for="formFileMultiple" class="form-label">Upload pan card</label>
-                                    <input class="form-control" required accept=".pdf" type="file" name="pan_file" id="formFileMultiple2">
+                                    <input class="form-control" required accept=".pdf" type="file" name="pan_file"
+                                        id="formFileMultiple2">
                                     <small class="text-warning info-msg">Upload only PDF file</small>
                                 </div>
                                 <div class="col-4 mt-3">
                                     <label for="formFileMultiple" class="form-label">Cancelled Cheque</label>
-                                    <input class="form-control" required accept=".pdf,image/jpeg, image/png" type="file" name="bank_file" id="formFileMultiple3">
+                                    <input class="form-control" required accept=".pdf,image/jpeg, image/png" type="file"
+                                        name="bank_file" id="formFileMultiple3">
                                 </div>
                             </div>
 
@@ -318,7 +350,8 @@
                                 <h6>Are you sure you want to proceed? This action cannot be edit.</h6>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn cancelButton" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn cancelButton" style="border:1px solid #6610f2"
+                                    data-dismiss="modal">Cancel</button>
                                 <?php echo $this->Form->button('Ok', array('class' => 'btn mt-3', 'style' => "border:1px solid #28a745", 'id' => 'id_ogsubmit')); ?>
 
                             </div>
@@ -380,324 +413,370 @@
 <?= $this->Html->script('CakeLte./AdminLTE/plugins/summernote/summernote.min.js') ?>
 <?= $this->Html->script('chat') ?>
 <script>
-    var getchaturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>";
-    var postchaturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>";
-    var seengeturl = "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'seen-update')); ?>";
-    var chatdata, user_id = "<?= h($vendorTemp->id) ?>",
-        sender_id, table_pk;
-    $(function() {
-        $('.my-select').selectpicker();
-        $('#summernote').summernote({
-            width: 1000,
-        });
+var getchaturl =
+    "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'index')); ?>";
+var postchaturl =
+    "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>";
+var seengeturl =
+    "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'seen-update')); ?>";
+var chatdata, user_id = "<?= h($vendorTemp->id) ?>",
+    sender_id, table_pk;
+$(function() {
+    $('.my-select').selectpicker();
+    $('#summernote').summernote({
+        width: 1000,
     });
+});
 
-    $(document).on("click", "#id_fksubmit", function() {
-        var submitcall = true;
-        var tab = {
-            "tab_address": ["address", "address-2", "pincode", "city", "country", "state"],
-            "tab_contactperson": ["contact-person", "contact-person", "contact-mobile", "contact-department", "contact-designation"],
-            "tab_paymentdetails": ["cin-no", "gst-no", "pan-no"],
-            "tab_document": ["formFileMultiple1", "formFileMultiple2", "formFileMultiple3"]
-        }
+$(document).on("click", "#id_fksubmit", function() {
+    var submitcall = true;
+    var tab = {
+        "tab_address": ["address", "address-2", "pincode", "city", "country", "state"],
+        "tab_contactperson": ["contact-person", "contact-person", "contact-mobile", "contact-department",
+            "contact-designation"
+        ],
+        "tab_paymentdetails": ["cin-no", "gst-no", "pan-no"],
+        "tab_document": ["formFileMultiple1", "formFileMultiple2", "formFileMultiple3"]
+    }
 
-        for (const [index, row] of Object.entries(tab)) {
-            for (const [indexs, rows] of Object.entries(row)) {
-                var data = $("#" + rows).val();
-                if (data == "" || data == null || data == undefined) {
-                    $("#" + index).trigger('click');
-                    submitcall = false;
-                    break;
-                }
-            }
-            if (submitcall == false) {
-
-                setTimeout(function() {
-                    if ($("#onbordingSubmit").valid()) {
-                        $("#id_ogsubmit").trigger('click')
-                    }
-                }, 500);
+    for (const [index, row] of Object.entries(tab)) {
+        for (const [indexs, rows] of Object.entries(row)) {
+            var data = $("#" + rows).val();
+            if (data == "" || data == null || data == undefined) {
+                $("#" + index).trigger('click');
+                submitcall = false;
                 break;
             }
         }
+        if (submitcall == false) {
 
-        if (submitcall) {
-            if ($("#onbordingSubmit").valid()) {
-                $('#modal-sm').modal('show');
-                $('#id_ogsubmit')[0].submit();
-            }
-
+            setTimeout(function() {
+                if ($("#onbordingSubmit").valid()) {
+                    $("#id_ogsubmit").trigger('click')
+                }
+            }, 500);
+            break;
         }
-    });
+    }
 
-    function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
-        var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
-        if (convertapi) { return JSON.parse(resp); }
-        return resp;
-    }  
+    if (submitcall) {
+        if ($("#onbordingSubmit").valid()) {
+            $('#modal-sm').modal('show');
+            $('#id_ogsubmit')[0].submit();
+        }
 
-    $(document).on("change", '.my-country', function () {
-        var country_code = $(this).val();
-        var resp = getRemote(baseurl + "vendor/vendor-temps/country-by-state/" + country_code);
-        var opt = "<option selected=''>Please Select</option>";
-        resp = resp["message"];
-        $.each(resp["States"], function(i, v){opt += `<option value="`+v.region_code+`">`+v.name+`</option>`;})
+    }
+});
+
+function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
+    var resp = $.ajax({
+        type: method,
+        dataType: type,
+        url: remote_url,
+        async: false
+    }).responseText;
+    if (convertapi) {
+        return JSON.parse(resp);
+    }
+    return resp;
+}
+
+$(document).on("change", '.my-country', function() {
+    var id = $(this).val();
+    var resp = getRemote(baseurl + "vendor/vendor-temps/country-by-state/" + id);
+    var opt = "<option selected=''>Please Select</option>";
+    resp = resp["message"];
+    $.each(resp["States"], function(i, v) {
+        opt += `<option value="` + v.id + `">` + v.name + `</option>`;
+    })
     //  $("#id_permanent_address_state").html(opt);
-        $("#" +$(this).data('state')).html(opt);
-        $("#" +$(this).data('state')).selectpicker('refresh');
-     });
+    $("#" + $(this).data('state')).html(opt);
+    $("#" + $(this).data('state')).selectpicker('refresh');
+});
 
 
-    $(document).on("click", "#add_comm", function() {
-        var formdata = new FormData($("#communiSubmit")[0]);
-        formdata.append("table_name", "vendor_temps");
-        resp = sendchat(postchaturl, formdata, $(this).data('modal_body'), $(this).data('sender_id'), getchaturl);
-    });
+$(document).on("click", "#add_comm", function() {
+    var formdata = new FormData($("#communiSubmit")[0]);
+    formdata.append("table_name", "vendor_temps");
+    resp = sendchat(postchaturl, formdata, $(this).data('modal_body'), $(this).data('sender_id'), getchaturl);
+});
 
 
-    $('.cancelButton').click(function() {
-        $('#modal-sm').modal('hide');
-    });
+$('.cancelButton').click(function() {
+    $('#modal-sm').modal('hide');
+});
 
-    $('#needButton').click(function() {
-        table_pk = $(this).data('table_pk');
-        sender_id = $(this).data('sender_id');
-        $("#id_sender_id").val($(this).data('sender_id'));
-        $("#id_group_id").val($(this).data('sender_group_id'));
-        $("#id_table_pk").val($(this).data('table_pk'));
-        $("#add_comm").attr('data-modal_body', $(this).data('modalbody')).attr('data-sender_id', $(this).data('sender_id'));
-        chat($(this).data('modalbody'), $(this).data('sender_id'), getchaturl, $(this).data('table_name'), $(this).data('table_pk'));
+$('#needButton').click(function() {
+    table_pk = $(this).data('table_pk');
+    sender_id = $(this).data('sender_id');
+    $("#id_sender_id").val($(this).data('sender_id'));
+    $("#id_group_id").val($(this).data('sender_group_id'));
+    $("#id_table_pk").val($(this).data('table_pk'));
+    $("#add_comm").attr('data-modal_body', $(this).data('modalbody')).attr('data-sender_id', $(this).data(
+        'sender_id'));
+    chat($(this).data('modalbody'), $(this).data('sender_id'), getchaturl, $(this).data('table_name'), $(this)
+        .data('table_pk'));
 
-        $.ajax({
-            type: "GET",
-            url: seengeturl + "/vendor_temps/" + table_pk + "/" + sender_id,
-            dataType: 'json',
-            success: function(resp) {
-                if (resp.status == 1) {
-                    $('#unread' + sender_id).hide();
-                }
-            },
-        });
-    });
-
-    $(document).ready(function() {
-
-        $(".chatload").each(function() {
-            $('#unread' + $(this).data('sender_id')).empty();
-            getbadge($(this).data('sender_id'), getchaturl, "vendor_temps", $(this).data('table_pk'), 'unread' + $(this).data('sender_id'));
-        });
-
-
-        $("#id_bank_ifsc,#tan-no,#cin-no,#gst-no,#pan-no").on("keyup", function() {
-            var capitalizedText = $(this).val().toUpperCase();
-            $(this).val(capitalizedText);
-        });
-
-
-        const bankNameInput = $('#id_bank_name');
-
-        bankNameInput.on('keyup', function() {
-            var text = $(this).val().replace(/\d/g, ''); // Remove numbers
-            var words = text.toLowerCase().split(' ');
-
-            for (var i = 0; i < words.length; i++) {
-                if (words[i].length > 0) {
-                    words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
-                }
+    $.ajax({
+        type: "GET",
+        url: seengeturl + "/vendor_temps/" + table_pk + "/" + sender_id,
+        dataType: 'json',
+        success: function(resp) {
+            if (resp.status == 1) {
+                $('#unread' + sender_id).hide();
             }
+        },
+    });
+});
 
-            var capitalizedText = words.join(' ');
-            $(this).val(capitalizedText);
-        });
+$(document).ready(function() {
 
-        function capitalizeFirstLetter(text) {
-            if (typeof text !== 'string' || text.length === 0) {
-                return text;
+    $(".chatload").each(function() {
+        $('#unread' + $(this).data('sender_id')).empty();
+        getbadge($(this).data('sender_id'), getchaturl, "vendor_temps", $(this).data('table_pk'),
+            'unread' + $(this).data('sender_id'));
+    });
+
+
+    $("#id_bank_ifsc,#tan-no,#cin-no,#gst-no,#pan-no").on("keyup", function() {
+        var capitalizedText = $(this).val().toUpperCase();
+        $(this).val(capitalizedText);
+    });
+
+
+    const bankNameInput = $('#id_bank_name');
+
+    bankNameInput.on('keyup', function() {
+        var text = $(this).val().replace(/\d/g, ''); // Remove numbers
+        var words = text.toLowerCase().split(' ');
+
+        for (var i = 0; i < words.length; i++) {
+            if (words[i].length > 0) {
+                words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
             }
-
-            return text.charAt(0).toUpperCase() + text.slice(1);
         }
 
-        $("#city,#id_bank_city").on("keyup", function() {
-            var text = $(this).val();
-            var capitalizedText = capitalizeFirstLetter(text);
-            $(this).val(capitalizedText);
-        });
-
-        $("#id_bank_branch").on("keyup", function() {
-            var text = $(this).val().replace(/\d/g, ''); // Remove numbers
-            var capitalizedText = capitalizeFirstLetter(text);
-            $(this).val(capitalizedText);
-        });
-
-        function validateMaxLength(inputElement) {
-            var inputValue = inputElement.val();
-            var maxLength = parseInt(inputElement.attr('maxlength'));
-            if (inputValue.length > maxLength) {
-                inputValue = inputValue.slice(0, maxLength);
-                inputElement.val(inputValue);
-            }
-        }
-        $(document).on('input', '#id_bank_no', function() {
-            validateMaxLength($(this));
-        });
-
-        $("#id_bank_country").change(function() {
-            var swiftBicField = $('#id_swift_bic').closest('.col-3');
-            if ($(this).val() === 'India') {
-                swiftBicField.hide();
-            } else {
-                swiftBicField.show();
-            }
-
-            var coutryName = $(this).val();
-            if (coutryName != "") {
-                $.ajax({
-                    type: "get",
-                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'state-by-countryId')); ?>"+'/' + coutryName,
-                    dataType: "json",
-                    beforeSend: function(xhr) {
-                        xhr.setRequestHeader(
-                            "Content-type",
-                            "application/x-www-form-urlencoded"
-                        );
-                    },
-                    success: function(response) {
-                        if (response.status == 1) {
-                            $("#order-currency").val(response.message);
-                        }
-                    },
-                    error: function(e) {
-                        alert("An error occurred: " + e.responseText.message);
-                        console.log(e);
-                    },
-                });
-            }
-        });
-
-
-
-        $("#onbordingSubmit").validate({
-            rules: {
-                address: {
-                    required: true
-                },
-                city: {
-                    required: true
-                },
-                state: {
-                    required: true
-                },
-                pincode: {
-                    required: true,
-                    digits: true
-                },
-                country: {
-                    required: true
-                },
-                payment_term: {
-                    required: true
-                },
-                order_currency: {
-                    required: true
-                },
-                tan_no: {
-                    required: true
-                },
-                cin_no: {
-                    required: true
-                },
-                gst_no: {
-                    required: true,
-                    maxlength: 15
-                },
-                pan_no: {
-                    required: true
-                },
-                contact_person: {
-                    required: true
-                },
-                contact_email: {
-                    required: true,
-                    email: true
-                },
-                contact_mobile: {
-                    required: true,
-                    number: true,
-                    minlength: 10,
-                    maxlength: 10
-                },
-                contact_department: {
-                    required: true
-                },
-                contact_designation: {
-                    required: true
-                }
-            },
-            messages: {
-                address: {
-                    required: "Please enter a Address"
-                },
-                city: {
-                    required: "Please enter a city"
-                },
-                state: {
-                    required: "Please enter a state"
-                },
-                pincode: {
-                    required: "Please enter a pincode",
-                    digits: true
-                },
-                country: {
-                    required: "Please enter a country"
-                },
-                tan_no: {
-                    required: "Please enter a tan no"
-                },
-                cin_no: {
-                    required: "Please enter a cin no"
-                },
-                gst_no: {
-                    required: "Please enter a gst no",
-                },
-                pan_no: {
-                    required: "Please enter a pam no"
-                },
-                contact_person: {
-                    required: "Please enter a contact person"
-                },
-                contact_email: {
-                    required: "Please enter a contact email",
-                    email: "Please enter a valid email address"
-                },
-                contact_mobile: {
-                    required: "Please enter a contact mobile",
-                    number: "Please enter a valid mobile number"
-                },
-                contact_department: {
-                    required: "Please enter a contact department"
-                },
-                contact_designation: {
-                    required: "Please enter a contact designation"
-                }
-            },
-            errorElement: "span",
-            errorPlacement: function(error, element) {
-                error.addClass("invalid-feedback");
-                element.closest(".form-group").append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass("is-invalid");
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass("is-invalid");
-            }
-        });
-
-        $("#id_bank_key").on("keyup", function() {
-            $("#id_bank_key").valid();
-        });
-
+        var capitalizedText = words.join(' ');
+        $(this).val(capitalizedText);
     });
-  
+
+    function capitalizeFirstLetter(text) {
+        if (typeof text !== 'string' || text.length === 0) {
+            return text;
+        }
+
+        return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
+    $("#city,#id_bank_city").on("keyup", function() {
+        var text = $(this).val();
+        var capitalizedText = capitalizeFirstLetter(text);
+        $(this).val(capitalizedText);
+    });
+
+    $("#id_bank_branch").on("keyup", function() {
+        var text = $(this).val().replace(/\d/g, ''); // Remove numbers
+        var capitalizedText = capitalizeFirstLetter(text);
+        $(this).val(capitalizedText);
+    });
+
+    function validateMaxLength(inputElement) {
+        var inputValue = inputElement.val();
+        var maxLength = parseInt(inputElement.attr('maxlength'));
+        if (inputValue.length > maxLength) {
+            inputValue = inputValue.slice(0, maxLength);
+            inputElement.val(inputValue);
+        }
+    }
+    $(document).on('input', '#id_bank_no', function() {
+        validateMaxLength($(this));
+    });
+
+    $("#id_bank_country").change(function() {
+        var swiftBicField = $('#id_swift_bic').closest('.col-3');
+        if ($(this).val() === 'IN') {
+            swiftBicField.hide();
+        } else {
+            swiftBicField.show();
+        }
+        // var coutryName = $(this).val();
+        // if (coutryName != "") {
+        //     $.ajax({
+        //         type: "get",
+        //         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'state-by-countryId')); ?>" +
+        //             '/' + coutryName,
+        //         dataType: "json",
+        //         beforeSend: function(xhr) {
+        //             xhr.setRequestHeader(
+        //                 "Content-type",
+        //                 "application/x-www-form-urlencoded"
+        //             );
+        //         },
+        //         success: function(response) {
+        //             if (response.status == 1) {
+        //                 $("#order-currency").val(response.message);
+        //             }
+        //         },
+        //         error: function(e) {
+        //             console.log(e);
+        //         },
+        //     });
+        // }
+    });
+
+
+
+    $("#onbordingSubmit").validate({
+        rules: {
+            address: {
+                required: true
+            },
+            city: {
+                required: true
+            },
+            state: {
+                required: true
+            },
+            pincode: {
+                required: true,
+                digits: true
+            },
+            country: {
+                required: true
+            },
+            payment_term: {
+                required: true
+            },
+            order_currency: {
+                required: true
+            },
+            tan_no: {
+                required: true
+            },
+            cin_no: {
+                required: true
+            },
+            gst_no: {
+                required: true,
+                maxlength: 15
+            },
+            pan_no: {
+                required: true
+            },
+            contact_person: {
+                required: true
+            },
+            contact_email: {
+                required: true,
+                email: true
+            },
+            contact_mobile: {
+                required: true,
+                number: true,
+                minlength: 10,
+                maxlength: 10
+            },
+            contact_department: {
+                required: true
+            },
+            contact_designation: {
+                required: true
+            }
+        },
+        messages: {
+            address: {
+                required: "Please enter a Address"
+            },
+            city: {
+                required: "Please enter a city"
+            },
+            state: {
+                required: "Please enter a state"
+            },
+            pincode: {
+                required: "Please enter a pincode",
+                digits: true
+            },
+            country: {
+                required: "Please enter a country"
+            },
+            tan_no: {
+                required: "Please enter a tan no"
+            },
+            cin_no: {
+                required: "Please enter a cin no"
+            },
+            gst_no: {
+                required: "Please enter a gst no",
+            },
+            pan_no: {
+                required: "Please enter a pam no"
+            },
+            contact_person: {
+                required: "Please enter a contact person"
+            },
+            contact_email: {
+                required: "Please enter a contact email",
+                email: "Please enter a valid email address"
+            },
+            contact_mobile: {
+                required: "Please enter a contact mobile",
+                number: "Please enter a valid mobile number"
+            },
+            contact_department: {
+                required: "Please enter a contact department"
+            },
+            contact_designation: {
+                required: "Please enter a contact designation"
+            }
+        },
+        errorElement: "span",
+        errorPlacement: function(error, element) {
+            error.addClass("invalid-feedback");
+            element.closest(".form-group").append(error);
+        },
+        highlight: function(element, errorClass, validClass) {
+            $(element).addClass("is-invalid");
+        },
+        unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass("is-invalid");
+        }
+    });
+
+    $("#id_bank_key").on("keyup", function() {
+        $("#id_bank_key").valid();
+    });
+
+   
+    paymentCodes();
+    
+    function paymentCodes() {
+        var paymentCode = $("#payment-term").val();
+        if (paymentCode != "") {
+            $.ajax({
+                type: "get",
+                url: baseurl + "vendor/vendor-temps/payment-code/" + paymentCode,
+                dataType: "json",
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(
+                        "Content-type",
+                        "application/x-www-form-urlencoded"
+                    );
+                },
+                success: function(response) {
+                    if (response.status == 1) {
+                        $("#payment-term").val(response.message.description);
+                    } else {
+                        $("#payment-term").val("");
+                    }
+                },
+                error: function(e) {
+                    alert("An error occurred: " + e.responseText.message);
+                    console.log(e);
+                },
+            });
+        }
+    }
+
+});
 </script>

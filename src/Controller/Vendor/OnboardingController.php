@@ -190,6 +190,7 @@ class OnboardingController extends VendorAppController
         $flash = [];
         $this->loadModel("VendorTemps");
         $this->loadModel("Countries");
+        $this->loadModel('Currencies');
         $this->loadModel("States");
         $request = explode('||', base64_decode($request));
 
@@ -214,7 +215,7 @@ class OnboardingController extends VendorAppController
             $data = $this->request->getData();
             $data['status'] = 1;
 
-            //echo '<pre>'; print_r($data); exit;
+            echo '<pre>'; print_r($data); exit;
 
             if($data["gst_file"]) {
                 $gstUpload = $data["gst_file"];
@@ -289,18 +290,22 @@ class OnboardingController extends VendorAppController
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
+        $companyCodes = $this->VendorTemps->CompanyCodes->find('list', ['limit' => 200])->all();
+        $reconciliationAccount = $this->VendorTemps->ReconciliationAccounts->find('list', ['limit' => 200])->all();
 
-        $countries = $this->Countries->find('list', ['keyField' => 'country_code', 'valueField' => 'country_name'])->toArray();
+        $countries = $this->Countries->find('list', ['keyField' => 'id', 'valueField' => 'country_name'])->toArray();
+
+        $currencies = $this->Currencies->find('list', ['keyField' => 'code', 'valueField' => 'name'])->toArray();
 
         $hasIndia = array_key_exists('IN', $countries);
         if ($hasIndia) {
-            unset($countries['India']);
+            unset($countries['IN']);
             $countries = ['India' => 'India'] + $countries;
         }
         
         $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
 
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));
+        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states','companyCodes','reconciliationAccount','currencies'));
     }
 
     /**

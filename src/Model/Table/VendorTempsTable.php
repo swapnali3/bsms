@@ -69,6 +69,13 @@ class VendorTempsTable extends Table
             'foreignKey' => 'company_code_id',
             'joinType' => 'INNER',
         ]);
+
+        $this->belongsTo('PaymentTerms', [
+            'foreignKey' => 'payment_terms',
+            'joinType' => 'INNER',
+        ]);
+
+        
         $this->belongsTo('PurchasingOrganizations', [
             'foreignKey' => 'purchasing_organization_id',
             'joinType' => 'INNER',
