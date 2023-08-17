@@ -460,6 +460,8 @@ div#past_messages .past-msg:last-child {
     top: -10px;
     right: 6px;
     border-radius: 30px;
+    background-color: #F7941D !important;
+    color: #fff !important;
 }
 
 /* .gate-entry .content-box input[type="text"]::placeholder {
@@ -590,8 +592,8 @@ td.ponum {
 }
 
 .btn-custom {
-    background-color: #8E9B2C;
-    color: #fff;
+    background-color: #F7941D !important;
+    color: #fff !important;
     font-size: 14px;
     line-height: 1.1rem;
     padding: 10px 20px;
@@ -651,7 +653,7 @@ input.form-control.search {
 }
 
 .buyer-dash .card-header {
-    background-color: #d4ddf7 !important;
+    background-color: #fff !important;
     margin: 0 !important;
     padding: 7px 10px;
 }
@@ -685,11 +687,14 @@ input.form-control.search {
 }
 
 .buyer-dash .products-list .product-title {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 14px;
     margin-top: 5px;
-    color: #999;
+    color: #7F7F7F;
     margin-left: 10px;
+}
+.text-danger {
+    color: #ED1C24!important;
 }
 
 .buyer-dash .products-list .product-img {
@@ -697,7 +702,7 @@ input.form-control.search {
 }
 
 .buyer-dash span.p-value {
-    background-color: #d4ddf7;
+    background-color: #F4F6F9;
     padding: 8px;
     line-height: 12px;
     font-weight: 700;
@@ -709,7 +714,7 @@ input.form-control.search {
 }
 
 .add-vendor .card-body .row {
-    background-color: #f5f7fd;
+    background-color: #fff;
     border-radius: 0px;
     padding: 20px;
     margin: 0 auto;
@@ -943,4 +948,12 @@ p.po-no {
 .page-item.active .page-link{
     border-color: #F7941D;
     background-color: #F7941D;
+}
+
+#id_addvendor { color: #fff !important;}
+#id_addvendor:hover { color: #F7941D !important;}
+
+#actionfooter a {
+    border: none !important;
+    background-color: #F7941D !important;
 }

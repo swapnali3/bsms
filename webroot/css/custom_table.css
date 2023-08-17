@@ -252,9 +252,23 @@ th {
 .bg-gradient-button.btn.disabled {
     background-image: none !important;
     border-color: #F2EDD7FF;
-    color: #755139FF !important;
+    /* color: #755139FF !important; */
 }
 /* Default Button */
+
+.text-right .btn-custom {
+    color: #fff !important;
+}
+
+.text-right .btn-custom:hover {
+    background-color: #fff !important;
+    color: #F7941D !important;
+}
+
+#btnClick {
+    background-color: #F7941D !important;
+    color: #fff !important;
+}
 
 
 /* Submit Button */
@@ -275,14 +289,14 @@ th {
     background-color: #fff;
 }
 
-.bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
+/* .bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
 .bg-gradient-submit.btn:not(:disabled):not(.disabled).active,
 .bg-gradient-submit.btn:active,
 .bg-gradient-submit.btn.active {
     background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
     border-color: #ffffff;
     color: #fff;
-}
+} */
 
 .bg-gradient-submit.btn:disabled,
 .bg-gradient-submit.btn.disabled {
@@ -331,9 +345,9 @@ th {
 
 /* Cancel Button */
 .bg-gradient-cancel {
-    background: #F1F4FFFF linear-gradient(180deg, #edeff7, #ccd7fd) repeat-x !important;
-    border-color: #F1F4FFFF;
-    color: #496e97;
+    background: #Fff !important;
+    border-color: #F7941D;
+    color: #F7941D;
 }
 
 .bg-gradient-cancel.btn:not(:disabled):not(.disabled):active,
@@ -365,6 +379,12 @@ th {
     color: #496e97;
 }
 /* Cancel Button */
+
+.badge-warning {
+    color: #fff !important;
+    background-color: #F7941D !important;
+    border-radius: 50% !important;
+}
 
 /* v_index */
 .brand-link {
@@ -469,3 +489,52 @@ body {
     background-color: #fff;
 } */
 /* submit button styling end here */
+
+.btn-sm {
+    background-color: #F7941D !important;
+    border: none !important;
+}
+.page-item.active .page-link { 
+    background-color: #F7941D !important; 
+    border: none !important;
+}
+
+.btn-sm:hover { background-color: #F79E33 !important;}
+
+#custom-tabs-one-tab .nav-link {
+    color: #333 !important;
+}
+
+#custom-tabs-one-tab .nav-link.active {
+    color: #F7941D !important;
+}
+
+.card-primary.card-outline {
+    border-top: 3px solid #F7941D;
+}
+
+.text-info {
+    color: #F7941D !important;
+}
+
+.search-box { background-color: #fff !important;}
+
+#actionfooter .bulkaction {
+    background-color: #F7941D !important;
+    border: none !important;
+}
+
+#actionfooter .bulkaction:hover {
+    background-color: #F79E33 !important;
+}
+
+.table td, .table th { border: none !important;}
+
+/* Wrapper styling start here */
+
+.wrapper {
+    max-width: 1440px !important;
+    margin: 0 auto !important;
+}
+
+/* Wrapper styling end here */
