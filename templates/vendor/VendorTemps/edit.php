@@ -309,7 +309,7 @@ switch ($vendorTemp->status) {
                                         'PUBLIC_LIMITED' => 'Public Limited Company',
                                         'PRIVATE_LIMITED' => 'Private Limited Company'
                                     ];
-                                    echo $this->Form->control('status', ['name'=>'business_type', 'class' => 'form-control', 'options' => $businessTypes, 'label' => 'Status']);
+                                    echo $this->Form->control('status', ['name'=>'vendor[business_type]', 'class' => 'form-control', 'options' => $businessTypes, 'label' => 'Status']);
                                     ?>
                                 </div>
                             </div>
@@ -379,45 +379,45 @@ switch ($vendorTemp->status) {
                                 <div class="row">
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('address', ['name' => 'address', 'class' => 'form-control ', 'id' => 'id_permanent_address_address1', 'label' => "Address"]); ?>
+                                            <?php echo $this->Form->control('address', ['name' => 'vendor[address]', 'class' => 'form-control ', 'id' => 'id_permanent_address_address1', 'label' => "Address"]); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('address_2', ['name' => 'address_2', 'label' => 'Address 1', 'id' => 'id_permanent_address_address2', 'class' => 'form-control']); ?>
+                                            <?php echo $this->Form->control('address_2', ['name' => 'vendor[address_2]', 'label' => 'Address 1', 'id' => 'id_permanent_address_address2', 'class' => 'form-control']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('pincode', ['name' => 'pincode', 'class' => 'form-control ', 'id' => 'id_permanent_address_pincode']); ?>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-3 mt-3 col-md-3">
-                                        <div class="form-group">
-                                            <?php echo $this->Form->control('city', ['type' => 'text', 'name' => 'city', 'class' => 'form-control alphaonly capitalize', 'id' => 'id_permanent_address_city']); ?>
+                                            <?php echo $this->Form->control('pincode', ['name' => 'vendor[pincode]', 'class' => 'form-control ', 'id' => 'id_permanent_address_pincode']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('country', ['name' => 'country', 'id' => 'id_permanent_address_country','data-state' =>'id_permanent_address_state', 'class' => 'selectpicker form-control my-select my-country', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                            <?php echo $this->Form->control('city', ['type' => 'text', 'name' => 'vendor[city]', 'class' => 'form-control alphaonly capitalize', 'id' => 'id_permanent_address_city']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('state', ['name' => 'state', 'id' => 'id_permanent_address_state', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                            <?php echo $this->Form->control('country', ['name' => 'vendor[country]', 'id' => 'id_permanent_address_country','data-state' =>'id_permanent_address_state', 'class' => 'selectpicker form-control my-select my-country', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3 mt-3 col-md-3">
+                                        <div class="form-group">
+                                            <?php echo $this->Form->control('state', ['name' => 'vendor[state]', 'id' => 'id_permanent_address_state', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('Telephone', ['name' => 'telephone', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'maxlength' => '10', 'id' => 'id_permanent_address_telephone']); ?>
+                                            <?php echo $this->Form->control('Telephone', ['name' => 'vendor[telephone]', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'maxlength' => '10', 'id' => 'id_permanent_address_telephone']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'fax_no', 'id' => 'id_permanent_address_faxno', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Fax No.', 'maxlength' => '10']); ?>
+                                            <?php echo $this->Form->control('register_office_faxno', ['name' => 'vendor[fax_no]', 'id' => 'id_permanent_address_faxno', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'label' => 'Fax No.', 'maxlength' => '10']); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -981,29 +981,29 @@ switch ($vendorTemp->status) {
                                 <div class="row">
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_person', ['name' => 'contact_person', 'class' => 'form-control capitalize alphaonly', 'label' => 'Name']); ?>
+                                            <?php echo $this->Form->control('contact_person', ['name' => 'vendor[contact_person]', 'class' => 'form-control capitalize alphaonly', 'label' => 'Name']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_email', ['type' => 'email', 'name' => 'contact_email', 'class' => 'form-control', 'label' => 'Email']); ?>
+                                            <?php echo $this->Form->control('contact_email', ['type' => 'email', 'name' => 'vendor[contact_email]', 'class' => 'form-control', 'label' => 'Email']); ?>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_mobile', ['type' => 'number', 'name' => 'contact_mobile', 'class' => 'form-control maxlength_validation', 'label' => 'Mobile', 'maxlength' => '10']); ?>
+                                            <?php echo $this->Form->control('contact_mobile', ['type' => 'number', 'name' => 'vendor[contact_mobile]', 'class' => 'form-control maxlength_validation', 'label' => 'Mobile', 'maxlength' => '10']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_department', ['name' => 'contact_department', 'class' => 'form-control capitalize alphaafternumberonly', 'label' => 'Department']); ?>
+                                            <?php echo $this->Form->control('contact_department', ['name' => 'vendor[contact_department]', 'class' => 'form-control capitalize alphaafternumberonly', 'label' => 'Department']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-4 mt-1">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('contact_designation', ['name' => 'contact_designation', 'class' => 'form-control capitalize alphaafternumberonly', 'label' => 'Designation']); ?>
+                                            <?php echo $this->Form->control('contact_designation', ['name' => 'vendor[contact_designation]', 'class' => 'form-control capitalize alphaafternumberonly', 'label' => 'Designation']); ?>
                                         </div>
                                     </div>
                                 </div>
@@ -1106,66 +1106,64 @@ switch ($vendorTemp->status) {
                                         <div class="row">
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_name">Bank name</label>
-                                                <input type="text" name="bank_name"
+                                                <input type="text" name="vendor[bank_name]"
                                                     class="form-control alphaonly capitalize" id="id_bank_name">
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_branch">Bank Branch</label>
                                                 <input type="text" class="form-control alphaonly capitalize"
-                                                    id="id_bank_branch" name="bank_branch">
+                                                    id="id_bank_branch" name="vendor[bank_branch]">
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_no">Bank number</label>
                                                 <input type="number" maxlength="18"
                                                     class="form-control maxlength_validation" id="id_bank_no"
-                                                    name="bank_number">
+                                                    name="vendor[bank_number]">
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_ifsc">IFSC Code</label>
-                                                <input type="text" maxlength="11" name="bank_ifsc"
+                                                <input type="text" maxlength="11" name="vendor[bank_ifsc]"
                                                     class="form-control maxlength_validation UpperCase"
                                                     id="id_bank_ifsc">
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_key">Bank Key</label>
-                                                <input type="text" maxlength="11" name="bank_key" class="form-control"
+                                                <input type="text" maxlength="11" name="vendor[bank_key]" class="form-control"
                                                     id="id_bank_key">
                                             </div>
 
 
                                             <div class="col-3 mb-3">
-                                                <?php echo $this->Form->control('bank_country', ['name' => 'bank_country', 'id' => 'id_bank_country','data-state' =>'id_permanent_address_state', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                                <?php echo $this->Form->control('bank_country', ['name' => 'vendor[bank_country]', 'id' => 'id_bank_country','data-state' =>'id_permanent_address_state', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_bank_city">City</label>
-                                                <input type="text" class="form-control capitalize" id="id_bank_city"
-                                                    name="bank_city">
+                                                <input type="text" class="form-control capitalize" id="id_bank_city" name="vendor[bank_city]">
                                             </div>
 
                                             <div class="col-3 mb-3">
-                                                <?php echo $this->Form->control('order_currency', ['name' => 'order_currency', 'readonly' => 'readonly', 'class' => 'form-control']); ?>
+                                                <?php echo $this->Form->control('order_currency', ['name' => 'vendor[order_currency]', 'readonly' => 'readonly', 'class' => 'form-control']); ?>
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_swift_bic">SWIFT/BIC</label>
-                                                <input type="text" class="form-control" id="id_swift_bic"
-                                                    name="bank_swift">
+                                                <input type="text" class="form-control" id="id_swift_bic" name="vendor[bank_swift]">
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('tan_no', ['name' => 'tan_no', 'class' => 'form-control UpperCase', 'label' => 'TAN No']); ?>
+                                                    <?php echo $this->Form->control('tan_no', ['name' => 'vendor[tan_no]', 'class' => 'form-control UpperCase', 'label' => 'TAN No']); ?>
                                                 </div>
                                             </div>
 
                                             <div class="col-3 mb-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('cin_no', ['name' => 'cin_no', 'class' => 'form-control UpperCase', 'label' => 'CIN No.']); ?>
+                                                    <?php echo $this->Form->control('cin_no', ['name' => 'vendor[cin_no]', 'class' => 'form-control UpperCase', 'label' => 'CIN No.']); ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1176,12 +1174,12 @@ switch ($vendorTemp->status) {
                                         <div class="card card-primary card-outline">
                                             <div class="card-body p-2">
                                                 <label for="">GST No</label>
-                                                <input type="text" name="gst_no" class="form-control UpperCase"
+                                                <input type="text" name="vendor[gst_no]" class="form-control UpperCase"
                                                     id='gst-no'>
                                             </div>
                                             <div class="card-footer p-2" style="background-color: whitesmoke;">
                                                 <div class="custom-file">
-                                                    <input name="gst_file" type="file" accept=".pdf"
+                                                    <input name="vendor[gst_file]" type="file" accept=".pdf"
                                                         class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
@@ -1192,12 +1190,12 @@ switch ($vendorTemp->status) {
                                         <div class="card card-primary card-outline">
                                             <div class="card-body p-2">
                                                 <label for="">PAN No</label>
-                                                <input type="text" name="pan_no" class="form-control UpperCase"
+                                                <input type="text" name="vendor[pan_no]" class="form-control UpperCase"
                                                     id="pan-no">
                                             </div>
                                             <div class="card-footer p-2" style="background-color: whitesmoke;">
                                                 <div class="custom-file">
-                                                    <input name="pan_file" type="file" accept=".pdf"
+                                                    <input name="vendor[pan_file]" type="file" accept=".pdf"
                                                         class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
@@ -1209,8 +1207,8 @@ switch ($vendorTemp->status) {
                                             <div class="card-footer p-2" style="background-color: whitesmoke;">
                                                 <label for="">Cancelled Cheque</label>
                                                 <div class="custom-file">
-                                                    <input type="hidden" name="bank_file">
-                                                    <input name="bank_file" type="file"
+                                                    <input type="hidden" name="vendor[bank_file]">
+                                                    <input name="vendor[bank_file]" type="file"
                                                         accept=".pdf,image/jpeg, image/png" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>

@@ -128,17 +128,6 @@ class VendorTempsController extends VendorAppController
             try {
                 // echo '<pre>';  print_r($request);
 
-                // Basic details
-                $vendorTemp["business_type"] = $request["business_type"];
-                $vendorTemp["address"] = $request["address"];
-                $vendorTemp["address_2"] = $request["address_2"];
-                $vendorTemp["pincode"] = $request["pincode"];
-                $vendorTemp["city"] = $request["city"];
-                $vendorTemp["country"] = $request["country"];
-                $vendorTemp["state"] = $request["state"];
-                $vendorTemp["telephone"] = $request["address_2"];
-                $vendorTemp["fax_no"] = $request["fax_no"];
-
                 // Registered Office [working]
                 $regoffc = $this->VendorRegisteredOffices->newEmptyEntity();
                 $data = $request["registered_office"];
@@ -236,7 +225,7 @@ class VendorTempsController extends VendorAppController
                 $imagePath = WWW_ROOT . "uploads/declaration/" . $fileName;
                 $data["declaration_file"]->moveTo($imagePath);
                 $data["declaration_file"]= "uploads/declaration/" . $fileName;
-              
+
                 $otherdtl = $this->VendorOtherdetails->patchEntity($otherdtl, $data);                
                 if ($this->VendorOtherdetails->save($otherdtl)) { }
                 
@@ -295,12 +284,6 @@ class VendorTempsController extends VendorAppController
                     }
                 }
 
-                $vendorTemp["contact_person"] = $request["contact_person"];
-                $vendorTemp["contact_email"] = $request["contact_email"];
-                $vendorTemp["contact_mobile"] = $request["contact_mobile"];
-                $vendorTemp["contact_department"] = $request["contact_department"];
-                $vendorTemp["contact_designation"] = $request["contact_designation"];
-
                 // Partner Address [Working]
                 foreach ($request["other_address"] as $key => $value) {
                     $partneraddr = $this->VendorPartnerAddress->newEmptyEntity();
@@ -308,35 +291,6 @@ class VendorTempsController extends VendorAppController
                     $partneraddr = $this->VendorPartnerAddress->patchEntity($partneraddr, $value);
                     if ($this->VendorPartnerAddress->save($partneraddr)) { }
                 }
-
-                $vendorTemp["bank_name"] = $request["bank_name"];
-                $vendorTemp["bank_branch"] = $request["bank_branch"];
-                $vendorTemp["bank_number"] = $request["bank_number"];
-                $vendorTemp["bank_ifsc"] = $request["bank_ifsc"];
-                $vendorTemp["bank_key"] = $request["bank_key"];
-                $vendorTemp["bank_country"] = $request["bank_country"];
-                $vendorTemp["bank_city"] = $request["contact_email"];
-                $vendorTemp["bank_swift"] = $request["bank_swift"];
-                $vendorTemp["order_currency"] = $request["order_currency"];
-                $vendorTemp["tan_no"] = $request["tan_no"];
-                $vendorTemp["cin_no"] = $request["cin_no"];
-                $vendorTemp["gst_no"] = $request["gst_no"];
-                $vendorTemp["pan_no"] = $request["pan_no"];
-
-                $fileName = $request["gst_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/gst/" . $fileName;
-                $request["gst_file"]->moveTo($imagePath);
-                $request["gst_file"]= "uploads/gst/" . $fileName;
-
-                $fileName = $request["pan_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/pan/" . $fileName;
-                $request["pan_file"]->moveTo($imagePath);
-                $request["pan_file"]= "uploads/pan/" . $fileName;
-
-                $fileName = $request["bank_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/bank/" . $fileName;
-                $request["bank_file"]->moveTo($imagePath);
-                $request["bank_file"]= "uploads/bank/" . $fileName;
 
                 // Other Detail [Working]
                 $other = $this->VendorOtherdetails->newEmptyEntity();
@@ -361,6 +315,29 @@ class VendorTempsController extends VendorAppController
                     $partneraddr = $this->VendorReputedCustomers->patchEntity($partneraddr, $value);
                     if ($this->VendorReputedCustomers->save($partneraddr)) { }
                 }
+
+                // Basic details
+                $data = $request["vendor"];
+
+                $fileName = $data["gst_file"]->getClientFilename();
+                $imagePath = WWW_ROOT . "uploads/gst/" . $fileName;
+                $data["gst_file"]->moveTo($imagePath);
+                $data["gst_file"]= "uploads/gst/" . $fileName;
+
+                $fileName = $data["pan_file"]->getClientFilename();
+                $imagePath = WWW_ROOT . "uploads/pan/" . $fileName;
+                $data["pan_file"]->moveTo($imagePath);
+                $data["pan_file"]= "uploads/pan/" . $fileName;
+
+                $fileName = $data["bank_file"]->getClientFilename();
+                $imagePath = WWW_ROOT . "uploads/bank/" . $fileName;
+                $data["bank_file"]->moveTo($imagePath);
+                $data["bank_file"]= "uploads/bank/" . $fileName;
+                $data["order_currency"]= "INR";
+
+                $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
+                // print_r($vendorTemp);
+                if ($this->VendorTemps->save($vendorTemp)) {}
             } catch (\PDOException $e) {
                 $flash = ['type' => 'error', 'msg' => ($e->getMessage())];
             }
