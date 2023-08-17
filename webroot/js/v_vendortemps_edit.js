@@ -1,6 +1,7 @@
 var branch_office = [0];
 var today = new Date();
-var year3 = today.getMonth() > 3 ? today.getFullYear() : (today.getFullYear() - 1);
+var year3 =
+    today.getMonth() > 3 ? today.getFullYear() : today.getFullYear() - 1;
 var year2 = year3 - 1;
 var year1 = year2 - 1;
 var year0 = year1 - 1;
@@ -64,26 +65,68 @@ $(document).on("click", ".add", function () {
     var sub = $(this).data("sub");
     var havesub = $(this).data("havesub");
     var lastid;
-    $("." + clas).each(function (i, obj) { lastid = $(this).data("sub") == "1" ? $(this).data("sub_id") : $(this).data("id"); });
-    
+    $("." + clas).each(function (i, obj) {
+        lastid =
+            $(this).data("sub") == "1"
+                ? $(this).data("sub_id")
+                : $(this).data("id");
+    });
+
     var str = $("#" + clas + "_" + lastid).html();
     nextid = lastid + 1;
-    
+
     str = str.replaceAll(clas + "_" + lastid + "_", clas + "_" + nextid + "_"); // Change id
     str = str.replaceAll(" hide", ""); // Show Delete
-    str = str.replaceAll("[" + clas + "]" + "[" + lastid + "]", "[" + clas + "]" + "[" + nextid + "]"); // Change name
-    str = str.replaceAll('data-id="' + lastid + '"', 'data-id="' + nextid + '"'); // Change data-id
-    
-    if (sub == 1) { str = str.replaceAll('data-sub_id="' + lastid + '"', 'data-sub_id="' + nextid + '"'); }
-    else { str = str.replaceAll('data-id="' + lastid + '"', 'data-id="' + nextid + '"'); }
-    $("." + clas + "_card_body").append('<div class="row ' + clas + " " + clas + "_" + nextid + '" data-id="' + nextid + '" id="' + clas + "_" + nextid + '">' + str + '</div><hr class="' + clas + "_" + nextid + '" style="border: revert;">');
-    
+    str = str.replaceAll(
+        "[" + clas + "]" + "[" + lastid + "]",
+        "[" + clas + "]" + "[" + nextid + "]"
+    ); // Change name
+    str = str.replaceAll(
+        'data-id="' + lastid + '"',
+        'data-id="' + nextid + '"'
+    ); // Change data-id
+
+    if (sub == 1) {
+        str = str.replaceAll(
+            'data-sub_id="' + lastid + '"',
+            'data-sub_id="' + nextid + '"'
+        );
+    } else {
+        str = str.replaceAll(
+            'data-id="' + lastid + '"',
+            'data-id="' + nextid + '"'
+        );
+    }
+    $("." + clas + "_card_body").append(
+        '<div class="row ' +
+            clas +
+            " " +
+            clas +
+            "_" +
+            nextid +
+            '" data-id="' +
+            nextid +
+            '" id="' +
+            clas +
+            "_" +
+            nextid +
+            '">' +
+            str +
+            '</div><hr class="' +
+            clas +
+            "_" +
+            nextid +
+            '" style="border: revert;">'
+    );
+
     if (havesub == 1) {
         var subclass = $(this).data("subclass");
         $("." + clas + "_" + nextid + "_" + subclass).each(function (i, obj) {
             if (i > 0) {
                 $(obj).remove();
-                $("." + clas + "_" + nextid + "_" + subclass + "_" + i).remove();
+                $(
+                    "." + clas + "_" + nextid + "_" + subclass + "_" + i
+                ).remove();
             }
         });
     }
@@ -114,19 +157,16 @@ $(document).on("keypress", ".alphaonly", function (event) {
     }
 });
 
-
-
 $(".UpperCase").on("keyup", function () {
     var upperCaseText = $(this).val().toUpperCase();
     $(this).val(upperCaseText);
 });
 
-
-$('#id_bank_country').on('change', function () {
-    var swiftBicField = $('#id_swift_bic').closest('.col-3');
-    if ($(this).val() === 'India') {
-        swiftBicField.hide().val('');
-        id_swift_bic
+$("#id_bank_country").on("change", function () {
+    var swiftBicField = $("#id_swift_bic").closest(".col-3");
+    if ($(this).val() === "India") {
+        swiftBicField.hide().val("");
+        id_swift_bic;
     } else {
         swiftBicField.show();
     }
@@ -191,13 +231,38 @@ $(document).on("click", ".delete", function () {
     }
 });
 
+// $("#id_bank_country").change(function () {
+//     var coutryName = $(this).val();
+//     if (coutryName != "") {
+//         $.ajax({
+//             type: "get",
+//             url: vendorLink + "/" + coutryName,
+//             dataType: "json",
+//             beforeSend: function (xhr) {
+//                 xhr.setRequestHeader(
+//                     "Content-type",
+//                     "application/x-www-form-urlencoded"
+//                 );
+//             },
+//             success: function (response) {
+//                 if (response.status == 1) {
+//                     $("#order-currency").val(response.message);
+//                 }
+//             },
+//             error: function (e) {
+//                 alert("An error occurred: " + e.responseText.message);
+//                 console.log(e);
+//             },
+//         });
+//     }
+// });
 
-$("#id_bank_country").change(function () {
-    var coutryName = $(this).val();
-    if (coutryName != "") {
+function paymentCodes() {
+    var paymentCode = $("#payment-term").val();
+    if (paymentCode != "") {
         $.ajax({
             type: "get",
-            url: vendorLink + '/' + coutryName,
+            url: baseurl + "vendor/vendor-temps/payment-code/" + paymentCode,
             dataType: "json",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader(
@@ -207,7 +272,9 @@ $("#id_bank_country").change(function () {
             },
             success: function (response) {
                 if (response.status == 1) {
-                    $("#order-currency").val(response.message);
+                    $("#payment-term").val(response.message.description);
+                } else {
+                    $("#payment-term").val("");
                 }
             },
             error: function (e) {
@@ -216,21 +283,41 @@ $("#id_bank_country").change(function () {
             },
         });
     }
+}
+//   =================================Payment Terms ===============================
+
+$(document).ready(function () {
+    paymentCodes();
 });
 
-function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
-    var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
-    if (convertapi) { return JSON.parse(resp); }
+function getRemote(
+    remote_url,
+    method = "GET",
+    type = "json",
+    convertapi = true
+) {
+    var resp = $.ajax({
+        type: method,
+        dataType: type,
+        url: remote_url,
+        async: false,
+    }).responseText;
+    if (convertapi) {
+        return JSON.parse(resp);
+    }
     return resp;
-  }  
+}
 
 $(document).on("change", ".my-country", function () {
     var country_code = $(this).val();
-    var resp = getRemote(baseurl + "vendor/vendor-temps/country-by-state/" + country_code);
+    var resp = getRemote(
+        baseurl + "vendor/vendor-temps/country-by-state/" + country_code
+    );
     var opt = "<option selected=''>Please Select</option>";
     resp = resp["message"];
-    $.each(resp["States"], function(i, v){opt += `<option value="`+v.region_code+`">`+v.name+`</option>`;})
-  //  $("#id_permanent_address_state").html(opt);
-    $("#" +$(this).data('state')).html(opt);
-  });
-  
+    $.each(resp["States"], function (i, v) {
+        opt += `<option value="` + v.region_code + `">` + v.name + `</option>`;
+    });
+    //  $("#id_permanent_address_state").html(opt);
+    $("#" + $(this).data("state")).html(opt);
+});

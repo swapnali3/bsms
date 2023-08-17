@@ -87,18 +87,37 @@ class VendorTempsController extends VendorAppController
         $this->autoRender = false;
         $response = ["status"=>0, 'message' =>'Empty request'];
         $this->loadModel("States");
-        $states = $this->States->find()->select(['region_code', 'name'])->where(['country_code =' => $id])->toArray();
+        $states = $this->States->find()->select(['id', 'name'])->innerJoin(['Countries'=>'countries'],['Countries.country_code = States.country_code', 'Countries.id' =>$id])->toArray();
+
+        //print_r($states); exit;
         $response = ["status"=> 1, 'message' =>['States'=>$states]];
         echo json_encode($response);
     }
 
-    public function stateByCountryId($name = null)
+    // public function stateByCountryId($name = null)
+    // {
+    //     $this->autoRender = false;
+    //     $response = ["status"=> 0, 'message' =>'Empty request'];
+    //     $this->loadModel("Currencies");
+    //     $query = $this->Currencies->find()->where(['code =' => $name])->first();
+    //     print_r($query);
+        
+    //     if ($query !== null && $query = "" ) {
+    //         $response = ["status"=> 1, 'message' => $query['name']];
+    //     } else {
+    //         $response = ["status"=> 0, 'message' => 'Currency not found'];
+    //     }
+    //     $response = ["status"=> 1, 'message' =>$query['name']];
+    //     echo json_encode($response);
+    // }
+
+    public function paymentCode($code = null)
     {
         $this->autoRender = false;
-        $response = ["status"=> 0, 'message' =>'Empty request'];
-        $this->loadModel("Countries");
-        $query = $this->Countries->find()->where(['country_name =' => $name])->first();
-        $response = ["status"=> 1, 'message' =>$query['country_currency']];
+        $response = ["status"=>0, 'message' =>'Empty request'];
+        $this->loadModel("PaymentTerms");
+        $paymentCode = $this->PaymentTerms->find()->select(['code', 'description'])->where(['code =' => $code])->first();
+        $response = ["status"=> 1, 'message' =>$paymentCode];
         echo json_encode($response);
     }
 
@@ -106,11 +125,14 @@ class VendorTempsController extends VendorAppController
     {
         $this->loadModel("VendorTemps");
         $this->loadModel("VendorRegisteredOffices");
+        $this->loadModel("CompanyCodes");
+        $this->loadModel("ReconciliationAccounts");
         $this->loadModel("VendorBranchOffices");
         $this->loadModel("VendorSmallScales");
         $this->loadModel("VendorFacilities");
         $this->loadModel("VendorTurnovers");
         $this->loadModel("VendorIncometaxes");
+        $this->loadModel('Currencies');
         $this->loadModel("VendorFactories");
         $this->loadModel("VendorPartnerAddress");
         $this->loadModel("VendorOtherdetails");
@@ -127,17 +149,6 @@ class VendorTempsController extends VendorAppController
             $request = $this->request->getData();
             try {
                 // echo '<pre>';  print_r($request);
-
-                // Basic details
-                $vendorTemp["business_type"] = $request["business_type"];
-                $vendorTemp["address"] = $request["address"];
-                $vendorTemp["address_2"] = $request["address_2"];
-                $vendorTemp["pincode"] = $request["pincode"];
-                $vendorTemp["city"] = $request["city"];
-                $vendorTemp["country"] = $request["country"];
-                $vendorTemp["state"] = $request["state"];
-                $vendorTemp["telephone"] = $request["address_2"];
-                $vendorTemp["fax_no"] = $request["fax_no"];
 
                 // Registered Office [working]
                 $regoffc = $this->VendorRegisteredOffices->newEmptyEntity();
@@ -236,7 +247,7 @@ class VendorTempsController extends VendorAppController
                 $imagePath = WWW_ROOT . "uploads/declaration/" . $fileName;
                 $data["declaration_file"]->moveTo($imagePath);
                 $data["declaration_file"]= "uploads/declaration/" . $fileName;
-              
+
                 $otherdtl = $this->VendorOtherdetails->patchEntity($otherdtl, $data);                
                 if ($this->VendorOtherdetails->save($otherdtl)) { }
                 
@@ -295,12 +306,6 @@ class VendorTempsController extends VendorAppController
                     }
                 }
 
-                $vendorTemp["contact_person"] = $request["contact_person"];
-                $vendorTemp["contact_email"] = $request["contact_email"];
-                $vendorTemp["contact_mobile"] = $request["contact_mobile"];
-                $vendorTemp["contact_department"] = $request["contact_department"];
-                $vendorTemp["contact_designation"] = $request["contact_designation"];
-
                 // Partner Address [Working]
                 foreach ($request["other_address"] as $key => $value) {
                     $partneraddr = $this->VendorPartnerAddress->newEmptyEntity();
@@ -308,35 +313,6 @@ class VendorTempsController extends VendorAppController
                     $partneraddr = $this->VendorPartnerAddress->patchEntity($partneraddr, $value);
                     if ($this->VendorPartnerAddress->save($partneraddr)) { }
                 }
-
-                $vendorTemp["bank_name"] = $request["bank_name"];
-                $vendorTemp["bank_branch"] = $request["bank_branch"];
-                $vendorTemp["bank_number"] = $request["bank_number"];
-                $vendorTemp["bank_ifsc"] = $request["bank_ifsc"];
-                $vendorTemp["bank_key"] = $request["bank_key"];
-                $vendorTemp["bank_country"] = $request["bank_country"];
-                $vendorTemp["bank_city"] = $request["contact_email"];
-                $vendorTemp["bank_swift"] = $request["bank_swift"];
-                $vendorTemp["order_currency"] = $request["order_currency"];
-                $vendorTemp["tan_no"] = $request["tan_no"];
-                $vendorTemp["cin_no"] = $request["cin_no"];
-                $vendorTemp["gst_no"] = $request["gst_no"];
-                $vendorTemp["pan_no"] = $request["pan_no"];
-
-                $fileName = $request["gst_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/gst/" . $fileName;
-                $request["gst_file"]->moveTo($imagePath);
-                $request["gst_file"]= "uploads/gst/" . $fileName;
-
-                $fileName = $request["pan_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/pan/" . $fileName;
-                $request["pan_file"]->moveTo($imagePath);
-                $request["pan_file"]= "uploads/pan/" . $fileName;
-
-                $fileName = $request["bank_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/bank/" . $fileName;
-                $request["bank_file"]->moveTo($imagePath);
-                $request["bank_file"]= "uploads/bank/" . $fileName;
 
                 // Other Detail [Working]
                 $other = $this->VendorOtherdetails->newEmptyEntity();
@@ -361,6 +337,29 @@ class VendorTempsController extends VendorAppController
                     $partneraddr = $this->VendorReputedCustomers->patchEntity($partneraddr, $value);
                     if ($this->VendorReputedCustomers->save($partneraddr)) { }
                 }
+
+                // Basic details
+                $data = $request["vendor"];
+
+                $fileName = $data["gst_file"]->getClientFilename();
+                $imagePath = WWW_ROOT . "uploads/gst/" . $fileName;
+                $data["gst_file"]->moveTo($imagePath);
+                $data["gst_file"]= "uploads/gst/" . $fileName;
+
+                $fileName = $data["pan_file"]->getClientFilename();
+                $imagePath = WWW_ROOT . "uploads/pan/" . $fileName;
+                $data["pan_file"]->moveTo($imagePath);
+                $data["pan_file"]= "uploads/pan/" . $fileName;
+
+                $fileName = $data["bank_file"]->getClientFilename();
+                $imagePath = WWW_ROOT . "uploads/bank/" . $fileName;
+                $data["bank_file"]->moveTo($imagePath);
+                $data["bank_file"]= "uploads/bank/" . $fileName;
+                $data["order_currency"]= "INR";
+
+                $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
+                // print_r($vendorTemp);
+                if ($this->VendorTemps->save($vendorTemp)) {}
             } catch (\PDOException $e) {
                 $flash = ['type' => 'error', 'msg' => ($e->getMessage())];
             }
@@ -369,7 +368,15 @@ class VendorTempsController extends VendorAppController
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
+        $companyCodes = $this->VendorTemps->CompanyCodes->find('list', ['limit' => 200])->all();
+        $reconciliationAccount = $this->VendorTemps->ReconciliationAccounts->find('list', ['limit' => 200])->all();
+        $paymentTerm = $this->VendorTemps->PaymentTerms->find('list', ['limit' => 200])->all();
+
+
         $countries = $this->Countries->find('list', ['keyField' => 'country_code', 'valueField' => 'country_name'])->toArray();
+
+        $currencies = $this->Currencies->find('list', ['keyField' => 'code', 'valueField' => 'name'])->toArray();
+
         $hasIndia = array_key_exists('IN', $countries);
         
         if ($hasIndia) {
@@ -379,7 +386,7 @@ class VendorTempsController extends VendorAppController
 
         $states = $this->States->find('list', ['keyField' => 'region_code', 'valueField' => 'name'])->all();
 
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));
+        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states','companyCodes','reconciliationAccount','currencies'));
     }
 
     public function vendor($id = null)

@@ -178,13 +178,17 @@ class LineMastersController extends VendorAppController
     {
         $this->autoRender = false;
         $this->loadModel('ProductionLines');
+        $this->loadModel('VendorFactories');
         $total = 0;
         $response = ['status' => 1, 'message' => ''];
         $lineMaster = $this->LineMasters->get($id);
+        $factory = $this->VendorFactories->find()
+        ->select([''])
+        ->where(['line_master_id' => $id])->first();
+
         $totalResult = $this->ProductionLines->find()
         ->select(['total' => 'sum(capacity)'])
         ->where(['line_master_id' => $id])->first();
-
         //echo '<pre>'; print_r($lineMaster); print_r($total); exit();
         $response['data']['capacity'] = $lineMaster->capacity;
         if(!$totalResult->isEmpty('total')) {
