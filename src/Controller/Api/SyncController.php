@@ -6,6 +6,11 @@ namespace App\Controller\Api;
 
 use Cake\Datasource\ConnectionManager;
 use Cake\Core\Exception\Exception;
+use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
+use Cake\Mailer\TransportFactory;
+use Cake\Routing\Router;
+
 
 
 /**
@@ -294,91 +299,90 @@ class SyncController extends ApiAppController
         $response['message'] = [];
         
         $ftpConn = $this->Ftp->connection();
-        //$list = $this->Ftp->getList($ftpConn);
-        $data  = $this->Ftp->downloadFile($ftpConn, 'po_list.json');
-        
-        if($data) {
-            $this->loadModel("PoHeaders");
-            $this->loadModel("PoFooters");
+        $list = $this->Ftp->getList($ftpConn);
+        foreach($list as $fileKey => $val) {
+            if(str_starts_with($fileKey, 'PO_')) {
+                $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
+                
+                if($data) {
+                    $this->loadModel("PoHeaders");
+                    $this->loadModel("PoFooters");
 
-            $data = trim(preg_replace('/\s+/', ' ', $data));
-            $d = json_decode($data);
+                    $data = trim(preg_replace('/\s+/', ' ', $data));
+                    $d = json_decode($data);
 
-            //echo '<pre>'; print_r($d); exit;
-            foreach($d->PO_LIST as $key => $row) {
-                $hederData = array();
-                $footerData = array();
+                    //echo '<pre>'; print_r($d); exit;
+                    foreach($d->PO_LIST as $key => $row) {
+                        $hederData = array();
+                        $footerData = array();
 
-                $hederData['sap_vendor_code'] = $row->LIFNR;
-                $hederData['po_no'] = $row->EBELN;
-                $hederData['document_type'] = $row->BSART;
-                $hederData['created_on'] = date("Y-m-d H:i:s", strtotime($row->AEDAT));
-                $hederData['created_by'] = $row->ERNAM;
-                $hederData['pay_terms'] = $row->ZTERM;
-                $hederData['currency'] = $row->WAERS;
-                $hederData['exchange_rate'] = $row->WKURS;
-                $hederData['release_status'] = $row->FRGZU;
+                        $hederData['sap_vendor_code'] = $row->LIFNR;
+                        $hederData['po_no'] = $row->EBELN;
+                        $hederData['document_type'] = $row->BSART;
+                        $hederData['created_on'] = date("Y-m-d H:i:s", strtotime($row->AEDAT));
+                        $hederData['created_by'] = $row->ERNAM;
+                        $hederData['pay_terms'] = $row->ZTERM;
+                        $hederData['currency'] = $row->WAERS;
+                        $hederData['exchange_rate'] = $row->WKURS;
+                        $hederData['release_status'] = $row->FRGZU;
 
-                if($this->PoHeaders->exists(['po_no' => $row->EBELN])) {
-                    $poInstance = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
-                    $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
-                } else {
-                    $poInstance = $this->PoHeaders->newEmptyEntity();
-                    $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
-                }
-
-                try {
-                    if ($this->PoHeaders->save($poInstance)) {
-                        $po_header_id = $poInstance->id;
-
-                        foreach ($row->ITEM as $no => $item) {
-                            $tmp = array();
-                            $tmp['po_header_id'] = $po_header_id;
-                            $tmp['item'] = $item->EBELP;
-                            $tmp['deleted_indication'] = $item->LOEKZ;
-                            $tmp['material'] = $item->MATNR;
-                            $tmp['short_text'] = $item->TXZ01;
-                            $tmp['po_qty'] = $item->MENGE;
-                            $tmp['grn_qty'] = $item->R_QTY;
-                            $tmp['pending_qty'] = $item->P_QTY;
-                            $tmp['order_unit'] = $item->MEINS;
-                            $tmp['net_price'] = $item->NETPR;
-                            $tmp['price_unit'] = $item->PEINH;
-                            $tmp['net_value'] = $item->NETWR;
-                            $tmp['gross_value'] = $item->BRTWR;
-
-                            $footerData = $tmp;
-                            if($this->PoFooters->exists(['po_header_id' => $po_header_id, 'item' => $item->EBELP])) {
-                                $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
-                                $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $hederData);
-                            }  else {
-                                $poItemsInstance = $this->PoFooters->newEmptyEntity();
-                                $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
-                            }
-
-                            if ($this->PoFooters->save($poItemsInstance)) {
-                                $response['message'][] = 'PO : '.$row->EBELN.' Item : '.$item->EBELP.' saved successfully';
-                            } else {
-                                $response['message'][] = 'PO :'.$row->EBELN.' Item : '.$item->EBELP.' save fail';
-                            }
+                        if($this->PoHeaders->exists(['po_no' => $row->EBELN])) {
+                            $poInstance = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
+                            $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
+                        } else {
+                            $poInstance = $this->PoHeaders->newEmptyEntity();
+                            $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
                         }
 
-                        /*$poItemsInstance = $this->PoFooters->newEntities($footerData);
-                        
-                        if ($this->PoFooters->saveMany($poItemsInstance)) {
-                            $response['message'][] = 'PO : '.$row->EBELN.' saved successfully';
-                        } else {
-                            $response['message'][] = 'PO :'.$row->EBELN.' Items save fail';
-                        } */
-                    } else if($poInstance->getError('po_no')) {
-                        $response['message'][] = $poInstance->getError('po_no');
-                    }else {
-                        $response['message'][] = 'PO :'.$row->EBELN.' save fail';
+                        try {
+                            if ($this->PoHeaders->save($poInstance)) {
+                                $po_header_id = $poInstance->id;
+
+                                foreach ($row->ITEM as $no => $item) {
+                                    $tmp = array();
+                                    $tmp['po_header_id'] = $po_header_id;
+                                    $tmp['item'] = $item->EBELP;
+                                    $tmp['deleted_indication'] = $item->LOEKZ;
+                                    $tmp['material'] = $item->MATNR;
+                                    $tmp['short_text'] = $item->TXZ01;
+                                    $tmp['po_qty'] = $item->MENGE;
+                                    $tmp['grn_qty'] = $item->R_QTY;
+                                    $tmp['pending_qty'] = $item->P_QTY;
+                                    $tmp['order_unit'] = $item->MEINS;
+                                    $tmp['net_price'] = $item->NETPR;
+                                    $tmp['price_unit'] = $item->PEINH;
+                                    $tmp['net_value'] = $item->NETWR;
+                                    $tmp['gross_value'] = $item->BRTWR;
+
+                                    $footerData = $tmp;
+                                    if($this->PoFooters->exists(['po_header_id' => $po_header_id, 'item' => $item->EBELP])) {
+                                        $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
+                                        $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $hederData);
+                                    }  else {
+                                        $poItemsInstance = $this->PoFooters->newEmptyEntity();
+                                        $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
+                                    }
+
+                                    if ($this->PoFooters->save($poItemsInstance)) {
+                                        $response['message'][] = 'PO : '.$row->EBELN.' Item : '.$item->EBELP.' saved successfully';
+                                    } else {
+                                        $response['message'][] = 'PO :'.$row->EBELN.' Item : '.$item->EBELP.' save fail';
+                                    }
+                                }
+
+                                $this->Ftp->removeFile($ftpConn, $fileKey);
+                                
+                            } else if($poInstance->getError('po_no')) {
+                                $response['message'][] = $poInstance->getError('po_no');
+                            }else {
+                                $response['message'][] = 'PO :'.$row->EBELN.' save fail';
+                            }
+                        } catch (\PDOException $e) {
+                            $response['message'][] = $e->getMessage();
+                        } catch (\Exception $e) {
+                            $response['message'][] = $e->getMessage();
+                        }
                     }
-                } catch (\PDOException $e) {
-                    $response['message'][] = $e->getMessage();
-                } catch (\Exception $e) {
-                    $response['message'][] = $e->getMessage();
                 }
             }
         }
@@ -399,34 +403,93 @@ class SyncController extends ApiAppController
             $data = trim(preg_replace('/\s+/', ' ', $data));
             $d = json_decode($data);
 
-            //echo '<pre>'; print_r($d); exit;
             foreach($d->VENDOR_LIST as $key => $row) {
-
                 $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
                 $puOrg = $this->VendorTemps->PurchasingOrganizations->findByCode($row->EKORG)->first();
                 $accGrp = $this->VendorTemps->AccountGroups->findByCode($row->KTOKK)->first();
                 $reconAccount = $this->VendorTemps->ReconciliationAccounts->findByCode($row->AKONT)->first();
                 $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
+                $schemaGroup = $this->VendorTemps->SchemaGroups->findByCode($row->KALSK)->first();
+                $region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
+                $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
+                $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
+                
+                $vendorExists = false;
+                if($this->VendorTemps->exists(['sap_vendor_code' => $row->LIFNR])) {
+                    $vendor = $this->VendorTemps->find()->where(['sap_vendor_code' => $row->LIFNR])->first();
+                    $vendorExists = true;
+                } else {
+                    $vendor = $this->VendorTemps->newEmptyEntity();
+                    $vendor->status = 5;
+                    $vendorExists = false;
+                }
 
-                $vendor = $this->VendorTemps->newEmptyEntity();
-
-                echo '<pre>'; print_r($vendor); exit;
                 $vendor->sap_vendor_code = $row->LIFNR;
                 $vendor->company_code_id = $companyCode->id;
                 $vendor->purchasing_organization_id = $puOrg->id;
                 $vendor->account_group_id = $accGrp->id;
                 $vendor->reconciliation_account_id = $reconAccount->id;
+                $vendor->payment_term_id = $payTerm->id;
+                if($schemaGroup) {
+                    $vendor->schema_group_id = $schemaGroup->id;
+                }
+                if($region) {
+                    $vendor->state_id = $region->id;
+                }
+                if($country) {
+                    $vendor->country_id = $country->id;
+                }
                 $vendor->title = $row->TITLE_MEDI;
                 $vendor->name = $row->NAME1;
-                $vendor->sap_vendor_code = $row->LIFNR;
-                $vendor->sap_vendor_code = $row->LIFNR;
-                $vendor->sap_vendor_code = $row->LIFNR;
-                $vendor->sap_vendor_code = $row->LIFNR;
+                $vendor->address = $row->NAME2;
+                $vendor->address_2 = $row->NAME3;
+                $vendor->city = $row->CITY1;
+                $vendor->pincode = $row->POST_CODE1;
+                $vendor->email = $row->SMTP_ADDR;
+                $vendor->mobile = $row->MOB_NUMBER;
+                $vendor->gst_no = $row->GSIN;
+                $vendor->pan_no = $row->PAN;
+                $vendor->buyer_id = 8;
 
+                if($this->VendorTemps->save($vendor)) {
+                    $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
+                    if(!$vendorExists) {
+                        $this->loadModel("Users");
+                        $user = $this->Users->newEmptyEntity();
+                        
+                        $data = array();
+                        $data['first_name'] = $vendor->name;
+                        $data['last_name'] = $vendor->name;
+                        $data['username'] = $vendor->email;
+                        $data['mobile'] = $vendor->mobile;
+                        $data['password'] = $vendor->mobile;
+                        $data['group_id'] = 3;
 
+                        $user = $this->Users->patchEntity($user, $data);
 
-                echo '<pre>'; print_r($puOrg); exit;
+                        if ($this->Users->save($user)) {
+                           
+                            /*$visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                            $mailer = new Mailer('default');
+                            $mailer
+                                ->setTransport('smtp')
+                                ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
+                                '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                                ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                                ->setTo($data['username'])
+                                ->setEmailFormat('html')
+                                ->setSubject('Vendor Portal - Account created')
+                                ->viewBuilder()
+                                ->setTemplate('mail_template');
+                            $mailer->deliver(); */
+                        }
+                    }
+                } else {
+                    $response['message'][] = 'Vendor '.$row->LIFNR.' save fail';
+                }
             }
+
+            echo json_encode($response);
         }
     }
 }
