@@ -87,18 +87,37 @@ class VendorTempsController extends VendorAppController
         $this->autoRender = false;
         $response = ["status"=>0, 'message' =>'Empty request'];
         $this->loadModel("States");
-        $states = $this->States->find()->select(['region_code', 'name'])->where(['country_code =' => $id])->toArray();
+        $states = $this->States->find()->select(['id', 'name'])->innerJoin(['Countries'=>'countries'],['Countries.country_code = States.country_code', 'Countries.id' =>$id])->toArray();
+
+        //print_r($states); exit;
         $response = ["status"=> 1, 'message' =>['States'=>$states]];
         echo json_encode($response);
     }
 
-    public function stateByCountryId($name = null)
+    // public function stateByCountryId($name = null)
+    // {
+    //     $this->autoRender = false;
+    //     $response = ["status"=> 0, 'message' =>'Empty request'];
+    //     $this->loadModel("Currencies");
+    //     $query = $this->Currencies->find()->where(['code =' => $name])->first();
+    //     print_r($query);
+        
+    //     if ($query !== null && $query = "" ) {
+    //         $response = ["status"=> 1, 'message' => $query['name']];
+    //     } else {
+    //         $response = ["status"=> 0, 'message' => 'Currency not found'];
+    //     }
+    //     $response = ["status"=> 1, 'message' =>$query['name']];
+    //     echo json_encode($response);
+    // }
+
+    public function paymentCode($code = null)
     {
         $this->autoRender = false;
-        $response = ["status"=> 0, 'message' =>'Empty request'];
-        $this->loadModel("Countries");
-        $query = $this->Countries->find()->where(['country_name =' => $name])->first();
-        $response = ["status"=> 1, 'message' =>$query['country_currency']];
+        $response = ["status"=>0, 'message' =>'Empty request'];
+        $this->loadModel("PaymentTerms");
+        $paymentCode = $this->PaymentTerms->find()->select(['code', 'description'])->where(['code =' => $code])->first();
+        $response = ["status"=> 1, 'message' =>$paymentCode];
         echo json_encode($response);
     }
 
@@ -106,11 +125,14 @@ class VendorTempsController extends VendorAppController
     {
         $this->loadModel("VendorTemps");
         $this->loadModel("VendorRegisteredOffices");
+        $this->loadModel("CompanyCodes");
+        $this->loadModel("ReconciliationAccounts");
         $this->loadModel("VendorBranchOffices");
         $this->loadModel("VendorSmallScales");
         $this->loadModel("VendorFacilities");
         $this->loadModel("VendorTurnovers");
         $this->loadModel("VendorIncometaxes");
+        $this->loadModel('Currencies');
         $this->loadModel("VendorFactories");
         $this->loadModel("VendorPartnerAddress");
         $this->loadModel("VendorOtherdetails");
@@ -261,8 +283,14 @@ class VendorTempsController extends VendorAppController
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
+        $companyCodes = $this->VendorTemps->CompanyCodes->find('list', ['limit' => 200])->all();
+        $reconciliationAccount = $this->VendorTemps->ReconciliationAccounts->find('list', ['limit' => 200])->all();
+        $paymentTerm = $this->VendorTemps->PaymentTerms->find('list', ['limit' => 200])->all();
+
 
         $countries = $this->Countries->find('list', ['keyField' => 'country_code', 'valueField' => 'country_name'])->toArray();
+
+        $currencies = $this->Currencies->find('list', ['keyField' => 'code', 'valueField' => 'name'])->toArray();
 
         $hasIndia = array_key_exists('IN', $countries);
         if ($hasIndia) {
@@ -272,6 +300,6 @@ class VendorTempsController extends VendorAppController
 
         $states = $this->States->find('list', ['keyField' => 'region_code', 'valueField' => 'name'])->all();
 
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));
+        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states','companyCodes','reconciliationAccount','currencies'));
     }
 }

@@ -47,7 +47,6 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $updated_date
  * @property int|null $update_flag
  *
- * @property \App\Model\Entity\VendorStatus $vendor_status
  * @property \App\Model\Entity\CompanyCode $company_code
  * @property \App\Model\Entity\PurchasingOrganization $purchasing_organization
  * @property \App\Model\Entity\AccountGroup $account_group

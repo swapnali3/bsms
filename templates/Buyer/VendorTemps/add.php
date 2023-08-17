@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('payment_term', array('class' => 'form-control', 'options' => $payment_term, 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('payment_term_id', array('class' => 'form-control', 'options' => $payment_term, 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">

@@ -40,6 +40,11 @@ class StatesTable extends Table
         $this->setTable('states');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->hasMany('VendorTemps', [
+            'foreignKey' => 'state_id',
+        ]);
+        
     }
 
     /**

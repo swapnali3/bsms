@@ -11,8 +11,6 @@ use Cake\Validation\Validator;
 /**
  * Countries Model
  *
- * @property \App\Model\Table\StatesTable&\Cake\ORM\Association\HasMany $States
- *
  * @method \App\Model\Entity\Country newEmptyEntity()
  * @method \App\Model\Entity\Country newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Country[] newEntities(array $data, array $options = [])
@@ -43,7 +41,7 @@ class CountriesTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->hasMany('States', [
+        $this->hasMany('VendorTemps', [
             'foreignKey' => 'country_id',
         ]);
     }
@@ -60,7 +58,8 @@ class CountriesTable extends Table
             ->scalar('country_code')
             ->maxLength('country_code', 255)
             ->requirePresence('country_code', 'create')
-            ->notEmptyString('country_code');
+            ->notEmptyString('country_code')
+            ->add('country_code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('country_name')
@@ -68,12 +67,20 @@ class CountriesTable extends Table
             ->requirePresence('country_name', 'create')
             ->notEmptyString('country_name');
 
-        $validator
-            ->scalar('country_currency')
-            ->maxLength('country_currency', 45)
-            ->requirePresence('country_currency', 'create')
-            ->notEmptyString('country_currency');
-
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['country_code']), ['errorField' => 'country_code']);
+
+        return $rules;
     }
 }

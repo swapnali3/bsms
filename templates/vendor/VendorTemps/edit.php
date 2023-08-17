@@ -289,16 +289,22 @@ switch ($vendorTemp->status) {
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                                <?php echo $this->Form->control('company_code_id', ['disabled' => 'disabled', 'options' => $companyCodes, 'class' => 'form-control']); ?>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                                 <?php echo $this->Form->control('purchasing_organization_id', ['disabled' => 'disabled', 'options' => $purchasingOrganizations, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                                 <?php echo $this->Form->control('account_group_id', ['disabled' => 'disabled', 'options' => $accountGroups, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                                <?php echo $this->Form->control('reconciliation_account_id', ['disabled' => 'disabled', 'options' => $reconciliationAccount, 'class' => 'form-control']); ?>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                                 <?php echo $this->Form->control('schema_group_id', ['disabled' => 'disabled', 'options' => $schemaGroups, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                                <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
+                                <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled','class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                                 <div class="form-group">
@@ -407,7 +413,7 @@ switch ($vendorTemp->status) {
                                 <h5>Registered Office Address</h5>
                                 <div class="icheck-primary">
                                     <input type="checkbox" id="copypermanant">
-                                    <label for="copypermanant">Same as Permanent Address</label>
+                                    <label for="copypermanant">`Same` as Permanent Address</label>
                                 </div>
                                 <div class="row">
                                     <div class="col-3 mt-3 col-md-3">
@@ -1032,8 +1038,12 @@ switch ($vendorTemp->status) {
                                             </div>
 
                                             <div class="col-3 mb-3">
-                                                <?php echo $this->Form->control('order_currency', ['name' => 'order_currency', 'readonly' => 'readonly', 'class' => 'form-control']); ?>
+                                                <?php echo $this->Form->control('order_currency', ['name' => 'bank[order_currency]', 'class' => 'selectpicker form-control my-select ', 'options' => $currencies, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
                                             </div>
+
+                                            <!-- <div class="col-3 mb-3">
+                                                <?php echo $this->Form->control('order_currency', ['name' => 'order_currency', 'readonly' => 'readonly', 'class' => 'form-control']); ?>
+                                            </div> -->
 
                                             <div class="col-3 mb-3">
                                                 <label for="id_swift_bic">SWIFT/BIC</label>
