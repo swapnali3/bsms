@@ -1797,69 +1797,124 @@ switch ($vendorTemp->status) {
                             
                             <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="tab_paymentdetails" style="background-color: white;">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-4 col-lg-4">
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
                                         <div class="card">
                                             <div class="card-header">
                                                 Bank Details
                                             </div>
-                                            <div class="card-body p-0">
-                                            <table class="table table-hover table-striped">
-                                            <tr>
-                                                <td>Bank name</td>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>Bank Branch</td>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>Bank number</td>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>IFSC Code</td>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>Bank Key</td>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>Bank Country</td>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>City</td>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>Order Currency</td>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>SWIFT/BIC</td>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>TAN No</td>
-                                                <th></th>
-                                            </tr>
-                                            <tr>
-                                                <td>CIN No.</td>
-                                                <th></th>
-                                            </tr>
-                                        </table>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <label for="">Bank name</label>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="">Bank Branch</label>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="">Bank number</label>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="">IFSC Code</label>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="">Bank Key</label>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="">Bank Country</label>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="">City</label>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="">Order Currency</label>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="">SWIFT/BIC</label>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="">TAN No</label>
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <label for="">CIN No.</label>
+                                                        <span></span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-4">
-                                        
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                Other Payment Details
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        GST No
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        PAN No
+                                                        <span></span>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        Cancelled Cheque
+                                                        <span></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-certificate" role="tabpanel" aria-labelledby="tab_certificate" style="background-color: white;">
+                                <div class="card">
+                                    <div class="card-body">                                                    
+                                        <div class="row">
+                                            <div class="col-4">
+                                                Six Sigma : 
+                                                <span></span>
+                                            </div>
+                                            <div class="col-4">
+                                            ISO Registration / Certificate : 
+                                                <span></span>
+                                            </div>
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-4">
+                                            HALAL Registration / certificate:
+                                                <span></span>
+                                            </div>
+                                            <div class="col-4">
+                                            Declaration
+                                            <span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                    <div class="col-4">
+                                            Other Quality Certification
+                                            </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-questionnaire" role="tabpanel" aria-labelledby="tab_questionnaire" style="background-color: white;">
@@ -1903,7 +1958,51 @@ switch ($vendorTemp->status) {
                             </div>
 
                             <div class="tab-pane fade" id="custom-tabs-four-customerAddress" role="tabpanel" aria-labelledby="tab_customerAddress" style="background-color: white;">
-
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                Customer 1
+                                            </div>
+                                            <div class="card-body p-0">
+                                            <table class="table table-hover table-striped table-bordered">
+                                                    <tr>
+                                                        <td>Customer Name</td>
+                                                        <th>Jones Thayil</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Address</td>
+                                                        <th>9082207560</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Pincode</td>
+                                                        <th>jonest@fts-pl.com</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>City</td>
+                                                        <th>0000015483</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Country</td>
+                                                        <th>Approved</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>State</td>
+                                                        <th>Approved</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Telephone</td>
+                                                        <th>Approved</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Fax No.</td>
+                                                        <th>Approved</th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
