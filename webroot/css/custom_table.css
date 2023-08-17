@@ -436,3 +436,7 @@ body {
     color: #fff;
 }
 /* Reject Button */
+
+#custom-tabs-one-tabContent .active{
+    background-color: #FFF !important;
+}
