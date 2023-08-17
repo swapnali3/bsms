@@ -38,6 +38,7 @@
 }
 
 .btn-action .btn {
+    color: #F7941D !important;
     font-weight: 500;
     font-size: 12px;
     padding: 5px 10px;
