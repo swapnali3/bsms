@@ -43,7 +43,6 @@ switch ($vendorTemp->status) {
 <div class="row">
     <?php if (isset($vendorTempView)) : ?>
         <div class="col-sm-4 col-md-4 col-lg-4">
-<<<<<<< HEAD
             <div class="row">
                 <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <?= $this->Form->create(null, ['id' => $vendorTempView[0]->id,  'url' => '/buyer/vendor-temps/update/' . $vendorTemp->id]) ?>
@@ -1156,121 +1155,6 @@ switch ($vendorTemp->status) {
                     <button type="submit" class="btn" style="border:1px solid red">Reject</button>
                 </div>
                 </form>
-=======
-            <div class="row">
-                <div class="col-sm-12 col-md-12 col-lg-12 ">
-                    <?= $this->Form->create(null, ['id' => $vendorTempView[0]->id,  'url' => '/buyer/vendor-temps/update/' . $vendorTemp->id]) ?>
-                    <div class="card">
-                        <div class="card-body">
-                            <table>
-                                <!-- <h5 class="text-info">Vendor Update Details</h5> -->
-                                <tr>
-                                    <?php if ($vendorTempView[0]->name != $vendorTemp->name) : ?>
-                                        <th>Name</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->name) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                                <tr>
-                                    <?php if ($vendorTempView[0]->address != $vendorTemp->address) : ?>
-                                        <th>Address 1</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->address) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                                <tr>
-                                    <?php if ($vendorTempView[0]->address_2 != $vendorTemp->address_2) : ?>
-                                        <th>Address 2</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->address_2) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                                <tr>
-                                    <?php if ($vendorTempView[0]->city != $vendorTemp->city) : ?>
-                                        <th>City</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->city) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                                <tr>
-                                    <?php if ($vendorTempView[0]->pincode != $vendorTemp->pincode) : ?>
-                                        <th>Pincode</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->pincode) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                                <tr>
-                                    <?php if ($vendorTempView[0]->state != $vendorTemp->state) : ?>
-                                        <th>State</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->state) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                                <tr>
-                                    <?php if ($vendorTempView[0]->country != $vendorTemp->country) : ?>
-                                        <th>Country</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->country) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-
-                                <tr>
-                                    <?php if ($vendorTempView[0]->contact_person != $vendorTemp->contact_person) : ?>
-                                        <th>contact person Name</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->contact_person) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                                <tr>
-                                    <?php if ($vendorTempView[0]->contact_email != $vendorTemp->contact_email) : ?>
-                                        <th>contact Email</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->contact_email) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                                <tr>
-                                    <?php if ($vendorTempView[0]->contact_mobile != $vendorTemp->contact_mobile) : ?>
-                                        <th>contact mobile</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->contact_mobile) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                                <tr>
-                                    <?php if ($vendorTempView[0]->contact_department != $vendorTemp->contact_department) : ?>
-                                        <th>contact department</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->contact_department) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                                <tr>
-                                    <?php if ($vendorTempView[0]->contact_designation != $vendorTemp->contact_designation) : ?>
-                                        <th>contact Designation</th>
-                                        <td>: &nbsp;
-                                            <?= h($vendorTempView[0]->contact_designation) ?>
-                                        </td>
-                                    <?php endif ?>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="card-footer">
-                            <?= $this->Form->button(__('Approve'), ['class' => 'btn btn-success mb-0', 'value' => '1', 'name' => 'status']) ?>
-                            <?= $this->Form->button(__('Reject'), ['class' => 'btn btn-danger mb-0', 'value' => '0', 'name' => 'status']) ?>
-                        </div>
-                    </div>
-                    <?= $this->Form->end() ?>
-                </div>
->>>>>>> e23f57ec1613f8db35912da4a46569fe26de006d
             </div>
         </div>
         <div class="col-sm-8 col-md-8 col-lg-8">
