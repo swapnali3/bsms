@@ -555,7 +555,8 @@ class VendorTempsController extends BuyerAppController
         $this->loadModel("VendorTurnovers");
         $this->loadModel("CompanyCodes");
         $vendortemp = $this->VendorTemps->find('all')
-        ->autoFields(true)->contain(['CompanyCodes', 'PurchasingOrganizations', 'AccountGroups', 'SchemaGroups','PaymentTerms'])
+        // ->autoFields(true)
+        ->contain(['CompanyCodes', 'PurchasingOrganizations', 'AccountGroups', 'SchemaGroups','PaymentTerms'])
         ->where(['VendorTemps.id' => $id])
         ->toArray();
 
