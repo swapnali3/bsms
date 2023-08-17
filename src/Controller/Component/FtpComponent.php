@@ -23,8 +23,8 @@ class FtpComponent extends Component
     }
 
     function downloadFile($conn, $fileName) {
+        $this->conn->chdir('/vendor_portal_upload/TO_PORTAL'); 
         if($conn->file_exists($fileName)) {
-            //$t = $conn->stat($fileName);
             return $conn->get($fileName, false, 0);
         }
 
@@ -32,8 +32,15 @@ class FtpComponent extends Component
     }
 
     function uploadFile($conn, $content, $fileName) {
+        $this->conn->chdir('/vendor_portal_upload/TO_SAP'); 
         return $conn->put($fileName, $content);
     }
+
+    function removeFile($conn, $fileName) {
+        $this->conn->chdir('/vendor_portal_upload/TO_PORTAL'); 
+        return $conn->delete($fileName);
+    }
+
 
 }
 
