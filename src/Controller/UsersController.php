@@ -99,6 +99,9 @@ class UsersController extends AppController
     public function welcome()
     { }
 
+    public function forgetPwd()
+    { }
+
     public function login()
     {
         $session = $this->getRequest()->getSession();
