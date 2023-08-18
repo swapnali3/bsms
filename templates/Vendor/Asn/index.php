@@ -13,7 +13,7 @@
                 <table class="table table-hover" id="example1"
                     style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
                     <thead>
-                        <tr style="background-color: #527195;">
+                        <tr>
                             <th>ASN NO</th>
                             <th>Purchase Order</th>
                             <th>Invoice No</th>

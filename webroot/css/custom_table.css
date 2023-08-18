@@ -444,7 +444,13 @@ body {
     background-color: #F79E33 !important;
 }
 
-.table td,
-.table th {
-    border: none !important;
-}
+.table td, .table th { border: none !important;}
+
+/* Wrapper styling start here */
+
+/* .wrapper {
+    max-width: 1440px !important;
+    margin: 0 auto !important;
+} */
+
+/* Wrapper styling end here */

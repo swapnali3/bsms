@@ -106,8 +106,8 @@
                                 <h6>Are you sure you want to add vendor?</h6>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn" style="border:1px solid #6610f2; color:#fff;" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn" style="border:1px solid #28a745'; color:#fff;">Ok</button>
+                                <button type="button" class="modal_cancel btn "  data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="modal_ok btn " >Ok</button>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,7 @@
         <?= $this->Form->create(null, ['type' => 'file']); ?>
         <div class="card mx-2">
             <div class="card-header p-3">
-                <h5 style="color:darkblue;">
+                <h5>
                     Recently Added Vendor
                 </h5>
             </div>
@@ -201,7 +201,7 @@
         <?= $this->Form->create(null, ['type' => 'file']); ?>
         <div class="card mx-2">
             <div class="card-header p-3">
-                <h5 style="color:darkblue;">
+                <h5 >
                     Bulk Vendor Import
                 </h5>
             </div>

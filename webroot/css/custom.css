@@ -886,7 +886,7 @@ div#past_messages::-webkit-scrollbar-track {
 }
 
 .action-btn .btn-success {
-    background-color: #08132F !important;
+    background-color: #fff !important;
 }
 
 .btn-custom-2:hover {
@@ -947,3 +947,26 @@ p.po-no {
     border: none !important;
     background-color: #F7941D !important;
 }
+
+span.otp-send-email { color: #121212 !important;}
+
+.h legend { color: #F7941D !important;}
+#needButton { border: 1px solid #F7941D !important;}
+#needButton:hover {
+    background-color: #F7941D !important;
+    color: #fff !important;
+}
+#unread27 { background-color: #F7941D !important;}
+
+#custom-tabs-four-tab .nav-link { color: #999 !important;}
+
+.card-primary.card-outline-tabs>.card-header a.active {
+    border-top: 3px solid #F7941D !important;
+    color: #F7941D !important;
+}
+
+.filter-option-inner-inner { color: #999 !important;}
+
+
+
+
