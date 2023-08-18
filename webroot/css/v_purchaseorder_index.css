@@ -3,7 +3,7 @@ table{
 }
 
 thead {
-    background-color: #527195 !important;
+    background-color: #F79E33 !important;
     color: white;
 
 }
@@ -39,12 +39,12 @@ th {
 }
 
 .active {
-    background-color: #d4ddf7;
+    background-color: #fff;
 }
 
 .purchase-order .po-list {
     border: 1px solid #ddd;
-    background-color: #f5f7fd;
+    background-color: #F4F6F9;
 }
 
 .search-bar {
@@ -105,7 +105,7 @@ th {
 }
 
 .purchase-order .po-box:hover {
-    background-color: #d4ddf7;
+    background-color: #F4F6F9;
 }
 
 .purchase-order .pono b {
@@ -146,11 +146,11 @@ th {
 }
 
 .purchase-order .po-box:hover {
-    background-color: #d4ddf7;
+    background-color: #fff;
 }
 
 .purchase-order .pono b {
-    color: #004d87;
+    color: #F7941D;
 }
 
 .purchase-order .po-box .pono {

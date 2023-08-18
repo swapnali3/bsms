@@ -380,7 +380,7 @@
 											<?= $mailbody ?>
 										</h3>
 										<p>
-											<a href="<?= $link ?>" class="btn btn-primary" style="padding: 10px 15px; display: inline-block; border-radius: 5px; background: #30e3ca; color: #000;">
+											<a href="<?= $link ?>" class="btn btn-primary" style="padding: 10px 15px; display: inline-block; border-radius: 5px; background: #F7941D; color: #000;">
 												<?= $linktext ?>
 											</a>
 										</p>

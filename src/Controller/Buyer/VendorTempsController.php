@@ -202,17 +202,18 @@ class VendorTempsController extends BuyerAppController
         $this->loadModel("VendorStatus");
         $this->loadModel("PaymentTerms");
         $this->loadModel("CompanyCodes");
+        $this->loadModel('AccountGroups');
+        $this->loadModel('SchemaGroups');
         $this->loadModel("ReconciliationAccounts");
         $this->loadModel("PurchasingOrganizations");
 
         $latestVendors = $this->VendorTemps
         ->find('all')
-        ->contain(['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups', 'VendorStatus' => ['conditions'  =>  ['VendorStatus.status = VendorTemps.status'] ]])
-        
+        ->contain(['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'])
         ->order(['VendorTemps.added_date' => 'DESC'])
         ->limit(5);
 
-        //echo '<pre>'; print_r($$latestVendors); exit;
+        //echo '<pre>'; print_r($latestVendors); exit;
 
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         $vendorCodes = [];
@@ -230,10 +231,7 @@ class VendorTempsController extends BuyerAppController
                     $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
                     $spreadsheet = $reader->load($path);
                     $worksheet = $spreadsheet->getActiveSheet();
-                    $this->loadModel('PaymentTerms');
-                    $this->loadModel('PurchasingOrganizations');
-                    $this->loadModel('AccountGroups');
-                    $this->loadModel('SchemaGroups');
+
                     try{
                         foreach ($worksheet->getRowIterator(2) as $row) {
                             $minivendor = [];
@@ -326,8 +324,6 @@ class VendorTempsController extends BuyerAppController
                         $flash = ['type'=>'error', 'msg'=>'Invalid Excel File'];
                         $this->set('flash', $flash);
                     }
-                    
-
                 } else {
                     $flash = ['type'=>'error', 'msg'=>'SAP Vendor Code or Excel File Required'];
                     $this->set('flash', $flash);
@@ -511,7 +507,7 @@ class VendorTempsController extends BuyerAppController
     {
         $flash = [];
         $this->loadModel("VendorTemps");
-        $vendor = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','PurchasingOrganizations','AccountGroups', 'ReconciliationAccounts']]);
+        $vendor = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','PurchasingOrganizations','AccountGroups', 'ReconciliationAccounts', 'States', 'Countries', 'PaymentTerms']]);
 
         if ($action == 'rej') {
             if ($this->request->is(['patch', 'post', 'put'])) {
@@ -543,9 +539,7 @@ class VendorTempsController extends BuyerAppController
             return $this->redirect(['action' => 'view', $id]);
         }
 
-        if ($action == 'app') {
-            $vendor->status = 2;
-        }
+        if ($action == 'app') { $vendor->status = 2; }
 
         if ($this->VendorTemps->save($vendor)) {
 
@@ -719,7 +713,7 @@ class VendorTempsController extends BuyerAppController
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
-                        ->setViewVars([ 'subject' => 'Hi ' . $data['name'], 'mailbody' => 'Welcome to Vendor portal', 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                        ->setViewVars([ 'subject' => 'Hi ' . $data['name'], 'mailbody' => 'Welcome to Vendor portal', 'link' => $visit_url, 'linktext' => 'Click Here for Onboarding' ])
                         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                         ->setTo($data['email'])
                         ->setEmailFormat('html')
@@ -901,6 +895,7 @@ class VendorTempsController extends BuyerAppController
                         $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
                         $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
                         
+                        if($row->SUCCESS == "0") { continue; }
                         $vendorExists = false;
                         if($this->VendorTemps->exists(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])) {
                             $vendor = $this->VendorTemps->find()->where(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])->first();
@@ -994,7 +989,7 @@ class VendorTempsController extends BuyerAppController
                         $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
                         $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
                         
-                        
+                        if($row->SUCCESS == "0") { continue; }
                         
                         $vendor = $this->VendorTemps->get($row->VENDOR_PORTAL_ID);
                         $vendor->status = 5;

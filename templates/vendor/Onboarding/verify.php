@@ -50,7 +50,7 @@ label {
                 </div>
 
             <div class="col-1 mt-1 pt-1">
-                <?php echo $this->Form->button('Submit',array('class' => 'btn btn-custom mt-2'));?>
+                <?php echo $this->Form->button('Submit',array('class' => 'btn btn-custom mt-2', 'style'=>'color:#FFF!important'));?>
             </div>
             <?= $this->Form->end() ?>
             <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon">

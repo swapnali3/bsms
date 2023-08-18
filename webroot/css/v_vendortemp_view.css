@@ -1,9 +1,27 @@
-.nav-link.active {
-    background-color: #649bca !important;
-    color: #fff !important;
+.card-header .nav-link.active {
+    color: #F7941D !important;
     border-top: unset;
 }
 
+label { font-size: 15px !important; color: #333;}
+
+.card-header .nav-link { color: #7F7F7F !important;}
+
+.card-primary.card-outline { border-top: 3px solid #F7941D !important;}
+
+.btn-info {
+    background-color: #F7941D;
+    border: none;
+}
+
+a.text-info:hover { color: #333 !important;}
+.btn-info:hover{
+    color: #F7941D;
+    border: 1px solid #F7941D;
+    background-color: #fff;
+}
+
+.text-info { color: #F7941D!important;}
 
 .card .nav-tabs .nav-link {
     font-size: 0.9rem;

@@ -304,7 +304,7 @@ switch ($vendorTemp->status) {
                                 <?php echo $this->Form->control('schema_group_id', ['disabled' => 'disabled', 'options' => $schemaGroups, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                                <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled','class' => 'form-control']); ?>
+                                <?php echo $this->Form->control('payment_term_id', ['disabled' => 'disabled','class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                                 <div class="form-group">
@@ -491,54 +491,54 @@ switch ($vendorTemp->status) {
                                         <div class="row branch_office branch_office_0" data-id="0" id="branch_office_0">
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_address1', ['type' => 'text', 'name' => 'branch[branch_office][0][address]', 'id' => 'branch_office_0_address1', 'class' => 'form-control', 'required' => 'true', 'label' => "Address"]); ?>
+                                                    <?php echo $this->Form->control('register_office_address1', ['type' => 'text', 'name' => 'branch[branch_office][0][address]', 'id' => 'branch_office_0_address1', 'class' => 'form-control', 'label' => "Address"]); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_address2', ['type' => 'text', 'name' => 'branch[branch_office][0][address_2]', 'id' => 'branch_office_0_address2', 'label' => 'Address 1', 'required' => 'true', 'class' => 'form-control']); ?>
+                                                    <?php echo $this->Form->control('register_office_address2', ['type' => 'text', 'name' => 'branch[branch_office][0][address_2]', 'id' => 'branch_office_0_address2', 'label' => 'Address 1',  'class' => 'form-control']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_pincode', ['type' => 'number', 'name' => 'branch[branch_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control pincode-input', 'required' => 'true', 'id' => 'branch_office_0_pincode', 'maxlength' => '6']); ?>
+                                                    <?php echo $this->Form->control('register_office_pincode', ['type' => 'number', 'name' => 'branch[branch_office][0][pincode]', 'label' => 'Pincode', 'class' => 'form-control pincode-input',  'id' => 'branch_office_0_pincode', 'maxlength' => '6']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_city', ['type' => 'text', 'name' => 'branch[branch_office][0][city]', 'class' => 'form-control alphaonly capitalize', 'label' => 'City', 'required' => 'true', 'id' => 'branch_office_0_city']); ?>
+                                                    <?php echo $this->Form->control('register_office_city', ['type' => 'text', 'name' => 'branch[branch_office][0][city]', 'class' => 'form-control alphaonly capitalize', 'label' => 'City',  'id' => 'branch_office_0_city']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-3 mt-3 col-md-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_country', ['name' => 'branch[branch_office][0][country]','data-state' =>'branch_office_0_state', 'class' => 'selectpicker form-control my-select my-country', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'required' => 'true', 'id' => 'branch_office_0_country']); ?>
+                                                    <?php echo $this->Form->control('register_office_country', ['name' => 'branch[branch_office][0][country]','data-state' =>'branch_office_0_state', 'class' => 'selectpicker form-control my-select my-country', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country',  'id' => 'branch_office_0_country']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_state', ['name' => 'branch[branch_office][0][state]', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'label' => 'State', 'data-live-search' => 'true', 'title' => 'Select State', 'required' => 'true', 'id' => 'branch_office_0_state']); ?>
+                                                    <?php echo $this->Form->control('register_office_state', ['name' => 'branch[branch_office][0][state]', 'class' => 'selectpicker form-control my-select', 'options' => $states, 'label' => 'State', 'data-live-search' => 'true', 'title' => 'Select State',  'id' => 'branch_office_0_state']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <div class="form-group">
-                                                    <?php echo $this->Form->control('register_office_telno', ['name' => 'branch[branch_office][0][telephone]', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'branch_office_0_telno', 'label' => 'Tel No', 'required' => 'true', 'maxlength' => '10']); ?>
+                                                    <?php echo $this->Form->control('register_office_telno', ['name' => 'branch[branch_office][0][telephone]', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'branch_office_0_telno', 'label' => 'Tel No', 'maxlength' => '10']); ?>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <label>Year of Registration:</label>
-                                                <input name="branch[branch_office][0][registration_year]" type="number" required="true" class="form-control maxlength_validation" maxlength="4">
+                                                <input name="branch[branch_office][0][registration_year]" type="number"  class="form-control maxlength_validation" maxlength="4">
                                             </div>
 
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <label>Registration No.</label>
-                                                <input name="branch[branch_office][0][registration_no]" type="text" required="true"
+                                                <input name="branch[branch_office][0][registration_no]" type="text" 
                                                     class="form-control">
                                             </div>
 
                                             <div class="col-sm-12 col-md-3 mt-3">
                                                 <label class="form-label">Registration Certificate</label>
                                                 <div class="custom-file">
-                                                    <input name="branch[branch_office][0][registration_certificate]" required="true"
+                                                    <input name="branch[branch_office][0][registration_certificate]" 
                                                         type="file" accept=".pdf" class="custom-file-input">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
@@ -1135,13 +1135,6 @@ switch ($vendorTemp->status) {
                                                     class="form-control maxlength_validation UpperCase"
                                                     id="id_bank_ifsc">
                                             </div>
-
-                                            <div class="col-3 mb-3">
-                                                <label for="id_bank_key">Bank Key</label>
-                                                <input type="text" maxlength="11" name="vendor[bank_key]" class="form-control"
-                                                    id="id_bank_key">
-                                            </div>
-
 
                                             <div class="col-3 mb-3">
                                                 <?php echo $this->Form->control('bank_country', ['name' => 'vendor[bank_country]', 'id' => 'id_bank_country','data-state' =>'id_permanent_address_state', 'class' => 'selectpicker form-control my-select ', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>

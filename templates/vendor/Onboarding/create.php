@@ -333,6 +333,7 @@ label {
                                     <label for="formFileMultiple" class="form-label">Cancelled Cheque</label>
                                     <input class="form-control" required accept=".pdf,image/jpeg, image/png" type="file"
                                         name="bank_file" id="formFileMultiple3">
+                                    <small class="text-warning info-msg">Upload only PDF file</small>
                                 </div>
                             </div>
 
@@ -359,7 +360,7 @@ label {
                     </div>
                 </div>
 
-                <?php echo $this->Form->button('Submit', array('class' => 'btn mt-3', 'type' => 'button', 'id' => 'id_fksubmit', 'style' => 'background-color: #8E9B2C; color: #fff; font-size: 14px; line-height: 1.1rem; padding: 10px 20px;')); ?>
+                <?php echo $this->Form->button('Submit', array('class' => 'btn mt-3', 'type' => 'button', 'id' => 'id_fksubmit', 'style' => 'background-color: #F7941D; color: #fff!important; font-size: 14px; line-height: 1.1rem; padding: 10px 20px;')); ?>
             </div>
             <?= $this->Form->end() ?>
         </div>
@@ -483,7 +484,7 @@ function getRemote(remote_url, method = "GET", type = "json", convertapi = true)
 
 $(document).on("change", '.my-country', function() {
     var id = $(this).val();
-    var resp = getRemote(baseurl + "vendor/vendor-temps/country-by-state/" + id);
+    var resp = getRemote(baseurl + "api/api/country-by-state/" + id);
     var opt = "<option selected=''>Please Select</option>";
     resp = resp["message"];
     $.each(resp["States"], function(i, v) {

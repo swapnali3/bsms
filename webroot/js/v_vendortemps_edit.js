@@ -311,7 +311,7 @@ function getRemote(
 $(document).on("change", ".my-country", function () {
     var country_code = $(this).val();
     var resp = getRemote(
-        baseurl + "vendor/vendor-temps/country-by-state/" + country_code
+        baseurl + "api/api/country-by-state/" + country_code
     );
     var opt = "<option selected=''>Please Select</option>";
     resp = resp["message"];
