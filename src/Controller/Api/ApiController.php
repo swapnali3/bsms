@@ -232,6 +232,67 @@ class ApiController extends ApiAppController
         echo json_encode($response);
     }
 
+    public function vendor($id = null)
+    {
+        $this->autoRender = false;
+        $this->loadModel("VendorBranchOffices");
+        $this->loadModel("VendorCommencements");
+        $this->loadModel("VendorFacilities");
+        $this->loadModel("VendorFactories");
+        $this->loadModel("VendorIncometaxes");
+        $this->loadModel("VendorOtherdetails");
+        $this->loadModel("VendorPartnerAddress");
+        $this->loadModel("VendorQuestionnaires");
+        $this->loadModel("VendorRegisteredOffices");
+        $this->loadModel("VendorReputedCustomers");
+        $this->loadModel("VendorSmallScales");
+        $this->loadModel("VendorTemps");
+        $this->loadModel("VendorTurnovers");
+        $this->loadModel("CompanyCodes");
+        $this->loadModel("Countries");
+        $this->loadModel("States");
+
+        $conn = ConnectionManager::get('default');
+        $vendortemp = $conn->execute("select vt.*, cc.name as company_code_name, pz.name as purchasing_organization_name, ag.name as account_group_name, sg.name as schema_group_name, ra.name as reconciliation_account_name, concat(pt.code, ' ', pt.description) as payment_term_name, CONCAT(us.first_name,' ',us.last_name) as buyer_name, vs.description as status_name, ct.country_name as country_name, st.name as state_name
+        from vendor_temps vt 
+        left join company_codes cc on cc.id=vt.company_code_id
+        left join purchasing_organizations pz on pz.id=vt.purchasing_organization_id
+        left join account_groups ag on ag.id=vt.account_group_id
+        left join schema_groups sg on sg.id=vt.schema_group_id
+        left join reconciliation_accounts ra on ra.id=vt.reconciliation_account_id
+        left join payment_terms pt on pt.id=vt.payment_term_id
+        left join users us on us.id=vt.buyer_id
+        left join states st on st.id=vt.state_id
+        left join countries ct on ct.id=vt.country_id
+        left join vendor_status vs on vs.id=vt.status where vt.id =".$id);
+        $vendortemp = $vendortemp->fetchAll('assoc');
+
+        // echo '<pre>'; print_r($vendortemp); exit;
+        $query = $conn->execute("select vb.*,st.name as state_name from vendor_branch_offices vb left join states st on st.id=vb.state left join countries ct on ct.country_name=vb.country where vb.vendor_temp_id =".$id);
+        $vendortemp[0]['branch_office'] = $query->fetchAll('assoc');
+
+        $query = $conn->execute("select vf.*,st.name as state_name from vendor_factories vf left join states st on st.id=vf.state left join countries ct on ct.country_name=vf.country where vf.vendor_temp_id =".$id);
+        $vendortemp[0]['factory'] = $query->fetchAll('assoc');
+
+        $query = $conn->execute("select vf.*,st.name as state_name from vendor_partner_address vf left join states st on st.id=vf.state left join countries ct on ct.country_name=vf.country where vf.vendor_temp_id =".$id);
+        $vendortemp[0]['partner_address'] = $query->fetchAll('assoc');
+
+        $query = $conn->execute("select vf.*,st.name as state_name from vendor_reputed_customers vf left join states st on st.id=vf.state left join countries ct on ct.country_name=vf.country where vf.vendor_temp_id =".$id);
+        $vendortemp[0]['reputed_customer'] = $query->fetchAll('assoc');
+        $vendortemp[0]['commencement'] = $this->VendorCommencements->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['facility'] = $this->VendorFacilities->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['factory'] = $this->VendorFactories->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['income_tax'] = $this->VendorIncometaxes->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['other_details'] = $this->VendorOtherdetails->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['questionnaire'] = $this->VendorQuestionnaires->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['registered_office'] = $this->VendorRegisteredOffices->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        // $vendortemp[0]['reputed_customer'] = $this->VendorReputedCustomers->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['small_scale'] = $this->VendorSmallScales->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['turnover'] = $this->VendorTurnovers->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $response = array('status'=>1, 'message'=>$vendortemp);
+        echo json_encode($response); exit;
+    }
+
     public function getMaterialMasters()
     {
         $response = array();

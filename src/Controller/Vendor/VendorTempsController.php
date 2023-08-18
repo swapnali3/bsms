@@ -148,7 +148,7 @@ class VendorTempsController extends VendorAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
             try {
-                // echo '<pre>';  print_r($request);
+                echo '<pre>';  print_r($request);
 
                 // Registered Office [working]
                 $regoffc = $this->VendorRegisteredOffices->newEmptyEntity();
@@ -456,7 +456,7 @@ class VendorTempsController extends VendorAppController
         $paymentTerm = $this->VendorTemps->PaymentTerms->find('list', ['limit' => 200])->all();
 
 
-        $countries = $this->Countries->find('list', ['keyField' => 'country_code', 'valueField' => 'country_name'])->toArray();
+        $countries = $this->Countries->find('list', ['keyField' => 'id', 'valueField' => 'country_name'])->toArray();
 
         $currencies = $this->Currencies->find('list', ['keyField' => 'code', 'valueField' => 'name'])->toArray();
 
@@ -470,46 +470,6 @@ class VendorTempsController extends VendorAppController
         $states = $this->States->find('list', ['keyField' => 'region_code', 'valueField' => 'name'])->all();
 
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states','companyCodes','reconciliationAccount','currencies'));
-    }
-
-    public function vendor($id = null)
-    {
-        $this->autoRender = false;
-        $this->loadModel("VendorBranchOffices");
-        $this->loadModel("VendorCommencements");
-        $this->loadModel("VendorFacilities");
-        $this->loadModel("VendorFactories");
-        $this->loadModel("VendorIncometaxes");
-        $this->loadModel("VendorOtherdetails");
-        $this->loadModel("VendorPartnerAddress");
-        $this->loadModel("VendorQuestionnaires");
-        $this->loadModel("VendorRegisteredOffices");
-        $this->loadModel("VendorReputedCustomers");
-        $this->loadModel("VendorSmallScales");
-        $this->loadModel("VendorTemps");
-        $this->loadModel("VendorTurnovers");
-        $this->loadModel("CompanyCodes");
-        $vendortemp = $this->VendorTemps->find('all')
-        ->contain(['CompanyCodes', 'PurchasingOrganizations', 'AccountGroups', 'SchemaGroups','PaymentTerms'])
-        ->where(['VendorTemps.id' => $id])
-        ->toArray();
-
-        // echo '<pre>'; print_r($vendortemp); exit;
-
-        $vendortemp[0]['branch_office'] = $this->VendorBranchOffices->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['commencement'] = $this->VendorCommencements->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['facility'] = $this->VendorFacilities->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['factory'] = $this->VendorFactories->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['income_tax'] = $this->VendorIncometaxes->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['other_details'] = $this->VendorOtherdetails->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['partner_address'] = $this->VendorPartnerAddress->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['questionnaire'] = $this->VendorQuestionnaires->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['registered_office'] = $this->VendorRegisteredOffices->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['reputed_customer'] = $this->VendorReputedCustomers->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['small_scale'] = $this->VendorSmallScales->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['turnover'] = $this->VendorTurnovers->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $response = array('status'=>1, 'message'=>$vendortemp);
-        echo json_encode($response); exit;
     }
 
 }
