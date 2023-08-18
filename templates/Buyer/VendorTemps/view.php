@@ -163,6 +163,18 @@ switch ($vendorTemp->status) {
         <div class="col-sm-12 col-md-12 col-lg-12">
     <?php endif; ?>
         <div class="card card-tabs">
+        <div class="card-footer">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-2">
+                            <button type="button" class="btn btn-block p-2" style="border:1px solid #28a745" data-toggle="modal" data-target="#modal-sm">
+                                <i class="far fa-check-circle"></i> &nbsp; Approve
+                            </button>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <a href="#" class="btn btn-block reject  p-2" style="border:1px solid red" data-toggle="modal" data-target="#remarkModal"><i class="far fa-times-circle"></i> &nbsp; Reject</a>
+                        </div>
+                    </div>
+                </div>
             <div class="row">
                 <div class="col-lg-2" style="border-right: 2px solid #dee2e6;">
                     <div class=" p-0">
@@ -807,7 +819,7 @@ switch ($vendorTemp->status) {
 
 
             <?php if ($vendorTemp->status == 1) : ?>
-                <div class="card-footer">
+                <!-- <div class="card-footer">
                     <div class="row">
                         <div class="col-sm-12 col-md-2">
                             <button type="button" class="btn btn-block p-2" style="border:1px solid #28a745" data-toggle="modal" data-target="#modal-sm">
@@ -818,7 +830,7 @@ switch ($vendorTemp->status) {
                             <a href="#" class="btn btn-block reject  p-2" style="border:1px solid red" data-toggle="modal" data-target="#remarkModal"><i class="far fa-times-circle"></i> &nbsp; Reject</a>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
                     <div class="modal-dialog modal-sm">
                         <div class="modal-content">

@@ -40,14 +40,14 @@ hr {
 	font-size:14px;
 } */
 .badge.bg-warning {
-    background: #415586 !important;
+    background: #F7941D !important;
     color: #fff !important;
 }
-.page-item.active .page-link {
+/* .page-item.active .page-link {
    color: #F7941D !important;
     background-color: #fff !important;
     border-color: unset !important;
-}
+} */
 /* .page-link{
 	color: #112a68 !important;
 } */
@@ -66,3 +66,29 @@ hr {
     font-size: 14px;
 }
 
+.modal_cancel {
+    background-color: #fff !important;
+    color: #ED1C24 !important;
+    border: 1px solid #ED1C24 !important;
+}
+
+.modal_ok {
+    background-color: #fff !important;
+    color: #F7941D !important;
+    border: 1px solid #F7941D !important;
+}
+
+#example1 a.schedule_item:hover {
+    background-color: #fff !important;
+    color: #F7941D !important;
+    border: 1px solid #F7941D !important;
+}
+
+.dismiss-btn,#btnClose {
+    background-color: #fff !important;
+    color: #F7941D !important;
+    border: 1px solid #F7941D !important;
+}
+
+.btnSub,.btn-sm { color: #fff !important;}
+.btnSub:hover,.btn-sm:hover { color: #fff !important;}
