@@ -458,10 +458,18 @@ class VendorTempsController extends BuyerAppController
         $this->loadModel("VendorTemps");
         $this->loadModel("VendorTurnovers");
         $this->loadModel("CompanyCodes");
-        $vendortemp = $this->VendorTemps->find('all')
-        ->contain(['CompanyCodes', 'PurchasingOrganizations', 'AccountGroups', 'SchemaGroups','PaymentTerms'])
-        ->where(['VendorTemps.id' => $id])
-        ->toArray();
+
+        $conn = ConnectionManager::get('default');
+        $vendortemp = $conn->execute("select vt.*, cc.name as company_code_name, pz.name as purchasing_organization_name, ag.name as account_group_name, sg.name as schema_group_name, ra.name as reconciliation_account_name, concat(pt.code, ' ', pt.description) as payment_term_name, CONCAT(us.first_name,' ',us.last_name) as buyer_name, vs.description as status_name from vendor_temps vt 
+        left join company_codes cc on cc.id=vt.company_code_id
+        left join purchasing_organizations pz on pz.id=vt.purchasing_organization_id
+        left join account_groups ag on ag.id=vt.account_group_id
+        left join schema_groups sg on sg.id=vt.schema_group_id
+        left join reconciliation_accounts ra on ra.id=vt.reconciliation_account_id
+        left join payment_terms pt on pt.id=vt.payment_term_id
+        left join users us on us.id=vt.buyer_id
+        left join vendor_status vs on vs.id=vt.status where vt.id =".$id);
+        $vendortemp = $vendortemp->fetchAll('assoc');
 
         // echo '<pre>'; print_r($vendortemp); exit;
 
