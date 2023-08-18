@@ -45,7 +45,7 @@ class VendorFactoriesTable extends Table
         $this->setPrimaryKey('id');
 
         $this->belongsTo('VendorTemps', [
-            'foreignKey' => 'vendor_temps_id',
+            'foreignKey' => 'vendor_temp_id',
         ]);
         $this->hasMany('VendorCommencements', [
             'foreignKey' => 'vendor_factory_id',
@@ -61,15 +61,14 @@ class VendorFactoriesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('vendor_temps_id')
-            ->allowEmptyString('vendor_temps_id');
+            ->integer('vendor_temp_id')
+            ->allowEmptyString('vendor_temp_id');
 
         $validator
             ->scalar('factory_code')
             ->maxLength('factory_code', 45)
             ->requirePresence('factory_code', 'create')
-            ->notEmptyString('factory_code')
-            ->add('factory_code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmptyString('factory_code');
 
         $validator
             ->scalar('address')
@@ -80,6 +79,11 @@ class VendorFactoriesTable extends Table
             ->scalar('address_2')
             ->maxLength('address_2', 100)
             ->allowEmptyString('address_2');
+
+        $validator
+            ->scalar('telephone')
+            ->maxLength('telephone', 10)
+            ->allowEmptyString('telephone');
 
         $validator
             ->scalar('pincode')
@@ -161,8 +165,7 @@ class VendorFactoriesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['factory_code']), ['errorField' => 'factory_code']);
-        $rules->add($rules->existsIn('vendor_temps_id', 'VendorTemps'), ['errorField' => 'vendor_temps_id']);
+        $rules->add($rules->existsIn('vendor_temp_id', 'VendorTemps'), ['errorField' => 'vendor_temp_id']);
 
         return $rules;
     }

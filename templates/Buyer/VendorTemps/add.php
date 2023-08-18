@@ -82,7 +82,7 @@
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('payment_term', array('class' => 'form-control', 'options' => $payment_term, 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('payment_term', array('name'=>'payment_term_id','class' => 'form-control', 'options' => $payment_term, 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
@@ -106,8 +106,8 @@
                                 <h6>Are you sure you want to add vendor?</h6>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn" style="border:1px solid #28a745">Ok</button>
+                                <button type="button" class="btn" style="border:1px solid #6610f2; color:#fff;" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn" style="border:1px solid #28a745'; color:#fff;">Ok</button>
                             </div>
                         </div>
                     </div>

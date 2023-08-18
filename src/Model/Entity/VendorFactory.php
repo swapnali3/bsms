@@ -9,10 +9,11 @@ use Cake\ORM\Entity;
  * VendorFactory Entity
  *
  * @property int $id
- * @property int|null $vendor_temps_id
+ * @property int|null $vendor_temp_id
  * @property string $factory_code
  * @property string|null $address
  * @property string|null $address_2
+ * @property string|null $telephone
  * @property string|null $pincode
  * @property string|null $city
  * @property string|null $state
@@ -43,10 +44,11 @@ class VendorFactory extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'vendor_temps_id' => true,
+        'vendor_temp_id' => true,
         'factory_code' => true,
         'address' => true,
         'address_2' => true,
+        'telephone' => true,
         'pincode' => true,
         'city' => true,
         'state' => true,

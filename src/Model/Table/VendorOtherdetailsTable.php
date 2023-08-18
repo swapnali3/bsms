@@ -68,7 +68,8 @@ class VendorOtherdetailsTable extends Table
             ->notEmptyString('six_sigma');
 
         $validator
-            ->boolean('six_sigma_file')
+            ->scalar('six_sigma_file')
+            ->maxLength('six_sigma_file', 255)
             ->requirePresence('six_sigma_file', 'create')
             ->notEmptyFile('six_sigma_file');
 
@@ -80,17 +81,17 @@ class VendorOtherdetailsTable extends Table
 
         $validator
             ->scalar('iso_file')
-            ->maxLength('iso_file', 250)
+            ->maxLength('iso_file', 255)
             ->allowEmptyFile('iso_file');
 
         $validator
             ->scalar('halal_file')
-            ->maxLength('halal_file', 250)
+            ->maxLength('halal_file', 255)
             ->allowEmptyFile('halal_file');
 
         $validator
             ->scalar('declaration_file')
-            ->maxLength('declaration_file', 250)
+            ->maxLength('declaration_file', 255)
             ->allowEmptyFile('declaration_file');
 
         $validator

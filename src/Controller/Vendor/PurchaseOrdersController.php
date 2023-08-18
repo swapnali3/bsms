@@ -7,6 +7,7 @@ namespace App\Controller\Vendor;
 use Cake\View\Helper\HtmlHelper;
 use Cake\Datasource\ConnectionManager;
 use Cake\Mailer\Mailer;
+use Cake\Routing\Router;
 
 /**
  * PoHeaders Controller
@@ -189,7 +190,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
                 ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
                 ->where([
-                    'sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
+                    'sap_vendor_code' => $session->read('vendor_code'),
                     'OR' => [
                         ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
                         ['PoFooters.material LIKE' => '%' . $search . '%'],

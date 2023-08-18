@@ -45,7 +45,6 @@ class VendorIncometaxesTable extends Table
 
         $this->belongsTo('VendorTemps', [
             'foreignKey' => 'vendor_temp_id',
-            'joinType' => 'INNER',
         ]);
     }
 
@@ -59,7 +58,7 @@ class VendorIncometaxesTable extends Table
     {
         $validator
             ->integer('vendor_temp_id')
-            ->notEmptyString('vendor_temp_id');
+            ->allowEmptyString('vendor_temp_id');
 
         $validator
             ->scalar('certificate_no')

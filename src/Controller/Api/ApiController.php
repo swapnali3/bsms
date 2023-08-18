@@ -35,8 +35,17 @@ class ApiController extends ApiAppController
         ]);
     }
 
-    public function index()
+    public function countryByState($id = null)
     {
+        // $this->autoRender = false;
+        $response = ["status"=>0, 'message' =>'Empty request'];
+        $this->loadModel("States");
+        $this->loadModel("Countries");
+        $states = $this->States->find()->select(['id', 'name'])->innerJoin(['Countries'=>'countries'],['Countries.country_code = States.country_code', 'Countries.id' =>$id])->toArray();
+
+        //print_r($states); exit;
+        $response = ["status"=> 1, 'message' =>['States'=>$states]];
+        echo json_encode($response);
     }
 
     public function postPo()
@@ -231,6 +240,13 @@ class ApiController extends ApiAppController
         
         $this->loadModel("Materials");
         $this->loadModel("MaterialHistories");
+        $this->loadModel("PrHeaders");
+        $this->loadModel("PrFooters");
+
+        $conn = ConnectionManager::get('default');
+        $matlist = $conn->execute("select ph.sap_vendor_code as LIFNR, pf.material as MATNR, pf.short_text as MAKTX, 200 as MIN_STOCK, pf.order_unit as MEINS from po_headers ph inner join po_footers pf on ph.id=pf.po_header_id");
+
+        $matlist = $matlist->fetchAll('assoc');
 
         /*
         $response = $http->get(
@@ -247,15 +263,26 @@ class ApiController extends ApiAppController
                     "MAT_LIST" :[{"LIFNR":"0000100186", "MATNR":"PHFG0411", "MAKTX":"Ethyl-2-(3-hydroxyphenyl)acetate", "MIN_STOCK":1200,"MEINS":"KG"},
                     {"LIFNR":"0000100186", "MATNR":"PHFG0417", "MAKTX":"1-(3-Methyl -1-Phenyl-5-pyrazolyl)piper", "MIN_STOCK":900,"MEINS":"KG"}]
                     }}');
-                if ($result->RESPONSE->SUCCESS) {
+
+                $result = ['RESPONSE'=>['SUCCESS'=>1, 'MESSAGE'=>"Success", 'MAT_LIST'=>$matlist]];
+
+                if ($result['RESPONSE']['SUCCESS']) {
+                // if ($result->RESPONSE->SUCCESS) {
                     $rows = [];
-                    foreach($result->RESPONSE->MAT_LIST as $row) {
+                    foreach($result['RESPONSE']['MAT_LIST'] as $row) {
+                    // foreach($result->RESPONSE->MAT_LIST as $row) {
                         $temp = [];
-                        $temp['sap_vendor_code'] = $row->LIFNR;
-                        $temp['code'] = $row->MATNR;
-                        $temp['description'] = $row->MAKTX;
-                        $temp['minimum_stock'] = $row->MIN_STOCK;
-                        $temp['uom'] = $row->MEINS;
+                        // $temp['sap_vendor_code'] = $row->LIFNR;
+                        // $temp['code'] = $row->MATNR;
+                        // $temp['description'] = $row->MAKTX;
+                        // $temp['minimum_stock'] = $row->MIN_STOCK;
+                        // $temp['uom'] = $row->MEINS;
+
+                        $temp['sap_vendor_code'] = $row['LIFNR'];
+                        $temp['code'] = $row['MATNR'];
+                        $temp['description'] = $row['MAKTX'];
+                        $temp['minimum_stock'] = $row['MIN_STOCK'];
+                        $temp['uom'] = $row['MEINS'];
 
                         $rows[] = $temp;
                     }

@@ -106,7 +106,7 @@ class OnboardingController extends VendorAppController
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
-                    ->setViewVars([ 'subject' => 'Hi '.$vendorTemp->name, 'mailbody' => 'OTP : ' . $otp, 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                    ->setViewVars([ 'subject' => 'Hi '.$vendorTemp->name, 'mailbody' => 'OTP : ' . $otp, 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
                     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
                     ->setTo($vendorTemp->email)
                     ->setEmailFormat('html')
@@ -190,6 +190,8 @@ class OnboardingController extends VendorAppController
         $flash = [];
         $this->loadModel("VendorTemps");
         $this->loadModel("Countries");
+        $this->loadModel('Currencies');
+        $this->loadModel('Users');
         $this->loadModel("States");
         $request = explode('||', base64_decode($request));
 
@@ -214,7 +216,7 @@ class OnboardingController extends VendorAppController
             $data = $this->request->getData();
             $data['status'] = 1;
 
-            //echo '<pre>'; print_r($data); exit;
+            // echo '<pre>'; print_r($data); exit;
 
             if($data["gst_file"]) {
                 $gstUpload = $data["gst_file"];
@@ -276,12 +278,26 @@ class OnboardingController extends VendorAppController
             }
 
             //echo '<pre>'; print_r($data); exit;
+            $buyer = $this->Users->get($vendorTemp->buyer_id);
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
             if ($this->VendorTemps->save($vendorTemp)) {
                 $flash = ['type'=>'success', 'msg'=>'The request sent for approval'];
                 $this->set('flash', $flash);
 
-                return $this->redirect(['prefix' => false, 'controller' => 'users','action' => 'login']);
+                $visit_url = Router::url('/', true);
+                $mailer = new Mailer('default');
+                $mailer
+                    ->setTransport('smtp')
+                    ->setViewVars([ 'subject' => 'New Vendor Oboarding', 'mailbody' => 'A new vendor has onboarded', 'link' => $visit_url, 'linktext' => 'VEKPRO' ])
+                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    ->setTo($buyer['username'])
+                    ->setEmailFormat('html')
+                    ->setSubject('Vendor Portal - Verify New Account')
+                    ->viewBuilder()
+                        ->setTemplate('mail_template');
+                $mailer->deliver();
+
+                return $this->redirect(['prefix' => false, 'controller' => 'users','action' => 'welcome']);
             }
             $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be saved. Please, try again'];
             $this->set('flash', $flash);
@@ -289,18 +305,22 @@ class OnboardingController extends VendorAppController
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
         $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
+        $companyCodes = $this->VendorTemps->CompanyCodes->find('list', ['limit' => 200])->all();
+        $reconciliationAccount = $this->VendorTemps->ReconciliationAccounts->find('list', ['limit' => 200])->all();
 
-        $countries = $this->Countries->find('list', ['keyField' => 'country_code', 'valueField' => 'country_name'])->toArray();
+        $countries = $this->Countries->find('list', ['keyField' => 'id', 'valueField' => 'country_name'])->toArray();
+
+        $currencies = $this->Currencies->find('list', ['keyField' => 'code', 'valueField' => 'name'])->toArray();
 
         $hasIndia = array_key_exists('IN', $countries);
         if ($hasIndia) {
-            unset($countries['India']);
+            unset($countries['IN']);
             $countries = ['India' => 'India'] + $countries;
         }
         
         $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
 
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));
+        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states','companyCodes','reconciliationAccount','currencies'));
     }
 
     /**

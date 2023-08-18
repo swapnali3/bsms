@@ -71,6 +71,8 @@ class ProductionLinesController extends VendorAppController
     {
         $session = $this->getRequest()->getSession();
         $sapVendor = $session->read('vendor_code');
+        $this->loadModel('VendorFactories');
+        $factory = $this->VendorFactories->find('list',['keyField' => 'id', 'valueField' => 'factory_code']);
 
         $flash = [];
         $this->loadModel("LineMasters");
@@ -123,7 +125,7 @@ class ProductionLinesController extends VendorAppController
         $lineMasterList = $this->LineMasters->find('list', ['conditions' => ['sap_vendor_code' => $sapVendor],'keyField' => 'id', 'valueField' => 'name'])->all();
 
 
-        $this->set(compact('productionline','vendor_mateial', 'lineMasterList'));
+        $this->set(compact('productionline','vendor_mateial', 'lineMasterList','factory'));
     }
 
     /**

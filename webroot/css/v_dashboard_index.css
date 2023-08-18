@@ -48,7 +48,6 @@
     border: 1px solid #FFD580;
 }
 
-
 .txt h5 {
     font-size: 28px;
     margin-bottom: 0px;
@@ -61,15 +60,3 @@
     box-shadow: 0 3px 3px rgba(56, 65, 74, 0.1);
     border-radius: 5px;
 }
-
-/* .badge-warning {
-    border-radius: 50%;
-    color: #fff;
-    background-color: #F7941D;
-}
-
-.nav-link {
-    display: block;
-    padding: 0.5rem 0rem;
-    margin: 0 5px;
-} */
