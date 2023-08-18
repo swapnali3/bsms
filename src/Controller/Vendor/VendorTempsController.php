@@ -161,10 +161,14 @@ class VendorTempsController extends VendorAppController
                 foreach ($request["branch"]["branch_office"] as $key => $value) {
                     $branch = $this->VendorBranchOffices->newEmptyEntity();
                     $value["vendor_temp_id"] = $id;
-                    $fileName = $value["registration_certificate"]->getClientFilename();
-                    $imagePath = WWW_ROOT . "uploads/vendor/" . $fileName;
-                    $value["registration_certificate"]->moveTo($imagePath);
-                    $value["registration_certificate"]= "uploads/vendor/" . $fileName;
+                    try{
+                        $fileName = $value["registration_certificate"]->getClientFilename();
+                        if($fileName){
+                            $imagePath = WWW_ROOT . "uploads/vendor/" . $fileName;
+                            $value["registration_certificate"]->moveTo($imagePath);
+                            $value["registration_certificate"]= "uploads/vendor/" . $fileName;
+                        }
+                    } catch(\PDOException $e) { $value["registration_certificate"]=""; }
                     $branch = $this->VendorBranchOffices->patchEntity($branch, $value);
                     if ($this->VendorBranchOffices->save($branch)) { }
                 }
@@ -174,10 +178,14 @@ class VendorTempsController extends VendorAppController
                 $data = $request["small_scale"];
                 $data["vendor_temp_id"] = $id;
 
-                $fileName = $data["certificate_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/smallscale/" . $fileName;
-                $data["certificate_file"]->moveTo($imagePath);
-                $data["certificate_file"]= "uploads/smallscale/" . $fileName;
+                try{
+                    $fileName = $data["certificate_file"]->getClientFilename();
+                    if($fileName){
+                        $imagePath = WWW_ROOT . "uploads/smallscale/" . $fileName;
+                        $data["certificate_file"]->moveTo($imagePath);
+                        $data["certificate_file"]= "uploads/smallscale/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["certificate_file"]= ""; }
 
                 $smallscale = $this->VendorSmallScales->patchEntity($smallscale, $data);
                 if ($this->VendorSmallScales->save($smallscale)) { }
@@ -187,30 +195,50 @@ class VendorTempsController extends VendorAppController
                 $intax = $this->VendorFacilities->newEmptyEntity();
                 $data["vendor_temp_id"] = $id;
 
-                $fileName = $data["quality_control_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/quality_control/" . $fileName;
-                $data["quality_control_file"]->moveTo($imagePath);
-                $data["quality_control_file"]= "uploads/quality_control/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["quality_control_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/quality_control/" . $fileName;
+                        $data["quality_control_file"]->moveTo($imagePath);
+                        $data["quality_control_file"]= "uploads/quality_control/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["quality_control_file"]= ""; }
 
-                $fileName = $data["lab_facility_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/lab_facility/" . $fileName;
-                $data["lab_facility_file"]->moveTo($imagePath);
-                $data["lab_facility_file"]= "uploads/lab_facility/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["lab_facility_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/lab_facility/" . $fileName;
+                        $data["lab_facility_file"]->moveTo($imagePath);
+                        $data["lab_facility_file"]= "uploads/lab_facility/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["lab_facility_file"]= ""; }
 
-                $fileName = $data["isi_registration_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/isi_registration/" . $fileName;
-                $data["isi_registration_file"]->moveTo($imagePath);
-                $data["isi_registration_file"]= "uploads/isi_registration/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["isi_registration_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/isi_registration/" . $fileName;
+                        $data["isi_registration_file"]->moveTo($imagePath);
+                        $data["isi_registration_file"]= "uploads/isi_registration/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["isi_registration_file"]= ""; }
 
-                $fileName = $data["test_facility_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/test_facility/" . $fileName;
-                $data["test_facility_file"]->moveTo($imagePath);
-                $data["test_facility_file"]= "uploads/test_facility/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["test_facility_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/test_facility/" . $fileName;
+                        $data["test_facility_file"]->moveTo($imagePath);
+                        $data["test_facility_file"]= "uploads/test_facility/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["test_facility_file"]= ""; }
 
-                $fileName = $data["sales_services_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/sales_services/" . $fileName;
-                $data["sales_services_file"]->moveTo($imagePath);
-                $data["sales_services_file"]= "uploads/sales_services/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["sales_services_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/sales_services/" . $fileName;
+                        $data["sales_services_file"]->moveTo($imagePath);
+                        $data["sales_services_file"]= "uploads/sales_services/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["sales_services_file"]= ""; }
 
                 $intax = $this->VendorFacilities->patchEntity($intax, $data);
                 if ($this->VendorFacilities->save($intax)) { }
@@ -228,25 +256,41 @@ class VendorTempsController extends VendorAppController
                 $data = $request["other"];
                 $data["vendor_temp_id"] = $id;
 
-                $fileName = $data["six_sigma_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/six_sigma/" . $fileName;
-                $data["six_sigma_file"]->moveTo($imagePath);
-                $data["six_sigma_file"]= "uploads/six_sigma/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["six_sigma_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/six_sigma/" . $fileName;
+                        $data["six_sigma_file"]->moveTo($imagePath);
+                        $data["six_sigma_file"]= "uploads/six_sigma/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["six_sigma_file"]= ""; }
 
-                $fileName = $data["halal_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/halal/" . $fileName;
-                $data["halal_file"]->moveTo($imagePath);
-                $data["halal_file"]= "uploads/halal/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["halal_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/halal/" . $fileName;
+                        $data["halal_file"]->moveTo($imagePath);
+                        $data["halal_file"]= "uploads/halal/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["halal_file"]= ""; }
 
-                $fileName = $data["iso_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/iso/" . $fileName;
-                $data["iso_file"]->moveTo($imagePath);
-                $data["iso_file"]= "uploads/iso/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["iso_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/iso/" . $fileName;
+                        $data["iso_file"]->moveTo($imagePath);
+                        $data["iso_file"]= "uploads/iso/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["iso_file"]= ""; }
 
-                $fileName = $data["declaration_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/declaration/" . $fileName;
-                $data["declaration_file"]->moveTo($imagePath);
-                $data["declaration_file"]= "uploads/declaration/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["declaration_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/declaration/" . $fileName;
+                        $data["declaration_file"]->moveTo($imagePath);
+                        $data["declaration_file"]= "uploads/declaration/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["declaration_file"]= ""; }
 
                 $otherdtl = $this->VendorOtherdetails->patchEntity($otherdtl, $data);                
                 if ($this->VendorOtherdetails->save($otherdtl)) { }
@@ -256,15 +300,23 @@ class VendorTempsController extends VendorAppController
                 $data = $request["income_tax"];
                 $data["vendor_temp_id"] = $id;
 
-                $fileName = $data["certificate_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/certificate/" . $fileName;
-                $data["certificate_file"]->moveTo($imagePath);
-                $data["certificate_file"]= "uploads/certificate/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["certificate_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/certificate/" . $fileName;
+                        $data["certificate_file"]->moveTo($imagePath);
+                        $data["certificate_file"]= "uploads/certificate/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["certificate_file"]= ""; }
 
-                $fileName = $data["balance_sheet_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/balance_sheet/" . $fileName;
-                $data["balance_sheet_file"]->moveTo($imagePath);
-                $data["balance_sheet_file"]= "uploads/balance_sheet/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["balance_sheet_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/balance_sheet/" . $fileName;
+                        $data["balance_sheet_file"]->moveTo($imagePath);
+                        $data["balance_sheet_file"]= "uploads/balance_sheet/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["balance_sheet_file"]= ""; }
                 
                 $intax = $this->VendorIncometaxes->patchEntity($intax, $data);
                 if ($this->VendorIncometaxes->save($intax)) { }
@@ -275,25 +327,42 @@ class VendorTempsController extends VendorAppController
                     $value["vendor_temp_id"] = $id;
                     $value["factory_code"] = substr(strtoupper($value['country']), 0, 2)."_".substr(strtoupper($value['state']), 0, 2)."_".substr(strtoupper($value['city']), 0, 2)."_Unit".($key+1);
                     
-                    $fileName = $value["installed_capacity_file"]->getClientFilename();
-                    $imagePath = WWW_ROOT . "uploads/installed_capacity/" . $fileName;
-                    $value["installed_capacity_file"]->moveTo($imagePath);
-                    $value["installed_capacity_file"]= "uploads/installed_capacity/" . $fileName;
+                    try{
+                        if($fileName){
+                            $fileName = $value["installed_capacity_file"]->getClientFilename();
+                            $imagePath = WWW_ROOT . "uploads/installed_capacity/" . $fileName;
+                            $value["installed_capacity_file"]->moveTo($imagePath);
+                            $value["installed_capacity_file"]= "uploads/installed_capacity/" . $fileName;
+                        }
+                    } catch(\PDOException $e) { $data["installed_capacity_file"]= ""; }
 
-                    $fileName = $value["machinery_available_file"]->getClientFilename();
-                    $imagePath = WWW_ROOT . "uploads/machinery_available/" . $fileName;
-                    $value["machinery_available_file"]->moveTo($imagePath);
-                    $value["machinery_available_file"]= "uploads/machinery_available/" . $fileName;
+                    try{
+                        if($fileName){
+                            $fileName = $value["machinery_available_file"]->getClientFilename();
+                            $imagePath = WWW_ROOT . "uploads/machinery_available/" . $fileName;
+                            $value["machinery_available_file"]->moveTo($imagePath);
+                            $value["machinery_available_file"]= "uploads/machinery_available/" . $fileName;
+                        }
+                    } catch(\PDOException $e) { $data["machinery_available_file"]= ""; }
 
-                    $fileName = $value["power_available_file"]->getClientFilename();
-                    $imagePath = WWW_ROOT . "uploads/power_available/" . $fileName;
-                    $value["power_available_file"]->moveTo($imagePath);
-                    $value["power_available_file"]= "uploads/power_available/" . $fileName;
+                    try{
+                        if($fileName){
+                            $fileName = $value["power_available_file"]->getClientFilename();
+                            $imagePath = WWW_ROOT . "uploads/power_available/" . $fileName;
+                            $value["power_available_file"]->moveTo($imagePath);
+                            $value["power_available_file"]= "uploads/power_available/" . $fileName;
+                        }
+                    } catch(\PDOException $e) { $data["power_available_file"]= ""; }
 
-                    $fileName = $value["raw_material_file"]->getClientFilename();
-                    $imagePath = WWW_ROOT . "uploads/raw_material/" . $fileName;
-                    $value["raw_material_file"]->moveTo($imagePath);
-                    $value["raw_material_file"]= "uploads/raw_material/" . $fileName;
+                    try{
+                        if($fileName){
+                            $fileName = $value["raw_material_file"]->getClientFilename();
+                            $imagePath = WWW_ROOT . "uploads/raw_material/" . $fileName;
+                            $value["raw_material_file"]->moveTo($imagePath);
+                            $value["raw_material_file"]= "uploads/raw_material/" . $fileName;
+                        }
+                    } catch(\PDOException $e) { $data["raw_material_file"]= ""; }
+
                     $factory = $this->VendorFactories->patchEntity($factory, $value);
                     if ($factory_id = $this->VendorFactories->save($factory)) {
                         foreach ($value["commencement"] as $key => $value) {
@@ -341,21 +410,35 @@ class VendorTempsController extends VendorAppController
                 // Basic details
                 $data = $request["vendor"];
 
-                $fileName = $data["gst_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/gst/" . $fileName;
-                $data["gst_file"]->moveTo($imagePath);
-                $data["gst_file"]= "uploads/gst/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["gst_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/gst/" . $fileName;
+                        $data["gst_file"]->moveTo($imagePath);
+                        $data["gst_file"]= "uploads/gst/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["gst_file"]= ""; }
 
-                $fileName = $data["pan_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/pan/" . $fileName;
-                $data["pan_file"]->moveTo($imagePath);
-                $data["pan_file"]= "uploads/pan/" . $fileName;
+                try{
+                    if($fileName){
+                        $fileName = $data["pan_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/pan/" . $fileName;
+                        $data["pan_file"]->moveTo($imagePath);
+                        $data["pan_file"]= "uploads/pan/" . $fileName;
+                    }
+                } catch(\PDOException $e) { $data["pan_file"]= ""; }
 
-                $fileName = $data["bank_file"]->getClientFilename();
-                $imagePath = WWW_ROOT . "uploads/bank/" . $fileName;
-                $data["bank_file"]->moveTo($imagePath);
-                $data["bank_file"]= "uploads/bank/" . $fileName;
-                $data["order_currency"]= "INR";
+                try{
+                    if($fileName){
+                        $fileName = $data["bank_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/bank/" . $fileName;
+                        $data["bank_file"]->moveTo($imagePath);
+                        $data["bank_file"]= "uploads/bank/" . $fileName;
+                    }
+                } catch(\PDOException $e) {
+                    $data["pan_file"]= "";
+                }
+                // $data["order_currency"]= "INR";
 
                 $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
                 // print_r($vendorTemp);
