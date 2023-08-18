@@ -94,22 +94,6 @@ class VendorTempsController extends VendorAppController
         echo json_encode($response);
     }
 
-    // public function stateByCountryId($name = null)
-    // {
-    //     $this->autoRender = false;
-    //     $response = ["status"=> 0, 'message' =>'Empty request'];
-    //     $this->loadModel("Currencies");
-    //     $query = $this->Currencies->find()->where(['code =' => $name])->first();
-    //     print_r($query);
-        
-    //     if ($query !== null && $query = "" ) {
-    //         $response = ["status"=> 1, 'message' => $query['name']];
-    //     } else {
-    //         $response = ["status"=> 0, 'message' => 'Currency not found'];
-    //     }
-    //     $response = ["status"=> 1, 'message' =>$query['name']];
-    //     echo json_encode($response);
-    // }
 
     public function paymentCode($code = null)
     {

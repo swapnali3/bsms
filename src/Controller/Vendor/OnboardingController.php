@@ -310,7 +310,7 @@ class OnboardingController extends VendorAppController
 
         $countries = $this->Countries->find('list', ['keyField' => 'id', 'valueField' => 'country_name'])->toArray();
 
-        $currencies = $this->Currencies->find('list', ['keyField' => 'code', 'valueField' => 'name'])->toArray();
+        $currencies = $this->Currencies->find('list', ['keyField' => 'code', 'valueField' => 'code'])->toArray();
 
         $hasIndia = array_key_exists('IN', $countries);
         if ($hasIndia) {
@@ -318,7 +318,7 @@ class OnboardingController extends VendorAppController
             $countries = ['India' => 'India'] + $countries;
         }
         
-        $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
+        $states = $this->States->find('list', ['keyField' => 'id', 'valueField' => 'name'])->all();
 
         $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states','companyCodes','reconciliationAccount','currencies'));
     }
