@@ -431,7 +431,7 @@ switch ($vendorTemp->status) {
                                 <h5>Registered Office Address</h5>
                                 <div class="icheck-primary">
                                     <input type="checkbox" id="copypermanant">
-                                    <label for="copypermanant">`Same` as Permanent Address</label>
+                                    <label for="copypermanant">Same as Permanent Address</label>
                                 </div>
                                 <div class="row">
                                     <div class="col-3 mt-3 col-md-3">
