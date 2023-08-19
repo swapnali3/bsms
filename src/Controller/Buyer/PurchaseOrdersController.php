@@ -290,7 +290,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer
                                 ->setTransport('smtp')
                                 ->setViewVars([ 'subject' => 'Hi ' . $vt[0]['name'], 'mailbody' => 'A new PO has been schedule. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                                ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                                 ->setTo($vt[0]['email'])
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Schedule created')

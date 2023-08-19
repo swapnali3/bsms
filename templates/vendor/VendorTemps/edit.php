@@ -1,32 +1,4 @@
-<?php
 
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\VendorTemp $vendorTemp
- * @var string[]|\Cake\Collection\CollectionInterface $purchasingOrganizations
- * @var string[]|\Cake\Collection\CollectionInterface $accountGroups
- * @var string[]|\Cake\Collection\CollectionInterface $schemaGroups
- */
-
-switch ($vendorTemp->status) {
-    case 0:
-        $status = '<span class="badge bg-warning">Sent to Vendor</span>';
-        break;
-    case 1:
-        $status = '<span class="badge bg-info">Pending for approval</span>';
-        break;
-    case 2:
-        $status = '<span class="badge bg-info">Sent to SAP</span>';
-        break;
-    case 3:
-        $status = '<span class="badge bg-success">Approved</span>';
-        break;
-    case 4:
-        $status = '<span class="badge bg-danger">Rejected</span>';
-        break;
-}
-
-?>
 
 <!-- <?= $this->Html->css('cstyle.css') ?> -->
 <!-- <?= $this->Html->css('table.css') ?> -->
@@ -289,22 +261,22 @@ switch ($vendorTemp->status) {
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                                <?php echo $this->Form->control('company_code_id', ['disabled' => 'disabled', 'options' => $companyCodes, 'class' => 'form-control']); ?>
+                                <?php echo $this->Form->control('company_code', ['disabled' => 'disabled', 'value' => $vendorTemp->company_code->name, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                                <?php echo $this->Form->control('purchasing_organization_id', ['disabled' => 'disabled', 'options' => $purchasingOrganizations, 'class' => 'form-control']); ?>
+                                <?php echo $this->Form->control('purchasing_organization', ['disabled' => 'disabled', 'value' => $vendorTemp->purchasing_organization->name, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                                <?php echo $this->Form->control('account_group_id', ['disabled' => 'disabled', 'options' => $accountGroups, 'class' => 'form-control']); ?>
+                                <?php echo $this->Form->control('account_group', ['disabled' => 'disabled', 'value' => $vendorTemp->account_group->name, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                                <?php echo $this->Form->control('reconciliation_account_id', ['disabled' => 'disabled', 'options' => $reconciliationAccount, 'class' => 'form-control']); ?>
+                                <?php echo $this->Form->control('reconciliation_account', ['disabled' => 'disabled', 'value' => $vendorTemp->reconciliation_account->name, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                                <?php echo $this->Form->control('schema_group_id', ['disabled' => 'disabled', 'options' => $schemaGroups, 'class' => 'form-control']); ?>
+                                <?php echo $this->Form->control('schema_group', ['disabled' => 'disabled', 'value' => $vendorTemp->schema_group->name, 'class' => 'form-control']); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                                <?php echo $this->Form->control('payment_term_id', ['disabled' => 'disabled','class' => 'form-control']); ?>
+                                <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled','class' => 'form-control', 'value' => $vendorTemp->payment_term->description]); ?>
                             </div>
                             <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
                                 <div class="form-group">
@@ -436,18 +408,18 @@ switch ($vendorTemp->status) {
                                 <div class="row">
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_address1', ['name' => 'registered_office[address]', 'id' => 'register_office_address1', 'class' => 'form-control', 'label' => "Address"]); ?>
+                                            <?php echo $this->Form->control('registered_office[address]', ['id' => 'register_office_address1', 'class' => 'form-control', 'label' => "Address"]); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_address2', ['name' => 'registered_office[address_2]', 'label' => 'Address 1', 'class' => 'form-control', 'id' => 'register_office_address2']); ?>
+                                            <?php echo $this->Form->control('registered_office[address_2]', ['label' => 'Address 1', 'class' => 'form-control', 'id' => 'register_office_address2']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
                                             <?php echo $this->Form->control(
-                                                'register_office_pincode',
+                                                'registered_office[pincode]',
                                                 ['type' => 'number', 'name' => 'registered_office[pincode]', 'label' => 'Pincode', 'class' => 'form-control maxlength_validation', 'id' => 'register_office_pincode', 'maxlength' => '6']
                                             ); ?>
                                         </div>
@@ -455,22 +427,22 @@ switch ($vendorTemp->status) {
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_city', ['type' => 'text', 'name' => 'registered_office[city]', 'class' => 'form-control alphaonly capitalize', 'label' => 'City', 'id' => 'register_office_city']); ?>
+                                            <?php echo $this->Form->control('registered_office[city]', ['type' => 'text', 'name' => 'registered_office[city]', 'class' => 'form-control alphaonly capitalize', 'label' => 'City', 'id' => 'register_office_city']); ?>
                                         </div>
                                     </div>
                                     <div class="col-3 mt-3 col-md-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_country', ['name' => 'registered_office[country]','data-state' =>'register_office_state', 'class' => 'selectpicker show-menu-arrow form-control my-select1 my-country', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'register_office_country']); ?>
+                                            <?php echo $this->Form->control('registered_office[country]', ['data-state' =>'register_office_state', 'class' => 'selectpicker show-menu-arrow form-control my-select1 my-country', 'options' => $countries, 'label' => 'Country', 'data-live-search' => 'true', 'title' => 'Select Country', 'id' => 'register_office_country']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('register_office_state', ['name' => 'registered_office[state]', 'class' => 'selectpicker form-control my-select1', 'options' => $states, 'label' => 'State', 'data-live-search' => 'true', 'title' => 'Select State', 'id' => 'register_office_state']); ?>
+                                            <?php echo $this->Form->control('registered_office[state]', ['class' => 'selectpicker form-control my-select1', 'options' => $states, 'label' => 'State', 'data-live-search' => 'true', 'title' => 'Select State', 'id' => 'register_office_state']); ?>
                                         </div>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mt-3">
                                         <div class="form-group">
-                                            <?php echo $this->Form->control('Telephone', ['name' => 'registered_office[telephone]', 'type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'register_office_telephone', 'maxlength' => '10']); ?>
+                                            <?php echo $this->Form->control('registered_office[telephone]', [ 'type' => 'number', 'class' => 'form-control maxlength_validation', 'id' => 'register_office_telephone', 'maxlength' => '10']); ?>
                                         </div>
                                     </div>
                                 </div>

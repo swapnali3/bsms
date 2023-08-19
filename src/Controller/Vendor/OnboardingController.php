@@ -93,21 +93,13 @@ class OnboardingController extends VendorAppController
             $VendorTempOtp = $this->VendorTempOtps->newEmptyEntity();
             $vendorOtp = $this->VendorTempOtps->patchEntity($VendorTempOtp, $data);
             if ($this->VendorTempOtps->save($vendorOtp)) {
-                // $mailer = new Mailer('default');
-                //     $mailer
-                //         ->setTransport('smtp')
-                //         ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                //         ->setTo($vendorTemp->email)
-                //         ->setEmailFormat('html')
-                //         ->setSubject('Verify New Account otp')
-                //         ->deliver('Hi '.$vendorTemp->name.'<br/>OTP : ' . $otp);
                 
                 $visit_url = Router::url('/', true);
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'Hi '.$vendorTemp->name, 'mailbody' => 'OTP : ' . $otp, 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                     ->setTo($vendorTemp->email)
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account OTP')
@@ -138,22 +130,12 @@ class OnboardingController extends VendorAppController
             //echo '<pre>'; print_r($data); exit;
             if ($this->VendorTemps->save($vendorTemp)) {
 
-                // $link = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'create', base64_encode($data['email']), '_full' => true, 'escape' => true]);
-                // $mailer = new Mailer('default');
-                // $mailer
-                //     ->setTransport('smtp')
-                //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                //     ->setTo($data['email'])
-                //     ->setEmailFormat('html')
-                //     ->setSubject('Verify New Account')
-                //     ->deliver('Hi '.$data['name'].'<br/>Welcome to Vekpro.' . $link);
-
                 $visit_url = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'create', base64_encode($data['email']), '_full' => true, 'escape' => true]);
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'Hi '.$data['name'], 'mailbody' => 'Welcome to Vekpro', 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                     ->setTo($data['email'])
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')
@@ -198,10 +180,12 @@ class OnboardingController extends VendorAppController
         //print_r($request); exit;
         $id = $request[1];
         $vendorTemp = $this->VendorTemps->get($id, [
-            'contain' => [],
+            'contain' => ['CompanyCodes', 'PurchasingOrganizations','PaymentTerms','SchemaGroups','AccountGroups','ReconciliationAccounts'],
         ]);
 
-        $validDate = $vendorTemp->valid_date->format('Y-m-d H:i:s');
+        //echo '<pre>';print_r($vendorTemp); exit;
+
+        /*$validDate = $vendorTemp->valid_date->format('Y-m-d H:i:s');
         $today = date('Y-m-d H:i:s');
 
         if($validDate < $today) {
@@ -210,7 +194,7 @@ class OnboardingController extends VendorAppController
 
         if($vendorTemp->status) {
             //echo 'filled';
-        }
+        } */
         
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
@@ -289,7 +273,7 @@ class OnboardingController extends VendorAppController
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'New Vendor Oboarding', 'mailbody' => 'A new vendor has onboarded', 'link' => $visit_url, 'linktext' => 'VEKPRO' ])
-                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                     ->setTo($buyer['username'])
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')
@@ -302,12 +286,7 @@ class OnboardingController extends VendorAppController
             $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be saved. Please, try again'];
             $this->set('flash', $flash);
         }
-        $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
-        $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
-        $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
-        $companyCodes = $this->VendorTemps->CompanyCodes->find('list', ['limit' => 200])->all();
-        $reconciliationAccount = $this->VendorTemps->ReconciliationAccounts->find('list', ['limit' => 200])->all();
-
+        
         $countries = $this->Countries->find('list', ['keyField' => 'id', 'valueField' => 'country_name'])->toArray();
 
         $currencies = $this->Currencies->find('list', ['keyField' => 'code', 'valueField' => 'code'])->toArray();
@@ -320,7 +299,7 @@ class OnboardingController extends VendorAppController
         
         $states = $this->States->find('list', ['keyField' => 'id', 'valueField' => 'name'])->all();
 
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states','companyCodes','reconciliationAccount','currencies'));
+        $this->set(compact('vendorTemp',  'countries', 'states', 'currencies'));
     }
 
     /**

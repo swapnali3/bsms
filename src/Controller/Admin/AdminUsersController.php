@@ -122,16 +122,7 @@ class AdminUsersController extends AdminAppController
             $data['password'] = $data['mobile'];
             $adminUser = $this->Users->patchEntity($adminUser, $data);
             if ($this->Users->save($adminUser)) {
-                // $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-                // $mailer = new Mailer('default');
-                // $mailer
-                //     ->setTransport('smtp')
-                //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                //     ->setTo($data['username'])
-                //     ->setEmailFormat('html')
-                //     ->setSubject('Vendor Portal - Account created')
-                //     ->deliver('Hi '.$data['first_name'].' <br/>Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
-                //     '<br/>Password:'.$data['password'] .'<br/> <a href="'.$link.'">Click here</a>');
+                
 
                 $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
                 $mailer = new Mailer('default');
@@ -139,7 +130,7 @@ class AdminUsersController extends AdminAppController
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'Hi '.$data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
                     '<br/>Password:'.$data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                     ->setTo($data['username'])
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Account created')

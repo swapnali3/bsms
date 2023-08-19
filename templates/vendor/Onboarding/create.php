@@ -94,22 +94,22 @@
                             <?php echo $this->Form->control('mobile', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mb-2">
-                            <?php echo $this->Form->control('company_code_id', ['disabled' => 'disabled', 'options' => $companyCodes, 'class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('company_code', ['disabled' => 'disabled', 'value' => $vendorTemp->company_code->name, 'class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mb-2">
-                            <?php echo $this->Form->control('purchasing_organization_id', ['disabled' => 'disabled', 'options' => $purchasingOrganizations, 'class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('purchasing_organization', ['disabled' => 'disabled', 'value' => $vendorTemp->purchasing_organization->name, 'class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mb-2">
-                            <?php echo $this->Form->control('account_group_id', ['disabled' => 'disabled', 'options' => $accountGroups, 'class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('account_group', ['disabled' => 'disabled', 'value' => $vendorTemp->account_group->name, 'class' => 'form-control']); ?>
                         </div>
                         <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
-                            <?php echo $this->Form->control('reconciliation_account_id', ['disabled' => 'disabled', 'options' => $reconciliationAccount, 'class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('reconciliation_account', ['disabled' => 'disabled', 'value' => $vendorTemp->reconciliation_account->name, 'class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mb-2">
-                            <?php echo $this->Form->control('schema_group_id', ['disabled' => 'disabled', 'options' => $schemaGroups, 'class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('schema_group', ['disabled' => 'disabled', 'value' => $vendorTemp->schema_group->name, 'class' => 'form-control']); ?>
                         </div>
                         <div class="col-3 mb-2">
-                            <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
+                            <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled', 'class' => 'form-control', 'value' => $vendorTemp->payment_term->description]); ?>
                         </div>
                     </div>
                 </div>
@@ -162,27 +162,20 @@
 
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('country_id', ['class' => ' form-control my-select my-country', 'data-state' => 'state_id','options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country']); ?>
+                                        <?php echo $this->Form->control('country_id', ['class' => ' form-control my-select my-country', 'data-state' => 'state-id','options' => $countries, 'data-live-search' => 'true', 'empty' => 'Select Country']); ?>
                                     </div>
                                 </div>
 
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('state_id', ['class' => ' form-control my-select', 'id' => 'state_id', 'options' => $states, 'data-live-search' => 'true', 'title' => 'Select State']); ?>
+                                        <?php echo $this->Form->control('state_id', ['class' => ' form-control my-select', 'options' => $states, 'data-live-search' => 'true', 'empty' => 'Select State']); ?>
                                     </div>
                                 </div>
 
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
                                         <label for="id_telephone">Telephone</label>
-                                        <input type="text" id="id_telephone" class="form-control" maxlength="10">
-                                    </div>
-                                </div>
-
-                                <div class="col-6 mt-3 col-md-12">
-                                    <div class="form-group">
-                                        <label for="id_comments">Comments</label>
-                                        <textarea id="id_comments" cols="30" rows="3" class="form-control"></textarea>
+                                        <input type="tel" id="id_telephone" class="form-control" minlength='10' maxlength="10">
                                     </div>
                                 </div>
                             </div>
@@ -205,7 +198,7 @@
 
                                 <div class="col-3 mt-3">
                                     <div class="form-group">
-                                        <?php echo $this->Form->control('contact_mobile', ['class' => 'form-control', 'label' => 'Mobile']); ?>
+                                        <?php echo $this->Form->control('contact_mobile', ['class' => 'form-control', 'label' => 'Mobile' ,'maxlength' => 10, 'minlength' => 10]); ?>
                                     </div>
                                 </div>
                                 <div class="col-3 mt-3">
@@ -223,54 +216,11 @@
                         </div>
                         <div class="tab-pane fade" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="tab_paymentdetails" style="background-color: white;">
                             <div class="row">
-                                <!-- <div class="col-3 mb-3">
-                                    <label for="id_bank_name">Bank name</label>
-                                    <input type="text" name="bank[name]" class="form-control" id="id_bank_name">
-                                </div>
+                                
 
-                                <div class="col-3 mb-3">
-                                    <label for="id_bank_branch">Bank Branch</label>
-                                    <input type="text" class="form-control" id="id_bank_branch" name="bank[branch]">
-                                </div>
 
-                                <div class="col-3 mb-3">
-                                    <label for="id_bank_no">Bank number</label>
-                                    <input type="number" maxlength="18" class="form-control" id="id_bank_no"
-                                        name="bank[number]">
-                                </div>
-
-                                <div class="col-3 mb-3">
-                                    <label for="id_bank_ifsc">IFSC Code</label>
-                                    <input type="text" maxlength="11" name="bank[ifsc_code]" class="form-control"
-                                        id="id_bank_ifsc">
-                                </div>
-
-                                <div class="col-3 mb-3">
-                                    <label for="id_bank_key">Bank Key</label>
-                                    <input type="text" maxlength="11" name="bank[key]" class="form-control"
-                                        id="id_bank_key">
-                                </div>
-
- -->
-                                <div class="col-3 mb-3">
-                                    <?php echo $this->Form->control('bank_country', ['id' => 'id_bank_country', 'class' => 'form-control my-select ', 'options' => $countries, 'title' => 'Select Country']); ?>
-                                </div>
-
-                                <div class="col-3 mb-3">
-                                    <label for="id_bank_city">City</label>
-                                    <input type="text" class="form-control capitalize" id="id_bank_city" name="bank_city">
-                                </div>
                                 <div class="col-3 mb-3">
                                     <?php echo $this->Form->control('order_currency', ['class' => ' form-control my-select ', 'options' => $currencies, 'title' => 'Select Country']); ?>
-                                </div>
-
-                                <!-- <div class="col-3 mb-3">
-                                    <?php echo $this->Form->control('order_currency', ['name' => 'bank[order_currency]', 'readonly' => 'readonly', 'class' => 'form-control']); ?>
-                                </div> -->
-
-                                <div class="col-3 mb-3">
-                                    <label for="id_swift_bic">SWIFT/BIC</label>
-                                    <input type="text" class="form-control" id="id_swift_bic" name="bank_swift">
                                 </div>
 
                                 <div class="col-3 mb-3">
@@ -402,14 +352,7 @@
         "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'seen-update')); ?>";
     var chatdata, user_id = "<?= h($vendorTemp->id) ?>",
         sender_id, table_pk;
-    $(function() {
-        // $('.my-select').selectpicker();
-        $('#summernote').summernote({
-            width: 1000,
-        });
-    });
-
- 
+    
     function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
         var resp = $.ajax({
             type: method,
@@ -426,14 +369,13 @@
     $(document).on("change", '.my-country', function() {
         var id = $(this).val();
         var resp = getRemote(baseurl + "api/api/country-by-state/" + id);
-        var opt = "<option selected=''>Please Select</option>";
+        var opt = "<option selected='' value=''>Please Select</option>";
         resp = resp["message"];
         $.each(resp["States"], function(i, v) {
             opt += `<option value="` + v.id + `">` + v.name + `</option>`;
         })
-        //  $("#id_permanent_address_state").html(opt);
+       
         $("#" + $(this).data('state')).html(opt);
-        // $("#" + $(this).data('state')).selectpicker('refresh');
     });
 
 
@@ -480,27 +422,17 @@
         });
 
 
-        $("#id_bank_ifsc,#tan-no,#cin-no,#gst-no,#pan-no").on("keyup", function() {
+        $("#tan-no,#cin-no,#gst-no,#pan-no").on("keyup", function() {
             var capitalizedText = $(this).val().toUpperCase();
             $(this).val(capitalizedText);
         });
 
 
-        const bankNameInput = $('#id_bank_name');
-
-        bankNameInput.on('keyup', function() {
-            var text = $(this).val().replace(/\d/g, ''); // Remove numbers
-            var words = text.toLowerCase().split(' ');
-
-            for (var i = 0; i < words.length; i++) {
-                if (words[i].length > 0) {
-                    words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
-                }
-            }
-
-            var capitalizedText = words.join(' ');
+        $("#contact-person,#contact-department,#contact-designation").on("keyup", function() {
+            var capitalizedText = capitalizeFirstLetter($(this).val());
             $(this).val(capitalizedText);
         });
+
 
         function capitalizeFirstLetter(text) {
             if (typeof text !== 'string' || text.length === 0) {
@@ -510,18 +442,6 @@
             return text.charAt(0).toUpperCase() + text.slice(1);
         }
 
-        $("#city,#id_bank_city").on("keyup", function() {
-            var text = $(this).val();
-            var capitalizedText = capitalizeFirstLetter(text);
-            $(this).val(capitalizedText);
-        });
-
-        $("#id_bank_branch").on("keyup", function() {
-            var text = $(this).val().replace(/\d/g, ''); // Remove numbers
-            var capitalizedText = capitalizeFirstLetter(text);
-            $(this).val(capitalizedText);
-        });
-
         function validateMaxLength(inputElement) {
             var inputValue = inputElement.val();
             var maxLength = parseInt(inputElement.attr('maxlength'));
@@ -530,54 +450,7 @@
                 inputElement.val(inputValue);
             }
         }
-        $(document).on('input', '#id_bank_no', function() {
-            validateMaxLength($(this));
-        });
-
-        $("#id_bank_country").change(function() {
-            var swiftBicField = $('#id_swift_bic').closest('.col-3');
-            if ($(this).val() == "104") {
-                $("#order-currency").val('INR').attr('readonly', true);
-                swiftBicField.hide();
-            } else {
-                $('#order-currency').attr('readonly', false);
-                swiftBicField.show();
-            }
-
-            // var countryCode = 'INR';
-            // if (countryCode != "") {
-            //     $.ajax({
-            //         type: "get",
-            //         url: baseurl + "api/api/state-by-country-id/" + countryCode,
-            //         dataType: "json",
-            //         beforeSend: function(xhr) {
-            //             xhr.setRequestHeader(
-            //                 "Content-type",
-            //                 "application/x-www-form-urlencoded"
-            //             );
-            //         },
-            //         success: function(response) {
-            //             if (response.status == 1) {
-            //                 $("#order-currency selected").val(`<option value=` + response.message + `>'+response.message+'</option>`);
-
-            //                 $.each(resp["States"], function(i, v) {
-            //                     opt += `<option value="` + v.id + `">` + v.name + `</option>`;
-            //                 })
-            //                 //  $("#id_permanent_address_state").html(opt);
-            //                 $("#" + $(this).data('state')).html(opt);
-            //             } else {
-            //                 $("#order-currency selected").val("");
-            //             }
-
-            //         },
-            //         error: function(e) {
-            //             console.log(e);
-            //         },
-            //     });
-            // }
-
-        });
-
+        
 
 
         $("#onbordingSubmit").validate({
@@ -591,31 +464,35 @@
                 state_id: {
                     required: true
                 },
+                country_id: {
+                    required: true
+                },
                 pincode: {
                     required: true,
                     digits: true
                 },
-                country_id: {
-                    required: true
-                },
-                payment_term: {
-                    required: true
-                },
+                
                 order_currency: {
                     required: true
                 },
                 tan_no: {
-                    required: true
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10
                 },
                 cin_no: {
-                    required: true
+                    required: true,
+                    minlength: 21,
+                    maxlength: 21
                 },
                 gst_no: {
                     required: true,
                     maxlength: 15
                 },
                 pan_no: {
-                    required: true
+                    required: true,
+                    minlength: 10,
+                    maxlength: 10
                 },
                 contact_person: {
                     required: true
@@ -657,13 +534,14 @@
                 state_id: {
                     required: "Please enter a state"
                 },
+                country_id: {
+                    required: "Please select a country"
+                },
                 pincode: {
                     required: "Please enter a pincode",
                     digits: true
                 },
-                country_id: {
-                    required: "Please enter a country"
-                },
+
                 tan_no: {
                     required: "Please enter a tan no"
                 },
@@ -674,7 +552,7 @@
                     required: "Please enter a gst no",
                 },
                 pan_no: {
-                    required: "Please enter a pam no"
+                    required: "Please enter a pan no"
                 },
                 contact_person: {
                     required: "Please enter a contact person"
@@ -719,7 +597,7 @@
         $(document).on("click", "#id_fksubmit", function() {
         var submitcall = true;
         var tab = {
-            "tab_address": ["address", "address-2", "pincode", "city", "country_id", "state_id"],
+            "tab_address": ["address", "address-2", "pincode", "city", "country-id", "state-id"],
             "tab_contactperson": ["contact-person", "contact-person", "contact-mobile", "contact-department",
                 "contact-designation"
             ],
@@ -730,35 +608,33 @@
         for (const [index, row] of Object.entries(tab)) {
             for (const [indexs, rows] of Object.entries(row)) {
                 var data = $("#" + rows).val();
+                console.log("#" + index);
+                console.log("#" + rows);
                 if (data == "" || data == null || data == undefined) {
                     $("#" + index).trigger('click');
                     submitcall = false;
                     break;
                 }
             }
-            if (submitcall == false) {
 
+            if (submitcall == false) {
                 setTimeout(function() {
                     if ($("#onbordingSubmit").valid()) {
-                        $("#id_ogsubmit").trigger('click');
+                        //$("#id_ogsubmit").trigger('click');
                     }
                 }, 500);
                 break;
-            }
+            } 
         }
 
         if (submitcall) {
             if ($("#onbordingSubmit").valid()) {
                 $('#modal-sm').modal('show');
-                $('#id_ogsubmit')[0].submit();
+                //$('#id_ogsubmit')[0].submit();
             }
         }
     });
 
-
-        $("#id_bank_key").on("keyup", function() {
-            $("#id_bank_key").valid();
-        });
 
         $(document).on("keypress", ".alphaonly", function(event) {
             var regex = new RegExp("^[A-Za-z ]+$");
@@ -770,37 +646,5 @@
                 return false;
             }
         });
-
-
-        paymentCodes();
-
-        function paymentCodes() {
-            var paymentCode = $("#payment-term").val();
-            if (paymentCode != "") {
-                $.ajax({
-                    type: "get",
-                    url: baseurl + "vendor/vendor-temps/payment-code/" + paymentCode,
-                    dataType: "json",
-                    beforeSend: function(xhr) {
-                        xhr.setRequestHeader(
-                            "Content-type",
-                            "application/x-www-form-urlencoded"
-                        );
-                    },
-                    success: function(response) {
-                        if (response.status == 1) {
-                            $("#payment-term").val(response.message.description);
-                        } else {
-                            $("#payment-term").val("");
-                        }
-                    },
-                    error: function(e) {
-                        alert("An error occurred: " + e.responseText.message);
-                        console.log(e);
-                    },
-                });
-            }
-        }
-
     });
 </script>

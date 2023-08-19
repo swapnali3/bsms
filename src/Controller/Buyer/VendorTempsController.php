@@ -101,20 +101,16 @@ class VendorTempsController extends BuyerAppController
     public function view($id = null)
     {
         $this->loadModel("VendorTemps");
-        $vendorTemp = $this->VendorTemps->get($id, [
-            'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
-        ]);
+
+        $vendorTemp = $this->VendorTemps->get($id);
+        /*$vendorTemp = $this->VendorTemps->get($id, [
+            'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups', 'PaymentTerms', 'CompanyCodes', 'States', 'Countries', 'VendorBranchOffices'],
+        ]);*/
+
+        //echo '<pre>'; print_r($vendorTemp); exit;
         $this->set('headTitle', 'Vendor Details');
 
-        if ($this->VendorTemps->exists(['update_flag' => $id])) {
-
-            $vendorTempView = $this->VendorTemps->find('all')->where(['update_flag' => $id])->toArray();
-            // $vendorTempView = $this->VendorTemps->get($st[0]->id);
-            //   $this->set(compact('vendorTempView'));
-            $this->set('vendorTempView', $vendorTempView);
-            // echo '<pre>'; print_r($vendorTempView);exit;
-        }
-        
+       
         $this->set('vendorTemp', $vendorTemp);
     }
 
@@ -467,7 +463,7 @@ class VendorTempsController extends BuyerAppController
     {
         $flash = [];
         $this->loadModel("VendorTemps");
-        $vendor = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','PurchasingOrganizations','AccountGroups', 'ReconciliationAccounts', 'States', 'Countries', 'PaymentTerms']]);
+        $vendor = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','SchemaGroups','PurchasingOrganizations','AccountGroups', 'ReconciliationAccounts', 'States', 'Countries', 'PaymentTerms']]);
 
         if ($action == 'rej') {
             if ($this->request->is(['patch', 'post', 'put'])) {
@@ -482,7 +478,7 @@ class VendorTempsController extends BuyerAppController
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'Hi ' . $vendor->name, 'mailbody' => 'Your form has been rejected. Kindly Resubmit. <br/> <br/>Please find below the buyers remarks <br/>'.$remarks, 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                     ->setTo($vendor->email)
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Vendor KYC Process')
@@ -512,7 +508,7 @@ class VendorTempsController extends BuyerAppController
             $data['DATA']['KTOKK'] = $vendor->account_group->code;
             $data['DATA']['TITLE_MEDI'] = $vendor->title;
             $data['DATA']['NAME1'] = $vendor->name;
-            $data['DATA']['NAME3'] = $vendor->address;
+            $data['DATA']['NAME2'] = $vendor->address;
             $data['DATA']['NAME3'] = $vendor->address_2;
             $data['DATA']['NAME4'] = $vendor->city;
 
@@ -530,6 +526,7 @@ class VendorTempsController extends BuyerAppController
             $data['DATA']['ZUAWA'] = '';
             $data['DATA']['SPRAS'] = '';
             $data['DATA']['TAXTYPE'] = '';
+            $data['DATA']['KALSK'] = $vendor->schema_group->code;
             $data['DATA']['GSIN'] = $vendor->gst_no;
             $data['DATA']['PAN'] = $vendor->pan_no;
             $data['DATA']['ZTERM'] = $vendor->payment_term->code;
@@ -586,7 +583,7 @@ class VendorTempsController extends BuyerAppController
                                 ->setTransport('smtp')
                                 ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
                                 '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                                ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                                 ->setTo($data['username'])
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Account created')
@@ -663,7 +660,7 @@ class VendorTempsController extends BuyerAppController
                     // $mailer = new Mailer('default');
                     // $mailer
                     //     ->setTransport('smtp')
-                    //     ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                    //     ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                     //     ->setTo($data['email'])
                     //     ->setEmailFormat('html')
                     //     ->setSubject('Verify New Account')
@@ -674,7 +671,7 @@ class VendorTempsController extends BuyerAppController
                     $mailer
                         ->setTransport('smtp')
                         ->setViewVars([ 'subject' => 'Hi ' . $data['name'], 'mailbody' => 'Welcome to Vendor portal', 'link' => $visit_url, 'linktext' => 'Click Here for Onboarding' ])
-                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                         ->setTo($data['email'])
                         ->setEmailFormat('html')
                         ->setSubject('Vendor Portal - Verify New Account')
@@ -771,42 +768,38 @@ class VendorTempsController extends BuyerAppController
         $this->loadModel("VendorTemps");
 
 
-        $vendorTemp = $this->VendorTemps->get($id, [
-            'contain' => [],
-        ]);
+        $vendorTemp = $this->VendorTemps->get($id);
 
         if ($this->request->is(['patch', 'get', 'put'])) {
 
+            $query = $this->Users->find()
+                ->select(['first_name', 'mobile', 'username'])
+                ->where(['username' => $vendorTemp->email])
+                ->toList();
 
-            $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $this->request->getData());
-
-            // print_r($vendorTemp);exit;
-
-            $vendorTemp->status = 3;
-
-            if ($this->VendorTemps->save($vendorTemp)) {
-
-                $query = $this->Users->find()
-                    ->select(['first_name', 'mobile', 'username'])
-                    ->where(['username' => $vendorTemp->email])
-                    ->toList();
-
-
+            if (count($query)) {
                 foreach ($query as $val) {
-                    
-                    $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-                    $mailer = new Mailer('default');
-                    $mailer
-                        ->setTransport('smtp')
-                        ->setViewVars([ 'subject' => 'Hi ' . $val->first_name, 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $val->username .
-                        '<br/>Password:' . $val->mobile, 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                        ->setTo($val->username)
-                        ->setEmailFormat('html')
-                        ->setSubject('Vendor Portal - Account created')
-                        ->viewBuilder()
-                            ->setTemplate('mail_template');
-                    $mailer->deliver();
+                    $vendorTemp->status = 3;
+                    if($this->VendorTemps->save($vendorTemp)) {
+                        $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                        $mailer = new Mailer('default');
+                        $mailer
+                            ->setTransport('smtp')
+                            ->setViewVars([ 'subject' => 'Hi ' . $val->first_name, 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $val->username .
+                            '<br/>Password:' . $val->mobile, 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                            ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                            ->setTo($val->username)
+                            ->setEmailFormat('html')
+                            ->setSubject('Vendor Portal - Account created')
+                            ->viewBuilder()
+                                ->setTemplate('mail_template');
+                        $mailer->deliver();
+                        $response['status'] = 1;
+                        $response['message'] = 'Credentials Mail Send successfully';
+                    } else {
+                        $response['status'] = 0;
+                        $response['message'] = 'Issue in sending credentials details';
+                    }
                 }
             } else {
                 $response['status'] = 0;
@@ -815,8 +808,7 @@ class VendorTempsController extends BuyerAppController
         }
 
 
-        $response['status'] = 1;
-        $response['message'] = 'Credentials Mail Send successfully';
+        
         echo json_encode($response);
     }
 
