@@ -68,7 +68,7 @@ $('#addvendorform').validate({
     name: { required: true },
     mobile: { required: true, number: true },
     email: { required: true },
-    payment_term: { required: true },
+    payment_term_id: { required: true },
     purchasing_organization_id: { required: true },
     account_group_id: { required: true },
     schema_group_id: { required: true },
@@ -79,7 +79,7 @@ $('#addvendorform').validate({
     name: { required: "Please provide name" },
     mobile: { required: "Please provide mobile", number: "Please enter a valid number" },
     email: { required: "Please provide email" },
-    payment_term: { required: "Please select payment_term" },
+    payment_term_id: { required: "Please select payment_term" },
     purchasing_organization_id: { required: "Please select Purchasing Organization" },
     account_group_id: { required: "Please select Account Group" },
     schema_group_id: { required: "Please select Schema Group" },
@@ -105,24 +105,11 @@ function getRemote(remote_url, method = "GET", type = "json", convertapi = true)
 $(document).on("change", "#company-code-id", function () {
   var companycode = $(this).val();
   var resp = getRemote(baseurl + "buyer/vendor-temps/master-by-company-code/" + companycode);
-  var opt = "<option selected=''>Please Select</option>";
+  var opt = "<option selected='' value=''>Please Select</option>";
   resp = resp["message"];
   $.each(resp["PurchasingOrganizations"], function(i, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
   $("#purchasing-organization-id").html(opt);
-  opt = "<option selected=''>Please Select</option>";
+  opt = "<option selected='' value='' >Please Select</option>";
   $.each(resp["ReconciliationAccounts"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
   $("#reconciliation-account-id").html(opt);
-  /*
-  opt = "<option selected=''>Please Select</option>";
-  $.each(resp["AccountGroups"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
-  $("#account-group-id").html(opt);
-  opt = "<option selected=''>Please Select</option>";
-  $.each(resp["ReconciliationAccounts"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
-  $("#reconciliation-account-id").html(opt);
-  opt = "<option selected=''>Please Select</option>";
-  $.each(resp["PaymentTerms"], function(id, v){opt += `<option value="`+v.id+`">`+v.description+`</option>`;})
-  $("#payment-term").html(opt);
-  opt = "<option selected=''>Please Select</option>";
-  $.each(resp["SchemaGroups"], function(id, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
-  $("#schema-group-id").html(opt);*/
 });

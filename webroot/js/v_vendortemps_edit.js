@@ -231,64 +231,6 @@ $(document).on("click", ".delete", function () {
     }
 });
 
-// $("#id_bank_country").change(function () {
-//     var coutryName = $(this).val();
-//     if (coutryName != "") {
-//         $.ajax({
-//             type: "get",
-//             url: vendorLink + "/" + coutryName,
-//             dataType: "json",
-//             beforeSend: function (xhr) {
-//                 xhr.setRequestHeader(
-//                     "Content-type",
-//                     "application/x-www-form-urlencoded"
-//                 );
-//             },
-//             success: function (response) {
-//                 if (response.status == 1) {
-//                     $("#order-currency").val(response.message);
-//                 }
-//             },
-//             error: function (e) {
-//                 alert("An error occurred: " + e.responseText.message);
-//                 console.log(e);
-//             },
-//         });
-//     }
-// });
-
-function paymentCodes() {
-    var paymentCode = $("#payment-term").val();
-    if (paymentCode != "") {
-        $.ajax({
-            type: "get",
-            url: baseurl + "vendor/vendor-temps/payment-code/" + paymentCode,
-            dataType: "json",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(
-                    "Content-type",
-                    "application/x-www-form-urlencoded"
-                );
-            },
-            success: function (response) {
-                if (response.status == 1) {
-                    $("#payment-term").val(response.message.description);
-                } else {
-                    $("#payment-term").val("");
-                }
-            },
-            error: function (e) {
-                alert("An error occurred: " + e.responseText.message);
-                console.log(e);
-            },
-        });
-    }
-}
-//   =================================Payment Terms ===============================
-
-$(document).ready(function () {
-    paymentCodes();
-});
 
 function getRemote(
     remote_url,

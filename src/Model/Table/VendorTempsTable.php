@@ -98,11 +98,11 @@ class VendorTempsTable extends Table
         ]);
         $this->belongsTo('States', [
             'foreignKey' => 'state_id',
-            'joinType' => 'INNER',
+            'joinType' => 'LEFT',
         ]);
         $this->belongsTo('Countries', [
             'foreignKey' => 'country_id',
-            'joinType' => 'INNER',
+            'joinType' => 'LEFT',
         ]);
         $this->hasMany('RfqCommunications', [
             'foreignKey' => 'vendor_temp_id',
