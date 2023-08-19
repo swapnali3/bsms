@@ -885,7 +885,7 @@ switch ($vendorTemp->status) {
 
 <script>
     var userView = '<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>';
-   var vendorView = '<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'vendor')); ?>';
+    var vendorView = '<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'vendor')); ?>';
 </script>
 
 <?= $this->Html->script('b_vendortemps_view') ?>
