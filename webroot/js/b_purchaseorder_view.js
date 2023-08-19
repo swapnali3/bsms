@@ -85,9 +85,11 @@ $("#purViewId").on("click", ".po-box", function () {
                                                             </thead>
                                                             <tbody id="id_pofooter"></tbody>
                                                         </table>`);
-            if (response.status == "success") {
+            if (response.status) {
                 $.each(response.data.po_footers, function (key, val) {
                     var poHeaderId = response.data.po_header;
+                    $("#action_schedule").show();
+                    $("#res_message").html('');
                     $("#id_pofooter").append(
                         `<tr class="odd" data-trid="id_tr` +
                         val.id +
@@ -170,6 +172,9 @@ $("#purViewId").on("click", ".po-box", function () {
                         searching: false,
                     });
                 }, 500);
+            } else {
+                $("#action_schedule").hide();
+                $("#res_message").html(response.message);
             }
         },
         complete: function () {

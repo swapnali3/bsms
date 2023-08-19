@@ -43,7 +43,6 @@ class ApiController extends ApiAppController
         $this->loadModel("Countries");
         $states = $this->States->find()->select(['id', 'name'])->innerJoin(['Countries'=>'countries'],['Countries.country_code = States.country_code', 'Countries.id' =>$id])->toArray();
 
-        //print_r($states); exit;
         $response = ["status"=> 1, 'message' =>['States'=>$states]];
         echo json_encode($response);
     }
@@ -98,11 +97,9 @@ class ApiController extends ApiAppController
                             $tmp['gross_value'] = $item['BRTWR'];
 
                             $footerData[] = $tmp;
-                            //print_r($footerData);        
                         }
 
                         $poItemsInstance = $this->PoFooters->newEntities($footerData);
-                        #print_r($poItemsInstance);
                         if ($this->PoFooters->saveMany($poItemsInstance)) {
                             $response['status'] = 1;
                             $response['message'] = 'PO saved successfully';
@@ -114,7 +111,6 @@ class ApiController extends ApiAppController
                         $response['status'] = 0;
                         $response['message'] = 'PO header save fail';
                     }
-                    //print_r($hederData);
                 }
             } catch (\PDOException $e) {
                 $response['status'] = 0;
@@ -127,84 +123,6 @@ class ApiController extends ApiAppController
 
         echo json_encode($response);
     }
-
-    public function postPr()
-    {
-        $response = array();
-        $response['status'] = 0;
-        $response['message'] = 'Empty request';
-        $request = $this->request->getData();
-
-        $this->loadModel("PrHeaders");
-        $this->loadModel("PrFooters");
-
-        if (!empty($request) && count($request['DATA'])) {
-
-            try {
-                foreach ($request['DATA'] as $key => $row) {
-                    $hederData = array();
-                    $footerData = array();
-
-                    $hederData['pr_no'] = $row['BANFN'];
-                    $hederData['description'] = $row['TXZ01'];
-                    $hederData['pr_type'] = $row['BSART'];
-                    $hederData['purchase_group'] = $row['EKGRP'];
-
-                    $poInstance = $this->PrHeaders->newEmptyEntity();
-                    $poInstance = $this->PrHeaders->patchEntity($poInstance, $hederData);
-
-
-                    if ($this->PrHeaders->save($poInstance)) {
-                        $pr_header_id = $poInstance->id;
-
-                        foreach ($row['ITEMS'] as $no => $item) {
-                            $tmp = array();
-                            $tmp['pr_header_id'] = $pr_header_id;
-                            $tmp['item'] = $item['BNFPO'];
-                            $tmp['material'] = $item['MATNR'];
-                            $tmp['short_text'] = $item['TXZ01'];
-                            $tmp['qty'] = $item['MENGE'];
-                            $tmp['unit'] = $item['MEINS'];
-                            $tmp['delivery_date'] = $item['LFDAT'];
-                            $tmp['plant'] = $item['WERKS'];
-                            $tmp['material_group'] = $item['MATKL'];
-                            $tmp['storage_location'] = $item['LGORT'];
-                            $tmp['purchase_group'] = $item['EKGRP'];
-                            $tmp['requisitioner'] = $item['AFNAM'];
-                            $tmp['total_value'] = $item['RLWRT'];
-                            $tmp['price'] = $item['PEINH'];
-                            $tmp['purchase_organization'] = $item['EKORG'];
-
-                            $footerData[] = $tmp;
-                            //print_r($footerData);        
-                        }
-
-                        $poItemsInstance = $this->PrFooters->newEntities($footerData);
-                        #print_r($poItemsInstance);
-                        if ($this->PrFooters->saveMany($poItemsInstance)) {
-                            $response['status'] = 1;
-                            $response['message'] = 'PR saved successfully';
-                        } else {
-                            $response['status'] = 0;
-                            $response['message'] = 'PR Items save fail';
-                        }
-                    } else {
-                        $response['status'] = 0;
-                        $response['message'] = 'PR header save fail';
-                    }
-                }
-            } catch (\PDOException $e) {
-                $response['status'] = 0;
-                $response['message'] = $e->getMessage();
-            } catch (\Exception $e) {
-                $response['status'] = 0;
-                $response['message'] = $e->getMessage();
-            }
-        }
-
-        echo json_encode($response);
-    }
-
 
     public function notification()
     {

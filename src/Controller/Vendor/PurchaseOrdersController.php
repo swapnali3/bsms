@@ -46,13 +46,11 @@ class PurchaseOrdersController extends VendorAppController
     {
 
         $response = array();
-        $response['status'] = 'fail';
+        $response['status'] = '0';
         $response['message'] = '';
         $this->autoRender = false;
 
         $session = $this->getRequest()->getSession();
-
-        $session->read('vendor_code');
 
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
@@ -62,74 +60,36 @@ class PurchaseOrdersController extends VendorAppController
             'contain' => [],
         ]);
 
-        // print_r($poHeader->acknowledge);
-        // exit;
-
-
-        $quary = $this->VendorTemps->find()
-            ->where(['VendorTemps.sap_vendor_code' => $poHeader->sap_vendor_code])
-            ->first()
-            ->toArray();
-
-        $buyerId = $quary['buyer_id'];
-
         $user = $this->Users->find()
             ->select(['username'])
-            ->where(['id' => $buyerId])
+            ->where(['id' => $session->read('buyer_id')])
             ->first();
 
 
         if ($poHeader->acknowledge == 0) {
             $visit_url = Router::url('/', true);
-            if ($user["username"] !== "") {
-
-                $mailer = new Mailer('default');
-                $mailer
-                    ->setTransport('smtp')
-                    ->setViewVars([ 'subject' => 'Dear Buyer', 'mailbody' => 'This email is to inform you that your PO has been successfully acknowledged', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
-                    ->setTo($user["username"])
-                    ->setEmailFormat('html')
-                    ->setSubject('Vendor Portal - Order Acknowledgement')
-                    ->viewBuilder()
-                        ->setTemplate('mail_template');
-                $mailer->deliver();
-            }
-            if ($quary["email"] !== "") {
-              
-                $mailer = new Mailer('default');
-                $mailer
-                    ->setTransport('smtp')
-                    ->setViewVars([ 'subject' => 'Dear Vendor', 'mailbody' => 'This email is to inform you that your PO has been successfully acknowledged', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
-                    ->setTo($quary['email'])
-                    ->setEmailFormat('html')
-                    ->setSubject('Vendor Portal - Order Acknowledgement')
-                    ->viewBuilder()
-                        ->setTemplate('mail_template');
-                $mailer->deliver();
-
-
-                $response['status'] = '1';
-                $response['message'] = 'Send mail successfully';
-
-                if ($response['status'] === '1') {
-                    $poHeader->acknowledge = 1; // Set acknowledge value to 1
-                    $this->PoHeaders->save($poHeader); // Save the updated value
+            $poHeader->acknowledge = 1; // Set acknowledge value to 1
+            if($this->PoHeaders->save($poHeader)) {
+                if ($user["username"] !== "") {
+                    $mailer = new Mailer('default');
+                    $mailer
+                        ->setTransport('smtp')
+                        ->setViewVars([ 'subject' => 'Dear Buyer', 'mailbody' => 'This email is to inform you that your PO has been successfully acknowledged', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                        ->setTo($user["username"])
+                        ->setEmailFormat('html')
+                        ->setSubject('Vendor Portal - Order Acknowledgement')
+                        ->viewBuilder()
+                            ->setTemplate('mail_template');
+                    $mailer->deliver();
                 }
-            } else {
-
-                $response['status'] = '0';
-                $response['message'] = 'Failed';
+                $response['status'] = '1';
+                $response['message'] = 'PO Acknowledged successfully';
             }
-        } else {
-
+        }  else {
             $response['status'] = '0';
-            $response['message'] = 'Failed';
+            $response['message'] = 'Already Acknowledged successfully';
         }
-
-
-
 
         echo json_encode($response);
     }
@@ -137,34 +97,14 @@ class PurchaseOrdersController extends VendorAppController
     public function poApi($search = null, $createAsn = null)
     {
         $response = array();
-        $response['status'] = 'fail';
+        $response['status'] = '0';
         $response['message'] = '';
         $this->autoRender = false;
 
-        $this->set('headTitle', 'Purchase Order List');
         $this->loadModel('PoHeaders');
         $this->loadModel('PoItemSchedules');
 
         $session = $this->getRequest()->getSession();
-
-        if (!empty($createAsn)) {
-
-            $data = $this->PoHeaders->find('all')
-                ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
-                ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
-                ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
-                ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
-                ->where([
-                    'sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
-                    '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',
-                    'OR' => [
-                        ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
-                        ['PoFooters.material LIKE' => '%' . $search . '%'],
-                        ['PoFooters.short_text LIKE' => '%' . $search . '%'],
-                    ]
-                ])
-                ->order(['PoHeaders.id' => 'DESC']);
-        } else {
 
             $data = $this->PoHeaders->find('all')
                 ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
@@ -179,15 +119,54 @@ class PurchaseOrdersController extends VendorAppController
                     ]
                 ])
                 ->order(['PoHeaders.id' => 'DESC']);
-        }
 
         //  print_r($data);exit;
 
         if ($data->count() > 0) {
-            $response['status'] = 'success';
-            $response['message'] = $data;
+            $response['status'] = '1';
+            $response['data'] = $data;
         } else {
-            $response['status'] = 'fail';
+            $response['status'] = '0';
+            $response['message'] = 'Order not found';
+        }
+        echo json_encode($response);
+    }
+
+    public function poForAsn($search = null)
+    {
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoItemSchedules');
+
+        $session = $this->getRequest()->getSession();
+        
+        $data = $this->PoHeaders->find('all')
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
+            ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
+            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+            ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
+            ->where([
+                'sap_vendor_code' => $session->read('vendor_code'), 
+                'acknowledge' => 1,
+                '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
+                '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',
+                'OR' => [
+                    ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
+                    ['PoFooters.material LIKE' => '%' . $search . '%'],
+                    ['PoFooters.short_text LIKE' => '%' . $search . '%'],
+                ]
+            ])
+            ->order(['PoHeaders.id' => 'DESC']);
+
+        if ($data->count() > 0) {
+            $response['status'] = 1;
+            $response['data'] = $data;
+        } else {
+            $response['status'] = 0;
             $response['message'] = 'Order not found';
         }
         echo json_encode($response);
@@ -197,7 +176,7 @@ class PurchaseOrdersController extends VendorAppController
     public function poDetails($id =null)
     {
         $response = array();
-        $response['status'] = 'fail';
+        $response['status'] = 0;
         $response['message'] = '';
         $this->autoRender = false;
 
@@ -243,11 +222,11 @@ class PurchaseOrdersController extends VendorAppController
             $html .= "</tbody>
             </table>";
 
-            $response['status'] = 'success';
+            $response['status'] = 1;
             $response['message'] = 'success';
             $response['html'] = $html;
         } else {
-            $response['status'] = 'fail';
+            $response['status'] = 0;
             $response['message'] = 'Material not found';
         }
 
