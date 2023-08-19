@@ -444,13 +444,25 @@ body {
     background-color: #F79E33 !important;
 }
 
-.table td, .table th { border: none !important;}
+.table td,
+.table th {
+    border: none !important;
+}
 
-/* Wrapper styling start here */
+.p-2 {
+    background-color: #28a745 !important;
+    color: #fff !important;
+    padding: .5rem !important;
+}
 
-/* .wrapper {
-    max-width: 1440px !important;
-    margin: 0 auto !important;
-} */
+.reject{
+    background-color: #ED1C24 !important;
+    color: #fff !important;
+    padding: .5rem !important;
+}
 
-/* Wrapper styling end here */
+.approve-reject {
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: flex-end !important;
+}

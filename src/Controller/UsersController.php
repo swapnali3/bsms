@@ -122,8 +122,6 @@ class UsersController extends AppController
 
     public function apiLogin()
     {
-        //$this->viewBuilder()->setLayout('admin/login'); 
-
         $response = array();
         $response['status'] = 0;
         $response['message'] = 'Empty request';
@@ -135,24 +133,16 @@ class UsersController extends AppController
         $this->loadModel("VendorTemps");
 
         $session = $this->getRequest()->getSession();
-        
-
-
-
+     
         if ($this->request->is(['patch', 'post', 'put'])) {
             if ($this->request->getData('logged_by') == 'email') {
 
                 $result = $this->Users->find()
                     ->select($this->Users)
                     ->select(['group_name' => 'UserGroups.name'])
-                    ->leftjoin(
-                        ['UserGroups' => 'user_groups'],
-                        ['UserGroups.id = Users.group_id']
-                    )
-
+                    ->leftjoin(['UserGroups' => 'user_groups'], ['UserGroups.id = Users.group_id'])
                     ->where(['username' => $this->request->getData('username')])->limit(1)->toArray();
 
-                //echo '<pre>'; print_r($this->request->getData());print_r($result); exit;
                 if ($result) {
                     if (password_verify($this->request->getData('password'), $result[0]->password)) {
                         $session = $this->getRequest()->getSession();
@@ -163,23 +153,18 @@ class UsersController extends AppController
                         $session->write('last_name', $result[0]->last_name);
                         $session->write('id', $result[0]->id);
                         $session->write('role', $result[0]->group_id);
+                        
+                        $response['status'] = 1;
+                        $response['message'] = '';
                         if ($result[0]->group_id == 1) {
-
-                            $response['status'] = 1;
-                            $response['message'] = '';
                             $response['redirect'] = ['controller' => 'admin/dashboard', 'action' => 'index'];
                           
                         } else if ($result[0]->group_id == 2) {
-                            $response['status'] = 1;
-                            $response['message'] = '';
                             $response['redirect'] = ['controller' => 'buyer/dashboard', 'action' => 'index'];
                         } else if ($result[0]->group_id == 3) {
                             $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();
                             $session->write('vendor_code', $result[0]->sap_vendor_code);
                             $session->write('vendor_id', $result[0]->id);
-                           
-                            $response['status'] = 1;
-                            $response['message'] = '';
                             $response['redirect'] = ['controller' => 'vendor/dashboard', 'action' => 'index'];
                         }
                     } else {
@@ -207,27 +192,17 @@ class UsersController extends AppController
                         $session->write('first_name', $result[0]->first_name);
                         $session->write('id', $result[0]->id);
                         $session->write('role', $result[0]->group_id);
+                        $response['status'] = 1;
+                        $response['message'] = '';
                         if ($result[0]->group_id == 1) {
-
-                            $response['status'] = 1;
-                            $response['message'] = '';
                             $response['redirect'] = ['controller' => 'admin/dashboard', 'action' => 'index'];
-                          
                         } else if ($result[0]->group_id == 2) {
-                            $response['status'] = 1;
-                            $response['message'] = '';
                             $response['redirect'] = ['controller' => 'buyer/dashboard', 'action' => 'index'];
-                          
                         } else if ($result[0]->group_id == 3) {
-
                             $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();
                             $session->write('vendor_code', $result[0]->sap_vendor_code);
                             $session->write('vendor_id', $result[0]->id);
-
-                            $response['status'] = 1;
-                            $response['message'] = '';
                             $response['redirect'] = ['controller' => 'vendor/dashboard', 'action' => 'index'];
-
                         }
                     } else {
                         $response['message'] = 'Invalid OTP';
@@ -257,23 +232,13 @@ class UsersController extends AppController
                 $user = $this->Users->get($result[0]->id);
                 $user = $this->Users->patchEntity($user, array('otp' => $otp));
                 if ($this->Users->save($user)) {
-                    //$t = $this->Sms->sendOTP($this->request->getData('mobile'), 'Portal Login OTP :: '. $otp);
-
-                    // $mailer = new Mailer('default');
-                    // $mailer
-                    //     ->setTransport('smtp')
-                    //     ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
-                    //     ->setTo($result[0]->username)
-                    //     ->setEmailFormat('html')
-                    //     ->setSubject('Login OTP')
-                    //     ->deliver('Hi ' . $result[0]->username . '<br/> OTP :: ' . $otp);
                     
                     $visit_url = Router::url('/', true);
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
                         ->setViewVars([ 'subject' => 'Hi ' . $result[0]->username, 'mailbody' => 'OTP :: ' . $otp, 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
+                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                         ->setTo($result[0]->username)
                         ->setEmailFormat('html')
                         ->setSubject('Vendor Portal - Login OTP')
@@ -281,8 +246,6 @@ class UsersController extends AppController
                             ->setTemplate('mail_template');
                     $mailer->deliver();
                 }
-
-
                 $response['status'] = 1;
                 $response['message'] = 'OTP sent to register Mobile';
             } else {

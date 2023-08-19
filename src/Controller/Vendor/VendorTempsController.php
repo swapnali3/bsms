@@ -94,17 +94,6 @@ class VendorTempsController extends VendorAppController
         echo json_encode($response);
     }
 
-
-    public function paymentCode($code = null)
-    {
-        $this->autoRender = false;
-        $response = ["status"=>0, 'message' =>'Empty request'];
-        $this->loadModel("PaymentTerms");
-        $paymentCode = $this->PaymentTerms->find()->select(['code', 'description'])->where(['code =' => $code])->first();
-        $response = ["status"=> 1, 'message' =>$paymentCode];
-        echo json_encode($response);
-    }
-
     public function edit($id = null)
     {
         $this->loadModel("VendorTemps");
@@ -127,12 +116,12 @@ class VendorTempsController extends VendorAppController
         $this->loadModel("States");
         $this->loadModel("Users");
         $session = $this->getRequest()->getSession();
-        $vendorTemp = $this->VendorTemps->get($id);
+        $vendorTemp = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','ReconciliationAccounts','AccountGroups', 'PaymentTerms','SchemaGroups', 'PurchasingOrganizations']]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
             try {
-                echo '<pre>';  print_r($request);
+                //echo '<pre>';  print_r($request); exit;
 
                 // Registered Office [working]
                 $regoffc = $this->VendorRegisteredOffices->newEmptyEntity();
@@ -145,14 +134,16 @@ class VendorTempsController extends VendorAppController
                 foreach ($request["branch"]["branch_office"] as $key => $value) {
                     $branch = $this->VendorBranchOffices->newEmptyEntity();
                     $value["vendor_temp_id"] = $id;
-                    try{
+
+                    if($value["registration_certificate"]->getSize() > 0) {
                         $fileName = $value["registration_certificate"]->getClientFilename();
-                        if($fileName){
-                            $imagePath = WWW_ROOT . "uploads/vendor/" . $fileName;
-                            $value["registration_certificate"]->moveTo($imagePath);
-                            $value["registration_certificate"]= "uploads/vendor/" . $fileName;
-                        }
-                    } catch(\PDOException $e) { $value["registration_certificate"]=""; }
+                        $imagePath = WWW_ROOT . "uploads/vendor/" . $fileName;
+                        $value["registration_certificate"]->moveTo($imagePath);
+                        $value["registration_certificate"]= "uploads/vendor/" . $fileName;
+                    } else {
+                        $value["registration_certificate"]="";
+                    }
+
                     $branch = $this->VendorBranchOffices->patchEntity($branch, $value);
                     if ($this->VendorBranchOffices->save($branch)) { }
                 }
@@ -162,67 +153,59 @@ class VendorTempsController extends VendorAppController
                 $data = $request["small_scale"];
                 $data["vendor_temp_id"] = $id;
 
-                try{
+                if($data["certificate_file"]->getSize() > 0) {
                     $fileName = $data["certificate_file"]->getClientFilename();
                     if($fileName){
                         $imagePath = WWW_ROOT . "uploads/smallscale/" . $fileName;
                         $data["certificate_file"]->moveTo($imagePath);
                         $data["certificate_file"]= "uploads/smallscale/" . $fileName;
                     }
-                } catch(\PDOException $e) { $data["certificate_file"]= ""; }
+                } else { $data["certificate_file"]= ""; }
 
                 $smallscale = $this->VendorSmallScales->patchEntity($smallscale, $data);
                 if ($this->VendorSmallScales->save($smallscale)) { }
                 
                 // Other Details [working]
                 $data = $request["production_facility"];
+
                 $intax = $this->VendorFacilities->newEmptyEntity();
                 $data["vendor_temp_id"] = $id;
 
-                try{
-                    if($fileName){
-                        $fileName = $data["quality_control_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/quality_control/" . $fileName;
-                        $data["quality_control_file"]->moveTo($imagePath);
-                        $data["quality_control_file"]= "uploads/quality_control/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["quality_control_file"]= ""; }
+                
+                if($data["quality_control_file"]->getSize() > 0) {
+                    $fileName = $data["quality_control_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/quality_control/" . $fileName;
+                    $data["quality_control_file"]->moveTo($imagePath);
+                    $data["quality_control_file"]= "uploads/quality_control/" . $fileName;
+                } else { $data["quality_control_file"]= ""; }
 
-                try{
-                    if($fileName){
-                        $fileName = $data["lab_facility_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/lab_facility/" . $fileName;
-                        $data["lab_facility_file"]->moveTo($imagePath);
-                        $data["lab_facility_file"]= "uploads/lab_facility/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["lab_facility_file"]= ""; }
+                if($data["lab_facility_file"]->getSize() > 0) {
+                    $fileName = $data["lab_facility_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/lab_facility/" . $fileName;
+                    $data["lab_facility_file"]->moveTo($imagePath);
+                    $data["lab_facility_file"]= "uploads/lab_facility/" . $fileName;
+                } else { $data["lab_facility_file"]= ""; }
 
-                try{
-                    if($fileName){
-                        $fileName = $data["isi_registration_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/isi_registration/" . $fileName;
-                        $data["isi_registration_file"]->moveTo($imagePath);
-                        $data["isi_registration_file"]= "uploads/isi_registration/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["isi_registration_file"]= ""; }
+                if($data["isi_registration_file"]->getSize() > 0) {
+                    $fileName = $data["isi_registration_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/isi_registration/" . $fileName;
+                    $data["isi_registration_file"]->moveTo($imagePath);
+                    $data["isi_registration_file"]= "uploads/isi_registration/" . $fileName;
+                 } else { $data["isi_registration_file"]= ""; }
 
-                try{
-                    if($fileName){
-                        $fileName = $data["test_facility_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/test_facility/" . $fileName;
-                        $data["test_facility_file"]->moveTo($imagePath);
-                        $data["test_facility_file"]= "uploads/test_facility/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["test_facility_file"]= ""; }
+                if($data["test_facility_file"]->getSize() > 0) {
+                    $fileName = $data["test_facility_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/test_facility/" . $fileName;
+                    $data["test_facility_file"]->moveTo($imagePath);
+                    $data["test_facility_file"]= "uploads/test_facility/" . $fileName;
+                } else { $data["test_facility_file"]= ""; }
 
-                try{
-                    if($fileName){
-                        $fileName = $data["sales_services_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/sales_services/" . $fileName;
-                        $data["sales_services_file"]->moveTo($imagePath);
-                        $data["sales_services_file"]= "uploads/sales_services/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["sales_services_file"]= ""; }
+                if($data["sales_services_file"]->getSize() > 0) {
+                    $fileName = $data["sales_services_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/sales_services/" . $fileName;
+                    $data["sales_services_file"]->moveTo($imagePath);
+                    $data["sales_services_file"]= "uploads/sales_services/" . $fileName;
+                } else { $data["sales_services_file"]= ""; }
 
                 $intax = $this->VendorFacilities->patchEntity($intax, $data);
                 if ($this->VendorFacilities->save($intax)) { }
@@ -240,41 +223,33 @@ class VendorTempsController extends VendorAppController
                 $data = $request["other"];
                 $data["vendor_temp_id"] = $id;
 
-                try{
-                    if($fileName){
-                        $fileName = $data["six_sigma_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/six_sigma/" . $fileName;
-                        $data["six_sigma_file"]->moveTo($imagePath);
-                        $data["six_sigma_file"]= "uploads/six_sigma/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["six_sigma_file"]= ""; }
+                if($data["six_sigma_file"]->getSize() > 0) {
+                    $fileName = $data["six_sigma_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/six_sigma/" . $fileName;
+                    $data["six_sigma_file"]->moveTo($imagePath);
+                    $data["six_sigma_file"]= "uploads/six_sigma/" . $fileName;
+                } else  { $data["six_sigma_file"]= ""; }
 
-                try{
-                    if($fileName){
-                        $fileName = $data["halal_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/halal/" . $fileName;
-                        $data["halal_file"]->moveTo($imagePath);
-                        $data["halal_file"]= "uploads/halal/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["halal_file"]= ""; }
+                if($data["halal_file"]->getSize() > 0) {
+                    $fileName = $data["halal_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/halal/" . $fileName;
+                    $data["halal_file"]->moveTo($imagePath);
+                    $data["halal_file"]= "uploads/halal/" . $fileName;
+                } else { $data["halal_file"]= ""; }
 
-                try{
-                    if($fileName){
-                        $fileName = $data["iso_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/iso/" . $fileName;
-                        $data["iso_file"]->moveTo($imagePath);
-                        $data["iso_file"]= "uploads/iso/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["iso_file"]= ""; }
+                if($data["iso_file"]->getSize() > 0) {
+                    $fileName = $data["iso_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/iso/" . $fileName;
+                    $data["iso_file"]->moveTo($imagePath);
+                    $data["iso_file"]= "uploads/iso/" . $fileName;
+                } else { $data["iso_file"]= ""; }
 
-                try{
-                    if($fileName){
-                        $fileName = $data["declaration_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/declaration/" . $fileName;
-                        $data["declaration_file"]->moveTo($imagePath);
-                        $data["declaration_file"]= "uploads/declaration/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["declaration_file"]= ""; }
+                if($data["declaration_file"]->getSize() > 0) {
+                    $fileName = $data["declaration_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/declaration/" . $fileName;
+                    $data["declaration_file"]->moveTo($imagePath);
+                    $data["declaration_file"]= "uploads/declaration/" . $fileName;
+                } else { $data["declaration_file"]= ""; }
 
                 $otherdtl = $this->VendorOtherdetails->patchEntity($otherdtl, $data);                
                 if ($this->VendorOtherdetails->save($otherdtl)) { }
@@ -284,68 +259,59 @@ class VendorTempsController extends VendorAppController
                 $data = $request["income_tax"];
                 $data["vendor_temp_id"] = $id;
 
-                try{
-                    if($fileName){
-                        $fileName = $data["certificate_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/certificate/" . $fileName;
-                        $data["certificate_file"]->moveTo($imagePath);
-                        $data["certificate_file"]= "uploads/certificate/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["certificate_file"]= ""; }
+                if($data["certificate_file"]->getSize() > 0) {
+                    $fileName = $data["certificate_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/certificate/" . $fileName;
+                    $data["certificate_file"]->moveTo($imagePath);
+                    $data["certificate_file"]= "uploads/certificate/" . $fileName;
+                } else  { $data["certificate_file"]= ""; }
 
-                try{
-                    if($fileName){
-                        $fileName = $data["balance_sheet_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/balance_sheet/" . $fileName;
-                        $data["balance_sheet_file"]->moveTo($imagePath);
-                        $data["balance_sheet_file"]= "uploads/balance_sheet/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["balance_sheet_file"]= ""; }
+                if($data["balance_sheet_file"]->getSize() > 0) {
+                    $fileName = $data["balance_sheet_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/balance_sheet/" . $fileName;
+                    $data["balance_sheet_file"]->moveTo($imagePath);
+                    $data["balance_sheet_file"]= "uploads/balance_sheet/" . $fileName;
+                } else{ $data["balance_sheet_file"]= ""; }
                 
                 $intax = $this->VendorIncometaxes->patchEntity($intax, $data);
                 if ($this->VendorIncometaxes->save($intax)) { }
 
                 // Factory Address [working]
+
+                //echo '<pre>'; print_r($request["prdflt"]["factory_office"]); exit;
+
                 foreach ($request["prdflt"]["factory_office"] as $key => $value) {
                     $factory = $this->VendorFactories->newEmptyEntity();
                     $value["vendor_temp_id"] = $id;
                     $value["factory_code"] = substr(strtoupper($value['country']), 0, 2)."_".substr(strtoupper($value['state']), 0, 2)."_".substr(strtoupper($value['city']), 0, 2)."_Unit".($key+1);
                     
-                    try{
-                        if($fileName){
+                    if($value["installed_capacity_file"]->getSize() > 0) {
                             $fileName = $value["installed_capacity_file"]->getClientFilename();
                             $imagePath = WWW_ROOT . "uploads/installed_capacity/" . $fileName;
                             $value["installed_capacity_file"]->moveTo($imagePath);
                             $value["installed_capacity_file"]= "uploads/installed_capacity/" . $fileName;
-                        }
-                    } catch(\PDOException $e) { $data["installed_capacity_file"]= ""; }
+                    } else  { $value["installed_capacity_file"]= ""; }
 
-                    try{
-                        if($fileName){
-                            $fileName = $value["machinery_available_file"]->getClientFilename();
-                            $imagePath = WWW_ROOT . "uploads/machinery_available/" . $fileName;
-                            $value["machinery_available_file"]->moveTo($imagePath);
-                            $value["machinery_available_file"]= "uploads/machinery_available/" . $fileName;
-                        }
-                    } catch(\PDOException $e) { $data["machinery_available_file"]= ""; }
+                    if($value["machinery_available_file"]->getSize() > 0) {
+                        $fileName = $value["machinery_available_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/machinery_available/" . $fileName;
+                        $value["machinery_available_file"]->moveTo($imagePath);
+                        $value["machinery_available_file"]= "uploads/machinery_available/" . $fileName;
+                    } else { $value["machinery_available_file"]= ""; }
 
-                    try{
-                        if($fileName){
-                            $fileName = $value["power_available_file"]->getClientFilename();
-                            $imagePath = WWW_ROOT . "uploads/power_available/" . $fileName;
-                            $value["power_available_file"]->moveTo($imagePath);
-                            $value["power_available_file"]= "uploads/power_available/" . $fileName;
-                        }
-                    } catch(\PDOException $e) { $data["power_available_file"]= ""; }
+                    if($value["power_available_file"]->getSize() > 0) {
+                        $fileName = $value["power_available_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/power_available/" . $fileName;
+                        $value["power_available_file"]->moveTo($imagePath);
+                        $value["power_available_file"]= "uploads/power_available/" . $fileName;
+                    } else { $value["power_available_file"]= ""; }
 
-                    try{
-                        if($fileName){
-                            $fileName = $value["raw_material_file"]->getClientFilename();
-                            $imagePath = WWW_ROOT . "uploads/raw_material/" . $fileName;
-                            $value["raw_material_file"]->moveTo($imagePath);
-                            $value["raw_material_file"]= "uploads/raw_material/" . $fileName;
-                        }
-                    } catch(\PDOException $e) { $data["raw_material_file"]= ""; }
+                    if($value["raw_material_file"]->getSize() > 0) {
+                        $fileName = $value["raw_material_file"]->getClientFilename();
+                        $imagePath = WWW_ROOT . "uploads/raw_material/" . $fileName;
+                        $value["raw_material_file"]->moveTo($imagePath);
+                        $value["raw_material_file"]= "uploads/raw_material/" . $fileName;
+                    } else { $value["raw_material_file"]= ""; }
 
                     $factory = $this->VendorFactories->patchEntity($factory, $value);
                     if ($factory_id = $this->VendorFactories->save($factory)) {
@@ -367,14 +333,6 @@ class VendorTempsController extends VendorAppController
                     if ($this->VendorPartnerAddress->save($partneraddr)) { }
                 }
 
-                // Other Detail [Working]
-                $other = $this->VendorOtherdetails->newEmptyEntity();
-                $value = $request["other"];
-                $value["vendor_temp_id"] = $id;
-                $other = $this->VendorOtherdetails->patchEntity($other, $value);
-                if ($this->VendorOtherdetails->save($other)) {  }
-
-
                 // Questionnaire Address [Working]
                 foreach ($request["questionnaire"] as $key => $value) {
                     $partneraddr = $this->VendorQuestionnaires->newEmptyEntity();
@@ -394,50 +352,37 @@ class VendorTempsController extends VendorAppController
                 // Basic details
                 $data = $request["vendor"];
 
-                try{
-                    if($fileName){
-                        $fileName = $data["gst_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/gst/" . $fileName;
-                        $data["gst_file"]->moveTo($imagePath);
-                        $data["gst_file"]= "uploads/gst/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["gst_file"]= ""; }
+                if($data["gst_file"]->getSize() > 0) {
+                    $fileName = $data["gst_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/gst/" . $fileName;
+                    $data["gst_file"]->moveTo($imagePath);
+                    $data["gst_file"]= "uploads/gst/" . $fileName;
+                } else { $data["gst_file"]= ""; }
 
-                try{
-                    if($fileName){
-                        $fileName = $data["pan_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/pan/" . $fileName;
-                        $data["pan_file"]->moveTo($imagePath);
-                        $data["pan_file"]= "uploads/pan/" . $fileName;
-                    }
-                } catch(\PDOException $e) { $data["pan_file"]= ""; }
+                if($data["pan_file"]->getSize() > 0) {
+                    $fileName = $data["pan_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/pan/" . $fileName;
+                    $data["pan_file"]->moveTo($imagePath);
+                    $data["pan_file"]= "uploads/pan/" . $fileName;
+                } else { $data["pan_file"]= ""; }
 
-                try{
-                    if($fileName){
-                        $fileName = $data["bank_file"]->getClientFilename();
-                        $imagePath = WWW_ROOT . "uploads/bank/" . $fileName;
-                        $data["bank_file"]->moveTo($imagePath);
-                        $data["bank_file"]= "uploads/bank/" . $fileName;
-                    }
-                } catch(\PDOException $e) {
-                    $data["pan_file"]= "";
-                }
+                if($data["bank_file"]->getSize() > 0) {
+                    $fileName = $data["bank_file"]->getClientFilename();
+                    $imagePath = WWW_ROOT . "uploads/bank/" . $fileName;
+                    $data["bank_file"]->moveTo($imagePath);
+                    $data["bank_file"]= "uploads/bank/" . $fileName;
+                }else { $data["bank_file"]= "";}
                 // $data["order_currency"]= "INR";
 
                 $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
                 // print_r($vendorTemp);
-                if ($this->VendorTemps->save($vendorTemp)) {}
+                if ($this->VendorTemps->save($vendorTemp)) {
+                    $flash = ['type' => 'success', 'msg' => ($e->getMessage())];
+                }
             } catch (\PDOException $e) {
                 $flash = ['type' => 'error', 'msg' => ($e->getMessage())];
             }
         }
-
-        $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
-        $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
-        $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
-        $companyCodes = $this->VendorTemps->CompanyCodes->find('list', ['limit' => 200])->all();
-        $reconciliationAccount = $this->VendorTemps->ReconciliationAccounts->find('list', ['limit' => 200])->all();
-        $paymentTerm = $this->VendorTemps->PaymentTerms->find('list', ['limit' => 200])->all();
 
 
         $countries = $this->Countries->find('list', ['keyField' => 'id', 'valueField' => 'country_name'])->toArray();
@@ -453,7 +398,7 @@ class VendorTempsController extends VendorAppController
 
         $states = $this->States->find('list', ['keyField' => 'region_code', 'valueField' => 'name'])->all();
 
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states','companyCodes','reconciliationAccount','currencies'));
+        $this->set(compact('vendorTemp',  'countries', 'states','currencies'));
     }
 
 }

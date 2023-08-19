@@ -538,6 +538,7 @@
 
 
     $('#otploginclick').click(function (e) {
+      $('#otp_error').empty();
       e.preventDefault(); // Prevent the form from submitting normally
       $.ajax({
         type: "POST",
@@ -586,6 +587,7 @@
       });
 
       $("#getotp").click(function () {
+        $('span.userpassError').empty();
         var request = $.ajax({
           url: "users/get-otp",
           method: "POST",
@@ -602,7 +604,6 @@
             } else {
               $('span.userpassError').empty().append(response.message);
             }
-
           }
         });
 
@@ -611,9 +612,7 @@
             $("#mobile_login_otp").show();
             $("#mobile_login").hide();
             $("#user_mobile").val($("#mobile").val());
-          } else {
-            $("#otp_error").html(response.message);
-          }
+          } 
         });
 
         request.fail(function (jqXHR, textStatus) {
