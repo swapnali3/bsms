@@ -301,19 +301,42 @@ class PurchaseOrdersController extends VendorAppController
                 // print_r($request);
                 // exit;
 
-                $productImages = $request["invoices"];
+                $invoiceUpload = $request["invoice"];
+                $ewaybillUpload = $request["ewaybill"];
+                $otherUpload = $request["others"];
 
                 //print_r($productImage);exit;
-                $uploads["invoices"] = array();
+                $uploads["uploads"] = array();
                 // file uploaded
-                foreach ($productImages as $productImage) {
-                    $fileName = $asnNo . '_' . time() . '_' . $productImage->getClientFilename();
-                    $fileType = $productImage->getClientMediaType();
+                
+                if($invoiceUpload->getSize() > 0) {
+                    $fileName = $asnNo . '_invoice_' . time() . '_' . $invoiceUpload->getClientFilename();
+                    $fileType = $invoiceUpload->getClientMediaType();
 
                     if ($fileType == "application/pdf" || $fileType == "image/*") {
                         $imagePath = WWW_ROOT . "uploads/" . $fileName;
-                        $productImage->moveTo($imagePath);
-                        $uploads["invoices"][] = "uploads/" . $fileName;
+                        $invoiceUpload->moveTo($imagePath);
+                        $uploads["uploads"]['invoice'] = "uploads/" . $fileName;
+                    }
+                }
+                if($ewaybillUpload->getSize() > 0) {
+                    $fileName = $asnNo . '_ewaybill_' . time() . '_' . $ewaybillUpload->getClientFilename();
+                    $fileType = $ewaybillUpload->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
+                        $imagePath = WWW_ROOT . "uploads/" . $fileName;
+                        $ewaybillUpload->moveTo($imagePath);
+                        $uploads["uploads"]['ewaybill'] = "uploads/" . $fileName;
+                    }
+                }
+                if($otherUpload->getSize() > 0) {
+                    $fileName = $asnNo . '_other_' . time() . '_' . $otherUpload->getClientFilename();
+                    $fileType = $otherUpload->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
+                        $imagePath = WWW_ROOT . "uploads/" . $fileName;
+                        $otherUpload->moveTo($imagePath);
+                        $uploads["uploads"]['other'] = "uploads/" . $fileName;
                     }
                 }
 
@@ -322,7 +345,7 @@ class PurchaseOrdersController extends VendorAppController
                 $asnData = array();
                 $asnData['asn_no'] = $asnNo;
                 $asnData['po_header_id'] = $request['po_header_id'];
-                $asnData['invoice_path'] = json_encode($uploads["invoices"]);
+                $asnData['invoice_path'] = json_encode($uploads["uploads"]);
                 $asnData['invoice_no'] = $request['invoice_no'];
                 $asnData['invoice_date'] = $request['invoice_date'];
                 $asnData['invoice_value'] = $request['invoice_value'];
@@ -780,7 +803,6 @@ class PurchaseOrdersController extends VendorAppController
             $materialStock = $this->StockUploads->find('all')
                 ->contain(['Materials' => function($query) use ($poHeader){
                     return $query->where(['Materials.code' => $poHeader[0]->PoFooters['material']]);
-                    //return $query;
                 }])->first();
             
             foreach ($poHeader as &$row) {
