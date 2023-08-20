@@ -6,203 +6,6 @@
 <?= $this->Html->css('v_vendortemp_view') ?>
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css" /> -->
 
-<style>
-    .hide {
-        display: none;
-    }
-
-    /* Default Button */
-    .bg-gradient-button {
-        background: #F2EDD7FF linear-gradient(180deg, #F2EDD7FF, #e5e1cc) repeat-x !important;
-        color: #755139FF !important;
-    }
-
-    .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-button.btn:not(:disabled):not(.disabled).active,
-    .show>.bg-gradient-button.btn.dropdown-toggle {
-        background-image: none !important;
-    }
-
-    .bg-gradient-button.btn:hover {
-        background: #F2EDD7FF linear-gradient(180deg, #e5e1cc, #F2EDD7FF) repeat-x !important;
-        border-color: #F2EDD7FF;
-        color: #755139FF !important;
-    }
-
-    .bg-gradient-button.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-button.btn:not(:disabled):not(.disabled).active,
-    .bg-gradient-button.btn:active,
-    .bg-gradient-button.btn.active {
-        background: #F2EDD7FF linear-gradient(180deg, #e5e1cc, #e5e1cc) repeat-x !important;
-        border-color: #F2EDD7FF;
-        color: #755139FF !important;
-    }
-
-    .bg-gradient-button.btn:disabled,
-    .bg-gradient-button.btn.disabled {
-        background-image: none !important;
-        border-color: #F2EDD7FF;
-        color: #755139FF !important;
-    }
-
-    /* Default Button */
-
-
-    /* Submit Button */
-    .bg-gradient-submit {
-        background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
-        border-color: #ffffff;
-        color: #fff;
-    }
-
-    .bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-submit.btn:not(:disabled):not(.disabled).active,
-    .show>.bg-gradient-submit.btn.dropdown-toggle {
-        background-image: none !important;
-    }
-
-    .bg-gradient-submit.btn:hover {
-        background: #08132f linear-gradient(180deg, #102b71, #5b8aff) repeat-x !important;
-        border-color: #ffffff;
-        color: #fff;
-    }
-
-    .bg-gradient-submit.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-submit.btn:not(:disabled):not(.disabled).active,
-    .bg-gradient-submit.btn:active,
-    .bg-gradient-submit.btn.active {
-        background: #08132f linear-gradient(180deg, #5b8aff, #102b71) repeat-x !important;
-        border-color: #ffffff;
-        color: #fff;
-    }
-
-    .bg-gradient-submit.btn:disabled,
-    .bg-gradient-submit.btn.disabled {
-        background-image: none !important;
-        border-color: #ffffff;
-        color: #fff;
-    }
-
-    /* Submit Button */
-
-    /* Reject Button */
-    .bg-gradient-reject {
-        background: #F1F4FFFF linear-gradient(180deg, #F1F4FFFF, #ffc8be) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #990011FF;
-    }
-
-    .bg-gradient-reject.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-reject.btn:not(:disabled):not(.disabled).active,
-    .show>.bg-gradient-reject.btn.dropdown-toggle {
-        background-image: none !important;
-    }
-
-    .bg-gradient-reject.btn:hover {
-        background: #F1F4FFFF linear-gradient(180deg, #ffc8be, #F1F4FFFF) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #990011FF;
-    }
-
-    .bg-gradient-reject.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-reject.btn:not(:disabled):not(.disabled).active,
-    .bg-gradient-reject.btn:active,
-    .bg-gradient-reject.btn.active {
-        background: #F1F4FFFF linear-gradient(180deg, #ffc8be, #F1F4FFFF) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #990011FF;
-    }
-
-    .bg-gradient-reject.btn:disabled,
-    .bg-gradient-reject.btn.disabled {
-        background-image: none !important;
-        border-color: #F1F4FFFF;
-        color: #990011FF;
-    }
-
-    /* Reject Button */
-
-
-    /* Cancel Button */
-    .bg-gradient-cancel {
-        background: #F1F4FFFF linear-gradient(180deg, #edeff7, #ccd7fd) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #496e97;
-    }
-
-    .bg-gradient-cancel.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-cancel.btn:not(:disabled):not(.disabled).active,
-    .show>.bg-gradient-cancel.btn.dropdown-toggle {
-        background-image: none !important;
-    }
-
-    .bg-gradient-cancel.btn:hover {
-        background: #F1F4FFFF linear-gradient(180deg, #ccd7fd, #edeff7) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #496e97;
-    }
-
-    .bg-gradient-cancel.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-cancel.btn:not(:disabled):not(.disabled).active,
-    .bg-gradient-cancel.btn:active,
-    .bg-gradient-cancel.btn.active {
-        background: #F1F4FFFF linear-gradient(180deg, #ccd7fd, #edeff7) repeat-x !important;
-        border-color: #F1F4FFFF;
-        color: #496e97;
-    }
-
-    .bg-gradient-cancel.btn:disabled,
-    .bg-gradient-cancel.btn.disabled {
-        background-image: none !important;
-        background-color: #F1F4FFFF !important;
-        border-color: #F1F4FFFF;
-        color: #496e97;
-    }
-
-    /* Cancel Button */
-
-    /* warn Button */
-    .bg-gradient-warn {
-        background: #ff2700 linear-gradient(180deg, #ff2700, #c71f00) repeat-x !important;
-        border-color: #ff2700;
-        color: #fff;
-    }
-
-    .bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
-    .show>.bg-gradient-warn.btn.dropdown-toggle {
-        background-image: none !important;
-    }
-
-    .bg-gradient-warn.btn:hover {
-        background: #ff2700 linear-gradient(180deg, #ff2700, #ff836c) repeat-x !important;
-        border-color: #ff2700;
-        color: #fff;
-    }
-
-    .bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
-    .bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
-    .bg-gradient-warn.btn:active,
-    .bg-gradient-warn.btn.active {
-        background: #ff2700 linear-gradient(180deg, #ff836c, #ff2700) repeat-x !important;
-        border-color: #ff2700;
-        color: #fff;
-    }
-
-    .bg-gradient-warn.btn:disabled,
-    .bg-gradient-warn.btn.disabled {
-        background-image: none !important;
-        border-color: #ff2700;
-        color: #fff;
-    }
-
-    #onbordingSubmit .form-control[disabled] {
-        padding: 0 !important;
-        line-height: 1.45 !important;
-    }
-
-    /* Reject Button */
-</style>
 
 <div class="row">
     <div class="col-sm-12 col-md-3 col-lg-3">
@@ -979,13 +782,12 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <hr class="factory_office_0_commencement_0"
-                                                            style="border: revert;">
+                                                        <!-- <hr class="factory_office_0_commencement_0"> -->
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr class="factory_office_0" style="border: revert;">
+                                        <!-- <hr class="factory_office_0" > -->
                                     </div>
                                 </div>
                             </div>
@@ -1107,7 +909,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr class="partner_0" style="border: revert;">
+                                        <!-- <hr class="other_address_0" style="border: revert;"> -->
                                     </div>
                                 </div>
                             </div>
@@ -1436,7 +1238,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <hr class="customer_0" style="border: revert;">
+                                        <!-- <hr class="customer_0" style="border: revert;"> -->
                                     </div>
                                 </div>
                             </div>

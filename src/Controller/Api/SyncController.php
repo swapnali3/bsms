@@ -311,7 +311,6 @@ class SyncController extends ApiAppController
                     $data = trim(preg_replace('/\s+/', ' ', $data));
                     $d = json_decode($data);
 
-                    //echo '<pre>'; print_r($d); exit;
                     foreach($d->PO_LIST as $key => $row) {
                         $hederData = array();
                         $footerData = array();
@@ -362,6 +361,15 @@ class SyncController extends ApiAppController
                                         $poItemsInstance = $this->PoFooters->newEmptyEntity();
                                         $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
                                     }
+
+                                    //sync material master
+                                    $columns = ['sap_vendor_code', 'code', 'description', 'uom'];
+                                    $upsertQuery = $this->Materials->query();
+                                    $upsertQuery->insert($columns);
+                                    $upsertQuery->values([$row->LIFNR, $item->MATNR, $item->TXZ01, $item->MEINS]);
+                                    $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
+                                        `description`=VALUES(`description`), `uom`=VALUES(`uom`)')
+                                        ->execute();
 
                                     if ($this->PoFooters->save($poItemsInstance)) {
                                         $response['message'][] = 'PO : '.$row->EBELN.' Item : '.$item->EBELP.' saved successfully';
