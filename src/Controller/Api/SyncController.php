@@ -300,14 +300,16 @@ class SyncController extends ApiAppController
         
         $ftpConn = $this->Ftp->connection();
         $list = $this->Ftp->getList($ftpConn);
+
+        $this->loadModel("PoHeaders");
+        $this->loadModel("PoFooters");
+        $this->loadModel("Materials");
+
         foreach($list as $fileKey => $val) {
             if(str_starts_with($fileKey, 'PO_')) {
                 $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
                 
                 if($data) {
-                    $this->loadModel("PoHeaders");
-                    $this->loadModel("PoFooters");
-
                     $data = trim(preg_replace('/\s+/', ' ', $data));
                     $d = json_decode($data);
 
@@ -363,10 +365,9 @@ class SyncController extends ApiAppController
                                     }
 
                                     //sync material master
-                                    $columns = ['sap_vendor_code', 'code', 'description', 'uom'];
                                     $upsertQuery = $this->Materials->query();
-                                    $upsertQuery->insert($columns);
-                                    $upsertQuery->values([$row->LIFNR, $item->MATNR, $item->TXZ01, $item->MEINS]);
+                                    $upsertQuery->insert(['sap_vendor_code', 'code', 'description', 'uom']);
+                                    $upsertQuery->values(['sap_vendor_code' => $row->LIFNR, 'code' => $item->MATNR, 'description' => $item->TXZ01, 'uom' => $item->MEINS]);
                                     $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
                                         `description`=VALUES(`description`), `uom`=VALUES(`uom`)')
                                         ->execute();

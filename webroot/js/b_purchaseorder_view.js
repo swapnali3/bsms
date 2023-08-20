@@ -184,6 +184,7 @@ $("#purViewId").on("click", ".po-box", function () {
 });
 
 $(document).on("click", ".schedule_item", function () {
+    $("#error_msg").html("");
     var id = $(this).attr("footer-id");
     $(".check").prop("checked", false);
     if (!$("#check_" + id).is(":checked")) {
@@ -309,6 +310,7 @@ $(".search-box").on("keydown", function (event) {
 });
 
 $(document).on("click", ".flu", function () {
+    $("#error_msg").html("");
     var id = $(this).attr("data-id");
     var po_no = $("#schedulebutton_" + id).attr("po-no");
     var item_no = $("#schedulebutton_" + id).attr("item-no");
@@ -413,13 +415,14 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
-                    if (response.status == "success") {
+                    if (response.status) {
                         Toast.fire({
                             icon: "success",
                             title: response.message,
                         });
                         $("#scheduleModal").modal("toggle");
                     } else {
+                        $("#scheduleModal").modal("toggle");
                         Toast.fire({ icon: "error", title: response.message });
                     }
                 },
