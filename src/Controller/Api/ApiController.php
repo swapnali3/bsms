@@ -254,80 +254,46 @@ class ApiController extends ApiAppController
         
         $this->loadModel("Materials");
         $this->loadModel("MaterialHistories");
-        $this->loadModel("PrHeaders");
-        $this->loadModel("PrFooters");
+        
+        set_time_limit(300);
+        $response = array();
+        $response['message'] = [];
 
-        $conn = ConnectionManager::get('default');
-        $matlist = $conn->execute("select ph.sap_vendor_code as LIFNR, pf.material as MATNR, pf.short_text as MAKTX, 200 as MIN_STOCK, pf.order_unit as MEINS from po_headers ph inner join po_footers pf on ph.id=pf.po_header_id");
+        $matStock = [];
+        
+        $ftpConn = $this->Ftp->connection();
+        $data  = $this->Ftp->downloadFile($ftpConn, "MATERIAL_MIN_STOCK.JSON");
+        if($data) {
+            $data = trim(preg_replace('/\s+/', ' ', $data));
+            $d = json_decode($data);
 
-        $matlist = $matlist->fetchAll('assoc');
-
-        /*
-        $response = $http->get(
-            'http://123.108.46.252:8000/sap/bc/sftmob/GET_MAT_MST/?sap-client=300',
-            ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
-        );
-        */
-
-        try{
-
-            if (true) { //|| $response->isOk()) 
-                //$result = json_decode($response->getStringBody());
-                $result = json_decode('{"RESPONSE":{"SUCCESS":1,"MESSAGE":"Success",
-                    "MAT_LIST" :[{"LIFNR":"0000100186", "MATNR":"PHFG0411", "MAKTX":"Ethyl-2-(3-hydroxyphenyl)acetate", "MIN_STOCK":1200,"MEINS":"KG"},
-                    {"LIFNR":"0000100186", "MATNR":"PHFG0417", "MAKTX":"1-(3-Methyl -1-Phenyl-5-pyrazolyl)piper", "MIN_STOCK":900,"MEINS":"KG"}]
-                    }}');
-
-                $result = ['RESPONSE'=>['SUCCESS'=>1, 'MESSAGE'=>"Success", 'MAT_LIST'=>$matlist]];
-
-                if ($result['RESPONSE']['SUCCESS']) {
-                // if ($result->RESPONSE->SUCCESS) {
-                    $rows = [];
-                    foreach($result['RESPONSE']['MAT_LIST'] as $row) {
-                    // foreach($result->RESPONSE->MAT_LIST as $row) {
-                        $temp = [];
-                        // $temp['sap_vendor_code'] = $row->LIFNR;
-                        // $temp['code'] = $row->MATNR;
-                        // $temp['description'] = $row->MAKTX;
-                        // $temp['minimum_stock'] = $row->MIN_STOCK;
-                        // $temp['uom'] = $row->MEINS;
-
-                        $temp['sap_vendor_code'] = $row['LIFNR'];
-                        $temp['code'] = $row['MATNR'];
-                        $temp['description'] = $row['MAKTX'];
-                        $temp['minimum_stock'] = $row['MIN_STOCK'];
-                        $temp['uom'] = $row['MEINS'];
-
-                        $rows[] = $temp;
-                    }
-
-                    $columns = array_keys($rows[0]);
-                    $upsertQuery = $this->Materials->query();
-                    $upsertQuery->insert($columns);
-
-                    foreach($rows as $row) {
-                        $upsertQuery->values($row);
-                    }
-                    $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
-                        `description`=VALUES(`description`), `minimum_stock`=VALUES(`minimum_stock`), `uom`=VALUES(`uom`)')
-                        ->execute();
-
-                    $materialHistories = $this->MaterialHistories->newEntities($rows);
-                    $this->MaterialHistories->saveMany($materialHistories);
-
-                    
-                    $response['status'] = '1';
-                    $response['message'] = 'Success';
-                    $response['data'] = $materialHistories;
-
-                } else {
-                    $response['status'] = '0';
-                    $response['message'] = $result->RESPONSE->MESSAGE;
-                }
+            foreach($d->MIN_STOCK as $key => $row) {
+                $temp = [];
+                $temp['sap_vendor_code'] = $row->LIFNR;
+                $temp['code'] = $row->MATNR;
+                $temp['minimum_stock'] = $row->MIN_STOCK;
+                $temp['uom'] = $row->MEINS;
+                $matStock[] = $tmp;
             }
-        } catch (\Exception $e) {
-            $response['status'] = '0';
-            $response['message'] = $e->getMessage();
+
+            $columns = array_keys($rows[0]);
+            $upsertQuery = $this->Materials->query();
+            $upsertQuery->insert($columns);
+
+            foreach($rows as $row) {
+                $upsertQuery->values($row);
+            }
+            $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
+                `description`=VALUES(`description`), `minimum_stock`=VALUES(`minimum_stock`), `uom`=VALUES(`uom`)')
+                ->execute();
+
+            $materialHistories = $this->MaterialHistories->newEntities($rows);
+            $this->MaterialHistories->saveMany($materialHistories);
+
+            
+            $response['status'] = '1';
+            $response['message'] = 'Success';
+            $response['data'] = $materialHistories;
         }
 
         echo json_encode($response);
