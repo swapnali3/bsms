@@ -35,15 +35,13 @@ class ApiController extends ApiAppController
         ]);
     }
 
-    public function countryByState($id = null)
+    public function countryByState($country_code = null)
     {
-        // $this->autoRender = false;
-        $response = ["status"=>0, 'message' =>'Empty request'];
-        $this->loadModel("States");
+        $this->autoRender = false;
         $this->loadModel("Countries");
-        $states = $this->States->find()->select(['id', 'name'])->innerJoin(['Countries'=>'countries'],['Countries.country_code = States.country_code', 'Countries.id' =>$id])->toArray();
-
-        $response = ["status"=> 1, 'message' =>['States'=>$states]];
+        $this->loadModel("States");
+        $states = $this->States->find('all')->innerJoin(['Countries'=>'Countries'],['Countries.country_code = States.country_code'])->where(['Countries.country_code' => $country_code])->toArray();
+        $response = ["status"=> 1, 'message' =>$states];
         echo json_encode($response);
     }
 
@@ -150,6 +148,33 @@ class ApiController extends ApiAppController
         echo json_encode($response);
     }
 
+    public function countries()
+    {
+        $this->autoRender = false;
+        $this->loadModel("Countries");
+        $countries = $this->Countries->find('all')->toArray();
+        $response = array('status'=>1, 'message'=>$countries);
+        echo json_encode($response); exit;
+    }
+
+    public function getCountryCodeById($country_code=null)
+    {
+        $this->autoRender = false;
+        $this->loadModel("Countries");
+        $countries = $this->Countries->find('all')->where(['id' => $country_code])->toArray()[0];
+        $response = array('status'=>1, 'message'=>$countries);
+        echo json_encode($countries->country_code); exit;
+    }
+
+    public function getStateRegioncodeById($region_code=null)
+    {
+        $this->autoRender = false;
+        $this->loadModel("States");
+        $states = $this->States->find('all')->where(['id' => $region_code])->toArray()[0];
+        $response = array('status'=>1, 'message'=>$states);
+        echo json_encode($states->region_code); exit;
+    }
+
     public function vendor($id = null)
     {
         $this->autoRender = false;
@@ -199,14 +224,24 @@ class ApiController extends ApiAppController
         $vendortemp[0]['reputed_customer'] = $query->fetchAll('assoc');
         $vendortemp[0]['commencement'] = $this->VendorCommencements->find('all')->where(['vendor_temp_id' => $id])->toArray();
         $vendortemp[0]['facility'] = $this->VendorFacilities->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['factory'] = $this->VendorFactories->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['income_tax'] = $this->VendorIncometaxes->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['other_details'] = $this->VendorOtherdetails->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp[0]['factory'] = $this->VendorFactories->find('all')->contain(['VendorCommencements'])->where(['vendor_temp_id' => $id])->toArray();
         $vendortemp[0]['questionnaire'] = $this->VendorQuestionnaires->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['registered_office'] = $this->VendorRegisteredOffices->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        // $vendortemp[0]['reputed_customer'] = $this->VendorReputedCustomers->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['small_scale'] = $this->VendorSmallScales->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['turnover'] = $this->VendorTurnovers->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        
+        $income_tax = $this->VendorIncometaxes->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        if(count($income_tax) > 0){$vendortemp[0]['income_tax']= $income_tax[0]; } else {$vendortemp[0]['income_tax']=[];}
+        
+        $other_details =$this->VendorOtherdetails->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        if(count($other_details) > 0){$vendortemp[0]['other_details']= $other_details[0]; } else {$vendortemp[0]['other_details']=[];}
+        
+        $registered_office = $this->VendorRegisteredOffices->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        if(count($registered_office) > 0){$vendortemp[0]['registered_office']= $registered_office[0]; } else {$vendortemp[0]['registered_office']=[];}
+        
+        $small_scale = $this->VendorSmallScales->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        if(count($small_scale) > 0){$vendortemp[0]['small_scale']= $small_scale[0]; } else {$vendortemp[0]['small_scale']=[];}
+
+        $turnover = $this->VendorTurnovers->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        if(count($turnover) > 0){$vendortemp[0]['turnover']= $turnover[0]; } else {$vendortemp[0]['turnover']=[];}
+
         $response = array('status'=>1, 'message'=>$vendortemp);
         echo json_encode($response); exit;
     }
