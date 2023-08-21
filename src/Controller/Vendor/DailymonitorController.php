@@ -77,7 +77,7 @@ class DailymonitorController extends VendorAppController
         $this->loadModel("ProductionLines");
 
         $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code'), 'Dailymonitor.plan_date <=' => date('y-m-d')]])
-            ->contain(['ProductionLines', 'ProductionLines.LineMasters', 'Materials'])
+            ->contain(['ProductionLines', 'ProductionLines.LineMasters', 'ProductionLines.LineMasters.VendorFactories', 'Materials'])
             ->order(['Dailymonitor.plan_date' => 'DESC']);
         $this->set(compact('dailymonitor'));
     }
@@ -110,9 +110,14 @@ class DailymonitorController extends VendorAppController
 
                     for ($row = 2; $row <= $highestRow; $row++) {
                         $tmp['sap_vendor_code']  = $session->read('vendor_code');
+                        $tmp['status'] = 1;
+                        if($highestColumnIndex == 6) {
+                            $tmp['status'] = 3;
+                        }
                         $status = true;
                         $facError = false;
                         $target = true;
+                        $confirm = true;
                         for ($col = 1; $col <= $highestColumnIndex; $col++) {
                             $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                             if($col == 1) {
@@ -164,7 +169,13 @@ class DailymonitorController extends VendorAppController
                             } else if ($col == 5) {
                                 $tmp['plan_date'] = date('Y-m-d', strtotime($value));
                                 $datas['plan_date'] = date('Y-m-d', strtotime($value));
-                            } 
+                            } else if($highestColumnIndex == 6 && $col == 6) {
+                                $tmp['confirm_production'] = $value;
+                                $datas['confirm_production'] = $value;
+                                if ($value < 1 || $value == "" || $value == null) {
+                                    $confirm = false;
+                                } 
+                            }
                         }
 
                         $datas['error'] = '';
@@ -173,6 +184,9 @@ class DailymonitorController extends VendorAppController
                         }
                         if(!$target) {
                             $datas['error'] = 'Invalid target value';
+                        }
+                        if($highestColumnIndex == 6 && !$confirm) {
+                            $datas['error'] = 'Invalid confirm value';
                         } 
 
                         $planner[] = $datas;
@@ -189,8 +203,14 @@ class DailymonitorController extends VendorAppController
                         foreach($uploadData as $row) {
                             $upsertQuery->values($row);
                         }
-                        $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `target_production`=VALUES(`target_production`)')
+                        if($highestColumnIndex == 6) {
+                            $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `confirm_production`=VALUES(`confirm_production`)')
                             ->execute();
+                        } else {
+                            $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `target_production`=VALUES(`target_production`)')
+                            ->execute();
+                        }
+                        
                     }
 
                     $response['status'] = 1;
