@@ -166,7 +166,7 @@ $.ajax({
                 if (v.length > 0) {
                     $(".branch_office_card_body").empty();
                     $.each(v, function (j, w) {
-                        $(".branch_office_card_body").append(`<div class="row branch_office branch_office_` + j + `" data-id="` + j + `" id="branch_office_` + j + `">
+                        $(".branch_office_card_body").prepend(`<div class="row branch_office branch_office_` + j + `" data-id="` + j + `" id="branch_office_` + j + `">
                         <div class="col-3 mt-3 col-md-3">
                             <div class="form-group">
                                 <div class="input text"><label for="branch_office_`+ j + `_address">Address</label><input type="text" name="branch[branch_office][` + j + `][address]" value="` + w.address + `" id="branch_office_` + j + `_address" class="form-control branch_office_` + j + `_address"></div>
@@ -179,7 +179,7 @@ $.ajax({
                         </div>
                         <div class="col-3 mt-3 col-md-3">
                             <div class="form-group">
-                                <div class="input number"><label for="branch_office_`+ j + `_pincode">Pincode</label><input type="number" name="branch[branch_office][` + j + `][pincode]" value="` + w.pincode + `"  class="form-control pincode-input branch_office_` + j + `_pincode" id="branch_office_` + j + `_pincode" maxlength="6"></div>
+                                <div class="input number"><label for="branch_office_`+ j + `_pincode">Pincode</label><input type="number" name="branch[branch_office][` + j + `][pincode]" value="` + w.pincode + `"  class="form-control maxlength_validation pincode-input branch_office_` + j + `_pincode" id="branch_office_` + j + `_pincode" maxlength="6"></div>
                             </div>
                         </div>
                         <div class="col-3 mt-3 col-md-3">
@@ -215,8 +215,7 @@ $.ajax({
                         <div class="col-sm-12 col-md-3 mt-3">
                             <label class="form-label">Registration Certificate</label>
                             <div class="custom-file">
-                                <input name="branch[branch_office][`+ j + `][registration_certificate]" type="file" accept=".pdf" class="custom-file-input branch_office_` + j + `_registration_certificate">
-                                <label class="custom-file-label">Choose File</label>
+                                <a data-file="true" class="branch_office_` + j + `_registration_certificate"></a>
                             </div>
                         </div>
                         <div class="col-3 col-md-3 mt-4 pt-4 hide">
@@ -322,7 +321,7 @@ $.ajax({
                                     </div>
                                 </div>
                             </div>` });
-                        $(".factory_office_card_body").append(`<div class="row factory_office factory_office_` + j + `" data-id="` + j + `" data-sub="` + j + `"
+                        $(".factory_office_card_body").prepend(`<div class="row factory_office factory_office_` + j + `" data-id="` + j + `" data-sub="` + j + `"
                         id="factory_office_`+ j + `">
                         <div class="col-3 mt-3 col-md-3">
                             <div class="form-group">
@@ -398,8 +397,7 @@ $.ajax({
                                 </div>
                                 <div class="col-sm-12 col-md-6 col-lg-6">
                                     <div class="custom-file">
-                                        <input name="prdflt[factory_office][`+ j + `][installed_capacity_file]" required="true" type="file" accept=".pdf" class="custom-file-input">
-                                        <label class="custom-file-label">Choose File</label>
+                                        <a data-file="true" class="prdflt_factory_office_` + j + `_installed_capacity_file"></a>
                                     </div>
                                 </div>
                             </div>
@@ -415,8 +413,7 @@ $.ajax({
                                 </div>
                                 <div class="col-sm-12 col-md-6 col-lg-6">
                                     <div class="custom-file">
-                                        <input name="prdflt[factory_office][`+ j + `][power_available_file]" required="true" type="file" accept=".pdf" class="custom-file-input">
-                                        <label class="custom-file-label">Choose File</label>
+                                        <a data-file="true" class="prdflt_factory_office_`+ j + `_power_available_file"></a>
                                     </div>
                                 </div>
                             </div>
@@ -432,8 +429,7 @@ $.ajax({
                                 </div>
                                 <div class="col-sm-12 col-md-6 col-lg-6">
                                     <div class="custom-file">
-                                        <input name="prdflt[factory_office][`+ j + `][machinery_available_file]" required="true" type="file" accept=".pdf" class="custom-file-input">
-                                        <label class="custom-file-label">Choose File</label>
+                                        <a data-file="true" class="prdflt_factory_office_`+ j + `_power_available_file"></a>
                                     </div>
                                 </div>
                             </div>
@@ -449,9 +445,7 @@ $.ajax({
                                 </div>
                                 <div class="col-sm-12 col-md-6 col-lg-6">
                                     <div class="custom-file">
-                                        <input name="prdflt[factory_office][`+ j + `][raw_material_file]" required="true" type="file" accept=".pdf" class="custom-file-input">
-                                        <label class="custom-file-label">Choose
-                                            File</label>
+                                    <a data-file="true" class="prdflt_factory_office_`+ j + `_raw_material_file"></a>
                                     </div>
                                 </div>
                             </div>
@@ -467,7 +461,7 @@ $.ajax({
                 if (v.length > 0) {
                     $(".partner_card_body").empty();
                     $.each(v, function (j, w) {
-                        $(".partner_card_body").append(`<div class="row partner partner_` + j + `" data-id="` + j + `" id="partner_` + j + `">
+                        $(".partner_card_body").prepend(`<div class="row partner partner_` + j + `" data-id="` + j + `" id="partner_` + j + `">
                         <div class="col-2 mt-1">
                             <input type="radio" name="other_address[partner][`+ j + `][type]" ` + (w.type == 'Proprietor' ? `checked=""` : ``) + ` value="Proprietor">
                             <label>Proprietor</label>
@@ -531,7 +525,7 @@ $.ajax({
                 if (v.length > 0) {
                     $(".customer_card_body").empty();
                     $.each(v, function (j, w) {
-                        $(".customer_card_body").append(`<div class="row customer customer_` + j + `" data-id="` + j + `" id="customer_` + j + `">
+                        $(".customer_card_body").prepend(`<div class="row customer customer_` + j + `" data-id="` + j + `" id="customer_` + j + `">
                         <div class="col-3 mt-3 col-md-3">
                             <div class="form-group">
                                 <div class="input text"><label for="id_name">Customer Name</label><input type="text" value="`+ w.customer_name + `" name="reputed[customer][` + j + `][customer_name]" class="form-control alphaonly capitalize" id="id_name"></div></div>
@@ -583,7 +577,7 @@ $.ajax({
             else if (i == "questionnaire") {
                 if (v.length > 0) {
                     $(".questionnaire").empty();
-                    $.each(v, function (j, w) { $(".questionnaire").append(`<div class="col-lg-12 mt-3"><label>` + w.question + `</label><input type="hidden" name="questionnaire[` + j + `][question]" value="` + w.question + `"><textarea placeholder="" name="questionnaire[` + j + `][answer]" class="form-control" cols="30" rows="3">` + w.answer + `</textarea></div>`); })
+                    $.each(v, function (j, w) { $(".questionnaire").prepend(`<div class="col-lg-12 mt-3"><label>` + w.question + `</label><input type="hidden" name="questionnaire[` + j + `][question]" value="` + w.question + `"><textarea placeholder="" name="questionnaire[` + j + `][answer]" class="form-control" cols="30" rows="3">` + w.answer + `</textarea></div>`); })
                 }
             }
             else if (i == "income_tax") { $.each(v, function (j, w) { $(".income_tax_" + j).val(w); }) }
