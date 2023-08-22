@@ -195,7 +195,7 @@
                              $("#line-master-id").append("<option value='"+val.id+"'>"+val.name+"</option>");
                         });
                         $.each(response.data.materials, function (key, val) { 
-                             $("#material-id").append("<option value='"+val.id+"'>"+val.code+"</option>");
+                             $("#material-id").append("<option value='"+val.id+"'>"+val.description+"</option>");
                         });
                     }
                 },

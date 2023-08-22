@@ -229,13 +229,13 @@ class LineMastersController extends VendorAppController
         ->where(['sap_vendor_code' => $sapVendor, 'vendor_factory_id' => $factoryId]);
 
         $materialList = $this->StockUploads->find('all')
-        ->select(['Materials.id', 'Materials.code'])
+        ->select(['Materials.id', 'Materials.code', 'Materials.description'])
         ->contain(['Materials'])
         ->where(['StockUploads.sap_vendor_code' => $sapVendor, 'vendor_factory_id' => $factoryId]);
 
         $materials = [];
         foreach($materialList as $mat) {
-            $materials[] = ['id' => $mat->material->id, 'code' => $mat->material->code];
+            $materials[] = ['id' => $mat->material->id, 'description' => $mat->material->description];
         }
 
         $response['status'] = 0;

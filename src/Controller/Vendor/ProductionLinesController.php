@@ -208,4 +208,27 @@ class ProductionLinesController extends VendorAppController
 
         echo json_encode($response);
     }
+
+
+    public function getLineMaterials($lineMasterId = null) {
+        $this->autoRender = false;
+        
+        $session = $this->getRequest()->getSession();
+        $sapVendor = $session->read('vendor_code');
+        
+        $materialList = $this->ProductionLines->find()
+        ->select(['capacity', 'Materials.id', 'Materials.code', 'Materials.description'])
+        ->contain(['Materials'])
+        ->where(['line_master_id' => $lineMasterId]);
+
+        $materials = [];
+        foreach($materialList as $mat) {
+            $materials[] = ['id' => $mat->material->id, 'description' => $mat->material->description, 'capacity' => $mat->capacity];
+        }
+
+        $response['status'] = 1;
+        $response['data']['materials'] = $materials;
+
+        echo json_encode($response);
+    }
 }
