@@ -35,7 +35,7 @@ class VendorTempsController extends VendorAppController
 
         $this->loadModel('VendorTemps');
         $vendorTemp = $this->VendorTemps->get($session->read('vendor_id'), [
-            'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
+            'contain' => ['VendorStatus','PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -116,7 +116,9 @@ class VendorTempsController extends VendorAppController
         $this->loadModel("States");
         $this->loadModel("Users");
         $session = $this->getRequest()->getSession();
-        $vendorTemp = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','ReconciliationAccounts','AccountGroups', 'PaymentTerms','SchemaGroups', 'PurchasingOrganizations']]);
+        $vendorTemp = $this->VendorTemps->get($id, ['contain' => ['VendorStatus','CompanyCodes','ReconciliationAccounts','AccountGroups', 'PaymentTerms','SchemaGroups', 'PurchasingOrganizations']]);
+
+        //echo '<pre>'; print_r($vendorTemp); exit;
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();

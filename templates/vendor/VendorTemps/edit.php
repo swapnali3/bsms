@@ -47,7 +47,7 @@
                         <li>
                             <p>Status :
                                 <b>
-                                    <?= $status ?>
+                                    <?= $vendorTemp->vendor_status->description ?>
                                 </b>
                             </p>
                         </li>
