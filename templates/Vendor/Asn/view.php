@@ -192,9 +192,7 @@
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 dataType: "json",
                 // async: false,
-                beforeSend: function () {
-                    $("#loaderss").show();
-                },
+                beforeSend: function () { $("#gif_loader").show(); },
                 success: function (response) {
                     if (response.status == 'success') {
                         //location.reload(true);
@@ -206,9 +204,7 @@
                         alert('Please try again...');
                     }
                 },
-                complete: function () {
-                    $("#loaderss").hide();
-                }
+                complete: function () { $("#gif_loader").hide(); }
             });
         });
 
