@@ -564,7 +564,7 @@ class SyncController extends ApiAppController
 
         $response = array();
         $response['status'] = 0;
-        $response['message'] = 'Empty request';
+        $response['message'] = [];
         
         $ftpConn = $this->Ftp->connection();
         $list = $this->Ftp->getList($ftpConn);
@@ -665,7 +665,7 @@ class SyncController extends ApiAppController
 
         $response = array();
         $response['status'] = 0;
-        $response['message'] = 'Empty request';
+        $response['message'] = [];
 
         $ftpConn = $this->Ftp->connection();
         $list = $this->Ftp->getList($ftpConn);
