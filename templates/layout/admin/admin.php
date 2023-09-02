@@ -43,28 +43,28 @@
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <style>
-        aside.main-sidebar {
+        /* aside.main-sidebar {
             background-color: #08132F !important;
         }
 
         .nav-link.active {
             background-color: #8E9B2C !important;
             color: #fff !important;
-        }
+        } */
 
-        .ft_rect_logo {
+        /* .ft_rect_logo {
             margin-top: 4px !important;
-        }
+        } */
 
         /* .layout-fixed .brand-link {
     width: 218px !important;
-}*/
-        .main-sidebar,
+} */
+        /* .main-sidebar,
         .main-sidebar::before {
             width: 218px;
         }
 
-        /* .sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link {
+        .sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link {
     width: calc(235px - 1.1rem * 2);
 } */
         body,

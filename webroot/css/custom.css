@@ -249,7 +249,7 @@ table#example1 tr td {
 }
 
 .gate-entry { margin-left: 0px;}
-.btn:hover { box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;}
+/* .btn:hover { box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;} */
 .modal-footer .btn { font-size: 13px;}
 
 .rfqs .card-body { padding-top: 10px !important;}
@@ -826,8 +826,9 @@ div#past_messages::-webkit-scrollbar-track {
 }
 
 .purchase-order .po-list {
+    margin: 0 7px 7px 7px ;
     border: 1px solid #eee;
-    background-color: #fafafa;
+    background-color: #F4F6F9;
 }
 
 .commu-review .card-body {
@@ -839,7 +840,7 @@ div#past_messages::-webkit-scrollbar-track {
 }
 
 .purchase-order .po-box {
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #e4e4e4;
     padding: 5px 20px;
     min-width: 170px;
     cursor: pointer;
@@ -997,5 +998,42 @@ span.otp-send-email { color: #121212 !important;}
     text-decoration: dotted !important;
 }
 
+
+.main-sidebar {
+    height: 100%;
+    width: 140px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    transition: width 0.5s; 
+    box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22)!important;
+    display: inline-block;
+}
+
+.main-sidebar:hover {
+    width: 230px; 
+    transition: all linear .5s;
+}
+
+.main-sidebar .nav-link p { display: none;}
+
+.main-sidebar:hover .nav-link p { display: unset; transition: all linear .3s; font-size: 14px;}
+
+.main-sidebar:hover .nav-item {
+    justify-content: start;
+    display: inline-block;
+    transition: all linear .3s;
+}
+
+.main-sidebar .nav-item  { 
+    display: flex;
+    justify-content: center;
+}
+
+.menu_icon {
+    position: absolute;
+    left: 10%;
+}
 
 

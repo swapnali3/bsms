@@ -73,7 +73,7 @@ th {
 /* Search bar */
 .search-bar {
     border: 1px solid #ddd;
-    border-radius: 30px;
+    border-radius: 5px;
     width: 260px;
     padding: 5px 10px;
     justify-content: space-between;
@@ -635,3 +635,62 @@ body {
     color: #F7941D !important;
     border-color: #F7941D !important;
 }
+
+.main-sidebar {
+    height: 100%;
+    width: 140px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    transition: width 0.5s; 
+    box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22)!important;
+    display: inline-block;
+}
+
+.main-sidebar:hover {
+    width: 230px; 
+    transition: all linear .5s;
+}
+
+.main-sidebar .nav-link p { display: none;}
+
+.main-sidebar:hover .nav-link p { display: unset; transition: all linear .3s;}
+
+.main-sidebar:hover .nav-item {
+    justify-content: start;
+    display: inline-block;
+    transition: all linear .3s;
+}
+
+.main-sidebar .nav-item  { 
+    display: flex;
+    justify-content: center;
+}
+
+.menu_icon {
+    position: absolute;
+    left: 10%;
+}
+
+/* .dropdown_class {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown_class .dropdown_classlist {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.dropdown_class .dropdown_classlist a {
+    display: block;
+}
+
+.dropdown_class:hover { height: 200px !important; transition: all ease-in-out 1s;}
+
+.dropdown_class:hover .dropdown_classlist {
+    display: block;
+    transition: all ease-in-out 1s;
+} */
