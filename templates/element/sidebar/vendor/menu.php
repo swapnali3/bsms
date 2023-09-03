@@ -29,9 +29,9 @@
     padding-left: 0rem
   }
 
-  .layout-fixed .brand-link {
+  /* .layout-fixed .brand-link {
     width: 210px
-  }
+  } */
 
   .brand-link {
     padding: 0.5rem 0.5rem
@@ -54,10 +54,10 @@
     top: 0.9rem
   }
 
-  .main-sidebar,
+  /* .main-sidebar,
   .main-sidebar::before {
     width: 210px
-  }
+  } */
 
   p,
   .p {
@@ -107,7 +107,7 @@
   <?= $this->Html->link(__('<i class="fas fa-box-open nav-icon"></i><p>Material Stocks</p>'), ['controller' => 'vendor-material-stocks', 'action' => 'index'], ['class' => "nav-link $stockActive", 'escape' => false]) ?>
 </li> -->
 
-<li class="nav-item">
+<li class="nav-item dropdown_class">
   <a href="#" class="nav-link">
     <i class="nav-icon fas fa-user-alt"></i>
     <p>
@@ -115,7 +115,7 @@
       <i class="right fas fa-angle-left"></i>
     </p>
   </a>
-  <ul class="nav nav-treeview">
+  <ul class="nav nav-treeview dropdown_classlist">
     <li class="nav-item ">
       <?= $this->Html->link(__('<i class="fas fa-boxes nav-icon"></i><p>Material Master</p>'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
     </li>
