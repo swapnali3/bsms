@@ -42,6 +42,7 @@
     <?= $this->fetch('css') ?>
     <!-- jQuery -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
+    <script>var baseurl = "<?= $this->Url->build('/') ?>";</script>
     <style>
         /* aside.main-sidebar {
             background-color: #08132F !important;

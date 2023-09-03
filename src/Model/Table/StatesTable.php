@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * States Model
  *
+ * @property \App\Model\Table\VendorTempsTable&\Cake\ORM\Association\HasMany $VendorTemps
+ *
  * @method \App\Model\Entity\State newEmptyEntity()
  * @method \App\Model\Entity\State newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\State[] newEntities(array $data, array $options = [])
@@ -44,7 +46,6 @@ class StatesTable extends Table
         $this->hasMany('VendorTemps', [
             'foreignKey' => 'state_id',
         ]);
-        
     }
 
     /**
@@ -56,23 +57,22 @@ class StatesTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->scalar('country_code')
+            ->maxLength('country_code', 10)
+            ->requirePresence('country_code', 'create')
+            ->notEmptyString('country_code');
+
+        $validator
             ->scalar('region_code')
             ->maxLength('region_code', 10)
             ->requirePresence('region_code', 'create')
-            ->notEmptyString('region_code')
-            ->add('region_code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmptyString('region_code');
 
         $validator
             ->scalar('name')
             ->maxLength('name', 30)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
-
-        $validator
-            ->scalar('country_code')
-            ->maxLength('country_code', 10)
-            ->requirePresence('country_code', 'create')
-            ->notEmptyString('country_code');
 
         $validator
             ->dateTime('added_date')
@@ -94,7 +94,7 @@ class StatesTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['region_code']), ['errorField' => 'region_code']);
+        $rules->add($rules->isUnique(['region_code', 'country_code']), ['errorField' => 'region_code']);
 
         return $rules;
     }

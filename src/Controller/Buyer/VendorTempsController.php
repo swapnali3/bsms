@@ -473,6 +473,7 @@ class VendorTempsController extends BuyerAppController
 
     public function approveVendor($id = null, $action = null)
     {
+        $session = $this->getRequest()->getSession();
         $flash = [];
         $this->loadModel("VendorTemps");
         $vendor = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','SchemaGroups','PurchasingOrganizations','AccountGroups', 'ReconciliationAccounts', 'States', 'Countries', 'PaymentTerms']]);
@@ -543,6 +544,7 @@ class VendorTempsController extends BuyerAppController
             $data['DATA']['PAN'] = $vendor->pan_no;
             $data['DATA']['ZTERM'] = $vendor->payment_term->code;
             $data['DATA']['WAERS'] = $vendor->order_currency;
+            $data['DATA']['BUYER_ID'] = $session->read('id');
 
 
             $uploadFileContent = json_encode($data);
@@ -982,7 +984,7 @@ class VendorTempsController extends BuyerAppController
                         $vendor->mobile = $row->MOB_NUMBER;
                         $vendor->gst_no = $row->GSIN;
                         $vendor->pan_no = $row->PAN;
-                        $vendor->buyer_id = 8;
+                        $vendor->buyer_id = $row->BUYER_ID;
         
                         if($this->VendorTemps->save($vendor)) {
                             $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';

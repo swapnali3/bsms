@@ -718,7 +718,7 @@ class SyncController extends ApiAppController
                         $vendor->mobile = $row->MOB_NUMBER;
                         $vendor->gst_no = $row->GSIN;
                         $vendor->pan_no = $row->PAN;
-                        $vendor->buyer_id = 8;
+                        $vendor->buyer_id = $row->BUYER_ID;
         
                         if($this->VendorTemps->save($vendor)) {
                             $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';

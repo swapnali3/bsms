@@ -49,15 +49,12 @@ class DashboardController extends AdminAppController
     
     public function index()
     {
+        $this->loadModel('CompanyCodes');
+        $company_codes = $this->CompanyCodes->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
+            return $row->code.' - '.$row->name;
+        }])->all();
 
-        // $this->loadModel('Users');
-        // $users = $this->paginate($this->Users);
-
-        // echo "Prv" .print_r($users);exit;
-
-
-
-        // $this->set(compact('Users'));
+        $this->set(compact('company_codes'));
 
     }
 
@@ -143,38 +140,45 @@ class DashboardController extends AdminAppController
         $this->autoRender = false;
 
         $this->loadModel('Users');
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        $this->loadModel('Buyers');
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
 
             try {
-                $User = $this->Users->newEmptyEntity();
+
                 $data = $this->request->getData();
-                $data['password'] = Security::randomString(10);
 
-                $groupName = "";
-                if ($data['group_id'] === '1') { $groupName = "Admin"; }
-                else { $groupName = "Buyer"; }
+                $buyer = $this->Buyers->newEmptyEntity();
+                $buyer = $this->Buyers->patchEntity($buyer, $data);
+                if($this->Buyers->save($buyer)) {
 
-                $User = $this->Users->patchEntity($User, $data);
-                if ($this->Users->save($User)) {
-                    
-                    $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-                    $mailer = new Mailer('default');
-                    $mailer
-                        ->setTransport('smtp')
-                        ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to ' . $groupName . ' portal. <br/> <br/> Username: ' . $data['username'] . '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
-                        ->setTo($data['username'])
-                        ->setEmailFormat('html')
-                        ->setSubject('Vendor Portal - Account created')
-                        ->viewBuilder()
-                            ->setTemplate('mail_template');
-                    $mailer->deliver();
+                    $data['username'] = $data['email'];
+                    $data['password'] = $data['mobile'];//Security::randomString(10);
+
+                    $user = $this->Users->newEmptyEntity();
+                    $user = $this->Users->patchEntity($user, $data);
+                    if ($this->Users->save($user)) {
+                        
+                        $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                        $mailer = new Mailer('default');
+                        $mailer
+                            ->setTransport('smtp')
+                            ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] . '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                            ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                            ->setTo($data['username'])
+                            ->setEmailFormat('html')
+                            ->setSubject('Vendor Portal - Account created')
+                            ->viewBuilder()
+                                ->setTemplate('mail_template');
+                        $mailer->deliver();
 
 
-                    $response['status'] = '1';
-                    $response['message'] = 'User Added successfully';
+                        $response['status'] = '1';
+                        $response['message'] = 'User Added successfully';
+                    } else {
+                        throw new \Exception('Failed to Add User'); // Throw exception if the 
+                    }
                 } else {
-                    throw new \Exception('Failed to Add User'); // Throw exception if the 
+                    throw new \Exception('Failed to Add Buyer'); // Throw exception if the 
                 }
             } catch (\Exception $e) {
                 $response['status'] = '0';
