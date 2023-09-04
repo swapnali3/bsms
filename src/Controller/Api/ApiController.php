@@ -309,4 +309,17 @@ class ApiController extends ApiAppController
         echo json_encode($response);
     }
 
+
+    public function masterByCompanyCode($id = null)
+    {
+        $response = ["status"=>0, 'message' =>'Empty request'];
+        $this->loadModel("CompanyCodes");
+        $this->loadModel("PurchasingOrganizations");
+        
+        $po = $this->PurchasingOrganizations->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        
+        $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$po]];
+        echo json_encode($response);
+    }
+
 }

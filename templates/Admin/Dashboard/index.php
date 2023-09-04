@@ -11,7 +11,7 @@
 <?= $this->Html->css('admincss') ?>
 <div class="content admin-console">
   <div class="row">
-    <div class="col-12 landing">
+    <!-- <div class="col-12 landing">
       <div class="card">
         <div class="card-header">
           <h5><b> Administration Console</b></h5>
@@ -24,9 +24,7 @@
                 <i class="fas fa-search"></i>
               </div>
             </div>
-            <!-- <div class="col-3">
-              <button type="button" class="btn btn-info">Delete Trail Account</button>
-            </div> -->
+            
             <div class="col-12 mt-3">
               <h5 class="text-success pl-1 mb-0"><b>YOUR ACCOUNT</b></h5>
             </div>
@@ -218,8 +216,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-8 setting hide">
+    </div> -->
+    <div class="col-12 setting hide">
       <div class="card" style="height: 88vh;">
         <div class="card-header">
           <h5 class="mb-0"><b>SETTINGS</b></h5>
@@ -271,7 +269,7 @@
         </div>
       </div>
     </div>
-    <div class="col-8 usermgm hide">
+    <div class="col-12 usermgm hide">
       <div class="card">
         <div class="card-header" style="background-color:#f5f7fd;">
           <h5 class="mb-0">USER ADMINISTRATION</h5>
@@ -288,9 +286,6 @@
             <table class="table" id="adminuserview" style="width: 100%;">
               <thead>
                 <tr>
-                  <th>
-                    <input class="" type="checkbox" value="" id="all">
-                  </th>
                   <th>Full Name</th>
                   <th>Username</th>
                   <th>Mobile No</th>
@@ -303,7 +298,7 @@
         </div>
       </div>
     </div>
-    <div class="col-8 useradd hide">
+    <div class="col-12 useradd hide">
       <div class="card" style="height: 88vh;">
         <div class="card-header" style="background-color:#f5f7fd;">
           <h5 class="mb-0">USER ADMINISTRATION</h5>
@@ -316,36 +311,58 @@
             <div class="col-4 mt-3">
               <label for="mobileno">Role</label>
               <select class="custom-select" id="myCustomSelect" name="group_id" required>
-                <option disabled selected>Please Select</option>
-                <option value="1">Admin</option>
-                <option value="2">Buyer</option>
+                <!-- <option disabled selected>Please Select</option>
+                <option value="1">Admin</option> -->
+                <option value="2" selected>Buyer</option>
               </select>
             </div>
             <div class="col-4 mt-3">
               <div class="form-group">
-                <label for="fname">First Name</label>
-                <input type="text" class="form-control" id="fname" name="first_name" placeholder="Enter First Name" required>
+                <?php
+                      echo $this->Form->control('first_name', [
+                          'class' => 'form-control',
+                          'placeholder' => 'Enter First Name'
+                      ]);
+                      ?>
               </div>
             </div>
             <div class="col-4 mt-3">
               <div class="form-group">
-                <label for="lname">Last Name</label>
-                <input type="text" class="form-control" id="lname" name="last_name" placeholder="Enter Last Name" required>
+                <?php
+                      echo $this->Form->control('last_name', [
+                          'class' => 'form-control',
+                          'placeholder' => 'Enter Last Name'
+                      ]);
+                      ?>
               </div>
             </div>
             <div class="col-4 mt-3">
               <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="username" placeholder="Enter email" required>
+                <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0', 'placeholder' => 'please enter email id', 'required')); ?>
               </div>
             </div>
+            
+            
             <div class="col-4 mt-3">
               <div class="form-group">
-                <label for="mobileno">Mobile No</label>
-                <input type="number" class="form-control" id="mobileno" name="mobile" placeholder="Enter Mobile No" required>
+                <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
               </div>
             </div>
 
+
+            <div class="col-4 mt-3">
+              <div class="form-group">
+                <?php echo $this->Form->control('company_code_id', array('class' => 'form-control', 'options' => $company_codes, 'empty' => 'Please Select', 'required')); ?>
+              </div>
+            </div>
+
+            <div class="col-4 mt-3">
+              <div class="form-group">
+              <?php echo $this->Form->control('purchasing_organization_id', array('class' => 'form-control', 'empty' => 'Please Select', 'required')); ?>
+              </div>
+            </div>
+
+            
           </div>
           <div>
             <button type="buuton" class="btn btn-primary">Submit</button>
@@ -356,7 +373,7 @@
 
       </div>
     </div>
-    <div class="col-4 sidecard hide">
+    <!-- <div class="col-4 sidecard hide">
       <div class="card" style="height: 88vh;">
         <div class="card-body">
           <div class="row">
@@ -538,7 +555,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -547,4 +564,20 @@
 <script>
   var userurl = '<?= $this->Url->build(['controller' => 'dashboard','action' => 'userView']); ?>';
   var useraddurl = '<?= $this->Url->build(['controller' => 'dashboard','action' => 'userAdd']); ?>';
+
+  function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
+  var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
+  if (convertapi) { return JSON.parse(resp); }
+  return resp;
+}
+
+  $(document).on("change", "#company-code-id", function () {
+  var companycode = $(this).val();
+  var resp = getRemote(baseurl + "api/api/master-by-company-code/" + companycode);
+  var opt = "<option selected='' value=''>Please Select</option>";
+  resp = resp["message"];
+  $.each(resp["PurchasingOrganizations"], function(i, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
+  $("#purchasing-organization-id").html(opt);
+});
+
 </script>

@@ -15,8 +15,8 @@
                     <th>Asn No</th>
                     <th>Vendor Code</th>
                     <th>Purchase Order</th>
-                    <th>invoice No</th>
-                    <th>invoice value</th>
+                    <th>Invoice No</th>
+                    <th>Invoice value</th>
                     <th>Status</th>
 
                 </tr>

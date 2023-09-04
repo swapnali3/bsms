@@ -3,20 +3,20 @@ declare(strict_types=1);
 
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\StatesTable;
+use App\Model\Table\BuyersTable;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\StatesTable Test Case
+ * App\Model\Table\BuyersTable Test Case
  */
-class StatesTableTest extends TestCase
+class BuyersTableTest extends TestCase
 {
     /**
      * Test subject
      *
-     * @var \App\Model\Table\StatesTable
+     * @var \App\Model\Table\BuyersTable
      */
-    protected $States;
+    protected $Buyers;
 
     /**
      * Fixtures
@@ -24,7 +24,11 @@ class StatesTableTest extends TestCase
      * @var array<string>
      */
     protected $fixtures = [
-        'app.States',
+        'app.Buyers',
+        'app.CompanyCodes',
+        'app.PurchasingOrganizations',
+        'app.RfqCommunications',
+        'app.Rfqs',
         'app.VendorTemps',
     ];
 
@@ -36,8 +40,8 @@ class StatesTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('States') ? [] : ['className' => StatesTable::class];
-        $this->States = $this->getTableLocator()->get('States', $config);
+        $config = $this->getTableLocator()->exists('Buyers') ? [] : ['className' => BuyersTable::class];
+        $this->Buyers = $this->getTableLocator()->get('Buyers', $config);
     }
 
     /**
@@ -47,7 +51,7 @@ class StatesTableTest extends TestCase
      */
     protected function tearDown(): void
     {
-        unset($this->States);
+        unset($this->Buyers);
 
         parent::tearDown();
     }
@@ -56,7 +60,7 @@ class StatesTableTest extends TestCase
      * Test validationDefault method
      *
      * @return void
-     * @uses \App\Model\Table\StatesTable::validationDefault()
+     * @uses \App\Model\Table\BuyersTable::validationDefault()
      */
     public function testValidationDefault(): void
     {
@@ -67,7 +71,7 @@ class StatesTableTest extends TestCase
      * Test buildRules method
      *
      * @return void
-     * @uses \App\Model\Table\StatesTable::buildRules()
+     * @uses \App\Model\Table\BuyersTable::buildRules()
      */
     public function testBuildRules(): void
     {

@@ -20,11 +20,11 @@ class StatesFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
+                'country_code' => 'Lorem ip',
                 'region_code' => 'Lorem ip',
                 'name' => 'Lorem ipsum dolor sit amet',
-                'country_code' => 'Lorem ip',
-                'added_date' => '2023-08-11 20:14:01',
-                'updated_date' => '2023-08-11 20:14:01',
+                'added_date' => '2023-08-31 16:37:35',
+                'updated_date' => '2023-08-31 16:37:35',
             ],
         ];
         parent::init();

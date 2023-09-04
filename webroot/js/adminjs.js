@@ -23,12 +23,12 @@ $(document).on("click", ".usermgm", function () {
 
 $(document).on("click", ".prd_user_view", function () {
     hideframes();
-    $(".usermgm, .sidecard").show();
+    $(".usermgm").show();
 });
 
 $(document).on("click", ".prd_user_add", function () {
     hideframes();
-    $(".useradd, .sidecard").show();
+    $(".useradd").show();
 });
 
 $(document).on("click", ".menu_dashboard", function () {

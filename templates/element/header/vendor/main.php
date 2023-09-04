@@ -17,8 +17,8 @@
 
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white sticky-top">
     <div class="container-fluid">
-        <a href="" class="navbar-brand pl-4 ml-4">
-            <?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ml-5 ft-text', 'data-image' => '2']) ?>
+        <a href="" class="navbar-brand ml-3">
+            <?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '2']) ?>
         </a>
         <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@
 
         <div class="collapse navbar-collapse order-3" id="navbarCollapse">
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item menu_icon">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item">
