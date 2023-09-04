@@ -100,7 +100,7 @@ class DashboardController extends BuyerAppController
         $result = $conn->execute($query)->fetch('assoc');
         $poCompleteCount = $result['complete'];
 
-        $topVendor = $conn->execute("select * from (SELECT ph.sap_vendor_code, sum(pf.po_qty) total
+        $topVendor = $conn->execute("select * from (SELECT PH.sap_vendor_code, sum(pf.po_qty) total
         from po_headers PH	
         join po_footers pf on pf.po_header_id = PH.id
         group by PH.sap_vendor_code

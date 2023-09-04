@@ -225,7 +225,7 @@
         <div class="card-body">
           <div class="col-md-12">
             <div class="settings form content">
-              <form method="post" accept-charset="utf-8" action="/bsms/admin/settings/update">
+              <form method="post" accept-charset="utf-8" action="admin/settings/update">
                 <div style="display:none;"><input type="hidden" name="_method" value="PUT"><input type="hidden" name="_csrfToken" autocomplete="off" value="QHPE9oRzqNipo31TSZCZCPAg7PGpdxR3cdNlNXQiOTbRpXnc805rp/penuPNILFZN47r0rDStDYLOg67aDmFiEPCQai+cMlFyRKNl5BPI0FJ4FRRQRABV+mWHL/GLQifzjuv2q8Qg2oGt9ziievRBw==">
                 </div>
                 <fieldset>
