@@ -75,7 +75,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                     </div>
                     <div class="col-sm-12 col-md-12 mt-3">
                         <i style="color: black;">
-                            <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_vendor.xlsx"
+                            <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_vendor.xlsx" class="template_format"
                                 download>stock_upload_template</a>
                         </i>
                     </div>

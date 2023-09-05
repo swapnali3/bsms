@@ -64,7 +64,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
                 <div class="row justify-content-end align-items-center">
                     <div class="col-lg-4 d-flex justify-content-end">
-                        <i>
+                        <i class="fa fa-solid fa-file-download">
                             <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_buyer.xlsx"
                                 download class="template_format">stock_upload_template</a>
                         </i>
@@ -75,9 +75,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
                         <span id="filessnames"></span>
                     </div>
+                    <div class="col-sm-2 col-md-2 col-lg-2">
                         <button class="btn bg-gradient-submit" id="id_import" type="button">
                             Submit
                         </button>
+                    </div>
                     
                 </div>
                 <?= $this->Form->end() ?>

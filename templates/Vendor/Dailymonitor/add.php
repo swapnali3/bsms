@@ -101,8 +101,8 @@
                     <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
                 </div>
                 <div class="col-12 pt-2">
-                    <i style="color: black;">
-                    <a href="<?= $this->Url->build('/') ?>webroot/templates/production_planner_template.xlsx"
+                    <i>
+                    <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_planner_template.xlsx"
                                     target="_blank" rel="noopener noreferrer">Sample_Excel_Template.xlsx</a>
                     </i>
                 </div>
