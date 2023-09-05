@@ -128,7 +128,7 @@ th {
 }
 
 .bg-gradient-button.btn:hover {
-    transition: all ease .5s;
+    transition: all ease .3s;
     border: 1px solid #F7941D;
     color: #F7941D !important;
     background-color: #fff;
@@ -582,13 +582,15 @@ body {
 
 .buyer_approve_btn {
     background-color: #28a745 !important;
-    color: #fff !important;
+    color: #121212 !important;
 }
 
 .buyer_reject_btn {
     background-color: red !important;
-    color: #fff !important;
+    color: #121212 !important;
 }
+
+.card-tabs .card-header { border-bottom: 1px solid #eee !important;}
 
 .buyer_approve_btn:hover {
     transition: all ease 1s;
@@ -616,19 +618,26 @@ body {
 
 .template_format { 
     font-weight: 500;
-    color: #121212 !important;
-    /* font-style: normal !important; */
+    font-size: 17px;
+    color: #F7941D !important;
+    font-style: normal !important;
 }
 
 .template_format:hover {
-    transition: all ease .5s;
-    color: #F7941D !important;
+    /* transition: all ease .5s; */
+    color: #121212 !important;
 }
+
+#id_import { width: 100%;}
+
+#id_pohead { background-color: #fff !important;}
+.fa-file-download { color: #F7941D; font-size: 18px;}
+.fa-file-download:hover { color: #121212;}
 
 #OpenImgUpload {
     background-color: #fff !important;
     color: #121212 !important;
-    border:  1px solid #121212 !important;
+    border:  1px dashed #121212 !important;
 }
 
 #OpenImgUpload:hover {
@@ -650,17 +659,17 @@ body {
 
 .main-sidebar:hover {
     width: 230px; 
-    transition: all linear .5s;
+    transition: all ease-in-out .5s;
 }
 
-.main-sidebar .nav-link p { display: none;}
+.main-sidebar .nav-link p { display: none; font-size: 14px !important;}
 
-.main-sidebar:hover .nav-link p { display: unset; transition: all linear .3s;}
+.main-sidebar:hover .nav-link p { display: unset; transition: all ease-in-out .3s;}
 
 .main-sidebar:hover .nav-item {
     justify-content: start;
     display: inline-block;
-    transition: all linear .3s;
+    transition: all ease-in-out .3s;
 }
 
 .main-sidebar .nav-item  { 

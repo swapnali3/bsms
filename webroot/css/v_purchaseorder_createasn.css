@@ -69,7 +69,7 @@ div#past_messages::-webkit-scrollbar-track {
 
 .search-bar {
     border: 1px solid #e2e2e2;
-    border-radius: 30px;
+    /* border-radius: 30px; */
     width: 260px;
     padding: 5px 10px;
     justify-content: space-between;
