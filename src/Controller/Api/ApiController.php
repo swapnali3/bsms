@@ -42,7 +42,7 @@ class ApiController extends ApiAppController
         $this->loadModel("States");
         $states = $this->States->find('all')->innerJoin(['Countries'=>'Countries'],['Countries.country_code = States.country_code'])->where(['Countries.id' => $id])->toArray();
         $response = ["status"=> 1, 'message' =>$states];
-        echo json_encode($response);
+        echo json_encode($response); exit;
     }
 
     public function stateByCountryCode($country_code = null)
@@ -52,7 +52,7 @@ class ApiController extends ApiAppController
         $this->loadModel("States");
         $states = $this->States->find('all')->innerJoin(['Countries'=>'Countries'],['Countries.country_code = States.country_code'])->where(['Countries.country_code' => $country_code])->toArray();
         $response = ["status"=> 1, 'message' =>$states];
-        echo json_encode($response);
+        echo json_encode($response); exit;
     }
 
     public function postPo()
@@ -129,7 +129,7 @@ class ApiController extends ApiAppController
             }
         }
 
-        echo json_encode($response);
+        echo json_encode($response); exit;
     }
 
     public function notification()
@@ -155,7 +155,7 @@ class ApiController extends ApiAppController
         $response['notifications'] = $notifications;
 
 
-        echo json_encode($response);
+        echo json_encode($response); exit;
     }
 
     public function countries()
@@ -306,7 +306,7 @@ class ApiController extends ApiAppController
             $response['data'] = $materialHistories;
         }
 
-        echo json_encode($response);
+        echo json_encode($response); exit;
     }
 
 
@@ -319,7 +319,7 @@ class ApiController extends ApiAppController
         $po = $this->PurchasingOrganizations->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
         
         $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$po]];
-        echo json_encode($response);
+        echo json_encode($response); exit;
     }
 
 }

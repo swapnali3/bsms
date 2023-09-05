@@ -30,9 +30,9 @@
                     <div class="col-md-6 pb-1">
                         <div class="action-btn d-flex justify-content-end">
                             <input type="file" id="imgupload" style="display:none" />
-                            <button id="OpenImgUpload" type="button" class="btn bg-gradient-button mr-2"><i
-                                    class="fa fa-solid fa-file-import"></i> Upload ASN File</button>
-                            <!-- <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a> -->
+                            <!-- <button id="OpenImgUpload" type="button" class="btn bg-gradient-button mr-2"><i
+                                    class="fa fa-solid fa-file-import"></i> Upload ASN File</button> -->
+
                             <button type="button" id="continueSub" class="btn bg-gradient-cancel continue_btn"
                                 disabled>Continue</button>
                         </div>
