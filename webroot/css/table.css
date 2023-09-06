@@ -16,10 +16,10 @@
 }
 
 .table thead th {
-    font-weight: 600;
+    font-weight: 600 !important;
     color: #121212 !important;
     font-size: 12px !important;
-    letter-spacing: .7px;
+    letter-spacing: .7px !important;
 }
 
 hr {
@@ -100,5 +100,5 @@ hr {
 
 .card_box_shadow  { 
     box-shadow: none !important;
-    border: 1px solid #eee;
+    border: 1px solid #e2e2e2ee;
 }

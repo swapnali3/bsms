@@ -165,7 +165,7 @@
                                 <h6>Are you sure you want to approve?</h6>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn" style="border:1px solid #6610f2"
+                                <button type="button" class="btn" style="border:1px solid red"
                                     data-dismiss="modal">Cancel</button>
                                 <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn', 'style' => 'border:1px solid #28a745']) ?>
                             </div>

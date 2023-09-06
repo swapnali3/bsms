@@ -1089,7 +1089,7 @@
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
                                                 <i class="mt-2" style="color: black;">
-                                                    <a href="/bsms/webroot/templates/stock_upload.xlsx"
+                                                    <a href="webroot/templates/stock_upload.xlsx"
                                                         download="">sample_file_template</a>
                                                 </i>
                                             </div>

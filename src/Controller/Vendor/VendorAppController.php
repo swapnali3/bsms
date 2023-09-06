@@ -57,6 +57,7 @@ class VendorAppController extends Controller
         ]);
         $this->loadComponent('Flash');
         $this->loadComponent('Sms');
+        $this->loadComponent('Ftp');
         
         $flash = [];  
         $this->set('flash', $flash);

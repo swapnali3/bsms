@@ -20,6 +20,28 @@
                     <div class="col-lg-6 d-flex justify-content-start">
                         <h5>Production Confirmation</h5>
                     </div>
+                    <div class="col-lg-6 d-flex justify-content-end">
+                    <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload']]) ?>
+                <div class="row justify-content-end">
+                    <div class="col-sm-6 col-md-4">
+                        <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
+                        <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
+                        <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
+                'button', 'label' => 'Upload File', 'class' => 'd-block btn btn-block bg-gradient-button mb-0 file-upld-btn']); ?>
+                        <span id="filessnames"></span>
+                    </div>
+                    <div class="col-sm-6 col-md-4 d-flex justify-content-end">
+                    <button type="button" class="btn bg-gradient-submit" style="width: 100%; height:40px !important;" id="id_exportme">Import File</button>
+                    </div>
+                    <div class="pr-2 pt-2">
+                        <i>
+                            <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_confirmation.xlsx"
+                                target="_blank" rel="noopener noreferrer">Production Confirmation.xlsx</a>
+                        </i>
+                    </div>
+                </div>
+                <?= $this->Form->end() ?>
+                    </div>
                 </div>
             </div>
             <div class="card-header" id="id_pohead">
@@ -94,7 +116,7 @@
                 </table>
             </div>
             <div class="card-footer">
-            <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload']]) ?>
+            <!-- <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload']]) ?>
                 <div class="row">
                     <div class="col-sm-6 col-md-4 col-lg-2">
                         <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
@@ -107,13 +129,13 @@
                     <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
                     </div>
                     <div class="col-12 pt-2">
-                        <i style="color: black;">
-                            <a href="<?= $this->Url->build('/') ?>webroot/templates/production_confirmation.xlsx"
+                        <i>
+                            <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_confirmation.xlsx"
                                 target="_blank" rel="noopener noreferrer">Production Confirmation.xlsx</a>
                         </i>
                     </div>
                 </div>
-                <?= $this->Form->end() ?>
+                <?= $this->Form->end() ?> -->
             </div>
         </div>
     </div>

@@ -33,7 +33,7 @@
           </div>
           <div class="col-6"></div>
           <div class="col-1">
-            <a href="/bsms/vendorpurchase-orders/create-asn" id="id_backmodal"
+            <a href="vendor/purchase-orders/create-asn" id="id_backmodal"
               class="btn bg-gradient-cancel float-right">
               <i class="fas fa-angle-double-left"></i> BACK</a>
           </div>

@@ -141,7 +141,7 @@ class DashboardController extends AdminAppController
 
         $this->loadModel('Users');
         $this->loadModel('Buyers');
-        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+        if ($this->request->is(['patch', 'post', 'put'])) {
 
             try {
 

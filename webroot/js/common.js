@@ -40,7 +40,7 @@ $(function () {
 
 
     $.ajax({
-        url: "http://localhost/bsms/api/notification",
+        url: baseurl + "api/notification",
         method: "GET",
         dataType: "json",
         success: function (response) {

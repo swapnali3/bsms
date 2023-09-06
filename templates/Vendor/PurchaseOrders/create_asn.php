@@ -19,20 +19,20 @@
     <div class="card-body">
         <div class="content-d">
             <div class="t1 pt-1">
-                <div class="row">
-                    <div class="col-md-6 pt-2">
+                <div class="row align-items-center">
+                    <div class="col-md-6 pt-2 pb-1">
                         <div class="search-bar d-flex mb-2">
                             <input type="search" placeholder="Search all orders, meterials.."
                                 class="form-control search-box">
                             <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
                         </div>
                     </div>
-                    <div class="col-md-6 pb-2">
+                    <div class="col-md-6 pb-1">
                         <div class="action-btn d-flex justify-content-end">
                             <input type="file" id="imgupload" style="display:none" />
-                            <button id="OpenImgUpload" type="button" class="btn bg-gradient-button mr-2"><i
-                                    class="fa fa-solid fa-file-import"></i> Upload ASN File</button>
-                            <!-- <a href="#" class="btn btn-info mb-0 mr-1"><i class="fa fa-solid fa-file-import"></i> Upload ASN File</a> -->
+                            <!-- <button id="OpenImgUpload" type="button" class="btn bg-gradient-button mr-2"><i
+                                    class="fa fa-solid fa-file-import"></i> Upload ASN File</button> -->
+
                             <button type="button" id="continueSub" class="btn bg-gradient-cancel continue_btn"
                                 disabled>Continue</button>
                         </div>

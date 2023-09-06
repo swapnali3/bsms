@@ -24,11 +24,11 @@
         <div class="search-bar mb-3 mt-2">
           <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
         </div>
-        <div class="mb-3 col-lg-6 mt-2">
+        <div class="col-lg-6">
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/purchase-orders', 'action' => 'upload']]) ?>
                 <div class="row justify-content-end align-items-center">
                 <div class="col-sm-6 col-md-6 col-lg-4">
-                        <i>
+                        <i class="fa fa-solid fa-file-download">
                             <a href="<?= $this->Url->build('/') ?>webroot/templates/schedule_upload.xlsx"
                                 download class="template_format">Schedule_upload_template</a>
                         </i>

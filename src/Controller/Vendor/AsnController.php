@@ -182,6 +182,16 @@ class AsnController extends VendorAppController
             $stockDetails = $this->StockUploads->patchEntity($stockDetails, ['asn_stock' => ($stockDetails->asn_stock + $deliveryDetail->qty)]);
             $this->StockUploads->save($stockDetails);
             
+            /*$asnUpload = [];
+            $uploadFileContent = json_encode($data);
+            $uploadfileName = 'ASN_('.$deliveryDetail->asn_no.')_REQ.JSON';
+            $ftpConn = $this->Ftp->connection();
+            if($this->Ftp->uploadFile($ftpConn, $uploadFileContent, $uploadfileName)) {
+                $flash = ['type'=>'success', 'msg'=>' ASN sent to SAP'];
+            } else {
+                $flash = ['type'=>'error', 'msg'=>' ASN sent to SAP fail'];
+            }*/
+
             $response['status'] = 'success';
             $response['message'] = 'success';
         } else {

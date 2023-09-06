@@ -78,7 +78,7 @@ body {
 .poHeaders table th {
     padding-top: 10px;
     padding-bottom: 10px;
-    font-size: 14px;
+    /* font-size: 14px; */
 }
 
 .poHeaders table {
@@ -494,6 +494,8 @@ a.back-btn {
     border-radius: 5px;
 }
 
+a.back-btn:hover { color: #121212 !important;}
+
 .calcu {
 
     margin: 0 0 0 auto;
@@ -602,7 +604,7 @@ td.ponum {
 
 a.back-btn:hover {
     background-color: #F7941D !important;
-    color: #fff !important;
+    color: #121212 !important;
     border: 1px solid #F7941D !important;
 }
 
@@ -734,7 +736,7 @@ input.form-control.search {
 
 .search-bar {
     border: 1px solid #ddd;
-    border-radius: 30px;
+    /* border-radius: 30px; */
     width: 260px;
     padding: 5px 10px;
     justify-content: space-between;
@@ -1036,4 +1038,7 @@ span.otp-send-email { color: #121212 !important;}
     left: 10%;
 }
 
+
+.mark_entry_cancel { margin-bottom: 0 !important;}
+.modal-footer { margin-bottom: 10px;}
 
