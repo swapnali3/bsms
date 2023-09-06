@@ -27,34 +27,37 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-lg-6 d-flex">
                                 <?php echo $this->Form->control('sap_vendor_code', array('class' =>
                                 'form-control rounded-0', 'div' => 'form-group', 'autocomplete' => "off"));
                                 ?>
-
-                            </div>
-                            <div class="col-sm-2 col-md-2 mt-3">
+                                <div class="col-sm-2 col-md-2 d-flex align-items-end">
                                 <button class="btn bg-gradient-submit" id="sapvendorcode" type="button">
                                     Submit
                                 </button>
                             </div>
+                            </div>
+                            
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-5 vl mt-3">
+                    <div class="col-sm-12 col-md-6 d-flex align-items-center ">
+                        <i class="fa fa-solid fa-file-download template_download">
+                            <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/SAP_Vendor_Import.xlsx" download>
+                                SAP_Import_Template
+                            </a>
+                        </i>
+                        <div class="col-md-4">
                         <?= $this->Form->control('vendor_code', ['type' => 'file', 'label' =>
                         false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden;
                         position: absolute;', 'div' => 'form-group', 'id' => 'vendorCodeInput']);
                         ?>
 
                         <?= $this->Form->button('Import File', ['id' => 'OpenImgUpload', 'type' =>
-                        'button', 'class' => 'd-block btn bg-gradient-button mb-3 file-upld-btn']); ?>
+                        'button', 'class' => 'd-block btn bg-gradient-button file-upld-btn']); ?>
                         <span id="filessnames"></span>
+                        </div>
 
-                        <i style="color: black;">
-                            <a href="<?= $this->Url->build('/') ?>webroot/templates/SAP_Vendor_Import.xlsx" download>
-                                SAP Import Template
-                            </a>
-                        </i>
+                        
                     </div>
                     <div class="errorSubmit mt-2" style="color: red; display: none">
                         Please enter a vendor code or select a file.

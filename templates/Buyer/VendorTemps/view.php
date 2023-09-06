@@ -146,15 +146,15 @@
                 <div class="card-header">
                     <div class="approve-reject row">
                         <div class="col-sm-12 col-md-1">
-                            <button type="button" class="btn btn-block buyer_approve_btn p-2" 
-                                data-toggle="modal" data-target="#modal-sm">
-                                <i class="far fa-check-circle"></i> &nbsp; Approve
-                            </button>
-                        </div>
-                        <div class="col-sm-12 col-md-1">
                             <a href="#" class="btn btn-block buyer_reject_btn  p-2" 
                                 data-toggle="modal" data-target="#remarkModal"><i class="far fa-times-circle"></i>
                                 &nbsp; Reject</a>
+                        </div>
+                        <div class="col-sm-12 col-md-1">
+                        <button type="button" class="btn btn-block buyer_approve_btn p-2" 
+                                data-toggle="modal" data-target="#modal-sm">
+                                <i class="far fa-check-circle"></i> &nbsp; Approve
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -165,9 +165,9 @@
                                 <h6>Are you sure you want to approve?</h6>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn" style="border:1px solid red"
+                                <button type="button" class="btn" style="border:1px solid red; color:red"
                                     data-dismiss="modal">Cancel</button>
-                                <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn', 'style' => 'border:1px solid #28a745']) ?>
+                                <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn', 'style' => 'border:1px solid #28a745; color:#28a745']) ?>
                             </div>
                         </div>
                     </div>

@@ -582,25 +582,25 @@ body {
 
 .buyer_approve_btn {
     background-color: #28a745 !important;
-    color: #121212 !important;
+    color: #fff !important;
 }
 
 .buyer_reject_btn {
     background-color: red !important;
-    color: #121212 !important;
+    color: #fff !important;
 }
 
 .card-tabs .card-header { border-bottom: 1px solid #eee !important;}
 
 .buyer_approve_btn:hover {
-    transition: all ease 1s;
+    transition: all ease .5s;
     background-color: #fff !important;
     color: #28a745 !important;
     border: 1px solid #28a745;
 }
 
 .buyer_reject_btn:hover {
-    transition: all ease 1s;
+    transition: all ease .5s;
     background-color: #fff !important;
     color: red !important;
     border: 1px solid red;
@@ -702,4 +702,10 @@ body {
 .dropdown_class:hover .dropdown_classlist {
     display: block;
     transition: all ease-in-out 1s;
+} */
+
+/* .template_download {
+    padding: 0.65rem 1rem;
+    border: 1px solid #F7941D;
+    border-radius: 5px;
 } */
