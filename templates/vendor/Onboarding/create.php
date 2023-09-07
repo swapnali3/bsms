@@ -43,13 +43,15 @@
     .vendorTemps.form.content {
         width: 70%;
         margin: 0 auto;
-        background-color: #f5f7fd;
+        background-color: #fff;
         margin-top: 20px;
     }
 
     .form-control {
         font-size: 14px;
     }
+
+    .h #needButton { color: #F7941D !important; background-color: #fff !important;}
 
     label {
         font-size: 11px;
@@ -73,8 +75,8 @@
                     </h4>
                 </div>
                 <div class="">
-                    <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon">
-                    <img src="<?= $this->Url->build('/') ?>img/logo_s.png" class="vekpro-logo" widht="50">
+                    <!-- <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon"> -->
+                    <img src="<?= $this->Url->build('/') ?>img/apar_logo.png" class="vekpro-logo" widht="50">
                 </div>
             </div>
             <div class="card my-2">
@@ -282,15 +284,15 @@
                                 <h6>Are you sure you want to proceed? This action cannot be edit.</h6>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn cancelButton" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
-                                <?php echo $this->Form->button('Ok', array('class' => 'btn mt-3', 'style' => "border:1px solid #28a745", 'id' => 'id_ogsubmit')); ?>
+                                <button type="button" class="btn cancelButton" style="border:1px solid #333" data-dismiss="modal">Cancel</button>
+                                <?php echo $this->Form->button('Ok', array('class' => 'btn ', 'style' => "border:1px solid #333", 'id' => 'id_ogsubmit')); ?>
 
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <?php echo $this->Form->button('Submit', array('class' => 'btn mt-3', 'type' => 'button', 'id' => 'id_fksubmit', 'style' => 'background-color: #F7941D; color: #fff!important; font-size: 14px; line-height: 1.1rem; padding: 10px 20px;')); ?>
+                <?php echo $this->Form->button('Submit', array('class' => 'btn mt-3', 'type' => 'button', 'id' => 'id_fksubmit', 'style' => 'background-color: #F7941D; color: #121212!important; font-size: 14px; line-height: 1.1rem; padding: 10px 20px;')); ?>
             </div>
             <?= $this->Form->end() ?>
         </div>

@@ -1041,4 +1041,12 @@ span.otp-send-email { color: #121212 !important;}
 
 .mark_entry_cancel { margin-bottom: 0 !important;}
 .modal-footer { margin-bottom: 10px;}
+/* 
+.download_template {
+    padding: 0.6rem 0.5rem;
+    border: 1px solid #F7941D;
+    border-radius: 5px;
+}
+
+.download_template:hover { border-color: #121212 !important;} */
 
