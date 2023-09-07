@@ -65,113 +65,35 @@ $("#purViewId").on("click", ".po-box", function () {
         success: function (response) {
             $("#id_potableresp").empty().hide()
                 .append(`<table class="table" id="example1">
-                                                            <thead>
-                                                                <tr>
-                                                                <th width="2%"></th>
-                                                                <th width="2%"><input type="checkbox" class="form-control checkall"></th>
-                                                                <th>Item</th>
-                                                                <th>Material</th>
-                                                                <th>Short Text</th>
-                                                                <th>Po Qty</th>
-                                                                <th>Grn Qty</th>
-                                                                <th>Pending Qty</th>
-                                                                <th>Order Unit</th>
-                                                                <th>Net Price</th>
-                                                                <th>Price Unit</th>
-                                                                <th>Net Value</th>
-                                                                <th>Gross Value</th>
-                                                                <th class="actions">Actions</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="id_pofooter"></tbody>
-                                                        </table>`);
-            if (response.status) {
-                $.each(response.data.po_footers, function (key, val) {
-                    var poHeaderId = response.data.po_header;
-                    $("#action_schedule").show();
-                    $("#res_message").html('');
-                    $("#id_pofooter").append(
-                        `<tr class="odd" data-trid="id_tr` +
-                        val.id +
-                        `">
-                    <td class="details-control" data-id="` +
-                        val.id +
-                        `" footer-id="` +
-                        val.id +
-                        `"><span class="material-symbols-outlined flu" id="id_st` +
-                        val.id +
-                        `" data-id="` +
-                        val.id +
-                        `" data-alt="+">add</span></td>
-                        <td><input type="checkbox" class="form-control check" id="check_` +
-                        val.id +
-                        `"></td>
-                        <td>` +
-                        val.item +
-                        `</td>
-                        <td>` +
-                        val.material +
-                        `</td>
-                        <td>` +
-                        val.short_text +
-                        `</td>
-                        <td class="poqtyvalu">` +
-                        val.po_qty +
-                        `</td>
-                        <td>` +
-                        val.grn_qty +
-                        `</td>
-                        <td>` +
-                        val.pending_qty +
-                        `</td>
-                        <td>` +
-                        val.order_unit +
-                        `</td>
-                        <td>` +
-                        val.net_price +
-                        `</td>
-                        <td>` +
-                        val.price_unit +
-                        `</td>
-                        <td>` +
-                        val.net_value +
-                        `</td>
-                        <td>` +
-                        val.gross_value +
-                        `</td>
-                        <td class="actions">
-                            <div class="btn-group">
-                                <a id="schedulebutton_` +
-                        val.id +
-                        `" class="schedule_item btn btn-sm bg-gradient-button" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#scheduleModal" item-id="` +
-                        val.item +
-                        `" po-no="` +
-                        response.data.po_no +
-                        `" po_qty="` +
-                        val.po_qty +
-                        `" header-id="` +
-                        val.po_header_id +
-                        `" footer-id="` +
-                        val.id +
-                        `" item-no=` +
-                        val.item +
-                        `>Schedule</a>
-                            </div>
-                        </td>
-                    </tr>`
-                    );
-                });
-                setTimeout(function () {
-                    $("#id_potableresp").show();
-                    $("#example1").DataTable({
-                        paging: true,
-                        responsive: false,
-                        lengthChange: false,
-                        autoWidth: false,
-                        ordering: false,
-                        searching: false,
-                    });
-                }, 500);
+                            <thead>
+                                <tr>
+                                <th width="2%"></th>
+                                <th width="2%"><input type="checkbox" class="form-control checkall"></th>
+                                <th>Item</th>
+                                <th>Material</th>
+                                <th>Short Text</th>
+                                <th>Po Qty</th>
+                                <th>Grn Qty</th>
+                                <th>Pending Qty</th>
+                                <th>Order Unit</th>
+                                <th>Net Price</th>
+                                <th>Price Unit</th>
+                                <th>Net Value</th>
+                                <th>Gross Value</th>
+                                <th class="actions">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="id_pofooter"></tbody>
+                        </table>`);
+
+            console.log(response.status + "=" + response.data);
+            if ((response.status || !response.status) && response.data) {
+                populateItemData(response.status, response.data);
+                if(!response.status) {
+                    $("#action_schedule").hide();
+                    $("#res_message").html(response.message);
+                }
+
             } else {
                 $("#action_schedule").hide();
                 $("#res_message").html(response.message);
@@ -182,6 +104,99 @@ $("#purViewId").on("click", ".po-box", function () {
         },
     });
 });
+
+function populateItemData(status, itemData) {
+    $.each(itemData.po_footers, function (key, val) {
+        $("#action_schedule").show();
+        $("#res_message").html('');
+        $("#id_pofooter").append(
+            `<tr class="odd" data-trid="id_tr` +
+            val.id +
+            `">
+        <td class="details-control" data-id="` +
+            val.id +
+            `" footer-id="` +
+            val.id +
+            `"><span class="material-symbols-outlined flu" id="id_st` +
+            val.id +
+            `" data-id="` +
+            val.id +
+            `" data-alt="+">add</span></td>
+            <td><input type="checkbox" class="form-control check" id="check_` +
+            val.id +
+            `"></td>
+            <td>` +
+            val.item +
+            `</td>
+            <td>` +
+            val.material +
+            `</td>
+            <td>` +
+            val.short_text +
+            `</td>
+            <td class="poqtyvalu">` +
+            val.po_qty +
+            `</td>
+            <td>` +
+            val.grn_qty +
+            `</td>
+            <td>` +
+            val.pending_qty +
+            `</td>
+            <td>` +
+            val.order_unit +
+            `</td>
+            <td>` +
+            val.net_price +
+            `</td>
+            <td>` +
+            val.price_unit +
+            `</td>
+            <td>` +
+            val.net_value +
+            `</td>
+            <td>` +
+            val.gross_value +
+            `</td>
+            <td class="actions">
+                <div class="btn-group">
+                    <a id="schedulebutton_` +
+            val.id +
+            `" class="schedule_item btn btn-sm bg-gradient-button" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#scheduleModal" item-id="` +
+            val.item +
+            `" po-no="` +
+            itemData.po_no +
+            `" po_qty="` +
+            val.po_qty +
+            `" header-id="` +
+            val.po_header_id +
+            `" footer-id="` +
+            val.id +
+            `" item-no=` +
+            val.item +
+            `>Schedule</a>
+                </div>
+            </td>
+        </tr>`
+        );
+    });
+
+    if(!status) {
+        $(".schedule_item, .check, .checkall, .flu").hide();
+    }
+
+    setTimeout(function () {
+        $("#id_potableresp").show();
+        $("#example1").DataTable({
+            paging: true,
+            responsive: false,
+            lengthChange: false,
+            autoWidth: false,
+            ordering: false,
+            searching: false,
+        });
+    }, 500);
+}
 
 $(document).on("click", ".schedule_item", function () {
     $("#error_msg").html("");

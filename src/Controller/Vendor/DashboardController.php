@@ -64,10 +64,10 @@ class DashboardController extends VendorAppController
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
 
-        $this->loadModel('PoHeaders');
         $this->loadModel('PoItemSchedules');
         $this->loadModel('DeliveryDetails');
         $this->loadModel('StockUploads');
+        $this->loadModel('AsnFooters');
 
         $totalPos = $this->PoHeaders->find('all')
         ->where(['sap_vendor_code' => $session->read('vendor_code')]);
@@ -75,21 +75,20 @@ class DashboardController extends VendorAppController
         //echo '<pre>'; print_r($totalPos); exit;
         $totalPos = $totalPos->count();
         
-        $this->loadModel('AsnHeaders');
-
-        $intraQry = $this->AsnHeaders->find('all')
-            ->contain(['PoHeaders'])
-            ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code'), 'AsnHeaders.status' => '2']);
-        $totalIntransit = $intraQry->count();
-
         $stocks = $this->StockUploads->find()
         ->select(['VendorFactories.factory_code', 'Materials.description', 'opening_stock', 'production_stock', 'current_stock', 'asn_stock', 'closing_stock' => "(current_stock - asn_stock)"])
         ->contain(['Materials', 'VendorFactories'])
         ->where(['StockUploads.sap_vendor_code' => $session->read('vendor_code')])
         ->toArray();
         
-        //echo '<pre>'; print_r($stocks); exit;
-        $this->set(compact('totalPos', 'totalIntransit', 'stocks'));
+
+        $intransitMaterials = $this->AsnFooters->find('all')
+        ->select(['VendorFactories.factory_code','AsnHeaders.asn_no', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'PoHeaders.po_no', 'PoFooters.material', 'AsnFooters.qty', 'AsnHeaders.status'])
+        ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
+        ->where(['AsnHeaders.status' => '2']);
+        $totalIntransit = $intransitMaterials->count();
+        
+        $this->set(compact('totalPos', 'totalIntransit', 'stocks', 'intransitMaterials'));
     }
 
     public function getlist()

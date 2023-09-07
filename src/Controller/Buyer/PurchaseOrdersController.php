@@ -110,12 +110,14 @@ class PurchaseOrdersController extends BuyerAppController
             'contain' => ['PoFooters'],
         ]);
 
-        //echo '<pre>'; print_r($poHeader); exit;
+        
         if (!$poHeader->acknowledge) {
             $response['status'] = 0;
+            $response['data'] = $poHeader;
             $response['message'] = 'PO not acknowledged by vendor';
         } else if(!$poHeader->po_footers) {
             $response['status'] = 0;
+            $response['data'] = null;
             $response['message'] = 'Line item not found';
         }else {
             $response['status'] = 1;

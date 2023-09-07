@@ -8,13 +8,8 @@ use phpseclib3\Net\SFTP;
 
 class FtpComponent extends Component
 {
-    
     var $conn;
     function connection() {
-        /*$this->conn = new SFTP('182.66.82.11');
-        $this->conn->login('root', 'pro@2017');
-        $this->conn->chdir('/vendor_portal_upload/TO_PORTAL'); 
-        */
         $this->conn = new SFTP('apars4nlbplb.aparbi.com');
         $this->conn->login('portal', '4d={4DC<rew3');
         $this->conn->chdir('/DEV/TO_PORTAL'); 

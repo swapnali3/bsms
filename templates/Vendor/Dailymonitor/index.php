@@ -31,6 +31,7 @@
                             <th>Production Line</th>
                             <th>Material</th>
                             <th>Production Plan</th>
+                            <th>Confirmed Production</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -52,6 +53,7 @@
                                 <td><?= h($dailymonitors->production_line->line_master->name) ?></td>
                                 <td><?= h($dailymonitors->material->description) ?></td>
                                 <td><?= h($dailymonitors->target_production) ?></td>
+                                <td><?= h($dailymonitors->confirm_production) ?></td>
                                 <td><?= h($status) ?></td>
                                 <td>
                                     <?php if($dailymonitors->status == 1) : ?>

@@ -352,7 +352,7 @@
         "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>";
     var seengeturl =
         "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'seen-update')); ?>";
-    var stateByCountry = '<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'stateByCountryID')); ?>';
+    var stateByCountry = '<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'stateByCountryId')); ?>';
     var chatdata, user_id = "<?= h($vendorTemp->id) ?>",
         sender_id, table_pk;
     
