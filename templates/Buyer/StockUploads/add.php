@@ -56,11 +56,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <div class="row col-lg-12 d-flex justify-content-between align-items-center">
-                    <div class="col-lg-6">
+                <div class="row col-lg-12 pr-0 d-flex justify-content-between align-items-center">
+                    <div class="col-lg-6 pl-0">
                         <h5><b>UPLOAD STOCKS</b></h5>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 pr-0">
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
                 <div class="row justify-content-end align-items-center">
                     <div class="col-lg-4 d-flex justify-content-end">
@@ -75,7 +75,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
                         <span id="filessnames"></span>
                     </div>
-                    <div class="col-sm-2 col-md-2 col-lg-2">
+                    <div class="col-sm-2 col-md-2 col-lg-2 pr-0">
                         <button class="btn bg-gradient-submit" id="id_import" type="button">
                             Submit
                         </button>

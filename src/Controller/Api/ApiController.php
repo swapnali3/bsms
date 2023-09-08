@@ -35,12 +35,12 @@ class ApiController extends ApiAppController
         ]);
     }
 
-    public function stateByCountryID($id = null)
+    public function stateByCountryId($id = null)
     {
         $this->autoRender = false;
         $this->loadModel("Countries");
         $this->loadModel("States");
-        $states = $this->States->find('all')->innerJoin(['Countries'=>'Countries'],['Countries.country_code = States.country_code'])->where(['Countries.id' => $id])->toArray();
+        $states = $this->States->find('all')->innerJoin(['Countries'=>'countries'],['Countries.country_code = States.country_code'])->where(['Countries.id' => $id])->toArray();
         $response = ["status"=> 1, 'message' =>$states];
         echo json_encode($response); exit;
     }
@@ -50,7 +50,7 @@ class ApiController extends ApiAppController
         $this->autoRender = false;
         $this->loadModel("Countries");
         $this->loadModel("States");
-        $states = $this->States->find('all')->innerJoin(['Countries'=>'Countries'],['Countries.country_code = States.country_code'])->where(['Countries.country_code' => $country_code])->toArray();
+        $states = $this->States->find('all')->innerJoin(['Countries'=>'countries'],['Countries.country_code = States.country_code'])->where(['Countries.country_code' => $country_code])->toArray();
         $response = ["status"=> 1, 'message' =>$states];
         echo json_encode($response); exit;
     }
@@ -316,9 +316,12 @@ class ApiController extends ApiAppController
         $this->loadModel("CompanyCodes");
         $this->loadModel("PurchasingOrganizations");
         
-        $po = $this->PurchasingOrganizations->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        /*$purchasingOrganizations = $this->PurchasingOrganizations->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
+            return $row->code.' - '.$row->name;
+        }])->where(['company_code_id =' => $id])->all(); */
+        $purchasingOrganizations = $this->PurchasingOrganizations->find()->select(['id', 'name' => 'CONCAT(code, " - ", name)'])->where(['company_code_id =' => $id])->toArray();
         
-        $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$po]];
+        $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$purchasingOrganizations]];
         echo json_encode($response); exit;
     }
 

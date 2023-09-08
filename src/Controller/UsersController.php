@@ -100,7 +100,40 @@ class UsersController extends AppController
     { }
 
     public function forgetPwd()
-    { }
+    { 
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            //echo '<pre>'; print_r($this->request->getData('email')); exit;
+            $user = $this->Users->findByUsername($this->request->getData('email'))->first();
+            if ($user) {
+                $user->password = $user->mobile;
+                //$user = $this->Users->patchEntity($user);
+                if ($this->Users->save($user)) {
+
+                    $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                    $mailer = new Mailer('default');
+                    $mailer
+                        ->setTransport('smtp')
+                        ->setViewVars([ 'subject' => 'Hi ' . $user->first_name, 'mailbody' => 'Vendor portal password. <br/> <br/> ' .
+                        '<br/>Password:' . $user->mobile, 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                        ->setTo($user->username)
+                        ->setEmailFormat('html')
+                        ->setSubject('Vendor Portal - Password changed')
+                        ->viewBuilder()
+                        ->setTemplate('mail_template');
+                    $mailer->deliver(); 
+                    
+                    $flash = ['type'=>'success', 'msg'=>'Password mail sent'];
+                    $this->set('flash', $flash);
+
+                    return $this->redirect(['action' => 'login']);
+                }
+            } else {
+                $flash = ['type'=>'error', 'msg'=>'Email id not found'];
+                $this->set('flash', $flash);
+            }
+        }
+    }
 
     public function login()
     {
@@ -131,6 +164,8 @@ class UsersController extends AppController
 
         $this->loadModel("Users");
         $this->loadModel("VendorTemps");
+        $this->loadModel('Buyers');
+        
 
         $session = $this->getRequest()->getSession();
      
@@ -159,6 +194,10 @@ class UsersController extends AppController
                         if ($result[0]->group_id == 1) {
                             $response['redirect'] = ['controller' => 'admin/dashboard', 'action' => 'index'];
                         } else if ($result[0]->group_id == 2) {
+                            $result = $this->Buyers->find('all')->where(['email' => $result[0]->username])->limit(1)->toArray();
+                            $session->write('company_code_id', $result[0]->company_code_id);
+                            $session->write('purchasing_organization_id', $result[0]->purchasing_organization_id);
+                            $session->write('buyer_id', $result[0]->id);
                             $response['redirect'] = ['controller' => 'buyer/dashboard', 'action' => 'index'];
                         } else if ($result[0]->group_id == 3) {
                             $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();
@@ -197,10 +236,16 @@ class UsersController extends AppController
                         if ($result[0]->group_id == 1) {
                             $response['redirect'] = ['controller' => 'admin/dashboard', 'action' => 'index'];
                         } else if ($result[0]->group_id == 2) {
+                            $result = $this->Buyers->find('all')->where(['email' => $result[0]->username])->limit(1)->toArray();
+                            $session->write('company_code_id', $result[0]->company_code_id);
+                            $session->write('purchasing_organization_id', $result[0]->purchasing_organization_id);
+                            $session->write('buyer_id', $result[0]->id);
                             $response['redirect'] = ['controller' => 'buyer/dashboard', 'action' => 'index'];
                         } else if ($result[0]->group_id == 3) {
-                            $result = $this->VendorTemps->find()->where(['email' => $result[0]->username])->limit(1)->toArray();
+                            $result = $this->VendorTemps->find('all')->where(['email' => $result[0]->username])->limit(1)->toArray();
                             $session->write('vendor_code', $result[0]->sap_vendor_code);
+                            $session->write('company_code_id', $result[0]->company_code_id);
+                            $session->write('purchasing_organization_id', $result[0]->purchasing_organization_id);
                             $session->write('vendor_id', $result[0]->id);
                             $response['redirect'] = ['controller' => 'vendor/dashboard', 'action' => 'index'];
                         }

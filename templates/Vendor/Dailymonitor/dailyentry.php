@@ -51,10 +51,10 @@
                             <th>Factory</th>
                             <th>Production Line</th>
                             <th>Material</th>
+                            <th>Plan Date</th>
                             <th>Target Production</th>
                             <th>Confirm Production</th>
-                            <th>Plan Date</th>
-                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,6 +69,9 @@
                             </td>
                             <td>
                                 <?= h($dailymonitors->material->description) ?>
+                            </td>
+                            <td>
+                                <?= h($dailymonitors->plan_date) ?>
                             </td>
                             <td>
                                 <?= h($dailymonitors->target_production) ?>
@@ -86,9 +89,6 @@
                                     id="confirmsave<?= h($dailymonitors->id) ?>"
                                     data-id="<?= h($dailymonitors->id) ?>">Save</button>
                             </td>
-                            <td>
-                                <?= h($dailymonitors->plan_date) ?>
-                            </td>
                             <?php elseif ($dailymonitors->status == 2) : ?>
                             <td colspan="2" class="text-center">
                                 Plan Cancelled
@@ -97,9 +97,6 @@
                             <td>
                                 <input type="number" class="form-control form-control-sm"
                                     value="<?= h($dailymonitors->confirm_production) ?>" disabled>
-                            </td>
-                            <td>
-                                <?= h($dailymonitors->plan_date) ?>
                             </td>
                             <td></td>
                             <?php endif; ?>

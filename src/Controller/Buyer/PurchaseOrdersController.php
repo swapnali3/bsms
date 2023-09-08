@@ -76,7 +76,10 @@ class PurchaseOrdersController extends BuyerAppController
                 'table' => 'vendor_temps',
                 'alias' => 'V',
                 'type' => 'INNER',
-                'conditions' => ['V.sap_vendor_code = PoHeaders.sap_vendor_code', 'V.buyer_id' => $session->read('id'), 'status' => '3']
+                'conditions' => ['V.sap_vendor_code = PoHeaders.sap_vendor_code', 
+                'V.company_code_id' => $session->read('company_code_id'),
+                'V.purchasing_organization_id' => $session->read('purchasing_organization_id'), 
+                'status' => '3']
             ])
             ->where([
                 'OR' => [
@@ -110,12 +113,14 @@ class PurchaseOrdersController extends BuyerAppController
             'contain' => ['PoFooters'],
         ]);
 
-        //echo '<pre>'; print_r($poHeader); exit;
+        
         if (!$poHeader->acknowledge) {
             $response['status'] = 0;
+            $response['data'] = $poHeader;
             $response['message'] = 'PO not acknowledged by vendor';
         } else if(!$poHeader->po_footers) {
             $response['status'] = 0;
+            $response['data'] = null;
             $response['message'] = 'Line item not found';
         }else {
             $response['status'] = 1;

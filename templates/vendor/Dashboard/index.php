@@ -171,42 +171,32 @@
           <table class="table table-bordered table-hover table-striped">
             <thead>
               <tr>
-                <th>Invoice Date</th>
-                <th>Invoice No</th>
-                <th>Purchase Order</th>
+                <th>Factory</th>
                 <th>ASN No</th>
+                <th>Invoice No</th>
+                <th>Invoice Date</th>
+                <th>PO No.</th>
+                <th>Material</th>
+                <th>Quantity</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>11/07/2023</td>
-                <td>234</td>
-                <td>4510000421</td>
-                <td>4510000421</td>
-                <td>Received</td>
+              <?php foreach($intransitMaterials as $row) : ?>
+                <tr>
+                <td><?php echo $row->asn_header->vendor_factory->factory_code?></td>
+                <td><?php echo $row->asn_header->asn_no?></td>
+                <td><?php echo $row->asn_header->invoice_no?></td>
+                <td><?php echo $row->asn_header->invoice_date ?></td>
+                <td><?php echo $row->po_footer->po_header->po_no?></td>
+                <td><?php echo $row->po_footer->material?></td>
+                <td><?php echo $row->qty?></td>
+                <td>
+                    <?php switch($row->asn_header->status) {
+                        case '2' : echo 'In Transit'; break;
+                    }?>
               </tr>
-              <tr>
-                <td>11/07/2023</td>
-                <td>234</td>
-                <td>4510000421</td>
-                <td>4510000421</td>
-                <td>Intransit</td>
-              </tr>
-              <tr>
-                <td>11/07/2023</td>
-                <td>234</td>
-                <td>4510000421</td>
-                <td>4510000421</td>
-                <td>Created</td>
-              </tr>
-              <tr>
-                <td>11/07/2023</td>
-                <td>234</td>
-                <td>4510000421</td>
-                <td>4510000421</td>
-                <td>Received</td>
-              </tr>
+              <?php endforeach; ?>  
             </tbody>
           </table>
         </div>

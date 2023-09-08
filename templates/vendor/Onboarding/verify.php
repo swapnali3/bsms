@@ -10,6 +10,7 @@
 <?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('table.css') ?>
 <style>
+    .vendorTemps.form.content {background-color: #fff !important;}
     img.vekpro-logo {
     width: 100px;
 }
@@ -53,8 +54,8 @@ label {
                 <?php echo $this->Form->button('Submit',array('class' => 'btn btn-custom mt-2', 'style'=>'color:#FFF!important'));?>
             </div>
             <?= $this->Form->end() ?>
-            <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon">
-            <img src="<?= $this->Url->build('/') ?>img/logo_s.png" class="vekpro-logo" widht="50">
+            <!-- <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon"> -->
+            <img src="<?= $this->Url->build('/') ?>img/apar_logo.png" class="vekpro-logo">
         </div>
     </div>
 </div>

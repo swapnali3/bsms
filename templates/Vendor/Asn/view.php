@@ -48,17 +48,6 @@
                             <div class="d-flex justify-content-end">
                                 <button class="btn btn-custom-2 mb-0 mrk mr-2" data-toggle="modal"
                                     data-target="#modal-confirm">Mark Dispatched</button>
-                                <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
-
-                                    if (!empty($files)) {
-                                        foreach ($files as $key => $file) {
-                                            echo $this->Html->link(' ' .$key, '/' . $file, ['style' => 'display:block; margin-left:5px;', 'target' => '_blank', 'class' => 'btn btn-custom mb-0 invoicefiles']);
-                                        }
-                                    }
-
-
-                                    ?>
-                                
                             </div>
                         </div>
                         <!-- modal -->
@@ -80,6 +69,23 @@
                         </div>
                         <!-- end modal -->
                         <?php } ?>
+
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="d-flex justify-content-end">
+                                <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
+
+                                    if (!empty($files)) {
+                                        foreach ($files as $key => $file) {
+                                            echo $this->Html->link(' ' .$key, '/' . $file, ['style' => 'display:block; margin-left:5px;', 'target' => '_blank', 'class' => 'btn btn-custom mb-0 invoicefiles']);
+                                        }
+                                    }
+
+
+                                    ?>
+                                
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
@@ -135,7 +141,7 @@
                             <th>Item</th>
                             <th>Material</th>
                             <th>UOM</th>
-                            <th>Qty</th>
+                            <th>ASN Qty</th>
                             <th>Schedule Qty</th>
                             <th>Schedule Date</th>
                         </tr>

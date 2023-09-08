@@ -47,6 +47,8 @@ class DashboardController extends BuyerAppController
         $this->set('headTitle', 'Dashboard');
         $session = $this->getRequest()->getSession();
 
+        //echo '<pre>'; print_r($session->read()); exit;
+
         if (!$session->check('id')) {
             $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
         }
@@ -62,12 +64,21 @@ class DashboardController extends BuyerAppController
 
         // $totalVendorTemps = $this->VendorTemps->find('all', array('conditions' => array('buyer_id' => $session->read('id'))))->count();
 
-        $totalVendorOnboarding = $this->VendorTemps->find('all', array('conditions' => array('buyer_id' => $session->read('id'), 'status' => '0')))->count();
+        $totalVendorOnboarding = $this->VendorTemps->find('all', array('conditions' => array(
+            'company_code_id' => $session->read('company_code_id'),
+            'purchasing_organization_id' => $session->read('purchasing_organization_id'), 
+            'status' => '0')))->count();
 
-        $totalVendorApproved = $this->VendorTemps->find('all', array('conditions' => array('buyer_id' => $session->read('id'), 'status' => '3')))->count();
+        $totalVendorApproved = $this->VendorTemps->find('all', array('conditions' => array(
+            'company_code_id' => $session->read('company_code_id'),
+            'purchasing_organization_id' => $session->read('purchasing_organization_id'), 
+            'status' => '3')))->count();
 
 
-        $totalSentSap = $this->VendorTemps->find('all', array('conditions' => array('buyer_id' => $session->read('id'), 'status' => '2')))->count();
+        $totalSentSap = $this->VendorTemps->find('all', array('conditions' => array(
+            'company_code_id' => $session->read('company_code_id'),
+            'purchasing_organization_id' => $session->read('purchasing_organization_id'), 
+            'status' => '2')))->count();
 
         // Asn deshbord card
 
@@ -83,7 +94,9 @@ class DashboardController extends BuyerAppController
         $query = $this->PoHeaders->find();
         $query->innerJoin(
             ['VendorTemps' => 'vendor_temps'],
-            ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code', 'VendorTemps.buyer_id = ' . $session->read('id')]
+            ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code', 
+            'VendorTemps.company_code_id' => $session->read('company_code_id'),
+            'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')]
         );
         $totalPos = $query->count();
 

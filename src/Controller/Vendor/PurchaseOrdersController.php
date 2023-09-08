@@ -205,9 +205,7 @@ class PurchaseOrdersController extends VendorAppController
                 <th>Po No</th>
                 <th>Document Type</th>
                 <th>Created By</th>
-                <th>Pay Terms</th>
-                <th>Exchange Rate</th>
-                <th>Added Date</th>
+                <th>Created On</th>
                 </tr>
             </thead>
             <tbody>';
@@ -218,11 +216,8 @@ class PurchaseOrdersController extends VendorAppController
                  <td>' . $poHeader['sap_vendor_code'] . '</td>
                  <td>' . $poHeader['po_no'] . '</td>
                  <td>' . $poHeader['document_type'] . '</td>
+                 <td>' . $poHeader['created_by'] . '</td>
                  <td>' . $poHeader['created_on'] . '</td>
-                 <td>' . $poHeader['pay_terms'] . '</td>
-                 <td>' . $poHeader['exchange_rate'] . '</td>
-                 <td>' . $poHeader['added_date'] . '</td>
-                 
                 </tr>';
             
 
