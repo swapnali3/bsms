@@ -336,10 +336,9 @@ class VendorTempsController extends VendorAppController
     
                                 // print_r($it);
                                 // exit;
-                                if (!$this->VendorFactories->save($it)) {
-                                    $form_status = false;
-                                } else{
-                                    $resp_data["vendor_factories"][] = $it;
+                                if (!$this->VendorFactories->save($it)) { $form_status = false; }
+                                else{
+                                    // $resp_data["vendor_factories"][] = $it;
                                     foreach ($value["commencements"] as $key => $val) {
                                         if ($val['id'] != "" || $val['id'] != null) {
                                             $old_it = $this->VendorCommencements->get($val["id"]);
@@ -350,11 +349,13 @@ class VendorTempsController extends VendorAppController
                                             $com = $this->VendorCommencements->patchEntity($old_it, $val);
                                         }
                                         // print_r($it);
-                                        if (!$this->VendorCommencements->save($com)) {
-                                            $form_status = false;
-                                        } else { $resp_data["vendor_commencements"][] = $com; }
+                                        if (!$this->VendorCommencements->save($com))
+                                        { $form_status = false; }
                                     }
                                 }
+                            }
+                            if ($form_status){
+                                $resp_data["vendor_factories"] = $this->VendorFactories->find('all')->contain(['VendorCommencements'])->where(['vendor_temp_id' => $id])->toArray();
                             }
                             break;
 
@@ -495,8 +496,8 @@ class VendorTempsController extends VendorAppController
                             break;
                     }
                 }
-                if ($form_status){ echo json_encode(array('status'=>1, 'msg'=> 'Saved Successfully', 'data'=>$resp_data)); }
-                else { echo json_encode(array('status'=>0, 'msg'=> 'Saved Failed', 'data'=>$resp_data)); }
+                if ($form_status){ echo json_encode(array('status'=>1, 'msg'=> 'Saved Successfully', 'data'=>$resp_data)); exit; }
+                else { echo json_encode(array('status'=>0, 'msg'=> 'Saved Failed', 'data'=>$resp_data)); exit; }
             } catch (\PDOException $e) { $flash = ['type' => 'error', 'msg' => ($e->getMessage())]; }
         }
 

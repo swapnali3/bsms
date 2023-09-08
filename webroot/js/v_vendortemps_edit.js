@@ -81,7 +81,10 @@ $(document).on("click", ".profile_submit", function (e) {
             var resp = getRemote(window.location.href, "POST", profile_form, 'json', true, false, false);
             if (resp.status == 1) {
                 Toast.fire({ icon: "success", title: resp.msg });
-                $.each(resp.data, function (i, v) { load_data(i, v) });
+                $.each(resp.data, function (i, v) {
+                    if (resp.data['vendor_commencements'] != undefined) { location.reload(); }
+                    else { load_data(i, v) }
+                });
             }
             else { Toast.fire({ icon: "error", title: resp.msg }); }
         }
@@ -96,11 +99,13 @@ $(window).on('load', function () {
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (r, status, error) {
             console.log(r["message"]);
             $.each(r["message"], function (i, v) { load_data(i, v) });
         },
         error: function (xhr, status, error) { console.log(xhr, status, error); },
+        complete: function () { $("#gif_loader").hide(); }
     });
 });
 
@@ -170,7 +175,7 @@ function load_data(i, v) {
         case 'vendor_facilities':
             $.each(v, function (a, b) {
                 $.each(b, function (x, y) {
-                    if (x == "isi_registration" || x == "lab_facility" || x == "quality_control" || x == "sales_services" || x == "test_facility") { $(`#id_vendor_facilities_` + x + `_` + y).trigger('click'); }
+                    if (x == "isi_registration" || x == "lab_facility" || x == "quality_control" || x == "sales_services" || x == "test_facility") { $(`#id_vendor_facilities_` + x + `_` + y).trigger('click'); $(`.id_vendor_facilities_` + x + '_file').trigger('click'); }
                     else if (x == "isi_registration_file" || x == "lab_facility_file" || x == "quality_control_file" || x == "sales_services_file" || x == "test_facility_file") { $(`.id_vendor_facilities_` + x).attr('href', y).text(rmv_secondlast(y)); }
                     else { $(`#id_vendor_facilities_` + x).val(y); }
                 });
@@ -180,8 +185,8 @@ function load_data(i, v) {
             if (v.length > 0) { $("#id_vendor_factories_body").empty(); }
             $.each(v, function (a, b) {
                 $('#id_vendor_factories_body').append(`
-                <div class="row" id="vf_killme` + a + `">
-                    <div class="col-12">
+                <div class="card mb-0" id="vf_killme` + a + `">
+                    <div class="card-body">
                         <div class="row" id="factory_office_`+ a + `_row0">
                             <div class="col-sm-12 col-md-3 mb-3 required">
                                 <input required="required" type="hidden" value="`+ b.id + `" name="factories[` + a + `][id]" id="id_vendor_factories_` + a + `_id">
@@ -215,8 +220,6 @@ function load_data(i, v) {
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12">
                         <div class="row" id="factory_office_`+ a + `_row1">
                             <div class="col-sm-12 col-md-6 mb-3">
                                 <div class="row">
@@ -300,9 +303,7 @@ function load_data(i, v) {
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card card-primary card-outline" id="factory_office_`+ a + `_row3">
+                        <div class="card" id="factory_office_`+ a + `_row3">
                             <div class="card-header">
                                 <p style="text-transform: uppercase; font-weight: 500; font-size: inherit;">
                                     Actual production during preceding 3 years
@@ -852,8 +853,8 @@ $(document).on("click", "#id_vendor_factories_add", function () {
     lid = lastid.length;
     for (let i = 0; i < lastid.length; i++) { if (lastid[i] == undefined || lastid[i] == null) { lid = i; break; } }
     $('#id_vendor_factories_body').append(`
-        <div class="row" id="vf_killme0">
-            <div class="col-12">
+        <div class="card mb-0 mt-3" id="vf_killme0">
+            <div class="card-body">
                 <div class="row" id="factory_office_`+ lid + `_row0">
                     <div class="col-sm-12 col-md-3 mb-3 required">
                         <input required="required" type="hidden" name="factories[`+ lid + `][id]"
@@ -899,8 +900,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                     </div>
                 </div>
 
-            </div>
-            <div class="col-12">
+
                 <div class="row" id="factory_office_`+ lid + `_row1">
                     <div class="col-sm-12 col-md-6 mb-3">
                         <div class="row">
@@ -1002,9 +1002,8 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12">
-                <div class="card card-primary card-outline" id="factory_office_`+ lid + `_row3">
+
+                <div class="card" id="factory_office_`+ lid + `_row3">
                     <div class="card-header">
                         <p style="text-transform: uppercase; font-weight: 500; font-size: inherit;">
                             Actual production during preceding 3 years
@@ -1114,7 +1113,7 @@ $(document).on("click", "#id_factory_commencement_add", function () {
                 <input required="required" type="hidden" class="year1"
                     name="factories[`+ sup + `][commencements][` + lid + `][first_year]"
                     id="id_vendor_factories_0_commencement_`+ sup + `_first_year"
-                    required="true">
+                    required="true" value="`+ year0 + `">
                 <input required="required" type="number" class="form-control placeholder1 mb-2"
                     name="factories[`+ sup + `][commencements][` + lid + `][first_year_qty]"
                     id="id_vendor_factories_0_commencement_`+ sup + `_first_year_qty" placeholder="` + year0 + `-` + year1 + `"
@@ -1124,7 +1123,7 @@ $(document).on("click", "#id_factory_commencement_add", function () {
                 <input required="required" type="hidden" class="year2"
                     name="factories[`+ sup + `][commencements][` + lid + `][second_year]"
                     id="id_vendor_factories_0_commencement_`+ sup + `_second_year"
-                    required="true">
+                    required="true" value="`+ year1 + `">
                 <input required="required" type="number" class="form-control placeholder2 mb-2"
                     name="factories[`+ sup + `][commencements][` + lid + `][second_year_qty]"
                     id="id_vendor_factories_0_commencement_`+ sup + `_second_year_qty" placeholder="` + year1 + `-` + year2 + `"
@@ -1134,7 +1133,7 @@ $(document).on("click", "#id_factory_commencement_add", function () {
                 <input required="required" type="hidden" class="year3"
                     name="factories[`+ sup + `][commencements][` + lid + `][third_year]"
                     id="factory_office_`+ sup + `_commencement_` + sup + `_third_year"
-                    required="true">
+                    required="true" value="`+ year2 + `">
                 <input required="required" type="number" class="form-control placeholder3 mb-2"
                     name="factories[`+ sup + `][commencements][` + lid + `][third_year_qty]"
                     id="factory_office_`+ sup + `_commencement_` + sup + `_third_year_qty" placeholder="` + year2 + `-` + year3 + `"
@@ -1158,3 +1157,28 @@ function validateMaxLength(inputElement) {
 }
 
 $(document).on("input", ".maxlength_validation", function () { validateMaxLength($(this)); });
+
+$(document).on("click", ".id_vendor_facilities_lab_facility", function () {
+    if ($(this).val() == "yes") { $("#id_vendor_facilities_lab_facility_file").show(); }
+    else { $("#id_vendor_facilities_lab_facility_file").hide(); }
+});
+
+$(document).on("click", ".id_vendor_facilities_isi_registration", function () {
+    if ($(this).val() == "yes") { $("#id_vendor_facilities_isi_registration_file").show(); }
+    else { $("#id_vendor_facilities_isi_registration_file").hide(); }
+});
+
+$(document).on("click", ".id_vendor_facilities_test_facility", function () {
+    if ($(this).val() == "yes") { $("#id_vendor_facilities_test_facility_file").show(); }
+    else { $("#id_vendor_facilities_test_facility_file").hide(); }
+});
+
+$(document).on("click", ".id_vendor_facilities_sales_services", function () {
+    if ($(this).val() == "yes") { $("#id_vendor_facilities_sales_services_file").show(); }
+    else { $("#id_vendor_facilities_sales_services_file").hide(); }
+});
+
+$(document).on("click", ".id_vendor_facilities_quality_control", function () {
+    if ($(this).val() == "yes") { $("#id_vendor_facilities_quality_control_file").show(); }
+    else { $("#id_vendor_facilities_quality_control_file").hide(); }
+});

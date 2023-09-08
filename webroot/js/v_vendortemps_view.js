@@ -33,6 +33,7 @@ $(document).ready(function () {
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (resp) {
             if (resp.status == "1") {
                 console.log(resp["message"]["name"]);
@@ -355,6 +356,7 @@ $(document).ready(function () {
                 );
             }
         },
+        complete: function () { $("#gif_loader").hide(); }
     });
 });
 

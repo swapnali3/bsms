@@ -404,15 +404,17 @@
                                     id="id_vendor_facilities_vendor_temp_id" class="vendor_temp_id"
                                     value="<?= h($vendorTemp->id) ?>">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-4 required=" required" mb-3">
+                                    <div class="col-sm-12 col-md-4 mb-3" required="required">
                                         <label for="">Laboratory facilities available</label><br>
-                                        <input required="required" type="radio" name="facilities[lab_facility]"
+                                        <input required="required" class="id_vendor_facilities_lab_facility"
+                                            type="radio" name="facilities[lab_facility]"
                                             id="id_vendor_facilities_lab_facility_yes" value="yes">
                                         &nbsp;Yes&nbsp;&nbsp;
-                                        <input required="required" type="radio" name="facilities[lab_facility]"
+                                        <input required="required" class="id_vendor_facilities_lab_facility"
+                                            type="radio" name="facilities[lab_facility]"
                                             id="id_vendor_facilities_lab_facility_no" value="no">
                                         &nbsp;No
-                                        <div class="custom-file mt-2">
+                                        <div class="custom-file mt-2 hide" id="id_vendor_facilities_lab_facility_file">
                                             <input required="required" name="facilities[lab_facility_file]"
                                                 required="true" type="file" accept=".pdf" class="custom-file-input"
                                                 id="id_vendor_facilities_lab_facility_file">
@@ -420,15 +422,18 @@
                                         </div>
                                         <a class="id_vendor_facilities_lab_facility_file"></a>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 required=" required" mb-3">
+                                    <div class="col-sm-12 col-md-4 mb-3" required="required">
                                         <label for="">Whether there is any ISI registration</label><br>
                                         <input required="required" type="radio" name="facilities[isi_registration]"
+                                            class="id_vendor_facilities_isi_registration"
                                             id="id_vendor_facilities_isi_registration_yes" value="yes">
                                         &nbsp;Yes&nbsp;&nbsp;
                                         <input required="required" type="radio" name="facilities[isi_registration]"
+                                            class="id_vendor_facilities_isi_registration"
                                             id="id_vendor_facilities_isi_registration_no" value="no">
                                         &nbsp;No
-                                        <div class="custom-file mt-2">
+                                        <div class="custom-file mt-2 hide"
+                                            id="id_vendor_facilities_isi_registration_file">
                                             <input required="required" name="facilities[isi_registration_file]"
                                                 required="true" type="file" accept=".pdf" class="custom-file-input"
                                                 id="id_vendor_facilities_lab_facility_file">
@@ -436,45 +441,57 @@
                                         </div>
                                         <a class="id_vendor_facilities_isi_registration_file"></a>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 required=" required" mb-3">
+                                    <div class="col-sm-12 col-md-4 mb-3" required="required">
                                         <label for="">Test facilities available</label><br>
                                         <input required="required" type="radio" name="facilities[test_facility]"
+                                            class="id_vendor_facilities_test_facility"
                                             id="id_vendor_facilities_test_facility_yes" value="yes">
                                         &nbsp;Yes&nbsp;&nbsp;
                                         <input required="required" type="radio" name="facilities[test_facility]"
+                                            class="id_vendor_facilities_test_facility"
                                             id="id_vendor_facilities_test_facility_no" value="no">
                                         &nbsp;No
-                                        <div class="custom-file mt-2">
+                                        <div class="custom-file mt-2 hide" id="id_vendor_facilities_test_facility_file">
                                             <input required="required" name="facilities[test_facility_file]"
                                                 required="true" type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                         <a class="id_vendor_facilities_test_facility_file"></a>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 required=" required" mb-3">
+                                    <div class="col-sm-12 col-md-4 mb-3" required="required">
                                         <label for="">Facilities for effective after sales services</label><br>
-                                        <input required="required" type="radio" name="facilities[sales_services]"
+                                        <input required="required" type="radio"
+                                            class="id_vendor_facilities_sales_services"
+                                            name="facilities[sales_services]"
                                             id="id_vendor_facilities_sales_services_yes" value="yes">
                                         &nbsp;Yes&nbsp;&nbsp;
-                                        <input required="required" type="radio" name="facilities[sales_services]"
+                                        <input required="required" type="radio"
+                                            class="id_vendor_facilities_sales_services"
+                                            name="facilities[sales_services]"
                                             id="id_vendor_facilities_sales_services_no" value="no">
                                         &nbsp;No
-                                        <div class="custom-file mt-2">
+                                        <div class="custom-file mt-2 hide"
+                                            id="id_vendor_facilities_sales_services_file">
                                             <input required="required" name="facilities[sales_services_file]"
                                                 required="true" type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                         <a class="id_vendor_facilities_sales_services_file"></a>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 required=" required" mb-3">
+                                    <div class="col-sm-12 col-md-4 mb-3" required="required">
                                         <label for="">Quality control procedure adopted</label><br>
-                                        <input required="required" type="radio" name="facilities[quality_control]"
+                                        <input required="required" type="radio"
+                                            class="id_vendor_facilities_quality_control"
+                                            name="facilities[quality_control]"
                                             id="id_vendor_facilities_quality_control_yes" value="yes">
                                         &nbsp;Yes&nbsp;&nbsp;
-                                        <input required="required" type="radio" name="facilities[quality_control]"
+                                        <input required="required" type="radio"
+                                            class="id_vendor_facilities_quality_control"
+                                            name="facilities[quality_control]"
                                             id="id_vendor_facilities_quality_control_no" value="no">
                                         &nbsp;No
-                                        <div class="custom-file mt-2">
+                                        <div class="custom-file mt-2 hide"
+                                            id="id_vendor_facilities_quality_control_file">
                                             <input required="required" name="facilities[quality_control_file]"
                                                 required="true" type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
@@ -584,9 +601,9 @@
                                     </span>
                                 </p>
                             </div>
-                            <div class="card-body" id="id_vendor_factories_body">
-                                <div class="row" id="vf_killme0">
-                                    <div class="col-12">
+                            <div class="card-body p-0" id="id_vendor_factories_body">
+                                <div class="card mb-0" id="vf_killme0">
+                                    <div class="card-body">
                                         <div class="row" id="factory_office_0_row0">
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <input required="required" type="hidden" name="factories[0][id]"
@@ -637,9 +654,6 @@
                                                 </span>
                                             </div>
                                         </div>
-
-                                    </div>
-                                    <div class="col-12">
                                         <div class="row" id="factory_office_0_row1">
                                             <div class="col-sm-12 col-md-6 mb-3">
                                                 <div class="row">
@@ -744,9 +758,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="card card-primary card-outline" id="factory_office_0_row3">
+                                        <div class="card" id="factory_office_0_row3">
                                             <div class="card-header">
                                                 <p
                                                     style="text-transform: uppercase; font-weight: 500; font-size: inherit;">

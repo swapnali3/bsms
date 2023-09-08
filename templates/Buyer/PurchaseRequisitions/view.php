@@ -321,6 +321,7 @@
           url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'create-schedule')); ?> ",
           data: $("#scheduleForm").serialize(),
           dataType: 'json',
+          beforeSend: function () { $("#gif_loader").show(); },
           success: function (response) {
             console.log(response);
             if (response.status == 'success') {
@@ -336,7 +337,8 @@
               });
             }
 
-          }
+          },
+          complete: function () { $("#gif_loader").hide(); }
         });
         return false;
       }

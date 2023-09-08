@@ -19,6 +19,7 @@ $.validator.setDefaults({
       url: addurl,
       data: $("#addvendorform").serialize(),
       dataType: 'json',
+      beforeSend: function () { $("#gif_loader").show(); },
       success: function (response) {
         console.log(response);
         if (response.status == 'success') {
@@ -44,7 +45,8 @@ $.validator.setDefaults({
             });
           } */
         }
-      }
+      },
+      complete: function () { $("#gif_loader").hide(); }
     });
     return false;
   }

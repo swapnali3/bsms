@@ -7,11 +7,13 @@ $(document).on("click", ".save", function () {
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (resp) {
             if(resp.status){
                 $("#confirmprd"+id).attr('disabled', true);
                 $("#confirmsave"+id).remove();
             }
-        }
+        },
+        complete: function () { $("#gif_loader").hide(); }
     });
 });

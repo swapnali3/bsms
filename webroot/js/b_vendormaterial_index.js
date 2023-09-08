@@ -33,10 +33,12 @@ $(document).on("click", ".approvemat", function () {
       contentType: "application/x-www-form-urlencoded; charset=utf-8",
       dataType: "json",
       async: false,
+      beforeSend: function () { $("#gif_loader").show(); },
       success: function (resp) {
         $("#id_buyermatcode" + id).attr('disabled', true);
         $("#id_button" + id).remove();
       },
+      complete: function () { $("#gif_loader").hide(); }
     });
   }
 });

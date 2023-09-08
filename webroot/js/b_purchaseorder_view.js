@@ -8,6 +8,7 @@ function poform(search = "") {
         type: "GET",
         url: po_api,
         dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
             if (response.status == "success") {
                 $.each(response.message, function (key, val) {
@@ -33,6 +34,7 @@ function poform(search = "") {
                 $("div.po-box:first").click();
             }
         },
+        complete: function () { $("#gif_loader").hide(); }
     });
 }
 
@@ -286,12 +288,14 @@ $(document).on("click", ".notify_item", function () {
         type: "GET",
         url: get_schedule_messages + $(this).attr("schedue-id"),
         dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
             if (response.status == "success") {
                 $("#past_messages").html(response.html);
             }
             $(".overlay").hide();
         },
+        complete: function () { $("#gif_loader").hide(); }
     });
 });
 
@@ -428,6 +432,7 @@ $(document).ready(function () {
                 url: create_schedule,
                 data: $("#scheduleForm").serialize(),
                 dataType: "json",
+                beforeSend: function () { $("#gif_loader").show(); },
                 success: function (response) {
                     console.log(response);
                     if (response.status) {
@@ -441,6 +446,7 @@ $(document).ready(function () {
                         Toast.fire({ icon: "error", title: response.message });
                     }
                 },
+                complete: function () { $("#gif_loader").hide(); }
             });
             return false;
         },
@@ -527,6 +533,7 @@ $(document).ready(function () {
                 url: save_schedule_remarks,
                 data: $("#notifyForm").serialize(),
                 dataType: "json",
+                beforeSend: function () { $("#gif_loader").show(); },
                 success: function (response) {
                     console.log(response);
                     if (response.status == "success") {
@@ -539,6 +546,7 @@ $(document).ready(function () {
                         Toast.fire({ icon: "error", title: response.message });
                     }
                 },
+                complete: function () { $("#gif_loader").hide(); }
             });
             return false;
         },
@@ -571,6 +579,7 @@ $(document).on("click", ".schedule_button", function () {
         url: create_schedule_update + $(this).attr("data-id"),
         data: $("#scheduleUpdate").serialize(),
         dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
             console.log(response);
             if (response.status == "success") {
@@ -580,6 +589,7 @@ $(document).on("click", ".schedule_button", function () {
                 Toast.fire({ icon: "error", title: response.message });
             }
         },
+        complete: function () { $("#gif_loader").hide(); }
     });
     // return false;
 });
@@ -595,6 +605,7 @@ $(".schedule_cancel_ok").click(function () {
         type: "GET",
         url: create_schedule_cancel + $(this).attr("data-id"),
         dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
             if (response.status == "success") {
                 $("#modal-cancel").modal("hide");
@@ -603,6 +614,7 @@ $(".schedule_cancel_ok").click(function () {
                 Toast.fire({ icon: "error", title: response.message });
             }
         },
+        complete: function () { $("#gif_loader").hide(); }
     });
 });
 

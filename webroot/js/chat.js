@@ -4,6 +4,7 @@ function chat(modalBody, sender_id, url, table_name = null, table_pk = null, mt3
         type: "GET",
         url: url + "/index/" + table_name + "/" + table_pk,
         dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (resp) {
             if (resp.length > 0) {
                 chatdata = resp;
@@ -29,6 +30,7 @@ function chat(modalBody, sender_id, url, table_name = null, table_pk = null, mt3
             }
             return resp;
         },
+        complete: function () { $("#gif_loader").hide(); }
     });
 }
 
@@ -40,12 +42,14 @@ function sendchat(posturl, formdata, modalBody, sender_id, geturl, mt3 = null, e
         dataType: "json",
         processData: false,
         contentType: false,
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (resp) {
             if (resp.status == "1") {
                 chat(modalBody, sender_id, geturl, resp.data[0].table_name, resp.data[0].table_pk, mt3);
                 $('#' + editor_id).summernote('reset');
             }
         },
+        complete: function () { $("#gif_loader").hide(); }
     });
 }
 
@@ -55,6 +59,7 @@ function getbadge(sender_id, url, table_name, table_pk, badge = null) {
         url: url + "/index/" + table_name + "/" + table_pk,
         dataType: "json",
         async: false,
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (resp) {
             var unread = 0;
             if (resp.length > 0) {
@@ -63,5 +68,6 @@ function getbadge(sender_id, url, table_name, table_pk, badge = null) {
             if (badge != null) { $("#" + badge).prepend(unread + " "); }
             // return unread;
         },
+        complete: function () { $("#gif_loader").hide(); }
     });
 }
