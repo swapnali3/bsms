@@ -267,8 +267,7 @@ class VendorTempsTable extends Table
 
         $validator
             ->integer('buyer_id')
-            ->requirePresence('buyer_id', 'create')
-            ->notEmptyString('buyer_id');
+            ->allowEmptyString('buyer_id');
 
         $validator
             ->scalar('remark')

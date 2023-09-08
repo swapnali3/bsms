@@ -316,9 +316,12 @@ class ApiController extends ApiAppController
         $this->loadModel("CompanyCodes");
         $this->loadModel("PurchasingOrganizations");
         
-        $po = $this->PurchasingOrganizations->find()->select(['id', 'name'])->where(['company_code_id =' => $id])->toArray();
+        /*$purchasingOrganizations = $this->PurchasingOrganizations->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
+            return $row->code.' - '.$row->name;
+        }])->where(['company_code_id =' => $id])->all(); */
+        $purchasingOrganizations = $this->PurchasingOrganizations->find()->select(['id', 'name' => 'CONCAT(code, " - ", name)'])->where(['company_code_id =' => $id])->toArray();
         
-        $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$po]];
+        $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$purchasingOrganizations]];
         echo json_encode($response); exit;
     }
 

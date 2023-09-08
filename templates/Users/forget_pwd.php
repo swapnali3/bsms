@@ -119,7 +119,7 @@
                 <div class="forget-buttons">
                 
                 <?php echo $this->Form->button('Submit', array('class' => 'btn btn-custom mt-3', 'style' => 'color:#FFF!important')); ?>
-                <a href="/bsms" class="btn mt-3" style="color: #174071 !important; text-decoration: underline;">Login</a>
+                <a href="<?= $this->Url->build('/') ?>" class="btn mt-3" style="color: #174071 !important; text-decoration: underline;">Login</a>
                 </div>
                 <?= $this->Form->end() ?>
                 <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon">

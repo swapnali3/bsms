@@ -76,7 +76,10 @@ class PurchaseOrdersController extends BuyerAppController
                 'table' => 'vendor_temps',
                 'alias' => 'V',
                 'type' => 'INNER',
-                'conditions' => ['V.sap_vendor_code = PoHeaders.sap_vendor_code', 'V.buyer_id' => $session->read('id'), 'status' => '3']
+                'conditions' => ['V.sap_vendor_code = PoHeaders.sap_vendor_code', 
+                'V.company_code_id' => $session->read('company_code_id'),
+                'V.purchasing_organization_id' => $session->read('purchasing_organization_id'), 
+                'status' => '3']
             ])
             ->where([
                 'OR' => [
