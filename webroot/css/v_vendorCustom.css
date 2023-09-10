@@ -11,6 +11,10 @@
     padding: 30px;
 }
 
+.error{
+    color: red;
+}
+
 div#example1_wrapper .row:first-child {
     flex-direction: row-reverse !important;
 }

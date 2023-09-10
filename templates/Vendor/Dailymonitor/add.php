@@ -145,6 +145,7 @@
           url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/line-masters', 'action' => 'get-factory-lines')); ?>/" + lineId,
           dataType: "json",
           beforeSend: function (xhr) {
+            $("#gif_loader").show();
               xhr.setRequestHeader(
                   "Content-type",
                   "application/x-www-form-urlencoded"
@@ -164,6 +165,7 @@
               alert("An error occurred: " + e.responseText.message);
               console.log(e);
           },
+          complete: function () { $("#gif_loader").hide(); }
       });
   }
 });
@@ -177,6 +179,7 @@ $("#production-line-id").change(function () {
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/production-lines', 'action' => 'get-line-materials')); ?>/" + lineId,
                 dataType: "json",
                 beforeSend: function (xhr) {
+                    $("#gif_loader").show();
                     xhr.setRequestHeader(
                         "Content-type",
                         "application/x-www-form-urlencoded"
@@ -193,6 +196,7 @@ $("#production-line-id").change(function () {
                     alert("An error occurred: " + e.responseText.message);
                     console.log(e);
                 },
+                complete: function () { $("#gif_loader").hide(); }
             });
         }
     });
@@ -222,6 +226,7 @@ $("#production-line-id").change(function () {
             processData: false, // important
             contentType: false, // important
             data: fd,
+            beforeSend: function () { $("#gif_loader").show(); },
             success: function(response) {
                 if (response.status) {
                     Toast.fire({
@@ -256,7 +261,8 @@ $("#production-line-id").change(function () {
                     icon: 'error',
                     title: 'An error occured, please try again.'
                 });
-            }
+            },
+            complete: function () { $("#gif_loader").hide(); }
         });
     });
     

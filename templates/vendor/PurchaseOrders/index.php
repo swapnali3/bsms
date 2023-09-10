@@ -111,6 +111,7 @@
       type: "GET",
       url: uri,
       dataType: 'json',
+      beforeSend: function () { $("#gif_loader").show(); },
       success: function (response) {
         if (response.status) {
           $.each(response.data, function (key, val) {
@@ -133,6 +134,7 @@
         } else { $('.related').find('.flagButton .notify').css('display', 'none'); }
       },
       error: function (xhr, status, error) { },
+      complete: function () { $("#gif_loader").hide(); }
     });
   }
 
@@ -143,13 +145,14 @@
       url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'poDetails')); ?>/" + rowDatas,
       contentType: "application/x-www-form-urlencoded; charset=utf-8",
       dataType: "json",
-      beforeSend: function () { $("#loaderss").show(); },
+      //async: false,
+      beforeSend: function () { $("#gif_loader").show(); },
       success: function (response) {
         if (response.status) { 
           $(".card-header").html(response.html);
          }
       },
-      complete: function () { $("#loaderss").hide(); }
+      complete: function () { $("#gif_loader").hide(); }
     });
   }
 
@@ -165,12 +168,12 @@
       contentType: "application/x-www-form-urlencoded; charset=utf-8",
       dataType: "json",
       //async: false,
-      beforeSend: function () { $("#loaderss").show(); },
+      beforeSend: function () { $("#gif_loader").show(); },
       success: function (response) {
         if (response.status == 'success') { div.html(response.html).removeClass('loading'); }
         else { div.html(response.message).removeClass('loading'); }
       },
-      complete: function () { $("#loaderss").hide(); }
+      complete: function () { $("#gif_loader").hide(); }
     });
     return div;
   }
@@ -208,6 +211,7 @@
       url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-notify')); ?>/" +
         id,
       dataType: "json",
+      beforeSend: function () { $("#gif_loader").show(); },
       success: function (response) {
         if (response.status == "1") {
           Toast.fire({
@@ -224,6 +228,7 @@
         }
       },
       error: function (xhr, status, error) { console.log(xhr, status, error); },
+      complete: function () { $("#gif_loader").hide(); }
     });
   });
 </script>

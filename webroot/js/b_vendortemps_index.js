@@ -35,12 +35,14 @@ $(document).on("click", ".sendcred", function () {
         type: "GET",
         url: sendmemail + "/" + userid,
         dataType: 'json',
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (r) {
             if (r.status) {
                 $("#sendcred" + userid).remove();
                 $("#halfapproved" + userid).attr('class', 'badge lgreenbadge');
             } // else { Toast('warning', r.message); }
-        }
+        },
+        complete: function () { $("#gif_loader").hide(); }
     });
 });
 

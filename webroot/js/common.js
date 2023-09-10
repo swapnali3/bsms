@@ -7,6 +7,7 @@ $(function () {
                 url: baseUrl + "productsubcategories/getlist/" + productId,
                 dataType: "json",
                 beforeSend: function (xhr) {
+                    $("#gif_loader").show();
                     xhr.setRequestHeader(
                         "Content-type",
                         "application/x-www-form-urlencoded"
@@ -34,6 +35,7 @@ $(function () {
                     alert("An error occurred: " + e.responseText.message);
                     console.log(e);
                 },
+                complete: function () { $("#gif_loader").hide(); }
             });
         }
     });
@@ -43,6 +45,7 @@ $(function () {
         url: baseurl + "api/notification",
         method: "GET",
         dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
             if (response.notifications.length > 0) {
                 $('.navbar-badge').text(response.notifications.length);
@@ -91,6 +94,7 @@ $(function () {
                 
             }
         },
+        complete: function () { $("#gif_loader").hide(); },
         error: function (error) {
             console.log(error);
         }

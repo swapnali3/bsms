@@ -321,6 +321,7 @@
           url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'create-schedule')); ?> ",
           data: $("#scheduleForm").serialize(),
           dataType: 'json',
+          beforeSend: function () { $("#gif_loader").show(); },
           success: function (response) {
             console.log(response);
             if (response.status == 'success') {
@@ -336,7 +337,8 @@
               });
             }
 
-          }
+          },
+          complete: function () { $("#gif_loader").hide(); }
         });
         return false;
       }
@@ -420,6 +422,7 @@
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-schedules')); ?> /" + rowData,
         dataType: 'json',
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
           if (response.status == 'success') {
             div
@@ -430,7 +433,8 @@
               .html(response.message)
               .removeClass('loading');
           }
-        }
+        },
+        complete: function () { $("#gif_loader").hide(); }
       });
 
       return div;
@@ -446,12 +450,14 @@
         //url: '../getDeliveryDetails/' + rowData,
         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-schedule-messages')); ?> /" + $(this).attr('schedue-id'),
         dataType: 'json',
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
           if (response.status == 'success') {
             $("#past_messages").html(response.html);
           } 
           $(".overlay").hide();
-        }
+        },
+        complete: function () { $("#gif_loader").hide(); }
       });
 
     });
@@ -479,6 +485,7 @@
           url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'save-schedule-remarks')); ?>",
           data: $("#notifyForm").serialize(),
           dataType: 'json',
+          beforeSend: function () { $("#gif_loader").show(); },
           success: function (response) {
             console.log(response);
             if (response.status == 'success') {
@@ -492,7 +499,8 @@
               Toast.fire({ icon: 'error', title: response.message });
             }
 
-          }
+          },
+          complete: function () { $("#gif_loader").hide(); }          
         });
         return false;
       }

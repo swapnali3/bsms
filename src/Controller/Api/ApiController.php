@@ -217,40 +217,40 @@ class ApiController extends ApiAppController
         left join users us on us.id=vt.buyer_id
         left join states st on st.id=vt.state_id
         left join countries ct on ct.id=vt.country_id
-        left join vendor_status vs on vs.id=vt.status where vt.id =".$id);
-        $vendortemp = $vendortemp->fetchAll('assoc');
+        left join vendor_status vs on vs.id=vt.status where vt.id =".$id." limit 1");
+        $vendortemp = ['vendor_temps'=>$vendortemp->fetchAll('assoc')[0]];
 
         // echo '<pre>'; print_r($vendortemp); exit;
         $query = $conn->execute("select vb.*,st.name as state_name from vendor_branch_offices vb left join states st on st.id=vb.state left join countries ct on ct.country_name=vb.country where vb.vendor_temp_id =".$id);
-        $vendortemp[0]['branch_office'] = $query->fetchAll('assoc');
+        $vendortemp['vendor_branch_offices'] = $query->fetchAll('assoc');
 
         $query = $conn->execute("select vf.*,st.name as state_name from vendor_factories vf left join states st on st.id=vf.state left join countries ct on ct.country_name=vf.country where vf.vendor_temp_id =".$id);
-        $vendortemp[0]['factory'] = $query->fetchAll('assoc');
+        $vendortemp['vendor_factories'] = $query->fetchAll('assoc');
 
         $query = $conn->execute("select vf.*,st.name as state_name from vendor_partner_address vf left join states st on st.id=vf.state left join countries ct on ct.country_name=vf.country where vf.vendor_temp_id =".$id);
-        $vendortemp[0]['partner_address'] = $query->fetchAll('assoc');
+        $vendortemp['vendor_partner_address'] = $query->fetchAll('assoc');
 
         $query = $conn->execute("select vf.*,st.name as state_name from vendor_reputed_customers vf left join states st on st.id=vf.state left join countries ct on ct.country_name=vf.country where vf.vendor_temp_id =".$id);
-        $vendortemp[0]['reputed_customer'] = $query->fetchAll('assoc');
-        $vendortemp[0]['commencement'] = $this->VendorCommencements->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['facility'] = $this->VendorFacilities->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['factory'] = $this->VendorFactories->find('all')->contain(['VendorCommencements'])->where(['vendor_temp_id' => $id])->toArray();
-        $vendortemp[0]['questionnaire'] = $this->VendorQuestionnaires->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp['vendor_reputed_customers'] = $query->fetchAll('assoc');
+        $vendortemp['vendor_commencements'] = $this->VendorCommencements->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp['vendor_facilities'] = $this->VendorFacilities->find('all')->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp['vendor_factories'] = $this->VendorFactories->find('all')->contain(['VendorCommencements'])->where(['vendor_temp_id' => $id])->toArray();
+        $vendortemp['vendor_questionnaires'] = $this->VendorQuestionnaires->find('all')->where(['vendor_temp_id' => $id])->toArray();
         
         $income_tax = $this->VendorIncometaxes->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        if(count($income_tax) > 0){$vendortemp[0]['income_tax']= $income_tax[0]; } else {$vendortemp[0]['income_tax']=[];}
+        if(count($income_tax) > 0){$vendortemp['vendor_incometaxes']= $income_tax[0]; } else {$vendortemp['vendor_incometaxes']=[];}
         
         $other_details =$this->VendorOtherdetails->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        if(count($other_details) > 0){$vendortemp[0]['other_details']= $other_details[0]; } else {$vendortemp[0]['other_details']=[];}
+        if(count($other_details) > 0){$vendortemp['vendor_otherdetails']= $other_details[0]; } else {$vendortemp['vendor_otherdetails']=[];}
         
         $registered_office = $this->VendorRegisteredOffices->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        if(count($registered_office) > 0){$vendortemp[0]['registered_office']= $registered_office[0]; } else {$vendortemp[0]['registered_office']=[];}
+        if(count($registered_office) > 0){$vendortemp['vendor_registered_offices']= $registered_office[0]; } else {$vendortemp['vendor_registered_offices']=[];}
         
         $small_scale = $this->VendorSmallScales->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        if(count($small_scale) > 0){$vendortemp[0]['small_scale']= $small_scale[0]; } else {$vendortemp[0]['small_scale']=[];}
+        if(count($small_scale) > 0){$vendortemp['vendor_small_scales']= $small_scale[0]; } else {$vendortemp['vendor_small_scales']=[];}
 
         $turnover = $this->VendorTurnovers->find('all')->where(['vendor_temp_id' => $id])->toArray();
-        if(count($turnover) > 0){$vendortemp[0]['turnover']= $turnover[0]; } else {$vendortemp[0]['turnover']=[];}
+        if(count($turnover) > 0){$vendortemp['vendor_turnovers']= $turnover[0]; } else {$vendortemp['vendor_turnovers']=[];}
 
         $response = array('status'=>1, 'message'=>$vendortemp);
         echo json_encode($response); exit;

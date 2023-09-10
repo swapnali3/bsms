@@ -31,6 +31,7 @@ $(document).ready(function () {
             type: "GET",
             url: userView + "/" + $id,
             dataType: "json",
+            beforeSend: function () { $("#gif_loader").show(); },
             success: function (response) {
                 if (response.status == "1") {
                     Toast.fire({
@@ -48,6 +49,7 @@ $(document).ready(function () {
                     });
                 }
             },
+            complete: function () { $("#gif_loader").hide(); },
             error: function (xhr, status, error) {
                 // Handle error case if needed
             },
@@ -61,6 +63,7 @@ $(document).ready(function () {
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
         async: false,
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
             if (response.status == "1") {
                 console.log(response["message"]["name"]);
@@ -557,6 +560,7 @@ baseurl+                        val.certificate_file
             } else {
             }
         },
+        complete: function () { $("#gif_loader").hide(); }
     });
     // $('.row').attr('style','width:110vw;')
 });

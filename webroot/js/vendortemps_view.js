@@ -31,6 +31,7 @@ $(document).ready(function () {
             type: "GET",
             url: userView +"/"+$id,
             dataType: "json",
+            beforeSend: function () { $("#gif_loader").show(); },
             success: function (response) {
                 if (response.status == "1") {
                     Toast.fire({
@@ -49,6 +50,7 @@ $(document).ready(function () {
                     });
                 }
             },
+            complete: function () { $("#gif_loader").hide(); },
             error: function (xhr, status, error) {
                 // Handle error case if needed
             },

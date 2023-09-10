@@ -104,6 +104,7 @@
                     url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/daily-monitor', 'action' => 'change-status')); ?>/" + action +"/"+value,
                     dataType: "json",
                     beforeSend: function(xhr) {
+                        $("#gif_loader").show();
                         xhr.setRequestHeader(
                             "Content-type",
                             "application/x-www-form-urlencoded"
@@ -127,6 +128,7 @@
                         alert("An error occurred: " + e.responseText.message);
                         console.log(e);
                     },
+                    complete: function () { $("#gif_loader").hide(); }
                 });
             }
         });
