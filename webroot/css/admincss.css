@@ -172,3 +172,13 @@ li.unmli:hover {
     content: unset;
     opacity: 0;
 }
+
+[class*=sidebar-dark-] { background-color: #fff !important;}
+
+[class*=sidebar-dark-] .sidebar a {
+    color: unset !important;
+}
+
+[class*=sidebar-dark] .brand-link {
+    border-bottom: 1px solid orange;
+}

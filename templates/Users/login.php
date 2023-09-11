@@ -83,10 +83,10 @@
 
     .v2container {
       color: white;
-      background-color: #b61924 !important;
-      background: #2980b9 !important;
+      background-color: #F7941D !important;
+      background: #F7941D !important;
       background: -webkit-linear-gradient(to right, #2c3e50, #2980b9) !important;
-      background: linear-gradient(to right, #2c3e50, #2980b9) !important;
+      background: linear-gradient(to bottom, #F7941D, #ED1C24) !important;
       height: auto !important;
       min-height: calc(100vh - 0px) !important;
     }
@@ -406,7 +406,7 @@
     particlesJS("particles-js", {
       "particles": {
         "number": {
-          "value": 290,
+          "value": 250,
           "density": {
             "enable": true,
             "value_area": 800
@@ -422,7 +422,7 @@
             "color": "#000000"
           },
           "polygon": {
-            "nb_sides": 10
+            "nb_sides": 4
           },
           "image": {
             "src": "img/github.svg",
@@ -435,7 +435,7 @@
           "random": false,
           "anim": {
             "enable": false,
-            "speed": 1,
+            "speed": 2,
             "opacity_min": 0.1,
             "sync": false
           }
@@ -452,7 +452,7 @@
         },
         "line_linked": {
           "enable": true,
-          "distance": 150,
+          "distance": 100,
           "color": "#ffffff",
           "opacity": 0.4,
           "width": 1
@@ -501,7 +501,7 @@
           },
           "repulse": {
             "distance": 100,
-            "duration": 0.4
+            "duration": 0.8
           },
           "push": {
             "particles_nb": 4

@@ -22,7 +22,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-6 pt-2 pb-1">
                         <div class="search-bar d-flex mb-2">
-                            <input type="search" placeholder="Search all orders, meterials.."
+                            <input type="search" placeholder="Search all orders, materials.."
                                 class="form-control search-box">
                             <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
                         </div>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="scrollable-div">
+                <div class="scrollable-div mb-1">
                     <!-- <div class="search-bar mb-2">
                         <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
                     </div> -->
@@ -56,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-header p-2" id="id_pohead"></div>
+            <div class="card-header pr-0 pl-0" id="id_pohead"></div>
             <div class="t2 mt-2 mb-1">
                 <div class="right-side">
                     <table class="table table-bordered material-list" id="example2">

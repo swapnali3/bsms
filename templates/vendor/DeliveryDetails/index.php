@@ -15,7 +15,7 @@
             <div class="card-header p-2">
                 <h5 class="mb-0">
                     <b>
-                        <?= __('DELIVERY DETAILS') ?>
+                        <?= __('Delivery Details') ?>
                     </b>
                 </h5>
             </div>
@@ -75,7 +75,10 @@
     $(document).ready(function () {
         var table = $("#example1").DataTable({
             "paging": true,
-            "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
+            "responsive": false, 
+            "lengthChange": false, 
+            "autoWidth": false, 
+            "searching": true,
             "ordering": true,
             language: {
                 search: "_INPUT_",

@@ -62,7 +62,7 @@
     .vendorTemps.form.content {
         width: 30%;
         margin: 0 auto;
-        background-color: #f5f7fd;
+        background-color: #fff !important;
         margin-top: 20px;
     }
 
@@ -95,8 +95,8 @@
     }
 
     .btn-custom {
-        background-color: #174071 !important;
-        color: #fff !important;
+        background-color: #F7941D !important;
+        color: #121212 !important;
         font-size: 14px;
         cursor: pointer;
         line-height: 1.1rem;
@@ -118,12 +118,17 @@
                 </div>
                 <div class="forget-buttons">
                 
+<<<<<<< Updated upstream
                 <?php echo $this->Form->button('Submit', array('class' => 'btn btn-custom mt-3', 'style' => 'color:#FFF!important')); ?>
                 <a href="<?= $this->Url->build('/') ?>" class="btn mt-3" style="color: #174071 !important; text-decoration: underline;">Login</a>
+=======
+                <?php echo $this->Form->button('Submit', array('class' => 'btn btn-custom mt-3')); ?>
+                <a href="/bsms" class="btn mt-3">Login</a>
+>>>>>>> Stashed changes
                 </div>
                 <?= $this->Form->end() ?>
-                <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon">
-                <img src="<?= $this->Url->build('/') ?>img/logo_s.png" class="vekpro-logo" widht="50">
+                <!-- <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon"> -->
+                <img src="<?= $this->Url->build('/') ?>img/apar_logo.png" class="vekpro-logo">
             </div>
         </div>
     </div>

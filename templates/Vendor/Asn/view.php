@@ -44,9 +44,9 @@
                         </div>
                         <?php
                         if ($deliveryDetails[0]->status == '1') { ?>
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-custom-2 mb-0 mrk mr-2" data-toggle="modal"
+                        <div class="col-sm-12 col-lg-12 mt-3">
+                            <div class="d-flex justify-content-start">
+                                <button class="btn btn-custom-2 mb-0 mrk" data-toggle="modal"
                                     data-target="#modal-confirm">Mark Dispatched</button>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                         <h6>Are you sure you want to mark dispatched ?</h6>
                                     </div>
                                     <div class="modal-footer justify-content-between p-1">
-                                        <button type="button" class="btn btn-sm btn-link"
+                                        <button type="button" class="cancel_btn btn btn-sm btn-link"
                                             data-dismiss="modal">Cancel</button>
                                         <button class="btn btn-success mark_delivered btn-sm mb-0">OK</button>
                                         <!-- <?= $this->Html->link(__('Ok'), ['class' => 'btn btn-success mark_delivered btn-sm mb-0']) ?> -->
