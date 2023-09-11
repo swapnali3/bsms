@@ -709,3 +709,21 @@ body {
     border: 1px solid #F7941D;
     border-radius: 5px;
 } */
+
+#example1_filter input[type="search"] {
+    height: 42px !important;
+    width: 250px !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter input { margin-left: 0 !important;}
+
+#material_list th:nth-child(7) { width: 120px !important;}
+
+.cancel_btn { color: #fff !important;}
+
+.sap_vendorcode {
+    font-size: 16px;
+    color: #121212;
+}
+
+#example1_wrapper .row:first-child { width: 0 !important;}

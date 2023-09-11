@@ -27,15 +27,17 @@ th {
 
 .btn-custom-2 {
     background-color: #F7941D;
-    color: #fff;
+    color: #121212 !important;
     font-size: 14px;
     line-height: 1.1rem;
     padding: 10px 20px;
 }
 
+.btn-custom-2:hover { color: #fff !important;}
+
 .btn-custom {
     background-color: #F7941D;
-    color: #fff;
+    color: #121212 !important;
     font-size: 14px;
     line-height: 1.1rem;
     padding: 10px 20px;

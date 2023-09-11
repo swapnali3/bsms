@@ -55,6 +55,8 @@ th {
     justify-content: space-between;
 }
 
+.purchase-order .po-box.active { border: 1px solid #F79E33 !important;}
+
 .search-bar input.search-box {
     border: none;
     font-size: 13px;
