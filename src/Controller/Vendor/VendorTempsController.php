@@ -29,51 +29,13 @@ class VendorTempsController extends VendorAppController
         $flash = [];
         $this->set('headTitle', 'Profile');
         $session = $this->getRequest()->getSession();
-        if ($id == null) {
-            $id = $session->read('vendor_id');
-        }
+        if ($id == null) { $id = $session->read('vendor_id'); }
 
         $this->loadModel('VendorTemps');
         $vendorTemp = $this->VendorTemps->get($session->read('vendor_id'), [
-            'contain' => ['VendorStatus','PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
+            'contain' => ['VendorStatus','PurchasingOrganizations', 'AccountGroups', 'SchemaGroups', 'VendorBranchOffices', 'VendorCommencements', 'VendorFacilities', 'VendorFactories', 'VendorIncometaxes', 'VendorOtherdetails', 'VendorPartnerAddress', 'VendorQuestionnaires', 'VendorRegisteredOffices', 'VendorReputedCustomers', 'VendorSmallScales', 'VendorTurnovers', 'States', 'Countries'],
         ]);
-
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            try {
-                $request = $this->request->getData();
-                $userData = [
-                    'address' => $request['address1'],
-                    'address_2' => $request['address2'],
-                    'contact_person' => $request['contact_person'],
-                    'contact_mobile' => $request['contact_mobiles'],
-                    'contact_email' => $request['contact_email'],
-                    'contact_department' => $request['contact_department'],
-                    'contact_designation' => $request['contact_designation']
-                ];
-
-
-                $userObj = $this->VendorTemps->newEmptyEntity();
-                $userObj = $this->VendorTemps->patchEntity($vendorTemp, $userData);
-
-                if ($this->VendorTemps->save($userObj)) {
-                    $response['status'] = 'success';
-                    $response['message'] = 'Record saved successfully';
-                    $flash = ['type' => 'success', 'msg' => 'Profle has been updated successfully'];
-                    $this->set('flash', $flash);
-                } else {
-                    // Handle save error
-                    $flash = ['type' => 'error', 'msg' => 'Failed to save user data'];
-                    $this->set('flash', $flash);
-                }
-            } catch (\PDOException $e) {
-                $flash = ['type' => 'error', 'msg' => ($e->getMessage())];
-            } catch (\Exception $e) {
-                $response['status'] = 'fail';
-                $response['message'] = $e->getMessage();
-                $flash = ['type' => 'error', 'msg' => ($e->getMessage())];
-            }
-            $this->set('flash', $flash);
-        }
+        // echo '<pre>'; print_r($vendorTemp); exit;
 
         $vendorTempView = $this->VendorTemps->find('all')->where(['update_flag' => $id]);
         $this->set('vendorTempView', $vendorTempView->toArray());
