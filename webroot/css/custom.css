@@ -862,7 +862,7 @@ div#past_messages::-webkit-scrollbar-track {
     background-color: #f4f6f9;
 }
 
-#poItemss .active { background-color: #fff !important;}
+#poItemss .active { background-color: #fff !important; border: 1px solid #F7941D !important;}
 
 .purchase-order .pono b {
     color: #F7941D !important;
@@ -1015,7 +1015,7 @@ span.otp-send-email { color: #121212 !important;}
 
 .main-sidebar:hover {
     width: 230px; 
-    transition: all linear .5s;
+    transition: all linear .1s;
 }
 
 .main-sidebar .nav-link p { display: none;}
@@ -1050,3 +1050,7 @@ span.otp-send-email { color: #121212 !important;}
 
 .download_template:hover { border-color: #121212 !important;} */
 
+
+#material_list th:nth-child(7) { width: 200px !important;}
+
+/* #example1_wrapper.row:nth-child(1) { display: none;} */

@@ -17,7 +17,7 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header">
-        <div class="row">
+        <div class="row d-flex align-items-center">
           <div class="col-2">
             <h6 class="mb-0"><small>PO NO :</small><b>
                 <?= h($poHeader[0]->po_no) ?>
@@ -45,9 +45,9 @@
                   <div class="modal-body text-center">
                     <h6>Are you sure you want to create asn ?</h6>
                   </div>
-                  <div class="modal-footer justify-content-between p-1">
-                    <button type="button" class="btn btn-sm btn-link" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success btn-sm mb-0">OK</button>
+                  <div class="modal-footer justify-content-between p-1 d-flex align-items-center">
+                    <button type="button" class="cancel_btn btn btn-sm btn-link" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success btn-sm mb-0">Ok</button>
                   </div>
                 </div>
               </div>
@@ -174,7 +174,7 @@
         <div class="row">
           <div class="col-12">
             <div class="table-responsive">
-              <table class="table table-bordered material-list">
+              <table class="table table-bordered material-list" id="material_list">
                 <thead>
                   <tr>
                     <th>

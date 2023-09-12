@@ -86,7 +86,7 @@
       background-color: #b61924 !important;
       background: #2980b9 !important;
       background: -webkit-linear-gradient(to right, #2c3e50, #2980b9) !important;
-      background: linear-gradient(to right, #2c3e50, #2980b9) !important;
+      background: linear-gradient(to bottom, #F7941D, #ED1C24) !important;
       height: auto !important;
       min-height: calc(100vh - 0px) !important;
     }

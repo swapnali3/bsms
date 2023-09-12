@@ -94,11 +94,11 @@
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
             <!-- <a href="<?= $this->Url->build('dashboard') ?>" class="brand-link" style="background-color:#ffffff;text-align-last:center;">
-            <?= $this->Html->image('ft_rect_logo.png', ['width' => '175', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
+            <?= $this->Html->image('apar_logo.png', ['width' => '175', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
             </a> -->
-            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link" style="text-align-last:center;background-color:#fff;">
-                <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '1']) ?>
-                <span class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
+            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link">
+                <!-- <?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '1']) ?> -->
+                <span class="brand-text"><?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>
             <!-- Sidebar -->
             <div class="sidebar" id="id_sidebar">

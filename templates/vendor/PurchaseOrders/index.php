@@ -125,7 +125,7 @@
                   <small class="mb-0">
                     <?= h('Vendor Code:') ?>
                   </small>
-                  <br> <small><b> ` + val.sap_vendor_code + ` </b></small>
+                  <br> <small><b class="sap_vendorcode"> ` + val.sap_vendor_code + ` </b></small>
                 </div>
                 <span class="hide flagdata" id='` + val.id + `' data-flag=` + val.acknowledge + `></span>
               </div>`);

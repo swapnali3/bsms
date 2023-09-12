@@ -271,7 +271,7 @@
     </div>
     <div class="col-12 usermgm hide">
       <div class="card">
-        <div class="card-header" style="background-color:#f5f7fd;">
+        <div class="card-header">
           <h5 class="mb-0">USER ADMINISTRATION</h5>
         </div>
         <div class="card-body">
@@ -300,7 +300,7 @@
     </div>
     <div class="col-12 useradd hide">
       <div class="card" style="height: 88vh;">
-        <div class="card-header" style="background-color:#f5f7fd;">
+        <div class="card-header">
           <h5 class="mb-0">USER ADMINISTRATION</h5>
         </div>
 

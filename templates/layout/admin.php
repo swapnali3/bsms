@@ -74,7 +74,7 @@
         <!-- /.content-wrapper -->
 
         <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
+        <aside class="control-sidebar control-sidebar-light">
             <!-- Control sidebar content goes here -->
             <?= $this->element('aside/main') ?>
         </aside>
