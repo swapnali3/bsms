@@ -182,3 +182,17 @@ li.unmli:hover {
 [class*=sidebar-dark] .brand-link {
     border-bottom: 1px solid orange;
 }
+
+thead { background-color: #F7941D !important;}
+thead th,td { font-size: 14px !important;}
+
+.submit_btn {
+    background-color: #F7941D !important;
+    color: #121212 !important;
+    border: 1px solid #F7941D !important;
+}
+
+.submit_btn:hover {
+    color: #F7941D !important;
+    background-color: #fff !important;
+}

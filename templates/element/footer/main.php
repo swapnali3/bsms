@@ -3,6 +3,7 @@
     .main-footer span {
     font-size: 13px;
 }
+.main-footer { text-align: center;}
 </style>
 
 <!-- Default to the left -->
