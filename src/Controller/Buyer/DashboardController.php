@@ -56,13 +56,11 @@ class DashboardController extends BuyerAppController
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
         $this->loadModel('DeliveryDetails');
-
-        $this->loadModel('RfqDetails');
-        $this->loadModel('RfqInquiries');
-        $this->loadModel('Products');
         $this->loadModel('AsnHeaders');
 
-        // $totalVendorTemps = $this->VendorTemps->find('all', array('conditions' => array('buyer_id' => $session->read('id'))))->count();
+        $totalVendorTemps = $this->VendorTemps->find('all', array('conditions' => array(
+            'company_code_id' => $session->read('company_code_id'), 
+            'purchasing_organization_id' => $session->read('purchasing_organization_id'))))->count();
 
         $totalVendorOnboarding = $this->VendorTemps->find('all', array('conditions' => array(
             'company_code_id' => $session->read('company_code_id'),
@@ -124,7 +122,7 @@ class DashboardController extends BuyerAppController
 
         // echo $totalVendorTemps;exit;
 
-        $this->set(compact('totalVendorOnboarding', 'totalVendorApproved', 'totalSentSap', 'totalPos', 'totalAsnCreated', 'totalAsnIntransit', 'totalAsnReceived', 'poCompleteCount', 'topVendors'));
+        $this->set(compact('totalVendorTemps','totalVendorOnboarding', 'totalVendorApproved', 'totalSentSap', 'totalPos', 'totalAsnCreated', 'totalAsnIntransit', 'totalAsnReceived', 'poCompleteCount', 'topVendors'));
     }
 
     public function oldindex()

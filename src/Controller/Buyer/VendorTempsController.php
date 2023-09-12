@@ -508,120 +508,117 @@ class VendorTempsController extends BuyerAppController
             return $this->redirect(['action' => 'view', $id]);
         }
 
-        if ($action == 'app') { $vendor->status = 2; }
-
-        if ($this->VendorTemps->save($vendor)) {
-
-            $data['DATA'] = array();
-
-            $data['DATA']['VENDOR_PORTAL_ID'] = $vendor->id;
-            $data['DATA']['LIFNR'] = $vendor->sap_vendor_code;
-            $data['DATA']['BUKRS'] = $vendor->company_code->code;
-            $data['DATA']['EKORG'] = $vendor->purchasing_organization->code;
-            $data['DATA']['KTOKK'] = $vendor->account_group->code;
-            $data['DATA']['TITLE_MEDI'] = $vendor->title;
-            $data['DATA']['NAME1'] = $vendor->name;
-            $data['DATA']['NAME2'] = $vendor->address;
-            $data['DATA']['NAME3'] = $vendor->address_2;
-            $data['DATA']['NAME4'] = $vendor->city;
-
-            $data['DATA']['SORT1'] = $vendor->name;
-            $data['DATA']['STREET'] = $vendor->address;
-            $data['DATA']['CITY1'] = $vendor->city;
-            $data['DATA']['POST_CODE1'] = $vendor->pincode;
-
-            $data['DATA']['REGION'] = $vendor->state->region_code;
-            $data['DATA']['COUNTRY'] = $vendor->country->country_code;
-            $data['DATA']['SMTP_ADDR'] = $vendor->email;
-            $data['DATA']['MOB_NUMBER'] = $vendor->mobile;
-
-            $data['DATA']['AKONT'] = $vendor->reconciliation_account->code;
-            $data['DATA']['ZUAWA'] = '';
-            $data['DATA']['SPRAS'] = '';
-            $data['DATA']['TAXTYPE'] = '';
-            $data['DATA']['KALSK'] = $vendor->schema_group->code;
-            $data['DATA']['GSIN'] = $vendor->gst_no;
-            $data['DATA']['PAN'] = $vendor->pan_no;
-            $data['DATA']['ZTERM'] = $vendor->payment_term->code;
-            $data['DATA']['WAERS'] = $vendor->order_currency;
-            $data['DATA']['BUYER_ID'] = $session->read('id');
 
 
-            $uploadFileContent = json_encode($data);
-            $uploadfileName = 'VENDOR_CR_('.$vendor->id.')_REQ.JSON';
-            $ftpConn = $this->Ftp->connection();
-            if($this->Ftp->uploadFile($ftpConn, $uploadFileContent, $uploadfileName)) {
-                $flash = ['type'=>'success', 'msg'=>' Vendor sent to SAP for approval'];
-            } else {
-                $flash = ['type'=>'error', 'msg'=>' Vendor sent to SAP fail'];
-            }
+        $data['DATA'] = array();
 
-            /*
-            $http = new Client();
-            $response = $http->post(
-                'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
-                json_encode($data),
-                ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
-            );
+        $data['DATA']['VENDOR_PORTAL_ID'] = $vendor->id;
+        $data['DATA']['LIFNR'] = $vendor->sap_vendor_code;
+        $data['DATA']['BUKRS'] = $vendor->company_code->code;
+        $data['DATA']['EKORG'] = $vendor->purchasing_organization->code;
+        $data['DATA']['KTOKK'] = $vendor->account_group->code;
+        $data['DATA']['TITLE_MEDI'] = $vendor->title;
+        $data['DATA']['NAME1'] = $vendor->name;
+        $data['DATA']['NAME2'] = $vendor->address;
+        $data['DATA']['NAME3'] = $vendor->address_2;
+        $data['DATA']['NAME4'] = $vendor->city;
 
-            
-            if ($response->isOk()) {
-                $result = json_decode($response->getStringBody());
+        $data['DATA']['SORT1'] = $vendor->name;
+        $data['DATA']['STREET'] = $vendor->address;
+        $data['DATA']['CITY1'] = $vendor->city;
+        $data['DATA']['POST_CODE1'] = $vendor->pincode;
 
-                if ($result->RESPONSE->SUCCESS) {
+        $data['DATA']['REGION'] = $vendor->state->region_code;
+        $data['DATA']['COUNTRY'] = $vendor->country->country_code;
+        $data['DATA']['SMTP_ADDR'] = $vendor->email;
+        $data['DATA']['MOB_NUMBER'] = $vendor->mobile;
 
-                    $resultResponse = json_decode($result->RESPONSE->DATA);
-                    $newVendorCode = trim($resultResponse->DATA->LIFNR);
-
-                    if (!empty($newVendorCode)) {
-                        $this->loadModel("Users");
-                        $adminUser = $this->Users->newEmptyEntity();
-                        // echo '<pre>';
-                        // print_r($adminUser);
-
-                        $data = array();
-                        $data['first_name'] = $vendor->name;
-                        $data['last_name'] = $vendor->name;
-                        $data['username'] = $vendor->email;
-                        $data['mobile'] = $vendor->mobile;
-                        $data['password'] = $vendor->mobile;
-                        $data['group_id'] = 3;
-
-                        $adminUser = $this->Users->patchEntity($adminUser, $data);
-
-                        if ($this->Users->save($adminUser)) {
-                           
-                            $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-                            $mailer = new Mailer('default');
-                            $mailer
-                                ->setTransport('smtp')
-                                ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
-                                '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
-                                ->setTo($data['username'])
-                                ->setEmailFormat('html')
-                                ->setSubject('Vendor Portal - Account created')
-                                ->viewBuilder()
-                                ->setTemplate('mail_template');
-                            $mailer->deliver();
-                        }
-                    }
-
-                    $vendor->status = 3; //Approved by SAP
-                    $vendor->sap_vendor_code = $newVendorCode;
-                    $this->VendorTemps->save($vendor);
+        $data['DATA']['AKONT'] = $vendor->reconciliation_account->code;
+        $data['DATA']['ZUAWA'] = '';
+        $data['DATA']['SPRAS'] = '';
+        $data['DATA']['TAXTYPE'] = '';
+        $data['DATA']['KALSK'] = $vendor->schema_group->code;
+        $data['DATA']['GSIN'] = $vendor->gst_no;
+        $data['DATA']['PAN'] = $vendor->pan_no;
+        $data['DATA']['ZTERM'] = $vendor->payment_term->code;
+        $data['DATA']['WAERS'] = $vendor->order_currency;
+        $data['DATA']['BUYER_ID'] = $session->read('id');
 
 
-
-                    $this->redirect(['action' => 'index',]);
-                    $flash = ['type'=>'success', 'msg'=>__('The Vendor successfully approved', array('action' => 'index'), 30)];
-                }
-            } else {
-                $flash = ['type'=>'success', 'msg'=>' Vendor sent to SAP for approval'];
-            } */
+        $uploadFileContent = json_encode($data);
+        $uploadfileName = 'VENDOR_CR_('.$vendor->id.')_REQ.JSON';
+        $ftpConn = $this->Ftp->connection();
+        if($this->Ftp->uploadFile($ftpConn, $uploadFileContent, $uploadfileName)) {
+            if ($action == 'app') { $vendor->status = 2; }
+            $this->VendorTemps->save($vendor);
+            $flash = ['type'=>'success', 'msg'=>' Vendor sent to SAP for approval'];
         } else {
-            $flash = ['type'=>'error', 'msg'=>'The Vendor detail could not be updated. Please, try again'];
+            $flash = ['type'=>'error', 'msg'=>' Vendor sent to SAP fail'];
         }
+
+        /*
+        $http = new Client();
+        $response = $http->post(
+            'http://123.108.46.252:8000/sap/bc/sftmob/VENDER_UPD/?sap-client=300',
+            json_encode($data),
+            ['type' => 'json', 'auth' => ['username' => 'vcsupport1', 'password' => 'aarti@123']]
+        );
+
+        
+        if ($response->isOk()) {
+            $result = json_decode($response->getStringBody());
+
+            if ($result->RESPONSE->SUCCESS) {
+
+                $resultResponse = json_decode($result->RESPONSE->DATA);
+                $newVendorCode = trim($resultResponse->DATA->LIFNR);
+
+                if (!empty($newVendorCode)) {
+                    $this->loadModel("Users");
+                    $adminUser = $this->Users->newEmptyEntity();
+                    // echo '<pre>';
+                    // print_r($adminUser);
+
+                    $data = array();
+                    $data['first_name'] = $vendor->name;
+                    $data['last_name'] = $vendor->name;
+                    $data['username'] = $vendor->email;
+                    $data['mobile'] = $vendor->mobile;
+                    $data['password'] = $vendor->mobile;
+                    $data['group_id'] = 3;
+
+                    $adminUser = $this->Users->patchEntity($adminUser, $data);
+
+                    if ($this->Users->save($adminUser)) {
+                        
+                        $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                        $mailer = new Mailer('default');
+                        $mailer
+                            ->setTransport('smtp')
+                            ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
+                            '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                            ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                            ->setTo($data['username'])
+                            ->setEmailFormat('html')
+                            ->setSubject('Vendor Portal - Account created')
+                            ->viewBuilder()
+                            ->setTemplate('mail_template');
+                        $mailer->deliver();
+                    }
+                }
+
+                $vendor->status = 3; //Approved by SAP
+                $vendor->sap_vendor_code = $newVendorCode;
+                $this->VendorTemps->save($vendor);
+
+
+
+                $this->redirect(['action' => 'index',]);
+                $flash = ['type'=>'success', 'msg'=>__('The Vendor successfully approved', array('action' => 'index'), 30)];
+            }
+        } else {
+            $flash = ['type'=>'success', 'msg'=>' Vendor sent to SAP for approval'];
+        } */
         $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'view', $id]);

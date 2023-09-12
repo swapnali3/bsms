@@ -41,6 +41,8 @@ class SyncController extends ApiAppController
         ]);
 
         $this->loadComponent('Ftp');
+
+        ini_set('default_socket_timeout', '120');
     }
 
 
@@ -49,50 +51,56 @@ class SyncController extends ApiAppController
         $response = array();
         $response['message'] = [];
         
-        $ftpConn = $this->Ftp->connection();
-        //$list = $this->Ftp->getList($ftpConn);
-        $data  = $this->Ftp->downloadFile($ftpConn, 'MASTER.JSON');
-        
-        if($data) {
+        try {
+            $ftpConn = $this->Ftp->connection();
+            //$list = $this->Ftp->getList($ftpConn);
+            $data  = $this->Ftp->downloadFile($ftpConn, 'MASTER.JSON');
+            
+            if($data) {
 
-            $data = trim(preg_replace('/\s+/', ' ', $data));
-            $d = json_decode($data);
+                $data = trim(preg_replace('/\s+/', ' ', $data));
+                $d = json_decode($data);
 
-            foreach($d->ORG_MASTER as $mKey => $mVal) {
-                if($mKey == 'M_TITLE') {
-                    $response['message'][] = $this->saveTitles((array)$mVal);
-                }
-                if($mKey == 'CC_LIST') {
-                    $response['message'][] =$this->saveCompanyCodes((array)$mVal);
-                }
-                if($mKey == 'PAY_TERM') {
-                    $response['message'][] =$this->savePayTerms((array)$mVal);
-                }
-                if($mKey == 'PUR_ORG') {
-                    $response['message'][] =$this->savePurchasingOrganizations((array)$mVal);
-                }
-                if($mKey == 'ACC_GRP') {
-                    $response['message'][] =$this->saveAccountGroups((array)$mVal);
-                }
-                if($mKey == 'COUNTRY') {
-                    $response['message'][] =$this->saveCountries((array)$mVal);
-                }
-                if($mKey == 'REGION') {
-                    $response['message'][] =$this->saveRegions((array)$mVal);
-                }
-                if($mKey == 'SCH_GRP') {
-                    $response['message'][] =$this->saveSchemaGroups((array)$mVal);
-                }
+                foreach($d->ORG_MASTER as $mKey => $mVal) {
+                    if($mKey == 'M_TITLE') {
+                        $response['message'][] = $this->saveTitles((array)$mVal);
+                    }
+                    if($mKey == 'CC_LIST') {
+                        $response['message'][] =$this->saveCompanyCodes((array)$mVal);
+                    }
+                    if($mKey == 'PAY_TERM') {
+                        $response['message'][] =$this->savePayTerms((array)$mVal);
+                    }
+                    if($mKey == 'PUR_ORG') {
+                        $response['message'][] =$this->savePurchasingOrganizations((array)$mVal);
+                    }
+                    if($mKey == 'ACC_GRP') {
+                        $response['message'][] =$this->saveAccountGroups((array)$mVal);
+                    }
+                    if($mKey == 'COUNTRY') {
+                        $response['message'][] =$this->saveCountries((array)$mVal);
+                    }
+                    if($mKey == 'REGION') {
+                        $response['message'][] =$this->saveRegions((array)$mVal);
+                    }
+                    if($mKey == 'SCH_GRP') {
+                        $response['message'][] =$this->saveSchemaGroups((array)$mVal);
+                    }
 
-                if($mKey == 'REC_ACC') {
-                    $response['message'][] =$this->saveReconciliationAccounts((array)$mVal);
-                }
-                if($mKey == 'CURRENCY') {
-                    $response['message'][] =$this->saveCurrencies((array)$mVal);
+                    if($mKey == 'REC_ACC') {
+                        $response['message'][] =$this->saveReconciliationAccounts((array)$mVal);
+                    }
+                    if($mKey == 'CURRENCY') {
+                        $response['message'][] =$this->saveCurrencies((array)$mVal);
+                    }
                 }
             }
+        } catch (\Exception $e) {
+            $response['message'] = $e->getMessage();
         }
 
+        
+        //$ftpConn->close();
         echo json_encode($response);
     }
 
@@ -556,18 +564,30 @@ class SyncController extends ApiAppController
     }
 
     function getVendors() {
-        $this->getRequestedVendor();
-        $this->getCreatedVendor();
+        set_time_limit(300);
+        $response = array();
+        try{
+            $ftpConn = $this->Ftp->connection();
+            $list = $this->Ftp->getList($ftpConn);
+            $this->getRequestedVendor($ftpConn, $list);
+            $this->getCreatedVendor($ftpConn, $list);
+            $response['status'] = 1;
+            $response['message'] = 'Vendor sync done';
+        } catch (\Exception $e) {
+            $response['status'] = 0;
+            $response['message'] = $e->getMessage();
+        }
+
+        echo json_encode($response); exit;
+
     }
 
-    function getRequestedVendor() {
+    function getRequestedVendor($ftpConn, $list) {
 
         $response = array();
         $response['status'] = 0;
         $response['message'] = [];
         
-        $ftpConn = $this->Ftp->connection();
-        $list = $this->Ftp->getList($ftpConn);
         foreach($list as $fileKey => $val) {
             if(str_starts_with($fileKey, 'VENDOR_GET_')) {
                 $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
@@ -588,7 +608,7 @@ class SyncController extends ApiAppController
                         $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
                         $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
                         
-                        if($row->SUCCESS == "0") { continue; }
+                        if(trim($row->SUCCESS) == "0") { continue; }
                         $vendorExists = false;
                         if($this->VendorTemps->exists(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])) {
                             $vendor = $this->VendorTemps->find()->where(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])->first();
@@ -643,7 +663,6 @@ class SyncController extends ApiAppController
                                 $user = $this->Users->patchEntity($user, $data);
         
                                 if ($this->Users->save($user)) {
-                                    $response['message'][] = 'Vendor '.$row->LIFNR.' save fail';
                                     $this->Ftp->removeFile($ftpConn, $fileKey);
                                 }
                             } else {
@@ -661,14 +680,12 @@ class SyncController extends ApiAppController
     }
 
 
-    function getCreatedVendor() {
+    function getCreatedVendor($ftpConn, $list) {
 
         $response = array();
         $response['status'] = 0;
         $response['message'] = [];
 
-        $ftpConn = $this->Ftp->connection();
-        $list = $this->Ftp->getList($ftpConn);
         foreach($list as $fileKey => $val) {
             if(str_starts_with($fileKey, 'VENDOR_CR_')) {
                 $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
@@ -689,59 +706,68 @@ class SyncController extends ApiAppController
                         $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
                         $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
                         
-                        if($row->SUCCESS == "0") { continue; }
                         
-                        $vendor = $this->VendorTemps->get($row->VENDOR_PORTAL_ID);
-                        $vendor->status = 5;
-                        $vendor->sap_vendor_code = $row->LIFNR;
-                        $vendor->company_code_id = $companyCode->id;
-                        $vendor->purchasing_organization_id = $puOrg->id;
-                        $vendor->account_group_id = $accGrp->id;
-                        $vendor->reconciliation_account_id = $reconAccount->id;
-                        $vendor->payment_term_id = $payTerm->id;
-                        if($schemaGroup) {
-                            $vendor->schema_group_id = $schemaGroup->id;
-                        }
-                        if($region) {
-                            $vendor->state_id = $region->id;
-                        }
-                        if($country) {
-                            $vendor->country_id = $country->id;
-                        }
-                        $vendor->title = $row->TITLE_MEDI;
-                        $vendor->name = $row->NAME1;
-                        $vendor->address = $row->NAME2;
-                        $vendor->address_2 = $row->NAME3;
-                        $vendor->city = $row->CITY1;
-                        $vendor->pincode = $row->POST_CODE1;
-                        $vendor->email = $row->SMTP_ADDR;
-                        $vendor->mobile = $row->MOB_NUMBER;
-                        $vendor->gst_no = $row->GSIN;
-                        $vendor->pan_no = $row->PAN;
-                        $vendor->buyer_id = $row->BUYER_ID;
-        
-                        if($this->VendorTemps->save($vendor)) {
-                            $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
+                        if($this->VendorTemps->exists(['id' => $row->VENDOR_PORTAL_ID])) {
+                            $vendor = $this->VendorTemps->get($row->VENDOR_PORTAL_ID);
+                            if(trim($row->SUCCESS) == "0") { 
+                                $vendor->remark = $row->MESSAGE;
+                                $this->VendorTemps->save($vendor);
+                                continue; 
+                            } else {
                             
-                            $this->loadModel("Users");
-                            $user = $this->Users->newEmptyEntity();
-                            
-                            $data = array();
-                            $data['first_name'] = $vendor->name;
-                            $data['last_name'] = $vendor->name;
-                            $data['username'] = $vendor->email;
-                            $data['mobile'] = $vendor->mobile;
-                            $data['password'] = $vendor->mobile;
-                            $data['group_id'] = 3;
-    
-                            $user = $this->Users->patchEntity($user, $data);
-    
-                            if ($this->Users->save($user)) {
-                                $response['message'][] = 'Vendor '.$row->LIFNR.' save fail';
-                                $this->Ftp->removeFile($ftpConn, $fileKey);
+                                $vendor->status = 5;
+                                $vendor->sap_vendor_code = $row->LIFNR;
+                                $vendor->company_code_id = $companyCode->id;
+                                $vendor->purchasing_organization_id = $puOrg->id;
+                                $vendor->account_group_id = $accGrp->id;
+                                $vendor->reconciliation_account_id = $reconAccount->id;
+                                $vendor->payment_term_id = $payTerm->id;
+                                if($schemaGroup) {
+                                    $vendor->schema_group_id = $schemaGroup->id;
+                                }
+                                if($region) {
+                                    $vendor->state_id = $region->id;
+                                }
+                                if($country) {
+                                    $vendor->country_id = $country->id;
+                                }
+                                $vendor->title = $row->TITLE_MEDI;
+                                $vendor->name = $row->NAME1;
+                                $vendor->address = $row->NAME2;
+                                $vendor->address_2 = $row->NAME3;
+                                $vendor->city = $row->CITY1;
+                                $vendor->pincode = $row->POST_CODE1;
+                                $vendor->email = $row->SMTP_ADDR;
+                                $vendor->mobile = $row->MOB_NUMBER;
+                                $vendor->gst_no = $row->GSIN;
+                                $vendor->pan_no = $row->PAN;
+                                $vendor->buyer_id = $row->BUYER_ID;
+                
+                                echo '<pre>'; print_r($vendor); exit;
+                                if($this->VendorTemps->save($vendor)) {
+                                    $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
+                                    
+                                    $this->loadModel("Users");
+                                    $user = $this->Users->newEmptyEntity();
+                                    
+                                    $data = array();
+                                    $data['first_name'] = $vendor->name;
+                                    $data['last_name'] = $vendor->name;
+                                    $data['username'] = $vendor->email;
+                                    $data['mobile'] = $vendor->mobile;
+                                    $data['password'] = $vendor->mobile;
+                                    $data['group_id'] = 3;
+            
+                                    $user = $this->Users->patchEntity($user, $data);
+            
+                                    if ($this->Users->save($user)) {
+                                        $response['message'][] = 'Vendor 1 '.$row->LIFNR.' save fail';
+                                        $this->Ftp->removeFile($ftpConn, $fileKey);
+                                    }
+                                } else {
+                                    $response['message'][] = 'Vendor 2 '.$row->LIFNR.' save fail';
+                                }
                             }
-                        } else {
-                            $response['message'][] = 'Vendor '.$row->LIFNR.' save fail';
                         }
                     }
                 }

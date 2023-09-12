@@ -35,50 +35,56 @@ class VendorTempsController extends VendorAppController
 
         $this->loadModel('VendorTemps');
         $vendorTemp = $this->VendorTemps->get($session->read('vendor_id'), [
-            'contain' => ['VendorStatus','PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
+            'contain' => ['VendorStatus','CompanyCodes','PurchasingOrganizations','ReconciliationAccounts', 'AccountGroups', 'SchemaGroups', 'PaymentTerms'],
         ]);
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            try {
-                $request = $this->request->getData();
-                $userData = [
-                    'address' => $request['address1'],
-                    'address_2' => $request['address2'],
-                    'contact_person' => $request['contact_person'],
-                    'contact_mobile' => $request['contact_mobiles'],
-                    'contact_email' => $request['contact_email'],
-                    'contact_department' => $request['contact_department'],
-                    'contact_designation' => $request['contact_designation']
-                ];
+        
+        $this->loadModel("VendorRegisteredOffices");
+        $vendorRegisterOffice = $this->VendorRegisteredOffices->find('all')
+        ->select($this->VendorRegisteredOffices)
+        ->select(['States.name', 'Countries.country_name'])
+        ->join(['Countries'=> 'countries'], ['Countries.country_code = VendorRegisteredOffices.country'])
+        ->join(['States'=> 'states'], ['States.region_code' => 'VendorRegisteredOffices.state'])
+        ->where(['States.country_code = VendorRegisteredOffices.country', 'VendorRegisteredOffices.vendor_temp_id' => $session->read('vendor_id')])->first();
+
+        $this->loadModel("VendorPartnerAddress");
+        $vendorPartnerAddress = $this->VendorPartnerAddress->find('all')
+        ->select($this->VendorPartnerAddress)
+        ->select(['States.name', 'Countries.country_name'])
+        ->join(['Countries'=> 'countries'], ['Countries.country_code = VendorPartnerAddress.country'])
+        ->join(['States'=> 'states'], ['States.region_code' => 'VendorPartnerAddress.state'])
+        ->where(['States.country_code = VendorPartnerAddress.country', 'VendorPartnerAddress.vendor_temp_id' => $session->read('vendor_id')])->toArray();
+
+        $this->loadModel("VendorFactories");
+        $vendorFactories = $this->VendorFactories->find()
+        ->select($this->VendorFactories)
+        ->select(['States.name', 'Countries.country_name'])
+        ->contain(['VendorCommencements'])
+        ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorFactories.country'])
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorFactories.state', 'States.country_code = VendorFactories.country'])
+        //->leftJoin(['VendorCommencements'=> 'vendor_commencements'], ['VendorCommencements.vendor_factory_id' => 'VendorFactories.id'])
+        
+        ->where([  'VendorFactories.vendor_temp_id' => $session->read('vendor_id')])->toArray();
+
+        //echo '<pre>'; print_r($vendorFactories); exit;
+        
+        
+        $this->loadModel("VendorReputedCustomers");
+        $vendorReputedCustomers = $this->VendorReputedCustomers->find()
+        ->select($this->VendorReputedCustomers)
+        ->select(['States.name', 'Countries.country_name'])
+        ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorReputedCustomers.country'])
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorReputedCustomers.state', 'States.country_code = VendorReputedCustomers.country'])
+        ->where(['States.country_code = VendorReputedCustomers.country', 'VendorReputedCustomers.vendor_temp_id' => $session->read('vendor_id')])->toArray();
+
+        //echo '<pre>'; print_r($vendorReputedCustomers); exit;
 
 
-                $userObj = $this->VendorTemps->newEmptyEntity();
-                $userObj = $this->VendorTemps->patchEntity($vendorTemp, $userData);
-
-                if ($this->VendorTemps->save($userObj)) {
-                    $response['status'] = 'success';
-                    $response['message'] = 'Record saved successfully';
-                    $flash = ['type' => 'success', 'msg' => 'Profle has been updated successfully'];
-                    $this->set('flash', $flash);
-                } else {
-                    // Handle save error
-                    $flash = ['type' => 'error', 'msg' => 'Failed to save user data'];
-                    $this->set('flash', $flash);
-                }
-            } catch (\PDOException $e) {
-                $flash = ['type' => 'error', 'msg' => ($e->getMessage())];
-            } catch (\Exception $e) {
-                $response['status'] = 'fail';
-                $response['message'] = $e->getMessage();
-                $flash = ['type' => 'error', 'msg' => ($e->getMessage())];
-            }
-            $this->set('flash', $flash);
-        }
 
         $vendorTempView = $this->VendorTemps->find('all')->where(['update_flag' => $id]);
         $this->set('vendorTempView', $vendorTempView->toArray());
         $this->set('updatecount', $vendorTempView->count());
-        $this->set(compact('vendorTemp'));
+        $this->set(compact('vendorTemp', 'vendorRegisterOffice', 'vendorReputedCustomers', 'vendorFactories'));
     }
 
 

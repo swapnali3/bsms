@@ -12,11 +12,11 @@ class FtpComponent extends Component
     function connection() {
         $this->conn = new SFTP('apars4nlbplb.aparbi.com');
         $this->conn->login('portal', '4d={4DC<rew3');
-        $this->conn->chdir('/DEV/TO_PORTAL'); 
         return $this->conn;
     }
 
     function getList($conn) {
+        $this->conn->chdir('/DEV/TO_PORTAL'); 
         $result = $conn->rawlist();
         return $result;
     }
