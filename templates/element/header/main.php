@@ -127,6 +127,10 @@
                         </a>
                     <?php endif; ?>
                     <div class="dropdown-divider"></div>
+                    <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'changePassword']) ?>" class="dropdown-item">
+                        <i class="fas fa-solid fa-key text-info mr-2"></i>
+                        <span>Change Password</span>
+                    </a>
                     <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>" class="dropdown-item">
                         <i class="fas fa-power-off text-danger mr-2"></i>
                         <span>Logout</span>

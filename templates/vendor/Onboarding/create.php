@@ -95,23 +95,34 @@
                         <div class="col-3 mb-2">
                             <?php echo $this->Form->control('mobile', ['disabled' => 'disabled', 'class' => 'form-control']); ?>
                         </div>
-                        <div class="col-3 mb-2">
+                        <div class="col-3 mb-2" style="display:none;">
                             <?php echo $this->Form->control('company_code', ['disabled' => 'disabled', 'value' => $vendorTemp->company_code->name, 'class' => 'form-control']); ?>
                         </div>
-                        <div class="col-3 mb-2">
+                        <div class="col-3 mb-2" style="display:none;">
                             <?php echo $this->Form->control('purchasing_organization', ['disabled' => 'disabled', 'value' => $vendorTemp->purchasing_organization->name, 'class' => 'form-control']); ?>
                         </div>
-                        <div class="col-3 mb-2">
+                        <div class="col-3 mb-2" style="display:none;">
                             <?php echo $this->Form->control('account_group', ['disabled' => 'disabled', 'value' => $vendorTemp->account_group->name, 'class' => 'form-control']); ?>
                         </div>
-                        <div class="col-sm-12 col-md-4 col-lg-3 mb-3">
+                        <div class="col-sm-12 col-md-4 col-lg-3 mb-3" style="display:none;">
                             <?php echo $this->Form->control('reconciliation_account', ['disabled' => 'disabled', 'value' => $vendorTemp->reconciliation_account->name, 'class' => 'form-control']); ?>
                         </div>
-                        <div class="col-3 mb-2">
+                        <div class="col-3 mb-2" style="display:none;">
                             <?php echo $this->Form->control('schema_group', ['disabled' => 'disabled', 'value' => $vendorTemp->schema_group->name, 'class' => 'form-control']); ?>
                         </div>
-                        <div class="col-3 mb-2">
+                        <div class="col-3 mb-2" style="display:none;">
                             <?php echo $this->Form->control('payment_term', ['disabled' => 'disabled', 'class' => 'form-control', 'value' => $vendorTemp->payment_term->description]); ?>
+                        </div>
+                        <div class="col-3 mb-2" style="display:none;">
+                        <?php
+                            $businessTypes  = [
+                                'PROPRIETARY' => 'Proprietary',
+                                'PARTNERSHIP' => 'Partnership Concern',
+                                'PUBLIC_LIMITED' => 'Public Limited Company',
+                                'PRIVATE_LIMITED' => 'Private Limited Company'
+                            ];
+                            echo $this->Form->control('business_type', ['class' => 'form-control', 'options' => $businessTypes, 'label' => 'Status']);
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -177,7 +188,8 @@
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
                                         <label for="id_telephone">Telephone</label>
-                                        <input type="tel" id="id_telephone" class="form-control" minlength='10' maxlength="10">
+                                        <input type="tel" id="id_telephone" class="form-control" minlength='14'
+                                            maxlength="14">
                                     </div>
                                 </div>
                             </div>
@@ -352,10 +364,12 @@
         "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'add')); ?>";
     var seengeturl =
         "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'msgchat-headers', 'action' => 'seen-update')); ?>";
-    var stateByCountry = '<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'stateByCountryId')); ?>';
+    var stateByCountry = `<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'stateByCountryId')); ?>`;
     var chatdata, user_id = "<?= h($vendorTemp->id) ?>",
         sender_id, table_pk;
-    
+
+    $(function () { $('[data-toggle="tooltip"]').tooltip(); $('#summernote').summernote({ width: 1000, }); });
+
     function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
         var resp = $.ajax({
             type: method,
@@ -369,27 +383,27 @@
         return resp;
     }
 
-    $(document).on("change", '.my-country', function() {
+    $(document).on("change", '.my-country', function () {
         var id = $(this).val();
-        var r = getRemote(stateByCountry+"/" + id);
+        var r = getRemote(stateByCountry + "/" + id);
         var state_options = "<option selected=''>Please Select</option>";
         $.each(r["message"], function (i, v) { state_options += `<option value="` + v.id + `">` + v.name + `</option>`; });
         $("#" + $(this).data("state")).empty().append(state_options);
     });
 
 
-    $(document).on("click", "#add_comm", function() {
+    $(document).on("click", "#add_comm", function () {
         var formdata = new FormData($("#communiSubmit")[0]);
         formdata.append("table_name", "vendor_temps");
         resp = sendchat(postchaturl, formdata, $(this).data('modal_body'), $(this).data('sender_id'), getchaturl);
     });
 
 
-    $('.cancelButton').click(function() {
+    $('.cancelButton').click(function () {
         $('#modal-sm').modal('hide');
     });
 
-    $('#needButton').click(function() {
+    $('#needButton').click(function () {
         table_pk = $(this).data('table_pk');
         sender_id = $(this).data('sender_id');
         $("#id_sender_id").val($(this).data('sender_id'));
@@ -405,7 +419,7 @@
             url: seengeturl + "/vendor_temps/" + table_pk + "/" + sender_id,
             dataType: 'json',
             beforeSend: function () { $("#gif_loader").show(); },
-            success: function(resp) {
+            success: function (resp) {
                 if (resp.status == 1) {
                     $('#unread' + sender_id).hide();
                 }
@@ -414,22 +428,22 @@
         });
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-        $(".chatload").each(function() {
+        $(".chatload").each(function () {
             $('#unread' + $(this).data('sender_id')).empty();
             getbadge($(this).data('sender_id'), getchaturl, "vendor_temps", $(this).data('table_pk'),
                 'unread' + $(this).data('sender_id'));
         });
 
 
-        $("#tan-no,#cin-no,#gst-no,#pan-no").on("keyup", function() {
+        $("#tan-no,#cin-no,#gst-no,#pan-no").on("keyup", function () {
             var capitalizedText = $(this).val().toUpperCase();
             $(this).val(capitalizedText);
         });
 
 
-        $("#contact-person,#contact-department,#contact-designation").on("keyup", function() {
+        $("#contact-person,#contact-department,#contact-designation").on("keyup", function () {
             var capitalizedText = capitalizeFirstLetter($(this).val());
             $(this).val(capitalizedText);
         });
@@ -451,8 +465,6 @@
                 inputElement.val(inputValue);
             }
         }
-        
-
 
         $("#onbordingSubmit").validate({
             rules: {
@@ -472,20 +484,20 @@
                     required: true,
                     digits: true
                 },
-                
+
                 order_currency: {
                     required: true
                 },
-                tan_no: {
-                    required: true,
-                    minlength: 10,
-                    maxlength: 10
-                },
-                cin_no: {
-                    required: true,
-                    minlength: 21,
-                    maxlength: 21
-                },
+                // tan_no: {
+                //     required: true,
+                //     minlength: 10,
+                //     maxlength: 10
+                // },
+                // cin_no: {
+                //     required: true,
+                //     minlength: 21,
+                //     maxlength: 21
+                // },
                 gst_no: {
                     required: true,
                     maxlength: 15
@@ -514,16 +526,16 @@
                 contact_designation: {
                     required: true
                 },
-                gst_file:{
+                gst_file: {
                     required: true
                 },
-                pan_file:{
+                pan_file: {
                     required: true
                 },
-                bank_file:{
+                bank_file: {
                     required: true
                 }
-            
+
             },
             messages: {
                 address: {
@@ -572,25 +584,25 @@
                 contact_designation: {
                     required: "Please enter a contact designation"
                 },
-                gst_file:{
+                gst_file: {
                     required: "Please attached File"
                 },
-                pan_file:{
+                pan_file: {
                     required: "Please attached File"
                 },
-                bank_file:{
+                bank_file: {
                     required: "Please attached File"
                 }
             },
             errorElement: "span",
-            errorPlacement: function(error, element) {
+            errorPlacement: function (error, element) {
                 error.addClass("invalid-feedback");
                 element.closest(".form-group").append(error);
             },
-            highlight: function(element, errorClass, validClass) {
+            highlight: function (element, errorClass, validClass) {
                 $(element).addClass("is-invalid");
             },
-            unhighlight: function(element, errorClass, validClass) {
+            unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass("is-invalid");
             }
         });
@@ -637,7 +649,7 @@
     });
 
 
-        $(document).on("keypress", ".alphaonly", function(event) {
+        $(document).on("keypress", ".alphaonly", function (event) {
             var regex = new RegExp("^[A-Za-z ]+$");
             var key = String.fromCharCode(
                 !event.charCode ? event.which : event.charCode
