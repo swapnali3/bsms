@@ -259,7 +259,7 @@
                       <div class="input text"><label for="sap-password">Sap Password</label><input type="text" name="sap_password" class="custom-select rounded-0" div="form-group" id="sap-password" value="aarti@123"></div>
                     </div>
                     <div class="col-md-12">
-                      <button class="btn btn-info" type="submit">Submit</button>
+                      <button class="submit_btn btn btn-info" type="submit">Submit</button>
                     </div>
                   </div>
 
@@ -365,7 +365,7 @@
             
           </div>
           <div>
-            <button type="buuton" class="btn btn-primary">Submit</button>
+            <button type="button" class="submit_btn btn btn-primary">Submit</button>
           </div>
         </div>
         <?= $this->Form->end() ?>

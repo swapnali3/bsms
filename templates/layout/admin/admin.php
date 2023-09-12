@@ -46,30 +46,6 @@
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
     <script>var baseurl = "<?= $this->Url->build('/') ?>";</script>
     <style>
-        /* aside.main-sidebar {
-            background-color: #08132F !important;
-        }
-
-        .nav-link.active {
-            background-color: #8E9B2C !important;
-            color: #fff !important;
-        } */
-
-        /* .ft_rect_logo {
-            margin-top: 4px !important;
-        } */
-
-        /* .layout-fixed .brand-link {
-    width: 218px !important;
-} */
-        /* .main-sidebar,
-        .main-sidebar::before {
-            width: 218px;
-        }
-
-        .sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link {
-    width: calc(235px - 1.1rem * 2);
-} */
         body,
         h5,
         h6,
@@ -82,7 +58,7 @@
     </style>
 </head>
 
-<body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
+<body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">

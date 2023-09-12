@@ -659,17 +659,17 @@ body {
 
 .main-sidebar:hover {
     width: 230px; 
-    transition: all ease-in-out .5s;
+    transition: all linear 0s;
 }
 
 .main-sidebar .nav-link p { display: none; font-size: 14px !important;}
 
-.main-sidebar:hover .nav-link p { display: unset; transition: all ease-in-out .3s;}
+.main-sidebar:hover .nav-link p { display: unset; transition: all linear 0s;}
 
 .main-sidebar:hover .nav-item {
     justify-content: start;
     display: inline-block;
-    transition: all ease-in-out .3s;
+    transition: all linear 0s;
 }
 
 .main-sidebar .nav-item  { 

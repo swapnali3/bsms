@@ -91,6 +91,17 @@
       min-height: calc(100vh - 0px) !important;
     }
 
+    .v2container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.1); 
+      pointer-events: none;
+    }
+
     div#mobile_login {
       width: 100%;
 
@@ -406,7 +417,7 @@
     particlesJS("particles-js", {
       "particles": {
         "number": {
-          "value": 250,
+          "value": 50,
           "density": {
             "enable": true,
             "value_area": 800

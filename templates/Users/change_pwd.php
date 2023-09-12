@@ -16,7 +16,7 @@
     <div class="row">
         <div class="column-responsive">
             <div class="vendorTemps form content">
-                <h3 class="mb-2 text-info"><?= __('Forget Password') ?></h3>
+                <h3 class="mb-2 text-info"><?= __('Change Password') ?></h3>
                 <?= $this->Form->create() ?>
                 <div class="col-12 mt-3">
                     <?php
@@ -25,8 +25,8 @@
                 </div>
                 <div class="forget-buttons">
                 
-                <?php echo $this->Form->button('Submit', array('class' => 'btn btn-custom mt-3')); ?>
-                <a href="/bsms" class="login_btn btn mt-3">Login</a>
+                <?php echo $this->Form->button('Change Password', array('class' => 'btn btn-custom mt-3')); ?>
+                <!-- <a href="/bsms" class="login_btn btn mt-3">Login</a> -->
                 </div>
                 <?= $this->Form->end() ?>
                 <!-- <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon"> -->
