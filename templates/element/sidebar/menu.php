@@ -1,7 +1,7 @@
 <style>
-  .layout-fixed .brand-link {
+  /* .layout-fixed .brand-link {
     width: 218px
-  }
+  } */
 
   .brand-link {
     padding: 0.5rem 0.5rem
@@ -26,7 +26,10 @@
 
   .main-sidebar,
   .main-sidebar::before {
-    width: 218px
+    width: 220px
+  }
+  .layout-fixed .brand-link {
+    width: 220px !important;
   }
 
   p,
@@ -97,7 +100,7 @@
   </ul>
 </li>
 
-<li class="nav-item menu_license hide">
+<!-- <li class="nav-item menu_license hide">
   <a class="nav-link">
     <i class="fas fa-tachometer-alt nav-icon"></i>
     <p>Role Management</p>
@@ -158,4 +161,4 @@
     <i class="fas fa-shapes nav-icon"></i>
     <p>Publish</p>
   </a>
-</li>
+</li> -->

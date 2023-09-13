@@ -2,7 +2,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <style>
-    body,
+    /* body,
     h5,
     h6,
     p,
@@ -55,7 +55,6 @@
     }
 
     .navbar.card-header h4 {
-        /* color: #004d87; */
         text-transform: uppercase;
         font-size: 20px;
         letter-spacing: 0.04rem;
@@ -97,11 +96,12 @@
 
     .user-info h6 {
         white-space: initial;
-    }
+    } */
+    .admin_menu_icon { margin-left: 90px !important;}
 </style>
 
 <ul class="navbar-nav">
-    <li class="nav-item">
+    <li class="nav-item admin_menu_icon">
         <a class="nav-link ftimage" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
     </li>
     <?= $this->element('header/menu') ?>
