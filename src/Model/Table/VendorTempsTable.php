@@ -16,9 +16,11 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\AccountGroupsTable&\Cake\ORM\Association\BelongsTo $AccountGroups
  * @property \App\Model\Table\SchemaGroupsTable&\Cake\ORM\Association\BelongsTo $SchemaGroups
  * @property \App\Model\Table\ReconciliationAccountsTable&\Cake\ORM\Association\BelongsTo $ReconciliationAccounts
- * @property \App\Model\Table\PaymentTermsTable&\Cake\ORM\Association\BelongsTo $PaymentTerms
  * @property \App\Model\Table\StatesTable&\Cake\ORM\Association\BelongsTo $States
  * @property \App\Model\Table\CountriesTable&\Cake\ORM\Association\BelongsTo $Countries
+ * @property \App\Model\Table\PaymentTermsTable&\Cake\ORM\Association\BelongsTo $PaymentTerms
+ * @property \App\Model\Table\VendorOtherdetailsTable&\Cake\ORM\Association\HasOne $VendorOtherdetails
+ * @property \App\Model\Table\VendorRegisteredOfficesTable&\Cake\ORM\Association\HasOne $VendorRegisteredOffices
  * @property \App\Model\Table\RfqCommunicationsTable&\Cake\ORM\Association\HasMany $RfqCommunications
  * @property \App\Model\Table\RfqsTable&\Cake\ORM\Association\HasMany $Rfqs
  * @property \App\Model\Table\VendorBranchOfficesTable&\Cake\ORM\Association\HasMany $VendorBranchOffices
@@ -26,10 +28,8 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\VendorFacilitiesTable&\Cake\ORM\Association\HasMany $VendorFacilities
  * @property \App\Model\Table\VendorFactoriesTable&\Cake\ORM\Association\HasMany $VendorFactories
  * @property \App\Model\Table\VendorIncometaxesTable&\Cake\ORM\Association\HasMany $VendorIncometaxes
- * @property \App\Model\Table\VendorOtherdetailsTable&\Cake\ORM\Association\HasMany $VendorOtherdetails
  * @property \App\Model\Table\VendorPartnerAddressTable&\Cake\ORM\Association\HasMany $VendorPartnerAddress
  * @property \App\Model\Table\VendorQuestionnairesTable&\Cake\ORM\Association\HasMany $VendorQuestionnaires
- * @property \App\Model\Table\VendorRegisteredOfficesTable&\Cake\ORM\Association\HasMany $VendorRegisteredOffices
  * @property \App\Model\Table\VendorReputedCustomersTable&\Cake\ORM\Association\HasMany $VendorReputedCustomers
  * @property \App\Model\Table\VendorSmallScalesTable&\Cake\ORM\Association\HasMany $VendorSmallScales
  * @property \App\Model\Table\VendorTempOtpsTable&\Cake\ORM\Association\HasMany $VendorTempOtps
@@ -70,17 +70,11 @@ class VendorTempsTable extends Table
             'joinType' => 'INNER',
         ]);
 
+        
         $this->belongsTo('CompanyCodes', [
             'foreignKey' => 'company_code_id',
             'joinType' => 'INNER',
         ]);
-
-        $this->belongsTo('PaymentTerms', [
-            'foreignKey' => 'payment_terms',
-            'joinType' => 'INNER',
-        ]);
-
-        
         $this->belongsTo('PurchasingOrganizations', [
             'foreignKey' => 'purchasing_organization_id',
             'joinType' => 'INNER',
@@ -91,23 +85,29 @@ class VendorTempsTable extends Table
         ]);
         $this->belongsTo('SchemaGroups', [
             'foreignKey' => 'schema_group_id',
-            'joinType' => 'INNER',
         ]);
         $this->belongsTo('ReconciliationAccounts', [
             'foreignKey' => 'reconciliation_account_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('States', [
+            'foreignKey' => 'state_id',
+        ]);
+        $this->belongsTo('Countries', [
+            'foreignKey' => 'country_id',
+        ]);
         $this->belongsTo('PaymentTerms', [
             'foreignKey' => 'payment_term_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('States', [
-            'foreignKey' => 'state_id',
-            'joinType' => 'LEFT',
+        $this->belongsTo('Buyers', [
+            'foreignKey' => 'buyer_id',
         ]);
-        $this->belongsTo('Countries', [
-            'foreignKey' => 'country_id',
-            'joinType' => 'LEFT',
+        $this->hasOne('VendorOtherdetails', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasOne('VendorRegisteredOffices', [
+            'foreignKey' => 'vendor_temp_id',
         ]);
         $this->hasMany('RfqCommunications', [
             'foreignKey' => 'vendor_temp_id',
@@ -115,7 +115,13 @@ class VendorTempsTable extends Table
         $this->hasMany('Rfqs', [
             'foreignKey' => 'vendor_temp_id',
         ]);
+        $this->hasMany('VendorBankDetails', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
         $this->hasMany('VendorBranchOffices', [
+            'foreignKey' => 'vendor_temp_id',
+        ]);
+        $this->hasMany('VendorCertificates', [
             'foreignKey' => 'vendor_temp_id',
         ]);
         $this->hasMany('VendorCommencements', [
@@ -130,16 +136,13 @@ class VendorTempsTable extends Table
         $this->hasMany('VendorIncometaxes', [
             'foreignKey' => 'vendor_temp_id',
         ]);
-        $this->hasMany('VendorOtherdetails', [
-            'foreignKey' => 'vendor_temp_id',
-        ]);
         $this->hasMany('VendorPartnerAddress', [
             'foreignKey' => 'vendor_temp_id',
         ]);
-        $this->hasMany('VendorQuestionnaires', [
+        $this->hasMany('VendorProductionHistories', [
             'foreignKey' => 'vendor_temp_id',
         ]);
-        $this->hasMany('VendorRegisteredOffices', [
+        $this->hasMany('VendorQuestionnaires', [
             'foreignKey' => 'vendor_temp_id',
         ]);
         $this->hasMany('VendorReputedCustomers', [
@@ -164,29 +167,30 @@ class VendorTempsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        /*$validator
+        $validator
             ->integer('company_code_id')
             ->notEmptyString('company_code_id');
 
         $validator
             ->integer('purchasing_organization_id')
             ->notEmptyString('purchasing_organization_id');
-        */
+
         $validator
             ->integer('account_group_id')
             ->notEmptyString('account_group_id');
 
         $validator
             ->integer('schema_group_id')
-            ->notEmptyString('schema_group_id');
+            ->allowEmptyString('schema_group_id');
 
         $validator
             ->integer('reconciliation_account_id')
             ->notEmptyString('reconciliation_account_id');
 
         $validator
-            ->integer('payment_term_id')
-            ->notEmptyString('payment_term_id');
+            ->scalar('sap_vendor_code')
+            ->maxLength('sap_vendor_code', 10)
+            ->allowEmptyString('sap_vendor_code');
 
         $validator
             ->scalar('title')
@@ -199,79 +203,6 @@ class VendorTempsTable extends Table
             ->maxLength('name', 200)
             ->requirePresence('name', 'create')
             ->notEmptyString('name');
-
-        $validator
-            ->scalar('mobile')
-            ->maxLength('mobile', 12)
-            ->requirePresence('mobile', 'create')
-            ->notEmptyString('mobile');
-
-        $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email')
-            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
-            ->scalar('sap_vendor_code')
-            ->maxLength('sap_vendor_code', 10)
-            ->allowEmptyString('sap_vendor_code');
-
-        $validator
-            ->scalar('order_currency')
-            ->maxLength('order_currency', 10)
-            ->notEmptyString('order_currency');
-
-        $validator
-            ->scalar('gst_no')
-            ->maxLength('gst_no', 20)
-            ->allowEmptyString('gst_no');
-
-        $validator
-            ->scalar('gst_file')
-            ->maxLength('gst_file', 255)
-            ->allowEmptyFile('gst_file');
-
-        $validator
-            ->scalar('pan_no')
-            ->maxLength('pan_no', 20)
-            ->allowEmptyString('pan_no');
-
-        $validator
-            ->scalar('pan_file')
-            ->maxLength('pan_file', 255)
-            ->allowEmptyFile('pan_file');
-
-        $validator
-            ->scalar('bank_file')
-            ->maxLength('bank_file', 255)
-            ->allowEmptyFile('bank_file');
-
-        $validator
-            ->scalar('cin_no')
-            ->maxLength('cin_no', 25)
-            ->allowEmptyString('cin_no');
-
-        $validator
-            ->scalar('tan_no')
-            ->maxLength('tan_no', 25)
-            ->allowEmptyString('tan_no');
-
-        $validator
-            ->dateTime('valid_date')
-            ->requirePresence('valid_date', 'create')
-            ->notEmptyDateTime('valid_date');
-
-        $validator
-            ->notEmptyString('status');
-
-        $validator
-            ->integer('buyer_id')
-            ->allowEmptyString('buyer_id');
-
-        $validator
-            ->scalar('remark')
-            ->allowEmptyString('remark');
 
         $validator
             ->scalar('address')
@@ -290,7 +221,7 @@ class VendorTempsTable extends Table
 
         $validator
             ->integer('state_id')
-            ->notEmptyString('state_id');
+            ->allowEmptyString('state_id');
 
         $validator
             ->scalar('pincode')
@@ -298,8 +229,39 @@ class VendorTempsTable extends Table
             ->allowEmptyString('pincode');
 
         $validator
+            ->scalar('mobile')
+            ->maxLength('mobile', 12)
+            ->requirePresence('mobile', 'create')
+            ->notEmptyString('mobile');
+
+        $validator
+            ->email('email')
+            ->requirePresence('email', 'create')
+            ->notEmptyString('email')
+            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
             ->integer('country_id')
-            ->notEmptyString('country_id');
+            ->allowEmptyString('country_id');
+
+        $validator
+            ->integer('payment_term_id')
+            ->notEmptyString('payment_term_id');
+
+        $validator
+            ->scalar('order_currency')
+            ->maxLength('order_currency', 10)
+            ->notEmptyString('order_currency');
+
+        $validator
+            ->scalar('gst_no')
+            ->maxLength('gst_no', 20)
+            ->allowEmptyString('gst_no');
+
+        $validator
+            ->scalar('pan_no')
+            ->maxLength('pan_no', 20)
+            ->allowEmptyString('pan_no');
 
         $validator
             ->scalar('contact_person')
@@ -327,48 +289,44 @@ class VendorTempsTable extends Table
             ->allowEmptyString('contact_designation');
 
         $validator
-            ->scalar('bank_name')
-            ->maxLength('bank_name', 250)
-            ->allowEmptyString('bank_name');
+            ->scalar('cin_no')
+            ->maxLength('cin_no', 25)
+            ->allowEmptyString('cin_no');
 
         $validator
-            ->scalar('bank_branch')
-            ->maxLength('bank_branch', 250)
-            ->allowEmptyString('bank_branch');
+            ->scalar('tan_no')
+            ->maxLength('tan_no', 25)
+            ->allowEmptyString('tan_no');
 
         $validator
-            ->scalar('bank_number')
-            ->maxLength('bank_number', 250)
-            ->allowEmptyString('bank_number');
+            ->scalar('gst_file')
+            ->maxLength('gst_file', 255)
+            ->allowEmptyFile('gst_file');
 
         $validator
-            ->scalar('bank_ifsc')
-            ->maxLength('bank_ifsc', 250)
-            ->allowEmptyString('bank_ifsc');
+            ->scalar('pan_file')
+            ->maxLength('pan_file', 255)
+            ->allowEmptyFile('pan_file');
 
         $validator
-            ->scalar('bank_key')
-            ->maxLength('bank_key', 250)
-            ->allowEmptyString('bank_key');
+            ->scalar('bank_file')
+            ->maxLength('bank_file', 255)
+            ->allowEmptyFile('bank_file');
 
         $validator
-            ->scalar('bank_country')
-            ->maxLength('bank_country', 250)
-            ->allowEmptyString('bank_country');
+            ->notEmptyString('status');
 
         $validator
-            ->scalar('bank_city')
-            ->maxLength('bank_city', 250)
-            ->allowEmptyString('bank_city');
+            ->dateTime('valid_date')
+            ->allowEmptyDateTime('valid_date');
 
         $validator
-            ->scalar('bank_swift')
-            ->maxLength('bank_swift', 250)
-            ->allowEmptyString('bank_swift');
+            ->scalar('remark')
+            ->allowEmptyString('remark');
 
         $validator
-            ->integer('update_flag')
-            ->allowEmptyString('update_flag');
+            ->integer('buyer_id')
+            ->allowEmptyString('buyer_id');
 
         $validator
             ->dateTime('added_date')
@@ -377,6 +335,65 @@ class VendorTempsTable extends Table
         $validator
             ->dateTime('updated_date')
             ->notEmptyDateTime('updated_date');
+
+        $validator
+            ->integer('update_flag')
+            ->allowEmptyString('update_flag');
+
+        $validator
+            ->scalar('business_type')
+            ->maxLength('business_type', 45)
+            ->allowEmptyString('business_type');
+
+        $validator
+            ->scalar('telephone')
+            ->maxLength('telephone', 15)
+            ->allowEmptyString('telephone');
+
+        $validator
+            ->scalar('faxno')
+            ->maxLength('faxno', 15)
+            ->allowEmptyString('faxno');
+
+        $validator
+            ->scalar('bank_name')
+            ->maxLength('bank_name', 45)
+            ->allowEmptyString('bank_name');
+
+        $validator
+            ->scalar('bank_branch')
+            ->maxLength('bank_branch', 45)
+            ->allowEmptyString('bank_branch');
+
+        $validator
+            ->scalar('bank_number')
+            ->maxLength('bank_number', 45)
+            ->allowEmptyString('bank_number');
+
+        $validator
+            ->scalar('bank_ifsc')
+            ->maxLength('bank_ifsc', 45)
+            ->allowEmptyString('bank_ifsc');
+
+        $validator
+            ->scalar('bank_key')
+            ->maxLength('bank_key', 45)
+            ->allowEmptyString('bank_key');
+
+        $validator
+            ->scalar('bank_country')
+            ->maxLength('bank_country', 45)
+            ->allowEmptyString('bank_country');
+
+        $validator
+            ->scalar('bank_city')
+            ->maxLength('bank_city', 45)
+            ->allowEmptyString('bank_city');
+
+        $validator
+            ->scalar('bank_swift')
+            ->maxLength('bank_swift', 45)
+            ->allowEmptyString('bank_swift');
 
         return $validator;
     }
@@ -396,9 +413,10 @@ class VendorTempsTable extends Table
         $rules->add($rules->existsIn('account_group_id', 'AccountGroups'), ['errorField' => 'account_group_id']);
         $rules->add($rules->existsIn('schema_group_id', 'SchemaGroups'), ['errorField' => 'schema_group_id']);
         $rules->add($rules->existsIn('reconciliation_account_id', 'ReconciliationAccounts'), ['errorField' => 'reconciliation_account_id']);
-        $rules->add($rules->existsIn('payment_term_id', 'PaymentTerms'), ['errorField' => 'payment_term_id']);
         $rules->add($rules->existsIn('state_id', 'States'), ['errorField' => 'state_id']);
         $rules->add($rules->existsIn('country_id', 'Countries'), ['errorField' => 'country_id']);
+        $rules->add($rules->existsIn('payment_term_id', 'PaymentTerms'), ['errorField' => 'payment_term_id']);
+        $rules->add($rules->existsIn('buyer_id', 'Buyers'), ['errorField' => 'buyer_id']);
 
         return $rules;
     }

@@ -1215,11 +1215,6 @@
                                                 class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
-                                        <a class="id_vendor_otherdetails_declaration_file"></a>
-                                        <i class="mt-2" style="color: black;">
-                                            <a class="float-right"
-                                                href="/bsms/webroot/templates/stock_upload.xlsx">sample_file_template</a>
-                                        </i>
                                     </div>
                                 </div>
                             </div>

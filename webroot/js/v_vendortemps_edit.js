@@ -76,8 +76,10 @@ $(document).on("click", ".profile_submit", function (e) {
     e.preventDefault();
     try {
         var isValid = $(e.target).parents('form').valid();
+        console.log(isValid);
         if (isValid) {
             var profile_form = new FormData($("#id_form_" + $(this).data('id'))[0]);
+            console.log(profile_form);
             var resp = getRemote(window.location.href, "POST", profile_form, 'json', true, false, false);
             if (resp.status == 1) {
                 Toast.fire({ icon: "success", title: resp.msg });

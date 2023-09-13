@@ -22,15 +22,15 @@ class VendorOtherdetailsFixture extends TestFixture
                 'id' => 1,
                 'vendor_temp_id' => 1,
                 'six_sigma' => 'Lorem ipsum dolor sit amet',
-                'six_sigma_file' => 1,
+                'six_sigma_file' => 'Lorem ipsum dolor sit amet',
                 'iso' => 'Lorem ipsum dolor sit amet',
                 'iso_file' => 'Lorem ipsum dolor sit amet',
                 'halal_file' => 'Lorem ipsum dolor sit amet',
                 'declaration_file' => 'Lorem ipsum dolor sit amet',
                 'fully_manufactured' => 'Lorem ipsum dolor sit amet',
                 'suppliers_name' => 'Lorem ipsum dolor sit amet',
-                'added_date' => '2023-08-10 14:49:46',
-                'updated_date' => '2023-08-10 14:49:46',
+                'added_date' => '2023-09-13 20:01:36',
+                'updated_date' => '2023-09-13 20:01:36',
             ],
         ];
         parent::init();

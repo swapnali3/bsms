@@ -491,7 +491,7 @@ class VendorTempsController extends VendorAppController
                             }else { $data["bank_file"]= "";}
 
                             if ($data['id'] != "" || $data['id'] != null) {
-                                $post = $this->VendorTemps->get($id);
+                                $post = $this->VendorTemps->get($data['id']);
                                 $regoffc = $this->VendorTemps->patchEntity($post, $data);
                             } else{
                                 $regoffc = $this->VendorTemps->newEmptyEntity();

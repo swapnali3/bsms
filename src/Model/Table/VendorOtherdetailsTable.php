@@ -59,7 +59,8 @@ class VendorOtherdetailsTable extends Table
     {
         $validator
             ->integer('vendor_temp_id')
-            ->notEmptyString('vendor_temp_id');
+            ->notEmptyString('vendor_temp_id')
+            ->add('vendor_temp_id', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('six_sigma')
@@ -70,8 +71,7 @@ class VendorOtherdetailsTable extends Table
         $validator
             ->scalar('six_sigma_file')
             ->maxLength('six_sigma_file', 255)
-            ->requirePresence('six_sigma_file', 'create')
-            ->notEmptyFile('six_sigma_file');
+            ->allowEmptyFile('six_sigma_file');
 
         $validator
             ->scalar('iso')
@@ -81,17 +81,17 @@ class VendorOtherdetailsTable extends Table
 
         $validator
             ->scalar('iso_file')
-            ->maxLength('iso_file', 255)
+            ->maxLength('iso_file', 250)
             ->allowEmptyFile('iso_file');
 
         $validator
             ->scalar('halal_file')
-            ->maxLength('halal_file', 255)
+            ->maxLength('halal_file', 250)
             ->allowEmptyFile('halal_file');
 
         $validator
             ->scalar('declaration_file')
-            ->maxLength('declaration_file', 255)
+            ->maxLength('declaration_file', 250)
             ->allowEmptyFile('declaration_file');
 
         $validator

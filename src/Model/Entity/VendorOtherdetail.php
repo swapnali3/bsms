@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $vendor_temp_id
  * @property string $six_sigma
- * @property bool $six_sigma_file
+ * @property string|null $six_sigma_file
  * @property string $iso
  * @property string|null $iso_file
  * @property string|null $halal_file
