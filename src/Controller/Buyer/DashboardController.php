@@ -58,35 +58,48 @@ class DashboardController extends BuyerAppController
         $this->loadModel('DeliveryDetails');
         $this->loadModel('AsnHeaders');
 
-        $totalVendorTemps = $this->VendorTemps->find('all', array('conditions' => array(
-            'company_code_id' => $session->read('company_code_id'), 
-            'purchasing_organization_id' => $session->read('purchasing_organization_id'))))->count();
-
-        $totalVendorOnboarding = $this->VendorTemps->find('all', array('conditions' => array(
-            'company_code_id' => $session->read('company_code_id'),
-            'purchasing_organization_id' => $session->read('purchasing_organization_id'), 
-            'status' => '0')))->count();
-
-        $totalVendorApproved = $this->VendorTemps->find('all', array('conditions' => array(
-            'company_code_id' => $session->read('company_code_id'),
-            'purchasing_organization_id' => $session->read('purchasing_organization_id'), 
-            'status' => '3')))->count();
+        $vendorStatus = $this->VendorTemps->find()
+        ->select(['status' => 'VendorStatus.status','count' => 'count(VendorStatus.status)'])
+        ->innerJoin(['VendorStatus' => 'vendor_status'], ['VendorStatus.status=VendorTemps.status'])
+        ->where(['company_code_id' => $session->read('company_code_id'), 
+        'purchasing_organization_id' => $session->read('purchasing_organization_id')])
+        ->group('VendorTemps.status')->toArray();
 
 
-        $totalSentSap = $this->VendorTemps->find('all', array('conditions' => array(
-            'company_code_id' => $session->read('company_code_id'),
-            'purchasing_organization_id' => $session->read('purchasing_organization_id'), 
-            'status' => '2')))->count();
+        //echo '<pre>'; print_r($vendorStatus); exit;
 
+        $vendorDashboardCount = [];
+        $vendorDashboardCount['total'] = array_sum(array_column($vendorStatus,'count'));
+        foreach($vendorStatus as $status) {
+            $vendorDashboardCount[$status->status] = $status->count;
+        }
+        
         // Asn deshbord card
 
-        $totalAsnCreated =  $this->AsnHeaders->find('all', array('conditions' => array('status' => '1')))->count();
+        //$totalAsnCreated =  $this->AsnHeaders->find('all', array('conditions' => array('status' => '1')))->count();
+        //$totalAsnIntransit =  $this->AsnHeaders->find('all', array('conditions' => array('status' => '2')))->count();
+        //$totalAsnReceived =  $this->AsnHeaders->find('all', array('conditions' => array('status' => '3')))->count();
 
-        $totalAsnIntransit =  $this->AsnHeaders->find('all', array('conditions' => array('status' => '2')))->count();
+        $asnCounts = $this->AsnHeaders->find()
+        ->select(['status' => 'AsnHeaders.status','count' => 'count(AsnHeaders.status)'])
+        ->innerJoin(
+            ['PoHeaders' => 'po_headers'],
+            ['AsnHeaders.po_header_id = PoHeaders.id']
+        )
+        ->innerJoin(
+            ['VendorTemps' => 'vendor_temps'],
+            ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code', 
+            'VendorTemps.company_code_id' => $session->read('company_code_id'),
+            'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')]
+        )->group('AsnHeaders.status')->toArray();
 
-        $totalAsnReceived =  $this->AsnHeaders->find('all', array('conditions' => array('status' => '3')))->count();
+        $asnDashboardCount = [];
+        $asnDashboardCount['total'] = array_sum(array_column($asnCounts,'count'));
+        foreach($asnCounts as $status) {
+            $asnDashboardCount[$status->status] = $status->count;
+        }
 
-
+        
         // Purchase order card count view 
 
         $query = $this->PoHeaders->find();
@@ -96,6 +109,8 @@ class DashboardController extends BuyerAppController
             'VendorTemps.company_code_id' => $session->read('company_code_id'),
             'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')]
         );
+
+        
         $totalPos = $query->count();
 
 
@@ -122,80 +137,7 @@ class DashboardController extends BuyerAppController
 
         // echo $totalVendorTemps;exit;
 
-        $this->set(compact('totalVendorTemps','totalVendorOnboarding', 'totalVendorApproved', 'totalSentSap', 'totalPos', 'totalAsnCreated', 'totalAsnIntransit', 'totalAsnReceived', 'poCompleteCount', 'topVendors'));
-    }
-
-    public function oldindex()
-    {
-
-        $this->loadModel('RfqDetails');
-        $this->loadModel('RfqInquiries');
-        $this->loadModel('BuyerSellerUsers');
-
-        $query = $this->RfqDetails->find();
-        $query->select([
-            'company_name' => 'BuyerSellerUsers.company_name', 'buyer_id' => 'BuyerSellerUsers.Id',
-            'rfq_count' => $query->func()->count('RfqDetails.Id'),
-            'reached' => $query->func()->count('RfqInquiries.Id'),
-            'new_rfq' => $query->func()->sum('case when RfqDetails.status = 0 then 1 else 0 end'),
-            'responded' => $query->func()->sum('case when RfqInquiries.inquiry = 1 then 1 else 0 end')
-        ])
-            ->contain(['BuyerSellerUsers', 'Products'])
-            ->leftJoin(
-                ['RfqInquiries' => 'rfq_inquiries'],
-                ['RfqInquiries.rfq_id = RfqDetails.id']
-            )
-            ->group(['RfqDetails.buyer_seller_user_id'])
-            ->order(['responded asc']);
-
-        $countDashboard = $this->paginate($query);
-        $this->set('countDashboard', $countDashboard);
-
-        $rfqNonResponded = array();
-        $queryNonResponded = $this->RfqDetails->find()
-            ->select([
-                'buyer_id' => 'RfqDetails.buyer_seller_user_id',
-                'rfq_non_responded' => $query->func()->count('RfqDetails.Id')
-            ])
-            ->where('RfqDetails.Id not in (select rfq_id from rfq_inquiries where inquiry = 1)')
-            ->group(['RfqDetails.buyer_seller_user_id'])->toList();
-
-        foreach ($queryNonResponded as $key => $val) {
-            $rfqNonResponded[$val->buyer_id] = $val->rfq_non_responded;
-        }
-
-        $this->set('rfqNonResponded', $rfqNonResponded);
-    }
-
-    public function rfqList($buyerId = null, $responded = null)
-    {
-
-        $this->loadModel('RfqDetails');
-        $this->loadModel('BuyerSellerUsers');
-
-        $buyerSellerUser = $this->BuyerSellerUsers->get($buyerId, [
-            'contain' => [],
-        ]);
-
-
-        $query = $this->RfqDetails->find()
-            ->select(['RfqDetails.Id', 'RfqDetails.rfq_no', 'RfqDetails.part_name', 'RfqDetails.qty', 'Uoms.description', 'RfqDetails.status', 'RfqDetails.added_date', 'Products.name'])
-            ->contain(['Products', 'Uoms'])
-            ->where(['RfqDetails.buyer_seller_user_id' => $buyerId]);
-
-        if (isset($responded) && !$responded) {
-            $query = $this->RfqDetails->find()
-                ->select(['RfqDetails.Id', 'RfqDetails.rfq_no', 'RfqDetails.part_name', 'RfqDetails.qty', 'Uoms.description', 'RfqDetails.status', 'RfqDetails.added_date', 'Products.name'])
-                ->contain(['Products', 'Uoms'])
-                ->where(['RfqDetails.buyer_seller_user_id' => $buyerId, 'RfqDetails.Id not in (select rfq_id from rfq_inquiries where inquiry = 1)']);
-        }
-
-        $rfqDetailsList = $this->paginate($query);
-
-
-
-        $this->set(compact('buyerSellerUser'));
-        $this->set('rfqList', $rfqDetailsList);
+        $this->set(compact('vendorDashboardCount', 'totalPos', 'asnDashboardCount', 'poCompleteCount', 'topVendors'));
     }
 
     public function clearMessageCount()

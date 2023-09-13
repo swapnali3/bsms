@@ -19,9 +19,22 @@
               <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
-              <a href="javascript:void(0)" class="product-title">Total</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Total</a>
               <span class="p-value">
-                <?= h($totalVendorTemps) ?>
+                <?= h($vendorDashboardCount['total']) ?>
+              </span>
+            </div>
+          </li>
+
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-user-plus text-danger"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Onboarding
+              </a>
+              <span class="p-value">
+                <?= h(isset($vendorDashboardCount[0]) ? $vendorDashboardCount[0] : 0) ?>
               </span>
             </div>
           </li>
@@ -30,10 +43,10 @@
               <i class="fas fa-user-plus text-danger"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Onboarding
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Approval Pending
               </a>
               <span class="p-value">
-                <?= h($totalVendorOnboarding) ?>
+              <?= h(isset($vendorDashboardCount[1]) ? $vendorDashboardCount[1] : 0) ?>
               </span>
             </div>
           </li>
@@ -42,10 +55,10 @@
               <i class="far fa-check-square text-success"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Approved
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Approved
               </a>
               <span class="p-value">
-                <?= h($totalVendorApproved) ?>
+              <?= h(isset($vendorDashboardCount[3]) ? $vendorDashboardCount[3] : 0) ?>
               </span>
             </div>
           </li>
@@ -54,10 +67,10 @@
               <i class="fas fa-share-square text-warning"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Sent to SAP
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Sent to SAP
               </a>
               <span class="p-value">
-                <?= h($totalSentSap) ?>
+              <?= h(isset($vendorDashboardCount[2]) ? $vendorDashboardCount[2] : 0) ?>
               </span>
             </div>
           </li>
@@ -96,7 +109,6 @@
               </span>
             </div>
           </li>
-          <?php $poPending = $totalPos - $poCompleteCount ?>
           <li class="item">
             <div class="product-img">
               <i class="far fa-clock text-danger"></i>
@@ -104,7 +116,7 @@
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Pending</a>
               <span class="p-value">
-                <?= $poPending ?>
+                <?= ($totalPos - $poCompleteCount ) ?>
               </span>
             </div>
           </li>
@@ -160,6 +172,17 @@
       </div>
       <div class="card-body py-0">
         <ul class="products-list product-list-in-card">
+        <li class="item">
+            <div class="product-img">
+              <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="javascript:void(0)" class="product-title">Total</a>
+              <span class="p-value">
+              <?= h(isset($asnDashboardCount['total']) ? $asnDashboardCount['total'] : 0) ?>
+              </span>
+            </div>
+          </li>
           <li class="item">
             <div class="product-img">
               <i class="fas fa-th-large text-info"></i>
@@ -167,7 +190,7 @@
             <div class="product-info">
               <a href="javascript:void(0)" class="product-title">Created</a>
               <span class="p-value">
-                <?= h($totalAsnCreated) ?>
+              <?= h(isset($asnDashboardCount['0']) ? $asnDashboardCount['0'] : 0) ?>
               </span>
             </div>
           </li>
@@ -178,7 +201,7 @@
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Intransit</a>
               <span class="p-value">
-                <?= h($totalAsnIntransit) ?>
+              <?= h(isset($asnDashboardCount['1']) ? $asnDashboardCount['1'] : 0) ?>
               </span>
             </div>
           </li>
@@ -189,7 +212,7 @@
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Received</a>
               <span class="p-value">
-                <?= h($totalAsnReceived) ?>
+              <?= h(isset($asnDashboardCount['2']) ? $asnDashboardCount['2'] : 0) ?>
               </span>
             </div>
           </li>
