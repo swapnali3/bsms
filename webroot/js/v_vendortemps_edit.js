@@ -7,9 +7,9 @@ var year1 = year2 - 1;
 var year0 = year1 - 1;
 
 $(function () {
-    $(".first_year").text(year2 + "-" + year3);
+    $(".first_year").text(year0 + "-" + year1);
     $(".second_year").text(year1 + "-" + year2);
-    $(".third_year").text(year0 + "-" + year1);
+    $(".third_year").text(year2 + "-" + year3);
     $("#id_vendor_turnovers_first_year_turnover").attr("placeholder", year2 + " - " + year3);
     $("#id_vendor_turnovers_second_year_turnover").attr("placeholder", year1 + " - " + year2);
     $("#id_vendor_turnovers_third_year_turnover").attr("placeholder", year0 + " - " + year1);
@@ -884,7 +884,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                     <div class="col-sm-12 col-md-3 mb-3 required">
                         <label for="id_vendor_factories_`+ lid + `_country">Country</label>
                         <select class="form-control" name="factories[`+ lid + `][country]"
-                            id="id_vendor_factories_`+ lid + `_country"></select>
+                            id="id_vendor_factories_`+ lid + `_country">`+country_code_option+`</select>
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3 required">
                         <label for="id_vendor_factories_`+ lid + `_state">State</label>
@@ -899,7 +899,6 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                         </span>
                     </div>
                 </div>
-
 
                 <div class="row" id="factory_office_`+ lid + `_row1">
                     <div class="col-sm-12 col-md-6 mb-3">
@@ -1081,6 +1080,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
             </div>
         </div>
     `);
+
     bsCustomFileInput.init();
 });
 
