@@ -10,12 +10,15 @@ $(function () {
     $(".first_year").text(year0 + "-" + year1);
     $(".second_year").text(year1 + "-" + year2);
     $(".third_year").text(year2 + "-" + year3);
-    $("#id_vendor_turnovers_first_year_turnover").attr("placeholder", year2 + " - " + year3);
+    $("#id_vendor_turnovers_first_year_turnover").attr("placeholder", year0 + " - " + year1);
     $("#id_vendor_turnovers_second_year_turnover").attr("placeholder", year1 + " - " + year2);
-    $("#id_vendor_turnovers_third_year_turnover").attr("placeholder", year0 + " - " + year1);
-    $(".year3").val(year2 + " - " + year3);
-    $(".year2").val(year1 + " - " + year2);
-    $(".year1").val(year0 + " - " + year1);
+    $("#id_vendor_turnovers_third_year_turnover").attr("placeholder", year2 + " - " + year3);
+    $(".year3").val(year2);
+    $(".year3").val(year1);
+    $(".year1").val(year0);
+    $("#id_vendor_turnovers_first_year").val(year0);
+    $("#id_vendor_turnovers_second_year").val(year1);
+    $("#id_vendor_turnovers_third_year").val(year2);
     bsCustomFileInput.init();
 });
 
@@ -618,7 +621,7 @@ function load_data(i, v) {
             });
             break;
         case 'vendor_turnovers':
-            $.each(v, function (a, b) { $(`#id_vendor_turnovers_` + a).val(b); $(`.id_vendor_turnovers_` + a).text(b); });
+            $.each(v, function (a, b) { if (b != "") { $(`#id_vendor_turnovers_` + a).val(b); } $(`.id_vendor_turnovers_` + a).text(b); });
             break;
         default:
             break;
@@ -886,7 +889,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                     <div class="col-sm-12 col-md-3 mb-3 required">
                         <label for="id_vendor_factories_`+ lid + `_country">Country</label>
                         <select class="form-control" name="factories[`+ lid + `][country]"
-                            id="id_vendor_factories_`+ lid + `_country">`+country_code_option+`</select>
+                            id="id_vendor_factories_`+ lid + `_country">` + country_code_option + `</select>
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3 required">
                         <label for="id_vendor_factories_`+ lid + `_state">State</label>

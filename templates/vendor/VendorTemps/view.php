@@ -764,7 +764,7 @@
                                                     <td>Telephone</td>
                                                     <th><?= h($bo->telephone) ?></th>
                                                     <td>Fax</td>
-                                                    <th><?= h($bo->name) ?></th>
+                                                    <th><?= h($bo->fax_no) ?></th>
                                                 </tr>
                                             </table>
                                         </div>
