@@ -1478,7 +1478,7 @@
 </div>
 <script>
     var stateByCountry = `<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'stateByCountryCode')); ?>`;
-    var stateByCountryId = `<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'stateByCountryID')); ?>`;
+    var stateByCountryId = `<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'stateByCountryId')); ?>`;
     var vendorView = `<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'vendor')); ?>`;
     var getCountries = `<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'countries')); ?>`;
     var getCountryCodeById = `<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'getCountryCodeById')); ?>`;

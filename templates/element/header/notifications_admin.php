@@ -210,7 +210,7 @@
             $.ajax({
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'dashboard', 'action' => 'clear-message-count')); ?>",
-                dataType: 'json',,
+                dataType: 'json',
                 beforeSend: function () { $("#gif_loader").show(); },
                 success: function(response) {
 

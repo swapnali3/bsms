@@ -10,7 +10,7 @@ function chat(modalBody, sender_id, url, table_name = null, table_pk = null, mt3
                 chatdata = resp;
                 $("#" + modalBody).empty();
                 $.each(resp, function (index, row) {
-                    $("#" + modalBody).html(`<div class="card card-widget">
+                    $("#" + modalBody).append(`<div class="card card-widget">
                                                 <div class="card-header">
                                                     <div class="user-block">
                                                         <img class="img-circle" src="`+ baseurl + `/img/` + Array.from(row['fullname'])[0] + `.png" alt="User Image">

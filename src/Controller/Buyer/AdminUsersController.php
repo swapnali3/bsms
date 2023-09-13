@@ -201,4 +201,24 @@ class AdminUsersController extends BuyerAppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    public function changePassword() {
+        $this->loadModel("Users");
+        $this->set('headTitle', 'Profile');
+        $session = $this->getRequest()->getSession();
+        $user = $this->Users->get($session->read('id'));
+
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+            if ($data["password"] == "" || $data["current_password"] == "" || $data["password"] != $data["current_password"])
+            { $flash = ['type'=>'error', 'msg'=>'Invalid Password']; }
+            else { 
+                $user->password = $data["password"];
+                $this->Users->save($user);
+                $flash = ['type'=>'success', 'msg'=>'Password Changed Successfully']; 
+            }
+            $this->set('flash', $flash);
+        }
+        $this->set(compact('user'));
+    }
 }
