@@ -29,31 +29,29 @@ class VendorTempsController extends VendorAppController
         $flash = [];
         $this->set('headTitle', 'Profile');
         $session = $this->getRequest()->getSession();
-        if ($id == null) {
-            $id = $session->read('vendor_id');
-        }
+        if ($id == null) { $id = $session->read('vendor_id'); }
 
         $this->loadModel('VendorTemps');
         $vendorTemp = $this->VendorTemps->get($session->read('vendor_id'), [
-            'contain' => ['VendorStatus','CompanyCodes','PurchasingOrganizations','ReconciliationAccounts', 'AccountGroups', 'SchemaGroups', 'PaymentTerms'],
-        ]);
-
+            'contain' => ['VendorStatus','CompanyCodes','PurchasingOrganizations','ReconciliationAccounts', 'AccountGroups', 'SchemaGroups', 'PaymentTerms', 'VendorFacilities', 'VendorIncometaxes', 'VendorOtherdetails', 'VendorQuestionnaires', 'VendorSmallScales', 'VendorTurnovers']]);
         
         $this->loadModel("VendorRegisteredOffices");
-        $vendorRegisterOffice = $this->VendorRegisteredOffices->find('all')
+        $vendorRegisterOffice = $this->VendorRegisteredOffices->find()
         ->select($this->VendorRegisteredOffices)
         ->select(['States.name', 'Countries.country_name'])
-        ->join(['Countries'=> 'countries'], ['Countries.country_code = VendorRegisteredOffices.country'])
-        ->join(['States'=> 'states'], ['States.region_code' => 'VendorRegisteredOffices.state'])
+        ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorRegisteredOffices.country'])
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorRegisteredOffices.state','States.country_code = VendorRegisteredOffices.country'])
         ->where(['States.country_code = VendorRegisteredOffices.country', 'VendorRegisteredOffices.vendor_temp_id' => $session->read('vendor_id')])->first();
+        //  echo '<pre>'; print_r($vendorRegisterOffice); exit;
 
         $this->loadModel("VendorPartnerAddress");
-        $vendorPartnerAddress = $this->VendorPartnerAddress->find('all')
+        $vendorPartnerAddress = $this->VendorPartnerAddress->find()
         ->select($this->VendorPartnerAddress)
         ->select(['States.name', 'Countries.country_name'])
-        ->join(['Countries'=> 'countries'], ['Countries.country_code = VendorPartnerAddress.country'])
-        ->join(['States'=> 'states'], ['States.region_code' => 'VendorPartnerAddress.state'])
-        ->where(['States.country_code = VendorPartnerAddress.country', 'VendorPartnerAddress.vendor_temp_id' => $session->read('vendor_id')])->toArray();
+        ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorPartnerAddress.country'])
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorPartnerAddress.state','States.country_code = VendorPartnerAddress.country'])
+        ->where([ 'VendorPartnerAddress.vendor_temp_id' => $session->read('vendor_id')])->toArray();
+        // echo '<pre>'; print_r($vendorPartnerAddress); exit;
 
         $this->loadModel("VendorFactories");
         $vendorFactories = $this->VendorFactories->find()
@@ -61,12 +59,9 @@ class VendorTempsController extends VendorAppController
         ->select(['States.name', 'Countries.country_name'])
         ->contain(['VendorCommencements'])
         ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorFactories.country'])
-        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorFactories.state', 'States.country_code = VendorFactories.country'])
-        //->leftJoin(['VendorCommencements'=> 'vendor_commencements'], ['VendorCommencements.vendor_factory_id' => 'VendorFactories.id'])
-        
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorFactories.state', 'States.country_code = VendorFactories.country'])     
         ->where([  'VendorFactories.vendor_temp_id' => $session->read('vendor_id')])->toArray();
-
-        //echo '<pre>'; print_r($vendorFactories); exit;
+        //  echo '<pre>'; print_r($vendorFactories); exit;
         
         
         $this->loadModel("VendorReputedCustomers");
@@ -75,16 +70,24 @@ class VendorTempsController extends VendorAppController
         ->select(['States.name', 'Countries.country_name'])
         ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorReputedCustomers.country'])
         ->innerJoin(['States'=> 'states'], ['States.region_code = VendorReputedCustomers.state', 'States.country_code = VendorReputedCustomers.country'])
-        ->where(['States.country_code = VendorReputedCustomers.country', 'VendorReputedCustomers.vendor_temp_id' => $session->read('vendor_id')])->toArray();
-
-        //echo '<pre>'; print_r($vendorReputedCustomers); exit;
-
-
+        ->where(['VendorReputedCustomers.vendor_temp_id' => $session->read('vendor_id')])->toArray();
+        // echo '<pre>'; print_r($vendorReputedCustomers); exit;
+        
+        
+        $this->loadModel("VendorBranchOffices");
+        $vendorBranchOffices = $this->VendorBranchOffices->find()
+        ->select($this->VendorBranchOffices)
+        ->select(['States.name', 'Countries.country_name'])
+        ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorBranchOffices.country'])
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorBranchOffices.state', 'States.country_code = VendorBranchOffices.country'])
+        ->where(['VendorBranchOffices.vendor_temp_id' => $session->read('vendor_id')])->toArray();
+        // echo '<pre>'; print_r($vendorBranchOffices); exit;
+        // echo '<pre>'; print_r($vendorTemp ); exit;
 
         $vendorTempView = $this->VendorTemps->find('all')->where(['update_flag' => $id]);
         $this->set('vendorTempView', $vendorTempView->toArray());
         $this->set('updatecount', $vendorTempView->count());
-        $this->set(compact('vendorTemp', 'vendorRegisterOffice', 'vendorReputedCustomers', 'vendorFactories'));
+        $this->set(compact('vendorTemp', 'vendorRegisterOffice', 'vendorReputedCustomers', 'vendorFactories', 'vendorBranchOffices'));
     }
 
 
