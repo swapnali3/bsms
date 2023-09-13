@@ -7,7 +7,7 @@
     padding: 0.5rem 0.5rem
   }
 
-  body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
+  /* body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .content-wrapper,
   body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-footer,
   body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) .main-header {
     margin-left: 210px
@@ -17,7 +17,7 @@
   .sidebar-mini-md .main-sidebar .nav-link,
   .sidebar-mini-xs .main-sidebar .nav-link {
     width: calc(235px - 1.1rem * 2)
-  }
+  } */
 
   .nav-sidebar .nav-link>.right,
   .nav-sidebar .nav-link>p>.right {

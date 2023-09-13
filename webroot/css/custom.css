@@ -1015,17 +1015,17 @@ span.otp-send-email { color: #121212 !important;}
 
 .main-sidebar:hover {
     width: 230px; 
-    transition: all linear .1s;
+    transition: all linear 0s;
 }
 
 .main-sidebar .nav-link p { display: none;}
 
-.main-sidebar:hover .nav-link p { display: unset; transition: all linear .3s; font-size: 14px;}
+.main-sidebar:hover .nav-link p { display: unset; transition: all linear 0s; font-size: 14px;}
 
 .main-sidebar:hover .nav-item {
     justify-content: start;
     display: inline-block;
-    transition: all linear .3s;
+    transition: all linear 0s;
 }
 
 .main-sidebar .nav-item  { 

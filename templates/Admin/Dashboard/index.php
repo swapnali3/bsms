@@ -259,7 +259,7 @@
                       <div class="input text"><label for="sap-password">Sap Password</label><input type="text" name="sap_password" class="custom-select rounded-0" div="form-group" id="sap-password" value="aarti@123"></div>
                     </div>
                     <div class="col-md-12">
-                      <button class="btn btn-info" type="submit">Submit</button>
+                      <button class="submit_btn btn btn-info" type="submit">Submit</button>
                     </div>
                   </div>
 
@@ -338,14 +338,14 @@
             </div>
             <div class="col-4 mt-3">
               <div class="form-group">
-                <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0', 'placeholder' => 'Please enter Email id', 'required')); ?>
+                <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0', 'placeholder' => 'please enter email id', 'required')); ?>
               </div>
             </div>
             
             
             <div class="col-4 mt-3">
               <div class="form-group">
-                <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'Please enter mobile number')); ?>
+                <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
               </div>
             </div>
 
@@ -365,7 +365,7 @@
             
           </div>
           <div>
-            <button type="button" class="btn btn-primary">Submit</button>
+            <button type="button" class="submit_btn btn btn-primary">Submit</button>
           </div>
         </div>
         <?= $this->Form->end() ?>

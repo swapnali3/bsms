@@ -12,7 +12,6 @@
       <div class="card-header">
         <h1 class="card-title">Vendors</h1>
       </div>
-      <?php $totalVendorTemps  = $totalVendorOnboarding + $totalVendorApproved + $totalSentSap ?>
       <div class="card-body py-0">
         <ul class="products-list product-list-in-card">
           <li class="item">

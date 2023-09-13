@@ -264,23 +264,23 @@
                                                     <table class="table table-hover table-striped table-bordered">
                                                         <tr>
                                                             <td>Name</td>
-                                                            <th><span id="contactPersonName"></span></th>
+                                                            <th><span id="contactPersonName"><?= h($vendorTemp->contact_person) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Email</td>
-                                                            <th><span id="contactPersonEmail"></span></th>
+                                                            <th><span id="contactPersonEmail"><?= h($vendorTemp->contact_email) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Mobile</td>
-                                                            <th><span id="contactPersonMobile"></span></th>
+                                                            <th><span id="contactPersonMobile"><?= h($vendorTemp->contact_mobile) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Department</td>
-                                                            <th><span id="contactPersonDepart"></span></th>
+                                                            <th><span id="contactPersonDepart"><?= h($vendorTemp->contact_department) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Designation</td>
-                                                            <th><span id="contactPersonDesig"></span></th>
+                                                            <th><span id="contactPersonDesig"><?= h($vendorTemp->contact_designation) ?></span></th>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -294,27 +294,27 @@
                                                     <table class="table table-hover table-striped table-bordered">
                                                         <tr>
                                                             <td>Address</td>
-                                                            <th><span id="primaryDetailsAddress"></span></th>
+                                                            <th><span id="primaryDetailsAddress"><?=h($vendorRegisterOffice->address) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Address 1</td>
-                                                            <th><span id="primaryDetailsAddress2"></span></th>
+                                                            <th><span id="primaryDetailsAddress2"><?=h($vendorRegisterOffice->address_2) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>City</td>
-                                                            <th><span id="primaryDetailsCity"></span></th>
+                                                            <th><span id="primaryDetailsCity"><?=h($vendorRegisterOffice->city) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>State</td>
-                                                            <th><span id="primaryDetailsState"></span></th>
+                                                            <th><span id="primaryDetailsState"><?=h($vendorRegisterOffice->States['name']) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Country</td>
-                                                            <th><span id="primaryDetailsCountry"></span></th>
+                                                            <th><span id="primaryDetailsCountry"><?=h($vendorRegisterOffice->Countries['country_name']) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Pincode</td>
-                                                            <th><span id="primaryDetailsPincode"></span></th>
+                                                            <th><span id="primaryDetailsPincode"><?=h($vendorRegisterOffice->pincode) ?></span></th>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -360,27 +360,27 @@
                                                     <table class="table table-hover table-striped table-bordered">
                                                         <tr>
                                                             <td>Company Code</td>
-                                                            <th><span id="otherDetailsCompanyCode"></span></th>
+                                                            <th><span id="otherDetailsCompanyCode"><?= h($vendorTemp->company_code->name) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Purchase Organisation</td>
-                                                            <th><span id="otherDetailsPurchaseOrga"></span></th>
+                                                            <th><span id="otherDetailsPurchaseOrga"><?= h($vendorTemp->purchasing_organization->name) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Account Group</td>
-                                                            <th><span id="otherDetailsAccountGroup"></span></th>
+                                                            <th><span id="otherDetailsAccountGroup"><?= h($vendorTemp->account_group->name) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Schema Group</td>
-                                                            <th><span id="otherDetailsSchema"></span></th>
+                                                            <th><span id="otherDetailsSchema"><?= h($vendorTemp->schema_group->name) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Reconciliation Account</td>
-                                                            <th><span id="otherDetailsReconcili"></span></th>
+                                                            <th><span id="otherDetailsReconcili"><?= h($vendorTemp->reconciliation_account->name) ?></span></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Payment Term</td>
-                                                            <th><span id="otherDetailsPaymentTemrs"></span></th>
+                                                            <th><span id="otherDetailsPaymentTemrs"><?= h($vendorTemp->payment_term->description) ?></span></th>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -475,6 +475,11 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 mb-3" id="factoryCodeView">
+                                            <?php foreach($vendorFactories as $key) :
+
+                                                    echo $key->address;
+                                                
+                                                endforeach;?>
                                             <!-- <div class="card">
                                             <div class="card-header">
                                                 Factory Code : <span id="factoryCode"></span>
