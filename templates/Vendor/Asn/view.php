@@ -19,22 +19,22 @@
                 <div class="card-header asn_header_bg">
                     <div class="row align-items-center justify-content-between">
                         <div class="col-sm-12 col-lg-2">
-                            Factory : <b>
+                            <span class="text_light">Factory :</span> <b>
                                 <?= h($deliveryDetails[0]->VendorFactories['factory_code']) ?>
                             </b>
                         </div>
                         <div class="col-sm-12 col-lg-2">
-                            ASN No : <b>
+                        <span class="text_light">ASN No :</span> <b>
                                 <?= h($deliveryDetails[0]->asn_no) ?>
                             </b>
                         </div>
                         <div class="col-sm-12 col-lg-2">
-                            PO No : <b>
+                        <span class="text_light">PO No : </span><b>
                                 <?= h($deliveryDetails[0]->PoHeaders['po_no']) ?>
                             </b>
                         </div>
                         <div class="col-sm-12 col-lg-2">
-                            Status: <span class='asnstatus'>
+                        <span class="text_light">Status:</span> <span class='asnstatus'>
                                 <?php
                                     if ($deliveryDetails[0]->status == '1') { echo 'Created'; }
                                     else if ($deliveryDetails[0]->status == '2') { echo 'In Transit'; }
@@ -44,8 +44,8 @@
                         </div>
                         <?php
                         if ($deliveryDetails[0]->status == '1') { ?>
-                        <div class="col-sm-12 col-lg-12 mt-3">
-                            <div class="d-flex justify-content-start">
+                        <div class="col-sm-2 col-lg-2">
+                            <div class="d-flex justify-content-end">
                                 <button class="btn btn-custom-2 mb-0 mrk" data-toggle="modal"
                                     data-target="#modal-confirm">Mark Dispatched</button>
                             </div>
@@ -71,17 +71,17 @@
                         <?php } ?>
 
                         <div class="col-sm-12 col-lg-6">
-                            <div class="d-flex justify-content-end">
+                            <div class="d-flex justify-content-start mt-3">
                                 <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
 
                                     if (!empty($files)) {
                                         foreach ($files as $key => $file) {
-                                            echo $this->Html->link(' ' .$key, '/' . $file, ['style' => 'display:block; margin-left:5px;', 'target' => '_blank', 'class' => 'btn btn-custom mb-0 invoicefiles']);
+                                            echo $this->Html->link(' ' .$key, '/' . $file, ['style' => 'display:block;', 'target' => '_blank', 'class' => 'asn_files mb-0 invoicefiles']);
                                         }
                                     }
 
 
-                                    ?>
+                                ?>
                                 
                             </div>
                         </div>

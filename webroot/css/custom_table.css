@@ -727,3 +727,20 @@ div.dataTables_wrapper div.dataTables_filter input { margin-left: 0 !important;}
 }
 
 #example1_wrapper .row:first-child { width: 0 !important;}
+
+.text_light { color: #F7941D !important; font-weight: 500 !important;}
+
+.asn_files {
+    text-transform: uppercase !important;
+    color: #F7941D !important;
+    font-weight: normal !important;
+    margin-right: 20px !important;
+    text-decoration: underline 1px solid #F7941D !important;
+    border-right: 1px solid #121212 !important;
+    padding-right: 15px !important;
+}
+.asn_files:last-child { border-right: none !important;}
+
+.asn_files:hover { color: #000 !important;}
+
+.btn-sm, .cancel_btn { color: #121212 !important;}

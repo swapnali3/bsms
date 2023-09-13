@@ -55,14 +55,20 @@
         label {
             font-family: 'Roboto', sans-serif !important;
         }
+        .navbar { padding: 0rem 0.5rem !important;}
+        .user-panel img { width: 1.5rem !important;}
+        .user-panel .image { padding-left: 0 !important;}
     </style>
 </head>
 
 <body class="hold-transition sidebar-collapse layout-top-nav">
     <div class="wrapper">
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">
-            <?= $this->element('header/notifications_admin') ?>
+        <nav class="main-header navbar navbar-expand sticky-top <?= $this->CakeLte->getHeaderClass() ?>">
+                <a href="" class="navbar-brand ml-2">
+                    <?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '2']) ?>
+                </a>
+                <?= $this->element('header/notifications_admin') ?>
         </nav>
         <!-- /.navbar -->
 
