@@ -60,7 +60,7 @@
                             <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0', 'placeholder' => 'please enter email id')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                    <!-- <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
                         <div class="form-group">
                             <?php echo $this->Form->control('company_code_id', array('class' => 'form-control', 'options' => $company_codes, 'empty' => 'Please Select')); ?>
                         </div>
@@ -69,10 +69,10 @@
                         <div class="form-group">
                             <?php echo $this->Form->control('purchasing_organization_id', array('class' => 'form-control', 'empty' => 'Please Select')); ?>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('account_group_id', array('class' => 'form-control', 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('account_group_id', array('class' => 'form-control', 'options' => $accountGroups, 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
@@ -121,7 +121,6 @@
     </div>
 
     <div class="col-12">
-        <?= $this->Form->create(null, ['type' => 'file']); ?>
         <div class="card mx-2 card_box_shadow">
             <div class="card-header p-3">
                 <h5>
@@ -196,7 +195,6 @@
                 </div>
             </div>
         </div>
-        <?= $this->Form->end() ?>
     </div>
 
     <div class="col-12" style="display: none;">

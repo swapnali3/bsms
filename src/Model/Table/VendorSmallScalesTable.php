@@ -71,7 +71,7 @@ class VendorSmallScalesTable extends Table
 
         $validator
             ->scalar('certificate_file')
-            ->maxLength('certificate_file', 45)
+            ->maxLength('certificate_file', 255)
             ->allowEmptyFile('certificate_file');
 
         $validator

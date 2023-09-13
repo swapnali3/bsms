@@ -158,11 +158,11 @@
                                             name="temps[city]" id="id_vendor_temps_city">
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
-                                        <?php echo $this->Form->control('country', ['name' => 'temps[country]', 'id' => 'id_vendor_temps_country', 'data-state'=>'id_vendor_temps_state','class' => 'country_id_option selectpicker form-control', 'options' => $vt_countries, 'data-live-search' => 'true', 'required'=>'true', 'empty' => 'Please Select', 'title' => 'Select Country']); ?>
+                                        <?php echo $this->Form->control('country_id', ['name' => 'temps[country_id]', 'id' => 'id_vendor_temps_country', 'data-state'=>'id_vendor_temps_state','class' => 'country_id_option selectpicker form-control', 'options' => $vt_countries, 'data-live-search' => 'true', 'required'=>'true', 'empty' => 'Please Select', 'title' => 'Select Country']); ?>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <label for="id_vendor_temps_state">State</label>
-                                        <select class="form-control" name="temps[state]"
+                                        <select class="form-control" name="temps[state_id]"
                                             id="id_vendor_temps_state"></select>
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">

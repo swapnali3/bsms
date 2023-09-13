@@ -133,7 +133,7 @@ class VendorTempsController extends VendorAppController
                             $data = $request[$value];
                             // $query = $this->VendorRegisteredOffices->find()->where(['vendor_temp_id' => $id])->count();
                             if ($data['id'] != "" || $data['id'] != null) {
-                                $old_regoffc = $this->VendorRegisteredOffices->get($id);
+                                $old_regoffc = $this->VendorRegisteredOffices->get($data['id']);
                                 $regoffc = $this->VendorRegisteredOffices->patchEntity($old_regoffc, $data);
                             } else{
                                 $old_regoffc = $this->VendorRegisteredOffices->newEmptyEntity();

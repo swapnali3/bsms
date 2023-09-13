@@ -76,6 +76,8 @@ class PurchaseOrdersController extends VendorAppController
             $visit_url = Router::url('/', true);
             $poNumber  = $poHeader->po_no;
             $poHeader->acknowledge = 1; // Set acknowledge value to 1
+            $poHeader->acknowledge_no = time(); 
+            $poHeader->acknowledge_date = date('Y-m-d H:i:s'); 
             if($this->PoHeaders->save($poHeader)) {
                 if ($user["username"] !== "") {
                     $mailer = new Mailer('default');

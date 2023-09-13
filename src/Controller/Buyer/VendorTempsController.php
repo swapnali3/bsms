@@ -330,9 +330,9 @@ class VendorTempsController extends BuyerAppController
             }
         }
         $titles = $this->Titles->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
-        $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
+        /*$purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
             return $row->code.' - '.$row->name;
-        }])->all();
+        }])->all(); */
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
             return $row->code.' - '.$row->name;
         }])->all();
@@ -342,14 +342,15 @@ class VendorTempsController extends BuyerAppController
         $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
             return $row->code.' - '.$row->description;
         }])->all();
-        $company_codes = $this->CompanyCodes->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
+        /*$company_codes = $this->CompanyCodes->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
             return $row->code.' - '.$row->name;
-        }])->all();
+        }])->all(); */
         $reconciliation_account = $this->ReconciliationAccounts->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
             return $row->code.' - '.$row->name;
-        }])->all();
+        }])->where(['company_code_id' => $session->read('company_code_id')])->all();
 
-        $this->set(compact('vendorTemp','titles', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'payment_term', 'reconciliation_account', 'company_codes', 'latestVendors'));
+        $vendorTemp->account_group_id = 10;
+        $this->set(compact('vendorTemp','titles', 'accountGroups', 'schemaGroups', 'payment_term', 'reconciliation_account', 'latestVendors'));
     }
 
     public function sapAdd()
@@ -635,12 +636,16 @@ class VendorTempsController extends BuyerAppController
         
         $this->loadModel("Notifications");
 
+        $session = $this->getRequest()->getSession();
+
         // echo '<pre>'; print_r($this->request->getData()); exit;
         if ($this->request->is(['patch', 'post', 'put'])) {
             try {
                 $VendorTemp = $this->VendorTemps->newEmptyEntity();
                 $data = $this->request->getData();
-                $data['buyer_id'] = $this->getRequest()->getSession()->read('id');
+                $data['company_code_id'] = $session->read('company_code_id');
+                $data['purchasing_organization_id'] = $session->read('purchasing_organization_id');
+                $data['buyer_id'] = $session->read('id');
                 $data['valid_date'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +1 day'));
                 $VendorTemp = $this->VendorTemps->patchEntity($VendorTemp, $data);
 

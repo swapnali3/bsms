@@ -164,14 +164,14 @@ class VendorTempsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
-        $validator
+        /*$validator
             ->integer('company_code_id')
             ->notEmptyString('company_code_id');
 
         $validator
             ->integer('purchasing_organization_id')
             ->notEmptyString('purchasing_organization_id');
-
+        */
         $validator
             ->integer('account_group_id')
             ->notEmptyString('account_group_id');
