@@ -5,35 +5,32 @@
     <div class="col-sm-12 col-md-3 col-lg-3">
         <div class="card">
             <div class="card-body">
-                <div class="prof-img text-center"><i class="fas fa-user-circle"></i></div>
-                <div class="desc">
-                    <ul>
-                        <li>
-                            <p>Name : <b>
-                                    <?= h($vendorTemp->name) ?>
-                                </b></p>
-                        </li>
-                        <li>
-                            <p>Mobile No :<b>
-                                    <?= h($vendorTemp->mobile) ?>
-                                </b></p>
-                        </li>
-                        <li>
-                            <p>Email ID :<b>
-                                    <?= h($vendorTemp->email) ?>
-                                </b></p>
-                        </li>
-                        <li>
-                            <p>SAP Vendor Code :<b>
-                                    <?= !empty($vendorTemp->sap_vendor_code) ? $vendorTemp->sap_vendor_code : '' ?>
-                                </b></p>
-                        </li>
-                        <li>
-                            <p>Status :<b>
-                                    <?= $vendorTemp->vendor_status->description ?>
-                                </b></p>
-                        </li>
-                    </ul>
+                <div class="prof-img text-center">
+                    <img width="100px" src="<?= $this->Url->build('/') ?>img/<?= substr($vendorTemp->name,0,1) ?>.png" alt="Vendor">
+                </div>
+                <div class="mt-3">
+                    <table class="ml-5">
+                        <tr>
+                            <td>Name</td>
+                            <th><?= h($vendorTemp->name) ?></th>
+                        </tr>
+                        <tr>
+                            <td>Mobile No</td>
+                            <th><?= h($vendorTemp->mobile) ?></th>
+                        </tr>
+                        <tr>
+                            <td>Email ID</td>
+                            <th><?= h($vendorTemp->email) ?></th>
+                        </tr>
+                        <tr>
+                            <td>SAP Vendor Code</td>
+                            <th><?= !empty($vendorTemp->sap_vendor_code) ? $vendorTemp->sap_vendor_code : '' ?></th>
+                        </tr>
+                        <tr>
+                            <td>Status</td>
+                            <th><?= $vendorTemp->vendor_status->description ?></th>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -41,7 +38,7 @@
 
     <div class="col-sm-12 col-md-9 col-lg-9">
 
-        <div class="card">
+        <div class="card" style="display:none;">
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-md-4 col-lg-3 mb-4">
@@ -250,8 +247,9 @@
                                 <p style="text-transform: uppercase; font-weight: 500; font-size: inherit;">
                                     Branch Office Address
                                 </p>
-                                <span class="badge lgreenbadge mt-1" id="id_branch_offices_add"><i
-                                        class="fas fa-plus-circle"></i></span>
+                                <span class="badge lgreenbadge mt-1" id="id_branch_offices_add">
+                                    <i class="fas fa-plus-circle"></i>
+                                </span>
                             </div>
                             <div class="card-body" id="id_vendor_branch_offices_body">
                                 <div class="card">
@@ -530,7 +528,7 @@
                                             id="id_vendor_turnovers_second_year_turnover">
                                     </div>
                                     <div class="col-4">
-                                        <label for="id_vendor_turnovers_third_year" class="second_year"></label>
+                                        <label for="id_vendor_turnovers_third_year" class="third_year"></label>
                                         <input required="required" type="hidden" name="turnovers[second_year]"
                                             id="id_vendor_turnovers_third_year">
                                         <input required="required" type="text" class="form-control"

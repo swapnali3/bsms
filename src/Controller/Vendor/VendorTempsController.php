@@ -33,7 +33,7 @@ class VendorTempsController extends VendorAppController
 
         $this->loadModel('VendorTemps');
         $vendorTemp = $this->VendorTemps->get($session->read('vendor_id'), [
-            'contain' => ['VendorStatus','CompanyCodes','PurchasingOrganizations','ReconciliationAccounts', 'AccountGroups', 'SchemaGroups', 'PaymentTerms', 'VendorFacilities', 'VendorIncometaxes', 'VendorOtherdetails', 'VendorQuestionnaires', 'VendorSmallScales', 'VendorTurnovers']]);
+            'contain' => ['VendorStatus','CompanyCodes','PurchasingOrganizations','ReconciliationAccounts', 'AccountGroups', 'SchemaGroups', 'PaymentTerms', 'VendorFacilities', 'VendorIncometaxes', 'VendorOtherdetails', 'VendorQuestionnaires', 'VendorSmallScales', 'VendorTurnovers', 'States', 'Countries']]);
         
         $this->loadModel("VendorRegisteredOffices");
         $vendorRegisterOffice = $this->VendorRegisteredOffices->find()
@@ -42,8 +42,7 @@ class VendorTempsController extends VendorAppController
         ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorRegisteredOffices.country'])
         ->innerJoin(['States'=> 'states'], ['States.region_code = VendorRegisteredOffices.state','States.country_code = VendorRegisteredOffices.country'])
         ->where(['States.country_code = VendorRegisteredOffices.country', 'VendorRegisteredOffices.vendor_temp_id' => $session->read('vendor_id')])->first();
-        //  echo '<pre>'; print_r($vendorRegisterOffice); exit;
-
+        
         $this->loadModel("VendorPartnerAddress");
         $vendorPartnerAddress = $this->VendorPartnerAddress->find()
         ->select($this->VendorPartnerAddress)
@@ -51,8 +50,7 @@ class VendorTempsController extends VendorAppController
         ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorPartnerAddress.country'])
         ->innerJoin(['States'=> 'states'], ['States.region_code = VendorPartnerAddress.state','States.country_code = VendorPartnerAddress.country'])
         ->where([ 'VendorPartnerAddress.vendor_temp_id' => $session->read('vendor_id')])->toArray();
-        // echo '<pre>'; print_r($vendorPartnerAddress); exit;
-
+        
         $this->loadModel("VendorFactories");
         $vendorFactories = $this->VendorFactories->find()
         ->select($this->VendorFactories)
@@ -61,7 +59,6 @@ class VendorTempsController extends VendorAppController
         ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorFactories.country'])
         ->innerJoin(['States'=> 'states'], ['States.region_code = VendorFactories.state', 'States.country_code = VendorFactories.country'])     
         ->where([  'VendorFactories.vendor_temp_id' => $session->read('vendor_id')])->toArray();
-        //  echo '<pre>'; print_r($vendorFactories); exit;
         
         
         $this->loadModel("VendorReputedCustomers");
@@ -71,7 +68,6 @@ class VendorTempsController extends VendorAppController
         ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorReputedCustomers.country'])
         ->innerJoin(['States'=> 'states'], ['States.region_code = VendorReputedCustomers.state', 'States.country_code = VendorReputedCustomers.country'])
         ->where(['VendorReputedCustomers.vendor_temp_id' => $session->read('vendor_id')])->toArray();
-        // echo '<pre>'; print_r($vendorReputedCustomers); exit;
         
         
         $this->loadModel("VendorBranchOffices");
@@ -81,13 +77,17 @@ class VendorTempsController extends VendorAppController
         ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorBranchOffices.country'])
         ->innerJoin(['States'=> 'states'], ['States.region_code = VendorBranchOffices.state', 'States.country_code = VendorBranchOffices.country'])
         ->where(['VendorBranchOffices.vendor_temp_id' => $session->read('vendor_id')])->toArray();
-        // echo '<pre>'; print_r($vendorBranchOffices); exit;
-        // echo '<pre>'; print_r($vendorTemp ); exit;
+        // echo '<pre>'; print_r($vendorRegisterOffice);
+        // print_r($vendorPartnerAddress);
+        // print_r($vendorFactories);
+        // print_r($vendorReputedCustomers);
+        // print_r($vendorBranchOffices);
+        // print_r($vendorTemp ); exit;
 
         $vendorTempView = $this->VendorTemps->find('all')->where(['update_flag' => $id]);
         $this->set('vendorTempView', $vendorTempView->toArray());
         $this->set('updatecount', $vendorTempView->count());
-        $this->set(compact('vendorTemp', 'vendorRegisterOffice', 'vendorReputedCustomers', 'vendorFactories', 'vendorBranchOffices'));
+        $this->set(compact('vendorTemp', 'vendorPartnerAddress', 'vendorRegisterOffice', 'vendorReputedCustomers', 'vendorFactories', 'vendorBranchOffices'));
     }
 
 
