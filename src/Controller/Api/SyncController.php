@@ -743,7 +743,7 @@ class SyncController extends ApiAppController
                                 $vendor->pan_no = $row->PAN;
                                 $vendor->buyer_id = $row->BUYER_ID;
                 
-                                echo '<pre>'; print_r($vendor); exit;
+                                //echo '<pre>'; print_r($vendor); exit;
                                 if($this->VendorTemps->save($vendor)) {
                                     $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
                                     
