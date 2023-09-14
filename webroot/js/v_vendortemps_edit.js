@@ -45,19 +45,19 @@ $(document).on("click", ".fully_manufactured_radio", function () {
 
 $(document).on("change", "#copypermanant", function () {
     if ($(this).is(":checked")) {
-        $("#id_vendor_registered_offices_country").val(getRemote(getCountryCodeById + '/' + $("#id_vendor_temps_country").val())).trigger('change');
-        $("#id_vendor_registered_offices_address").val($("#id_vendor_temps_address").val());
-        $("#id_vendor_registered_offices_address_2").val($("#id_vendor_temps_address_2").val());
-        $("#id_vendor_registered_offices_pincode").val($("#id_vendor_temps_pincode").val());
-        $("#id_vendor_registered_offices_city").val($("#id_vendor_temps_city").val());
-        $("#id_vendor_registered_offices_state").val(getRemote(getStateRegioncodeById + '/' + $("#id_vendor_temps_state").val()));
+        $("#id_vendor_registered_offices_country").val(getRemote(getCountryCodeById + '/' + $("#id_vendor_temps_country").val())).trigger('change').prop('readonly', true);
+        $("#id_vendor_registered_offices_address").val($("#id_vendor_temps_address").val()).prop('readonly', true);
+        $("#id_vendor_registered_offices_address_2").val($("#id_vendor_temps_address_2").val()).prop('readonly', true);
+        $("#id_vendor_registered_offices_pincode").val($("#id_vendor_temps_pincode").val()).prop('readonly', true);
+        $("#id_vendor_registered_offices_city").val($("#id_vendor_temps_city").val()).prop('readonly', true);
+        $("#id_vendor_registered_offices_state").val(getRemote(getStateRegioncodeById + '/' + $("#id_vendor_temps_state").val())).prop('readonly', true);
     } else {
-        $("#id_vendor_registered_offices_address").val("");
-        $("#id_vendor_registered_offices_address_2").val("");
-        $("#id_vendor_registered_offices_pincode").val("");
-        $("#id_vendor_registered_offices_city").val("");
-        $("#id_vendor_registered_offices_country").val("");
-        $("#id_vendor_registered_offices_state").val("");
+        $("#id_vendor_registered_offices_address").removeAttr('readonly');
+        $("#id_vendor_registered_offices_address_2").removeAttr('readonly');
+        $("#id_vendor_registered_offices_pincode").removeAttr('readonly');
+        $("#id_vendor_registered_offices_city").removeAttr('readonly');
+        $("#id_vendor_registered_offices_country").removeAttr('readonly');
+        $("#id_vendor_registered_offices_state").removeAttr('readonly');
     }
 });
 

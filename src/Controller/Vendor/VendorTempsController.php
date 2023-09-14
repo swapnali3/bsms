@@ -90,9 +90,6 @@ class VendorTempsController extends VendorAppController
         $this->set(compact('vendorTemp', 'vendorPartnerAddress', 'vendorRegisterOffice', 'vendorReputedCustomers', 'vendorFactories', 'vendorBranchOffices'));
     }
 
-
-
-
     public function edit($id = null)
     {
         $this->loadModel("VendorTemps");
