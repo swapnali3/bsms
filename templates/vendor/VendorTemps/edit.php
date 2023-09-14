@@ -313,7 +313,7 @@
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_registration_year"> Year of
                                                     Registration</label>
-                                                <input required="required" type="text"
+                                                <input required="required" type="number"
                                                     class="form-control maxlength_validation"
                                                     name="branch_offices[0][registration_year]"
                                                     id="id_vendor_branch_offices_0_registration_year" maxlength="4">
@@ -356,7 +356,7 @@
                                         <label for="id_vendor_small_scales_year">
                                             Year of Registration
                                         </label>
-                                        <input required="required" type="text" class="form-control maxlength_validation"
+                                        <input required="required" type="number" class="form-control maxlength_validation"
                                             name="small_scale[year]" id="id_vendor_small_scales_year" maxlength="4">
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
