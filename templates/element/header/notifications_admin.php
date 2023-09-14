@@ -156,7 +156,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting" style="left: inherit; right: 10px;">
             <span class="dropdown-header">
-                <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle" alt=""></span>
+                <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="admin_profile_icon img-circle" alt=""></span>
                     <div class="user-info text-left">
                         <h6 class="mb-0 text-info">
                             <?php echo $this->getRequest()->getSession()->read('first_name'); ?></h6>
@@ -175,7 +175,7 @@
             <?php endif; ?>
             <?php if ($role == 3) : ?>
                 <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>" class="dropdown-item">
-                    <i class="fas fa-user-cog text-info mr-2"></i>
+                    <i class="fas fa-user-cog text-info mr-2 profile_icon"></i>
                     <span>Profile</span>
                 </a>
             <?php endif; ?>

@@ -120,7 +120,7 @@
 </div>
 
 <div class="row p-1">
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3 pl-0 pr-0">
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
       <div class="card material-stock">
         <div class="card-header camelcaps">
@@ -161,7 +161,7 @@
 
   </div>
 
-  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3">
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 mb-3 pl-o pr-0">
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 mb-3">
       <div class="card intransit-stock">
         <div class="card-header camelcaps">

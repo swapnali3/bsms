@@ -482,8 +482,10 @@ body {
 }
 
 #actionfooter .bulkaction:hover {
-    transition: all cubic-bezier(0.39, 0.58, 0.57, 1) .5s;
-    background-color: #ED1C24 !important;
+    /* transition: all cubic-bezier(0.39, 0.58, 0.57, 1) .5s; */
+    background-color: #fff !important;
+    border: 1px solid #F7941D !important;
+    color: #F7941D !important;
 }
 
 
@@ -728,6 +730,8 @@ div.dataTables_wrapper div.dataTables_filter input { margin-left: 0 !important;}
 
 #example1_wrapper .row:first-child { width: 0 !important;}
 
+/* #example1_wrapper .row:nth-child(2) { padding-left: 0 !important;} */
+
 .text_light { color: #F7941D !important; font-weight: 500 !important;}
 
 .asn_files {
@@ -736,7 +740,7 @@ div.dataTables_wrapper div.dataTables_filter input { margin-left: 0 !important;}
     font-weight: normal !important;
     margin-right: 20px !important;
     text-decoration: underline 1px solid #F7941D !important;
-    border-right: 1px solid #121212 !important;
+    border-right: 1px solid #F7941D!important;
     padding-right: 15px !important;
 }
 .asn_files:last-child { border-right: none !important;}
@@ -744,3 +748,32 @@ div.dataTables_wrapper div.dataTables_filter input { margin-left: 0 !important;}
 .asn_files:hover { color: #000 !important;}
 
 .btn-sm, .cancel_btn { color: #121212 !important;}
+
+/* .profile_icon { color: #121212 !important;} */
+
+.asn_download_icon {
+    margin-right: 5px; 
+    color: #121212; 
+    font-size: 12px; 
+}
+  
+.btn-default {
+    background-color: #f8f9fa !important;
+    border-color: #ddd !important;
+    color: #444 !important;
+}
+
+.note-editor .btn-sm { color: #121212 !important;}
+
+#name.form-control:focus, 
+#capacity.form-control:focus,
+#vendor-factory-id.form-control:focus,
+#uom.form-control:focus
+ { border: 1px solid #007bff !important;}
+
+.mgt { margin-top: 2rem !important;}
+
+ input[readonly] {
+    background-color: #e2e2e2 !important;
+}
+  

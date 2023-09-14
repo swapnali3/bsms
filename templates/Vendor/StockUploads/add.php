@@ -38,8 +38,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                             <?php echo $this->Form->control('opening_stock', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'min' => "1", 'div' => 'form-group')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-8 col-md-1 d-flex justify-content-end align-items-end">
-                        <div class="form-group">
+                    <div class="col-sm-8 col-md-1">
+                        <div class="form-group mgt">
                         <button type="button" class="btn bg-gradient-submit" id="stockClick">Submit</button>
                         <button type="submit" style="display: none;" id="stockInputSubmit">Submit</button>
                         </div>

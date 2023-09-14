@@ -252,3 +252,5 @@ label:not(.form-check-label):not(.custom-file-label){
     position: absolute;
     left: 10%;
 } */
+
+.admin_profile_icon { display: none !important;}
