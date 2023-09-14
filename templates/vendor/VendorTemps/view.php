@@ -374,6 +374,14 @@
                                                                 <?php endif; ?>
                                                             </th>
                                                         </tr>
+                                                        <tr>
+                                                            <td>Telephone</td>
+                                                            <th>
+                                                                <?php if (isset($vendorRegisterOffice)) : ?>
+                                                                <?=h($vendorRegisterOffice->telephone) ?>
+                                                                <?php endif; ?>
+                                                            </th>
+                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>
@@ -497,7 +505,9 @@
                                                                 <tr>
                                                                     <td>registration_certificate</td>
                                                                     <th>
-                                                                        <?= h($bo->registration_certificate) ?>
+                                                                        <?php if($bo->registration_certificate) : ?>
+                                                                        <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $bo->registration_certificate, ['target' => '_blank', 'escape' => false]) ?>
+                                                                        <?php endif; ?>
                                                                     </th>
                                                                 </tr>
                                                             </table>
@@ -530,7 +540,7 @@
                                                     <td>Registration File:</td>
                                                     <th>
                                                         <?php if (isset($vendorTemp->vendor_small_scales[0]->certificate_file)) : ?>
-                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_small_scales[0]->certificate_file, ['escape' => false]) ?>
+                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_small_scales[0]->certificate_file, ['target' => '_blank', 'escape' => false]) ?>
                                                         <?php endif; ?>
                                                     </th>
                                                 </tr>
@@ -668,8 +678,10 @@
                                                             Certificate Document<br>
                                                             <?php if (!empty($vendorTemp->vendor_incometaxes)) : ?>
                                                             <b>
-                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_incometaxes[0]->certificate_file, ['escape' => false]) ?>
+                                                            <?php if($vendorTemp->vendor_incometaxes[0]->certificate_file) : ?>
+                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_incometaxes[0]->certificate_file, ['target' => '_blank', 'escape' => false]) ?>
                                                             </b>
+                                                            <?php endif; ?>
                                                             <?php endif; ?>
                                                         </div>
                                                     </div>
@@ -757,9 +769,9 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Country</td>
-                                                    <th><?= h($bo->States['name']) ?></th>
-                                                    <td>State</td>
                                                     <th><?= h($bo->Countries['country_name']) ?></th>
+                                                    <td>State</td>
+                                                    <th><?= h($bo->States['name']) ?></th>
                                                     <td>Telephone</td>
                                                     <th><?= h($bo->telephone) ?></th>
                                                     <td>Fax</td>
@@ -800,9 +812,9 @@
                                                             </th>
                                                         </tr>
                                                         <tr>
-                                                            <td>Bank Key</td>
+                                                            <td>SWIFT/BIC</td>
                                                             <th>
-                                                                <?= h($vendorTemp->bank_key) ?>
+                                                                <?= h($vendorTemp->bank_swift) ?>
                                                             </th>
                                                             <td>Bank Country</td>
                                                             <th>
@@ -846,17 +858,23 @@
                                                     <div class="row">
                                                         <div class="col-4">
                                                             GST No:
-                                                            <?= h($vendorTemp->gst_no) ?><br>
-                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->gst_file, ['escape' => false]) ?>
+                                                            <?= h($vendorTemp->gst_file) ?><br>
+                                                            <?php if($vendorTemp->vendor_incometaxes[0]->certificate_file) : ?>
+                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->gst_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                            <?php endif; ?>
                                                         </div>
                                                         <div class="col-4">
                                                             PAN No:
-                                                            <?= h($vendorTemp->pan_no) ?><br>
-                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->pan_file, ['escape' => false]) ?>
+                                                            <?= h($vendorTemp->pan_file) ?><br>
+                                                            <?php if($vendorTemp->vendor_incometaxes[0]->certificate_file) : ?>
+                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->pan_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                            <?php endif; ?>
                                                         </div>
                                                         <div class="col-4">
                                                             Cancelled Cheque:<br>
-                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->bank_file, ['escape' => false]) ?>
+                                                            <?php if($vendorTemp->bank_file) : ?>
+                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->bank_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                            <?php endif; ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -873,12 +891,16 @@
                                             <div class="row">
                                                 <div class="col-4">
                                                     Six Sigma :
-                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->six_sigma_file, ['escape' => false]) ?> 
+                                                    <?php if($vendorTemp->vendor_otherdetail->six_sigma_file) : ?>
+                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->six_sigma_file, ['target' => '_blank', 'escape' => false]) ?> 
+                                                    <?php endif; ?>
                                                     <b><?= h($vendorTemp->vendor_otherdetail->six_sigma) ?></b>
                                                 </div>
                                                 <div class="col-4">
                                                     ISO Registration / Certificate :
-                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->iso_file, ['escape' => false]) ?>
+                                                    <?php if($vendorTemp->vendor_otherdetail->iso_file) : ?>
+                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->iso_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                    <?php endif; ?>
                                                     <b><?= h($vendorTemp->vendor_otherdetail->iso) ?></b>
                                                 </div>
 
@@ -891,13 +913,17 @@
                                                 <?php if (!empty($vendorTemp->vendor_otherdetail->halal_file)) : ?>
                                                 <div class="col-4">
                                                     HALAL Registration / certificate:
-                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->halal_file, ['escape' => false]) ?>
+                                                    <?php if($vendorTemp->vendor_otherdetail->halal_file) : ?>
+                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->halal_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <?php endif; ?>
                                                 <?php if (!empty($vendorTemp->vendor_otherdetail->declaration_file)) : ?>
                                                 <div class="col-4">
                                                     Declaration:
-                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->declaration_file, ['escape' => false]) ?>
+                                                    <?php if($vendorTemp->vendor_otherdetail->declaration_file) : ?>
+                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->declaration_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <?php endif; ?>
                                                 <?php if (!empty($vendorTemp->vendor_otherdetail->fully_manufactured)) : ?>

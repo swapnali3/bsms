@@ -1064,9 +1064,9 @@
                                     </div>
 
                                     <div class="col-3 mb-3 required">
-                                        <label for="id_vendor_temps_swift_bic">SWIFT/BIC</label>
+                                        <label for="id_vendor_temps_bank_swift">SWIFT/BIC</label>
                                         <input required="required" type="text" class="form-control"
-                                            id="id_vendor_temps_swift_bic" name="temps[bank_swift]" required="true">
+                                            id="id_vendor_temps_bank_swift" name="temps[bank_swift]" required="true">
                                     </div>
 
                                     <div class="col-3 required">
