@@ -556,9 +556,7 @@
                                             <?php if($vendorTemp->vendor_facilities[0]->lab_facility == 'yes') : ?>
                                             <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
                                                 <label></label>
-                                                <a href="<?= h($vendorTemp->vendor_facilities[0]->lab_facility_file) ?>"
-                                                    class="btn btn-block bg-gradient-cancel" target="_blank">
-                                                    Laboratory Facility Document
+                                                <?= $this->Html->link(__('Laboratory Facility Document'), ['action' => 'edit', $vendorTemp->vendor_facilities[0]->lab_facility_file], ['class' => 'btn btn-block bg-gradient-cancel']) ?>
                                                 </a>
                                             </div>
                                             <?php else :?>
@@ -571,9 +569,8 @@
                                         <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
                                             <?php if($vendorTemp->vendor_facilities[0]->isi_registration == 'yes') : ?>
                                             <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                                <a href="<?= h($vendorTemp->vendor_facilities[0]->isi_registration_file) ?>"
-                                                    class="btn btn-block bg-gradient-cancel" target="_blank">ISI
-                                                    Registration Document</a>
+                                            <?= $this->Html->link(__('ISI Registration Document'), ['action' => 'edit', $vendorTemp->vendor_facilities[0]->isi_registration_file], ['class' => 'btn btn-block bg-gradient-cancel']) ?>    
+                                           
                                             </div>
                                             <?php else :?>
                                                 <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
@@ -585,9 +582,7 @@
                                         <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
                                             <?php if($vendorTemp->vendor_facilities[0]->test_facility == 'yes') : ?>
                                             <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                                <a href="<?= h($vendorTemp->vendor_facilities[0]->test_facility_file) ?>"
-                                                    class="btn btn-block bg-gradient-cancel" target="_blank">Test facility
-                                                    Document</a>
+                                            <?= $this->Html->link(__('Test facility Document'), ['action' => 'edit', $vendorTemp->vendor_facilities[0]->test_facility_file], ['class' => 'btn btn-block bg-gradient-cancel']) ?>
                                             </div>
                                             <?php else :?>
                                                 <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
@@ -599,9 +594,7 @@
                                         <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
                                             <?php if($vendorTemp->vendor_facilities[0]->sales_services == 'yes') : ?>
                                             <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                                <a href="<?= h($vendorTemp->vendor_facilities[0]->sales_services_file) ?>"
-                                                    class="btn btn-block bg-gradient-cancel" target="_blank">Facilities for
-                                                    effective after sales services</a>
+                                            <?= $this->Html->link(__('Facilities for effective after sales services'), ['action' => 'edit', $vendorTemp->vendor_facilities[0]->sales_services_file], ['class' => 'btn btn-block bg-gradient-cancel']) ?>
                                             </div>
                                             <?php else :?>
                                                 <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
@@ -613,9 +606,8 @@
                                         <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
                                             <?php if($vendorTemp->vendor_facilities[0]->quality_control == 'yes') : ?>
                                             <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                                <a href="<?= h($vendorTemp->vendor_facilities[0]->quality_control_file) ?>"
-                                                    class="btn btn-block bg-gradient-cancel" target="_blank">Quality control
-                                                    procedure adopted</a>
+                                                
+                                                <?= $this->Html->link(__('Quality control procedure adopted'), ['action' => 'edit', $vendorTemp->vendor_facilities[0]->quality_control_file], ['class' => 'btn btn-block bg-gradient-cancel']) ?>
                                             </div>
                                             <?php else :?>
                                                 <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
@@ -859,14 +851,14 @@
                                                         <div class="col-4">
                                                             GST No:
                                                             <?= h($vendorTemp->gst_file) ?><br>
-                                                            <?php if($vendorTemp->vendor_incometaxes[0]->certificate_file) : ?>
+                                                            <?php if($vendorTemp->gst_no) : ?>
                                                             <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->gst_file, ['target' => '_blank', 'escape' => false]) ?>
                                                             <?php endif; ?>
                                                         </div>
                                                         <div class="col-4">
                                                             PAN No:
                                                             <?= h($vendorTemp->pan_file) ?><br>
-                                                            <?php if($vendorTemp->vendor_incometaxes[0]->certificate_file) : ?>
+                                                            <?php if($vendorTemp->pan_file) : ?>
                                                             <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->pan_file, ['target' => '_blank', 'escape' => false]) ?>
                                                             <?php endif; ?>
                                                         </div>

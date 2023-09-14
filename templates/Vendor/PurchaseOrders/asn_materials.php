@@ -33,8 +33,7 @@
           </div>
           <!-- <div class="col-6"></div> -->
           <div class="col-1">
-            <a href="vendor/purchase-orders/create-asn" id="id_backmodal"
-              class="btn bg-gradient-cancel float-right">
+            <a href="vendor/purchase-orders/create-asn" id="id_backmodal" class="btn bg-gradient-cancel float-right">
               <i class="fas fa-angle-double-left"></i> BACK</a>
           </div>
           <div class="col-1 text-center">
@@ -105,7 +104,7 @@
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -121,13 +120,14 @@
               <label for="invoices">Upload Invoice</label>
               <input type="file" name="invoice" accept=".pdf" class="pt-1 rounded-0"
                 style="visibility: hidden;position:absolute;" div="form-group" required="required" id="invoices">
-              <button id="OpenImgUpload" type="button" class="upload_invoice d-block btn bg-gradient-button mb-0 file-upld-btn">
+              <button id="OpenImgUpload" type="button"
+                class="upload_invoice d-block btn bg-gradient-button mb-0 file-upld-btn">
                 Choose File
               </button>
 
               <p id="files-area"><span id="invoice_filesList"><span id="files-names"></span></span></p>
             </div>
-            
+
           </div>
 
           <div class="col-sm-8 col-md-2">
@@ -135,26 +135,28 @@
               <label for="invoices">Upload E-wayBill</label>
               <input type="file" name="ewaybill" accept=".pdf" class="pt-1 rounded-0" id="ewaybill"
                 style="visibility: hidden;position:absolute;" div="form-group">
-              <button id="OpenImgUploadEwaybill" type="button" class="upload_ewaybill d-block btn bg-gradient-button mb-0 file-upld-btn">
+              <button id="OpenImgUploadEwaybill" type="button"
+                class="upload_ewaybill d-block btn bg-gradient-button mb-0 file-upld-btn">
                 Choose File
               </button>
 
               <p id="files-area"><span id="ewaybill_filesList"><span id="files-names"></span></span></p>
             </div>
-            
+
           </div>
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
               <label for="invoices">Other Document</label>
               <input type="file" name="others" accept=".pdf" class="pt-1 rounded-0" id="others"
                 style="visibility: hidden;position:absolute;" div="form-group">
-              <button id="OpenImgUploadOthers" type="button" class="other_document d-block btn bg-gradient-button mb-0 file-upld-btn">
+              <button id="OpenImgUploadOthers" type="button"
+                class="other_document d-block btn bg-gradient-button mb-0 file-upld-btn">
                 Choose File
               </button>
 
               <p id="files-area"><span id="others_filesList"><span id="files-names"></span></span></p>
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -242,8 +244,12 @@
                     <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>">
                       <?= ($row['PoFooters']['net_price'] * $row['actual_qty']) ?>
                     </td>
-                    <td><span id="current_stock"><?php echo ($materialStock) ? $materialStock->current_stock : 0?></span></td>
-                    <td><span id="minimum_stock"><?php echo ($materialStock) ? $materialStock->material->minimum_stock : 0 ?></span></td>
+                    <td><span id="current_stock">
+                        <?php echo ($materialStock) ? $materialStock->current_stock : 0?>
+                      </span></td>
+                    <td><span id="minimum_stock">
+                        <?php echo ($materialStock) ? $materialStock->material->minimum_stock : 0 ?>
+                      </span></td>
                   </tr>
                   <?php endforeach; ?>
                 </tbody>
@@ -305,22 +311,32 @@
     const dt2 = new DataTransfer();
     const dt3 = new DataTransfer();
     $(document).ready(function ($) {
-      $('.check_qty').trigger('keyup');
+      var subTotal = 0;
+      $(".check_qty").each(function (i, o) {
+        var id = $(this).attr('data-item');
+        var netPrice = $(this).attr('data-net-price');
+        $("#net_value_" + id).html($(o).val() * netPrice);
+        $('.net_value').each(function (i, obj) {
+        var tmp = 0
+        if ($(obj).html() == NaN) { tmp = 0; }
+        else { tmp = $(obj).html(); }
+        subTotal = (subTotal + parseFloat(tmp));
+      });
+      });
+      gst = subTotal * 18 / 100;
+      $("#sub_total").html(subTotal);
+      $("#total_gst").html(gst);
+      $("#total_value").html(subTotal + gst);
+      $('#invoice_value').val(subTotal + gst)
     });
 
     $('#invoices').on('change', function (event) {
       var files = event.target.files;
       for (var i = 0; i < this.files.length; i++) {
-        let fileBloc = $('<span/>', {
-          class: 'file-block'
-        }),
-          fileName = $('<span/>', {
-            class: 'name',
-            text: this.files.item(i).name
-          });
+        let fileBloc = $('<span/>', { class: 'file-block' }),
+          fileName = $('<span/>', { class: 'name', text: this.files.item(i).name });
         $("#invoice_filesList > #files-names").append(fileBloc);
-        fileBloc.append('<span class="file-invoice-delete"><span><i class="fas fa-times-circle text-danger"></i></span></span>')
-          .append(fileName);
+        fileBloc.append('<span class="file-invoice-delete"><span><i class="fas fa-times-circle text-danger"></i></span></span>').append(fileName);
       };
 
       for (let file of this.files) { dt.items.add(file); }
@@ -342,16 +358,10 @@
     $('#ewaybill').on('change', function (event) {
       var files = event.target.files;
       for (var i = 0; i < this.files.length; i++) {
-        let fileBloc = $('<span/>', {
-          class: 'file-block'
-        }),
-          fileName = $('<span/>', {
-            class: 'name',
-            text: this.files.item(i).name
-          });
+        let fileBloc = $('<span/>', { class: 'file-block' }),
+          fileName = $('<span/>', { class: 'name', text: this.files.item(i).name });
         $("#ewaybill_filesList > #files-names").append(fileBloc);
-        fileBloc.append('<span class="file-ewaybill-delete"><span><i class="fas fa-times-circle text-danger"></i></span></span>')
-          .append(fileName);
+        fileBloc.append('<span class="file-ewaybill-delete"><span><i class="fas fa-times-circle text-danger"></i></span></span>').append(fileName);
       };
 
       for (let file of this.files) { dt2.items.add(file); }
@@ -429,10 +439,10 @@
       $('#invoice_value').val(subTotal + gst)
     });
 
-    $.validator.addMethod("validateVehicleNo", function (value, element) {
-    const pattern = /^[A-Z]{2}\d{2}[a-z]{2,}\d{4}$/;
-    return this.optional(element) || pattern.test(value);
-  }, "Please enter a valid vehicle number (e.g., MH02vd2626)");
+    // $.validator.addMethod("validateVehicleNo", function (value, element) {
+    //   const pattern = /^[A-Z]{2}\d{2}[a-z]{2,}\d{4}$/;
+    //   return this.optional(element) || pattern.test(value);
+    // }, "Please enter a valid vehicle number (e.g., MH02vd2626)");
 
 
 
@@ -502,11 +512,11 @@
     });
 
 
-    $("#vehicle-no").on("keyup", function() {
-    const currentValue = $(this).val();
-    const capitalizedValue = currentValue.slice(0, 2).toUpperCase() + currentValue.slice(2);
-    $(this).val(capitalizedValue);
-  });
+    $("#vehicle-no").on("keyup", function () {
+      const currentValue = $(this).val();
+      const capitalizedValue = currentValue.slice(0, 2).toUpperCase() + currentValue.slice(2);
+      $(this).val(capitalizedValue);
+    });
 
     $("#Create-btn").click(function () {
       if ($("#asnForm").valid()) { // Check form validation
@@ -564,13 +574,8 @@
     var currStock = parseFloat($("#current_stock").text());
     var minStock = parseFloat($("#minimum_stock").text());
 
-    console.log('stock=' + currStock+"="+minStock );
+    // console.log('stock=' + currStock+"="+minStock );
     if(currStock < minStock) {
-        $("#error_msg").text('Please maintain minimum stocks');
-    }
-
-    if(currStock == 0) {
-        $("#Create-btn").attr('disabled', 'disabled');
         $("#error_msg").text('Please maintain minimum stocks');
     }
 
