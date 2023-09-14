@@ -46,6 +46,7 @@ class LineMastersTable extends Table
 
         $this->belongsTo('VendorFactories', [
             'foreignKey' => 'vendor_factory_id',
+            'joinType' => 'INNER',
         ]);
         $this->hasMany('ProductionLines', [
             'foreignKey' => 'line_master_id',
@@ -68,7 +69,7 @@ class LineMastersTable extends Table
 
         $validator
             ->integer('vendor_factory_id')
-            ->allowEmptyString('vendor_factory_id');
+            ->notEmptyString('vendor_factory_id');
 
         $validator
             ->scalar('name')
@@ -111,7 +112,7 @@ class LineMastersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['sap_vendor_code', 'vendor_factory_id', 'name'], ['allowMultipleNulls' => true]), ['errorField' => 'sap_vendor_code']);
+        $rules->add($rules->isUnique(['sap_vendor_code', 'vendor_factory_id', 'name']), ['errorField' => 'sap_vendor_code']);
         $rules->add($rules->existsIn('vendor_factory_id', 'VendorFactories'), ['errorField' => 'vendor_factory_id']);
 
         return $rules;

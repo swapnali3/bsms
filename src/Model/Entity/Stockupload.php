@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $sap_vendor_code
- * @property int|null $vendor_factory_id
+ * @property int $vendor_factory_id
  * @property int $material_id
  * @property string $opening_stock
  * @property string $production_stock

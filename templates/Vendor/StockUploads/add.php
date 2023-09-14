@@ -24,7 +24,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                 <div class="row dgf m-0">
                 <div class="col-sm-8 col-md-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100', 'options' => $vendor_factory, 'id' => 'descripe',  'empty' => 'Please Select', 'label' => 'Factory Code')); ?>
+                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100', 'options' => $vendor_factory,  'empty' => 'Please Select', 'label' => 'Factory Code')); ?>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-3">

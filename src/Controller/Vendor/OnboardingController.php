@@ -262,7 +262,12 @@ class OnboardingController extends VendorAppController
             }
 
             //echo '<pre>'; print_r($data); exit;
-            $buyer = $this->Users->get($vendorTemp->buyer_id);
+            $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $vendorTemp->company_code_id, 'purchasing_organization_id' => $vendorTemp->purchasing_organization_id])->toArray();
+            $buyersEmails = [];
+            foreach($buyerList as $email) {
+                $buyersEmails[] = $email->email; 
+            }
+            //$buyer = $this->Users->get($vendorTemp->buyer_id);
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
             if ($this->VendorTemps->save($vendorTemp)) {
                 $flash = ['type'=>'success', 'msg'=>'The request sent for approval'];
@@ -274,7 +279,7 @@ class OnboardingController extends VendorAppController
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'New Vendor Oboarding', 'mailbody' => 'A new vendor has onboarded', 'link' => $visit_url, 'linktext' => 'VEKPRO' ])
                     ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
-                    ->setTo($buyer['username'])
+                    ->setTo($buyersEmails)
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')
                     ->viewBuilder()

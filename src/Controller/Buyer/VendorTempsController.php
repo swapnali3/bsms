@@ -682,17 +682,19 @@ class VendorTempsController extends BuyerAppController
 
         $session = $this->getRequest()->getSession();
 
-        // echo '<pre>'; print_r($this->request->getData()); exit;
+        //echo '<pre>'; print_r($this->request->getData()); exit;
         if ($this->request->is(['patch', 'post', 'put'])) {
             try {
                 $VendorTemp = $this->VendorTemps->newEmptyEntity();
                 $data = $this->request->getData();
                 $data['company_code_id'] = $session->read('company_code_id');
                 $data['purchasing_organization_id'] = $session->read('purchasing_organization_id');
-                $data['buyer_id'] = $session->read('id');
+                //$data['buyer_id'] = $session->read('id');
                 $data['valid_date'] = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' +1 day'));
+
                 $VendorTemp = $this->VendorTemps->patchEntity($VendorTemp, $data);
 
+                
                 $result = $this->VendorTemps->find('all')
                 ->select(['title','name', 'mobile', 'email','purchasing_organization_id', 'status'])
                 ->where([
@@ -739,12 +741,13 @@ class VendorTempsController extends BuyerAppController
                             ->setTemplate('mail_template');
                     $mailer->deliver();
                 }
+                //echo '<pre>'; print_r($VendorTemp); exit;
+            } catch (\PDOException $e) {
+                $response['status'] = 'fail';
+                $response['message'] = $e->getMessage();
             } catch (\Exception $e) {
                 $response['status'] = 'fail';
-                $response['message'] = 'Contact Administrator';
-                if ($e->getMessage()) {
-                    $response['message'] = $e->getMessage();
-                }
+                $response['message'] = $e->getMessage();
             }
         }
 

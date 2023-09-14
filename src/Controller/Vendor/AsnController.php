@@ -179,8 +179,17 @@ class AsnController extends VendorAppController
             'material_id' => $deliveryDetail->material_id, 
             'vendor_factory_id' => $deliveryDetail->vendor_factory_id)])->first();
 
-            $stockDetails = $this->StockUploads->patchEntity($stockDetails, ['asn_stock' => ($stockDetails->asn_stock + $deliveryDetail->qty)]);
-            $this->StockUploads->save($stockDetails);
+            if($stockDetails) {
+                $stockDetails = $this->StockUploads->patchEntity($stockDetails, ['asn_stock' => ($stockDetails->asn_stock + $deliveryDetail->qty)]);
+                if($this->StockUploads->save($stockDetails)) {
+                    $response['status'] = 'success';
+                    $response['message'] = 'success';
+                }
+
+            } else {
+                $response['status'] = 'fail';
+                $response['message'] = 'Stock not found';
+            }
             
             /*$asnUpload = [];
             $uploadFileContent = json_encode($data);
