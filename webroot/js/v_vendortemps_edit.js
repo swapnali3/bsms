@@ -174,10 +174,10 @@ function load_data(i, v) {
                             <label for="id_vendor_branch_offices_registration_no">Registration No</label>
                             <input required="required" type="text" value="`+ b.registration_no + `" class="form-control" name="branch_offices[` + a + `][registration_no]" id="id_vendor_branch_offices_` + a + `_registration_no">
                         </div>
-                        <div class="col-sm-12 col-md-3 mb-3 required">
+                        <div class="col-sm-12 col-md-3 mb-3">
                             <label class="form-label">Registration Certificate</label>
                             <div class="custom-file">
-                                <input required="required" name="branch_offices[`+ a + `][registration_certificate]" type="file" accept=".pdf" required="true" class="custom-file-input" id="id_vendor_branch_offices_` + a + `_registration_certificate">
+                                <input name="branch_offices[`+ a + `][registration_certificate]" type="file" accept=".pdf" required="true" class="custom-file-input" id="id_vendor_branch_offices_` + a + `_registration_certificate">
                                 <label class="custom-file-label">Choose File</label>
                             </div>
                             <a href="`+ baseurl + b.registration_certificate + `">` + rmv_secondlast(b.registration_certificate) + `</a>
@@ -193,7 +193,7 @@ function load_data(i, v) {
             $.each(v, function (a, b) {
                 $.each(b, function (x, y) {
                     if (x == "isi_registration" || x == "lab_facility" || x == "quality_control" || x == "sales_services" || x == "test_facility") { $(`#id_vendor_facilities_` + x + `_` + y).trigger('click'); $(`.id_vendor_facilities_` + x + '_file').trigger('click'); }
-                    else if (x == "isi_registration_file" || x == "lab_facility_file" || x == "quality_control_file" || x == "sales_services_file" || x == "test_facility_file") { $(`.id_vendor_facilities_` + x).attr('href', y).text(rmv_secondlast(y)); }
+                    else if (x == "isi_registration_file" || x == "lab_facility_file" || x == "quality_control_file" || x == "sales_services_file" || x == "test_facility_file") { $(`.id_vendor_facilities_` + x).attr('target', '_blank').attr('href', baseurl + "" + y).text(rmv_secondlast(y)); }
                     else { $(`#id_vendor_facilities_` + x).val(y); }
                 });
             });
@@ -248,7 +248,7 @@ function load_data(i, v) {
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="custom-file">
-                                            <input required="required" name="factories[`+ a + `][installed_capacity_file]" type="file" accept=".pdf" required="true" class="custom-file-input">
+                                            <input name="factories[`+ a + `][installed_capacity_file]" type="file" accept=".pdf" required="true" class="custom-file-input">
                                             <label class="custom-file-label" id="id_vendor_factories_`+ a + `_installed_capacity_file">
                                                 Choose File
                                             </label>
@@ -269,7 +269,7 @@ function load_data(i, v) {
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="custom-file">
-                                            <input required="required" name="factories[`+ a + `][power_available_file]" type="file"
+                                            <input name="factories[`+ a + `][power_available_file]" type="file"
                                                 accept=".pdf" class="custom-file-input" required="true">
                                             <label class="custom-file-label"
                                                 id="id_vendor_factories_`+ a + `_power_available_file">
@@ -290,7 +290,7 @@ function load_data(i, v) {
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="custom-file">
-                                            <input required="required" name="factories[`+ a + `][machinery_available_file]" type="file" accept=".pdf" class="custom-file-input" required="true">
+                                            <input name="factories[`+ a + `][machinery_available_file]" type="file" accept=".pdf" class="custom-file-input" required="true">
                                             <label class="custom-file-label" id="id_vendor_factories_`+ a + `_machinery_available_file">
                                                 Choose File
                                             </label>
@@ -310,7 +310,7 @@ function load_data(i, v) {
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="custom-file">
-                                            <input required="required" name="factories[`+ a + `][raw_material_file]" type="file" accept=".pdf" class="custom-file-input" required="true">
+                                            <input name="factories[`+ a + `][raw_material_file]" type="file" accept=".pdf" class="custom-file-input" required="true">
                                             <label class="custom-file-label" id="id_vendor_factories_`+ a + `_raw_material_file">
                                                 Choose File
                                             </label>
@@ -420,7 +420,7 @@ function load_data(i, v) {
             break;
         case 'vendor_incometaxes':
             $.each(v, function (a, b) {
-                if (a == 'certificate_file' || a == 'balance_sheet_file') { $(`.id_vendor_incometaxes_` + a).attr('href', b).text(rmv_secondlast(b)); }
+                if (a == 'certificate_file' || a == 'balance_sheet_file') { $(`.id_vendor_incometaxes_` + a).attr('target', '_blank').attr('href', b).text(rmv_secondlast(b)); }
                 else { $(`#id_vendor_incometaxes_` + a).val(b); }
             });
             break;
@@ -433,10 +433,10 @@ function load_data(i, v) {
                 $(`#id_vendor_otherdetails_iso`).val(v.iso);
                 $(`#id_vendor_otherdetails_six_sigma`).text(v.six_sigma);
                 $(`#id_vendor_otherdetails_suppliers_name`).val(v.suppliers_name);
-                $(`.id_vendor_otherdetails_declaration_file`).attr('href', v.declaration_file).text(rmv_secondlast(v.declaration_file));
-                $(`.id_vendor_otherdetails_halal_file`).attr('href', v.halal_file).text(rmv_secondlast(v.halal_file));
-                $(`.id_vendor_otherdetails_iso_file`).attr('href', v.iso_file).text(rmv_secondlast(v.iso_file));
-                $(`.id_vendor_otherdetails_six_sigma_file`).attr('href', v.six_sigma_file).text(rmv_secondlast(v.six_sigma_file));
+                $(`.id_vendor_otherdetails_declaration_file`).attr('target', '_blank').attr('href', baseurl + "" + v.declaration_file).text(rmv_secondlast(v.declaration_file));
+                $(`.id_vendor_otherdetails_halal_file`).attr('target', '_blank').attr('href', baseurl + "" + v.halal_file).text(rmv_secondlast(v.halal_file));
+                $(`.id_vendor_otherdetails_iso_file`).attr('target', '_blank').attr('href', baseurl + "" + v.iso_file).text(rmv_secondlast(v.iso_file));
+                $(`.id_vendor_otherdetails_six_sigma_file`).attr('target', '_blank').attr('href', baseurl + "" + v.six_sigma_file).text(rmv_secondlast(v.six_sigma_file));
             }
             break;
         case 'vendor_partner_address':
@@ -493,13 +493,13 @@ function load_data(i, v) {
                                 <label for="id_vendor_partner_address_`+ a + `_state">State</label>
                                 <select class="form-control" name="partner_address[`+ a + `][state]" id="id_vendor_partner_address_` + a + `_state"></select>
                             </div>
-                            <div class="col-sm-12 col-md-3 mb-3 required">
+                            <div class="col-sm-12 col-md-3 mb-3">
                                 <label for="id_vendor_partner_address_`+ a + `_telephone">Telephone</label>
-                                <input required="required" type="number" value="`+ b.telephone + `" class="form-control" name="partner_address[` + a + `][telephone]" id="id_vendor_partner_address_` + a + `_telephone">
+                                <input  minlength="10" maxlength="14" type="number" value="`+ b.telephone + `" class="form-control" name="partner_address[` + a + `][telephone]" id="id_vendor_partner_address_` + a + `_telephone">
                             </div>
-                            <div class="col-sm-12 col-md-3 mb-3 required">
+                            <div class="col-sm-12 col-md-3 mb-3">
                                 <label for="id_vendor_partner_address_`+ a + `_fax_no">Fax No.</label>
-                                <input required="required" type="text" value="`+ b.fax_no + `" class="form-control" name="partner_address[` + a + `][fax_no]" id="id_vendor_partner_address_` + a + `_fax_no">
+                                <input  minlength="10" maxlength="14" type="text" value="`+ b.fax_no + `" class="form-control" name="partner_address[` + a + `][fax_no]" id="id_vendor_partner_address_` + a + `_fax_no">
                             </div>
                         </div>
                     </div>
@@ -594,16 +594,16 @@ function load_data(i, v) {
                         </div>
                     </div>
                     <div class="col-3 mb-3 col-md-3">
-                        <div class="form-group required">
+                        <div class="form-group">
                             <label for="id_telephone">Telephone</label>
-                            <input required="required" type="number" id="id_vendor_reputed_customers_`+ a + `_telephone" value="` + b.telephone + `" name="reputed_customers[` + a + `][telephone]" class="form-control maxlength_validation" required="true" maxlength="10">
+                            <input type="number" id="id_vendor_reputed_customers_`+ a + `_telephone" value="` + b.telephone + `" name="reputed_customers[` + a + `][telephone]" class="form-control maxlength_validation"  minlength="10" maxlength="14">
                         </div>
                     </div>
                     <div class="col-3 mb-3 col-md-3">
                         <div class="form-group">
-                            <div class="input number required">
+                            <div class="input number">
                                 <label for="reputed_faxno">Fax No.</label>
-                                <input required="required" type="number" name="reputed_customers[`+ a + `][fax_no]" value="` + b.fax_no + `" id="id_vendor_reputed_customers_` + a + `_fax_no" class="form-control maxlength_validation" required="required" maxlength="10" aria-required="true">
+                                <input type="number" name="reputed_customers[`+ a + `][fax_no]" value="` + b.fax_no + `" id="id_vendor_reputed_customers_` + a + `_fax_no" class="form-control maxlength_validation" minlength="10" maxlength="14">
                             </div>
                         </div>
                     </div>
@@ -620,7 +620,7 @@ function load_data(i, v) {
         case 'vendor_small_scales':
             $.each(v, function (a, b) {
                 $(`#id_vendor_small_scales_` + a).val(b);
-                if (a == 'certificate_file') { $(`.id_vendor_small_scales_certificate_file`).attr('href', b).text(rmv_secondlast(b)); }
+                if (a == 'certificate_file') { $(`.id_vendor_small_scales_certificate_file`).attr('target', '_blank').attr('href', baseurl+""+b).text(rmv_secondlast(b)); }
             });
             break;
         case 'vendor_temps':
@@ -628,7 +628,7 @@ function load_data(i, v) {
             $.each(v, function (x, y) {
                 if (x == 'country_id') { $(`#id_vendor_temps_country`).val(y).trigger('change'); }
                 else if (x == 'state_id') { setTimeout(function () { $(`#id_vendor_temps_state`).val(y); }, 2000); }
-                else if (x == 'pan_file' || x == 'gst_file' || x == 'bank_file') { $(`.id_vendor_temps_` + x).attr('href', y).text(rmv_secondlast(y)); }
+                else if (x == 'pan_file' || x == 'gst_file' || x == 'bank_file' && y != "" && y != undefined && y != null) { $(`.id_vendor_temps_` + x).attr('target', '_blank').attr('href', baseurl + "" + y).text(rmv_secondlast(y)); }
                 else { $(`#id_vendor_temps_` + x).val(y); }
             });
             break;
@@ -676,9 +676,9 @@ $(document).on("click", "#id_branch_offices_add", function () {
                     <label for="id_vendor_branch_offices_state">State</label>
                     <select class="form-control" name="branch_offices[`+ lid + `][state]" id="id_vendor_branch_offices_` + lid + `_state"><option>Please Select</option></select>
                 </div>
-                <div class="col-sm-12 col-md-3 mb-3 required">
+                <div class="col-sm-12 col-md-3 mb-3">
                     <label for="id_vendor_branch_offices_telephone">Telephone</label>
-                    <input required="required" type="number" class="form-control" name="branch_offices[`+ lid + `][telephone]" id="id_vendor_branch_offices_` + lid + `_telephone">
+                    <input type="number"  minlength="10" maxlength="14" class="form-control" name="branch_offices[`+ lid + `][telephone]" id="id_vendor_branch_offices_` + lid + `_telephone">
                 </div>
             </div>
             <div class="row">
@@ -693,7 +693,7 @@ $(document).on("click", "#id_branch_offices_add", function () {
                 <div class="col-sm-12 col-md-3 mb-3 required">
                     <label class="form-label">Registration Certificate</label>
                     <div class="custom-file">
-                        <input required="required" name="branch_offices[`+ lid + `][registration_certificate]" type="file" accept=".pdf" required="true" class="custom-file-input" id="id_vendor_branch_offices_` + lid + `_registration_certificate">
+                        <input name="branch_offices[`+ lid + `][registration_certificate]" type="file" accept=".pdf" required="true" class="custom-file-input" id="id_vendor_branch_offices_` + lid + `_registration_certificate">
                         <label class="custom-file-label">Choose File</label>
                     </div>
                 </div>
@@ -765,13 +765,13 @@ $(document).on("click", "#id_vendor_partner_add", function () {
                     <label for="id_vendor_partner_address_`+ lid + `_state">State</label>
                     <select class="form-control" name="partner_address[`+ lid + `][state]" id="id_vendor_partner_address_` + lid + `_state"></select>
                 </div>
-                <div class="col-sm-12 col-md-3 mb-3 required">
+                <div class="col-sm-12 col-md-3 mb-3">
                     <label for="id_vendor_partner_address_`+ lid + `_telephone">Telephone</label>
-                    <input required="required" type="number" class="form-control maxlength_validation" maxlength="10" name="partner_address[`+ lid + `][telephone]" id="id_vendor_partner_address_` + lid + `_telephone">
+                    <input  minlength="10" maxlength="14" type="number" class="form-control maxlength_validation" name="partner_address[`+ lid + `][telephone]" id="id_vendor_partner_address_` + lid + `_telephone">
                 </div>
-                <div class="col-sm-12 col-md-3 mb-3 required">
+                <div class="col-sm-12 col-md-3 mb-3">
                     <label for="id_vendor_partner_address_`+ lid + `_fax_no">Fax No.</label>
-                    <input required="required" type="text" class="form-control" name="partner_address[`+ lid + `][fax_no]" id="id_vendor_partner_address_` + lid + `_fax_no">
+                    <input  minlength="10" maxlength="14" type="text" class="form-control" name="partner_address[`+ lid + `][fax_no]" id="id_vendor_partner_address_` + lid + `_fax_no">
                 </div>
             </div>
         </div>
@@ -841,16 +841,16 @@ $(document).on("click", "#id_reputed_customer_add", function () {
             </div>
         </div>
         <div class="col-3 mb-3 col-md-3">
-            <div class="form-group required">
+            <div class="form-group">
                 <label for="id_telephone">Telephone</label>
-                <input required="required" type="number" id="id_vendor_reputed_customers_`+ lid + `_telephone" name="reputed_customers[` + lid + `][telephone]" class="form-control maxlength_validation" required="true" maxlength="10">
+                <input  minlength="10" maxlength="14" type="number" id="id_vendor_reputed_customers_`+ lid + `_telephone" name="reputed_customers[` + lid + `][telephone]" class="form-control maxlength_validation" required="true">
             </div>
         </div>
         <div class="col-3 mb-3 col-md-2">
             <div class="form-group">
-                <div class="input number required">
+                <div class="input number">
                     <label for="reputed_faxno">Fax No.</label>
-                    <input required="required" type="number" name="reputed_customers[`+ lid + `][fax_no]" id="id_vendor_reputed_customers_` + lid + `_fax_no" class="form-control maxlength_validation" required="required" maxlength="10" aria-required="true">
+                    <input type="number" name="reputed_customers[`+ lid + `][fax_no]" id="id_vendor_reputed_customers_` + lid + `_fax_no" class="form-control maxlength_validation" minlength="10" maxlength="14">
                 </div>
             </div>
         </div>

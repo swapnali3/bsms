@@ -223,12 +223,12 @@
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <?php echo $this->Form->control('registered_offices[state]', ['class' => 'selectpicker form-control my-select1', 'options' => $states, 'label' => 'State', 'data-live-search' => 'true', 'empty' => 'Select State', 'title' => 'Select State', 'id' => 'id_vendor_registered_offices_state']); ?>
                                     </div>
-                                    <div class="col-sm-12 col-md-3 mb-3 required">
+                                    <div class="col-sm-12 col-md-3 mb-3">
                                         <label for="id_vendor_registered_offices_telephone">Telephone</label>
-                                        <input required="required" type="number"
+                                        <input type="number"
                                             class="form-control maxlength_validation"
                                             name="registered_offices[telephone]"
-                                            id="id_vendor_registered_offices_telephone" maxlength="10">
+                                            id="id_vendor_registered_offices_telephone" minlength="10" maxlength="14">
                                     </div>
                                 </div>
                             </div>
@@ -325,12 +325,12 @@
                                                     name="branch_offices[0][registration_no]"
                                                     id="id_vendor_branch_offices_0_registration_no">
                                             </div>
-                                            <div class="col-sm-12 col-md-3 mb-3 required">
+                                            <div class="col-sm-12 col-md-3 mb-3">
                                                 <label class="form-label">Registration Certificate</label>
                                                 <div class="custom-file">
-                                                    <input required="required"
+                                                    <input
                                                         name="branch_offices[0][registration_certificate]" type="file"
-                                                        accept=".pdf" required="true" class="custom-file-input"
+                                                        accept=".pdf" class="custom-file-input"
                                                         id="id_vendor_branch_offices_0_registration_certificate">
                                                     <label class="custom-file-label">Choose File</label>
                                                 </div>
@@ -372,8 +372,8 @@
                                             Registration Certificate
                                         </label>
                                         <div class="custom-file">
-                                            <input required="required" name="small_scale[certificate_file]" type="file"
-                                                accept=".pdf" required="true" class="custom-file-input">
+                                            <input name="small_scale[certificate_file]" type="file"
+                                                accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                         <a class="id_vendor_small_scales_certificate_file"></a>
@@ -413,8 +413,8 @@
                                             id="id_vendor_facilities_lab_facility_no" value="no">
                                         &nbsp;No
                                         <div class="custom-file mt-2 hide" id="id_vendor_facilities_lab_facility_file">
-                                            <input required="required" name="facilities[lab_facility_file]"
-                                                required="true" type="file" accept=".pdf" class="custom-file-input"
+                                            <input name="facilities[lab_facility_file]"
+                                                type="file" accept=".pdf" class="custom-file-input"
                                                 id="id_vendor_facilities_lab_facility_file">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
@@ -432,8 +432,8 @@
                                         &nbsp;No
                                         <div class="custom-file mt-2 hide"
                                             id="id_vendor_facilities_isi_registration_file">
-                                            <input required="required" name="facilities[isi_registration_file]"
-                                                required="true" type="file" accept=".pdf" class="custom-file-input"
+                                            <input name="facilities[isi_registration_file]"
+                                                type="file" accept=".pdf" class="custom-file-input"
                                                 id="id_vendor_facilities_lab_facility_file">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
@@ -450,8 +450,8 @@
                                             id="id_vendor_facilities_test_facility_no" value="no">
                                         &nbsp;No
                                         <div class="custom-file mt-2 hide" id="id_vendor_facilities_test_facility_file">
-                                            <input required="required" name="facilities[test_facility_file]"
-                                                required="true" type="file" accept=".pdf" class="custom-file-input">
+                                            <input name="facilities[test_facility_file]"
+                                                type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                         <a class="id_vendor_facilities_test_facility_file"></a>
@@ -470,8 +470,8 @@
                                         &nbsp;No
                                         <div class="custom-file mt-2 hide"
                                             id="id_vendor_facilities_sales_services_file">
-                                            <input required="required" name="facilities[sales_services_file]"
-                                                required="true" type="file" accept=".pdf" class="custom-file-input">
+                                            <input name="facilities[sales_services_file]"
+                                                type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                         <a class="id_vendor_facilities_sales_services_file"></a>
@@ -490,8 +490,8 @@
                                         &nbsp;No
                                         <div class="custom-file mt-2 hide"
                                             id="id_vendor_facilities_quality_control_file">
-                                            <input required="required" name="facilities[quality_control_file]"
-                                                required="true" type="file" accept=".pdf" class="custom-file-input">
+                                            <input name="facilities[quality_control_file]"
+                                                type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
                                         <a class="id_vendor_facilities_quality_control_file"></a>
@@ -565,8 +565,8 @@
                                     <div class="col-lg-3 required">
                                         <label class="form-label">Certificate Document</label>
                                         <div class="custom-file">
-                                            <input required="required" name="incometaxes[certificate_file]"
-                                                required="true" type="file" accept=".pdf" class="custom-file-input"
+                                            <input name="incometaxes[certificate_file]"
+                                                type="file" accept=".pdf" class="custom-file-input"
                                                 id="id_vendor_incometaxes_certificate_file">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
@@ -579,8 +579,8 @@
                                     <div class="col-4 required">
                                         <label class="form-label">Latest Copy of Balance Sheet</label>
                                         <div class="custom-file">
-                                            <input required="required" name="incometaxes[balance_sheet_file]"
-                                                required="true" type="file" accept=".pdf" class="custom-file-input"
+                                            <input name="incometaxes[balance_sheet_file]"
+                                                type="file" accept=".pdf" class="custom-file-input"
                                                 id="id_vendor_incometaxes_balance_sheet_file">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
@@ -666,7 +666,7 @@
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input required="required"
+                                                            <input
                                                                 name="factories[0][installed_capacity_file]" type="file"
                                                                 accept=".pdf" required="true" class="custom-file-input">
                                                             <label class="custom-file-label"
@@ -691,9 +691,9 @@
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input required="required"
+                                                            <input
                                                                 name="factories[0][power_available_file]" type="file"
-                                                                accept=".pdf" class="custom-file-input" required="true">
+                                                                accept=".pdf" class="custom-file-input">
                                                             <label class="custom-file-label"
                                                                 id="id_vendor_factories_0_power_available_file">
                                                                 Choose File
@@ -716,10 +716,10 @@
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input required="required"
+                                                            <input 
                                                                 name="factories[0][machinery_available_file]"
                                                                 type="file" accept=".pdf" class="custom-file-input"
-                                                                required="true">
+                                                                >
                                                             <label class="custom-file-label"
                                                                 id="id_vendor_factories_0_machinery_available_file">
                                                                 Choose File
@@ -743,9 +743,9 @@
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <div class="custom-file">
-                                                            <input required="required"
+                                                            <input 
                                                                 name="factories[0][raw_material_file]" type="file"
-                                                                accept=".pdf" class="custom-file-input" required="true">
+                                                                accept=".pdf" class="custom-file-input" >
                                                             <label class="custom-file-label"
                                                                 id="id_vendor_factories_0_raw_material_file">
                                                                 Choose File
@@ -982,16 +982,15 @@
                                                 <select class="form-control" name="partner_address[0][state]"
                                                     id="id_vendor_partner_address_0_state"></select>
                                             </div>
-                                            <div class="col-sm-12 col-md-3 mb-3 required">
+                                            <div class="col-sm-12 col-md-3 mb-3">
                                                 <label for="id_vendor_partner_address_0_telephone">Telephone</label>
-                                                <input required="required" type="number"
-                                                    class="form-control maxlength_validation"
+                                                <input type="number" class="form-control maxlength_validation"
                                                     name="partner_address[0][telephone]"
-                                                    id="id_vendor_partner_address_0_telephone" maxlength="10">
+                                                    id="id_vendor_partner_address_0_telephone"  minlength="10" maxlength="14">
                                             </div>
-                                            <div class="col-sm-12 col-md-3 mb-3 required">
+                                            <div class="col-sm-12 col-md-3 mb-3">
                                                 <label for="id_vendor_partner_address_0_fax_no">Fax No.</label>
-                                                <input required="required" type="text" class="form-control"
+                                                <input  minlength="10" maxlength="14" type="text" class="form-control"
                                                     name="partner_address[0][fax_no]"
                                                     id="id_vendor_partner_address_0_fax_no">
                                             </div>
@@ -1097,7 +1096,7 @@
 
                                     <div class="card-footer p-2" style="background-color: whitesmoke;">
                                         <div class="custom-file">
-                                            <input required="required" name="temps[gst_file]" type="file" accept=".pdf"
+                                            <input name="temps[gst_file]" type="file" accept=".pdf"
                                                 class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
@@ -1114,7 +1113,7 @@
                                     </div>
                                     <div class="card-footer p-2" style="background-color: whitesmoke;">
                                         <div class="custom-file">
-                                            <input required="required" name="temps[pan_file]" type="file" accept=".pdf"
+                                            <input name="temps[pan_file]" type="file" accept=".pdf"
                                                 class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
@@ -1127,8 +1126,7 @@
                                     <div class="card-footer p-2 required" style="background-color: whitesmoke;">
                                         <label for="">Cancelled Cheque</label>
                                         <div class="custom-file">
-                                            <input required="required" type="hidden" name="temps[bank_file]">
-                                            <input required="required" name="temps[bank_file]" type="file"
+                                            <input name="temps[bank_file]" type="file"
                                                 accept=".pdf,image/jpeg, image/png" class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
                                         </div>
@@ -1163,7 +1161,7 @@
                                     <div class="col-sm-12 col-md-3 col-lg-3 required">
                                         <label class="form-label">Upload File</label>
                                         <div class="custom-file">
-                                            <input required="required" name="otherdetails[six_sigma_file]"
+                                            <input name="otherdetails[six_sigma_file]"
                                                 id="id_vendor_otherdetails_six_sigma_file" type="file" accept=".pdf"
                                                 class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
@@ -1179,7 +1177,7 @@
                                     <div class="col-sm-12 col-md-3 col-lg-3 required">
                                         <label class="form-label">ISO Registration / Certificate</label>
                                         <div class="custom-file">
-                                            <input required="required" name="otherdetails[iso_file]"
+                                            <input name="otherdetails[iso_file]"
                                                 id="id_vendor_otherdetails_iso_file" type="file" accept=".pdf"
                                                 class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
@@ -1200,7 +1198,7 @@
                                         style="border-right: 1px solid #dee2e6;">
                                         <label class="form-label">Certificate File</label>
                                         <div class="custom-file">
-                                            <input required="required" name="otherdetails[halal_file]"
+                                            <input name="otherdetails[halal_file]"
                                                 id="id_vendor_otherdetails_halal_file" type="file" accept=".pdf"
                                                 class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
@@ -1210,7 +1208,7 @@
                                     <div class="col-sm-12 col-md-6 col-lg-6 mt-3 required">
                                         <label class="form-label">Declaration</label>
                                         <div class="custom-file">
-                                            <input required="required" name="otherdetails[declaration_file]"
+                                            <input name="otherdetails[declaration_file]"
                                                 id="id_vendor_otherdetails_declaration_file" type="file" accept=".pdf"
                                                 class="custom-file-input">
                                             <label class="custom-file-label">Choose File</label>
@@ -1428,24 +1426,24 @@
                                         </div>
                                     </div>
                                     <div class="col-3 mb-3 col-md-3">
-                                        <div class="form-group required">
+                                        <div class="form-group">
                                             <label for="id_telephone">Telephone</label>
-                                            <input required="required" type="number"
+                                            <input type="number"
                                                 id="id_vendor_reputed_customers_0_telephone"
                                                 name="reputed_customers[0][telephone]"
-                                                class="form-control maxlength_validation" required="true"
-                                                maxlength="10">
+                                                class="form-control maxlength_validation"
+                                                minlength="10" maxlength="14">
                                         </div>
                                     </div>
                                     <div class="col-3 mb-3 col-md-3">
                                         <div class="form-group">
-                                            <div class="input number required">
+                                            <div class="input number">
                                                 <label for="reputed_faxno">Fax No.</label>
-                                                <input required="required" type="number"
+                                                <input type="number"
                                                     name="reputed_customers[0][fax_no]"
                                                     id="id_vendor_reputed_customers_0_fax_no"
-                                                    class="form-control maxlength_validation" required="required"
-                                                    maxlength="10" aria-required="true">
+                                                    class="form-control maxlength_validation"
+                                                    minlength="10" maxlength="14">
                                             </div>
                                         </div>
                                     </div>
