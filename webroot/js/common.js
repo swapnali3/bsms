@@ -101,3 +101,13 @@ $(function () {
     });
     
 });
+
+
+function preventEnterKey(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    }
+}
+  
+document.addEventListener('keydown', preventEnterKey);
+  

@@ -24,7 +24,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                 <div class="row dgf m-0">
                 <div class="col-sm-8 col-md-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100', 'options' => $vendor_factory, 'id' => 'descripe',  'empty' => 'Please Select', 'label' => 'Factory Code')); ?>
+                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100', 'options' => $vendor_factory,  'empty' => 'Please Select', 'label' => 'Factory Code')); ?>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-3">
@@ -38,8 +38,8 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                             <?php echo $this->Form->control('opening_stock', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'min' => "1", 'div' => 'form-group')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-8 col-md-1 d-flex justify-content-end align-items-end">
-                        <div class="form-group">
+                    <div class="col-sm-8 col-md-1">
+                        <div class="form-group mgt">
                         <button type="button" class="btn bg-gradient-submit" id="stockClick">Submit</button>
                         <button type="submit" style="display: none;" id="stockInputSubmit">Submit</button>
                         </div>

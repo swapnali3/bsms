@@ -46,6 +46,7 @@ class StockUploadsTable extends Table
 
         $this->belongsTo('VendorFactories', [
             'foreignKey' => 'vendor_factory_id',
+            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Materials', [
             'foreignKey' => 'material_id',
@@ -69,7 +70,7 @@ class StockUploadsTable extends Table
 
         $validator
             ->integer('vendor_factory_id')
-            ->allowEmptyString('vendor_factory_id');
+            ->notEmptyString('vendor_factory_id');
 
         $validator
             ->integer('material_id')

@@ -9,7 +9,7 @@
                     <img width="100px" src="<?= $this->Url->build('/') ?>img/<?= substr($vendorTemp->name,0,1) ?>.png" alt="Vendor">
                 </div>
                 <div class="mt-3">
-                    <table class="ml-5">
+                    <table>
                         <tr>
                             <td>Name</td>
                             <th><?= h($vendorTemp->name) ?></th>

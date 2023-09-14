@@ -23,7 +23,7 @@
                 <?= h($poHeader[0]->po_no) ?>
               </b></h6>
           </div>
-          <div class="col-2">
+          <div class="col-8">
             <h6 class="mb-0">
               <small>Vendor Name: </small>
               <b>
@@ -31,7 +31,7 @@
               </b>
             </h6>
           </div>
-          <div class="col-6"></div>
+          <!-- <div class="col-6"></div> -->
           <div class="col-1">
             <a href="vendor/purchase-orders/create-asn" id="id_backmodal" class="btn bg-gradient-cancel float-right">
               <i class="fas fa-angle-double-left"></i> BACK</a>
@@ -574,13 +574,10 @@
     var currStock = parseFloat($("#current_stock").text());
     var minStock = parseFloat($("#minimum_stock").text());
 
-    console.log('stock=' + currStock + "=" + minStock);
-    if (currStock < minStock) {
-      // $("#Create-btn").attr('disabled', 'disabled');
-      $("#error_msg").text('Please maintain minimum stocks');
+    // console.log('stock=' + currStock+"="+minStock );
+    if(currStock < minStock) {
+        $("#error_msg").text('Please maintain minimum stocks');
     }
-    if (currStock == 0 || minStock == 0) {
-      $("#Create-btn").attr('disabled', 'disabled');
-    }
+
   });
 </script>

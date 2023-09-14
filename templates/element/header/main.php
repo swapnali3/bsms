@@ -116,13 +116,13 @@
                     <div class="dropdown-divider"></div>
                     <?php if ($role == 2) : ?>
                         <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>" class="dropdown-item">
-                            <i class="fas fa-user-cog text-info mr-2"></i>
+                            <i class="fas fa-user-cog text-info mr-2 profile_icon"></i>
                             <span>Profile</span>
                         </a>
                     <?php endif; ?>
                     <?php if ($role == 3) : ?>
                         <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>" class="dropdown-item">
-                            <i class="fas fa-user-cog text-info mr-2"></i>
+                            <i class="fas fa-user-cog text-info mr-2 profile_icon"></i>
                             <span>Profile</span>
                         </a>
                     <?php endif; ?>

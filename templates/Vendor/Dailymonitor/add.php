@@ -57,8 +57,8 @@
                             <?php echo $this->Form->control('confirm_production', array('type' => 'number', 'value' => '0','class' => 'form-control rounded-0 w-100', 'div' => 'form-group', 'required')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-8 col-md-2 d-flex justify-content-end align-items-end">
-                        <div class="form-group">
+                    <div class="col-sm-8 col-md-2">
+                        <div class="form-group mgt">
                             <button type="button" class="btn bg-gradient-submit" onclick="showConfirmationModal()">Submit</button>
                         </div>
                     </div>

@@ -26,8 +26,8 @@ class LineMastersFixture extends TestFixture
                 'capacity' => 1.5,
                 'uom' => 'L',
                 'status' => 1,
-                'added_date' => '2023-08-21 13:10:32',
-                'updated_date' => '2023-08-21 13:10:32',
+                'added_date' => '2023-09-14 15:43:11',
+                'updated_date' => '2023-09-14 15:43:11',
             ],
         ];
         parent::init();

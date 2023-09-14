@@ -10,7 +10,7 @@
 <?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>
-<div class="row">
+<div class="row pt-3">
     <div class="col-sm-12 col-md-3 col-lg-3">
         <div class="card">
             <div class="card-body">
@@ -19,7 +19,7 @@
                         alt="Vendor">
                 </div>
                 <div class="mt-3">
-                    <table class="ml-5">
+                    <table>
                         <tr>
                             <td>Name</td>
                             <th>
@@ -437,15 +437,15 @@
                                 
                                 <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
                                     aria-labelledby="custom-tabs-one-profile-tab">
-                                    <di class="card">
+                                    <di class="card card_border">
                                         <div class="card-header">
                                             Branch Office
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <?php foreach ($vendorBranchOffices as $bo) : ?>
-                                                <div class="col-4">
-                                                    <div class="card">
+                                                <div class="col-6">
+                                                    <div class="card card_border">
                                                         <div class="card-body">
                                                             <table>
                                                                 <tr>
@@ -682,7 +682,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 mb-3" id="factoryCodeView">
                                             <?php foreach ($vendorFactories as $bo) : ?>
-                                            <div class="card">
+                                            <div class="card card_border">
                                                 <div class="card-header"><?= h($bo->factory_code) ?></div>
                                                 <div class="card-body">
                                                 <?php if (!empty($bo)) : ?>
