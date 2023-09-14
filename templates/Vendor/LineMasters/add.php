@@ -18,7 +18,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100', 'options' => $factory, 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Factories')); ?>
+                        <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factories')); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
                         <?php echo $this->Form->control('name', ['class' => 'form-control', 'label' => 'Line Name']); ?>
@@ -27,7 +27,7 @@
                         <?php echo $this->Form->control('capacity', ['class' => 'form-control']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Unit Of Measurement')); ?>
+                        <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'empty' => 'Please Select', 'label' => 'Unit Of Measurement')); ?>
                         <?php echo $this->Form->control('status', ['value' => 1, 'style' => 'visibility: hidden; position: absolute;', 'label' => false]); ?>
                     </div>
                 </div>

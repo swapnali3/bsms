@@ -12,7 +12,7 @@
         <?= $this->Form->create($lineMaster) ?>
         <div class="card">
             <div class="card-header">
-
+                <h4>Add Line Master</h4>
             </div>
             <div class="card-body">
                 <div class="row">

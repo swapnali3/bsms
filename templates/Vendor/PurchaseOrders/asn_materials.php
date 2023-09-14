@@ -23,7 +23,7 @@
                 <?= h($poHeader[0]->po_no) ?>
               </b></h6>
           </div>
-          <div class="col-2">
+          <div class="col-8">
             <h6 class="mb-0">
               <small>Vendor Name: </small>
               <b>
@@ -31,7 +31,7 @@
               </b>
             </h6>
           </div>
-          <div class="col-6"></div>
+          <!-- <div class="col-6"></div> -->
           <div class="col-1">
             <a href="vendor/purchase-orders/create-asn" id="id_backmodal"
               class="btn bg-gradient-cancel float-right">

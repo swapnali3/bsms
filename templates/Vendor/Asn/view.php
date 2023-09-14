@@ -71,11 +71,12 @@
                         <?php } ?>
 
                         <div class="col-sm-12 col-lg-6">
-                            <div class="d-flex justify-content-start mt-3">
+                            <div class="d-flex justify-content-start mt-4 align-items-center">
                                 <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
 
                                     if (!empty($files)) {
                                         foreach ($files as $key => $file) {
+                                            echo '<i class="fa fa-download asn_download_icon"></i>';
                                             echo $this->Html->link(' ' .$key, '/' . $file, ['style' => 'display:block;', 'target' => '_blank', 'class' => 'asn_files mb-0 invoicefiles']);
                                         }
                                     }
