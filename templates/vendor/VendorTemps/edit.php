@@ -529,7 +529,7 @@
                                     </div>
                                     <div class="col-4">
                                         <label for="id_vendor_turnovers_third_year" class="third_year"></label>
-                                        <input required="required" type="hidden" name="turnovers[second_year]"
+                                        <input required="required" type="hidden" name="turnovers[third_year]"
                                             id="id_vendor_turnovers_third_year">
                                         <input required="required" type="text" class="form-control"
                                             name="turnovers[third_year_turnover]"
