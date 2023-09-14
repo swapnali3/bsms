@@ -621,7 +621,7 @@ function load_data(i, v) {
             });
             break;
         case 'vendor_turnovers':
-            $.each(v, function (a, b) { if (b != "") { $(`#id_vendor_turnovers_` + a).val(b); } $(`.id_vendor_turnovers_` + a).text(b); });
+            $.each(v, function (a, b) { if (b != "" && b != null) { $(`#id_vendor_turnovers_` + a).val(b); } $(`.id_vendor_turnovers_` + a).text(b); });
             break;
         default:
             break;

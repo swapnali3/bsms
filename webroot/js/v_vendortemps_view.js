@@ -29,7 +29,7 @@ $("#profileUpdate").validate({
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: vendorView + "/" + $("#vendor_id").val(),
+        url: vendorView + "/" + vend_ID,
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
         async: false,

@@ -566,6 +566,11 @@
                                                     Laboratory Facility Document
                                                 </a>
                                             </div>
+                                            <?php else :?>
+                                                <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                Laboratory facilities available
+                                                <label><?= ucfirst(h($vendorTemp->vendor_facilities[0]->lab_facility)) ?></label>
+                                            </div>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                         <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
@@ -574,6 +579,11 @@
                                                 <a href="<?= h($vendorTemp->vendor_facilities[0]->isi_registration_file) ?>"
                                                     class="btn btn-block bg-gradient-cancel" target="_blank">ISI
                                                     Registration Document</a>
+                                            </div>
+                                            <?php else :?>
+                                                <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                Whether there is any ISI registration
+                                                <label><?= ucfirst(h($vendorTemp->vendor_facilities[0]->isi_registration)) ?></label>
                                             </div>
                                             <?php endif; ?>
                                         <?php endif; ?>
@@ -584,6 +594,11 @@
                                                     class="btn btn-block bg-gradient-cancel" target="_blank">Test facility
                                                     Document</a>
                                             </div>
+                                            <?php else :?>
+                                                <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                Test facilities available
+                                                <label><?= ucfirst(h($vendorTemp->vendor_facilities[0]->test_facility)) ?></label>
+                                            </div>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                         <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
@@ -593,6 +608,11 @@
                                                     class="btn btn-block bg-gradient-cancel" target="_blank">Facilities for
                                                     effective after sales services</a>
                                             </div>
+                                            <?php else :?>
+                                                <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                Facilities for effective after sales services
+                                                <label><?= ucfirst(h($vendorTemp->vendor_facilities[0]->sales_services)) ?></label>
+                                            </div>
                                             <?php endif; ?>
                                         <?php endif; ?>
                                         <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
@@ -601,6 +621,11 @@
                                                 <a href="<?= h($vendorTemp->vendor_facilities[0]->quality_control_file) ?>"
                                                     class="btn btn-block bg-gradient-cancel" target="_blank">Quality control
                                                     procedure adopted</a>
+                                            </div>
+                                            <?php else :?>
+                                                <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                Quality control procedure adopted
+                                                <label><?= ucfirst(h($vendorTemp->vendor_facilities[0]->quality_control)) ?></label>
                                             </div>
                                             <?php endif; ?>
                                         <?php endif; ?>
@@ -613,32 +638,22 @@
                                                     <div class="row">
                                                         <?php if (!empty($vendorTemp->vendor_turnovers)) : ?>
                                                             <div class="col-4">
-                                                                <b>
-                                                                    <?= h($vendorTemp->vendor_turnovers[0]->first_year) ?>
-                                                                </b>
-                                                                <span>
-                                                                    <?= h($vendorTemp->vendor_turnovers[0]->first_year_turnonver) ?>
-                                                                </span>
+                                                            <?= h($vendorTemp->vendor_turnovers[0]->first_year) ?> : 
+                                                            <b><?= h($vendorTemp->vendor_turnovers[0]->first_year_turnover) ?></b>
                                                             </div>
                                                         <?php endif; ?>
                                                         <?php if (!empty($vendorTemp->vendor_turnovers)) : ?>
                                                         <div class="col-4">
-                                                            <b>
-                                                                <?= h($vendorTemp->vendor_turnovers[0]->second_year) ?>
-                                                            </b>
-                                                            <span>
-                                                                <?= h($vendorTemp->vendor_turnovers[0]->second_year_turnonver) ?>
-                                                            </span>
+                                                        <?= h($vendorTemp->vendor_turnovers[0]->second_year) ?> : 
+                                                        <b><?= h($vendorTemp->vendor_turnovers[0]->second_year_turnover) ?></b>
                                                         </div>
                                                         <?php endif; ?>
                                                         <?php if (!empty($vendorTemp->vendor_turnovers)) : ?>
                                                         <div class="col-4">
-                                                            <b>
-                                                                <?= h($vendorTemp->vendor_turnovers[0]->third_year) ?>
-                                                            </b>
-                                                            <span>
-                                                                <?= h($vendorTemp->vendor_turnovers[0]->third_year_turnonver) ?>
-                                                            </span>
+                                                        <?= h($vendorTemp->vendor_turnovers[0]->third_year) ?> :
+                                                        <b>
+                                                        <?= h($vendorTemp->vendor_turnovers[0]->third_year_turnover) ?>
+                                                        </b>
                                                         </div>
                                                         <?php endif; ?>
                                                     </div>
@@ -655,22 +670,22 @@
                                                         <div class="col-4">
                                                             Certificate No<br>
                                                             <?php if (!empty($vendorTemp->vendor_incometaxes)) : ?>
-                                                            <?= h($vendorTemp->vendor_incometaxes[0]->certificate_no) ?>
+                                                            <b><?= h($vendorTemp->vendor_incometaxes[0]->certificate_no) ?></b>
                                                             <?php endif; ?>
                                                         </div>
                                                         <div class="col-4">
                                                             Certificate Date<br>
                                                             <?php if (!empty($vendorTemp->vendor_incometaxes)) : ?>
-                                                            <?= h($vendorTemp->vendor_incometaxes[0]->certificate_date) ?>
+                                                            <b><?= h($vendorTemp->vendor_incometaxes[0]->certificate_date) ?></b>
                                                             <?php endif; ?>
                                                         </div>
                                                         <div class="col-4">
                                                             Certificate Document<br>
                                                             <?php if (!empty($vendorTemp->vendor_incometaxes)) : ?>
-                                                            <a href="<?= h($vendorTemp->vendor_incometaxes[0]->certificate_file) ?>"
+                                                            <b><a href="<?= h($vendorTemp->vendor_incometaxes[0]->certificate_file) ?>"
                                                                 target="_blank">
-                                                                Cleaning Certificate
-                                                            </a>
+                                                                <i class="fas fa-file-download"></i>
+                                                            </a></b>
                                                             <?php endif; ?>
                                                         </div>
                                                     </div>
@@ -699,10 +714,10 @@
                                                             <th><?= h($bo->States['name']) ?></th>
                                                             <td>State</td>
                                                             <th><?= h($bo->Countries['country_name']) ?></th>
-                                                            <td>Telephone</td>
-                                                            <th><?= h($bo->telephone) ?></th>
-                                                            <td>Fax</td>
-                                                            <th><?= h($bo->name) ?></th>
+                                                            <td></td>
+                                                            <th></th>
+                                                            <td></td>
+                                                            <th></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Installed Capacity</td>
@@ -717,9 +732,9 @@
                                                         <?php foreach ($bo->vendor_commencements as $co) : ?>
                                                         <tr>
                                                             <td>Commercment Year</td>
-                                                            <th><?= h($co->installed_capacity) ?></th>
+                                                            <th><?= h($co->commencement_year) ?></th>
                                                             <td>Commercment Material</td>
-                                                            <th><?= h($co->machinery_available) ?></th>
+                                                            <th><?= h($co->commencement_material) ?></th>
                                                             <td><?= h($co->first_year) ?></td>
                                                             <th><?= h($co->first_year_qty) ?></th>
                                                             <td><?= h($co->second_year) ?></td>
@@ -849,19 +864,19 @@
                                                             GST No:
                                                             <?= h($vendorTemp->gst_no) ?><br>
                                                             <a id="gstNoFile" target="_blank"
-                                                                href="<?= h($vendorTemp->gst_file) ?>">Gst File</a>
+                                                                href="<?= h($vendorTemp->gst_file) ?>"><i class="fas fa-file-download"></i></a>
                                                         </div>
                                                         <div class="col-4">
                                                             PAN No:
                                                             <?= h($vendorTemp->pan_no) ?><br>
                                                             <a id="panNoFile" target="_blank"
-                                                                href="<?= h($vendorTemp->pan_file) ?>">Pan File</a>
+                                                                href="<?= h($vendorTemp->pan_file) ?>"><i class="fas fa-file-download"></i></a>
                                                         </div>
                                                         <div class="col-4">
                                                             Cancelled Cheque:<br>
                                                             <a id="cancelledCheque" target="_blank"
                                                                 href="<?= h($vendorTemp->bank_file) ?>">
-                                                                Cleaning Certificate
+                                                                <i class="fas fa-file-download"></i>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -877,18 +892,18 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    Six Sigma :
-                                                    <span id="sixSigma"></span>
-                                                    <a target="_blank" href="">
-                                                        Certificate
+                                                    Six Sigma : 
+                                                    <a target="_blank" href="<?= h($vendorTemp->vendor_otherdetail->six_sigma_file) ?>">
+                                                        <i class="fas fa-file-download"></i>
                                                     </a>
+                                                    <b><?= h($vendorTemp->vendor_otherdetail->six_sigma) ?></b>
                                                 </div>
                                                 <div class="col-4">
                                                     ISO Registration / Certificate :
-                                                    <span id="isoRegi"></span>
-                                                    <a id="isoRegiFile" target="_blank" href="">
-                                                        ISO Certificate
+                                                    <a target="_blank" href="<?= h($vendorTemp->vendor_otherdetail->iso_file) ?>">
+                                                        <i class="fas fa-file-download"></i>
                                                     </a>
+                                                    <b><?= h($vendorTemp->vendor_otherdetail->iso) ?></b>
                                                 </div>
 
                                             </div>
@@ -899,20 +914,24 @@
                                             <div class="row">
                                                 <div class="col-4">
                                                     HALAL Registration / certificate:
-                                                    <a target="_blank" href="">File</a>
+                                                    <a target="_blank" href="<?= h($vendorTemp->vendor_otherdetail->halal_file) ?>">
+                                                        <i class="fas fa-file-download"></i>
+                                                    </a>
                                                 </div>
                                                 <div class="col-4">
                                                     Declaration:
-                                                    <a target="_blank" href="">File</a>
+                                                    <a target="_blank" href="<?= h($vendorTemp->vendor_otherdetail->declaration_file) ?>">
+                                                        <i class="fas fa-file-download"></i>
+                                                    </a>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card card_border">
-                                        <div class="card-body">
-                                            <div class="col-4">
-                                                Whether the item is completely manufactured in applicant's factory?
-                                                <b></b>
+                                                <div class="col-12 mt-4">
+                                                    Whether the item is completely manufactured in applicant's factory?
+                                                    <b><?php if($vendorTemp->vendor_otherdetail->fully_manufactured != 'yes') : ?>
+                                                        <?= h($vendorTemp->vendor_otherdetail->suppliers_name) ?>
+                                                    <?php else :?>
+                                                        No
+                                                    <?php endif; ?></b>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1001,5 +1020,6 @@
 </div>
 <script>
     var vendorView = `<?php echo \Cake\Routing\Router::url(array('prefix'=>false,'controller' => 'api/api', 'action' => 'vendor')); ?>`;
+    var vend_ID = `<?= h($vendorTemp->id) ?>`;
 </script>
 <?= $this->Html->script('v_vendortemps_view') ?>
