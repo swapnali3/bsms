@@ -16,9 +16,9 @@ $(function () {
     $(".year3").val(year2);
     $(".year3").val(year1);
     $(".year1").val(year0);
-    $("#id_vendor_turnovers_first_year").val(year0);
-    $("#id_vendor_turnovers_second_year").val(year1);
-    $("#id_vendor_turnovers_third_year").val(year2);
+    $("#id_vendor_turnovers_first_year").val(year0+"-"+year1);
+    $("#id_vendor_turnovers_second_year").val(year1+"-"+year2);
+    $("#id_vendor_turnovers_third_year").val(year2+"-"+year3);
     bsCustomFileInput.init();
 });
 
@@ -632,7 +632,7 @@ function load_data(i, v) {
             });
             break;
         case 'vendor_turnovers':
-            $.each(v, function (a, b) { if (b != "" && b != null) { $(`#id_vendor_turnovers_` + a).val(b); } $(`.id_vendor_turnovers_` + a).text(b); });
+            $.each(v, function (a, b) { if (b != "" && b != null) { $(`#id_vendor_turnovers_` + a.toLowerCase()).val(b); } $(`.id_vendor_turnovers_` + a).text(b); });
             break;
         default:
             break;
