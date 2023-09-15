@@ -453,7 +453,7 @@
       rules: {
         vehicle_no: {
           required: true,
-          validateVehicleNo: true
+          //validateVehicleNo: true
         },
         driver_name: {
           required: true,

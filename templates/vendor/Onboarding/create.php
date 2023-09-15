@@ -488,16 +488,16 @@
                 order_currency: {
                     required: true
                 },
-                // tan_no: {
-                //     required: true,
-                //     minlength: 10,
-                //     maxlength: 10
-                // },
-                // cin_no: {
-                //     required: true,
-                //     minlength: 21,
-                //     maxlength: 21
-                // },
+                tan_no: {
+                     required: false,
+                     minlength: 10,
+                     maxlength: 10
+                 },
+                 cin_no: {
+                     required: false,
+                     minlength: 21,
+                     maxlength: 21
+                 },
                 gst_no: {
                     required: true,
                     maxlength: 15
@@ -554,13 +554,6 @@
                     required: "Please enter a pincode",
                     digits: true
                 },
-
-                tan_no: {
-                    required: "Please enter a tan no"
-                },
-                cin_no: {
-                    required: "Please enter a cin no"
-                },
                 gst_no: {
                     required: "Please enter a gst no",
                 },
@@ -614,7 +607,7 @@
             "tab_contactperson": ["contact-person", "contact-person", "contact-mobile", "contact-department",
                 "contact-designation"
             ],
-            "tab_paymentdetails": ["cin-no", "gst-no", "pan-no"],
+            "tab_paymentdetails": ["gst-no", "pan-no"],
             "tab_document": ["formFileMultiple1", "formFileMultiple2", "formFileMultiple3"]
         }
 

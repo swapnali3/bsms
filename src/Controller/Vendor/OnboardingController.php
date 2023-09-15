@@ -171,6 +171,7 @@ class OnboardingController extends VendorAppController
     {
         $flash = [];
         $this->loadModel("VendorTemps");
+        $this->loadModel("Buyers");
         $this->loadModel("Countries");
         $this->loadModel('Currencies');
         $this->loadModel('Users');
