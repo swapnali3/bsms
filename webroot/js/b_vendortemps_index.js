@@ -58,6 +58,12 @@ $(document).on("click", ".vcheckbox", function () {
     else if (checked == 0) { $("#actionfooter").hide(); }
 });
 
+$(document).on("click", "#vcheckbox", function () {
+    var allcheck = true;
+    if (!$(this).is(':checked')) { allcheck = false; }
+    $(".vcheckbox").each(function (obj) { if (!$(obj).is(':checked') && allcheck == true) { $(this).prop('checked', true); } else { $(this).prop('checked', false); } });
+});
+
 $(document).on("click", ".bulkaction", function () {
     var status_id, user_arr = [];
     status_id = $(this).data('status_id');
