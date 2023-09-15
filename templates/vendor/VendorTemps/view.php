@@ -909,7 +909,7 @@
                                                         <div class="col-4">
                                                             GST No:
                                                             <?= h($vendorTemp->gst_no) ?><br>
-                                                            <?php if($vendorTemp->gst_no) : ?>
+                                                            <?php if($vendorTemp->gst_file) : ?>
                                                             <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->gst_file, ['target' => '_blank', 'escape' => false]) ?>
                                                             <?php endif; ?>
                                                         </div>
@@ -974,7 +974,7 @@
                                                 <?php endif; ?>
                                                 <?php if (!empty($vendorTemp->vendor_otherdetail->declaration_file)) : ?>
                                                 <div class="col-4">
-                                                    Declaration:
+                                                    Declaration:<br>
                                                     <?php if($vendorTemp->vendor_otherdetail->declaration_file) : ?>
                                                     <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->declaration_file, ['target' => '_blank', 'escape' => false]) ?>
                                                     <?php endif; ?>
