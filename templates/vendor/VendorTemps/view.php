@@ -908,14 +908,14 @@
                                                     <div class="row">
                                                         <div class="col-4">
                                                             GST No:
-                                                            <?= h($vendorTemp->gst_file) ?><br>
+                                                            <?= h($vendorTemp->gst_no) ?><br>
                                                             <?php if($vendorTemp->gst_no) : ?>
                                                             <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->gst_file, ['target' => '_blank', 'escape' => false]) ?>
                                                             <?php endif; ?>
                                                         </div>
                                                         <div class="col-4">
                                                             PAN No:
-                                                            <?= h($vendorTemp->pan_file) ?><br>
+                                                            <?= h($vendorTemp->pan_no) ?><br>
                                                             <?php if($vendorTemp->pan_file) : ?>
                                                             <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->pan_file, ['target' => '_blank', 'escape' => false]) ?>
                                                             <?php endif; ?>
