@@ -244,7 +244,7 @@ class VendorTempsController extends VendorAppController
                             // exit;
                             if (!$this->VendorFacilities->save($facility)) {
                                 $form_status = false;
-                            } else { $resp_data["vendor_facilities"] = $facility; }
+                            } else { $resp_data["vendor_facilities"][] = $facility; }
                             break;
 
                         case 'turnovers':
