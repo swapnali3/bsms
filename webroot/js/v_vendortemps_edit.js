@@ -177,7 +177,7 @@ function load_data(i, v) {
                         <div class="col-sm-12 col-md-3 mb-3">
                             <label class="form-label">Registration Certificate</label>
                             <div class="custom-file">
-                                <input name="branch_offices[`+ a + `][registration_certificate]" type="file" accept=".pdf" required="true" class="custom-file-input" id="id_vendor_branch_offices_` + a + `_registration_certificate">
+                                <input name="branch_offices[`+ a + `][registration_certificate]" type="file" accept=".pdf" class="custom-file-input" id="id_vendor_branch_offices_` + a + `_registration_certificate">
                                 <label class="custom-file-label">Choose File</label>
                             </div>
                             <a href="`+ baseurl + b.registration_certificate + `">` + rmv_secondlast(b.registration_certificate) + `</a>
@@ -240,7 +240,7 @@ function load_data(i, v) {
                         <div class="row" id="factory_office_`+ a + `_row1">
                             <div class="col-sm-12 col-md-6 mb-3">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-12 text-center required">
+                                    <div class="col-sm-12 col-md-12 col-lg-12 text-center">
                                         <label class="text-info">Installed Capacity</label>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
@@ -248,7 +248,7 @@ function load_data(i, v) {
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="custom-file">
-                                            <input name="factories[`+ a + `][installed_capacity_file]" type="file" accept=".pdf" required="true" class="custom-file-input">
+                                            <input name="factories[`+ a + `][installed_capacity_file]" type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label" id="id_vendor_factories_`+ a + `_installed_capacity_file">
                                                 Choose File
                                             </label>
@@ -269,8 +269,7 @@ function load_data(i, v) {
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="custom-file">
-                                            <input name="factories[`+ a + `][power_available_file]" type="file"
-                                                accept=".pdf" class="custom-file-input" required="true">
+                                            <input name="factories[`+ a + `][power_available_file]" type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label"
                                                 id="id_vendor_factories_`+ a + `_power_available_file">
                                                 Choose File
@@ -290,7 +289,7 @@ function load_data(i, v) {
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="custom-file">
-                                            <input name="factories[`+ a + `][machinery_available_file]" type="file" accept=".pdf" class="custom-file-input" required="true">
+                                            <input name="factories[`+ a + `][machinery_available_file]" type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label" id="id_vendor_factories_`+ a + `_machinery_available_file">
                                                 Choose File
                                             </label>
@@ -310,7 +309,7 @@ function load_data(i, v) {
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <div class="custom-file">
-                                            <input name="factories[`+ a + `][raw_material_file]" type="file" accept=".pdf" class="custom-file-input" required="true">
+                                            <input name="factories[`+ a + `][raw_material_file]" type="file" accept=".pdf" class="custom-file-input">
                                             <label class="custom-file-label" id="id_vendor_factories_`+ a + `_raw_material_file">
                                                 Choose File
                                             </label>
@@ -693,7 +692,7 @@ $(document).on("click", "#id_branch_offices_add", function () {
                 <div class="col-sm-12 col-md-3 mb-3 required">
                     <label class="form-label">Registration Certificate</label>
                     <div class="custom-file">
-                        <input name="branch_offices[`+ lid + `][registration_certificate]" type="file" accept=".pdf" required="true" class="custom-file-input" id="id_vendor_branch_offices_` + lid + `_registration_certificate">
+                        <input name="branch_offices[`+ lid + `][registration_certificate]" type="file" accept=".pdf" class="custom-file-input" id="id_vendor_branch_offices_` + lid + `_registration_certificate">
                         <label class="custom-file-label">Choose File</label>
                     </div>
                 </div>
@@ -931,9 +930,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="custom-file">
-                                    <input required="required" name="factories[`+ lid + `][installed_capacity_file]"
-                                        type="file" accept=".pdf" required="true"
-                                        class="custom-file-input">
+                                    <input required="required" name="factories[`+ lid + `][installed_capacity_file]" type="file" accept=".pdf" class="custom-file-input">
                                     <label class="custom-file-label"
                                         id="id_vendor_factories_`+ lid + `_installed_capacity_file">
                                         Choose File
@@ -956,8 +953,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="custom-file">
-                                    <input required="required" name="factories[`+ lid + `][power_available_file]" type="file"
-                                        accept=".pdf" class="custom-file-input" required="true">
+                                    <input required="required" name="factories[`+ lid + `][power_available_file]" type="file" accept=".pdf" class="custom-file-input">
                                     <label class="custom-file-label"
                                         id="id_vendor_factories_`+ lid + `_power_available_file">
                                         Choose File
@@ -980,9 +976,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="custom-file">
-                                    <input required="required" name="factories[`+ lid + `][machinery_available_file]"
-                                        type="file" accept=".pdf" class="custom-file-input"
-                                        required="true">
+                                    <input required="required" name="factories[`+ lid + `][machinery_available_file]" type="file" accept=".pdf" class="custom-file-input">
                                     <label class="custom-file-label"
                                         id="id_vendor_factories_`+ lid + `_machinery_available_file">
                                         Choose File
@@ -1006,8 +1000,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <div class="custom-file">
-                                    <input required="required" name="factories[`+ lid + `][raw_material_file]" type="file"
-                                        accept=".pdf" class="custom-file-input" required="true">
+                                    <input required="required" name="factories[`+ lid + `][raw_material_file]" type="file" accept=".pdf" class="custom-file-input">
                                     <label class="custom-file-label"
                                         id="id_vendor_factories_`+ lid + `_raw_material_file">
                                         Choose File

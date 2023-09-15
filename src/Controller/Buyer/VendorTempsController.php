@@ -103,6 +103,12 @@ class VendorTempsController extends BuyerAppController
         $flash = [];
         $this->set('headTitle', 'Vendor Details');
         $this->loadModel('VendorTemps');
+
+        if ($this->VendorTemps->exists(['update_flag' => $id])) {
+            $vendorTempView = $this->VendorTemps->find('all')->where(['update_flag' => $id])->toArray();
+            $this->set('vendorTempView', $vendorTempView);
+        }
+
         $vendorTemp = $this->VendorTemps->get($id, [
             'contain' => ['VendorStatus','CompanyCodes','PurchasingOrganizations','ReconciliationAccounts', 'AccountGroups', 'SchemaGroups', 'PaymentTerms', 'VendorFacilities', 'VendorIncometaxes', 'VendorOtherdetails', 'VendorQuestionnaires', 'VendorSmallScales', 'VendorTurnovers', 'States', 'Countries']]);
         
