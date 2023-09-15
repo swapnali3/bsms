@@ -974,7 +974,7 @@
                                                 <?php endif; ?>
                                                 <?php if (!empty($vendorTemp->vendor_otherdetail->declaration_file)) : ?>
                                                 <div class="col-4">
-                                                    Declaration:<br>
+                                                    Declaration:
                                                     <?php if($vendorTemp->vendor_otherdetail->declaration_file) : ?>
                                                     <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->declaration_file, ['target' => '_blank', 'escape' => false]) ?>
                                                     <?php endif; ?>
@@ -982,7 +982,7 @@
                                                 <?php endif; ?>
                                                 <?php if (!empty($vendorTemp->vendor_otherdetail->fully_manufactured)) : ?>
                                                 <div class="col-12 mt-4">
-                                                    Whether the item is completely manufactured in applicant's factory?
+                                                    Whether the item is completely manufactured in applicant's factory?<br>
                                                     <b>
                                                         <?php if($vendorTemp->vendor_otherdetail->fully_manufactured != 'yes') : ?>
                                                         <?= h($vendorTemp->vendor_otherdetail->suppliers_name) ?>
