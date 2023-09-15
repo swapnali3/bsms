@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-lg-6 d-flex">
                                 <?php echo $this->Form->control('sap_vendor_code', array('class' =>
-                                'form-control rounded-0', 'div' => 'form-group', 'autocomplete' => "off"));
+                                'form-control rounded-0', 'div' => 'form-group', 'autocomplete' => "off", 'required' =>'required'));
                                 ?>
                                 <div class="col-sm-2 col-md-2 d-flex align-items-end">
                                 <button class="btn bg-gradient-submit" id="sapvendorcode" type="button">
@@ -40,7 +40,7 @@
                             
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 d-flex align-items-center ">
+                    <!-- <div class="col-sm-12 col-md-6 d-flex align-items-center ">
                         <i class="fa fa-solid fa-file-download template_download">
                             <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/SAP_Vendor_Import.xlsx" download>
                                 SAP_Import_Template
@@ -56,11 +56,9 @@
                         'button', 'class' => 'd-block btn bg-gradient-button file-upld-btn']); ?>
                         <span id="filessnames"></span>
                         </div>
-
-                        
-                    </div>
+                    </div> -->
                     <div class="errorSubmit mt-2" style="color: red; display: none">
-                        Please enter a vendor code or select a file.
+                        Please enter a vendor code.
                     </div>
                 </div>
 

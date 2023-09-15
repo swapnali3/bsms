@@ -618,7 +618,12 @@ class SyncController extends ApiAppController
                             $vendor->status = 5;
                             $vendorExists = false;
                         }
-        
+                        
+                        if(!$vendorExists && $this->VendorTemps->exists(['name' => $row->NAME1, 'email' => $row->SMTP_ADDR, 'mobile' => $row->MOB_NUMBER])) {
+                            $vendor = $this->VendorTemps->find()->where(['name' => $row->NAME1, 'email' => $row->SMTP_ADDR, 'mobile' => $row->MOB_NUMBER])->first();
+                            $vendorExists = true;
+                        }
+
                         $vendor->sap_vendor_code = $row->LIFNR;
                         $vendor->company_code_id = $companyCode->id;
                         $vendor->purchasing_organization_id = $puOrg->id;
