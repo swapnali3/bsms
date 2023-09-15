@@ -58,12 +58,12 @@
             <?php if ($vendorTemp->status == 1) : ?>
             <div class="card-header">
                 <div class="approve-reject row">
-                    <div class="col-sm-12 col-md-1">
+                    <div class="col-12">
                         <a href="#" class="btn btn-block buyer_reject_btn  p-2" data-toggle="modal"
                             data-target="#remarkModal"><i class="far fa-times-circle"></i>
                             &nbsp; Reject</a>
                     </div>
-                    <div class="col-sm-12 col-md-1">
+                    <div class="col-12">
                         <button type="button" class="btn btn-block buyer_approve_btn p-2" data-toggle="modal"
                             data-target="#modal-sm">
                             <i class="far fa-check-circle"></i> &nbsp; Approve
@@ -212,11 +212,6 @@
             <div class="card-header">
                 <span class="User_head text-info d-flex justify-content-between align-items-center">
                     USER DETAILS
-                    <div class="float-right">
-                        <?php if ($updatecount == 0) : ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorTemp->id], ['class' => 'edit_btn btn btn-info mb-0']) ?>
-                        <?php endif; ?>
-                    </div>
                 </span>
             </div>
             <div class="card card-tabs card_boxshadow">
