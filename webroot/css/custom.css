@@ -1061,3 +1061,10 @@ span.otp-send-email { color: #121212 !important;}
 input[readonly] {
     background-color: #e2e2e2 !important;
 }
+
+/* .note-btn[data-original-title="Picture"], */
+.note-btn[data-original-title="Video"],
+.note-btn[data-original-title="Help"],
+.note-btn[data-original-title="Code View"],
+.note-btn[data-original-title="Full Screen"]
+{ display: none !important;}
