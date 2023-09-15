@@ -238,7 +238,7 @@
                       <div class="form-group mb-0">
                         <?= $this->form->control('po_footer_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoFooters']['id']]) ?>
                         <?= $this->form->control('schedule_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoItemSchedules']['id']]) ?>
-                        <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'readonly' => 'readonly', 'class' => 'form-control check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'max' => $row['actual_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
+                        <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'readonly' => 'readonly', 'class' => 'form-control check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'data-minstock'=>$materialStock ? $materialStock->current_stock : 0, 'max' => $row['actual_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
                       </div>
                     </td>
                     <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>">
@@ -315,19 +315,22 @@
       $(".check_qty").each(function (i, o) {
         var id = $(this).attr('data-item');
         var netPrice = $(this).attr('data-net-price');
+        var minstock = $(this).data('minstock');
+        if ($(o).val() > minstock) { $(o).val(minstock) }
         $("#net_value_" + id).html($(o).val() * netPrice);
-        $('.net_value').each(function (i, obj) {
+      });
+      $('.net_value').each(function (i, obj) {
         var tmp = 0
         if ($(obj).html() == NaN) { tmp = 0; }
         else { tmp = $(obj).html(); }
         subTotal = (subTotal + parseFloat(tmp));
       });
-      });
       gst = subTotal * 18 / 100;
       $("#sub_total").html(subTotal);
       $("#total_gst").html(gst);
-      $("#total_value").html(subTotal + gst);
-      $('#invoice_value').val(subTotal + gst)
+      var cc = (subTotal + gst).toFixed(3);
+      $("#total_value").html(cc);
+      $('#invoice_value').val(cc)
     });
 
     $('#invoices').on('change', function (event) {
@@ -575,8 +578,8 @@
     var minStock = parseFloat($("#minimum_stock").text());
 
     // console.log('stock=' + currStock+"="+minStock );
-    if(currStock < minStock) {
-        $("#error_msg").text('Please maintain minimum stocks');
+    if (currStock < minStock) {
+      $("#error_msg").text('Please maintain minimum stocks');
     }
 
   });

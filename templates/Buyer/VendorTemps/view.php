@@ -212,6 +212,11 @@
             <div class="card-header">
                 <span class="User_head text-info d-flex justify-content-between align-items-center">
                     USER DETAILS
+                    <div class="float-right">
+                        <?php if ($updatecount == 0) : ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $vendorTemp->id], ['class' => 'edit_btn btn btn-info mb-0']) ?>
+                        <?php endif; ?>
+                    </div>
                 </span>
             </div>
             <div class="card card-tabs card_boxshadow">
@@ -345,18 +350,11 @@
                                                         </tr>
                                                         <tr>
                                                             <td>State</td>
-                                                            <th>
-                                                                <?php if (isset($vendorTemp->state)) : ?>
-                                                                <?=h($vendorTemp->state['name']) ?>
-                                                                <?php endif; ?>
-                                                            </th>
+                                                            <th><?=h($vendorTemp->state['name']) ?></th>
                                                         </tr>
                                                         <tr>
                                                             <td>Country</td>
-                                                            <th>
-                                                                <?php if (isset($vendorTemp->country)) : ?>
-                                                                <?=h($vendorTemp->country['country_name']) ?>
-                                                                <?php endif; ?>
+                                                            <th><?=h($vendorTemp->country['country_name']) ?>
                                                             </th>
                                                         </tr>
                                                         <tr>
@@ -421,6 +419,14 @@
                                                                 <?php endif; ?>
                                                             </th>
                                                         </tr>
+                                                        <tr>
+                                                            <td>Telephone</td>
+                                                            <th>
+                                                                <?php if (isset($vendorRegisterOffice)) : ?>
+                                                                <?=h($vendorRegisterOffice->telephone) ?>
+                                                                <?php endif; ?>
+                                                            </th>
+                                                        </tr>
                                                     </table>
                                                 </div>
                                             </div>
@@ -476,15 +482,15 @@
 
                                 <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
                                     aria-labelledby="custom-tabs-one-profile-tab">
-                                    <di class="card">
+                                    <di class="card card_border">
                                         <div class="card-header">
                                             Branch Office
                                         </div>
                                         <div class="card-body">
                                             <div class="row">
                                                 <?php foreach ($vendorBranchOffices as $bo) : ?>
-                                                <div class="col-4">
-                                                    <div class="card">
+                                                <div class="col-6">
+                                                    <div class="card card_border">
                                                         <div class="card-body">
                                                             <table>
                                                                 <tr>
@@ -544,7 +550,9 @@
                                                                 <tr>
                                                                     <td>registration_certificate</td>
                                                                     <th>
-                                                                        <?= h($bo->registration_certificate) ?>
+                                                                        <?php if($bo->registration_certificate) : ?>
+                                                                        <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $bo->registration_certificate, ['target' => '_blank', 'escape' => false]) ?>
+                                                                        <?php endif; ?>
                                                                     </th>
                                                                 </tr>
                                                             </table>
@@ -577,13 +585,7 @@
                                                     <td>Registration File:</td>
                                                     <th>
                                                         <?php if (isset($vendorTemp->vendor_small_scales[0]->certificate_file)) : ?>
-                                                        <a href="">
-                                                            <?php
-                                                            $a = explode("/", $vendorTemp->vendor_small_scales[0]->certificate_file);
-                                                            echo $a[count($a)-1]
-                                                            ?>
-                                                        </a>
-                                                        <?= h($vendorTemp->vendor_small_scales[0]->certificate_file) ?>
+                                                        <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_small_scales[0]->certificate_file, ['target' => '_blank', 'escape' => false]) ?>
                                                         <?php endif; ?>
                                                     </th>
                                                 </tr>
@@ -596,86 +598,70 @@
                                     aria-labelledby="custom-tabs-one-settings-tab">
                                     <div class="row">
                                         <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
-                                        <?php if($vendorTemp->vendor_facilities[0]->lab_facility == 'yes') : ?>
-                                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                            <label></label>
-                                            <a href="<?= h($vendorTemp->vendor_facilities[0]->lab_facility_file) ?>"
-                                                class="btn btn-block bg-gradient-cancel" target="_blank">
-                                                Laboratory Facility Document
-                                            </a>
-                                        </div>
-                                        <?php else :?>
-                                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                            Laboratory facilities available
-                                            <label>
-                                                <?= ucfirst(h($vendorTemp->vendor_facilities[0]->lab_facility)) ?>
-                                            </label>
-                                        </div>
-                                        <?php endif; ?>
-                                        <?php endif; ?>
-                                        <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
-                                        <?php if($vendorTemp->vendor_facilities[0]->isi_registration == 'yes') : ?>
-                                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                            <a href="<?= h($vendorTemp->vendor_facilities[0]->isi_registration_file) ?>"
-                                                class="btn btn-block bg-gradient-cancel" target="_blank">ISI
-                                                Registration Document</a>
-                                        </div>
-                                        <?php else :?>
-                                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                            Whether there is any ISI registration
-                                            <label>
-                                                <?= ucfirst(h($vendorTemp->vendor_facilities[0]->isi_registration)) ?>
-                                            </label>
-                                        </div>
-                                        <?php endif; ?>
-                                        <?php endif; ?>
-                                        <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
-                                        <?php if($vendorTemp->vendor_facilities[0]->test_facility == 'yes') : ?>
-                                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                            <a href="<?= h($vendorTemp->vendor_facilities[0]->test_facility_file) ?>"
-                                                class="btn btn-block bg-gradient-cancel" target="_blank">Test facility
-                                                Document</a>
-                                        </div>
-                                        <?php else :?>
-                                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                            Test facilities available
-                                            <label>
-                                                <?= ucfirst(h($vendorTemp->vendor_facilities[0]->test_facility)) ?>
-                                            </label>
-                                        </div>
-                                        <?php endif; ?>
-                                        <?php endif; ?>
-                                        <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
-                                        <?php if($vendorTemp->vendor_facilities[0]->sales_services == 'yes') : ?>
-                                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                            <a href="<?= h($vendorTemp->vendor_facilities[0]->sales_services_file) ?>"
-                                                class="btn btn-block bg-gradient-cancel" target="_blank">Facilities for
-                                                effective after sales services</a>
-                                        </div>
-                                        <?php else :?>
-                                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                            Facilities for effective after sales services
-                                            <label>
-                                                <?= ucfirst(h($vendorTemp->vendor_facilities[0]->sales_services)) ?>
-                                            </label>
-                                        </div>
-                                        <?php endif; ?>
-                                        <?php endif; ?>
-                                        <?php if (!empty($vendorTemp->vendor_facilities)) : ?>
-                                        <?php if($vendorTemp->vendor_facilities[0]->quality_control == 'yes') : ?>
-                                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                            <a href="<?= h($vendorTemp->vendor_facilities[0]->quality_control_file) ?>"
-                                                class="btn btn-block bg-gradient-cancel" target="_blank">Quality control
-                                                procedure adopted</a>
-                                        </div>
-                                        <?php else :?>
-                                        <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
-                                            Quality control procedure adopted
-                                            <label>
-                                                <?= ucfirst(h($vendorTemp->vendor_facilities[0]->quality_control)) ?>
-                                            </label>
-                                        </div>
-                                        <?php endif; ?>
+                                            <?php if($vendorTemp->vendor_facilities[0]->lab_facility_file) : ?>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                <?= $this->Html->link(__('Laboratory Facility Document'), '/' . $vendorTemp->vendor_facilities[0]->lab_facility_file, ['target' => '_blank', 'escape' => false, 'class' => 'btn btn-block bg-gradient-cancel']) ?>
+                                            </div>
+                                            <?php else :?>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                Laboratory facilities available
+                                                <label>
+                                                    <?= ucfirst(h($vendorTemp->vendor_facilities[0]->lab_facility)) ?>
+                                                </label>
+                                            </div>
+                                            <?php endif; ?>
+
+                                            <?php if($vendorTemp->vendor_facilities[0]->isi_registration_file) : ?>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                <?= $this->Html->link(__('ISI Registration Document'), '/' . $vendorTemp->vendor_facilities[0]->isi_registration_file, ['target' => '_blank', 'escape' => false, 'class' => 'btn btn-block bg-gradient-cancel']) ?>
+                                            </div>
+                                            <?php else :?>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                Whether there is any ISI registration
+                                                <label>
+                                                    <?= ucfirst(h($vendorTemp->vendor_facilities[0]->isi_registration)) ?>
+                                                </label>
+                                            </div>
+                                            <?php endif; ?>
+
+                                            <?php if($vendorTemp->vendor_facilities[0]->test_facility_file) : ?>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                <?= $this->Html->link(__('Test facility Document'), '/' . $vendorTemp->vendor_facilities[0]->test_facility_file, ['target' => '_blank', 'escape' => false, 'class' => 'btn btn-block bg-gradient-cancel']) ?>
+                                            </div>
+                                            <?php else :?>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                Test facilities available
+                                                <label>
+                                                    <?= ucfirst(h($vendorTemp->vendor_facilities[0]->test_facility)) ?>
+                                                </label>
+                                            </div>
+                                            <?php endif; ?>
+
+                                            <?php if($vendorTemp->vendor_facilities[0]->sales_services_file) : ?>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                <?= $this->Html->link(__('Facilities for effective after sales services'), '/' . $vendorTemp->vendor_facilities[0]->sales_services_file, ['target' => '_blank', 'escape' => false, 'class' => 'btn btn-block bg-gradient-cancel']) ?>
+                                            </div>
+                                            <?php else :?>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                Facilities for effective after sales services
+                                                <label>
+                                                    <?= ucfirst(h($vendorTemp->vendor_facilities[0]->sales_services)) ?>
+                                                </label>
+                                            </div>
+                                            <?php endif; ?>
+
+                                            <?php if($vendorTemp->vendor_facilities[0]->quality_control_file) : ?>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                <?= $this->Html->link(__('Quality control procedure adopted'), '/' . $vendorTemp->vendor_facilities[0]->quality_control_file, ['target' => '_blank', 'escape' => false, 'class' => 'btn btn-block bg-gradient-cancel']) ?>
+                                            </div>
+                                            <?php else :?>
+                                            <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                                                Quality control procedure adopted
+                                                <label>
+                                                    <?= ucfirst(h($vendorTemp->vendor_facilities[0]->quality_control)) ?>
+                                                </label>
+                                            </div>
+                                            <?php endif; ?>
                                         <?php endif; ?>
                                         <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                                             <div class="card card_border">
@@ -691,16 +677,14 @@
                                                                 <?= h($vendorTemp->vendor_turnovers[0]->first_year_turnover) ?>
                                                             </b>
                                                         </div>
-                                                        <?php endif; ?>
-                                                        <?php if (!empty($vendorTemp->vendor_turnovers)) : ?>
+
                                                         <div class="col-4">
                                                             <?= h($vendorTemp->vendor_turnovers[0]->second_year) ?> :
                                                             <b>
                                                                 <?= h($vendorTemp->vendor_turnovers[0]->second_year_turnover) ?>
                                                             </b>
                                                         </div>
-                                                        <?php endif; ?>
-                                                        <?php if (!empty($vendorTemp->vendor_turnovers)) : ?>
+
                                                         <div class="col-4">
                                                             <?= h($vendorTemp->vendor_turnovers[0]->third_year) ?> :
                                                             <b>
@@ -719,38 +703,35 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="row">
+                                                        <?php if (!empty($vendorTemp->vendor_incometaxes)) : ?>
                                                         <div class="col-4">
                                                             Certificate No<br>
-                                                            <?php if (!empty($vendorTemp->vendor_incometaxes)) : ?>
                                                             <b>
                                                                 <?= h($vendorTemp->vendor_incometaxes[0]->certificate_no) ?>
                                                             </b>
-                                                            <?php endif; ?>
                                                         </div>
                                                         <div class="col-4">
                                                             Certificate Date<br>
-                                                            <?php if (!empty($vendorTemp->vendor_incometaxes)) : ?>
                                                             <b>
                                                                 <?= h($vendorTemp->vendor_incometaxes[0]->certificate_date) ?>
                                                             </b>
-                                                            <?php endif; ?>
                                                         </div>
                                                         <div class="col-4">
                                                             Certificate Document<br>
-                                                            <?php if (!empty($vendorTemp->vendor_incometaxes)) : ?>
-                                                            <b><a href="<?= h($vendorTemp->vendor_incometaxes[0]->certificate_file) ?>"
-                                                                    target="_blank">
-                                                                    <i class="fas fa-file-download"></i>
-                                                                </a></b>
-                                                            <?php endif; ?>
+                                                            <b>
+                                                                <?php if($vendorTemp->vendor_incometaxes[0]->certificate_file) : ?>
+                                                                <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_incometaxes[0]->certificate_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                                <?php endif; ?>
+                                                            </b>
                                                         </div>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-12 col-lg-12 mb-3" id="factoryCodeView">
                                             <?php foreach ($vendorFactories as $bo) : ?>
-                                            <div class="card">
+                                            <div class="card card_border">
                                                 <div class="card-header">
                                                     <?= h($bo->factory_code) ?>
                                                 </div>
@@ -876,11 +857,11 @@
                                                 <tr>
                                                     <td>Country</td>
                                                     <th>
-                                                        <?= h($bo->States['name']) ?>
+                                                        <?= h($bo->Countries['country_name']) ?>
                                                     </th>
                                                     <td>State</td>
                                                     <th>
-                                                        <?= h($bo->Countries['country_name']) ?>
+                                                        <?= h($bo->States['name']) ?>
                                                     </th>
                                                     <td>Telephone</td>
                                                     <th>
@@ -973,23 +954,22 @@
                                                         <div class="col-4">
                                                             GST No:
                                                             <?= h($vendorTemp->gst_no) ?><br>
-                                                            <a id="gstNoFile" target="_blank"
-                                                                href="<?= h($vendorTemp->gst_file) ?>"><i
-                                                                    class="fas fa-file-download"></i></a>
+                                                            <?php if($vendorTemp->gst_no) : ?>
+                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->gst_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                            <?php endif; ?>
                                                         </div>
                                                         <div class="col-4">
                                                             PAN No:
                                                             <?= h($vendorTemp->pan_no) ?><br>
-                                                            <a id="panNoFile" target="_blank"
-                                                                href="<?= h($vendorTemp->pan_file) ?>"><i
-                                                                    class="fas fa-file-download"></i></a>
+                                                            <?php if($vendorTemp->pan_file) : ?>
+                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->pan_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                            <?php endif; ?>
                                                         </div>
                                                         <div class="col-4">
                                                             Cancelled Cheque:<br>
-                                                            <a id="cancelledCheque" target="_blank"
-                                                                href="<?= h($vendorTemp->bank_file) ?>">
-                                                                <i class="fas fa-file-download"></i>
-                                                            </a>
+                                                            <?php if($vendorTemp->bank_file) : ?>
+                                                            <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->bank_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                            <?php endif; ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1006,20 +986,18 @@
                                             <div class="row">
                                                 <div class="col-4">
                                                     Six Sigma :
-                                                    <a target="_blank"
-                                                        href="<?= h($vendorTemp->vendor_otherdetail->six_sigma_file) ?>">
-                                                        <i class="fas fa-file-download"></i>
-                                                    </a>
+                                                    <?php if($vendorTemp->vendor_otherdetail->six_sigma_file) : ?>
+                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->six_sigma_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                    <?php endif; ?>
                                                     <b>
                                                         <?= h($vendorTemp->vendor_otherdetail->six_sigma) ?>
                                                     </b>
                                                 </div>
                                                 <div class="col-4">
                                                     ISO Registration / Certificate :
-                                                    <a target="_blank"
-                                                        href="<?= h($vendorTemp->vendor_otherdetail->iso_file) ?>">
-                                                        <i class="fas fa-file-download"></i>
-                                                    </a>
+                                                    <?php if($vendorTemp->vendor_otherdetail->iso_file) : ?>
+                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->iso_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                    <?php endif; ?>
                                                     <b>
                                                         <?= h($vendorTemp->vendor_otherdetail->iso) ?>
                                                     </b>
@@ -1034,19 +1012,17 @@
                                                 <?php if (!empty($vendorTemp->vendor_otherdetail->halal_file)) : ?>
                                                 <div class="col-4">
                                                     HALAL Registration / certificate:
-                                                    <a target="_blank"
-                                                        href="<?= h($vendorTemp->vendor_otherdetail->halal_file) ?>">
-                                                        <i class="fas fa-file-download"></i>
-                                                    </a>
+                                                    <?php if($vendorTemp->vendor_otherdetail->halal_file) : ?>
+                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->halal_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <?php endif; ?>
                                                 <?php if (!empty($vendorTemp->vendor_otherdetail->declaration_file)) : ?>
                                                 <div class="col-4">
                                                     Declaration:
-                                                    <a target="_blank"
-                                                        href="<?= h($vendorTemp->vendor_otherdetail->declaration_file) ?>">
-                                                        <i class="fas fa-file-download"></i>
-                                                    </a>
+                                                    <?php if($vendorTemp->vendor_otherdetail->declaration_file) : ?>
+                                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->declaration_file, ['target' => '_blank', 'escape' => false]) ?>
+                                                    <?php endif; ?>
                                                 </div>
                                                 <?php endif; ?>
                                                 <?php if (!empty($vendorTemp->vendor_otherdetail->fully_manufactured)) : ?>
