@@ -158,8 +158,8 @@ class PurchaseOrdersController extends VendorAppController
             ->distinct(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code','PoHeaders.acknowledge'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
-            ->where([
-                'sap_vendor_code' => $session->read('vendor_code'), 
+                        ->where([
+                                'sap_vendor_code' => $session->read('vendor_code'), 
                 'acknowledge' => 1,
                 '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
                 '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',
@@ -618,6 +618,22 @@ class PurchaseOrdersController extends VendorAppController
     }
 
 
+    public function getPoHeadersWithItems($id = null){
+        $this->autoRender = false;
+        $response = array('status'=>0, 'message'=>'', 'data'=>'');
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+
+        $data = $this->PoHeaders->find('all')
+            ->select(['PoHeaders.id', 'PoHeaders.sap_vendor_code', 'PoHeaders.po_no', 'PoHeaders.document_type', 'PoHeaders.created_by', 'PoHeaders.created_on', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'PoItemSchedules.delivery_date'])
+            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
+            ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
+            ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
+            ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0']);
+        if ($data->count() > 0) { $response = array('status'=>1, 'message'=>'Data Found', 'data'=>$data); }
+        echo json_encode($response);
+    }
+    
     public function getItems($id = null)
     {
         $response = array();
