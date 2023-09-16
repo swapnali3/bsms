@@ -42,7 +42,7 @@ use Cake\ORM\Entity;
  * @property int $status
  * @property \Cake\I18n\FrozenTime|null $valid_date
  * @property string|null $remark
- * @property int|null $buyer_id
+ * @property bool $from_sap
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
  * @property int|null $update_flag
@@ -58,26 +58,29 @@ use Cake\ORM\Entity;
  * @property string|null $bank_city
  * @property string|null $bank_swift
  *
- * @property \App\Model\Entity\VendorStatus $vendor_status
  * @property \App\Model\Entity\CompanyCode $company_code
- * @property \App\Model\Entity\PaymentTerm $payment_term
  * @property \App\Model\Entity\PurchasingOrganization $purchasing_organization
  * @property \App\Model\Entity\AccountGroup $account_group
  * @property \App\Model\Entity\SchemaGroup $schema_group
  * @property \App\Model\Entity\ReconciliationAccount $reconciliation_account
  * @property \App\Model\Entity\State $state
  * @property \App\Model\Entity\Country $country
+ * @property \App\Model\Entity\PaymentTerm $payment_term
+ * @property \App\Model\Entity\Buyer $buyer
+ * @property \App\Model\Entity\VendorOtherdetail $vendor_otherdetail
+ * @property \App\Model\Entity\VendorRegisteredOffice $vendor_registered_office
  * @property \App\Model\Entity\RfqCommunication[] $rfq_communications
  * @property \App\Model\Entity\Rfq[] $rfqs
+ * @property \App\Model\Entity\VendorBankDetail[] $vendor_bank_details
  * @property \App\Model\Entity\VendorBranchOffice[] $vendor_branch_offices
+ * @property \App\Model\Entity\VendorCertificate[] $vendor_certificates
  * @property \App\Model\Entity\VendorCommencement[] $vendor_commencements
  * @property \App\Model\Entity\VendorFacility[] $vendor_facilities
  * @property \App\Model\Entity\VendorFactory[] $vendor_factories
  * @property \App\Model\Entity\VendorIncometax[] $vendor_incometaxes
- * @property \App\Model\Entity\VendorOtherdetail[] $vendor_otherdetails
  * @property \App\Model\Entity\VendorPartnerAddres[] $vendor_partner_address
+ * @property \App\Model\Entity\VendorProductionHistory[] $vendor_production_histories
  * @property \App\Model\Entity\VendorQuestionnaire[] $vendor_questionnaires
- * @property \App\Model\Entity\VendorRegisteredOffice[] $vendor_registered_offices
  * @property \App\Model\Entity\VendorReputedCustomer[] $vendor_reputed_customers
  * @property \App\Model\Entity\VendorSmallScale[] $vendor_small_scales
  * @property \App\Model\Entity\VendorTempOtp[] $vendor_temp_otps
@@ -128,7 +131,7 @@ class VendorTemp extends Entity
         'status' => true,
         'valid_date' => true,
         'remark' => true,
-        'buyer_id' => true,
+        'from_sap' => true,
         'added_date' => true,
         'updated_date' => true,
         'update_flag' => true,
@@ -143,26 +146,29 @@ class VendorTemp extends Entity
         'bank_country' => true,
         'bank_city' => true,
         'bank_swift' => true,
-        'vendor_status' => true,
         'company_code' => true,
-        'payment_term' => true,
         'purchasing_organization' => true,
         'account_group' => true,
         'schema_group' => true,
         'reconciliation_account' => true,
         'state' => true,
         'country' => true,
+        'payment_term' => true,
+        'buyer' => true,
+        'vendor_otherdetail' => true,
+        'vendor_registered_office' => true,
         'rfq_communications' => true,
         'rfqs' => true,
+        'vendor_bank_details' => true,
         'vendor_branch_offices' => true,
+        'vendor_certificates' => true,
         'vendor_commencements' => true,
         'vendor_facilities' => true,
         'vendor_factories' => true,
         'vendor_incometaxes' => true,
-        'vendor_otherdetails' => true,
         'vendor_partner_address' => true,
+        'vendor_production_histories' => true,
         'vendor_questionnaires' => true,
-        'vendor_registered_offices' => true,
         'vendor_reputed_customers' => true,
         'vendor_small_scales' => true,
         'vendor_temp_otps' => true,

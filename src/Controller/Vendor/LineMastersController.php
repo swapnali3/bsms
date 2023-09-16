@@ -40,10 +40,14 @@ class LineMastersController extends VendorAppController
     {
         $flash = [];
         $this->loadModel('VendorFactories');
+        $this->loadModel("Materials");
+        $this->loadModel("Uoms");
         $session = $this->getRequest()->getSession();
         $lineMaster = $this->LineMasters->newEmptyEntity();
-        $this->loadModel("Materials");
-        $uom = $this->Materials->find('list',['keyField' => 'uom', 'valueField' => 'uom'])->select(['uom'])->distinct(['uom']);
+        
+        $uom = $this->Uoms->find('list',['keyField' => 'code', 'valueField' => function ($row) {
+            return $row->code.' - '.$row->desciption;
+        }]);
         $factory = $this->VendorFactories->find('list',['keyField' => 'id', 'valueField' => 'factory_code'])->
         where(['vendor_temp_id' => $session->read('vendor_id')]);
         if ($this->request->is('post')) {

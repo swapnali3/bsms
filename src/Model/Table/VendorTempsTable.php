@@ -23,12 +23,15 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\VendorRegisteredOfficesTable&\Cake\ORM\Association\HasOne $VendorRegisteredOffices
  * @property \App\Model\Table\RfqCommunicationsTable&\Cake\ORM\Association\HasMany $RfqCommunications
  * @property \App\Model\Table\RfqsTable&\Cake\ORM\Association\HasMany $Rfqs
+ * @property \App\Model\Table\VendorBankDetailsTable&\Cake\ORM\Association\HasMany $VendorBankDetails
  * @property \App\Model\Table\VendorBranchOfficesTable&\Cake\ORM\Association\HasMany $VendorBranchOffices
+ * @property \App\Model\Table\VendorCertificatesTable&\Cake\ORM\Association\HasMany $VendorCertificates
  * @property \App\Model\Table\VendorCommencementsTable&\Cake\ORM\Association\HasMany $VendorCommencements
  * @property \App\Model\Table\VendorFacilitiesTable&\Cake\ORM\Association\HasMany $VendorFacilities
  * @property \App\Model\Table\VendorFactoriesTable&\Cake\ORM\Association\HasMany $VendorFactories
  * @property \App\Model\Table\VendorIncometaxesTable&\Cake\ORM\Association\HasMany $VendorIncometaxes
  * @property \App\Model\Table\VendorPartnerAddressTable&\Cake\ORM\Association\HasMany $VendorPartnerAddress
+ * @property \App\Model\Table\VendorProductionHistoriesTable&\Cake\ORM\Association\HasMany $VendorProductionHistories
  * @property \App\Model\Table\VendorQuestionnairesTable&\Cake\ORM\Association\HasMany $VendorQuestionnaires
  * @property \App\Model\Table\VendorReputedCustomersTable&\Cake\ORM\Association\HasMany $VendorReputedCustomers
  * @property \App\Model\Table\VendorSmallScalesTable&\Cake\ORM\Association\HasMany $VendorSmallScales
@@ -69,7 +72,6 @@ class VendorTempsTable extends Table
             'foreignKey' => 'status',
             'joinType' => 'INNER',
         ]);
-
         
         $this->belongsTo('CompanyCodes', [
             'foreignKey' => 'company_code_id',
@@ -99,9 +101,6 @@ class VendorTempsTable extends Table
         $this->belongsTo('PaymentTerms', [
             'foreignKey' => 'payment_term_id',
             'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('Buyers', [
-            'foreignKey' => 'buyer_id',
         ]);
         $this->hasOne('VendorOtherdetails', [
             'foreignKey' => 'vendor_temp_id',
@@ -325,8 +324,8 @@ class VendorTempsTable extends Table
             ->allowEmptyString('remark');
 
         $validator
-            ->integer('buyer_id')
-            ->allowEmptyString('buyer_id');
+            ->boolean('from_sap')
+            ->notEmptyString('from_sap');
 
         $validator
             ->dateTime('added_date')
@@ -416,7 +415,6 @@ class VendorTempsTable extends Table
         $rules->add($rules->existsIn('state_id', 'States'), ['errorField' => 'state_id']);
         $rules->add($rules->existsIn('country_id', 'Countries'), ['errorField' => 'country_id']);
         $rules->add($rules->existsIn('payment_term_id', 'PaymentTerms'), ['errorField' => 'payment_term_id']);
-        $rules->add($rules->existsIn('buyer_id', 'Buyers'), ['errorField' => 'buyer_id']);
 
         return $rules;
     }

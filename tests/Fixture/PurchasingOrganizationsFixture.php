@@ -24,8 +24,8 @@ class PurchasingOrganizationsFixture extends TestFixture
                 'code' => 'Lorem ipsum d',
                 'name' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'added_date' => '2023-08-12 15:26:18',
-                'updated_date' => '2023-08-12 15:26:18',
+                'added_date' => '2023-09-16 12:24:24',
+                'updated_date' => '2023-09-16 12:24:24',
             ],
         ];
         parent::init();

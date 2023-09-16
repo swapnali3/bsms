@@ -68,9 +68,22 @@
                 <li class="nav-item">
                     <?= $this->Html->link(__('Gate Entry'), ['controller' => 'asn', 'action' => 'search'], ['class' => "nav-link $asnactive", 'escape' => false]) ?>
                 </li>
-                <li class="nav-item ">
-                    <?= $this->Html->link(__('Stocks Upload'), ['controller' => '/stock-uploads', 'action' => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Masters</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li>
+                        <?= $this->Html->link(__('Materials'), ['controller' => '/materials'], ['class' => "nav-link", 'escape' => false]) ?>
+                            
+                        </li>
+                        
+                        <li>
+                        <?= $this->Html->link(__('Stocks Upload'), ['controller' => '/stock-uploads', 'action' => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+                        </li>
+                    </ul>
                 </li>
+                <!-- <li class="nav-item ">
+                    <?= $this->Html->link(__('Stocks Upload'), ['controller' => '/stock-uploads', 'action' => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+                </li> -->
                 
                 <?= $this->element('header/menu') ?>
             </ul>

@@ -44,16 +44,25 @@ class VendorTempsController extends BuyerAppController
         $vendorTemps = $this->VendorTemps
         ->find('all')
         ->contain(['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'])
-        ->where(['update_flag' => 0, 'VendorTemps.company_code_id' => $session->read('company_code_id'), 'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')])
+        ->where(['update_flag' => 0, 'VendorTemps.company_code_id' => $session->read('company_code_id'), 
+        'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')])
         ->order(['VendorTemps.added_date' => 'DESC'])
         ->toArray();
         $user_id = $this->getRequest()->getSession()->read('id');
         $usr = $this->Users->get($user_id);
-        $this->set('user_id', $usr);
-        $this->set(compact('vendorTemps'));
 
-        //$this->getRequestedVendor();
-        //$this->getCreatedVendor();
+        $fromPortalVenor = [];
+        $fromSapVendor = [];
+        foreach($vendorTemps as $vendor) {
+            if($vendor->from_sap) {
+                $fromSapVendor[] = $vendor;
+            } else {
+                $fromPortalVenor[] = $vendor;
+            }
+            
+        }
+        $this->set('user_id', $usr);
+        $this->set(compact('fromPortalVenor', 'fromSapVendor'));
 
     }
 
@@ -257,6 +266,7 @@ class VendorTempsController extends BuyerAppController
         $latestVendors = $this->VendorTemps
         ->find('all')
         ->contain(['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'])
+        ->where(['VendorTemps.company_code_id' => $session->read('company_code_id'), 'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')])
         ->order(['VendorTemps.added_date' => 'DESC'])
         ->limit(5);
 
@@ -264,122 +274,7 @@ class VendorTempsController extends BuyerAppController
 
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         $vendorCodes = [];
-        if ($this->request->is('post')) {
-
-            $importFile = $this->request->getData('vendor_code');
-            if ($_FILES['vendor_code']['name'] != "") {
-                if ($importFile !== null && isset($_FILES['vendor_code']['name'])) {
-                    // echo '<pre>';
-                    $destination = "uploads/";
-                    $filename = $_FILES['vendor_code']['name'];
-                    $path = $destination . $filename;
-                    move_uploaded_file($_FILES['vendor_code']['tmp_name'], $path);
-                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($path);
-                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-                    $spreadsheet = $reader->load($path);
-                    $worksheet = $spreadsheet->getActiveSheet();
-
-                    try{
-                        foreach ($worksheet->getRowIterator(2) as $row) {
-                            $minivendor = [];
-                            foreach ($row->getCellIterator() as $cell) {
-                                $cellval = $cell->getValue();
-                                array_push($minivendor, $cellval);
-                            }
-                            if (1 < count($minivendor) && count($minivendor) == 7){
-                                // print_r($minivendor);exit;
-                                $vendorTemp = $this->VendorTemps->newEmptyEntity();
         
-                                // Check if mobile exist
-                                if ($this->VendorTemps->exists(['VendorTemps.mobile' => $minivendor[2]])){
-                                    array_push($vendorCodes, ['status'=>false, 'msg'=>"Mobile Already Exist", 'data'=>$minivendor]); continue;
-                                } else { $vendorTemp->mobile = $minivendor[2]; }
-        
-                                // Check if email exist
-                                if ($this->VendorTemps->exists(['VendorTemps.email' => $minivendor[3]])){
-                                    array_push($vendorCodes, ['status'=>false, 'msg'=>"Email Already Exist", 'data'=>$minivendor]); continue;
-                                } else { $vendorTemp->email = $minivendor[3]; }
-        
-                                // Check if Payment Term exist
-                                if ($minivendor[4]){
-                                    if ($minivendor[4] && !$this->PaymentTerms->exists(['PaymentTerms.code' => $minivendor[4]])){
-                                        array_push($vendorCodes, ['status'=>false, 'msg'=>"Payment Terms not found", 'data'=>$minivendor]); continue;
-                                    } else { 
-                                        $payment_term = $this->PaymentTerms->find('all')->where(['code =' => $minivendor[4]])->limit(1)->toArray();
-                                        if($payment_term[0]->id){$vendorTemp->payment_term = $payment_term[0]->id;}
-                                    }
-                                }
-        
-                                // Check if Purchase Organisation exist
-                                // print_r($minivendor[4]); exit;
-                                if ($minivendor[5]){
-                                    if (!$this->PurchasingOrganizations->exists(['PurchasingOrganizations.name' => $minivendor[5]])){
-                                        array_push($vendorCodes, ['status'=>false, 'msg'=>"Purchasing Organizations not found", 'data'=>$minivendor]); continue;
-                                    } else { 
-                                        $purchasing_org = $this->PurchasingOrganizations->find('all')->where(['name =' => $minivendor[5]])->limit(1)->toArray();
-                                        if($purchasing_org[0]->id){$vendorTemp->purchasing_organization_id = $purchasing_org[0]->id;}
-                                    }
-                                }
-
-                                // Check if Account Group exist
-                                if($minivendor[6]){
-                                    if (!$this->AccountGroups->exists(['AccountGroups.name' => $minivendor[6]])){
-                                        array_push($vendorCodes, ['status'=>false, 'msg'=>"Account Groups not found", 'data'=>$minivendor]); continue;
-                                    } else { 
-                                        $account_group = $this->AccountGroups->find('all')->where(['name =' => $minivendor[6]])->limit(1)->toArray();
-                                        if($account_group[0]->id){$vendorTemp->account_group_id = $account_group[0]->id;}
-                                    }
-                                }
-                                
-                                // Check if Schema Group exist
-                                if ($minivendor[7]){
-                                    if (!$this->SchemaGroups->exists(['SchemaGroups.name' => $minivendor[7]])){
-                                        array_push($vendorCodes, ['status'=>false, 'msg'=>"Schema Groups not found", 'data'=>$minivendor]); continue;
-                                    } else { 
-                                        $schema_grp = $this->SchemaGroups->find('all')->where(['name =' => $minivendor[7]])->limit(1)->toArray();
-                                        if($schema_grp[0]->id){ $vendorTemp->schema_group_id = $schema_grp[0]->id;}
-                                    }
-                                }
-                                
-                                $vendorTemp->buyer_id = $this->getRequest()->getSession()->read('id');
-                                $vendorTemp->name = $minivendor[1];
-                                $vendorTemp->valid_date = date('Y-m-d h:i:s');
-                                $vendorTemp->status = 3;
-                                
-                                try {
-                                    if($this->VendorTemps->save($vendorTemp)){
-                                        $id = $vendorTemp->toArray();
-                                        array_push($vendorCodes, ['status'=>true, 'msg'=>"Vendor Add Successful", 'data'=>$minivendor]);
-                                    } else { array_push($vendorCodes, ['status'=>false, 'msg'=>"Vendor Add Failed", 'data'=>$minivendor]); }
-                                } catch (\Exception $e) { array_push($vendorCodes, ['status'=>false, 'msg'=>$e->getMessage(), 'data'=>$minivendor]); }
-                            }
-                        }
-                        $tempvendor = [];
-                        foreach ($vendorCodes as $ven) { 
-                            if (!$ven['status']){
-                                array_push($tempvendor, $ven);
-                            }
-                        }
-                        foreach ($vendorCodes as $ven) { 
-                            if ($ven['status']){
-                                array_push($tempvendor, $ven);
-                            }
-                        }
-        
-                        $this->set('results', $tempvendor);
-                    } catch (\Exception $e) {
-                        $flash = ['type'=>'error', 'msg'=>'Invalid Excel File'];
-                        $this->set('flash', $flash);
-                    }
-                } else {
-                    $flash = ['type'=>'error', 'msg'=>'SAP Vendor Code or Excel File Required'];
-                    $this->set('flash', $flash);
-                }
-            } else {
-                $flash = ['type'=>'error', 'msg'=>'SAP Vendor Code or Excel File Required'];
-                $this->set('flash', $flash);
-            }
-        }
         $titles = $this->Titles->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
         /*$purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
             return $row->code.' - '.$row->name;
@@ -414,13 +309,13 @@ class VendorTempsController extends BuyerAppController
 
             $inputCode = trim($this->request->getData('sap_vendor_code'));
             $importFile = $this->request->getData('vendor_code');
-            $this->loadModel("Users");
+            
             $vendorView = [];
             $vendorCodes = [$inputCode];
             // Incase of Excel input
             if ($inputCode == "") { $vendorCodes = []; }
 
-            if ($_FILES['vendor_code']['name'] != "") {
+            /*if ($_FILES['vendor_code']['name'] != "") {
                 if ($importFile !== null && isset($_FILES['vendor_code']['name'])) {
                     $destination = "uploads/";
                     $filename = $_FILES['vendor_code']['name'];
@@ -441,7 +336,7 @@ class VendorTempsController extends BuyerAppController
                         }
                     }
                 }
-            }
+            } */
             
             foreach ($vendorCodes as $vendorCode) {
                 if (!empty($vendorCode)) {
@@ -450,8 +345,17 @@ class VendorTempsController extends BuyerAppController
                         $data['LIFNR'] = $vendorCode;
                         $uploadFileContent = json_encode($data);
                         $uploadfileName = 'VENDOR_GET_('.$vendorCode.')_REQ.JSON';
+                        $downloadfileName = 'VENDOR_GET_('.$vendorCode.')_RES.JSON';
                         $ftpConn = $this->Ftp->connection();
                         if($this->Ftp->uploadFile($ftpConn, $uploadFileContent, $uploadfileName)) {
+                            $this->loadModel('VendorCodeFiles');
+                            $vendorCodeFile = $this->VendorCodeFiles->newEmptyEntity();
+                            $tm['sap_vendor_code'] = str_pad($vendorCode, 10, "0", STR_PAD_LEFT);
+                            $tm['req_file_name'] = $uploadfileName;
+                            $tm['res_file_name'] = $downloadfileName;
+                            $tm['status'] = 'request sent';
+                            $vendorCodeFile = $this->VendorCodeFiles->patchEntity($vendorCodeFile, $tm);
+                            $this->VendorCodeFiles->save($vendorCodeFile);
                             $flash = ['type'=>'success', 'msg'=>' Request sent to SAP, please check after sometime.'];
                         } else {
                             $flash = ['type'=>'error', 'msg'=>' Something went wrong, please retry.'];
@@ -560,8 +464,6 @@ class VendorTempsController extends BuyerAppController
             return $this->redirect(['action' => 'view', $id]);
         }
 
-
-
         $data['DATA'] = array();
 
         $data['DATA']['VENDOR_PORTAL_ID'] = $vendor->id;
@@ -599,10 +501,19 @@ class VendorTempsController extends BuyerAppController
 
         $uploadFileContent = json_encode($data);
         $uploadfileName = 'VENDOR_CR_('.$vendor->id.')_REQ.JSON';
+        $downloadfileName = 'VENDOR_CR_('.$vendor->id.')_RES.JSON';
         $ftpConn = $this->Ftp->connection();
         if($this->Ftp->uploadFile($ftpConn, $uploadFileContent, $uploadfileName)) {
             if ($action == 'app') { $vendor->status = 2; }
             $this->VendorTemps->save($vendor);
+            $this->loadModel('VendorCodeFiles');
+            $vendorCodeFile = $this->VendorCodeFiles->newEmptyEntity();
+            $tm['vendor_temp_id'] = $vendor->id;
+            $tm['req_file_name'] = $uploadfileName;
+            $tm['res_file_name'] = $downloadfileName;
+            $tm['status'] = 'request sent';
+            $vendorCodeFile = $this->VendorCodeFiles->patchEntity($vendorCodeFile, $tm);
+            $this->VendorCodeFiles->save($vendorCodeFile);
             $flash = ['type'=>'success', 'msg'=>' Vendor sent to SAP for approval'];
         } else {
             $flash = ['type'=>'error', 'msg'=>' Vendor sent to SAP fail'];
@@ -724,16 +635,6 @@ class VendorTempsController extends BuyerAppController
                     $response['status'] = 'success';
                     $response['message'] = 'Record save successfully';
                     $quryString = $data['email'] . '||' . $VendorTemp->id;
-
-                    // $link = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
-                    // $mailer = new Mailer('default');
-                    // $mailer
-                    //     ->setTransport('smtp')
-                    //     ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
-                    //     ->setTo($data['email'])
-                    //     ->setEmailFormat('html')
-                    //     ->setSubject('Verify New Account')
-                    //     ->deliver('Hi ' . $data['name'] . '<br/>Welcome to Vendor portal. <br/>' . $link);
 
                     $visit_url = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
                     $mailer = new Mailer('default');
@@ -894,182 +795,7 @@ class VendorTempsController extends BuyerAppController
         }
     }
 
-    function getRequestedVendor() {
-        $ftpConn = $this->Ftp->connection();
-        $list = $this->Ftp->getList($ftpConn);
-        foreach($list as $fileKey => $val) {
-            if(str_starts_with($fileKey, 'VENDOR_GET_')) {
-                $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
-                if($data) {
-                    $this->loadModel("VendorTemps");
-        
-                    $data = trim(preg_replace('/\s+/', ' ', $data));
-                    $d = json_decode($data);
-        
-                    foreach($d->VENDOR_LIST as $key => $row) {
-                        $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
-                        $puOrg = $this->VendorTemps->PurchasingOrganizations->findByCode($row->EKORG)->first();
-                        $accGrp = $this->VendorTemps->AccountGroups->findByCode($row->KTOKK)->first();
-                        $reconAccount = $this->VendorTemps->ReconciliationAccounts->findByCode($row->AKONT)->first();
-                        $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
-                        $schemaGroup = $this->VendorTemps->SchemaGroups->findByCode($row->KALSK)->first();
-                        $region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
-                        $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
-                        $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
-                        
-                        if($row->SUCCESS == "0") { continue; }
-                        $vendorExists = false;
-                        if($this->VendorTemps->exists(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])) {
-                            $vendor = $this->VendorTemps->find()->where(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])->first();
-                            $vendorExists = true;
-                        } else {
-                            $vendor = $this->VendorTemps->newEmptyEntity();
-                            $vendor->status = 5;
-                            $vendorExists = false;
-                        }
-        
-                        $vendor->sap_vendor_code = $row->LIFNR;
-                        $vendor->company_code_id = $companyCode->id;
-                        $vendor->purchasing_organization_id = $puOrg->id;
-                        $vendor->account_group_id = $accGrp->id;
-                        $vendor->reconciliation_account_id = $reconAccount->id;
-                        $vendor->payment_term_id = $payTerm->id;
-                        if($schemaGroup) {
-                            $vendor->schema_group_id = $schemaGroup->id;
-                        }
-                        if($region) {
-                            $vendor->state_id = $region->id;
-                        }
-                        if($country) {
-                            $vendor->country_id = $country->id;
-                        }
-                        $vendor->title = $row->TITLE_MEDI;
-                        $vendor->name = $row->NAME1;
-                        $vendor->address = $row->NAME2;
-                        $vendor->address_2 = $row->NAME3;
-                        $vendor->city = $row->CITY1;
-                        $vendor->pincode = $row->POST_CODE1;
-                        $vendor->email = $row->SMTP_ADDR;
-                        $vendor->mobile = $row->MOB_NUMBER;
-                        $vendor->gst_no = $row->GSIN;
-                        $vendor->pan_no = $row->PAN;
-                        $vendor->buyer_id = 8;
-        
-                        if($this->VendorTemps->save($vendor)) {
-                            $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
-                            if(!$vendorExists) {
-                                $this->loadModel("Users");
-                                $user = $this->Users->newEmptyEntity();
-                                
-                                $data = array();
-                                $data['first_name'] = $vendor->name;
-                                $data['last_name'] = $vendor->name;
-                                $data['username'] = $vendor->email;
-                                $data['mobile'] = $vendor->mobile;
-                                $data['password'] = $vendor->mobile;
-                                $data['group_id'] = 3;
-        
-                                $user = $this->Users->patchEntity($user, $data);
-        
-                                if ($this->Users->save($user)) {
-                                    $response['message'][] = 'Vendor '.$row->LIFNR.' save fail';
-                                    $this->Ftp->removeFile($ftpConn, $fileKey);
-                                }
-                            } else {
-                                $this->Ftp->removeFile($ftpConn, $fileKey);
-                            }
-                        } else {
-                            $response['message'][] = 'Vendor '.$row->LIFNR.' save fail';
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-    function getCreatedVendor() {
-        $ftpConn = $this->Ftp->connection();
-        $list = $this->Ftp->getList($ftpConn);
-        foreach($list as $fileKey => $val) {
-            if(str_starts_with($fileKey, 'VENDOR_CR_')) {
-                $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
-                if($data) {
-                    $this->loadModel("VendorTemps");
-        
-                    $data = trim(preg_replace('/\s+/', ' ', $data));
-                    $d = json_decode($data);
-        
-                    foreach($d->VENDOR_LIST as $key => $row) {
-                        $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
-                        $puOrg = $this->VendorTemps->PurchasingOrganizations->findByCode($row->EKORG)->first();
-                        $accGrp = $this->VendorTemps->AccountGroups->findByCode($row->KTOKK)->first();
-                        $reconAccount = $this->VendorTemps->ReconciliationAccounts->findByCode($row->AKONT)->first();
-                        $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
-                        $schemaGroup = $this->VendorTemps->SchemaGroups->findByCode($row->KALSK)->first();
-                        $region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
-                        $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
-                        $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
-                        
-                        if($row->SUCCESS == "0") { continue; }
-                        
-                        $vendor = $this->VendorTemps->get($row->VENDOR_PORTAL_ID);
-                        $vendor->status = 5;
-                        $vendor->sap_vendor_code = $row->LIFNR;
-                        $vendor->company_code_id = $companyCode->id;
-                        $vendor->purchasing_organization_id = $puOrg->id;
-                        $vendor->account_group_id = $accGrp->id;
-                        $vendor->reconciliation_account_id = $reconAccount->id;
-                        $vendor->payment_term_id = $payTerm->id;
-                        if($schemaGroup) {
-                            $vendor->schema_group_id = $schemaGroup->id;
-                        }
-                        if($region) {
-                            $vendor->state_id = $region->id;
-                        }
-                        if($country) {
-                            $vendor->country_id = $country->id;
-                        }
-                        $vendor->title = $row->TITLE_MEDI;
-                        $vendor->name = $row->NAME1;
-                        $vendor->address = $row->NAME2;
-                        $vendor->address_2 = $row->NAME3;
-                        $vendor->city = $row->CITY1;
-                        $vendor->pincode = $row->POST_CODE1;
-                        $vendor->email = $row->SMTP_ADDR;
-                        $vendor->mobile = $row->MOB_NUMBER;
-                        $vendor->gst_no = $row->GSIN;
-                        $vendor->pan_no = $row->PAN;
-                        $vendor->buyer_id = $row->BUYER_ID;
-        
-                        if($this->VendorTemps->save($vendor)) {
-                            $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
-                            
-                            $this->loadModel("Users");
-                            $user = $this->Users->newEmptyEntity();
-                            
-                            $data = array();
-                            $data['first_name'] = $vendor->name;
-                            $data['last_name'] = $vendor->name;
-                            $data['username'] = $vendor->email;
-                            $data['mobile'] = $vendor->mobile;
-                            $data['password'] = $vendor->mobile;
-                            $data['group_id'] = 3;
     
-                            $user = $this->Users->patchEntity($user, $data);
-    
-                            if ($this->Users->save($user)) {
-                                $response['message'][] = 'Vendor '.$row->LIFNR.' save fail';
-                                $this->Ftp->removeFile($ftpConn, $fileKey);
-                            }
-                        } else {
-                            $response['message'][] = 'Vendor '.$row->LIFNR.' save fail';
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 
 function importVendor($vendorCode)

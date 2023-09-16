@@ -17,9 +17,17 @@ $(document).ready(function () {
         searching: false,
         ordering: false,
     });
+    $("#example2").DataTable({
+        responsive: false,
+        lengthChange: false,
+        autoWidth: true,
+        searching: false,
+        ordering: false,
+    });
 });
 
 $("#example1").on("click", "td", function () { if ($(this).attr("redirect")) { window.location = $(this).attr("redirect"); } });
+$("#example2").on("click", "td", function () { if ($(this).attr("redirect")) { window.location = $(this).attr("redirect"); } });
 
 $(document).on("click", ".chatload", function () {
     chat($(this).data('modalbody'), $(this).data('sender_id'), getchaturl, $(this).data('table_name'), $(this).data('table_pk'), "mt-2");
