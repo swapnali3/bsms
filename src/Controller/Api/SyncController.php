@@ -93,6 +93,9 @@ class SyncController extends ApiAppController
                     if($mKey == 'CURRENCY') {
                         $response['message'][] =$this->saveCurrencies((array)$mVal);
                     }
+                    if($mKey == 'UOM') {
+                        $response['message'][] =$this->saveUOMs((array)$mVal);
+                    }
                 }
             }
         } catch (\Exception $e) {
@@ -299,6 +302,25 @@ class SyncController extends ApiAppController
                 return 'Currencies sync successfully!';
             } else {
                 return 'Currencies sync fail!';
+            }
+        } 
+    }
+
+    function saveUOMs($uomMaster = array()) {
+        //echo '<pre>'; print_r($schimaGroupMaster); exit;
+        if(!empty($uomMaster)) {
+            $this->loadModel("Uoms");
+            $columns = array('code', 'description');
+            $upsertQuery = $this->Uoms->query();
+            $upsertQuery->insert($columns);
+            foreach($uomMaster as $k => $v) {
+                $upsertQuery->values(array('code' => $v->MSEHI, 'description' => $v->MSEHL));
+            }
+
+            if($upsertQuery->epilog('ON DUPLICATE KEY UPDATE `description`=VALUES(`description`)')->execute()) {
+                return 'UOM sync successfully!';
+            } else {
+                return 'UOM sync fail!';
             }
         } 
     }
@@ -621,6 +643,7 @@ class SyncController extends ApiAppController
                         } else {
                             $vendor = $this->VendorTemps->newEmptyEntity();
                             $vendor->status = 5;
+                            $vendor->from_sap = 1;
                             $vendorExists = false;
                         }
                         

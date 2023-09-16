@@ -48,6 +48,9 @@ class PurchasingOrganizationsTable extends Table
             'foreignKey' => 'company_code_id',
             'joinType' => 'INNER',
         ]);
+        $this->hasMany('Buyers', [
+            'foreignKey' => 'purchasing_organization_id',
+        ]);
         $this->hasMany('VendorTemps', [
             'foreignKey' => 'purchasing_organization_id',
         ]);
@@ -69,8 +72,7 @@ class PurchasingOrganizationsTable extends Table
             ->scalar('code')
             ->maxLength('code', 15)
             ->requirePresence('code', 'create')
-            ->notEmptyString('code')
-            ->add('code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmptyString('code');
 
         $validator
             ->scalar('name')
@@ -101,7 +103,7 @@ class PurchasingOrganizationsTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['code']), ['errorField' => 'code']);
+        $rules->add($rules->isUnique(['code', 'company_code_id']), ['errorField' => 'code']);
         $rules->add($rules->existsIn('company_code_id', 'CompanyCodes'), ['errorField' => 'company_code_id']);
 
         return $rules;

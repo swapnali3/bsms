@@ -58,7 +58,7 @@ class UomsTable extends Table
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 100)
+            ->maxLength('description', 40)
             ->requirePresence('description', 'create')
             ->notEmptyString('description');
 
