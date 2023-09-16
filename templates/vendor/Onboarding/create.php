@@ -187,9 +187,7 @@
 
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
-                                        <label for="id_telephone">Telephone</label>
-                                        <input type="tel" id="id_telephone" class="form-control" minlength='14'
-                                            maxlength="14">
+                                    <?php echo $this->Form->control('telephone', ['class' => 'form-control', 'minlength'=>'14', 'maxlength'=>'14']); ?>
                                     </div>
                                 </div>
                             </div>
@@ -266,19 +264,18 @@
 
                             <div class="row">
                                 <div class="col-4 mt-3">
-                                    <label for="formFileMultiple" class="form-label">Upload GST no</label>
-                                    <input class="form-control" required type="file" accept=".pdf" name="gst_file" id="formFileMultiple1">
+                                    <!-- <label for="formFileMultiple" class="form-label">Upload GST no</label> -->
+                                    <?php echo $this->Form->control('gst_file', ['accept'=>'.pdf', 'required'=>'true', 'type' => 'file', 'class' => 'form-control', 'id'=>'formFileMultiple1']); ?>
+                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->gst_file, ['escape' => false, 'target'=>'_blank']) ?>
                                     <small class="text-warning info-msg">Upload only PDF file</small>
                                 </div>
                                 <div class="col-4 mt-3">
-                                    <label for="formFileMultiple" class="form-label">Upload pan card</label>
-                                    <input class="form-control" required accept=".pdf" type="file" name="pan_file" id="formFileMultiple2">
-                                    <small class="text-warning info-msg">Upload only PDF file</small>
+                                    <?php echo $this->Form->control('pan_file', ['accept'=>'.pdf', 'required'=>'true', 'type' => 'file', 'class' => 'form-control', 'id'=>'formFileMultiple2']); ?>
+                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->pan_file, ['escape' => false, 'target'=>'_blank']) ?>
                                 </div>
                                 <div class="col-4 mt-3">
-                                    <label for="formFileMultiple" class="form-label">Cancelled Cheque</label>
-                                    <input class="form-control" required accept=".pdf,image/jpeg, image/png" type="file" name="bank_file" id="formFileMultiple3">
-                                    <small class="text-warning info-msg">Upload only PDF file</small>
+                                    <?php echo $this->Form->control('bank_file', ['accept'=>'.pdf', 'required'=>'true', 'type' => 'file', 'class' => 'form-control', 'id'=>'formFileMultiple3']); ?>
+                                    <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->bank_file, ['escape' => false, 'target'=>'_blank']) ?>
                                 </div>
                             </div>
 
@@ -500,7 +497,8 @@
                  },
                 gst_no: {
                     required: true,
-                    maxlength: 15
+                    minlength: 16,
+                    maxlength: 16
                 },
                 pan_no: {
                     required: true,
