@@ -98,7 +98,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(255, 255, 255, 0.1); 
+      background-color: rgba(255, 255, 255, 0.2); 
       pointer-events: none;
     }
 
@@ -148,6 +148,8 @@
       height: 100%;
       z-index: 999;
     }
+
+    .form-control[type="file"] { font-size: 16px !important;}
 
     .s-logo {
       width: 50%;

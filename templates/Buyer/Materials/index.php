@@ -18,7 +18,7 @@
                         <h5>Vendor Materials</h5>
                     </div>
                     <div class="col-lg-6 d-flex justify-content-end text-align-end">
-                        <a href="<?= $this->Url->build('/') ?>buyer/materials/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Material</button></a>
+                        <a href="<?= $this->Url->build('/') ?>buyer/materials/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn">Add Material</button></a>
                         <!-- <button type="button" id="reload_stocks" class="btn bg-gradient-button mb-0 continue_btn">Refresh min. Stk.</button> -->
                     </div>
                 </div>

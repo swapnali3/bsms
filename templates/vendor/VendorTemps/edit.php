@@ -769,7 +769,7 @@
                                             </div>
                                             <div class="card-body" id="id_vendor_commencements_0_body">
                                                 <div class="row" id="vc_killme00">
-                                                    <div class="col-sm-12 col-md-3 col-lg-3 required mb-3">
+                                                    <div class="col-sm-12 col-md-4 col-lg-4 required mb-3">
                                                         <input required="required" type="hidden"
                                                             name="factories[0][commencements][0][id]"
                                                             id="id_vendor_factories_0_commencement_0_id">

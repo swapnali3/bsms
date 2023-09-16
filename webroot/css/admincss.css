@@ -254,3 +254,5 @@ label:not(.form-check-label):not(.custom-file-label){
 } */
 
 .admin_profile_icon { display: none !important;}
+
+.nav-link { cursor: pointer;}

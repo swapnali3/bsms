@@ -112,7 +112,7 @@
                 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
                     <div class="user-panel d-flex">
                         <div class="image">
-                            <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2" alt="User Image" style="box-shadow:none !important;margin-right:15px; ">
+                            <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2" alt="User Image" style="box-shadow:none !important;">
                         </div>
                     </div>
                 </a>

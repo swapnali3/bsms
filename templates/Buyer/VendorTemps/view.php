@@ -19,7 +19,7 @@
                         alt="Vendor">
                 </div>
                 <div class="mt-3">
-                    <table class="ml-5">
+                    <table>
                         <tr>
                             <td>Name</td>
                             <th>
