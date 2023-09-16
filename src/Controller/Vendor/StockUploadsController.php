@@ -115,7 +115,10 @@ class StockUploadsController extends VendorAppController
             return $this->redirect(['action' => 'index']);
         }
 
+        //var_dump($sapVendor);
         $vendor_mateial = $this->Materials->find('list', ['keyField' => 'id', 'valueField' => 'description'])->where(['sap_vendor_code' => $sapVendor])->all();
+
+        //echo '<pre>';  print_r($vendor_mateial); exit;
         $vendor_factory = $this->VendorFactories->find('list', ['keyField' => 'id', 'valueField' => 'factory_code'])->where(['vendor_temp_id' => $vendorId])->all();
         
 

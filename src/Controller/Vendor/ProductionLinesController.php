@@ -92,15 +92,15 @@ class ProductionLinesController extends VendorAppController
             $requestData['sap_vendor_code'] = $sapVendor;
 
             
-            $buyer = $this->VendorTemps->find()
+            /*$buyer = $this->VendorTemps->find()
             ->select(['buyer_id'])
             ->where(['sap_vendor_code' => $sapVendor])
-            ->first();
+            ->first(); */
 
             $productionline = $this->ProductionLines->patchEntity($productionline, $requestData);
             if ($this->ProductionLines->save($productionline)) {
 
-                if ($this->Notifications->exists(['Notifications.user_id' => $buyer->buyer_id, 'Notifications.notification_type' => 'production_line'])) {
+                /*if ($this->Notifications->exists(['Notifications.user_id' => $buyer->buyer_id, 'Notifications.notification_type' => 'production_line'])) {
                     $this->Notifications->updateAll(
                         ['message_count' => $this->Notifications->query()->newExpr('message_count + 1')],
                         ['user_id' => $buyer->buyer_id, 'notification_type' => 'production_line']
@@ -111,7 +111,7 @@ class ProductionLinesController extends VendorAppController
                     $notification->notification_type = 'production_line';
                     $notification->message_count = 1;
                     $this->Notifications->save($notification);
-                } 
+                }  */
 
                 $flash = ['type'=>'success', 'msg'=>'The productionline has been saved'];
                 $this->set('flash', $flash);
@@ -152,7 +152,7 @@ class ProductionLinesController extends VendorAppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $flash = ['type'=>'success', 'msg'=>'The productionline could not be saved. Please, try again'];
+            $flash = ['type'=>'error', 'msg'=>'The productionline could not be saved. Please, try again'];
             $this->set('flash', $flash);
         }
 
