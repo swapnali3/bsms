@@ -78,7 +78,7 @@
             <!-- <a href="<?= $this->Url->build('dashboard') ?>" class="brand-link" style="background-color:#ffffff;text-align-last:center;">
             <?= $this->Html->image('apar_logo.png', ['width' => '175', 'class' => 'ft_rect_logo', 'data-image' => '1']) ?>
             </a> -->
-            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link">
+            <a href="<?= $this->Url->build('/admin/dashboard') ?>" class="brand-link">
                 <!-- <?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '1']) ?> -->
                 <span class="brand-text"><?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
             </a>

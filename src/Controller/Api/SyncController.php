@@ -151,11 +151,14 @@ class SyncController extends ApiAppController
             $this->loadModel("ReconciliationAccounts");
 
             $company_codes = $this->CompanyCodes->find('list', ['keyField' => 'code', 'valueField' => 'id'])->toArray();
+
+            //echo '<pre>'; print_r($company_codes); exit;
             $columns = array('code', 'name', 'company_code_id');
             $upsertQuery = $this->ReconciliationAccounts->query();
             $upsertQuery->insert($columns);
 
             foreach($reconcAcMaster as $k => $v) {
+                //echo '<pre>'; echo $v->BUKRS, '='; print_r($reconcAcMaster[$k]); echo '<br />';
                 $upsertQuery->values(array('code' => $v->SAKNR, 'name' => $v->TXT20, 'company_code_id' => $company_codes[$v->BUKRS]));
             }
             
@@ -584,6 +587,7 @@ class SyncController extends ApiAppController
 
     function getRequestedVendor($ftpConn, $list) {
 
+        $this->loadModel("Users");
         $response = array();
         $response['status'] = 0;
         $response['message'] = [];
@@ -610,6 +614,7 @@ class SyncController extends ApiAppController
                         
                         if(trim($row->SUCCESS) == "0") { continue; }
                         $vendorExists = false;
+                        $createUser = false;
                         if($this->VendorTemps->exists(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])) {
                             $vendor = $this->VendorTemps->find()->where(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])->first();
                             $vendorExists = true;
@@ -621,7 +626,9 @@ class SyncController extends ApiAppController
                         
                         if(!$vendorExists && $this->VendorTemps->exists(['name' => $row->NAME1, 'email' => $row->SMTP_ADDR, 'mobile' => $row->MOB_NUMBER])) {
                             $vendor = $this->VendorTemps->find()->where(['name' => $row->NAME1, 'email' => $row->SMTP_ADDR, 'mobile' => $row->MOB_NUMBER])->first();
+                            $vendor->status = 5;
                             $vendorExists = true;
+                            $createUser = true;
                         }
 
                         $vendor->sap_vendor_code = $row->LIFNR;
@@ -653,7 +660,7 @@ class SyncController extends ApiAppController
         
                         if($this->VendorTemps->save($vendor)) {
                             $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
-                            if(!$vendorExists) {
+                            if(!$vendorExists || $createUser) {
                                 $this->loadModel("Users");
                                 $user = $this->Users->newEmptyEntity();
                                 
@@ -746,9 +753,7 @@ class SyncController extends ApiAppController
                                 $vendor->mobile = $row->MOB_NUMBER;
                                 $vendor->gst_no = $row->GSIN;
                                 $vendor->pan_no = $row->PAN;
-                                //$vendor->buyer_id = $row->BUYER_ID;
-                
-                                //echo '<pre>'; print_r($vendor); exit;
+                                
                                 if($this->VendorTemps->save($vendor)) {
                                     $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
                                     
