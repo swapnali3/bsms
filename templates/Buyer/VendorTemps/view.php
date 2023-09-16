@@ -345,11 +345,18 @@
                                                         </tr>
                                                         <tr>
                                                             <td>State</td>
-                                                            <th><?=h($vendorTemp->state['name']) ?></th>
+                                                            <th>
+                                                                <?php if (isset($vendorTemp->state)) : ?>
+                                                                <?=h($vendorTemp->state['name']) ?>
+                                                                <?php endif; ?>
+                                                            </th>
                                                         </tr>
                                                         <tr>
                                                             <td>Country</td>
-                                                            <th><?=h($vendorTemp->country['country_name']) ?>
+                                                            <th>
+                                                                <?php if (isset($vendorTemp->country)) : ?>    
+                                                                <?=h($vendorTemp->country['country_name']) ?>
+                                                                <?php endif; ?>
                                                             </th>
                                                         </tr>
                                                         <tr>

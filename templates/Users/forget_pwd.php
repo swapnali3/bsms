@@ -26,7 +26,7 @@
                 <div class="forget-buttons">
                 
                 <?php echo $this->Form->button('Submit', array('class' => 'btn btn-custom mt-3')); ?>
-                <a href="/bsms" class="login_btn btn mt-3">Login</a>
+                <?= $this->Html->link(__('Login'), '/', ['escape' => false, 'class'=>'login_btn btn mt-3']) ?>
                 </div>
                 <?= $this->Form->end() ?>
                 <!-- <img src="<?= $this->Url->build('/') ?>img/ft-icon.png" class="ft-icon"> -->
