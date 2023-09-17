@@ -150,8 +150,9 @@ class MaterialsController extends BuyerAppController
                         
                         $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                         if($col == 1) {
-                            $tmp['sap_vendor_code'] = $value;
-                            $datas['sap_vendor_code'] = $value;
+                            
+                            $tmp['sap_vendor_code'] = str_pad((string)$value, 10, "0", STR_PAD_LEFT);
+                            $datas['sap_vendor_code'] = str_pad((string)$value, 10, "0", STR_PAD_LEFT);
                             if(empty($value)) {
                                 $vendorError = true;
                             }

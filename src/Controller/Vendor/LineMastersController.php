@@ -46,7 +46,7 @@ class LineMastersController extends VendorAppController
         $lineMaster = $this->LineMasters->newEmptyEntity();
         
         $uom = $this->Uoms->find('list',['keyField' => 'code', 'valueField' => function ($row) {
-            return $row->code.' - '.$row->desciption;
+            return $row->code.' - '.$row->description;
         }]);
         $factory = $this->VendorFactories->find('list',['keyField' => 'id', 'valueField' => 'factory_code'])->
         where(['vendor_temp_id' => $session->read('vendor_id')]);
