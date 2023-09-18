@@ -596,6 +596,7 @@ class SyncController extends ApiAppController
             $list = $this->Ftp->getList($ftpConn);
             $this->getRequestedVendor($ftpConn, $list);
             $this->getCreatedVendor($ftpConn, $list);
+            $this->getRequestedBuyer($ftpConn, $list);
             $response['status'] = 1;
             $response['message'] = 'Vendor sync done';
         } catch (\Exception $e) {

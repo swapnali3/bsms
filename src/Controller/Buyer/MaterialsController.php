@@ -190,7 +190,7 @@ class MaterialsController extends BuyerAppController
                         foreach ($uploadData as $data) {
                             $upsertQuery->values($data);
                         }
-                        $upsertQuery->epilog('ON DUPLICATE KEY UPDATE description=VALUES(description), minimum_stock=VALUES(minimum_stock)')
+                        $upsertQuery->epilog('ON DUPLICATE KEY UPDATE description=VALUES(description), minimum_stock=VALUES(minimum_stock), uom=VALUES(uom)')
                             ->execute();
                     }
                 }
