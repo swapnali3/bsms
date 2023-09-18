@@ -16,6 +16,7 @@
     <div class="col-12">
         <div class="card card_box_shadow">
             <div class="card-body vendor-list">
+                <h4>Vendor for Buyer</h4>
                 <div class="table-responsive">
                     <table class="table table-hover" id="example1">
                         <thead>
@@ -97,6 +98,7 @@
     <div class="col-12">
         <div class="card card_box_shadow">
             <div class="card-body vendor-list">
+                <h4>Vendor for SAP</h4>
                 <div class="table-responsive">
                     <table class="table table-hover" id="example2">
                         <thead>

@@ -22,7 +22,7 @@
             <?= $this->Form->control('password', ['label' => 'Confirm Password', 'class'=>'form-control', 'type' => 'password']) ?>
             </div>
             <div class="col-sm-12 col-md-3 col-lg-3 mt-3 pt-3">
-                <?= $this->Form->button(__('Change Password'), ['class' => 'btn btn-info']) ?>
+                <?= $this->Form->button(__('Change Password'), ['class' => 'change_pass btn btn-info']) ?>
             </div>
         </div>
         <?= $this->Form->end() ?>

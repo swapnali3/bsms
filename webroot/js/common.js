@@ -111,3 +111,17 @@ function preventEnterKey(event) {
   
 document.addEventListener('keydown', preventEnterKey);
   
+
+// Always Active sidebar functionality start here
+
+// document.addEventListener("DOMContentLoaded", function() {
+//     // Check local storage for sidebar state and apply it
+//     var sidebarState = localStorage.getItem("sidebarState");
+//     var sidebar = document.querySelector(".main-sidebar");
+    
+//     if (sidebarState === "active") {
+//         sidebar.classList.add("active");
+//     } else {
+//         sidebar.classList.remove("active");
+//     }
+// });

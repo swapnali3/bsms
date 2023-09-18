@@ -24,7 +24,7 @@
     
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-2 col-md-2 mt-3">
+            <div class="col-sm-2 col-md-2">
                 <?= $this->Form->control('upload_file', ['type' => 'file', 'label' =>
                 false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden;
                         position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']);
@@ -33,13 +33,13 @@
                 'button', 'label' => 'Upload File', 'class' => 'd-block btn bg-gradient-button mb-0 file-upld-btn']); ?>
                 <span id="filessnames"></span>
             </div>
-            <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">
+            <div class="col-sm-2 col-md-2 d-flex justify-content-start align-items-baseline">
                 <button class="btn bg-gradient-submit" id="id_import" type="button">
                             Submit
                         </button>
             </div>
 
-            <div class="col-sm-12 col-md-12 mt-3">
+            <div class="col-sm-12 col-md-12">
                 <i style="color: black;">
                     <a href="<?= $this->Url->build('/') ?>webroot/templates/material_master.xlsx" download>material_master_template</a>
                 </i>

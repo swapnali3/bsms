@@ -14,6 +14,7 @@
 
 <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
+<?= $this->Html->css('custom.css') ?>
 <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css"> -->
 <!-- <?= $this->Html->css('CakeLte.style') ?> -->
 <style>
@@ -57,6 +58,12 @@
         font-size: 11px;
         color: #999;
     }
+    .note-btn[data-bs-original-title="Video"],
+.note-btn[data-bs-original-title="Help"],
+.note-btn[data-bs-original-title="Code View"],
+.note-btn[data-bs-original-title="Full Screen"]
+{ display: none !important;}
+    
 </style>
 <div class="row">
     <div class="column-responsive column-80">
@@ -293,8 +300,8 @@
                                 <h6>Are you sure you want to proceed? This action cannot be edit.</h6>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn cancelButton" style="border:1px solid #333" data-dismiss="modal">Cancel</button>
-                                <?php echo $this->Form->button('Ok', array('class' => 'btn ', 'style' => "border:1px solid #333", 'id' => 'id_ogsubmit')); ?>
+                                <button type="button" class="btn cancelButton" style="border:1px solid #F7941D; color: #F7941D!important;" data-dismiss="modal">Cancel</button>
+                                <?php echo $this->Form->button('Ok', array('class' => 'btn ', 'style' => "color:#121212!important; background-color: #F7941D!important;", 'id' => 'id_ogsubmit')); ?>
 
                             </div>
                         </div>

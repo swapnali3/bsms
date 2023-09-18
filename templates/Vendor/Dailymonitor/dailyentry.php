@@ -53,7 +53,7 @@
                             <th>Material</th>
                             <th>Plan Date</th>
                             <th>Target Production</th>
-                            <th>Confirm Production</th>
+                            <th class="table_width">Confirm Production</th>
                             <th>Action</th>
                         </tr>
                     </thead>

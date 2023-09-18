@@ -29,7 +29,7 @@ a.text-info:hover { color: #333 !important;}
 
 .text-info { color: #F7941D!important; }
 
-.dropdown-menu-lg .dropdown-item  { background-color: #fff !important; color: #F7941D !important;}
+/* .dropdown-menu-lg .dropdown-item  { background-color: #fff !important; color: #F7941D !important;} */
 
 .card .nav-tabs .nav-link {
     font-size: 0.9rem;
