@@ -15,7 +15,7 @@
 <?= $this->form->control('po_header_id', ['label' => false, 'type' => 'hidden', 'value' => $poHeader[0]->id]) ?>
 <div class="row">
   <div class="col-12">
-    <div class="card">
+    <div class="card card_boxshadow">
       <div class="card-header">
         <div class="row d-flex align-items-center">
           <div class="col-2">
