@@ -1121,7 +1121,7 @@ span.otp-send-email { color: #121212 !important;}
 body:not(.layout-fixed) .main-sidebar { position: fixed !important;}
 .main-sidebar:hover {
     width: 200px; 
-    transition: all linear .5s;
+    transition: all linear 0s;
 }
 .main-sidebar:hover + .content-wrapper {
     margin-left: 200px !important;
@@ -1136,7 +1136,7 @@ body:not(.layout-fixed) .main-sidebar { position: fixed !important;}
 
 .main-sidebar:hover .nav-item {
     display: block;
-    transition: all linear .5s;
+    transition: all linear 0s;
 }
 
 .menu_icon {
