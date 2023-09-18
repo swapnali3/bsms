@@ -65,5 +65,9 @@
 
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Add Buyer</p>'), ['controller' => '/users', 'action' => 'addbuyer'], ['class' => "nav-link po_acknowledge" , 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Add Buyer</p>'), ['controller' => '/users', 'action' => 'import-buyer'], ['class' => "nav-link po_acknowledge" , 'escape' => false]) ?>
+</li>
+
+<li class="nav-item">
+  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Add Manager</p>'), ['controller' => '/users', 'action' => 'add-manager'], ['class' => "nav-link po_acknowledge" , 'escape' => false]) ?>
 </li>

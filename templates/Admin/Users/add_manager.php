@@ -14,7 +14,7 @@
     <div class="col-12 useradd ">
       <div class="card" style="height: 88vh;">
         <div class="card-header">
-          <h5 class="mb-0">USER ADMINISTRATION</h5>
+          <h5 class="mb-0">Add Manager</h5>
         </div>
 
 
@@ -26,7 +26,7 @@
               <select class="custom-select" id="myCustomSelect" name="group_id" required>
                 <!-- <option disabled selected>Please Select</option>
                 <option value="1">Admin</option> -->
-                <option value="2" selected>Buyer</option>
+                <option value="4" selected>Manager</option>
               </select>
             </div>
             <div class="col-4 mt-3">
@@ -61,21 +61,6 @@
                 <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
               </div>
             </div>
-
-
-            <div class="col-4 mt-3">
-              <div class="form-group">
-                <?php echo $this->Form->control('company_code_id', array('class' => 'form-control', 'options' => $company_codes, 'empty' => 'Please Select', 'required')); ?>
-              </div>
-            </div>
-
-            <div class="col-4 mt-3">
-              <div class="form-group">
-                <?php echo $this->Form->control('purchasing_organization_id', array('class' => 'form-control', 'empty' => 'Please Select', 'required')); ?>
-              </div>
-            </div>
-
-
           </div>
           <div>
             <button type="submit" class="submit_btn btn btn-primary">Submit</button>
@@ -90,8 +75,8 @@
 
 
 <script>
-  var userurl = '<?= $this->Url->build(['controller' => 'dashboard','action' => 'userView']); ?>';
-  var useraddurl = '<?= $this->Url->build(['controller' => 'users','action' => 'index']); ?>';
+  var userlisturl = '<?= $this->Url->build(['controller' => 'users','action' => 'index']); ?>';
+  var useraddurl = '<?= $this->Url->build(['controller' => 'users','action' => 'check-manager']); ?>';
 
   function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
     var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
@@ -161,13 +146,14 @@
           beforeSend: function () { $("#gif_loader").show(); },
           success: function (response) {
             console.log(response);
-            if (response.status == "1") {
+            if (response.status) {
               Toast.fire({
                 icon: "success",
                 title: response.message,
               });
-              window.location.href = useraddurl;
-              //form.submit(); // Submit the form without referencing the current page
+              setTimeout(function() {
+                window.location.href = userlisturl;
+              }, 2000);
             } else {
               Toast.fire({
                 icon: "error",

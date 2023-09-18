@@ -809,4 +809,94 @@ class SyncController extends ApiAppController
 
         echo json_encode($response);
     }
+
+    function getBuyers() {
+        set_time_limit(300);
+        $response = array();
+        try{
+            $ftpConn = $this->Ftp->connection();
+            $list = $this->Ftp->getList($ftpConn);
+            $this->getRequestedBuyer($ftpConn, $list);
+            $response['status'] = 1;
+            $response['message'] = 'Buyer sync done';
+        } catch (\Exception $e) {
+            $response['status'] = 0;
+            $response['message'] = $e->getMessage();
+        }
+
+        echo json_encode($response); exit;
+
+    }
+
+    function getRequestedBuyer($ftpConn, $list) {
+
+        $this->loadModel("Users");
+        $this->loadModel("Buyers");
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = [];
+        
+        foreach($list as $fileKey => $val) {
+            if(str_starts_with($fileKey, 'BUYER_GET_')) {
+                $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
+                if($data) {
+                    $data = trim(preg_replace('/\s+/', ' ', $data));
+                    $d = json_decode($data);
+        
+                    foreach($d->BUYER_LIST as $key => $row) {
+                        $companyCode = $this->Buyers->CompanyCodes->findByCode($row->BUKRS)->first();
+                        $puOrg = $this->Buyers->PurchasingOrganizations->findByCode($row->EKORG)->first();
+                        
+                        if(trim($row->SUCCESS) == "0") { continue; }
+                        $buyerExists = false;
+                        if($this->Buyers->exists(['sap_user' => $row->UNAME])) {
+                            $buyer = $this->Buyers->find()->where(['sap_user' => $row->UNAME])->first();
+                            $buyerExists = true;
+                        } else {
+                            $buyer = $this->Buyers->newEmptyEntity();
+                            $buyer->status = 1;
+                            $buyerExists = false;
+                        }
+                        
+                        $buyer->sap_user = $row->UNAME;
+                        $buyer->company_code_id = $companyCode->id;
+                        $buyer->purchasing_organization_id = $puOrg->id;
+                        
+                        $buyer->first_name = $row->FIRSTNAME;
+                        $buyer->last_name = $row->LASTNAME;
+                        $buyer->email = $row->E_MAIL;
+                        $buyer->mobile = $row->TEL_NUMBER;
+                        
+                        if($this->Buyers->save($buyer)) {
+                            $response['message'][] = 'Buyer '.$row->UNAME.' saved successfully!';
+                            if(!$buyerExists) {
+                                $this->loadModel("Users");
+                                $user = $this->Users->newEmptyEntity();
+                                
+                                $data = array();
+                                $data['first_name'] = $buyer->first_name;
+                                $data['last_name'] = $buyer->last_name;
+                                $data['username'] = $buyer->email;
+                                $data['mobile'] = $buyer->mobile;
+                                $data['password'] = $buyer->mobile;
+                                $data['group_id'] = 2;
+        
+                                $user = $this->Users->patchEntity($user, $data);
+        
+                                if ($this->Users->save($user)) {
+                                    $this->Ftp->removeFile($ftpConn, $fileKey);
+                                }
+                            } else {
+                                $this->Ftp->removeFile($ftpConn, $fileKey);
+                            }
+                        } else {
+                            $response['message'][] = 'Buyer '.$row->UNAME.' save fail';
+                        }
+                    }
+                }
+            }
+        }
+
+        echo json_encode($response);
+    }
 }
