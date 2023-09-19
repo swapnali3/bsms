@@ -79,6 +79,27 @@ class PurchaseOrdersController extends VendorAppController
             $poHeader->acknowledge_no = time(); 
             $poHeader->acknowledge_date = date('Y-m-d H:i:s'); 
             if($this->PoHeaders->save($poHeader)) {
+                $filteredBuyers = $this->Buyer->find()
+                ->select(['Buyer.id','user_id'=> 'Users.id'])
+                ->innerJoin(['Users' => 'users'], ['Users.email = Buyer.email'])
+                ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyer.purchasing_organization_id', 'VendorTemps.company_code_id = Buyer.company_code_id'])
+                ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
+
+                foreach ($filteredBuyers as $buyer) {
+                    $n = $this->NotificationTable->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'PO Acknowledge'])->first();
+                    if ($n) {
+                        $n->notification_type = 'PO Acknowledge';
+                        $n->message_count = $n->message_count+1;
+                    } else {
+                        $n = $this->NotificationTable->newEntity([
+                            'user_id' => $buyer->user_id,
+                            'notification_type' => 'PO Acknowledge',
+                            'message_count' => '1',
+                        ]);
+                    }
+                    $this->NotificationTable->save($n);
+                }
+
                 if ($user["username"] !== "") {
                     $mailer = new Mailer('default');
                     $mailer
@@ -269,20 +290,22 @@ class PurchaseOrdersController extends VendorAppController
         $flash = [];
         $this->loadModel('PoHeaders');
         $this->loadModel('PoItemSchedules');
-
+        $this->loadModel('Notifications');
+        $this->loadModel('Buyers');
+        $this->loadModel('VendorTemps');
 
         /*$poHeader = $this->PoHeaders->get($id, [
             'contain' => ['PoFooters'],
         ]); */
         $poHeader = $this->PoHeaders->find('all')
-            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'PoItemSchedules.delivery_date'])
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.sap_vendor_code', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'PoItemSchedules.delivery_date'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
             ->innerJoin(['dateDe' => '(select min(delivery_date) date from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date'])
 
             ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0'])->toArray();
 
-        //echo '<pre>'; print_r($poHeader); exit;
+        // echo '<pre>'; print_r($poHeader); exit;
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $this->loadModel('AsnHeaders');
@@ -363,6 +386,27 @@ class PurchaseOrdersController extends VendorAppController
                 $asnObj = $this->AsnHeaders->patchEntity($asnObj, $asnData);
 
                 if ($this->AsnHeaders->save($asnObj)) {
+                    $filteredBuyers = $this->Buyers->find()
+                    ->select(['Buyers.id','user_id'=> 'Users.id'])
+                    ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
+                    ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
+                    ->where(['VendorTemps.sap_vendor_code' => $poHeader[0]['sap_vendor_code']]);
+
+                    foreach ($filteredBuyers as $buyer) {
+                        $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New ASN'])->first();
+                        if ($n) {
+                            $n->notification_type = 'New ASN';
+                            $n->message_count = $n->message_count+1;
+                        } else {
+                            $n = $this->Notifications->newEntity([
+                                'user_id' => $buyer->user_id,
+                                'notification_type' => 'New ASN',
+                                'message_count' => '1',
+                            ]);
+                        }
+                        $this->Notifications->save($n);
+                    }    
+
 
                     $asnSchedueData = array();
                     foreach ($request['schedule_id'] as $key => $val) {

@@ -174,6 +174,7 @@ class OnboardingController extends VendorAppController
         $this->loadModel("Buyers");
         $this->loadModel("Countries");
         $this->loadModel('Currencies');
+        $this->loadModel('Notifications');
         $this->loadModel('Users');
         $this->loadModel("States");
         $request = explode('||', base64_decode($request));
@@ -273,6 +274,26 @@ class OnboardingController extends VendorAppController
             if ($this->VendorTemps->save($vendorTemp)) {
                 $flash = ['type'=>'success', 'msg'=>'The request sent for approval'];
                 $this->set('flash', $flash);
+
+                $filteredBuyers = $this->Buyers->find()
+                ->select(['Buyers.id','user_id'=> 'Users.id'])
+                ->innerJoin(['Users' => 'users'], ['Users.email = VendorTemps.email'])
+                ->where(['company_code_id' => $vendorTemp['company_code_id'], 'purchasing_organization_id' => $vendorTemp['purchasing_organization_id']]);
+
+                foreach ($filteredBuyers as $buyer) {
+                    $n = $this->NotificationTable->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New Onboarding'])->first();
+                    if ($n) {
+                        $n->notification_type = 'New Onboarding';
+                        $n->message_count = $n->message_count+1;
+                    } else {
+                        $n = $this->NotificationTable->newEntity([
+                            'user_id' => $buyer->user_id,
+                            'notification_type' => 'New Onboarding',
+                            'message_count' => '1',
+                        ]);
+                    }
+                    $this->NotificationTable->save($n);
+                }
 
                 $visit_url = Router::url('/', true);
                 $mailer = new Mailer('default');
