@@ -175,10 +175,13 @@ class DashboardController extends AdminAppController
                         $response['status'] = '1';
                         $response['message'] = 'User Added successfully';
                     } else {
-                        throw new \Exception('Failed to Add User'); // Throw exception if the 
+                        //throw new \Exception('Failed to Add User'); // Throw exception if the 
+                        $response['status'] = '0';
+                        $response['message'] = 'Failed to Add User';
                     }
                 } else {
-                    throw new \Exception('Failed to Add Buyer'); // Throw exception if the 
+                    $response['status'] = '0';
+                    $response['message'] = 'Failed to Add Buyer';
                 }
             } catch (\Exception $e) {
                 $response['status'] = '0';

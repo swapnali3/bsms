@@ -17,11 +17,11 @@ label { font-size: 15px !important; color: #333;}
 #custom-tabs-four-tab .nav-link.active { background-color: #fff !important; border-top: 2px solid;}
 
 a.text-info:hover { color: #333 !important;}
-.btn-info:hover{
+/* .btn-info:hover{
     color: #F7941D;
     border: 1px solid #F7941D !important;
     background-color: #fff !important;
-}
+} */
 .btn-info {
     background-color: #F7941D !important;
     border: none !important;
@@ -79,4 +79,4 @@ a.text-info:hover { color: #333 !important;}
 
 .edit_btn { color: #000 !important;}
 
-.edit_btn:hover { color: #F7941D !important;}
+/* .edit_btn:hover { color: #F7941D !important;} */

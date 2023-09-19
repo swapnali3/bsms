@@ -28,7 +28,7 @@
 
           <li class="item">
             <div class="product-img">
-              <i class="fas fa-user-plus text-danger"></i>
+              <i class="fas fa-user-plus text-danger onboarding_icon"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Onboarding
@@ -185,7 +185,7 @@
           </li>
           <li class="item">
             <div class="product-img">
-              <i class="fas fa-th-large text-info"></i>
+              <i class="fas fa-th-large text-info created_icon"></i>
             </div>
             <div class="product-info">
               <a href="javascript:void(0)" class="product-title">Created</a>
@@ -196,7 +196,7 @@
           </li>
           <li class="item">
             <div class="product-img">
-              <i class="far fa-calendar-check text-warning"></i>
+              <i class="far fa-calendar-check text-warning intransit_icon"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Intransit</a>
@@ -207,7 +207,7 @@
           </li>
           <li class="item">
             <div class="product-img">
-              <i class="fas fa-truck text-info"></i>
+              <i class="fas fa-truck text-info received_icon"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="javascript:void(0)" class="product-title">Received</a>

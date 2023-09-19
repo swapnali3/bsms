@@ -71,6 +71,7 @@
     justify-content: space-between;
     /* box-shadow: 0 3px 3px rgba(56, 65, 74, 0.1); */
     border-radius: 5px;
+    border: 1px solid #eee !important;
 }
 
-.material-stock, .intransit-stock { box-shadow: none !important;}
+.material-stock, .intransit-stock { box-shadow: none !important; border: 1px solid #eee !important;}

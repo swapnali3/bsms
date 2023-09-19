@@ -26,7 +26,10 @@
                             <?= $this->Html->link(__('Users'), ['controller' => 'users', 'action' => 'index'], ['class' => "nav-link", 'escape' => false]) ?>
                           </li>
                           <li class="nav-item ">
-                            <?= $this->Html->link(__('Add Buyer'), ['controller' => 'users', 'action' => 'addbuyer'], ['class' => "nav-link", 'escape' => false]) ?>
+                            <?= $this->Html->link(__('Add Buyer'), ['controller' => 'users', 'action' => 'import-buyer'], ['class' => "nav-link", 'escape' => false]) ?>
+                          </li>
+                          <li class="nav-item ">
+                            <?= $this->Html->link(__('Add Manager'), ['controller' => 'users', 'action' => 'add-manager'], ['class' => "nav-link", 'escape' => false]) ?>
                           </li>
                     </ul>
                 </li>

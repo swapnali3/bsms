@@ -51,6 +51,7 @@ class AdminAppController extends Controller
         ]);
         $this->loadComponent('Flash');
         $this->loadComponent('Sms');
+        $this->loadComponent('Ftp');
         $this->set('title', 'VeKPro');
         
 

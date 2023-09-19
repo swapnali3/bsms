@@ -15,7 +15,6 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\PurchasingOrganizationsTable&\Cake\ORM\Association\BelongsTo $PurchasingOrganizations
  * @property \App\Model\Table\RfqCommunicationsTable&\Cake\ORM\Association\HasMany $RfqCommunications
  * @property \App\Model\Table\RfqsTable&\Cake\ORM\Association\HasMany $Rfqs
- * @property \App\Model\Table\VendorTempsTable&\Cake\ORM\Association\HasMany $VendorTemps
  *
  * @method \App\Model\Entity\Buyer newEmptyEntity()
  * @method \App\Model\Entity\Buyer newEntity(array $data, array $options = [])
@@ -55,13 +54,13 @@ class BuyersTable extends Table
             'foreignKey' => 'purchasing_organization_id',
             'joinType' => 'INNER',
         ]);
+        $this->hasMany('BuyerCodeFiles', [
+            'foreignKey' => 'buyer_id',
+        ]);
         $this->hasMany('RfqCommunications', [
             'foreignKey' => 'buyer_id',
         ]);
         $this->hasMany('Rfqs', [
-            'foreignKey' => 'buyer_id',
-        ]);
-        $this->hasMany('VendorTemps', [
             'foreignKey' => 'buyer_id',
         ]);
     }
@@ -81,6 +80,13 @@ class BuyersTable extends Table
         $validator
             ->integer('purchasing_organization_id')
             ->notEmptyString('purchasing_organization_id');
+
+        $validator
+            ->scalar('sap_user')
+            ->maxLength('sap_user', 20)
+            ->requirePresence('sap_user', 'create')
+            ->notEmptyString('sap_user')
+            ->add('sap_user', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('first_name')
@@ -131,6 +137,7 @@ class BuyersTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['email']), ['errorField' => 'email']);
+        $rules->add($rules->isUnique(['sap_user']), ['errorField' => 'sap_user']);
         $rules->add($rules->existsIn('company_code_id', 'CompanyCodes'), ['errorField' => 'company_code_id']);
         $rules->add($rules->existsIn('purchasing_organization_id', 'PurchasingOrganizations'), ['errorField' => 'purchasing_organization_id']);
 

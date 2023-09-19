@@ -36,10 +36,10 @@
                         <?php foreach ($deliveryDetails as $deliveryDetail):
                             switch ($deliveryDetail->status) {
                                 case 2:
-                                    $status = '<a class="btn btn-light text-primary pb-0 pt-0" style="border: 1px solid lightblue;"><i class="fas fa-truck" data-toggle="tooltip" title="In Transit" data-widget="chat-pane-toggle"></i></a>';
+                                    $status = '<a class="btn btn-light text-primary pb-0 pt-0" style="border: 1px solid lightblue;"><i class="intransit_icon fas fa-truck" data-toggle="tooltip" title="In Transit" data-widget="chat-pane-toggle"></i></a>';
                                     break;
                                 case 3:
-                                    $status = '<a class="btn btn-light text-success" style="border: 1px solid lightblue;"><i class="fas fa-truck-loading" data-toggle="tooltip" title="Received" data-widget="chat-pane-toggle"></i></a>';
+                                    $status = '<a class="btn btn-light text-success" style="border: 1px solid lightblue;"><i class="intransit_icon fas fa-truck-loading" data-toggle="tooltip" title="Received" data-widget="chat-pane-toggle"></i></a>';
                                     break;
 
                         } ?>

@@ -11,6 +11,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $company_code_id
  * @property int $purchasing_organization_id
+ * @property string $sap_user
  * @property string $first_name
  * @property string $last_name
  * @property string $mobile
@@ -39,6 +40,7 @@ class Buyer extends Entity
     protected $_accessible = [
         'company_code_id' => true,
         'purchasing_organization_id' => true,
+        'sap_user' => true,
         'first_name' => true,
         'last_name' => true,
         'mobile' => true,
