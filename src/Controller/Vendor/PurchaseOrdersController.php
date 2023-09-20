@@ -61,6 +61,8 @@ class PurchaseOrdersController extends VendorAppController
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
         $this->loadModel('Users');
+        $this->loadModel('Buyers');
+        $this->loadModel('Notifications');
 
         $poHeader = $this->PoHeaders->get($id, [
             'contain' => [],
@@ -79,25 +81,25 @@ class PurchaseOrdersController extends VendorAppController
             $poHeader->acknowledge_no = time(); 
             $poHeader->acknowledge_date = date('Y-m-d H:i:s'); 
             if($this->PoHeaders->save($poHeader)) {
-                $filteredBuyers = $this->Buyer->find()
-                ->select(['Buyer.id','user_id'=> 'Users.id'])
-                ->innerJoin(['Users' => 'users'], ['Users.email = Buyer.email'])
-                ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyer.purchasing_organization_id', 'VendorTemps.company_code_id = Buyer.company_code_id'])
+                $filteredBuyers = $this->Buyers->find()
+                ->select(['Buyers.id','user_id'=> 'Users.id'])
+                ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
+                ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
                 ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
 
                 foreach ($filteredBuyers as $buyer) {
-                    $n = $this->NotificationTable->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'PO Acknowledge'])->first();
+                    $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'PO Acknowledge'])->first();
                     if ($n) {
                         $n->notification_type = 'PO Acknowledge';
                         $n->message_count = $n->message_count+1;
                     } else {
-                        $n = $this->NotificationTable->newEntity([
+                        $n = $this->Notifications->newEntity([
                             'user_id' => $buyer->user_id,
                             'notification_type' => 'PO Acknowledge',
                             'message_count' => '1',
                         ]);
                     }
-                    $this->NotificationTable->save($n);
+                    $this->Notifications->save($n);
                 }
 
                 if ($user["username"] !== "") {
