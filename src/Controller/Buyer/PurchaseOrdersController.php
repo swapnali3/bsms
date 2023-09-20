@@ -268,6 +268,27 @@ class PurchaseOrdersController extends BuyerAppController
                         $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
                         $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $row);
                         if ($this->PoItemSchedules->save($PoItemSchedule)) {
+                            $filteredBuyers = $this->VendorTemps->find()
+                            ->select(['VendorTemps.id','user_id'=> 'Users.id'])
+                            ->innerJoin(['Users' => 'users'], ['Users.username = VendorTemps.email'])
+                            ->where(['VendorTemps.id' => $vendorRecord['id']]);
+
+                            foreach ($filteredBuyers as $buyer) {
+                                $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New Schedule'])->first();
+                                if ($n) {
+                                    $n->Notifications = 'New Schedule';
+                                    $n->message_count = $n->message_count+1;
+                                } else {
+                                    $n = $this->Notifications->newEntity([
+                                        'user_id' => $buyer->user_id,
+                                        'notification_type' => 'New Schedule',
+                                        'message_count' => '1',
+                                    ]);
+                                }
+                                $this->Notifications->save($n);
+                            }
+
+
                             $visit_url = Router::url('/', true);
                             $mailer = new Mailer('default');
                             $mailer

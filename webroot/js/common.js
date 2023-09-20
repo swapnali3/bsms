@@ -61,23 +61,7 @@ $(function () {
 
                     notificationItem.attr('data-id', notification.id);
                     notificationItem.append(icon);
-
-                    if(notification.notification_type == "asn_material"){
-
-                        var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' Asn Material');
-                      
-                     
-                    }else if(notification.notification_type == "create_schedule"){
-                        var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' Create Schedule');
-                    
-                    }else if(notification.notification_type == "po_acknowledge"){
-                        var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' PO Acknowledge');
-                    }else if(notification.notification_type == "vendor_material"){
-                    var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' Vendor Material');
-                }else if(notification.notification_type == "production_line"){
-                    var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' Production Line');
-                }
-
+                    var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' '+notification.notification_type);
                      message.attr('data-class', notification.notification_type);
                 
                     var clearButton = $('<span class="clearNotifications float-right" style="color:#004d87">Clear</span>');

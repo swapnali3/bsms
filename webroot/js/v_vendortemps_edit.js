@@ -14,7 +14,7 @@ $(function () {
     $("#id_vendor_turnovers_second_year_turnover").attr("placeholder", year1 + " - " + year2);
     $("#id_vendor_turnovers_third_year_turnover").attr("placeholder", year2 + " - " + year3);
     $(".year3").val(year2);
-    $(".year3").val(year1);
+    $(".year2").val(year1);
     $(".year1").val(year0);
     $("#id_vendor_turnovers_first_year").val(year0+"-"+year1);
     $("#id_vendor_turnovers_second_year").val(year1+"-"+year2);
@@ -146,7 +146,7 @@ function load_data(i, v) {
                         </div>
                         <div class="col-sm-12 col-md-3 mb-3 required">
                             <label for="id_vendor_branch_offices_pincode">Pincode</label>
-                            <input required="required" type="text" value="`+ b.pincode + `" class="form-control maxlength_validation" maxlength="6" name="branch_offices[` + a + `][pincode]" id="id_vendor_branch_offices_` + a + `_pincode">
+                            <input required="required" type="number" value="`+ b.pincode + `" class="form-control maxlength_validation" maxlength="6" name="branch_offices[` + a + `][pincode]" id="id_vendor_branch_offices_` + a + `_pincode">
                         </div>
                         <div class="col-sm-12 col-md-3 mb-3 required">
                             <label for="id_vendor_branch_offices_city">City</label>
@@ -217,7 +217,7 @@ function load_data(i, v) {
                             </div>
                             <div class="col-sm-12 col-md-3 mb-3 required">
                                 <label for="id_vendor_factories_`+ a + `_pincode">Pincode</label>
-                                <input required="required" type="text" class="form-control maxlength_validation" maxlength="6" value="`+ b.pincode + `" name="factories[` + a + `][pincode]" id="id_vendor_factories_` + a + `_pincode">
+                                <input required="required" type="number" class="form-control maxlength_validation" maxlength="6" value="`+ b.pincode + `" name="factories[` + a + `][pincode]" id="id_vendor_factories_` + a + `_pincode">
                             </div>
                             <div class="col-sm-12 col-md-3 mb-3 required">
                                 <label for="id_vendor_factories_`+ a + `_city">City</label>
@@ -478,7 +478,7 @@ function load_data(i, v) {
                             </div>
                             <div class="col-sm-12 col-md-3 mb-3 required">
                                 <label for="id_vendor_partner_address_`+ a + `_pincode">Pincode</label>
-                                <input required="required" type="text" value="`+ b.pincode + `" class="form-control maxlength_validation" maxlength="6" name="partner_address[` + a + `][pincode]" id="id_vendor_partner_address_` + a + `_pincode">
+                                <input required="required" type="number" value="`+ b.pincode + `" class="form-control maxlength_validation" maxlength="6" name="partner_address[` + a + `][pincode]" id="id_vendor_partner_address_` + a + `_pincode">
                             </div>
                             <div class="col-sm-12 col-md-3 mb-3 required">
                                 <label for="id_vendor_partner_address_`+ a + `_city">City</label>
@@ -661,7 +661,7 @@ $(document).on("click", "#id_branch_offices_add", function () {
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3 required">
                     <label for="id_vendor_branch_offices_pincode">Pincode</label>
-                    <input required="required" type="text" class="form-control maxlength_validation" name="branch_offices[`+ lid + `][pincode]" id="id_vendor_branch_offices_` + lid + `_pincode">
+                    <input required="required" type="number" class="form-control maxlength_validation" name="branch_offices[`+ lid + `][pincode]" id="id_vendor_branch_offices_` + lid + `_pincode">
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3 required">
                     <label for="id_vendor_branch_offices_city">City</label>
@@ -750,7 +750,7 @@ $(document).on("click", "#id_vendor_partner_add", function () {
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3 required">
                     <label for="id_vendor_partner_address_`+ lid + `_pincode">Pincode</label>
-                    <input required="required" type="text" class="form-control maxlength_validation" maxlength="6" name="partner_address[`+ lid + `][pincode]" id="id_vendor_partner_address_` + lid + `_pincode">
+                    <input required="required" type="number" class="form-control maxlength_validation" maxlength="6" name="partner_address[`+ lid + `][pincode]" id="id_vendor_partner_address_` + lid + `_pincode">
                 </div>
                 <div class="col-sm-12 col-md-3 mb-3 required">
                     <label for="id_vendor_partner_address_`+ lid + `_city">City</label>
@@ -889,7 +889,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3 required">
                         <label for="id_vendor_factories_`+ lid + `_pincode">Pincode</label>
-                        <input required="required" type="text" class="form-control maxlength_validation" maxlength="6" name="factories[`+ lid + `][pincode]"
+                        <input required="required" type="number" class="form-control maxlength_validation" maxlength="6" name="factories[`+ lid + `][pincode]"
                             id="id_vendor_factories_`+ lid + `_pincode">
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3 required">
