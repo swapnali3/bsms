@@ -58,16 +58,16 @@
             <?php if ($vendorTemp->status == 1) : ?>
             <div class="card-header">
                 <div class="approve-reject row">
-                    <div class="col-12">
-                        <a href="#" class="btn btn-block buyer_reject_btn  p-2" data-toggle="modal"
-                            data-target="#remarkModal"><i class="far fa-times-circle"></i>
-                            &nbsp; Reject</a>
-                    </div>
-                    <div class="col-12">
+                    <div class="col-6">
                         <button type="button" class="btn btn-block buyer_approve_btn p-2" data-toggle="modal"
                             data-target="#modal-sm">
                             <i class="far fa-check-circle"></i> &nbsp; Approve
                         </button>
+                    </div>
+                    <div class="col-6">
+                        <a href="#" class="btn btn-block buyer_reject_btn  p-2" data-toggle="modal"
+                            data-target="#remarkModal"><i class="far fa-times-circle"></i>
+                            &nbsp; Reject</a>
                     </div>
                 </div>
             </div>
@@ -216,8 +216,8 @@
             </div>
             <div class="card card-tabs card_boxshadow">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-12" style="border-bottom: 1px solid #eee;">
-                        <div class=" p-0" id="vendor-custom-tabs-one-tab">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                        <div class=" p-0" id="vendor-custom-tabs-one-tab" style="border-bottom: 1px solid #eee;">
                             <ul class="nav" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
                                     <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill"

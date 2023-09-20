@@ -70,13 +70,13 @@ hr {
 
 .modal_cancel {
     background-color: #fff !important;
-    color: #ED1C24 !important;
-    border: 1px solid #ED1C24 !important;
+    color: #F7941D !important;
+    border: 1px solid #F7941D !important;
 }
 
 .modal_ok {
-    background-color: #fff !important;
-    color: #F7941D !important;
+    background-color: #F7941D !important;
+    color: #121212 !important;
     border: 1px solid #F7941D !important;
 }
 

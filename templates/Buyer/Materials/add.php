@@ -5,7 +5,7 @@
  * @var \App\Model\Entity\VendorMaterial $vendorMaterial
  */
 ?>
-<?= $this->Html->css('cstyle.css') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
@@ -30,7 +30,7 @@
                         position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']);
                 ?>
                 <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
-                'button', 'label' => 'Upload File', 'class' => 'd-block btn bg-gradient-button mb-0 file-upld-btn']); ?>
+                'button', 'label' => 'Upload File', 'class' => 'upload_file d-block btn bg-gradient-button mb-0 file-upld-btn']); ?>
                 <span id="filessnames"></span>
             </div>
             <div class="col-sm-2 col-md-2 d-flex justify-content-start align-items-baseline">
@@ -39,9 +39,9 @@
                         </button>
             </div>
 
-            <div class="col-sm-12 col-md-12">
-                <i style="color: black;">
-                    <a href="<?= $this->Url->build('/') ?>webroot/templates/material_master.xlsx" download>material_master_template</a>
+            <div class="col-sm-12 col-md-12 template_class">
+                <i>
+                    <a href="<?= $this->Url->build('/') ?>webroot/templates/material_master.xlsx" class="template_class" download>Material_Master_Template.xlsx</a>
                 </i>
             </div>
         </div>

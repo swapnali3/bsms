@@ -19,7 +19,7 @@
 <div class="row purchase-order">
   <div class="col-12">
     <div class="poHeaders view content card card_box_shadow" id="">
-      <div class="table-responsive p-2" id="purViewId">
+      <div class="p-2" id="purViewId">
         <div class="col-lg-12 d-flex justify-content-between align-items-center">
         <div class="search-bar mb-3 mt-2">
           <input type="search" placeholder="Search all orders, materials" class="form-control search-box">

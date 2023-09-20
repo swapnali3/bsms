@@ -87,12 +87,12 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
-            <a href="<?= $this->Url->build('/admin/dashboard') ?>" class="brand-link ml-2">
-                <!-- <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'mt-1 ft_rect_logo brand-image', 'data-image' => '2']) ?> -->
+            <!-- <a href="<?= $this->Url->build('/admin/dashboard') ?>" class="brand-link ml-2">
+                <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'mt-1 ft_rect_logo brand-image', 'data-image' => '2']) ?>
                 <span class="brand-text">
                     <?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?>
                 </span>
-            </a>
+            </a> -->
 
             <div class="sidebar" id="id_sidebar">
                 <?= $this->element('sidebar/admin/main') ?>

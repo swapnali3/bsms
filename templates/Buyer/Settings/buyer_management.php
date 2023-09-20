@@ -9,13 +9,13 @@
 <div class="settings index content">
     
     <div class="card">
-        <div class="card-header d-flex pb-2 pt-2" style="background-color:#f5f7fd">
-            <div class="col-md-8">
+        <div class="card-header d-flex p-2 justify-content-between">
+            <div class="col-md-6">
             <div class="d-flex">
             <input type="search" placeholder="Search..." class="form-control search">
             </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="d-flex justify-content-end">
                     <button class="btn bg-gradient-button mr-2 mb-0">CREATE</button>
                     <button class="btn bg-gradient-button mb-0">EXPORT TO CSV</button>
