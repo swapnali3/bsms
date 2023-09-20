@@ -145,7 +145,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <label for="id_vendor_temps_pincode">Pincode</label>
-                                        <input required="required" type="text" maxlength="6"
+                                        <input required="required" type="number" maxlength="6"
                                             class="form-control maxlength_validation" name="temps[pincode]"
                                             id="id_vendor_temps_pincode">
                                     </div>
@@ -208,7 +208,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3 required">
                                         <label for="id_vendor_registered_offices_pincode">Pincode</label>
-                                        <input required="required" type="text" class="form-control maxlength_validation"
+                                        <input required="required" type="number" class="form-control maxlength_validation"
                                             maxlength="6" name="registered_offices[pincode]"
                                             id="id_vendor_registered_offices_pincode">
                                     </div>
@@ -275,7 +275,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_pincode">Pincode</label>
-                                                <input required="required" type="text"
+                                                <input required="required" type="number"
                                                     class="form-control maxlength_validation"
                                                     name="branch_offices[0][pincode]" maxlength="6"
                                                     id="id_vendor_branch_offices_0_pincode">
@@ -622,7 +622,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_factories_0_pincode">Pincode</label>
-                                                <input required="required" type="text"
+                                                <input required="required" type="number"
                                                     class="form-control maxlength_validation"
                                                     name="factories[0][pincode]" maxlength="6"
                                                     id="id_vendor_factories_0_pincode">
@@ -959,7 +959,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_partner_address_0_pincode">Pincode</label>
-                                                <input required="required" type="text"
+                                                <input required="required" type="number"
                                                     class="form-control maxlength_validation"
                                                     name="partner_address[0][pincode]" maxlength="6"
                                                     id="id_vendor_partner_address_0_pincode">
