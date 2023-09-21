@@ -675,7 +675,7 @@ class PurchaseOrdersController extends VendorAppController
             ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
             ->leftJoin(['StockUploads' => 'stock_uploads'], ['StockUploads.material_id = Materials.id'])
             ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
-            ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0']);
+            ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0'])->limit(1);
         if ($data->count() > 0) { $response = array('status'=>1, 'message'=>'Data Found', 'data'=>$data); }
         echo json_encode($response);
     }
@@ -686,7 +686,7 @@ class PurchaseOrdersController extends VendorAppController
         $response['status'] = 'fail';
         $response['message'] = '';
         $this->autoRender = false;
-
+ 
         $this->loadModel('PoHeaders');
         $this->loadModel('PoFooters');
 
@@ -726,7 +726,7 @@ class PurchaseOrdersController extends VendorAppController
                 // print_r($row); 
                 $maxqty = $row->actual_qty+$row->actual_qty*0.05;
                 $html .= '<tr>
-                <td><input type="checkbox" name="footer_id[]" value="' . $row->PoFooters['id'] . '" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="' . $row->actual_qty . '" data-id="' . $row->PoItemSchedules['id'] . '"></td>
+                <td><input type="checkbox" name="schedule_id[]" value="' . $row->PoItemSchedules['id'] . '" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="' . $row->actual_qty . '" data-id="' . $row->PoItemSchedules['id'] . '"></td>
                  <td>' . $row->PoFooters['item'] . '</td>
                  <td>' . $row->PoFooters['material'] . '</td>
                  <td>' . $row->delivery_date . '</td>
@@ -869,17 +869,18 @@ class PurchaseOrdersController extends VendorAppController
                 ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
                 ->leftJoin(['StockUploads' => 'stock_uploads'], ['StockUploads.material_id = Materials.id'])
                 ->where($conditions)
-                // ->limit(1)
+                ->limit(1)
                 ->toArray();
 
-
+            
                 
             // $materialStock = $this->StockUploads->find('all')
             //     ->contain(['Materials' => function($query) use ($poHeader){
             //         return $query->where(['Materials.code' => $poHeader[0]->PoFooters['material']]);
             //     }])->first();
 
-            //echo '<pre>'; print_r($poHeader); exit;
+            //echo '<pre>'; print_r($poHeader);
+            //echo '<pre>'; print_r($request); 
             
             foreach ($poHeader as &$row) {
                 foreach ($request['footer_id'] as $key => $footer_id) {
@@ -889,6 +890,7 @@ class PurchaseOrdersController extends VendorAppController
                 }
             }
 
+            //echo '<pre>'; print_r($poHeader); exit;
             $vendorFactories = $this->VendorFactories->find('list', ['keyField' => 'id', 'valueField' => 'factory_code'])->where(['vendor_temp_id' => $session->read('vendor_id')])->all();
         
 
