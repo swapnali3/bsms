@@ -92,8 +92,8 @@ hr {
     border: 1px solid #F7941D !important;
 }
 
-.btnSub,.btn-sm { color: #fff !important;}
-.btnSub:hover,.btn-sm:hover { color: #fff !important;}
+.btnSub,.btn-sm { color: #121212 !important;}
+/* .btnSub:hover,.btn-sm:hover { color: #fff !important;} */
 
 .mark_entry_cancel { color: #ED1C24 !important;}
 .mark_entry_ok { color: #F7941D !important;}

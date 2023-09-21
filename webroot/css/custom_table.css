@@ -439,9 +439,9 @@ body {
     color: #000 !important;
 }
 
-.btn-sm:hover {
+/* .btn-sm:hover {
     background-color: #F79E33 !important;
-}
+} */
 
 #custom-tabs-one-tab .nav-link {
     color: #333 !important;
@@ -493,8 +493,8 @@ body {
     width: 100px;
 }
 
-.schedule_button { color: #fff !important;}
-.schedule_button:hover { background-color: #fff !important;}
+.schedule_button { color: #121212 !important;}
+/* .schedule_button:hover { background-color: #fff !important;} */
 
 .modal-footer .btn-secondary { 
     background-color: #fff !important; 
@@ -677,12 +677,12 @@ body:not(.layout-fixed) .main-sidebar {
 }
 
 .main-sidebar:hover {
-    width: 200px;
-    transition: all linear 0s;
+    width: 220px;
+    transition: all linear .5s;
 }
 
 .main-sidebar:hover + .content-wrapper {
-    margin-left: 200px !important;
+    margin-left: 220px !important;
 }
 
 .sidebar-collapse .main-sidebar,
@@ -691,8 +691,9 @@ body:not(.layout-fixed) .main-sidebar {
 }
 
 .main-sidebar .nav-link p {
-    display: none;
+    /* display: none; */
     font-size: 14px !important;
+    white-space: nowrap;
 }
 
 .main-sidebar:hover .nav-link p {
@@ -704,6 +705,10 @@ body:not(.layout-fixed) .main-sidebar {
 }
 
 
+.main-sidebar .nav-link {
+    margin-left: .2rem !important;
+}
+
 .menu_icon {
     position: absolute;
     left: 10%;
@@ -714,8 +719,27 @@ body:not(.layout-fixed) .main-sidebar {
 }
 
 .main-sidebar .nav-item .nav-link.active { color: #F7941D !important;}
-  
 
+.main-sidebar .nav-link.active { background-color: #fff !important;}
+
+.nav-sidebar .nav-link>.right, .nav-sidebar .nav-link>p>.right {
+    position: absolute;
+    right: -0.4rem !important;
+    top: 0.7rem !important;
+}
+
+
+/* Add this CSS to center the icon and text in the sidebar */
+
+  .nav-sidebar .nav-item .nav-link {
+    display: flex;
+    align-items: center;
+    flex: 1; 
+  }
+  
+  .nav-sidebar .nav-item .nav-link i {
+    margin-right: 15px;
+  }
 /* Sidebar styling ends here */
 
 .navbar-nav .nav-item .nav-link { color: #121212 !important;}
