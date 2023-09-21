@@ -964,7 +964,7 @@ class SyncController extends ApiAppController
                                 $this->Ftp->removeFile($ftpConn, $fileKey);
                             }
                         } else {
-                            $response['message'][] = 'ASN-' . $row->ASN_NO . ' fail - '. $row->MESSAGE;
+                            $response['message'][] = 'ASN-' . $row->ASN_NO . ' fail - ';
                         }
                     }
                 }
