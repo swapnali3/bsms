@@ -277,22 +277,22 @@ class OnboardingController extends VendorAppController
 
                 $filteredBuyers = $this->Buyers->find()
                 ->select(['Buyers.id','user_id'=> 'Users.id'])
-                ->innerJoin(['Users' => 'users'], ['Users.email = VendorTemps.email'])
+                ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
                 ->where(['company_code_id' => $vendorTemp['company_code_id'], 'purchasing_organization_id' => $vendorTemp['purchasing_organization_id']]);
 
                 foreach ($filteredBuyers as $buyer) {
-                    $n = $this->NotificationTable->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New Onboarding'])->first();
+                    $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New Onboarding'])->first();
                     if ($n) {
                         $n->notification_type = 'New Onboarding';
                         $n->message_count = $n->message_count+1;
                     } else {
-                        $n = $this->NotificationTable->newEntity([
+                        $n = $this->Notifications->newEntity([
                             'user_id' => $buyer->user_id,
                             'notification_type' => 'New Onboarding',
                             'message_count' => '1',
                         ]);
                     }
-                    $this->NotificationTable->save($n);
+                    $this->Notifications->save($n);
                 }
 
                 $visit_url = Router::url('/', true);

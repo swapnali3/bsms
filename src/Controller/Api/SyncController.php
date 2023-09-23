@@ -338,7 +338,7 @@ class SyncController extends ApiAppController
         $this->loadModel("PoFooters");
         $this->loadModel("Materials");
 
-        foreach($list as $fileKey => $val) {
+        foreach($list as $fileKey) {
             if(str_starts_with($fileKey, 'PO_')) {
                 $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
                 
@@ -616,7 +616,7 @@ class SyncController extends ApiAppController
         $response['status'] = 0;
         $response['message'] = [];
         
-        foreach($list as $fileKey => $val) {
+        foreach($list as $fileKey) {
             if(str_starts_with($fileKey, 'VENDOR_GET_')) {
                 $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
                 if($data) {
@@ -728,7 +728,7 @@ class SyncController extends ApiAppController
         $response['status'] = 0;
         $response['message'] = [];
 
-        foreach($list as $fileKey => $val) {
+        foreach($list as $fileKey) {
             if(str_starts_with($fileKey, 'VENDOR_CR_')) {
                 $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
                 if($data) {
@@ -847,7 +847,7 @@ class SyncController extends ApiAppController
         $response['status'] = 0;
         $response['message'] = [];
         
-        foreach($list as $fileKey => $val) {
+        foreach($list as $fileKey) {
             if(str_starts_with($fileKey, 'BUYER_GET_')) {
                 $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
                 if($data) {
@@ -925,7 +925,7 @@ class SyncController extends ApiAppController
         $this->loadModel("AsnHeaders");
         $this->loadModel("AsnFooters");
 
-        foreach($list as $fileKey => $val) {
+        foreach($list as $fileKey) {
             if(str_starts_with($fileKey, 'ASN_')) {
                 $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
                 

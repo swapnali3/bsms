@@ -165,7 +165,7 @@ class AsnController extends VendorAppController
         ->select(['material_id'=>'Materials.id', 'qty' => 'AsnFooters.qty'])
         ->innerJoin(['AsnFooters' => 'asn_footers'], ['AsnFooters.asn_header_id = AsnHeaders.id'])
         ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.id = AsnFooters.po_footer_id'])
-        ->innerJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material'])
+        ->innerJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'Materials.sap_vendor_code='.$session->read('vendor_code')])
         ->where(['AsnHeaders.id' => $id])->first();
 
         $uploadedToFTP = false;
