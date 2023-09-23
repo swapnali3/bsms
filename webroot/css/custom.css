@@ -723,7 +723,7 @@ input.form-control.search {
 .add-vendor .card-body .row {
     background-color: #fff;
     border-radius: 0px;
-    padding: 20px;
+    /* padding: 20px; */
     margin: 0 auto;
 }
 
@@ -903,9 +903,9 @@ div#past_messages::-webkit-scrollbar-track {
     background-color: #8E9B2C !important;
 }
 
-.action-btn .btn-success {
+/* .action-btn .btn-success {
     background-color: #fff !important;
-}
+} */
 
 .btn-custom-2:hover {
     color: #fff;
@@ -946,7 +946,7 @@ p.po-no {
     color: red;
 }
 
-.btn:hover{ color: #F7941D!important;}
+/* .btn:hover{ color: #F7941D!important;} */
 /* .btn { color: #F7941D!important;} */
 /* #OpenImgUpload { color: #fff !important;} */
 #OpenImgUpload {
@@ -1106,7 +1106,7 @@ span.otp-send-email { color: #121212 !important;}
     padding-right: 0rem !important;
 }
 
-.main-sidebar {
+/* .main-sidebar {
     height: 100%;
     width: 60px;
     position: fixed;
@@ -1116,8 +1116,10 @@ span.otp-send-email { color: #121212 !important;}
     transition: width 0.5s; 
     box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22)!important;
     display: inline-block;
+    overflow-x: hidden;
+    transition: width 0.5s ease-out;
 }
-.content-wrapper { margin-left: 60px !important;}
+.content-wrapper { margin-left: 60px !important; overflow-x: hidden; transition: margin-left 0.5s ease-out;}
 body:not(.layout-fixed) .main-sidebar { position: fixed !important;}
 .main-sidebar:hover {
     width: 200px; 
@@ -1137,6 +1139,57 @@ body:not(.layout-fixed) .main-sidebar { position: fixed !important;}
 .main-sidebar:hover .nav-item {
     display: block;
     transition: all linear 0s;
+} */
+
+.main-sidebar {
+    height: 100%;
+    width: 60px;
+    position: fixed;
+    top: unset !important;
+    left: 0;
+    background-color: #fff;
+    transition: width 0.5s ease-out, box-shadow 0.5s ease-out;
+    box-shadow: 0 14px 28px rgba(0,0,0,.25), 0 10px 10px rgba(0,0,0,.22)!important;
+    display: inline-block;
+    overflow-x: hidden;
+}
+
+.content-wrapper {
+    margin-left: 60px !important;
+    overflow-x: hidden;
+    transition: margin-left 0.5s ease-out;
+}
+
+body:not(.layout-fixed) .main-sidebar {
+    position: fixed !important;
+}
+
+.main-sidebar:hover {
+    width: 220px;
+    transition: all linear .5s;
+}
+
+.main-sidebar:hover + .content-wrapper {
+    margin-left: 220px !important;
+}
+
+.sidebar-collapse .main-sidebar,
+.sidebar-collapse .main-sidebar::before {
+    margin-left: 0 !important;
+}
+
+.main-sidebar .nav-link p {
+    /* display: none; */
+    font-size: 14px !important;
+    white-space: nowrap;
+}
+
+.main-sidebar:hover .nav-link p {
+    display: unset;
+}
+
+.main-sidebar:hover .nav-item {
+    display: block;
 }
 
 .menu_icon {
@@ -1144,8 +1197,35 @@ body:not(.layout-fixed) .main-sidebar { position: fixed !important;}
     left: 10%;
 }
 
+.main-sidebar .nav-link {
+    margin-left: .2rem !important;
+}
+
+
+.nav-sidebar .nav-link>.right, .nav-sidebar .nav-link>p>.right {
+    position: absolute;
+    right: -0.4rem !important;
+    top: 0.7rem !important;
+}
+
+/* Add this CSS to center the icon and text in the sidebar */
+
+.nav-sidebar .nav-item .nav-link {
+    display: flex;
+    align-items: center;
+    flex: 1; 
+  }
+  
+  .nav-sidebar .nav-item .nav-link i {
+    margin-right: 15px;
+  }
+
 /* Sidebar styling ends here */
 
 .main-footer { padding: .5rem !important;}
 .card-body { padding: 1rem !important;}
+
+tr td , tr th{
+    vertical-align: middle !important;
+}
 

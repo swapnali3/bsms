@@ -14,11 +14,11 @@
 <?= $this->Html->css('v_asn_view') ?>
 <div class="row">
     <div class="col-12">
-        <div class="card p-1">
-            <div class="card m-1">
+        <div class="card p-1 card_boxshadow">
+            <div class="card m-1 card_boxshadow">
                 <div class="card-header asn_header_bg">
                     <div class="row align-items-center justify-content-between">
-                        <div class="col-sm-12 col-lg-2">
+                        <div class="col-sm-12 col-lg-3">
                             <span class="text_light">Factory :</span> <b>
                                 <?= h($deliveryDetails[0]->VendorFactories['factory_code']) ?>
                             </b>

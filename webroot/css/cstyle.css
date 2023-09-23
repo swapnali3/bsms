@@ -67,7 +67,7 @@
   /* border-radius: 2rem; */
   display: flex;
   flex-wrap: wrap;
-  margin-top: ;
+  /* margin-top: ; */
   margin-right: calc(-.5 * var(--bs-gutter-x));
   margin-left: calc(-.5 * var(--bs-gutter-x));
 }
@@ -91,7 +91,7 @@
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  font-margin: 4px 2px;
+  font-variant: 4px 2px;
   transition-duration: 0.4s;
   cursor: pointer;
 }
@@ -8659,7 +8659,7 @@
   color: #e91e63;
 }
 
-.btn-secondary,
+/* .btn-secondary,
 .btn.bg-gradient-secondary {
   box-shadow: 0 3px 3px 0 rgba(, 128, 154, 0.15), 0 3px 1px -2px rgba(, 128, 154, 0.2), 0 1px 5px 0 rgba(, 128, 154, 0.15);
 }
@@ -8669,7 +8669,7 @@
   background-color: #7b809a;
   border-color: #7b809a;
   box-shadow: 0 14px 26px -12px rgba(, 128, 154, 0.4), 0 4px 23px 0 rgba(, 128, 154, 0.15), 0 8px 10px -5px rgba(, 128, 154, 0.2);
-}
+} */
 
 .btn-secondary .btn.bg-outline-secondary,
 .btn.bg-gradient-secondary .btn.bg-outline-secondary {
@@ -9704,15 +9704,15 @@
   color: #fff;
 }
 
-.dark-version .choices .choices__list.choices__list--dropdown {
+/* .dark-version .choices .choices__list.choices__list--dropdown {
   background: #202940;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-}
+} */
 
-.dark-version .fc-theme-standard td,
+/* .dark-version .fc-theme-standard td,
 .dark-version .fc-theme-standard th {
   border-color: rgba(, 128, 154, 0.3);
-}
+} */
 
 .dark-version .dataTable-sorter::after {
   border-bottom-color: #fff;
@@ -10711,9 +10711,9 @@ label,
   background-image: radial-gradient(370px circle at 80% 50%, rgba(233, 30, 99, 0.6) 0, #c1134e 100%);
 }
 
-.bg-gradient-faded-secondary {
+/* .bg-gradient-faded-secondary {
   background-image: radial-gradient(370px circle at 80% 50%, rgba(, 128, 154, 0.6) 0, #626780 100%);
-}
+} */
 
 .bg-gradient-faded-success {
   background-image: radial-gradient(370px circle at 80% 50%, rgba(76, 175, 80, 0.6) 0, #3d8b40 100%);
@@ -10747,9 +10747,9 @@ label,
   background-image: radial-gradient(200px circle at 50% 70%, rgba(233, 30, 99, 0.3) 0, #e91e63 100%);
 }
 
-.bg-gradient-faded-secondary-vertical {
+/* .bg-gradient-faded-secondary-vertical {
   background-image: radial-gradient(200px circle at 50% 70%, rgba(, 128, 154, 0.3) 0, #7b809a 100%);
-}
+} */
 
 .bg-gradient-faded-success-vertical {
   background-image: radial-gradient(200px circle at 50% 70%, rgba(76, 175, 80, 0.3) 0, #4CAF50 100%);

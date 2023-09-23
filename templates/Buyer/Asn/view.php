@@ -11,7 +11,7 @@
         padding: 10px !important;
     }
 </style>
-<?= $this->Html->css('cstyle.css') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
@@ -58,7 +58,7 @@
             </div>
 
         </div>
-        <div class="deliveryDetails view content">
+        <div class="deliveryDetails view content pl-3 pr-3 mt-3">
 
             <div class="">
 
