@@ -5,7 +5,7 @@
  * @var \App\Model\Entity\Productionline $productionline
  */
 ?>
-<?= $this->Html->css('cstyle.css') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
@@ -48,7 +48,7 @@
                     <?php echo $this->Form->control('capacity', ['class' => 'form-control mb-3', 'label' => 'Production Line Capacity']); ?>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4 mt-4">
-                    <button type="button" class="production_line_submitbtn btn btn-custom mt-1" onclick="showConfirmationModal()">Submit</button>
+                    <button type="button" class="production_line_submitbtn btn btn-custom mt-2" onclick="showConfirmationModal()">Submit</button>
                 </div>
             </div>
         </div>
@@ -63,8 +63,8 @@
                 <h6>Are you sure you want to Update?</h6>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn" style="border:1px solid #6610f2" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn" style="border:1px solid #28a745">Ok</button>
+                <button type="button" class="cancel_btn btn" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="ok_btn btn" >Ok</button>
             </div>
         </div>
     </div>

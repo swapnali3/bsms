@@ -126,14 +126,14 @@
       <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Production Line</p>'), ['controller' => 'ProductionLines', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fas fa-sitemap nav-icon"></i><p>Production Line</p>'), ['controller' => 'ProductionLines', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
     </li>
   </ul>
 </li>
 
 <li class="nav-item">
   <a href="#" class="nav-link <?= h($dailymonitor) ?>">
-    <i class="nav-icon fas fa-user-alt"></i>
+    <i class="nav-icon fas fa-pallet"></i>
     <p>
       Production
       <i class="right fas fa-angle-left"></i>
@@ -141,10 +141,10 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-pallet nav-icon"></i><p>Production Planner</p>'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fas fa-clipboard-list nav-icon prod_icon"></i><p>Planner</p>'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-pallet nav-icon"></i><p>Production Confirmation</p>'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link $planner", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fas fa-clipboard-check nav-icon prod_icon"></i><p>Confirmation</p>'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link $planner", 'escape' => false]) ?>
     </li>
   </ul>
 </li>

@@ -604,10 +604,10 @@ td.ponum {
     padding: 10px 20px;
 }
 
-.modal-footer .btn-custom-2:hover {
+/* .modal-footer .btn-custom-2:hover {
     background-color: #fff !important;
     color: #F7941D !important;
-}
+} */
 
 a.back-btn:hover {
     background-color: #F7941D !important;
@@ -619,11 +619,7 @@ a.back-btn:hover {
     color: #fff !important;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 } */
-.production_line_submitbtn:hover {
-    transition: all ease .3s;
-    background-color: #fff !important;
-    border: 1px solid #F7941D !important;
-}
+
 .text-info {
     color: #F7941D !important;
 }
@@ -949,7 +945,7 @@ p.po-no {
 /* .btn:hover{ color: #F7941D!important;} */
 /* .btn { color: #F7941D!important;} */
 /* #OpenImgUpload { color: #fff !important;} */
-#OpenImgUpload {
+/* #OpenImgUpload {
     color: #121212 !important;
     border: 1px solid #121212 !important;
     background-color: #fff !important;
@@ -957,7 +953,7 @@ p.po-no {
 #OpenImgUpload:hover {
     color: #F7941D !important;
     border-color: #F7941D !important;
-}
+} */
 
 #example1 .fa-truck { color: #F7941D !important;}
 
@@ -1165,13 +1161,19 @@ body:not(.layout-fixed) .main-sidebar {
 }
 
 .main-sidebar:hover {
-    width: 220px;
-    transition: all linear .5s;
+    width: 210px;
+    transition: width .5s ease-out;
 }
 
 .main-sidebar:hover + .content-wrapper {
-    margin-left: 220px !important;
+    margin-left: 210px !important;
 }
+
+.main-sidebar:hover .nav-treeview {
+    margin-left: 20px;
+    transition: margin-left 0.5s ease-out; 
+}
+.wrapper { background-color:  #f4f6f9 !important;}  
 
 .sidebar-collapse .main-sidebar,
 .sidebar-collapse .main-sidebar::before {
