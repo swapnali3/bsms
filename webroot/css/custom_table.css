@@ -620,27 +620,27 @@ body {
 
 .template_format { 
     font-weight: 500;
-    font-size: 17px;
-    color: #F7941D !important;
+    font-size: 24px;
+    color: #999 !important;
     font-style: normal !important;
 }
 
-.template_format:hover {
-    /* transition: all ease .5s; */
-    color: #121212 !important;
+.template_file {
+    padding: 0rem 0.4rem;
+    border: 1px solid #333;
 }
 
 #id_import { width: 100%;}
 
 #id_pohead { background-color: #fff !important;}
-.fa-file-download { color: #F7941D; font-size: 18px;}
-.fa-file-download:hover { color: #121212;}
+.fa-file-download { color: #333; font-size: 18px;}
+/* .fa-file-download:hover { color: #121212;} */
 
-#OpenImgUpload {
+/* #OpenImgUpload {
     background-color: #fff !important;
     color: #121212 !important;
     border:  1px solid #cecece !important;
-}
+} */
 
 /* #OpenImgUpload:hover {
     color: #F7941D !important;
@@ -935,9 +935,15 @@ tr td, tr th {
 #total,
 #balance { font-weight: bold;}
 
-.upld_btn  { border-radius: .25rem 0 0 .25rem  !important;}
+/* .upld_btn  { border-radius: .25rem 0 0 .25rem  !important;} */
 
-.import_btn { border-radius: 0 .25rem .25rem 0 !important;}
+/* .import_btn { border-radius: 0 .25rem .25rem 0 !important;} */
+
+.upld_btn  {
+    border: 1px solid #F7941D !important;
+    color: #F7941D !important;
+    background-color: #fff !important;
+}
 
 .buyer_material #example1_filter label { color: transparent !important; margin-left: -49px;}
 
