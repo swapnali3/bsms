@@ -60,7 +60,7 @@
                                     <div class="modal-footer justify-content-between p-1">
                                         <button type="button" class="cancel_btn btn btn-sm btn-link"
                                             data-dismiss="modal">Cancel</button>
-                                        <button class="btn btn-success mark_delivered btn-sm mb-0">OK</button>
+                                        <button class="btn btn-success mark_delivered btn-sm">OK</button>
                                         <!-- <?= $this->Html->link(__('Ok'), ['class' => 'btn btn-success mark_delivered btn-sm mb-0']) ?> -->
                                     </div>
                                 </div>

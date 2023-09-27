@@ -46,7 +46,7 @@
                   </div>
                   <div class="modal-footer justify-content-between p-1 d-flex align-items-center">
                     <button type="button" class="cancel_btn btn btn-sm btn-link" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-success btn-sm mb-0">Ok</button>
+                    <button type="submit" class="btn btn-success btn-sm">Ok</button>
                   </div>
                 </div>
               </div>

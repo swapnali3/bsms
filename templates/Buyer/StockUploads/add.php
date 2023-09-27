@@ -69,11 +69,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                                 download class="template_format">stock_upload_template</a>
                         </i>
                     </div>
-                    <div class="col-sm-2 col-md-2 col-lg-3">
+                    <div class="pl-1 pr-1">
                         <?= $this->Form->control('upload_file', [
                                 'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
-                        <span id="filessnames"></span>
+                        <!-- <span id="filessnames"></span> -->
                     </div>
                     <div class="col-sm-2 col-md-2 col-lg-2 pr-0">
                         <button class="btn bg-gradient-submit" id="id_import" type="button">

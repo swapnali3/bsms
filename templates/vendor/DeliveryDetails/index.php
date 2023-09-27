@@ -13,7 +13,7 @@
     <div class="col-12">
         <div class="deliveryDetails index content card intransit">
             <div class="card-header p-2">
-                <h5 class="mb-0">
+                <h5 class="mb-0 pl-2">
                     <b>
                         <?= __('Delivery Details') ?>
                     </b>

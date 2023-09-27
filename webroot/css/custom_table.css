@@ -557,11 +557,11 @@ body {
     border: 1px solid #cecece !important;
 }
 
-.upload_invoice:hover, .upload_ewaybill:hover, .other_document:hover {
+/* .upload_invoice:hover, .upload_ewaybill:hover, .other_document:hover {
     transition: all ease .5s;
     color: #F7941D !important;
     border: 1px solid #F7941D !important;
-}
+} */
 
 .card_boxshadow { box-shadow: none !important; border: 1px solid #eee !important;}
 
@@ -571,7 +571,7 @@ body {
     color: #121212 !important;
 }
 
-.asn_status_icon { width: 40px !important; height: 30px !important; color: #F7941D !important;}
+.asn_status_icon { color: #F7941D !important;}
 
 .card_box_shadow { box-shadow: none !important;}
 
@@ -639,7 +639,7 @@ body {
 #OpenImgUpload {
     background-color: #fff !important;
     color: #121212 !important;
-    border:  1px solid #121212 !important;
+    border:  1px solid #cecece !important;
 }
 
 /* #OpenImgUpload:hover {
@@ -677,14 +677,20 @@ body:not(.layout-fixed) .main-sidebar {
 }
 
 .main-sidebar:hover {
-    width: 220px;
-    transition: all linear .5s;
+    width: 210px;
+    transition: width .5s ease-out;
 }
 
 .main-sidebar:hover + .content-wrapper {
-    margin-left: 220px !important;
+    margin-left: 210px !important;
 }
 
+.main-sidebar:hover  .nav-treeview {
+    margin-left: 20px; 
+    transition: margin-left 0.5s ease-out; 
+}
+
+.wrapper { background-color:  #f4f6f9 !important;}
 .sidebar-collapse .main-sidebar,
 .sidebar-collapse .main-sidebar::before {
     margin-left: 0 !important;
@@ -905,7 +911,7 @@ tr:has(.fa-envelope-open-text) {
     background-color: #FEF4E8 !important;
 }
 
-tr td {
+tr td, tr th {
     vertical-align: middle !important;
 }
 
@@ -921,4 +927,20 @@ tr td {
 .card {
     box-shadow: none !important;
     border: 1px solid #eee !important;
+}
+
+.prod_icon { font-size: .9rem !important;}
+
+#line-capacity,
+#total,
+#balance { font-weight: bold;}
+
+.upld_btn  { border-radius: .25rem 0 0 .25rem  !important;}
+
+.import_btn { border-radius: 0 .25rem .25rem 0 !important;}
+
+.buyer_material #example1_filter label { color: transparent !important; margin-left: -49px;}
+
+.ok_btn {
+    background-color: #F7941D !important;
 }

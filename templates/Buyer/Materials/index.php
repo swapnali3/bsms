@@ -24,7 +24,7 @@
                 </div>
             </div>
 
-            <div class="card-body">
+            <div class="card-body buyer_material">
                 <table class="table table-hover table-striped table-bordered" id="example1">
                     <thead>
                         <tr>

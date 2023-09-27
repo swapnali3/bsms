@@ -62,21 +62,21 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             <div class="card-body">
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
                 <div class="row">
-                    <div class="col-sm-2 col-md-2 mt-3">
+                    <div class="pl-2 mt-2">
                         <?= $this->Form->control('upload_file', [
                                 'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
-                        <span id="filessnames"></span>
+                        <!-- <span id="filessnames"></span> -->
                     </div>
-                    <div class="col-sm-2 col-md-2 mt-3 d-flex justify-content-start align-items-baseline">
+                    <div class="col-sm-2 col-md-2 mt-2 d-flex justify-content-start align-items-baseline">
                         <button class="btn bg-gradient-submit" id="id_import" type="button">
                             Submit
                         </button>
                     </div>
-                    <div class="col-sm-12 col-md-12 mt-3">
+                    <div class="col-sm-12 col-md-12 mt-2">
                         <i style="color: black;">
                             <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_vendor.xlsx" class="template_format"
-                                download>stock_upload_template</a>
+                                download>Stock_Upload_Template</a>
                         </i>
                     </div>
                 </div>

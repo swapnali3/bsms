@@ -31,7 +31,7 @@
                 ?>
                 <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
                 'button', 'label' => 'Upload File', 'class' => 'upload_file d-block btn bg-gradient-button mb-0 file-upld-btn']); ?>
-                <span id="filessnames"></span>
+                <!-- <span id="filessnames"></span> -->
             </div>
             <div class="col-sm-2 col-md-2 d-flex justify-content-start align-items-baseline">
                 <button class="btn bg-gradient-submit" id="id_import" type="button">
