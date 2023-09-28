@@ -60,14 +60,14 @@
 </style>
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-tachometer-alt nav-icon"></i><p>Users</p>'), ['controller' => 'users', 'action' => 'index'], ['class' => "nav-link ", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-users nav-icon"></i><p>Users</p>'), ['controller' => 'users', 'action' => 'index'], ['class' => "nav-link ", 'escape' => false]) ?>
 </li>
 
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Add Buyer</p>'), ['controller' => '/users', 'action' => 'import-buyer'], ['class' => "nav-link po_acknowledge" , 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-user-plus nav-icon"></i><p>Add Buyer</p>'), ['controller' => '/users', 'action' => 'import-buyer'], ['class' => "nav-link po_acknowledge" , 'escape' => false]) ?>
 </li>
 
 <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fa fa-shopping-cart nav-icon"></i><p>Add Manager</p>'), ['controller' => '/users', 'action' => 'add-manager'], ['class' => "nav-link po_acknowledge" , 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-user-tie nav-icon"></i><p>Add Manager</p>'), ['controller' => '/users', 'action' => 'add-manager'], ['class' => "nav-link po_acknowledge" , 'escape' => false]) ?>
 </li>

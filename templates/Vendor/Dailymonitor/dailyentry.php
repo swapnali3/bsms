@@ -22,16 +22,15 @@
                     </div>
                     <div class="col-lg-6 d-flex justify-content-end">
                     <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload']]) ?>
-                        <div class="pr-0 pb-2 text-right">
-                            <i>
-                                <a class="template_format"
-                                    href="<?= $this->Url->build('/') ?>webroot/templates/production_confirmation.xlsx" target="_blank"
-                                    rel="noopener noreferrer">Prod. Confirmation Template.xlsx</a>
-                            </i>
-                        </div>
-                        <div class="row justify-content-end pr-2">
-                    
-                            <div class="">
+
+                        <div class="row justify-content-end align-items-center pr-2">
+                            <div class="template_file pr-2" data-toggle="tooltip" data-original-title="Download Template" data-placement="left">
+                                <a class="template_format" 
+                                    href="<?= $this->Url->build('/') ?>webroot/templates/production_confirmation.xlsx"
+                                    target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download"></i>
+                                </a>
+                            </div>
+                            <div class="pl-2 pr-2">
                                 <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
                                 <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                                 <?= $this->Form->button('Upload File', [
