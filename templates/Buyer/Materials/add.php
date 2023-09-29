@@ -13,40 +13,41 @@
 
 
 <div class="card">
-    <div class="card-header pb-1 pt-2">
-        <div class="row">
-            <div class="col-lg-6 d-flex justify-content-start">
-                <h5><b>Upload Material Master</b></h5>
-            </div>
-        </div>
+<div class="card-header d-flex justify-content-between align-items-center">
+    <div class="col-lg-6 pl-0">
+        <h5 class="m-0"><b>Upload Material Master</b></h5>
     </div>
-    <?= $this->Form->create($materials, ['id' => 'formUpload', 'url' => ['controller' => '/materials', 'action' => 'upload']]) ?>
     
-    <div class="card-body">
-        <div class="row">
-            <div class="col-sm-2 col-md-2">
-                <?= $this->Form->control('upload_file', ['type' => 'file', 'label' =>
-                false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden;
-                        position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']);
-                ?>
-                <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
-                'button', 'label' => 'Upload File', 'class' => 'upload_file d-block btn bg-gradient-button mb-0 file-upld-btn']); ?>
-                <!-- <span id="filessnames"></span> -->
+    <div class="col-lg-6 form-content d-flex justify-content-end pr-0">
+        <?= $this->Form->create($materials, ['id' => 'formUpload', 'url' => ['controller' => '/materials', 'action' => 'upload']]) ?>
+        <div class="row align-items-center">
+            <div class="col-auto pr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
+                <a href="<?= $this->Url->build('/') ?>webroot/templates/material_master.xlsx" class="material_file" download target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download"></i></a>
             </div>
-            <div class="col-sm-2 col-md-2 d-flex justify-content-start align-items-baseline">
-                <button class="btn bg-gradient-submit" id="id_import" type="button">
-                            Submit
-                        </button>
+            <div class="col-auto pr-1">
+                <?= $this->Form->control('upload_file', [
+                    'type' => 'file',
+                    'label' => false,
+                    'class' => 'pt-1 rounded-0',
+                    'style' => 'visibility: hidden; position: absolute;',
+                    'div' => 'form-group',
+                    'id' => 'bulk_file'
+                ]); ?>
+                <?= $this->Form->button('Upload File', [
+                    'id' => 'OpenImgUpload',
+                    'type' => 'button',
+                    'label' => 'Upload File',
+                    'class' => 'upload_file d-block btn bg-gradient-button mb-0 file-upld-btn'
+                ]); ?>
             </div>
-
-            <div class="col-sm-12 col-md-12 template_class">
-                <i>
-                    <a href="<?= $this->Url->build('/') ?>webroot/templates/material_master.xlsx" class="template_class" download>Material_Master_Template.xlsx</a>
-                </i>
+            <div class="col-auto pr-0">
+                <button class="btn bg-gradient-submit" id="id_import" type="button">Submit</button>
             </div>
         </div>
+        <?= $this->Form->end() ?>
     </div>
-    <?= $this->Form->end() ?>
+</div>
+
 </div>
 
 <div class="card">

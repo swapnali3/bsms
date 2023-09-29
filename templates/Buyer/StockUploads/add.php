@@ -64,10 +64,10 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
                 <div class="row justify-content-end align-items-center">
                     <div class="col-lg-4 d-flex justify-content-end">
-                        <i class="fa fa-solid fa-file-download">
+                        
                             <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_buyer.xlsx"
-                                download class="template_format">stock_upload_template</a>
-                        </i>
+                                download class="material_stock_file" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom"><i class="fa fa-solid fa-file-download"></i></a>
+                        
                     </div>
                     <div class="pl-1 pr-1">
                         <?= $this->Form->control('upload_file', [

@@ -75,7 +75,7 @@
                             <?php echo $this->Form->control('account_group_id', array('class' => 'form-control', 'options' => $accountGroups, 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
+                    <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
                         <div class="form-group">
                             <?php echo $this->Form->control('reconciliation_account_id', array('class' => 'form-control', 'options' => $reconciliation_account, 'empty' => 'Please Select')); ?>
                         </div>
@@ -90,8 +90,8 @@
                             <?php echo $this->Form->control('schema_group_id', array('class' => 'form-control', 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-2 col-lg-1 mb-3 d-flex align-items-end justify-content-end">
-                        <div class="form-group">
+                    <div class="ml-2 mt-2">
+                        <div class="form-group mt-4">
                         <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_addvendor', 'type' => 'button']) ?>
                         </div>
                     </div>

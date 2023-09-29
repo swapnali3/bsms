@@ -1231,3 +1231,10 @@ tr td , tr th{
     vertical-align: middle !important;
 }
 
+
+.template_format_po {
+    padding: .5rem .4rem !important;
+    border: 1px solid #666;
+    color: #666;
+    border-radius: 4px;
+}

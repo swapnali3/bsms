@@ -89,7 +89,12 @@
         <h5><b>Bulk upload Production Line</b></h5>
     </div>
     <div class="card-body">
-        <div class="row">
+        <div class="row ml-2">
+             <div class="mt-2" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
+                <a class="template_format_productionline" href="<?= $this->Url->build('/') ?>webroot/templates/production_line_upload.xlsx"
+                    target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download pr-2"></i>Master Template
+                </a>
+            </div>
             <div class="pl-2">
 
                 <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
@@ -100,11 +105,8 @@
             <div class="col-sm-6 col-md-4 col-lg-2">
                 <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
             </div>
-            <div class="col-12 pt-2">
-                <i>
-                    <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_line_upload.xlsx" target="_blank" rel="noopener noreferrer">Master Template.xlsx</a>
-                </i>
-            </div>
+        
+            
         </div>
     </div>
 

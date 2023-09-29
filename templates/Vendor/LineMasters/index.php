@@ -10,9 +10,9 @@
         <div class="card">
             <div class="card-header lineMasters">
                 <?= $this->Html->link(__('New Line Master'), ['action' => 'add'], ['class' => 'btn bg-gradient-button float-right']) ?>
-                <h4>
+                <h5>
                     <?= __('Line Masters') ?>
-                </h4>
+                </h5>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
