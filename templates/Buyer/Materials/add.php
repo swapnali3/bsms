@@ -21,7 +21,7 @@
     <div class="col-lg-6 form-content d-flex justify-content-end pr-0">
         <?= $this->Form->create($materials, ['id' => 'formUpload', 'url' => ['controller' => '/materials', 'action' => 'upload']]) ?>
         <div class="row align-items-center">
-            <div class="col-auto pr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
+            <div class="col-auto pr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="left">
                 <a href="<?= $this->Url->build('/') ?>webroot/templates/material_master.xlsx" class="material_file" download target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download"></i></a>
             </div>
             <div class="col-auto pr-1">

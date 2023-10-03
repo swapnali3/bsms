@@ -75,8 +75,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-12">
-                        <button type="button" data-id="<?= h($vendorTemp->id) ?>" class="btn btn-block p-2 notify"
-                            style="font-size: 0.8rem;border:1px solid #28a745">
+                        <button type="button" data-id="<?= h($vendorTemp->id) ?>" class="btn btn-block p-2 notify">
                             <i class="far fa-check-circle"></i> Send Credentials
                         </button>
                     </div>

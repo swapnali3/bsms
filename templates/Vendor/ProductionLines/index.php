@@ -12,9 +12,9 @@
 <!-- <?= $this->Html->css('v_index.css') ?> -->
 <div class="card">
     <div class="card-header">
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-lg-6 d-flex justify-content-start">
-                <h5>Production Line</h5>
+                <h5 class="mb-0"><b>Production Line</b></h5>
             </div>
             <div class="col-lg-6 d-flex justify-content-end text-align-end">
                 <a href="<?= $this->Url->build('/') ?>vendor/production-lines/add"><button type="button"

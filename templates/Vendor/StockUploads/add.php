@@ -16,7 +16,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             <div class="card-header pb-1 pt-2">
                 <div class="row">   
                     <div class="col-lg-6 d-flex justify-content-start">
-                        <h5><b>Add Stock Upload</b></h5>
+                        <h5 class="mb-0 pt-2 pb-2"><b>Add Stock Upload</b></h5>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             <div class="card-header">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start">
-                        <h5><b>UPLOAD STOCKS</b></h5>
+                        <h5 class="mb-0"><b>UPLOAD STOCKS</b></h5>
                     </div>
                 </div>
             </div>

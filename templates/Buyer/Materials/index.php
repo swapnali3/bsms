@@ -14,8 +14,8 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-lg-6 d-flex justify-content-start">
-                        <h5>Vendor Materials</h5>
+                    <div class="col-lg-6 d-flex justify-content-start align-items-center">
+                        <h5 class="mb-0">Vendor Materials</h5>
                     </div>
                     <div class="col-lg-6 d-flex justify-content-end text-align-end">
                         <a href="<?= $this->Url->build('/') ?>buyer/materials/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn">Add Material</button></a>

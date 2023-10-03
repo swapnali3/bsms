@@ -16,7 +16,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start">
-                        <h5><b>Add Production Line</b></h5>
+                        <h5 class="mb-0"><b>Add Production Line</b></h5>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/production-lines', 'action' => 'upload']]) ?>
 <div class="card">
     <div class="card-header">
-        <h5><b>Bulk upload Production Line</b></h5>
+        <h5 class="mb-0"><b>Bulk upload Production Line</b></h5>
     </div>
     <div class="card-body">
         <div class="row ml-2">

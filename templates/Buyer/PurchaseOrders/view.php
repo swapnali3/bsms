@@ -28,10 +28,10 @@
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/purchase-orders', 'action' => 'upload']]) ?>
                 <div class="row justify-content-end align-items-center">
                 <div class="download_template mr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="left">
-                        <i class="fa fa-solid fa-file-download template_format_po">
+                        
                             <a href="<?= $this->Url->build('/') ?>webroot/templates/schedule_upload.xlsx"
-                                download ></a>
-                        </i>
+                                download ><i class="fa fa-solid fa-file-download template_format_po"></i></a>
+                          
                     </div>
                     <div class="pl-1">
                         <?= $this->Form->control('upload_file', [

@@ -465,17 +465,18 @@ div#past_messages .past-msg:last-child {
     text-align: center;
 } */
 .gateentry-asn label {
-    color: #999;
+    color: #999 !important;
     margin-left: 0px;
     text-transform: capitalize;
     margin-top: 0px;
-    font-size: 12px !important;
+    font-size: 14px !important;
     margin-bottom: 4px;
+    font-weight: normal !important;
 }
 
 .card-body.gateentry-asn {
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #eee;
 }
 
 table.table.table-bordered.delivery-dt-tbl td,
@@ -1237,4 +1238,10 @@ tr td , tr th{
     border: 1px solid #666;
     color: #666;
     border-radius: 4px;
+}
+
+label { color: #121212 !important;}
+
+.content {
+    box-shadow: none !important;
 }

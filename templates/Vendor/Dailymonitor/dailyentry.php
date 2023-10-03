@@ -18,7 +18,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start align-items-center">
-                        <h5><b>Production Confirmation</b></h5>
+                        <h5 class="mb-0"><b>Production Confirmation</b></h5>
                     </div>
                     <div class="col-lg-6 d-flex justify-content-end">
                     <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload']]) ?>
