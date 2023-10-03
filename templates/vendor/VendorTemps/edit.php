@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="col-sm-12 col-md-9 col-lg-9">
+    <div class="col-sm-12 col-md-9 col-lg-9 pl-0">
 
         <div class="card" style="display:none;">
             <div class="card-body">

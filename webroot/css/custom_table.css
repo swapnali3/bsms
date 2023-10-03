@@ -480,10 +480,7 @@ body {
 }
 
 #actionfooter .bulkaction:hover {
-    /* transition: all cubic-bezier(0.39, 0.58, 0.57, 1) .5s; */
-    background-color: #fff !important;
-    border: 1px solid #F7941D !important;
-    color: #F7941D !important;
+    background-color: #F79E33 !important;
 }
 
 
@@ -529,15 +526,15 @@ body {
 }
 
 .addSubmit {
-    background-color: #fff !important;
-    border: 1px solid #F7941D !important;
-    color: #F7941D !important;
-}
-
-.addSubmit:hover {
     background-color: #F7941D !important;
+    /* border: 1px solid #F7941D !important; */
     color: #121212 !important;
 }
+
+/* .addSubmit:hover {
+    background-color: #F7941D !important;
+    color: #121212 !important;
+} */
 
 .addCancel {
     background-color: #fff !important;
@@ -545,10 +542,10 @@ body {
     color: #F7941D !important;
 }
 
-.addCancel:hover{
+/* .addCancel:hover{
     background-color: #F7941D !important;
     color: #121212 !important;
-}
+} */
 
 .upload_invoice, .upload_ewaybill, .other_document {
     width: 100% !important;
@@ -627,13 +624,28 @@ body {
 
 .template_file {
     padding: 0rem 0.4rem;
-    border: 1px solid #333;
+    border: 1px solid #666;
+    border-radius: 4px;
 }
+
+.template_file_vendorline,.template_format_stock_upload,.template_format_productionline { padding: 0.4rem 0.4rem; border: 1px solid #666; border-radius: 4px;}
+
+.template_format_stock_upload,.template_format_productionline { padding: .5rem .4rem !important;} 
+
+.file-upld-btn {
+    color: #F7941D !important;
+    background-color: #fff !important;
+    border: 1px solid #F7941D !important;
+}
+
+.bulk_upload,.template_format_stock_upload,.template_format_productionline { color: #121212;}
 
 #id_import { width: 100%;}
 
 #id_pohead { background-color: #fff !important;}
-.fa-file-download { color: #333; font-size: 18px;}
+.fa-file-download { color: #121212; font-size: 18px;}
+
+a:hover { color: unset !important;}
 /* .fa-file-download:hover { color: #121212;} */
 
 /* #OpenImgUpload {
@@ -831,7 +843,7 @@ div.dataTables_wrapper div.dataTables_filter input { margin-left: 0 !important;}
 
 .asn_files:hover { color: #000 !important;}
 
-.btn-sm { color: #121212 !important;}
+/* .btn-sm { color: #121212 !important;} */
 
 .cancel_btn {
     border: 1px solid #F7941D !important;
@@ -950,3 +962,33 @@ tr td, tr th {
 .ok_btn {
     background-color: #F7941D !important;
 }
+
+.template_format_po {
+    padding: .5rem .4rem !important;
+    border: 1px solid #121212;
+    color: #121212;
+    border-radius: 4px;
+}
+
+.material_file {
+    padding: .5rem .4rem !important;
+    border: 1px solid #666;
+    color: #666;
+    border-radius: 4px;
+}
+
+.material_stock_file {
+    padding: .4rem .4rem !important;
+    border: 1px solid #666;
+    color: #666;
+    border-radius: 4px;
+}
+
+.notify {
+    background-color: #F7941D;
+    color: #121212;
+}
+
+label { color: #121212 !important;}
+
+th.actions { width: unset !important;}

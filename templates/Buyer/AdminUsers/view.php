@@ -11,7 +11,7 @@
 <div class="buyer-profile">
     <div class="profile-page pb-4 pl-2">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 pl-0 pr-0">
                 <div class="card" style="height:100%">
                     <div class="left-s">
                         <div class="m-5 text-center">

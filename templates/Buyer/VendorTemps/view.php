@@ -59,15 +59,15 @@
             <div class="card-header">
                 <div class="approve-reject row">
                     <div class="col-6">
+                        <a href="#" class="btn btn-block buyer_reject_btn  p-2" data-toggle="modal"
+                            data-target="#remarkModal"><i class="far fa-times-circle"></i>
+                            &nbsp; Reject</a>
+                    </div>
+                    <div class="col-6">
                         <button type="button" class="btn btn-block buyer_approve_btn p-2" data-toggle="modal"
                             data-target="#modal-sm">
                             <i class="far fa-check-circle"></i> &nbsp; Approve
                         </button>
-                    </div>
-                    <div class="col-6">
-                        <a href="#" class="btn btn-block buyer_reject_btn  p-2" data-toggle="modal"
-                            data-target="#remarkModal"><i class="far fa-times-circle"></i>
-                            &nbsp; Reject</a>
                     </div>
                 </div>
             </div>
@@ -75,8 +75,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col-12">
-                        <button type="button" data-id="<?= h($vendorTemp->id) ?>" class="btn btn-block p-2 notify"
-                            style="font-size: 0.8rem;border:1px solid #28a745">
+                        <button type="button" data-id="<?= h($vendorTemp->id) ?>" class="btn btn-block p-2 notify">
                             <i class="far fa-check-circle"></i> Send Credentials
                         </button>
                     </div>

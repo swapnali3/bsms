@@ -27,13 +27,13 @@
         <div class="col-lg-6 pr-0">
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/purchase-orders', 'action' => 'upload']]) ?>
                 <div class="row justify-content-end align-items-center">
-                <div class="col-sm-6 col-md-5 d-flex justify-content-end download_template">
-                        <i class="fa fa-solid fa-file-download">
+                <div class="download_template mr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="left">
+                        
                             <a href="<?= $this->Url->build('/') ?>webroot/templates/schedule_upload.xlsx"
-                                download class="template_format">Schedule_upload_template</a>
-                        </i>
+                                download ><i class="fa fa-solid fa-file-download template_format_po"></i></a>
+                          
                     </div>
-                    <div class="pl-1 pr-1">
+                    <div class="pl-1">
                         <?= $this->Form->control('upload_file', [
                                 'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>

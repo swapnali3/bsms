@@ -92,11 +92,11 @@ hr {
     border: 1px solid #F7941D !important;
 }
 
-.btnSub,.btn-sm { color: #121212 !important;}
+/* .btnSub,.btn-sm { color: #121212 !important;} */
 /* .btnSub:hover,.btn-sm:hover { color: #fff !important;} */
 
-.mark_entry_cancel { color: #ED1C24 !important;}
-.mark_entry_ok { color: #F7941D !important;}
+/* .mark_entry_cancel { color: #ED1C24 !important;}
+.mark_entry_ok { color: #F7941D !important;} */
 
 .card_box_shadow  { 
     box-shadow: none !important;

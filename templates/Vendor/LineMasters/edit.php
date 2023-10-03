@@ -12,7 +12,7 @@
         <?= $this->Form->create($lineMaster) ?>
         <div class="card">
             <div class="card-header">
-                <h4>Add Line Master</h4>
+                <h5 class="mb-0"><b>Add Line Master</b></h5>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <?= $this->Form->button(__('Submit'), ['class'=> 'btn bg-gradient-submit']) ?>
+                <?= $this->Form->button(__('Submit'), ['class'=> 'btn bg-gradient-submit mr-1']) ?>
                 <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'btn bg-gradient-cancel']) ?>
             </div>
         </div>

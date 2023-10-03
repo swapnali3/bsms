@@ -13,9 +13,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-lg-6 d-flex justify-content-start">
-                        <h5>Vendor Materials</h5>
+                        <h5 class="mb-0"><b>Vendor Materials</b></h5>
                     </div>
                     <div class="col-lg-6 d-flex justify-content-end text-align-end">
                         <!-- <a href="<?= $this->Url->build('/') ?>vendor/materials/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Material</button></a> -->

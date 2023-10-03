@@ -14,9 +14,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-lg-6 d-flex justify-content-start">
-                        <h5>Production Planner</h5>
+                        <h5 class="mb-0"><b>Production Planner</b></h5>
                     </div>
                     <div class="col-lg-6 d-flex justify-content-end text-align-end">
                         <a href="<?= $this->Url->build('/') ?>vendor/dailymonitor/add"><button type="button" id="continueSub" class="btn continue_btn bg-gradient-button">Add Monitor</button></a>

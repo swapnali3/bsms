@@ -10,7 +10,7 @@
 <?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>
-<div class="row pt-3">
+<div class="row">
     <div class="col-sm-12 col-md-3 col-lg-3">
         <div class="card">
             <div class="card-body">
@@ -162,7 +162,7 @@
         </div>
         <?php endif ?>
     </div>
-    <div class="col-sm-12 col-md-9 col-lg-9">
+    <div class="col-sm-12 col-md-9 col-lg-9 pl-0">
         <div class="card">
             <div class="card-header">
                 <span class="User_head text-info d-flex justify-content-between align-items-center">

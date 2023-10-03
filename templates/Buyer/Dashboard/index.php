@@ -40,7 +40,7 @@
           </li>
           <li class="item">
             <div class="product-img">
-              <i class="fas fa-user-plus text-danger"></i>
+              <i class="fas fa-hourglass-half text-danger"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
               <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Approval Pending

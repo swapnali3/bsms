@@ -16,7 +16,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             <div class="card-header pb-1 pt-2">
                 <div class="row">   
                     <div class="col-lg-6 d-flex justify-content-start">
-                        <h5><b>Add Stock Upload</b></h5>
+                        <h5 class="mb-0 pt-2 pb-2"><b>Add Stock Upload</b></h5>
                     </div>
                 </div>
             </div>
@@ -54,31 +54,32 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             <div class="card-header">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start">
-                        <h5><b>UPLOAD STOCKS</b></h5>
+                        <h5 class="mb-0"><b>UPLOAD STOCKS</b></h5>
                     </div>
                 </div>
             </div>
 
             <div class="card-body">
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
-                <div class="row">
+                <div class="row ml-2">
+                    <div class="mt-3" data-toggle="tooltip" data-original-title="Download Template" data-placement="top">
+                        <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_vendor.xlsx" class="template_format_stock_upload"
+                            download><i class="fa fa-solid fa-file-download pr-2"></i>Stock_Upload_Template
+                        </a>
+                    </div>
                     <div class="pl-2 mt-2">
                         <?= $this->Form->control('upload_file', [
                                 'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
                         <!-- <span id="filessnames"></span> -->
                     </div>
-                    <div class="col-sm-2 col-md-2 mt-2 d-flex justify-content-start align-items-baseline">
+                    <div class="ml-2 mt-2 d-flex justify-content-start align-items-baseline">
                         <button class="btn bg-gradient-submit" id="id_import" type="button">
                             Submit
                         </button>
                     </div>
-                    <div class="col-sm-12 col-md-12 mt-2">
-                        <i style="color: black;">
-                            <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_vendor.xlsx" class="template_format"
-                                download>Stock_Upload_Template</a>
-                        </i>
-                    </div>
+                    
+                    
                 </div>
                 <?= $this->Form->end() ?>
             </div>

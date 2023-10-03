@@ -16,7 +16,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             <div class="card-header pb-1 pt-2">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start">
-                        <h5><b>Add Stock Upload</b></h5>
+                        <h5 class="mb-0"><b>Add Stock Upload</b></h5>
                     </div>
                 </div>
             </div>
@@ -58,16 +58,16 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             <div class="card-header">
                 <div class="row col-lg-12 pr-0 d-flex justify-content-between align-items-center">
                     <div class="col-lg-6 pl-0">
-                        <h5><b>UPLOAD STOCKS</b></h5>
+                        <h5 class="mb-0"><b>UPLOAD STOCKS</b></h5>
                     </div>
                     <div class="col-lg-6 pr-0">
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
                 <div class="row justify-content-end align-items-center">
                     <div class="col-lg-4 d-flex justify-content-end">
-                        <i class="fa fa-solid fa-file-download">
+                        
                             <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_buyer.xlsx"
-                                download class="template_format">stock_upload_template</a>
-                        </i>
+                                download class="material_stock_file" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom"><i class="fa fa-solid fa-file-download"></i></a>
+                        
                     </div>
                     <div class="pl-1 pr-1">
                         <?= $this->Form->control('upload_file', [
