@@ -34,7 +34,7 @@
                     ?>
                     <?php if ($deliveryDetails->toArray()[0]->status == 2) { ?>
 
-                        <button  class="btn btn-custom mrk mb-1" data-toggle="modal" data-target="#modal-confirm">Mark Entry</button>
+                        <!-- <button  class="btn btn-custom mrk mb-1" data-toggle="modal" data-target="#modal-confirm">Mark Entry</button> -->
 
                         <!-- modal -->
                         <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
