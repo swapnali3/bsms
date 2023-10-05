@@ -20,11 +20,11 @@
   <div class="col-12">
     <div class="poHeaders view content card card_box_shadow" id="">
       <div class="p-2" id="purViewId">
-        <div class="col-lg-12 d-flex justify-content-between align-items-center">
-        <div class="search-bar mb-3 mt-2">
+        <div class="search_fileupload col-lg-12 d-flex justify-content-between align-items-center">
+        <div class="col-sm-4 col-lg-4 search-bar mb-3 mt-2">
           <input type="search" placeholder="Search all orders, materials" class="form-control search-box">
         </div>
-        <div class="col-lg-6 pr-0">
+        <div class="po-file-submit col-sm-6 col-lg-6 pr-0">
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/purchase-orders', 'action' => 'upload']]) ?>
                 <div class="row justify-content-end align-items-center">
                 <div class="download_template mr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="left">
@@ -39,7 +39,7 @@
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
                         <!-- <span id="filessnames"></span> -->
                     </div>
-                    <div class="col-sm-2 col-md-2">
+                    <div class="pl-2 pr-2">
                         <button class="btn bg-gradient-submit" id="id_import" type="button">
                             Submit
                         </button>

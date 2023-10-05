@@ -17,10 +17,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-lg-6 d-flex justify-content-start align-items-center">
+                    <div class="col-sm-6 col-lg-6 d-flex justify-content-start align-items-center">
                         <h5 class="mb-0"><b>Production Confirmation</b></h5>
                     </div>
-                    <div class="col-lg-6 d-flex justify-content-end">
+                    <div class="col-sm-6 col-lg-6 d-flex justify-content-end prod_confrm">
                     <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload']]) ?>
 
                         <div class="row justify-content-end align-items-center pr-2">
@@ -52,6 +52,7 @@
                 </div>
             </div>
             <div class="card-header" id="id_pohead">
+                <div class="tabe-responsive">
                 <table class="table table-bordered table-hover table-striped material-list" id="example1">
                     <thead>
                         <tr>
@@ -117,7 +118,7 @@
                         </tr>
                         <?php endif; ?>
                     </tbody>
-                </table>
+                </table></div>
             </div>
             <div class="card-footer">
             <!-- <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload']]) ?>

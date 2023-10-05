@@ -15,15 +15,16 @@
         <div class="card">
             <div class="card-header">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 d-flex justify-content-start">
+                    <div class="col-sm-6 col-lg-6 d-flex justify-content-start">
                         <h5 class="mb-0"><b>Production Planner</b></h5>
                     </div>
-                    <div class="col-lg-6 d-flex justify-content-end text-align-end">
+                    <div class="col-sm-6 col-lg-6 d-flex justify-content-end add-monitor-btn">
                         <a href="<?= $this->Url->build('/') ?>vendor/dailymonitor/add"><button type="button" id="continueSub" class="btn continue_btn bg-gradient-button">Add Monitor</button></a>
                     </div>
                 </div>
             </div>
             <div class="card-body" id="id_pohead">
+                <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered" id="example1">
                     <thead>
                         <tr>
@@ -74,7 +75,7 @@
                             </tr>
                         <?php endif; ?>
                     </tbody>
-                </table>
+                </table></div>
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@
 <?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>
-<div class="row pt-3">
+<div class="row buyer_profile">
     <div class="col-sm-12 col-md-3 col-lg-3">
         <div class="card">
             <div class="card-body">
@@ -277,7 +277,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-sm-9">
+                    <div class="col-lg-12 col-sm-12">
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-one-tabContent">
                                 <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"

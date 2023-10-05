@@ -28,7 +28,7 @@
 </div>
 <div class="related card related-card">
   <div class="card-header p-2" id="id_pohead"></div>
-  <div class="right-side p-2">
+  <div class="table-responsive right-side p-2">
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -68,7 +68,7 @@
   $(document).ready(function () {
     $("#example1").DataTable({
       "paging": true,
-      "responsive": false,
+      "responsive": true,
       "lengthChange": false,
       "autoWidth": false,
       "searching": true,

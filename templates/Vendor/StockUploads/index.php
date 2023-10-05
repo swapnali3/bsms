@@ -14,10 +14,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 d-flex justify-content-start">
+                    <div class="col-sm-6 col-lg-6 d-flex justify-content-start">
                         <h5 class="mb-0"><b>Stock Upload</b></h5>
                     </div>
-                    <div class="col-lg-6 d-flex justify-content-end text-align-end">
+                    <div class="col-sm-6 col-lg-6 d-flex justify-content-end add-stock-btn ">
                         <a href="<?= $this->Url->build('/') ?>vendor/stock-uploads/add"><button type="button"
                                 id="continueSub" class="btn bg-gradient-button mb-0 continue_btn">Add Stock</button></a>
                     </div>

@@ -19,7 +19,7 @@
                         alt="Vendor">
                 </div>
                 <div class="mt-3">
-                    <table>
+                    <table class="table_centr">
                         <tr>
                             <td>Name</td>
                             <th>
@@ -162,7 +162,7 @@
         </div>
         <?php endif ?>
     </div>
-    <div class="col-sm-12 col-md-9 col-lg-9 pl-0">
+    <div class="col-sm-12 col-md-9 col-lg-9">
         <div class="card">
             <div class="card-header">
                 <span class="User_head text-info d-flex justify-content-between align-items-center">
@@ -238,7 +238,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-sm-9">
+                    <div class="col-lg-12 col-sm-12">
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-one-tabContent">
                                 <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
@@ -692,7 +692,7 @@
                                                 </div>
                                                 <div class="card-body">
                                                     <?php if (!empty($bo)) : ?>
-                                                    <table class="table">
+                                                    <table class="table table-responsive">
                                                         <tr>
                                                             <td>Address</td>
                                                             <th>
@@ -842,7 +842,7 @@
                                                     Bank Details
                                                 </div>
                                                 <div class="card-body">
-                                                    <table class="table">
+                                                    <table class="table table-responsive">
                                                         <tr>
                                                             <td>Bank name</td>
                                                             <th>

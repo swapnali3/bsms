@@ -9,7 +9,7 @@
                     <img width="100px" src="<?= $this->Url->build('/') ?>img/<?= substr($vendorTemp->name,0,1) ?>.png" alt="Vendor">
                 </div>
                 <div class="mt-3">
-                    <table>
+                    <table class="table_centr">
                         <tr>
                             <td>Name</td>
                             <th><?= h($vendorTemp->name) ?></th>
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="col-sm-12 col-md-9 col-lg-9 pl-0">
+    <div class="col-sm-12 col-md-9 col-lg-9">
 
         <div class="card" style="display:none;">
             <div class="card-body">
@@ -182,7 +182,7 @@
                         <div class="card card-primary card-outline">
                             <div class="card-header">
                                 <span style="font-weight: 500;">REGISTERED OFFICE ADDRESS</span>
-                                <span class="float-right">
+                                <span class="same_addr float-right">
                                     <input type="checkbox" id="copypermanant">
                                     <label for="copypermanant">Same as Permanent Address</label>
                                 </span>
@@ -576,7 +576,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="row">
-                                    <div class="col-4 required">
+                                    <div class="col-lg-4 required">
                                         <label class="form-label">Latest Copy of Balance Sheet</label>
                                         <div class="custom-file">
                                             <input name="incometaxes[balance_sheet_file]"
@@ -867,27 +867,27 @@
                                 <input required="required" type="hidden" name="temps[id]" id="id_vendor_temps_id"
                                     class="vendor_temp_id" value="<?= h($vendorTemp->id) ?>">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                         <label for="id_contact_name">Full Name</label>
                                         <input required="required" type="text" class="form-control"
                                             name="temps[contact_person]" id="id_vendor_temps_contact_person">
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                         <label for="id_contact_name">Email</label>
                                         <input required="required" type="text" class="form-control"
                                             name="temps[contact_email]" id="id_vendor_temps_contact_email">
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                         <label for="id_contact_name">Mobile</label>
                                         <input required="required" type="text" class="form-control"
                                             name="temps[contact_mobile]" id="id_vendor_temps_contact_mobile">
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                         <label for="id_contact_name">Department</label>
                                         <input required="required" type="text" class="form-control"
                                             name="temps[contact_department]" id="id_vendor_temps_contact_department">
                                     </div>
-                                    <div class="col-4">
+                                    <div class="col-lg-4">
                                         <label for="id_contact_name">Designation</label>
                                         <input required="required" type="text" class="form-control"
                                             name="temps[contact_designation]" id="id_vendor_temps_contact_designation">
@@ -914,19 +914,19 @@
                                             id="id_vendor_partner_address_0_vendor_temp_id"
                                             value="<?= h($vendorTemp->id) ?>">
                                         <div class="row">
-                                            <div class="col-2 mt-1">
+                                            <div class="col-lg-2 mt-1">
                                                 <input required="required" type="radio"
                                                     name="partner_address[0][type]"
                                                     id="id_vendor_partner_address_0_type1" value="Proprietor">
                                                 <label>Proprietor</label>
                                             </div>
-                                            <div class="col-2 mt-1">
+                                            <div class="col-lg-2 mt-1">
                                                 <input required="required" type="radio"
                                                     name="partner_address[0][type]"
                                                     id="id_vendor_partner_address_0_type2" value="Partner">
                                                 <label>Partner</label>
                                             </div>
-                                            <div class="col-2 mt-1">
+                                            <div class="col-lg-2 mt-1">
                                                 <input required="required" type="radio"
                                                     name="partner_address[0][type]"
                                                     id="id_vendor_partner_address_0_type3" checked="" value="Director">
@@ -1018,64 +1018,64 @@
                                 <input required="required" type="hidden" name="temps[id]" id="id_vendor_temps_id"
                                     class="vendor_temp_id" value="<?= h($vendorTemp->id) ?>">
                                 <div class="row">
-                                    <div class="col-3 mb-3 required">
+                                    <div class="col-lg-3 mb-3 required">
                                         <label for="id_bank_name">Bank name</label>
                                         <input required="required" type="text" name="temps[bank_name]"
                                             class="form-control alphaonly capitalize id_bank_name"
                                             id="id_vendor_temps_bank_name" required="true">
                                     </div>
 
-                                    <div class="col-3 mb-3 required">
+                                    <div class="col-lg-3 mb-3 required">
                                         <label for="id_bank_branch">Bank Branch</label>
                                         <input required="required" type="text"
                                             class="form-control alphaonly capitalize id_bank_branch"
                                             id="id_vendor_temps_bank_branch" name="temps[bank_branch]" required="true">
                                     </div>
 
-                                    <div class="col-3 mb-3 required">
+                                    <div class="col-lg-3 mb-3 required">
                                         <label for="id_bank_no">Bank number</label>
                                         <input required="required" type="number" maxlength="18"
                                             class="form-control maxlength_validation id_bank_number"
                                             id="id_vendor_temps_bank_number" name="temps[bank_number]" required="true">
                                     </div>
 
-                                    <div class="col-3 mb-3 required">
+                                    <div class="col-lg-3 mb-3 required">
                                         <label for="id_bank_ifsc">IFSC Code</label>
                                         <input required="required" type="text" maxlength="11" name="temps[bank_ifsc]"
                                             class="form-control maxlength_validation UpperCase id_bank_ifsc"
                                             id="id_vendor_temps_bank_ifsc" required="true">
                                     </div>
 
-                                    <div class="col-3 mb-3">
+                                    <div class="col-lg-3 mb-3">
                                         <label for="id_vendor_temps_bank_country">Country</label>
                                         <select class="form-control" name="temps[bank_country]"
                                             id="id_vendor_temps_bank_country"></select>
                                     </div>
 
-                                    <div class="col-3 mb-3 required">
+                                    <div class="col-lg-3 mb-3 required">
                                         <label for="id_vendor_temps_bank_city">City</label>
                                         <input required="required" type="text" class="form-control alphaonly capitalize"
                                             id="id_vendor_temps_bank_city" name="temps[bank_city]" required="true">
                                     </div>
 
-                                    <div class="col-3 mb-3">
+                                    <div class="col-lg-3 mb-3">
                                         <?php echo $this->Form->control('order_currency', ['name' => 'temps[order_currency]', 'class' => 'selectpicker form-control my-select id_order_currency', 'options' => $currencies, 'id'=>'id_vendor_temps_order_currency', 'data-live-search' => 'true', 'required'=>'true', 'title' => 'Select Country', 'empty' => 'Please select']); ?>
                                     </div>
 
-                                    <div class="col-3 mb-3 required">
+                                    <div class="col-lg-3 mb-3 required">
                                         <label for="id_vendor_temps_bank_swift">SWIFT/BIC</label>
                                         <input required="required" type="text" class="form-control"
                                             id="id_vendor_temps_bank_swift" name="temps[bank_swift]" required="true">
                                     </div>
 
-                                    <div class="col-3 required">
+                                    <div class="col-lg-3 required">
                                         <label for="id_vendor_temps_tan_no">TAN No</label>
                                         <input required="required" type="text" name="temps[tan_no]"
                                             class="form-control UpperCase" required="required"
                                             id="id_vendor_temps_tan_no" aria-required="true" maxlength="25">
                                     </div>
 
-                                    <div class="col-3 required">
+                                    <div class="col-lg-3 required">
                                         <label for="id_vendor_temps_cin_no">CIN No</label>
                                         <input required="required" type="text" name="temps[cin_no]"
                                             class="form-control UpperCase" required="required"
@@ -1086,7 +1086,7 @@
                         </div>
 
                         <div class="row mt-3">
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <div class="card card-primary card-outline">
                                     <div class="card-body p-2 required">
                                         <label for="">GST No</label>
@@ -1104,7 +1104,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <div class="card card-primary card-outline">
                                     <div class="card-body p-2 required">
                                         <label for="">PAN No</label>
@@ -1121,7 +1121,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <div class="card card-primary card-outline">
                                     <div class="card-footer p-2 required" style="background-color: whitesmoke;">
                                         <label for="">Cancelled Cheque</label>
@@ -1343,7 +1343,7 @@
                             </div>
                             <div class="card-body" id="id_vendor_reputed_customers_body">
                                 <div class="row" id="rc_killme0">
-                                    <div class="col-3 mb-3 col-md-3">
+                                    <div class="col-lg-3 mb-3 col-md-3">
                                         <input required="required" type="hidden" name="reputed_customers[0][id]"
                                             id="id_vendor_reputed_customers_0_id">
                                         <input required="required" type="hidden" data-id="0"
@@ -1361,7 +1361,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3 mb-3 col-md-3">
+                                    <div class="col-lg-3 mb-3 col-md-3">
                                         <div class="form-group">
                                             <div class="input text required">
                                                 <label for="reputed-customer-0-address">Address</label>
@@ -1372,7 +1372,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3 mb-3 col-md-3">
+                                    <div class="col-lg-3 mb-3 col-md-3">
                                         <div class="form-group">
                                             <div class="input number required">
                                                 <label for="reputed_pincode">Pincode</label>
@@ -1385,7 +1385,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-3 mb-3 col-md-3">
+                                    <div class="col-lg-3 mb-3 col-md-3">
                                         <div class="form-group">
                                             <div class="input text required">
                                                 <label for="">City</label>
@@ -1396,7 +1396,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-3 mb-3 col-md-3">
+                                    <div class="col-lg-3 mb-3 col-md-3">
                                         <div class="form-group">
                                             <div class="input select required">
                                                 <?php echo $this->Form->control('reputed_customers[0][country]', ['class' => 'selectpicker form-control my-select country_code_option','data-state' =>'id_vendor_reputed_customers_0_state', 'options' => $countries, 'data-live-search' => 'true', 'title' => 'Select Country', 'label' => 'Country','required'=>'required', 'id'=>'id_vendor_reputed_customers_0_country', 'empty' => 'Please select']); ?>
@@ -1412,7 +1412,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-3 mb-3 col-md-3">
+                                    <div class="col-lg-3 mb-3 col-md-3">
                                         <div class="form-group">
                                             <div class="input select required">
                                                 <label for="reputed_customer_0_state">State</label>
@@ -1425,7 +1425,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-3 mb-3 col-md-3">
+                                    <div class="col-lg-3 mb-3 col-md-3">
                                         <div class="form-group">
                                             <label for="id_telephone">Telephone</label>
                                             <input type="number"
@@ -1435,7 +1435,7 @@
                                                 minlength="10" maxlength="14">
                                         </div>
                                     </div>
-                                    <div class="col-3 mb-3 col-md-3">
+                                    <div class="col-lg-3 mb-3 col-md-3">
                                         <div class="form-group">
                                             <div class="input number">
                                                 <label for="reputed_faxno">Fax No.</label>

@@ -242,6 +242,23 @@
     body {
       font-family: 'Heebo', sans-serif;
     }
+
+    /* Responsive Styling start here */
+
+    @media only screen and (max-width: 1024px) {
+        .custom-radio label { font-size: .8rem ;}
+        .custom-radio { display: flex; align-items: center; gap: 5px;}
+    }
+
+    @media only screen and (max-width: 768px) {
+      .left-content { padding: 20px 40px 20px !important;}
+      .left-content h1 { font-size: 36px;}
+    }
+    @media only screen and (max-width: 425px) {
+      .left-content h1 { font-size: 32px;}
+      .left-content p { font-size: 16px;}
+    }
+
   </style>
   <meta charset="utf-8">
   <link rel="icon" href="./favicon.ico">
