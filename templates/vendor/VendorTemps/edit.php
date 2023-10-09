@@ -1,8 +1,8 @@
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>
 
-<div class="row">
-    <div class="col-sm-12 col-md-3 col-lg-3">
+<div class="row profile_row">
+    <div class="col-sm-12 col-lg-3 v_profile">
         <div class="card">
             <div class="card-body">
                 <div class="prof-img text-center">
@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div class="col-sm-12 col-md-9 col-lg-9">
+    <div class="col-sm-12 col-lg-9 v_profile">
 
         <div class="card" style="display:none;">
             <div class="card-body">
@@ -325,7 +325,7 @@
                                                     name="branch_offices[0][registration_no]"
                                                     id="id_vendor_branch_offices_0_registration_no">
                                             </div>
-                                            <div class="col-sm-12 col-md-3 mb-3">
+                                            <div class="col-sm-12 col-md-4 mb-3">
                                                 <label class="form-label">Registration Certificate</label>
                                                 <div class="custom-file">
                                                     <input
@@ -367,7 +367,7 @@
                                             name="small_scale[registration_no]"
                                             id="id_vendor_small_scales_registration_no">
                                     </div>
-                                    <div class="col-sm-12 col-md-3 mb-3 required">
+                                    <div class="col-sm-12 col-md-4 mb-3 required">
                                         <label class="form-label">
                                             Registration Certificate
                                         </label>
@@ -1151,14 +1151,14 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-3 col-lg-3">
+                                    <div class="col-sm-12 col-md-6 col-lg-3">
                                         <div class="form-group required">
                                             <label for="id_sigma">Six Sigma</label>
                                             <textarea id="id_vendor_otherdetails_six_sigma" name="otherdetails[six_sigma]"
                                                 cols="30" rows="1" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-3 col-lg-3 required">
+                                    <div class="col-sm-12 col-md-6 col-lg-3 required">
                                         <label class="form-label">Upload File</label>
                                         <div class="custom-file">
                                             <input name="otherdetails[six_sigma_file]"
@@ -1168,13 +1168,13 @@
                                         </div>
                                         <a class="id_vendor_otherdetails_six_sigma_file"></a>
                                     </div>
-                                    <div class="col-sm-12 col-md-3 col-lg-3 required">
+                                    <div class="col-sm-12 col-md-6 col-lg-3 required">
                                         <label>Registration No.</label>
                                         <input required="required" type="number" id="id_vendor_otherdetails_iso"
                                             class="form-control other_details_iso" name="otherdetails[iso]">
                                     </div>
 
-                                    <div class="col-sm-12 col-md-3 col-lg-3 required">
+                                    <div class="col-sm-12 col-md-6 col-lg-3 required">
                                         <label class="form-label">ISO Registration / Certificate</label>
                                         <div class="custom-file">
                                             <input name="otherdetails[iso_file]"

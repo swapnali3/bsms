@@ -16,7 +16,7 @@
             <div class="col-sm-6 col-lg-6 d-flex justify-content-start">
                 <h5 class="mb-0"><b>Production Line</b></h5>
             </div>
-            <div class="col-sm-6 col-lg-6 d-flex justify-content-end text-align-end">
+            <div class="col-sm-6 col-lg-6 d-flex justify-content-end text-align-end add_prod">
                 <a href="<?= $this->Url->build('/') ?>vendor/production-lines/add"><button type="button"
                         id="continueSub" class="btn bg-gradient-button mb-0 continue_btn">Add Production Line</button></a>
             </div>

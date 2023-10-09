@@ -11,7 +11,7 @@
 <div class="buyer-profile">
     <div class="profile-page pb-4 pl-2">
         <div class="row">
-            <div class="col-md-3 pl-0 pr-0">
+            <div class="col-sm-12 col-lg-3 pl-0 pr-0">
                 <div class="card" style="height:100%">
                     <div class="left-s">
                         <div class="m-5 text-center">
@@ -44,11 +44,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-sm-12 col-lg-9 buyer_profile">
                 <div class="card" style="height: 100%;">
                     <div class="card-body">
                         <div class="row">
-                            <div class="clo-md-6 col-lg-6 pr-0">
+                            <div class="col-lg-6 pr-0">
                                 <table>
                                     <tr>
                                         <td>
