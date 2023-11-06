@@ -13,6 +13,7 @@ class FtpComponent extends Component
     function connection() {
         $this->conn = ftp_connect('apardms.co.in');
         ftp_login($this->conn, 'portal', '4d={4DC<rew3');
+        ftp_pasv($this->conn, true);
         return $this->conn;
     }
 

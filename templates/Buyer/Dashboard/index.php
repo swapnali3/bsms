@@ -91,7 +91,7 @@
               <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
-              <a href="javascript:void(0)" class="product-title">Total</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>" class="product-title">Total</a>
               <span class="p-value">
                 <?= h($totalPos) ?>
               </span>
@@ -103,7 +103,7 @@
 
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Completed</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>" class="product-title">Completed</a>
               <span class="p-value">
                 <?= h($poCompleteCount) ?>
               </span>
@@ -114,7 +114,7 @@
               <i class="far fa-clock text-danger"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Pending</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>" class="product-title">Pending</a>
               <span class="p-value">
                 <?= ($totalPos - $poCompleteCount ) ?>
               </span>
@@ -177,31 +177,31 @@
               <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
-              <a href="javascript:void(0)" class="product-title">Total</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'delivery-details']) ?>" class="product-title">Total</a>
               <span class="p-value">
               <?= h(isset($asnDashboardCount['total']) ? $asnDashboardCount['total'] : 0) ?>
               </span>
             </div>
           </li>
-          <li class="item">
+          <!-- <li class="item">
             <div class="product-img">
               <i class="fas fa-th-large text-info created_icon"></i>
             </div>
             <div class="product-info">
-              <a href="javascript:void(0)" class="product-title">Created</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'delivery-details']) ?>" class="product-title">Created</a>
               <span class="p-value">
               <?= h(isset($asnDashboardCount['0']) ? $asnDashboardCount['0'] : 0) ?>
               </span>
             </div>
-          </li>
+          </li>  -->
           <li class="item">
             <div class="product-img">
               <i class="far fa-calendar-check text-warning intransit_icon"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Intransit</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'delivery-details']) ?>" class="product-title">Intransit</a>
               <span class="p-value">
-              <?= h(isset($asnDashboardCount['1']) ? $asnDashboardCount['1'] : 0) ?>
+              <?= h(isset($asnDashboardCount['2']) ? $asnDashboardCount['2'] : 0) ?>
               </span>
             </div>
           </li>
@@ -210,9 +210,9 @@
               <i class="fas fa-truck text-info received_icon"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Received</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'delivery-details']) ?>" class="product-title">Received</a>
               <span class="p-value">
-              <?= h(isset($asnDashboardCount['2']) ? $asnDashboardCount['2'] : 0) ?>
+              <?= h(isset($asnDashboardCount['3']) ? $asnDashboardCount['3'] : 0) ?>
               </span>
             </div>
           </li>

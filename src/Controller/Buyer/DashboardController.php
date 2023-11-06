@@ -99,7 +99,6 @@ class DashboardController extends BuyerAppController
             $asnDashboardCount[$status->status] = $status->count;
         }
 
-        
         // Purchase order card count view 
 
         $query = $this->PoHeaders->find();

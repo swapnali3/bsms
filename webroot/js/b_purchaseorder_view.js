@@ -373,7 +373,7 @@ $(document).on("click", ".flu", function () {
                             <td>`+ val.received_qty + `</td>
                             <td>`+ val.delivery_date + `</td>
                             <td>`+ status + `</td>
-                            <td><span class="badge  mt-2 dbluebadge notify_item" schedue-id='`+ val.id + `' ata-toggle='modal' data-target='#notifyModal' data-toggle="tooltip" data-placement="right" title="Notify"><i class="fas fa-comments"></i></span>` + updateButton + cancelButton + `</td>
+                            <td><!-- <span class="badge  mt-2 dbluebadge notify_item" schedue-id='`+ val.id + `' ata-toggle='modal' data-target='#notifyModal' data-toggle="tooltip" data-placement="right" title="Notify"><i class="fas fa-comments"></i></span> -->` + updateButton + cancelButton + `</td>
                         </tr>`;
                 }
             });

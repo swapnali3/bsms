@@ -76,7 +76,7 @@ class PurchaseOrdersController extends VendorAppController
             $poHeader->acknowledge_date = date('Y-m-d H:i:s'); 
             if($this->PoHeaders->save($poHeader)) {
                 $filteredBuyers = $this->Buyers->find()
-                ->select(['Buyers.id','user_id'=> 'Users.id'])
+                ->select(['Buyers.id','user_id'=> 'Users.id', 'email'])
                 ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
                 ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
                 ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
@@ -94,21 +94,24 @@ class PurchaseOrdersController extends VendorAppController
                         ]);
                     }
                     $this->Notifications->save($n);
+
+                    if ($buyer->email !== "") {
+                        $mailer = new Mailer('default');
+                        $mailer
+                            ->setTransport('smtp')
+                            ->setViewVars([ 'subject' => 'Dear Buyer', 'mailbody' => 'This email is to inform you that your PO('.$poNumber.') has been successfully acknowledged', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                            ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                            ->setTo($buyer->email)
+                            ->setEmailFormat('html')
+                            ->setSubject('Vendor Portal - Order Acknowledgement')
+                            ->viewBuilder()
+                                ->setTemplate('mail_template');
+                        $mailer->deliver();
+                    }
+
                 }
 
-                if ($user["username"] !== "") {
-                    $mailer = new Mailer('default');
-                    $mailer
-                        ->setTransport('smtp')
-                        ->setViewVars([ 'subject' => 'Dear Buyer', 'mailbody' => 'This email is to inform you that your PO('.$poNumber.') has been successfully acknowledged', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
-                        ->setTo($user["username"])
-                        ->setEmailFormat('html')
-                        ->setSubject('Vendor Portal - Order Acknowledgement')
-                        ->viewBuilder()
-                            ->setTemplate('mail_template');
-                    $mailer->deliver();
-                }
+                
                 $response['status'] = '1';
                 $response['message'] = 'PO Acknowledged successfully';
             }
@@ -178,16 +181,18 @@ class PurchaseOrdersController extends VendorAppController
                         ->where([
                                 'sap_vendor_code' => $session->read('vendor_code'), 
                 'acknowledge' => 1,
+                'PoItemSchedules.status' => 1,
                 '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id ) > 0',
                 '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',
                 'OR' => [
                     ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
                     ['PoFooters.material LIKE' => '%' . $search . '%'],
                     ['PoFooters.short_text LIKE' => '%' . $search . '%'],
-                ]
+                ],
             ])
             ->order(['PoHeaders.id' => 'DESC']);
 
+            //echo '<pre>'; print_r($data); exit;
         if ($data->count() > 0) {
             $response['status'] = 1;
             $response['data'] = $data;
@@ -236,7 +241,7 @@ class PurchaseOrdersController extends VendorAppController
                  <td>' . $poHeader['po_no'] . '</td>
                  <td>' . $poHeader['document_type'] . '</td>
                  <td>' . $poHeader['created_by'] . '</td>
-                 <td>' . $poHeader['created_on'] . '</td>
+                 <td>' . $poHeader['created_on']->i18nFormat('dd-MM-YYYY') . '</td>
                 </tr>';
             
 
@@ -675,7 +680,7 @@ class PurchaseOrdersController extends VendorAppController
             ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
             ->leftJoin(['StockUploads' => 'stock_uploads'], ['StockUploads.material_id = Materials.id'])
             ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
-            ->where(['PoHeaders.id' => $id, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0'])->limit(1);
+            ->where(['PoHeaders.id' => $id,'PoItemSchedules.status' => 1, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0'])->limit(1);
         if ($data->count() > 0) { $response = array('status'=>1, 'message'=>'Data Found', 'data'=>$data); }
         echo json_encode($response);
     }
@@ -729,7 +734,7 @@ class PurchaseOrdersController extends VendorAppController
                 <td><input type="checkbox" name="schedule_id[]" value="' . $row->PoItemSchedules['id'] . '" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="' . $row->actual_qty . '" data-id="' . $row->PoItemSchedules['id'] . '"></td>
                  <td>' . $row->PoFooters['item'] . '</td>
                  <td>' . $row->PoFooters['material'] . '</td>
-                 <td>' . $row->delivery_date . '</td>
+                 <td>' . $row->delivery_date->i18nFormat('dd-MM-YYYY') . '</td>
                  <td>' . $row->PoFooters['short_text'] . '</td>
                  <td>' . $row->actual_qty . ' ' . $row->PoFooters['order_unit'] . '</td>
                  <td><input type="number" name="" class="form-control form-control-sm check_qty" data-max="'. $maxqty .'" max="'. $maxqty .'" required="required" data-item="' . $row->PoFooters['item'] . '" id="qty' . $row->PoItemSchedules['id'] . '" value="0"></td>

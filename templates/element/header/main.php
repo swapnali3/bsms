@@ -77,7 +77,7 @@
                         </li>
                         
                         <li>
-                        <?= $this->Html->link(__('Stocks Upload'), ['controller' => '/stock-uploads', 'action' => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+                        <?= $this->Html->link(__('Stocks Upload'), ['controller' => '/stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
                         </li>
                     </ul>
                 </li>

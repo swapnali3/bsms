@@ -103,7 +103,7 @@
                         </div>
                         <div class="col-sm-12 col-lg-2 mt-2">
                         <span class="tracking_details">Invoice Date :</span><br>
-                            <b><?= h($deliveryDetails[0]->invoice_date) ?></b>
+                            <b><?= h($deliveryDetails[0]->invoice_date->i18nFormat('dd-MM-YYYY')) ?></b>
                         </div>
                         <div class="col-sm-12 col-lg-2 mt-2">
                         <span class="tracking_details">Invoice Value :</span><br>
@@ -166,7 +166,7 @@
                                 <?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['actual_qty'] : '' ?>
                             </td>
                             <td>
-                                <?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['delivery_date'] : '' ?>
+                                <?= $deliveryDetail->has('PoItemSchedules') ? date('d-m-Y', strtotime($deliveryDetail->PoItemSchedules['delivery_date'])) : '' ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

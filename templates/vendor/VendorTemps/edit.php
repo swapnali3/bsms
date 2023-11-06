@@ -1275,11 +1275,11 @@
                                             value="<?= h($vendorTemp->id) ?>" class="vendor_temp_id">
                                     </div>
                                     <div class="col-lg-12 mt-3 required">
-                                        <label>Does your company follow any anit - corruption policy (zero corruption )
+                                        <label>Does your company follow any Anti - corruption policy (zero corruption )
                                             & has follow ethical code of code / corporate social
                                             responsibilities:-</label>
                                         <input required="required" type="hidden" name="questionnaire[1][question]"
-                                            value="Does your company follow any anit - corruption policy (zero corruption ) & has follow ethical code of code / corporate social responsibilities"
+                                            value="Does your company follow any Anti - corruption policy (zero corruption ) & has follow ethical code of code / corporate social responsibilities"
                                             id="id_vendor_questionnaires_1_question">
                                         <textarea placeholder="" name="questionnaire[1][answer]" class="form-control"
                                             cols="30" rows="3" id="id_vendor_questionnaires_1_answer"></textarea>
@@ -1290,11 +1290,11 @@
                                             value="<?= h($vendorTemp->id) ?>" class="vendor_temp_id">
                                     </div>
                                     <div class="col-lg-12 mt-3 required">
-                                        <label>Does the company have policy & decimate between sexual worker wrt cast,
+                                        <label>Does the company have policy & decimate between sexual worker wrt caste,
                                             gender, religion and harassment at work place</label>
                                         <input required="required" type="hidden"
                                             id="id_vendor_questionnaires_2_question" name="questionnaire[2][question]"
-                                            value="Does the company have policy & decimate between sexual worker wrt cast, gender, religion and harassment at work place">
+                                            value="Does the company have policy & decimate between sexual worker wrt caste, gender, religion and harassment at work place">
                                         <textarea placeholder="" id="id_vendor_questionnaires_2_answer"
                                             name="questionnaire[2][answer]" class="form-control" cols="30"
                                             rows="3"></textarea>

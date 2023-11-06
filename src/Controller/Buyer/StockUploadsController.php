@@ -316,9 +316,9 @@ class StockUploadsController extends BuyerAppController
                                 ->select(['id', 'code'])
                                 ->where(['code IN' => $value])->first();
     
-                               $tmp['material_id'] = $materials['id'] ? $materials['id'] : null;
+                               $tmp['material_id'] = isset($materials['id']) ? $materials['id'] : null;
                                $datas['material'] = $value;
-                               if(!$materials['id']) {
+                               if(!$tmp['material_id']) {
                                 $matError = true;
                                 $datas['error'] = 'Invalid material';
                             }

@@ -62,7 +62,7 @@ class DailymonitorController extends VendorAppController
             $stockUpload->production_stock = $stockUpload->production_stock + $confirm_production;
             $this->StockUploads->save($stockUpload);
 
-            $response = ['status' => 1, 'message' => $dailymonitor];
+            $response = ['status' => 1, 'message' => "Production confirmed successfully"];
         } else {
             $response = ['status' => 0, 'message' => 'Failed'];
         }
@@ -233,6 +233,10 @@ class DailymonitorController extends VendorAppController
 
     public function add()
     {
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('vendor_id');
+
+        
         $flash = [];
         $this->loadModel("Materials");
         $this->loadModel("LineMasters");
@@ -242,8 +246,7 @@ class DailymonitorController extends VendorAppController
         $factory = $this->VendorFactories->find('list', ['conditions' => ['vendor_temp_id' => $vendorId], 'keyField' => 'id', 'valueField' => 'factory_code'])->all();
 
         $dailymonitor = $this->Dailymonitor->newEmptyEntity();
-        $session = $this->getRequest()->getSession();
-        $vendorId = $session->read('id');
+        
         if ($this->request->is('post')) {
             try {
                 $requestData = $this->request->getData();

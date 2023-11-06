@@ -148,11 +148,10 @@ class PurchaseOrdersController extends BuyerAppController
         ]);
 
         if ($this->request->is(['patch', 'get', 'put'])) {
-            $data = $this->request->getData();
-            $data['status'] = 0;
-            $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $data);
+          
 
-            if ($this->PoItemSchedules->save($PoItemSchedule)) {
+            $schedule = $this->PoItemSchedules->get($id);
+            if ($this->PoItemSchedules->delete($schedule)) {
                 $response['status'] = 'success';
                 $response['message'] = 'schedule status updated successfully';
             } else {
@@ -404,12 +403,13 @@ class PurchaseOrdersController extends BuyerAppController
         $this->autoRender = false;
         $this->loadModel("PoItemSchedules");
         $response = ['status' => 0, 'message' => '', 'totalQty' => ''];
-        $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id]]);
+        $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id, 'status' => 1]]);
 
         if ($data->count() > 0) {
             $totalQty = 0;
             foreach ($data as $row) {
                 $totalQty += $row->actual_qty;
+                $row->delivery_date = $row->delivery_date->i18nFormat('dd-MM-YYYY');
             }
             $response['status'] = 1;
             $response['message'] = $data;

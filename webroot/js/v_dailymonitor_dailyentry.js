@@ -12,6 +12,10 @@ $(document).on("click", ".save", function () {
             if(resp.status){
                 $("#confirmprd"+id).attr('disabled', true);
                 $("#confirmsave"+id).remove();
+                Toast.fire({
+                    icon: 'success',
+                    title: resp.message
+                });
             }
         },
         complete: function () { $("#gif_loader").hide(); }

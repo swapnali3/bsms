@@ -50,7 +50,7 @@
                                 <?= h($deliveryDetail->invoice_no) ?>
                             </td>
                             <td>
-                                <?= h($deliveryDetail->invoice_date) ?>
+                                <?= h($deliveryDetail->invoice_date->i18nFormat('dd-MM-YYYY')) ?>
                             </td>
                             <td>
                                 <?= $status ?>

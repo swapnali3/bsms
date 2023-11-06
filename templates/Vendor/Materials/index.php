@@ -73,7 +73,7 @@
             "responsive": false,
             "lengthChange": false,
             "autoWidth": false,
-            "searching": false,
+            "searching": true,
             "ordering": false,
             "destroy": true,
             "columns": [{
@@ -87,8 +87,9 @@
                 },{
                     "data": "uom",
                 }
-            ]
-        });
+            ],
+            "buttons": [ "excel"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-3:eq(0)');
 
         setTimeout(function () {
             $('.success').fadeOut('slow');

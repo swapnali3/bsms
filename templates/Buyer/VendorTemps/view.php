@@ -675,21 +675,21 @@
                                                         <div class="col-4">
                                                             <?= h($vendorTemp->vendor_turnovers[0]->first_year) ?> :
                                                             <b>
-                                                                <?= h($vendorTemp->vendor_turnovers[0]->first_year_turnover) ?>
+                                                                <?= h($vendorTemp->vendor_turnovers[0]->first_year_turnover) ?> INR
                                                             </b>
                                                         </div>
 
                                                         <div class="col-4">
                                                             <?= h($vendorTemp->vendor_turnovers[0]->second_year) ?> :
                                                             <b>
-                                                                <?= h($vendorTemp->vendor_turnovers[0]->second_year_turnover) ?>
+                                                                <?= h($vendorTemp->vendor_turnovers[0]->second_year_turnover) ?> INR
                                                             </b>
                                                         </div>
 
                                                         <div class="col-4">
                                                             <?= h($vendorTemp->vendor_turnovers[0]->third_year) ?> :
                                                             <b>
-                                                                <?= h($vendorTemp->vendor_turnovers[0]->third_year_turnover) ?>
+                                                                <?= h($vendorTemp->vendor_turnovers[0]->third_year_turnover) ?> INR
                                                             </b>
                                                         </div>
                                                         <?php endif; ?>
