@@ -700,7 +700,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                                             <div class="card card_border">
                                                 <div class="card-header">
-                                                    Income Tax Cleaning Certificate
+                                                    Income Tax Clearing Certificate
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="row">
@@ -780,7 +780,7 @@
                                                             <th>
                                                                 <?= h($bo->machinery_available) ?>
                                                             </th>
-                                                            <td>Power Available</td>
+                                                            <td>Power Consumption</td>
                                                             <th>
                                                                 <?= h($bo->power_available) ?>
                                                             </th>

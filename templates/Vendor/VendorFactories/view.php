@@ -67,11 +67,11 @@
                     <td><?= h($vendorFactory->machinery_available_file) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Power Available') ?></th>
+                    <th><?= __('Power consumption') ?></th>
                     <td><?= h($vendorFactory->power_available) ?></td>
                 </tr>
                 <tr>
-                    <th><?= __('Power Available File') ?></th>
+                    <th><?= __('Power consumption File') ?></th>
                     <td><?= h($vendorFactory->power_available_file) ?></td>
                 </tr>
                 <tr>

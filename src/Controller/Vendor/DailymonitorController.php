@@ -250,11 +250,14 @@ class DailymonitorController extends VendorAppController
         if ($this->request->is('post')) {
             try {
                 $requestData = $this->request->getData();
+                //echo '<pre>';  print_r($requestData); exit;
                 $requestData['sap_vendor_code'] = $session->read('vendor_code');
+                $requestData['production_line_id'] = $requestData['prod_line'];
                 $requestData['status'] = 1;
                 
+                
                 $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $requestData);
-                //echo '<pre>';  print_r($dailymonitor);exit;
+                
 
                 if ($this->Dailymonitor->save($dailymonitor)) {
                   
@@ -262,6 +265,7 @@ class DailymonitorController extends VendorAppController
                     $this->set('flash', $flash);
                     return $this->redirect(['action' => 'index']);
                 }
+                //echo '<pre>';  print_r($dailymonitor); exit;
                 $flash = ['type' => 'error', 'msg' => 'The dailymonitor could not be saved. Please, try again'];
                 $this->set('flash', $flash);
             

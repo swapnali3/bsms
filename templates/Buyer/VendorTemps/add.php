@@ -62,14 +62,30 @@
                     </div>
                     <!-- <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('company_code_id', array('class' => 'form-control', 'options' => $company_codes, 'empty' => 'Please Select')); ?>
+                            <?php //echo $this->Form->control('company_code_id', array('class' => 'form-control', 'options' => $company_codes, 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('purchasing_organization_id', array('class' => 'form-control', 'empty' => 'Please Select')); ?>
+                            <?php //echo $this->Form->control('purchasing_organization_id', array('class' => 'form-control', 'empty' => 'Please Select')); ?>
                         </div>
                     </div> -->
+
+                    <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
+                        <div class="form-group">
+                        <?php echo $this->Form->control('vendor_type', array('class' => 'form-control', 'options' => ['001 - CARTON','002 - LABEL',
+'003 - COUPON',
+'004 - MIS STICKER',
+'005 - HTL',
+'006 - HUMDUM',
+'007 - HTL LABEL',
+'008 - BOTTLES & CAP',
+'009 - BOTTLES',
+'010 - BOTTLES & CAP & LABEL & CARTON',
+'011 - BUCKET & LID','012 - 50 LTR. DRUM','013 - CAP'], 'empty' => 'Please Select')); ?>
+                        </div>
+                    </div>
+
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
                         <div class="form-group">
                             <?php echo $this->Form->control('account_group_id', array('class' => 'form-control', 'options' => $accountGroups, 'empty' => 'Please Select')); ?>

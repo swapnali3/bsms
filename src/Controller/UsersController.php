@@ -166,9 +166,10 @@ class UsersController extends AppController
         $this->loadModel("VendorTemps");
         $this->loadModel('Buyers');
         
+        //echo '<pre>'; print_r($this->getRequest()->getSession()->id()); exit;
 
         $session = $this->getRequest()->getSession();
-     
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             if ($this->request->getData('logged_by') == 'email') {
 
@@ -181,16 +182,61 @@ class UsersController extends AppController
                 if ($result) {
                     if (password_verify($this->request->getData('password'), $result[0]->password)) {
                         $session = $this->getRequest()->getSession();
-                        $session->write('username', $result[0]->username);
-                        $session->write('group_name', $result[0]->group_name);
-                        $session->write('full_name', $result[0]->first_name . ' ' . $result[0]->last_name);
-                        $session->write('first_name', $result[0]->first_name);
-                        $session->write('last_name', $result[0]->last_name);
-                        $session->write('id', $result[0]->id);
-                        $session->write('role', $result[0]->group_id);
+
+                        $token = null;
+                        $this->loadModel('LoginToken');
+                        $loginToken = $this->LoginToken->find('all', [
+                        'conditions' => ['user_id' => $result[0]->id],
+                        'orderby' => 'desc']);
+                        $loginToken = $loginToken->first();
+
+                        if($loginToken) {
+                            $token = $loginToken->login_token;
+
+                            if(time() - strtotime((string)$loginToken->updated_date) > 1800) {
+                                //$this->LoginToken->delete($loginToken);
+                                $token = null;
+                            }
+                        }
                         
-                        $response['status'] = 1;
-                        $response['message'] = '';
+                        //echo '<pre>'; print_r($this->Cookie->getLoginToken()); 
+                        //echo '<pre>'; print_r($token); exit;
+                        if($token && $token != $this->Cookie->getLoginToken()) {
+                            $response['message'] = 'User already logged in';
+                            echo json_encode($response); exit;
+                        } else {
+                            
+                            $loginToken = $this->Cookie->setLoginToken($this->generateRandomString());
+
+                            $tokenData = [];
+                            $tokenData['user_id'] = $result[0]->id;
+                            $tokenData['login_token'] = $loginToken;
+                            $tokenData['updated_date'] = date('Y-m-d H:i:s');
+
+                            $columns = array_keys($tokenData);
+                            $upsertQuery = $this->LoginToken->query();
+                            $upsertQuery->insert($columns);
+                            $upsertQuery->values($tokenData);
+                            $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `login_token`=VALUES(`login_token`), `updated_date`=VALUES(`updated_date`)')->execute();
+
+                            $userToken = $this->LoginToken->newEntities($tokenData);
+                            $this->LoginToken->saveMany($userToken);
+
+                            //$userToken = $this->LoginToken->newEmptyEntity();
+                            //$userToken = $this->LoginToken->patchEntity($userToken, ['user_id' => $result[0]->id, 'login_token' => $loginToken]);
+                            //if ($this->LoginToken->save($userToken)) {}
+                            $session->write('username', $result[0]->username);
+                            $session->write('group_name', $result[0]->group_name);
+                            $session->write('full_name', $result[0]->first_name . ' ' . $result[0]->last_name);
+                            $session->write('first_name', $result[0]->first_name);
+                            $session->write('last_name', $result[0]->last_name);
+                            $session->write('id', $result[0]->id);
+                            $session->write('role', $result[0]->group_id);
+                            $session->write('login_token', $loginToken);
+
+                            $response['status'] = 1;
+                            $response['message'] = '';
+                        }
                         if ($result[0]->group_id == 1) {
                             $response['redirect'] = ['controller' => 'admin/dashboard', 'action' => 'index'];
                         } else if ($result[0]->group_id == 2) {
@@ -307,10 +353,41 @@ class UsersController extends AppController
         //Leave empty for now.
         //$this->redirect($this->Auth->logout());
         $session = $this->getRequest()->getSession();
+        $this->loadModel('LoginToken');
+        $token = $this->LoginToken->find('all', [ 
+            'select' => 'login_token',
+        'conditions' => ['user_id' => $session->read('id')], 
+        'orderby' => 'desc'])->first();
+        if($token) {
+            $this->LoginToken->delete($token);  
+        }
+
+        $this->Cookie->deleteLoginToken();
+
         $session->destroy();
         $this->redirect(array('controller' => 'users', 'action' => 'login'));
     }
 
+
+    public function logoutSession()
+    {
+        //Leave empty for now.
+        //$this->redirect($this->Auth->logout());
+        $session = $this->getRequest()->getSession();
+        $this->Cookie->deleteLoginToken();
+        $session->destroy();
+        $this->redirect(array('controller' => 'users', 'action' => 'login'));
+    }
+
+    function generateRandomString($length = 32) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
 
     
 }

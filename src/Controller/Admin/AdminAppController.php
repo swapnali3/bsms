@@ -52,6 +52,8 @@ class AdminAppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('Sms');
         $this->loadComponent('Ftp');
+        $this->loadComponent("Cookie"); 
+        
         $this->set('title', 'VeKPro');
         
 

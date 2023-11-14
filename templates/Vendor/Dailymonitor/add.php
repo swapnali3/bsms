@@ -49,6 +49,7 @@
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
                             <?php echo $this->Form->control('target_production', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'div' => 'form-group', 'required')); ?>
+                            <?php echo $this->Form->control('prod_line', array('type' => 'hidden', 'class' => 'form-control rounded-0 w-100', 'div' => 'form-group', 'required')); ?>
                         </div>
                     </div>
 
@@ -188,7 +189,7 @@ $("#production-line-id").change(function () {
                 success: function (response) {
                     if (response.status) {
                         $.each(response.data.materials, function (key, val) { 
-                            $("#material-id").append("<option value='"+val.id+"' data-capacity='"+val.capacity+"'>"+val.description+"</option>");
+                            $("#material-id").append("<option value='"+val.id+"' prod-line='"+val.prod_line+"' data-capacity='"+val.capacity+"'>"+val.description+"</option>");
                         });
                     }
                 },
@@ -204,8 +205,10 @@ $("#production-line-id").change(function () {
 
     $("#material-id").change(function () {
         var capacity = $('option:selected', this).attr("data-capacity");
+        var line = $('option:selected', this).attr("prod-line");
         console.log(capacity);
         $("#target-production").val(capacity);
+        $("#prod-line").val(line);
     });
 
     $('#OpenImgUpload').click(function() {

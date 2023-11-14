@@ -76,8 +76,15 @@
 
                                     if (!empty($files)) {
                                         foreach ($files as $key => $file) {
-                                            echo '<i class="fa fa-download asn_download_icon"></i>';
-                                            echo $this->Html->link(' ' .$key, '/' . $file, ['style' => 'display:block;', 'target' => '_blank', 'class' => 'asn_files mb-0 invoicefiles']);
+                                            if(is_array($file)) {
+                                                foreach ($file as $k=> $f) {
+                                                    echo '<i class="fa fa-download asn_download_icon"></i>';
+                                                echo $this->Html->link(' ' .$key, '/' . $f, ['style' => 'display:block;', 'target' => '_blank', 'class' => 'asn_files mb-0 invoicefiles']);
+                                                }
+                                            } else {
+                                                echo '<i class="fa fa-download asn_download_icon"></i>';
+                                                echo $this->Html->link(' ' .$key, '/' . $file, ['style' => 'display:block;', 'target' => '_blank', 'class' => 'asn_files mb-0 invoicefiles']);
+                                            }
                                         }
                                     }
 

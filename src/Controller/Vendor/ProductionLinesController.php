@@ -218,13 +218,13 @@ class ProductionLinesController extends VendorAppController
         $sapVendor = $session->read('vendor_code');
         
         $materialList = $this->ProductionLines->find()
-        ->select(['capacity', 'Materials.id', 'Materials.code', 'Materials.description'])
+        ->select(['id','capacity', 'Materials.id', 'Materials.code', 'Materials.description'])
         ->contain(['Materials'])
         ->where(['line_master_id' => $lineMasterId]);
 
         $materials = [];
         foreach($materialList as $mat) {
-            $materials[] = ['id' => $mat->material->id, 'description' => $mat->material->description, 'capacity' => $mat->capacity];
+            $materials[] = ['prod_line' => $mat->id,'id' => $mat->material->id, 'description' => $mat->material->description, 'capacity' => $mat->capacity];
         }
 
         $response['status'] = 1;

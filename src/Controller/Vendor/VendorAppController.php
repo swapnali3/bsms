@@ -58,6 +58,7 @@ class VendorAppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('Sms');
         $this->loadComponent('Ftp');
+        $this->loadComponent("Cookie"); 
         
         $flash = [];  
         $this->set('flash', $flash);
@@ -83,10 +84,23 @@ class VendorAppController extends Controller
         $session = $this->getRequest()->getSession();
         $full_name = $session->read('full_name');
         $role = $session->read('role');
+        $userId = $session->read('id');
         $group_name = $session->read('group_name');
 
         //echo '<pre>'; print_r($session); exit;
 
+        $this->loadModel('LoginToken');
+        $loginToken = $this->LoginToken->find('all', [
+        'conditions' => ['user_id' => $userId],
+        'orderby' => 'desc']);
+        $loginToken = $loginToken->first();
+        if($loginToken) {
+            $token = $loginToken->login_token;
+            if($token && $token != $this->Cookie->getLoginToken()) {
+                return $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'logout-session'));
+            }
+        }
+        
         if (($this->request->getParam('action') == 'verify' || $this->request->getParam('action') == 'create')) {
             // $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
         } else if ($session->check('id') && $session->read('role') != 3) {

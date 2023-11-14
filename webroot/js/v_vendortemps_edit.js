@@ -260,7 +260,7 @@ function load_data(i, v) {
                             <div class="col-sm-12 col-md-6 mb-3">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 text-center required">
-                                        <label class="text-info">Power Available</label>
+                                        <label class="text-info">Power Consumption</label>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <input required="required" type="text" class="form-control"
@@ -944,7 +944,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                     <div class="col-sm-12 col-md-6 mb-3">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 text-center required">
-                                <label class="text-info">Power Available</label>
+                                <label class="text-info">Power Consumption</label>
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <input required="required" type="text" class="form-control"

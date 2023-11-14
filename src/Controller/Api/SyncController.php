@@ -632,7 +632,7 @@ class SyncController extends ApiAppController
                         $reconAccount = $this->VendorTemps->ReconciliationAccounts->findByCode($row->AKONT)->first();
                         $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
                         $schemaGroup = $this->VendorTemps->SchemaGroups->findByCode($row->KALSK)->first();
-                        $region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
+                        //$region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
                         $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
                         $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
                         
@@ -744,7 +744,8 @@ class SyncController extends ApiAppController
                         $reconAccount = $this->VendorTemps->ReconciliationAccounts->findByCode($row->AKONT)->first();
                         $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
                         $schemaGroup = $this->VendorTemps->SchemaGroups->findByCode($row->KALSK)->first();
-                        $region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
+                        //$region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
+                        $region = '';
                         $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
                         $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
                         

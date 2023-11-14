@@ -541,7 +541,7 @@
 
                         <div class="card card-primary card-outline">
                             <div class="card-header">
-                                <h5>Income tax cleaning certificate</h5>
+                                <h5>Income tax Clearing certificate</h5>
                             </div>
                             <div class="card-body">
                                 <input required="required" type="hidden" name="incometaxes[id]"
@@ -681,7 +681,7 @@
                                             <div class="col-sm-12 col-md-6 mb-3">
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 text-center required">
-                                                        <label class="text-info">Power Available</label>
+                                                        <label class="text-info">Power Consumption(upload light bill)</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <input required="required" type="text" class="form-control"
