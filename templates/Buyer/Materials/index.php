@@ -80,18 +80,10 @@
             "searching": true,
             "ordering": false,
             "destroy": true,
-            "columns": [{
-                    "data": "code"
-                },
-                {
-                    "data": "description"
-                },
-                {
-                    "data": "minimum_stock",
-                },{
-                    "data": "uom",
-                }
-            ]
+            
+            dom: 'Blfrtip',
+            buttons: [{ extend: 'copy' },
+        { extend: 'excelHtml5', text : 'Export'},]
         });
 
         setTimeout(function () {

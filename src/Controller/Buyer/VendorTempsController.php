@@ -276,9 +276,7 @@ class VendorTempsController extends BuyerAppController
         $vendorCodes = [];
         
         $titles = $this->Titles->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
-        /*$purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
-            return $row->code.' - '.$row->name;
-        }])->all(); */
+        
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
             return $row->code.' - '.$row->name;
         }])->all();
@@ -288,9 +286,7 @@ class VendorTempsController extends BuyerAppController
         $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
             return $row->code.' - '.$row->description;
         }])->all();
-        /*$company_codes = $this->CompanyCodes->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
-            return $row->code.' - '.$row->name;
-        }])->all(); */
+        
         $reconciliation_account = $this->ReconciliationAccounts->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
             return $row->code.' - '.$row->name;
         }])->where(['company_code_id' => $session->read('company_code_id')])->all();
@@ -315,29 +311,6 @@ class VendorTempsController extends BuyerAppController
             // Incase of Excel input
             if ($inputCode == "") { $vendorCodes = []; }
 
-            /*if ($_FILES['vendor_code']['name'] != "") {
-                if ($importFile !== null && isset($_FILES['vendor_code']['name'])) {
-                    $destination = "uploads/";
-                    $filename = $_FILES['vendor_code']['name'];
-                    $path = $destination . $filename;
-                    move_uploaded_file($_FILES['vendor_code']['tmp_name'], $path);
-                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($path);
-                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
-                    $spreadsheet = $reader->load($path);
-                    $worksheet = $spreadsheet->getActiveSheet();
-                    // Copy cell data to vendorCodes array
-                    foreach ($worksheet->getRowIterator(2) as $row) {
-                        foreach ($row->getCellIterator() as $cell) {
-                            $cellval = $cell->getValue();
-                            if (!empty($cellval)) {
-                                $vendorCodes[] = $cellval;
-                            }
-                            break;
-                        }
-                    }
-                }
-            } */
-            
             foreach ($vendorCodes as $vendorCode) {
                 if (!empty($vendorCode)) {
                     if (!$this->VendorTemps->exists(['sap_vendor_code' => str_pad($vendorCode, 10, "0", STR_PAD_LEFT)])) {
@@ -384,7 +357,18 @@ class VendorTempsController extends BuyerAppController
     public function edit($id = null)
     {
         $flash = [];
+        $session = $this->getRequest()->getSession();
+
+        $this->loadModel("Titles");
         $this->loadModel("VendorTemps");
+        $this->loadModel("VendorStatus");
+        $this->loadModel("PaymentTerms");
+        $this->loadModel("CompanyCodes");
+        $this->loadModel('AccountGroups');
+        $this->loadModel('SchemaGroups');
+        $this->loadModel("ReconciliationAccounts");
+        $this->loadModel("PurchasingOrganizations");
+
         $vendorTemp = $this->VendorTemps->get($id, [
             'contain' => [],
         ]);
@@ -393,17 +377,36 @@ class VendorTempsController extends BuyerAppController
             if ($this->VendorTemps->save($vendorTemp)) {
                 $flash = ['type'=>'success', 'msg'=>'The vendor has been saved'];
                 $this->set('flash', $flash);
+                $this->Flash->success(__('The vendor has been saved'));
 
                 return $this->redirect(['action' => 'index']);
             }
             $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be saved. Please, try again'];
             $this->set('flash', $flash);
+            $this->Flash->error(__('The vendor temp could not be saved. Please, try again'));
         }
-        $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
-        $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
-        $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups'));
+
+        $titles = $this->Titles->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
+        
+        $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
+            return $row->code.' - '.$row->name;
+        }])->all();
+        $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
+            return $row->code.' - '.$row->name;
+        }])->all();
+        $payment_term = $this->PaymentTerms->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
+            return $row->code.' - '.$row->description;
+        }])->all();
+        
+        $reconciliation_account = $this->ReconciliationAccounts->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
+            return $row->code.' - '.$row->name;
+        }])->where(['company_code_id' => $session->read('company_code_id')])->all();
+
+        $vendorTemp->account_group_id = 10;
+        $this->set(compact('vendorTemp','titles', 'accountGroups', 'schemaGroups', 'payment_term', 'reconciliation_account'));
     }
+    
+        
 
     /**
      * Delete method

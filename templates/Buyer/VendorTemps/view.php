@@ -55,6 +55,18 @@
             </div>
         </div>
         <div class="card">
+        <?php if ($vendorTemp->status == 0) : ?>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-4">
+
+                    <?= $this->Html->link('<button type="button"><i class="far fa-check-circle"></i> Edit </button', ['action' => 'edit', $vendorTemp->id], ['class' => 'btn btn-block p-2', 'escape' => false]) ?>
+
+                        
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
             <?php if ($vendorTemp->status == 1) : ?>
             <div class="card-header">
                 <div class="approve-reject row">
@@ -82,6 +94,7 @@
                 </div>
             </div>
             <?php endif; ?>
+            
             <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">

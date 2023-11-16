@@ -858,8 +858,8 @@ class PurchaseOrdersController extends VendorAppController
             $conditions = array();
             $whereFooterIds = "";
 
-            $conditions['PoHeaders.id']  = $id;
-
+            //$conditions['PoHeaders.id']  = $id;
+            $conditions[]  = 'PoHeaders.id = '. $id;
             $conditions[]  = '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0';
 
 
@@ -879,10 +879,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->order(['PoFooters.id' => 'DESC'])
                 //->limit(1)
                 ->toArray();
-
-            
-                
-                
+    
             // $materialStock = $this->StockUploads->find('all')
             //     ->contain(['Materials' => function($query) use ($poHeader){
             //         return $query->where(['Materials.code' => $poHeader[0]->PoFooters['material']]);

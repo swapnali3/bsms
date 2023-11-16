@@ -86,8 +86,9 @@ class PurchaseOrdersController extends BuyerAppController
                     ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
                     ['PoFooters.material LIKE' => '%' . $search . '%'],
                     ['PoFooters.short_text LIKE' => '%' . $search . '%'],
+                    ['V.name LIKE' => '%' . $search . '%'],
                 ]
-            ]);
+            ])->order(['PoHeaders.created_on' => 'desc']);
 
         //echo '<pre>';print_r($data);exit;
 

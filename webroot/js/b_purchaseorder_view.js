@@ -1,5 +1,43 @@
+function searchPo(search = "") {
+    $("#poItemss").html('');
+    $(".related tbody:first").show();
+    $.ajax({
+        type: "GET",
+        url: po_api + "/" + search,
+        dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
+        success: function (response) {
+            if (response.status == "success") {
+                $.each(response.message, function (key, val) {
+                    $("#poItemss").append(
+                        `<div class="po-box details-control" data-id="` +
+                        val.id +
+                        `">
+                                            <div class="pono">
+                                                <small class="mb-0"> PO No </small><br>
+                                                <b>` +
+                        val.po_no +
+                        `</b>
+                                            </div>
+                                            <div class="po-code">
+                                                <small class="mb-0"> Vendor Code </small><br>
+                                                <small><b>` +
+                        val.sap_vendor_code +
+                        `</b></small>
+                                            </div>
+                                        </div>`
+                    );
+                });
+                $("div.po-box:first").click();
+            }
+        },
+        complete: function () { $("#gif_loader").hide(); }
+    });
+}
+
+
 function poform(search = "") {
-    $("#poItemss").empty();
+    $("#poItemss").html('');
     $(".related tbody:first").show();
     if (search != "") {
         po_api += "/" + search;
@@ -299,34 +337,32 @@ $(document).on("click", ".notify_item", function () {
     });
 });
 
-$(".search-box").on("keypress", function (event) {
-    if (event.which === 13) {
-        var searchName = $(this)
-            .closest(".search-bar")
-            .find(".search-box")
-            .val();
+
+$(".search-box").on("keyup", function (event) {
+    //if (event.which === 13) {
+        var searchName = $(this).val();
         $(".related tbody:first").empty().hide().append(`<tr>
                 <td colspan="13" class="text-center">
                     <p>No data found !</p>
                 </td>
             </tr>`);
-        poform(searchName);
-        return false;
-    }
+        searchPo(searchName);
+        //return false;
+    //}
 });
 
+
+/*
 $(".search-box").on("keydown", function (event) {
     if (event.which === 8) {
-        var searchName = $(this)
-            .closest(".search-bar")
-            .find(".search-box")
-            .val();
+        var searchName = $(this).val();
         if (searchName.length === 1) {
             $(".related tbody:first").empty().hide();
             poform(searchName);
         }
     }
 });
+*/
 
 $(document).on("click", ".flu", function () {
     $("#error_msg").html("");

@@ -277,6 +277,7 @@ class StockUploadsController extends BuyerAppController
                     $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
                     $this->loadModel("Materials");
                     $this->loadModel("VendorFactories");
+                    $this->loadModel("Dailymonitor");
 
                     $tmp = [];
                     $datas = [];
@@ -316,12 +317,17 @@ class StockUploadsController extends BuyerAppController
                                 ->select(['id', 'code'])
                                 ->where(['code IN' => $value])->first();
     
-                               $tmp['material_id'] = isset($materials['id']) ? $materials['id'] : null;
-                               $datas['material'] = $value;
-                               if(!$tmp['material_id']) {
-                                $matError = true;
-                                $datas['error'] = 'Invalid material';
-                            }
+                                $tmp['material_id'] = isset($materials['id']) ? $materials['id'] : null;
+                                $datas['material'] = $value;
+                                if(!$tmp['material_id']) {
+                                    $matError = true;
+                                    $datas['error'] = 'Invalid material';
+                                } else {
+                                    if ($this->Dailymonitor->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id']])) { 
+                                        $matError = true;
+                                        $datas['error'] = 'Production Detail Exists';
+                                    }
+                                } 
                             }
                             else if($col == 6) {
                             
