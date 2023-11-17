@@ -124,7 +124,7 @@ class DailymonitorController extends VendorAppController
                             if($col == 1) {
                                 $factory = $this->VendorFactories->find('list')
                                 ->select(['id'])
-                                ->where(['factory_code' => $value])
+                                ->where(['factory_code' => $value, 'vendor_temp_id' => $session->read('vendor_id')])
                                 ->first();
                                 $tmp['vendor_factory_id'] = $factory ? $factory : null;
                                 $datas['factory_code'] = $value;

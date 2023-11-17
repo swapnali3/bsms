@@ -291,8 +291,8 @@ class StockUploadsController extends BuyerAppController
                             
                             $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                             if($col == 1) {
-                                $tmp['sap_vendor_code'] =$value;
-                                $datas['sap_vendor_code'] = $value;
+                                $tmp['sap_vendor_code'] = str_pad((string)$value, 10, "0", STR_PAD_LEFT);
+                                $datas['sap_vendor_code'] = str_pad((string)$value, 10, "0", STR_PAD_LEFT);
                             }
                             else if($col == 2) {
                                 $factory = $this->VendorFactories->find('list')
@@ -350,6 +350,10 @@ class StockUploadsController extends BuyerAppController
                         } else if($matError) {
                             $datas['error'] = 'Invalid Material';
                         }
+
+                        /*if($this->StockUploads->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'vendor_factory_id' => $tmp['vendor_factory_id'], 'material_id' => $tmp['material_id']])) {
+                            $datas['error'] = "Stock exists";
+                        } */
 
                         $stockData[] = $datas;
                         $tmp['asn_stock'] = 0;

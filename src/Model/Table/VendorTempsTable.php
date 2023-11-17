@@ -92,6 +92,10 @@ class VendorTempsTable extends Table
             'foreignKey' => 'reconciliation_account_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('VendorTypes', [
+            'foreignKey' => 'vendor_type_id',
+            'joinType' => 'INNER',
+        ]);
         $this->belongsTo('States', [
             'foreignKey' => 'state_id',
         ]);
@@ -185,6 +189,10 @@ class VendorTempsTable extends Table
         $validator
             ->integer('reconciliation_account_id')
             ->notEmptyString('reconciliation_account_id');
+
+        $validator
+            ->integer('vendor_type_id')
+            ->notEmptyString('vendor_type_id');
 
         $validator
             ->scalar('sap_vendor_code')
@@ -412,6 +420,7 @@ class VendorTempsTable extends Table
         $rules->add($rules->existsIn('account_group_id', 'AccountGroups'), ['errorField' => 'account_group_id']);
         $rules->add($rules->existsIn('schema_group_id', 'SchemaGroups'), ['errorField' => 'schema_group_id']);
         $rules->add($rules->existsIn('reconciliation_account_id', 'ReconciliationAccounts'), ['errorField' => 'reconciliation_account_id']);
+        $rules->add($rules->existsIn('vendor_type_id', 'VendorTypes'), ['errorField' => 'vendor_type_id']);
         $rules->add($rules->existsIn('state_id', 'States'), ['errorField' => 'state_id']);
         $rules->add($rules->existsIn('country_id', 'Countries'), ['errorField' => 'country_id']);
         $rules->add($rules->existsIn('payment_term_id', 'PaymentTerms'), ['errorField' => 'payment_term_id']);

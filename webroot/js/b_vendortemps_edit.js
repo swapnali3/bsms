@@ -12,45 +12,6 @@ var Toast = Swal.mixin({
   timer: 3000
 });
 
-$.validator.setDefaults({
-  submitHandler: function () {
-    $.ajax({
-      type: "POST",
-      url: addurl,
-      data: $("#addvendorform").serialize(),
-      dataType: 'json',
-      beforeSend: function () { $("#gif_loader").show(); },
-      success: function (response) {
-        console.log(response);
-        if (response.status == 'success') {
-          Toast.fire({
-            icon: 'success',
-            title: response.message
-          });
-          $('#modal-sm').modal('hide');
-
-          setTimeout(function () { window.location.reload(); }, 1000);
-        } else {
-          Toast.fire({
-            icon: 'error',
-            title: response.message
-          });
-          $('#modal-sm').modal('hide');
-
-          /*if(response.data) {
-            $("#exist_vendor_list tbody").html('');
-            $.each(response.data, function( index, value ) {
-              console.log(value);
-              $("#exist_vendor_list tbody").append("<tr><td>"+value.title+"</td><td>"+value.name+"</td><td>"+value.mobile+"</td><td>"+value.email+"</td><td>"+value.purchasing_organization_id+"</td><td>"+value.status+"</td></tr>");
-            });
-          } */
-        }
-      },
-      complete: function () { $("#gif_loader").hide(); }
-    });
-    return false;
-  }
-});
 
 $('#id_addvendor').click(function () {
   if ($("#addvendorform").valid()) {

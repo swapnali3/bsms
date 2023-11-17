@@ -336,7 +336,7 @@ class VendorTempsController extends VendorAppController
                                 } else{
                                     $old_it = $this->VendorFactories->newEmptyEntity();
                                     // $data["vendor_temp_id"] = $id;
-                                    $value["factory_code"] = $value['country']."_".$value['state']."_".$value['city']."_Unit".($key+1);
+                                    $value["factory_code"] = $id."_".$value['country']."_".$value['state']."_".str_replace(' ', '_', strtolower($value['city']))."_Unit".($key+1);
                                     $it = $this->VendorFactories->patchEntity($old_it, $value);
                                 }
     

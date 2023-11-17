@@ -259,7 +259,7 @@ class StockUploadsController extends VendorAppController
                             if($col == 1) {
                                 $factory = $this->VendorFactories->find('list')
                                 ->select(['id'])
-                                ->where(['factory_code' => $value])
+                                ->where(['factory_code' => $value, 'vendor_temp_id' => $session->read('vendor_id')])
                                 ->first();
 
                                 //echo '<pre>';  print_r($factory); exit;

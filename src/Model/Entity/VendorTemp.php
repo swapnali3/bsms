@@ -103,6 +103,7 @@ class VendorTemp extends Entity
         'account_group_id' => true,
         'schema_group_id' => true,
         'reconciliation_account_id' => true,
+        'vendor_type_id' => true,
         'sap_vendor_code' => true,
         'title' => true,
         'name' => true,

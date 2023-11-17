@@ -73,16 +73,7 @@
 
                     <div class="col-sm-12 col-md-3 col-lg-3 mb-3">
                         <div class="form-group">
-                        <?php echo $this->Form->control('vendor_type', array('class' => 'form-control', 'options' => ['001 - CARTON','002 - LABEL',
-'003 - COUPON',
-'004 - MIS STICKER',
-'005 - HTL',
-'006 - HUMDUM',
-'007 - HTL LABEL',
-'008 - BOTTLES & CAP',
-'009 - BOTTLES',
-'010 - BOTTLES & CAP & LABEL & CARTON',
-'011 - BUCKET & LID','012 - 50 LTR. DRUM','013 - CAP'], 'empty' => 'Please Select')); ?>
+                        <?php echo $this->Form->control('vendor_type_id', array('class' => 'form-control', 'options' => $vendorTypes, 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
 
@@ -135,18 +126,4 @@
             </div>
         </div>
     </div>
-
-<script>
-    $('#id_addvendor').click(function () {
-  if ($("#addvendorform").valid()) {
-    $('#modal-sm').modal('show');
-  }
-});
-
-$('#modal-sm').on('click', '.btn-success', function () {
-  if ($("#addvendorform").valid()) {
-    $('#modal-sm').modal('hide');
-    $('#addvendorform')[0].submit(); // Submit the form
-  }
-});
-</script>
+<?= $this->Html->script('b_vendortemps_edit') ?>
