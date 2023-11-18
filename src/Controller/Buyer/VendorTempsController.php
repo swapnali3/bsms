@@ -386,6 +386,22 @@ class VendorTempsController extends BuyerAppController
                 $this->set('flash', $flash);
                 $this->Flash->success(__('The vendor has been saved'));
 
+                
+                $quryString = $vendorTemp->email . '||' . $vendorTemp->id;
+
+                $visit_url = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                $mailer = new Mailer('default');
+                $mailer
+                    ->setTransport('smtp')
+                    ->setViewVars([ 'subject' => 'Hi ' . $vendorTemp->name, 'mailbody' => 'Welcome to Vendor portal', 'link' => $visit_url, 'linktext' => 'Click Here for Onboarding' ])
+                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                    ->setTo($vendorTemp->email)
+                    ->setEmailFormat('html')
+                    ->setSubject('Vendor Portal - Verify New Account')
+                    ->viewBuilder()
+                        ->setTemplate('mail_template');
+                $mailer->deliver();
+
                 return $this->redirect(['action' => 'index']);
             }
             $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be saved. Please, try again'];

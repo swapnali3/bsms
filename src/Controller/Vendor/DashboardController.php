@@ -85,7 +85,7 @@ class DashboardController extends VendorAppController
         $intransitMaterials = $this->AsnFooters->find('all')
         ->select(['VendorFactories.factory_code','AsnHeaders.asn_no', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'PoHeaders.po_no', 'PoFooters.material', 'AsnFooters.qty', 'AsnHeaders.status'])
         ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
-        ->where(['AsnHeaders.status' => '2']);
+        ->where(['AsnHeaders.status' => '2', 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')]);
         $totalIntransit = $intransitMaterials->count();
         
         $this->set(compact('totalPos', 'totalIntransit', 'stocks', 'intransitMaterials'));
