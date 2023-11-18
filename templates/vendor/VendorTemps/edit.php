@@ -1068,18 +1068,18 @@
                                             id="id_vendor_temps_bank_swift" name="temps[bank_swift]" required="true">
                                     </div>
 
-                                    <div class="col-3 required">
+                                    <div class="col-3 ">
                                         <label for="id_vendor_temps_tan_no">TAN No</label>
-                                        <input required="required" type="text" name="temps[tan_no]"
-                                            class="form-control UpperCase" required="required"
-                                            id="id_vendor_temps_tan_no" aria-required="true" maxlength="25">
+                                        <input  type="text" name="temps[tan_no]"
+                                            class="form-control UpperCase" 
+                                            id="id_vendor_temps_tan_no"  maxlength="25">
                                     </div>
 
-                                    <div class="col-3 required">
+                                    <div class="col-3 ">
                                         <label for="id_vendor_temps_cin_no">CIN No</label>
-                                        <input required="required" type="text" name="temps[cin_no]"
-                                            class="form-control UpperCase" required="required"
-                                            id="id_vendor_temps_cin_no" aria-required="true" maxlength="25">
+                                        <input  type="text" name="temps[cin_no]"
+                                            class="form-control UpperCase" 
+                                            id="id_vendor_temps_cin_no"  maxlength="25">
                                     </div>
                                 </div>
                             </div>
@@ -1194,7 +1194,7 @@
                             </div>
                             <div class="card-body p-2">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-lg-6 mt-3 required"
+                                    <div class="col-sm-12 col-md-6 col-lg-6 mt-3 "
                                         style="border-right: 1px solid #dee2e6;">
                                         <label class="form-label">Certificate File</label>
                                         <div class="custom-file">
@@ -1205,7 +1205,7 @@
                                         </div>
                                         <a class="id_vendor_otherdetails_halal_file"></a>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 mt-3 required">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 mt-3">
                                         <label class="form-label">Declaration</label>
                                         <div class="custom-file">
                                             <input name="otherdetails[declaration_file]"
