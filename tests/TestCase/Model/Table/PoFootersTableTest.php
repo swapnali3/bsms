@@ -26,6 +26,7 @@ class PoFootersTableTest extends TestCase
     protected $fixtures = [
         'app.PoFooters',
         'app.PoHeaders',
+        'app.DeliveryDetails',
     ];
 
     /**

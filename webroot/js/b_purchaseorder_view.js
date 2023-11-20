@@ -234,6 +234,7 @@ function populateItemData(status, itemData) {
             autoWidth: false,
             ordering: false,
             searching: false,
+            destroy: true,
         });
     }, 500);
 }

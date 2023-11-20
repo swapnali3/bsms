@@ -11,7 +11,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $po_header_id
  * @property string $item
- * @property string $deleted_indication
+ * @property string|null $deleted_indication
  * @property string $material
  * @property string $short_text
  * @property string $po_qty
@@ -22,10 +22,13 @@ use Cake\ORM\Entity;
  * @property string $price_unit
  * @property string $net_value
  * @property string $gross_value
+ * @property string|null $part_code
+ * @property string|null $stock
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
  *
  * @property \App\Model\Entity\PoHeader $po_header
+ * @property \App\Model\Entity\DeliveryDetail[] $delivery_details
  */
 class PoFooter extends Entity
 {
@@ -52,10 +55,11 @@ class PoFooter extends Entity
         'price_unit' => true,
         'net_value' => true,
         'gross_value' => true,
+        'part_code' => true,
+        'stock' => true,
         'added_date' => true,
         'updated_date' => true,
         'po_header' => true,
-        'part_code' => true,
-        'stock' => true,
+        'delivery_details' => true,
     ];
 }

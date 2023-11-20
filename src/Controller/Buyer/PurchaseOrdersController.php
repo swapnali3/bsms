@@ -34,8 +34,12 @@ class PurchaseOrdersController extends BuyerAppController
     public function index()
     {
         $this->set('headTitle', 'Purchase Order List');
-        $this->loadModel('PoHeaders');
-        $poHeaders = $this->paginate($this->PoHeaders);
+        $this->loadModel('PoFooters');
+        $this->paginate = ['contain' => ['PoHeaders', 'PoItemSchedules'], 'order' => ['PoFooters.po_header_id asc, PoFooters.item asc']];
+            
+        $poHeaders = $this->paginate($this->PoFooters);
+
+        //echo '<prE>'; print_r($poHeaders); exit;
 
         $this->set(compact('poHeaders'));
     }
@@ -87,6 +91,7 @@ class PurchaseOrdersController extends BuyerAppController
                     ['PoFooters.material LIKE' => '%' . $search . '%'],
                     ['PoFooters.short_text LIKE' => '%' . $search . '%'],
                     ['V.name LIKE' => '%' . $search . '%'],
+                    ['V.sap_vendor_code LIKE' => '%' . $search . '%'],
                 ]
             ])->order(['PoHeaders.created_on' => 'desc']);
 

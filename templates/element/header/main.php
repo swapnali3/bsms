@@ -1,4 +1,5 @@
-<?php $polickActive = ($controller == 'PurchaseOrders') ? 'active' : ''; ?>
+<?php $polickActive = ($controller == 'PurchaseOrders' && $action == 'view') ? 'active' : ''; ?>
+<?php $poIndex = ($controller == 'PurchaseOrders' && $action == 'index') ? 'active' : ''; ?>
 <?php $prlickActive = ($controller == 'PurchaseRequisitions') ? 'active' : ''; ?>
 <?php $dashactive = ($controller == 'Dashboard') ? 'active' : ''; ?>
 <?php $intrasactive = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
@@ -17,9 +18,6 @@
 <?php $buyvendsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'menu-open' : ''; ?>
 <?php $asnactive = ($controller == 'Asn') ? 'active' : ''; ?>
 
-<?php $settingBuyerActive = ($controller == 'Settings' && $action == 'buyerManagement') ? 'active' : ''; ?>
-<?php $settingVendorActive = ($controller == 'Settings' && $action == 'vendorManagement') ? 'active' : ''; 
-?>
 
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white sticky-top">
     <div class="container-fluid">
@@ -59,9 +57,24 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <?= $this->Html->link(__('Purchase Orders'), ['controller' => '/purchase-orders', 'action' => 'view'], ['class' => "nav-link po_acknowledge $polickActive", 'escape' => false]) ?>
+
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle <?= $poIndex ?><?= $polickActive ?>">Purchase Orders</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li>
+                            <a href="<?= $this->Url->build('/') ?>buyer/purchase-orders" class="nav-link vendor_material <?= $poIndex ?>">
+                                <p>Report</p>
+                              </a>
+                        </li>
+                        <li>
+                            <a href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view" class="nav-link <?= $polickActive ?>">
+                                <p>Create Schedule</p>
+                              </a>
+                        </li>
+                    </ul>
                 </li>
+
+                
                 <li class="nav-item">
                     <?= $this->Html->link(__('Intransit ASN'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
                 </li>
