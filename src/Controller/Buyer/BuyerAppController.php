@@ -53,6 +53,7 @@ class BuyerAppController extends Controller
         $flash = [];  
         $this->set('flash', $flash);
         $this->loadComponent('Sms');
+        $this->loadComponent("Cookie"); 
         
         $this->set('title', 'VeKPro');
         
@@ -79,6 +80,8 @@ class BuyerAppController extends Controller
         $full_name = $session->read('full_name');
         $role = $session->read('role');
         $group_name = $session->read('group_name');
+        $userId = $session->read('id');
+
 
         $this->set(compact('full_name', 'role', 'group_name'));
 
@@ -87,6 +90,19 @@ class BuyerAppController extends Controller
          } else if(!$session->check('id')) {
              return $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
          }else {
+
+            $this->loadModel('LoginToken');
+            $loginToken = $this->LoginToken->find('all', [
+            'conditions' => ['user_id' => $userId],
+            'orderby' => 'desc']);
+            $loginToken = $loginToken->first();
+            if($loginToken) {
+                $token = $loginToken->login_token;
+                if($token && $token != $this->Cookie->getLoginToken()) {
+                    return $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'logout-session'));
+                }
+            }
+
              $this->set('logged_in', $session->read('id'));
              $this->set('username', $session->read('username'));
          }

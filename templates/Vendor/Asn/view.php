@@ -44,9 +44,11 @@
                         </div>
                         <?php
                         if ($deliveryDetails[0]->status == '1') { ?>
-                        <div class="col-sm-12 col-lg-2">
-                            <!-- <div class="d-flex justify-content-end"> -->
-                                <button class="btn btn-custom-2 mb-0 mrk" data-toggle="modal"
+                        
+                        <div class="col-sm-2 col-lg-2">
+                            <div class="d-flex justify-content-end">
+                                <?php echo $this->Html->link('<button class="btn btn-custom-2 mb-0 mrk">Edit</button>', ['action' => 'edit', $deliveryDetails[0]->id], ['style' => 'display:block;', 'class' => 'asn_files', 'escape' => false]); ?>
+                                    <button class="btn btn-custom-2 mb-0 mrk" data-toggle="modal"
                                     data-target="#modal-confirm">Mark Dispatched</button>
                             <!-- </div> -->
                         </div>
@@ -76,8 +78,15 @@
 
                                     if (!empty($files)) {
                                         foreach ($files as $key => $file) {
-                                            echo '<i class="fa fa-download asn_download_icon"></i>';
-                                            echo $this->Html->link(' ' .$key, '/' . $file, ['style' => 'display:block;', 'target' => '_blank', 'class' => 'asn_files mb-0 invoicefiles']);
+                                            if(is_array($file)) {
+                                                foreach ($file as $k=> $f) {
+                                                    echo '<i class="fa fa-download asn_download_icon"></i>';
+                                                echo $this->Html->link(' ' .$key, '/' . $f, ['style' => 'display:block;', 'target' => '_blank', 'class' => 'asn_files mb-0 invoicefiles']);
+                                                }
+                                            } else {
+                                                echo '<i class="fa fa-download asn_download_icon"></i>';
+                                                echo $this->Html->link(' ' .$key, '/' . $file, ['style' => 'display:block;', 'target' => '_blank', 'class' => 'asn_files mb-0 invoicefiles']);
+                                            }
                                         }
                                     }
 
@@ -103,7 +112,7 @@
                         </div>
                         <div class="col-sm-12 col-lg-2 mt-2">
                         <span class="tracking_details">Invoice Date :</span><br>
-                            <b><?= h($deliveryDetails[0]->invoice_date) ?></b>
+                            <b><?= h($deliveryDetails[0]->invoice_date->i18nFormat('dd-MM-YYYY')) ?></b>
                         </div>
                         <div class="col-sm-12 col-lg-2 mt-2">
                         <span class="tracking_details">Invoice Value :</span><br>
@@ -167,7 +176,7 @@
                                 <?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['actual_qty'] : '' ?>
                             </td>
                             <td>
-                                <?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['delivery_date'] : '' ?>
+                                <?= $deliveryDetail->has('PoItemSchedules') ? date('d-m-Y', strtotime($deliveryDetail->PoItemSchedules['delivery_date'])) : '' ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

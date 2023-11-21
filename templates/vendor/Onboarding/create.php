@@ -196,7 +196,7 @@
 
                                 <div class="col-3 mt-3 col-md-3">
                                     <div class="form-group">
-                                    <?php echo $this->Form->control('telephone', ['class' => 'form-control', 'minlength'=>'14', 'maxlength'=>'14']); ?>
+                                    <?php echo $this->Form->control('telephone', ['label' => 'Contact No.', 'class' => 'form-control', 'minlength'=>'10', 'maxlength'=>'14']); ?>
                                     </div>
                                 </div>
                             </div>

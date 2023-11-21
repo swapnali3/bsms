@@ -99,12 +99,47 @@
 
     $(".right-side").html(format($(this).attr('data-id')));
     $(".card-header").html(poHeaders($(this).attr('data-id')));
-      poHeaders($(this).attr('data-id'));
   });
+
+  
+  function searchPo(search = "") {
+    var div = $('<div/>').addClass('loading').text('Loading...');
+    $("#poItes").html('');
+    $(".related tbody:first").show();
+    $.ajax({
+      type: "GET",
+      url: uri + "/" + search,
+      dataType: 'json',
+      beforeSend: function () { $("#gif_loader").show(); },
+      success: function (response) {
+        if (response.status) {
+          $.each(response.data, function (key, val) {
+            $("#poItes").append(`<div class="po-box details-control" data-id="` + val.id + `"> <div class="pono"><small class="mb-0">
+                    <?= h('PO No ') ?>
+                    <br>
+                  </small>
+                  <b>` + val.po_no + `</b>
+                </div>
+                <div class="po-code">
+                  <small class="mb-0">
+                    <?= h('Vendor Code:') ?>
+                  </small>
+                  <br> <small><b class="sap_vendorcode"> ` + val.sap_vendor_code + ` </b></small>
+                </div>
+                <span class="hide flagdata" id='` + val.id + `' data-flag=` + val.acknowledge + `></span>
+              </div>`);
+          });
+          $('div.details-control:first').click();
+        } else { $('.related').find('.flagButton .notify').css('display', 'none'); }
+      },
+      error: function (xhr, status, error) { },
+      complete: function () { $("#gif_loader").hide(); }
+    });
+  }
 
   function poform(search = "") {
     var div = $('<div/>').addClass('loading').text('Loading...');
-    $("#poItes").empty();
+    $("#poItes").html('');
     $(".related tbody:first").show();
     if (search != "") { uri += "/" + search }
     $.ajax({
@@ -178,28 +213,28 @@
     return div;
   }
 
-  $('.search-box').on('keypress', function (event) {
-    if (event.which === 13) {
-      var searchName = $(this).closest('.search-bar').find('.search-box').val();
+  $('.search-box').on('keyup', function (event) {
+    //if (event.which === 13) {
+      var searchName = $(this).val();
       $(".related tbody").empty().append(`<tr>
           <td colspan="7" class="text-center">
             <p>No data found !</p>
           </td>
         </tr>`);
-      poform(searchName);
-      return false;
-    }
+        searchPo(searchName);
+      //return false;
+    //}
   });
 
-  $('.search-box').on('keydown', function (event) {
+  /*$('.search-box').on('keydown', function (event) {
     if (event.which === 8) { // Check if Backspace key is pressed 
-      var searchName = $(this).closest('.search-bar').find('.search-box').val();
+      var searchName = $(this).val();
       if (searchName.length === 1) {
         $(".related tbody").empty().hide();
-        poform(searchName);
+        searchPo(searchName);
       }
     }
-  });
+  }); */
 
 
 

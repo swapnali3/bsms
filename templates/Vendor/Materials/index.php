@@ -74,22 +74,13 @@
             "responsive": false,
             "lengthChange": false,
             "autoWidth": false,
-            "searching": false,
+            "searching": true,
             "ordering": false,
-            "destroy": true,
-            "columns": [{
-                    "data": "code"
-                },
-                {
-                    "data": "description"
-                },
-                {
-                    "data": "minimum_stock",
-                },{
-                    "data": "uom",
-                }
-            ]
-        });
+            "destroy": false,
+            dom: 'Blfrtip',
+            buttons: [{ extend: 'copy' },
+        { extend: 'excelHtml5', text : 'Export'},]
+        });//.buttons().container().appendTo( '#example_wrapper .col-md-6:eq(0)' );
 
         setTimeout(function () {
             $('.success').fadeOut('slow');

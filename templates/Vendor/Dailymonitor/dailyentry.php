@@ -59,6 +59,7 @@
                             <th>Factory</th>
                             <th>Production Line</th>
                             <th>Material</th>
+                            <th>Material Desc.</th>
                             <th>Plan Date</th>
                             <th>Target Production</th>
                             <th class="table_width">Confirm Production</th>
@@ -76,13 +77,16 @@
                                 <?= h($dailymonitors->production_line->line_master->name) ?>
                             </td>
                             <td>
+                                <?= h($dailymonitors->material->code) ?>
+                            </td>
+                            <td>
                                 <?= h($dailymonitors->material->description) ?>
                             </td>
                             <td>
-                                <?= h($dailymonitors->plan_date) ?>
+                                <?= h($dailymonitors->plan_date->i18nFormat('dd-MM-YYYY')) ?>
                             </td>
                             <td>
-                                <?= h($dailymonitors->target_production) ?>
+                                <?= h($dailymonitors->target_production . ' '. $dailymonitors->material->uom) ?>
                                 <input type="hidden" value="<?php echo $dailymonitors->target_production;?>"
                                     id="plan_qty_<?= h($dailymonitors->id) ?>" data-id="<?= h($dailymonitors->id) ?>">
                             </td>
@@ -104,7 +108,7 @@
                             <?php else: ?>
                             <td>
                                 <input type="number" class="form-control form-control-sm"
-                                    value="<?= h($dailymonitors->confirm_production) ?>" disabled>
+                                    value="<?= h($dailymonitors->confirm_production . ' '. $dailymonitors->material->uom) ?>" disabled>
                             </td>
                             <td></td>
                             <?php endif; ?>

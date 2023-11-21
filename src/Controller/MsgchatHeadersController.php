@@ -46,6 +46,10 @@ class MsgchatHeadersController extends AppController
             $this->autoRender = false;
             $this->loadModel("MsgchatFooters");
             $this->loadModel("MsgchatHeaders");
+            $this->loadModel("VendorTemps");
+            $this->loadModel("Buyers");
+            $this->loadModel("Notifications");
+
             $data = $this->request->getData();
             $msgchatHeader = $this->MsgchatHeaders->find()->where(['table_pk' => $data['table_pk'], 'table_name'=> $data['table_name']])->first();
             $MsgchatFooter = $this->MsgchatFooters->newEmptyEntity();
@@ -81,6 +85,31 @@ class MsgchatHeadersController extends AppController
                     where mf.id=".$MsgchatFooter->id;
                     $rfqDetails = $conn->execute($query)->fetchAll('assoc');
                     $response = ['status' => 1, 'message' => 'success', 'data'=>$rfqDetails];
+
+                    try{
+                        $vendorTemp = $this->VendorTemps->get($data['sender_id']);
+                        $filteredBuyers = $this->Buyers->find()
+                            ->select(['Buyers.id','user_id'=> 'Users.id'])
+                            ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
+                            ->where(['company_code_id' => $vendorTemp['company_code_id'], 'purchasing_organization_id' => $vendorTemp['purchasing_organization_id']]);
+
+                        foreach ($filteredBuyers as $buyer) {
+                            $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New Message'])->first();
+                            if ($n) {
+                                $n->notification_type = 'New Message';
+                                $n->message_count = $n->message_count+1;
+                            } else {
+                                $n = $this->Notifications->newEntity([
+                                    'user_id' => $buyer->user_id,
+                                    'notification_type' => 'New Message',
+                                    'message_count' => '1',
+                                ]);
+                            }
+                            $this->Notifications->save($n);
+                        }
+                    } catch (\Exception $e) {
+                        $response = ['status' => 0, 'message' => $e->getMessage(), 'data' => 'Invalid request'];
+                    }
                 }
             }
         } else { $response = ['status' => 0, 'message' => 'failed', 'data' => 'Invalid request']; }

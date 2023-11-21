@@ -97,7 +97,7 @@ function format(rowData) {
                         <td>`+ response.data[0].po_no + `</td>
                         <td>`+ response.data[0].document_type + `</td>
                         <td>`+ response.data[0].created_by + `</td>
-                        <td>`+ response.data[0].created_on + `</td>
+                        <td>`+ response.data[0].created_date + `</td>
                     </tr></tbody>
                 </table>`);
 

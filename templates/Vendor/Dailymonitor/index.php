@@ -31,6 +31,7 @@
                             <th>Plan Date</th>
                             <th>Production Line</th>
                             <th>Material</th>
+                            <th>Material Desc.</th>
                             <th>Production Plan</th>
                             <th>Confirmed Production</th>
                             <th>Status</th>
@@ -50,11 +51,12 @@
                             }
                             ?>
                             <tr>
-                                <td><?= h($dailymonitors->plan_date) ?></td>
+                                <td><?= h($dailymonitors->plan_date->i18nFormat('dd-MM-YYYY')) ?></td>
                                 <td><?= h($dailymonitors->production_line->line_master->name) ?></td>
+                                <td><?= h($dailymonitors->material->code) ?></td>
                                 <td><?= h($dailymonitors->material->description) ?></td>
-                                <td><?= h($dailymonitors->target_production) ?></td>
-                                <td><?= h($dailymonitors->confirm_production) ?></td>
+                                <td><?= h($dailymonitors->target_production. ' '. $dailymonitors->material->uom) ?></td>
+                                <td><?= h($dailymonitors->confirm_production. ' '. $dailymonitors->material->uom) ?></td>
                                 <td><?= h($status) ?></td>
                                 <td>
                                     <?php if($dailymonitors->status == 1) : ?>

@@ -55,6 +55,18 @@
             </div>
         </div>
         <div class="card">
+        <?php if ($vendorTemp->status == 0) : ?>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-4">
+
+                    <?= $this->Html->link('<button type="button"><i class="far fa-check-circle"></i> Edit </button', ['action' => 'edit', $vendorTemp->id], ['class' => 'btn btn-block p-2', 'escape' => false]) ?>
+
+                        
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
             <?php if ($vendorTemp->status == 1) : ?>
             <div class="card-header">
                 <div class="approve-reject row">
@@ -82,6 +94,7 @@
                 </div>
             </div>
             <?php endif; ?>
+            
             <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
@@ -675,21 +688,21 @@
                                                         <div class="col-4">
                                                             <?= h($vendorTemp->vendor_turnovers[0]->first_year) ?> :
                                                             <b>
-                                                                <?= h($vendorTemp->vendor_turnovers[0]->first_year_turnover) ?>
+                                                                <?= h($vendorTemp->vendor_turnovers[0]->first_year_turnover) ?> INR
                                                             </b>
                                                         </div>
 
                                                         <div class="col-4">
                                                             <?= h($vendorTemp->vendor_turnovers[0]->second_year) ?> :
                                                             <b>
-                                                                <?= h($vendorTemp->vendor_turnovers[0]->second_year_turnover) ?>
+                                                                <?= h($vendorTemp->vendor_turnovers[0]->second_year_turnover) ?> INR
                                                             </b>
                                                         </div>
 
                                                         <div class="col-4">
                                                             <?= h($vendorTemp->vendor_turnovers[0]->third_year) ?> :
                                                             <b>
-                                                                <?= h($vendorTemp->vendor_turnovers[0]->third_year_turnover) ?>
+                                                                <?= h($vendorTemp->vendor_turnovers[0]->third_year_turnover) ?> INR
                                                             </b>
                                                         </div>
                                                         <?php endif; ?>
@@ -700,7 +713,7 @@
                                         <div class="col-sm-12 col-md-12 col-lg-12 mb-3">
                                             <div class="card card_border">
                                                 <div class="card-header">
-                                                    Income Tax Cleaning Certificate
+                                                    Income Tax Clearing Certificate
                                                 </div>
                                                 <div class="card-body">
                                                     <div class="row">
@@ -780,7 +793,7 @@
                                                             <th>
                                                                 <?= h($bo->machinery_available) ?>
                                                             </th>
-                                                            <td>Power Available</td>
+                                                            <td>Power Consumption</td>
                                                             <th>
                                                                 <?= h($bo->power_available) ?>
                                                             </th>

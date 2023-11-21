@@ -51,6 +51,10 @@ class AsnFootersTable extends Table
             'foreignKey' => 'po_footer_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('PoItemSchedules', [
+            'foreignKey' => 'po_schedule_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     /**

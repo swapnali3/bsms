@@ -277,6 +277,7 @@ class StockUploadsController extends BuyerAppController
                     $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
                     $this->loadModel("Materials");
                     $this->loadModel("VendorFactories");
+                    $this->loadModel("Dailymonitor");
 
                     $tmp = [];
                     $datas = [];
@@ -290,8 +291,8 @@ class StockUploadsController extends BuyerAppController
                             
                             $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                             if($col == 1) {
-                                $tmp['sap_vendor_code'] =$value;
-                                $datas['sap_vendor_code'] = $value;
+                                $tmp['sap_vendor_code'] = str_pad((string)$value, 10, "0", STR_PAD_LEFT);
+                                $datas['sap_vendor_code'] = str_pad((string)$value, 10, "0", STR_PAD_LEFT);
                             }
                             else if($col == 2) {
                                 $factory = $this->VendorFactories->find('list')
@@ -314,14 +315,19 @@ class StockUploadsController extends BuyerAppController
                              else if ($col == 5) {
                                 $materials = $this->Materials->find('all')
                                 ->select(['id', 'code'])
-                                ->where(['code IN' => $value])->first();
+                                ->where(['code IN' => $value, 'sap_vendor_code' => $tmp['sap_vendor_code']])->first();
     
-                               $tmp['material_id'] = $materials['id'] ? $materials['id'] : null;
-                               $datas['material'] = $value;
-                               if(!$materials['id']) {
-                                $matError = true;
-                                $datas['error'] = 'Invalid material';
-                            }
+                                $tmp['material_id'] = isset($materials['id']) ? $materials['id'] : null;
+                                $datas['material'] = $value;
+                                if(!$tmp['material_id']) {
+                                    $matError = true;
+                                    $datas['error'] = 'Invalid material';
+                                } else {
+                                    if ($this->Dailymonitor->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id']])) { 
+                                        $matError = true;
+                                        $datas['error'] = 'Production Detail Exists';
+                                    }
+                                } 
                             }
                             else if($col == 6) {
                             
@@ -344,6 +350,10 @@ class StockUploadsController extends BuyerAppController
                         } else if($matError) {
                             $datas['error'] = 'Invalid Material';
                         }
+
+                        /*if($this->StockUploads->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'vendor_factory_id' => $tmp['vendor_factory_id'], 'material_id' => $tmp['material_id']])) {
+                            $datas['error'] = "Stock exists";
+                        } */
 
                         $stockData[] = $datas;
                         $tmp['asn_stock'] = 0;

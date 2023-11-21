@@ -39,7 +39,8 @@ class AsnController extends VendorAppController
         $query = $this->AsnHeaders->find()
             ->select(['AsnHeaders.id', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'PoHeaders.po_no', 'AsnHeaders.added_date', 'AsnHeaders.status', 'VendorFactories.factory_code'])
             ->contain(['PoHeaders', 'VendorFactories'])
-            ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code')]);
+            ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code')])
+            ->order(['AsnHeaders.id' => 'DESC']);
 
         //echo '<pre>'; print_r($query); exit;
         $deliveryDetails = $this->paginate($query);
@@ -108,23 +109,74 @@ class AsnController extends VendorAppController
     public function edit($id = null)
     {
         $flash = [];
-        $deliveryDetail = $this->DeliveryDetails->get($id, [
-            'contain' => [],
+        $this->loadModel('AsnHeaders');
+
+        $asnDetail = $this->AsnHeaders->get($id, [
+            'contain' => ['VendorFactories','PoHeaders', 'AsnFooters', 'AsnFooters.PoFooters', 'AsnFooters.PoItemSchedules'],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $deliveryDetail = $this->DeliveryDetails->patchEntity($deliveryDetail, $this->request->getData());
-            if ($this->DeliveryDetails->save($deliveryDetail)) {
-                $flash = ['type'=>'success', 'msg'=>'The delivery detail has been saved'];
+
+            $updatedData = $this->request->getData();
+            $invoiceUpload = $updatedData["invoice"];
+                $ewaybillUpload = $updatedData["ewaybill"];
+                $otherUploads = $updatedData["others"];
+
+                //print_r($productImage);exit;
+                $uploads["uploads"] = json_decode($asnDetail->invoice_path, true);
+                // file uploaded
+                
+                if($invoiceUpload->getSize() > 0) {
+                    $fileName = $asnNo . '_invoice_' . time() . '_' . $invoiceUpload->getClientFilename();
+                    $fileType = $invoiceUpload->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
+                        $imagePath = WWW_ROOT . "uploads/" . $fileName;
+                        $invoiceUpload->moveTo($imagePath);
+                        $uploads["uploads"]['invoice'] = "uploads/" . $fileName;
+                    }
+                }
+                if($ewaybillUpload->getSize() > 0) {
+                    $fileName = $asnNo . '_ewaybill_' . time() . '_' . $ewaybillUpload->getClientFilename();
+                    $fileType = $ewaybillUpload->getClientMediaType();
+
+                    if ($fileType == "application/pdf" || $fileType == "image/*") {
+                        $imagePath = WWW_ROOT . "uploads/" . $fileName;
+                        $ewaybillUpload->moveTo($imagePath);
+                        $uploads["uploads"]['ewaybill'] = "uploads/" . $fileName;
+                    }
+                }
+                foreach($otherUploads as $otherUpload) {
+                    if($otherUpload->getSize() > 0) {
+                        $fileName = $asnNo . '_other_' . time() . '_' . $otherUpload->getClientFilename();
+                        $fileType = $otherUpload->getClientMediaType();
+
+                        if ($fileType == "application/pdf" || $fileType == "image/*") {
+                            $imagePath = WWW_ROOT . "uploads/" . $fileName;
+                            $otherUpload->moveTo($imagePath);
+                            $uploads["uploads"]['other'][] = "uploads/" . $fileName;
+                        }
+                    }
+                }
+
+                $updatedData['invoice_path'] = json_encode($uploads["uploads"]);
+
+                //echo '<pre>';  print_r($updatedData); exit;
+
+            $asnDetail = $this->AsnHeaders->patchEntity($asnDetail, $updatedData);
+            if ($this->AsnHeaders->save($asnDetail)) {
+                $flash = ['type'=>'success', 'msg'=>'The ASN has been saved'];
                 $this->set('flash', $flash);
+
+                $this->Flash->success(__('The ASN has been saved'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $flash = ['type'=>'success', 'msg'=>'The delivery detail could not be saved. Please, try again'];
-            $this->set('success', $flash);
+            $flash = ['type'=>'error', 'msg'=>'The ASN could not be saved. Please, try again'];
+            $this->Flash->error(__('The ASN could not be saved. Please, try again'));
+            $this->set('flash', $flash);
         }
-        $poHeaders = $this->DeliveryDetails->PoHeaders->find('list', ['limit' => 200])->all();
-        $poFooters = $this->DeliveryDetails->PoFooters->find('list', ['limit' => 200])->all();
-        $this->set(compact('deliveryDetail', 'poHeaders', 'poFooters'));
+        
+        $this->set(compact('asnDetail'));
     }
 
     /**

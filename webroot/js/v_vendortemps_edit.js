@@ -260,7 +260,7 @@ function load_data(i, v) {
                             <div class="col-sm-12 col-md-6 mb-3">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12 text-center required">
-                                        <label class="text-info">Power Available</label>
+                                        <label class="text-info">Power Consumption</label>
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <input required="required" type="text" class="form-control"
@@ -869,7 +869,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
     lid = lastid.length;
     for (let i = 0; i < lastid.length; i++) { if (lastid[i] == undefined || lastid[i] == null) { lid = i; break; } }
     $('#id_vendor_factories_body').append(`
-        <div class="card mb-0 mt-3" id="vf_killme0">
+        <div class="card mb-0 mt-3" id="vf_killme` + lid + `">
             <div class="card-body">
                 <div class="row" id="factory_office_`+ lid + `_row0">
                     <div class="col-sm-12 col-md-3 mb-3 required">
@@ -899,7 +899,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3 required">
                         <label for="id_vendor_factories_`+ lid + `_country">Country</label>
-                        <select class="form-control" name="factories[`+ lid + `][country]"
+                        <select class="form-control country_code_option" data-state="id_vendor_factories_`+ lid + `_state" name="factories[`+ lid + `][country]"
                             id="id_vendor_factories_`+ lid + `_country">` + country_code_option + `</select>
                     </div>
                     <div class="col-sm-12 col-md-3 mb-3 required">
@@ -907,9 +907,10 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                         <select class="form-control" name="factories[`+ lid + `][state]"
                             id="id_vendor_factories_`+ lid + `_state"></select>
                     </div>
-                    <div class="col-sm-12 col-md-3 mb-3 hide">
+                    <div class="col-sm-12 col-md-3 mb-3 mt-4 pt-3">
                         <span class="badge redbadge delete" id="id_vendor_factories_`+ lid + `_delete"
                             data-toggle="tooltip" data-id="0" data-placement="right"
+                            onclick="delte('vf_killme`+ lid + `')" 
                             data-original-title="Delete Address" required="true">
                             <i class="fas fa-trash"></i>
                         </span>
@@ -943,7 +944,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                     <div class="col-sm-12 col-md-6 mb-3">
                         <div class="row">
                             <div class="col-sm-12 col-md-12 col-lg-12 text-center required">
-                                <label class="text-info">Power Available</label>
+                                <label class="text-info">Power Consumption</label>
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <input required="required" type="text" class="form-control"

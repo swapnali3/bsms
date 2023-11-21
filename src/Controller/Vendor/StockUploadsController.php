@@ -99,20 +99,24 @@ class StockUploadsController extends VendorAppController
             $res['current_stock'] = $res['opening_stock'];
             $res['asn_stock'] = 0;
 
-            
-            $columns = array_keys($res);
-            $upsertQuery = $this->StockUploads->query();
-            $upsertQuery->insert($columns);
-            $upsertQuery->values($res);
-            if($upsertQuery->epilog('ON DUPLICATE KEY UPDATE sap_vendor_code=VALUES(sap_vendor_code), vendor_factory_id=VALUES(vendor_factory_id), `material_id`=VALUES(`material_id`),`opening_stock`=VALUES(`opening_stock`)')
-                ->execute()) {
-                $flash = ['type' => 'success', 'msg' => 'The stockupload has been saved'];
-                
+            if($this->StockUploads->exists(['sap_vendor_code' => $sapVendor, 'vendor_factory_id' => $res['vendor_factory_id'], 'material_id' => $res['material_id']])) {
+                $flash = ['type' => 'error', 'msg' => 'Stock for this material exists'];
             } else {
-                $flash = ['type' => 'error', 'msg' => 'The stockupload could not be saved. Please, try again'];
+                $columns = array_keys($res);
+                $upsertQuery = $this->StockUploads->query();
+                $upsertQuery->insert($columns);
+                $upsertQuery->values($res);
+                if($upsertQuery->epilog('ON DUPLICATE KEY UPDATE sap_vendor_code=VALUES(sap_vendor_code), vendor_factory_id=VALUES(vendor_factory_id), `material_id`=VALUES(`material_id`),`opening_stock`=VALUES(`opening_stock`)')
+                    ->execute()) {
+                    $flash = ['type' => 'success', 'msg' => 'The stockupload has been saved'];
+                    return $this->redirect(['action' => 'index']);
+                    
+                } else {
+                    $flash = ['type' => 'error', 'msg' => 'The stockupload could not be saved. Please, try again'];
+                }
             }
+
             $this->set('flash', $flash);
-            return $this->redirect(['action' => 'index']);
         }
 
         //var_dump($sapVendor);
@@ -255,7 +259,7 @@ class StockUploadsController extends VendorAppController
                             if($col == 1) {
                                 $factory = $this->VendorFactories->find('list')
                                 ->select(['id'])
-                                ->where(['factory_code' => $value])
+                                ->where(['factory_code' => $value, 'vendor_temp_id' => $session->read('vendor_id')])
                                 ->first();
 
                                 //echo '<pre>';  print_r($factory); exit;
@@ -271,7 +275,7 @@ class StockUploadsController extends VendorAppController
     
                                 $tmp['material_id'] = $materials['id'] ? $materials['id'] : null;
                                 $datas['material'] = $value;
-                                if(!$materials['id']) {
+                                if(!$tmp['material_id']) {
                                     $matError = true;
                                     $datas['error'] = 'Invalid material';
                                 }
@@ -296,6 +300,10 @@ class StockUploadsController extends VendorAppController
                             $datas['error'] = 'Invalid factory code';
                         } else if($matError) {
                             $datas['error'] = 'Invalid Material';
+                        }
+
+                        if($this->StockUploads->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'vendor_factory_id' => $tmp['vendor_factory_id'], 'material_id' => $tmp['material_id']])) {
+                            $datas['error'] = "Stock exists";
                         }
 
                         $stockData[] = $datas;

@@ -147,7 +147,7 @@
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
               <label for="invoices">Other Document</label>
-              <input type="file" name="others" accept=".pdf" class="pt-1 rounded-0" id="others"
+              <input type="file" name="others[]" accept=".pdf" class="pt-1 rounded-0" id="others"
                 style="visibility: hidden;position:absolute;" div="form-group">
               <button id="OpenImgUploadOthers" type="button"
                 class="other_document d-block btn bg-gradient-button mb-0 file-upld-btn">

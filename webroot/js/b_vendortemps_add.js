@@ -75,7 +75,8 @@ $('#addvendorform').validate({
     account_group_id: { required: true },
     schema_group_id: { required: true },
     company_code_id:{required : true},
-    reconciliation_account_id:{required:true}
+    reconciliation_account_id:{required:true},
+    vendor_type_id:{required:true}
   },
   messages: {
     name: { required: "Please provide name" },
@@ -86,7 +87,8 @@ $('#addvendorform').validate({
     account_group_id: { required: "Please select Account Group" },
     schema_group_id: { required: "Please select Schema Group" },
     company_code_id : {required: "Please select Company Code"},
-    reconciliation_account_id :{required: "Please select Reconciliation Account"}
+    reconciliation_account_id :{required: "Please select Reconciliation Account"},
+    vendor_type_id :{required: "Please select Vendor type"}
   },
 
   errorElement: 'span',

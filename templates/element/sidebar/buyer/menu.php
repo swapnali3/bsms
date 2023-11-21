@@ -16,10 +16,6 @@
 <?php $buyvendsaevendactive = ($controller == 'VendorTemps' && $action == 'sapAdd') ? 'menu-open' : ''; ?>
 <?php $asnactive = ($controller == 'Asn') ? 'active' : ''; ?>
 
-<?php $settingBuyerActive = ($controller == 'Settings' && $action == 'buyerManagement') ? 'active' : ''; ?>
-<?php $settingVendorActive = ($controller == 'Settings' && $action == 'vendorManagement') ? 'active' : ''; 
-?>
-
 <li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-tachometer-alt nav-icon"></i><p>Dashboard</p>'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
 </li>
@@ -51,25 +47,6 @@
         <p>SAP Vendor Import</p>
       </a>
     </li>
-    <!-- <li class="nav-item <?= $buyvendaddactive ?>">
-      <a href="#" class="nav-link <?= $createvendactive ?>">
-        <i class="nav-icon fas fa-user-alt"></i>
-        <p>
-          Vendor Creation
-          <i class="right fas fa-angle-down"></i>
-        </p>
-      </a>
-      <ul class="nav nav-treeview">
-        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/add" class="nav-link <?= $createvendactive ?>">
-        <i class="fa fa-solid fa-plus nav-icon"></i>
-            <p>New Vendor</p>
-          </a></li>
-        <li class="nav-item"><a href="<?= $this->Url->build('/') ?>buyer/vendor-temps/sap-add" class="nav-link <?= $creatsaevendactive ?>">
-        <i class="fa fa-solid fa-plus nav-icon"></i>
-            <p>SAP Vendor</p>
-          </a></li>
-      </ul>
-    </li> -->
   </ul>
 </li>
 
@@ -91,21 +68,5 @@
 </li>
 
 <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => '/stock-uploads', 'action' => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => '/stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
   </li>
-
-<!-- <li class="nav-item">  <?= $this->Html->link(__('<i class="fas fa-vector-square nav-icon"></i><p>Vendor Material Master</p>'), ['controller' => 'vendormaterial', 'action' => 'index'], ['class' => "nav-link vmmactive" , 'escape' => false]) ?> </li> -->
-
-<li class="nav-item <?=$settingmenuopen?>">
-  <?= $this->Html->link(__('<i class="fa fa-cog nav-icon"></i><p>Settings</p>'), ['controller' => 'settings', 'action' => 'update'], ['class' => "nav-link $settingactive", 'escape' => false]) ?>
-
-  <ul class="nav nav-treeview">
-    <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fa fa-solid fa-list nav-icon"></i><p>Buyer Management</p>'), ['controller' => '/settings', 'action' => 'buyer-management'], ['class' => "nav-link $settingBuyerActive", 'escape' => false]) ?>
-    </li>
-
-    <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fa fa-solid fa-list nav-icon"></i><p>Vendor Management</p>'), ['controller' => '/settings', 'action' => 'vendor-management'], ['class' => "nav-link $settingVendorActive", 'escape' => false]) ?>
-    </li>
-  </ul>
-</li>

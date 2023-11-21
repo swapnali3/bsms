@@ -33,8 +33,10 @@ class PoFootersFixture extends TestFixture
                 'price_unit' => 'L',
                 'net_value' => 1.5,
                 'gross_value' => 1.5,
-                'added_date' => '2023-01-04 10:01:39',
-                'updated_date' => '2023-01-04 10:01:39',
+                'part_code' => 'Lorem ipsum dolor ',
+                'stock' => 1.5,
+                'added_date' => '2023-11-20 22:58:26',
+                'updated_date' => '2023-11-20 22:58:26',
             ],
         ];
         parent::init();

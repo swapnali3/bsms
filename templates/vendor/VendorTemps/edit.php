@@ -541,7 +541,7 @@
 
                         <div class="card card-primary card-outline">
                             <div class="card-header">
-                                <h5>Income tax cleaning certificate</h5>
+                                <h5>Income tax Clearing certificate</h5>
                             </div>
                             <div class="card-body">
                                 <input required="required" type="hidden" name="incometaxes[id]"
@@ -681,7 +681,7 @@
                                             <div class="col-sm-12 col-md-6 mb-3">
                                                 <div class="row">
                                                     <div class="col-sm-12 col-md-12 col-lg-12 text-center required">
-                                                        <label class="text-info">Power Available</label>
+                                                        <label class="text-info">Power Consumption(upload light bill)</label>
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <input required="required" type="text" class="form-control"
@@ -1068,18 +1068,18 @@
                                             id="id_vendor_temps_bank_swift" name="temps[bank_swift]" required="true">
                                     </div>
 
-                                    <div class="col-lg-3 required">
+                                    <div class="col-3 ">
                                         <label for="id_vendor_temps_tan_no">TAN No</label>
-                                        <input required="required" type="text" name="temps[tan_no]"
-                                            class="form-control UpperCase" required="required"
-                                            id="id_vendor_temps_tan_no" aria-required="true" maxlength="25">
+                                        <input  type="text" name="temps[tan_no]"
+                                            class="form-control UpperCase" 
+                                            id="id_vendor_temps_tan_no"  maxlength="25">
                                     </div>
 
-                                    <div class="col-lg-3 required">
+                                    <div class="col-3 ">
                                         <label for="id_vendor_temps_cin_no">CIN No</label>
-                                        <input required="required" type="text" name="temps[cin_no]"
-                                            class="form-control UpperCase" required="required"
-                                            id="id_vendor_temps_cin_no" aria-required="true" maxlength="25">
+                                        <input  type="text" name="temps[cin_no]"
+                                            class="form-control UpperCase" 
+                                            id="id_vendor_temps_cin_no"  maxlength="25">
                                     </div>
                                 </div>
                             </div>
@@ -1194,7 +1194,7 @@
                             </div>
                             <div class="card-body p-2">
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-6 col-lg-6 mt-3 required"
+                                    <div class="col-sm-12 col-md-6 col-lg-6 mt-3 "
                                         style="border-right: 1px solid #dee2e6;">
                                         <label class="form-label">Certificate File</label>
                                         <div class="custom-file">
@@ -1205,7 +1205,7 @@
                                         </div>
                                         <a class="id_vendor_otherdetails_halal_file"></a>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 mt-3 required">
+                                    <div class="col-sm-12 col-md-6 col-lg-6 mt-3">
                                         <label class="form-label">Declaration</label>
                                         <div class="custom-file">
                                             <input name="otherdetails[declaration_file]"
@@ -1275,11 +1275,11 @@
                                             value="<?= h($vendorTemp->id) ?>" class="vendor_temp_id">
                                     </div>
                                     <div class="col-lg-12 mt-3 required">
-                                        <label>Does your company follow any anit - corruption policy (zero corruption )
+                                        <label>Does your company follow any Anti - corruption policy (zero corruption )
                                             & has follow ethical code of code / corporate social
                                             responsibilities:-</label>
                                         <input required="required" type="hidden" name="questionnaire[1][question]"
-                                            value="Does your company follow any anit - corruption policy (zero corruption ) & has follow ethical code of code / corporate social responsibilities"
+                                            value="Does your company follow any Anti - corruption policy (zero corruption ) & has follow ethical code of code / corporate social responsibilities"
                                             id="id_vendor_questionnaires_1_question">
                                         <textarea placeholder="" name="questionnaire[1][answer]" class="form-control"
                                             cols="30" rows="3" id="id_vendor_questionnaires_1_answer"></textarea>
@@ -1290,11 +1290,11 @@
                                             value="<?= h($vendorTemp->id) ?>" class="vendor_temp_id">
                                     </div>
                                     <div class="col-lg-12 mt-3 required">
-                                        <label>Does the company have policy & decimate between sexual worker wrt cast,
+                                        <label>Does the company have policy & decimate between sexual worker wrt caste,
                                             gender, religion and harassment at work place</label>
                                         <input required="required" type="hidden"
                                             id="id_vendor_questionnaires_2_question" name="questionnaire[2][question]"
-                                            value="Does the company have policy & decimate between sexual worker wrt cast, gender, religion and harassment at work place">
+                                            value="Does the company have policy & decimate between sexual worker wrt caste, gender, religion and harassment at work place">
                                         <textarea placeholder="" id="id_vendor_questionnaires_2_answer"
                                             name="questionnaire[2][answer]" class="form-control" cols="30"
                                             rows="3"></textarea>

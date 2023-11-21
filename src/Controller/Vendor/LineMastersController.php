@@ -136,7 +136,7 @@ class LineMastersController extends VendorAppController
                             } else if($col == 2) {
                                 $factory = $this->VendorFactories->find('list')
                                 ->select(['id'])
-                                ->where(['factory_code' => $value])
+                                ->where(['factory_code' => $value, 'vendor_temp_id' => $session->read('vendor_id')])
                                 ->first();
                                 $tmp['vendor_factory_id'] = $factory ? $factory : null;
                                 $datas['factory_code'] = $value;

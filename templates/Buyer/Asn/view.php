@@ -85,7 +85,7 @@
                         <div class="col-md-2">
                             <label> Invoice Date :</label>
                             <p><b>
-                                    <?= h($deliveryDetails->toArray()[0]->invoice_date) ?>
+                                    <?= h($deliveryDetails->toArray()[0]->invoice_date->i18nFormat('dd-MM-YYYY')) ?>
                                 </b></p>
                         </div>
                         <div class="col-md-2">
@@ -105,7 +105,7 @@
                         <div class="col-md-2">
                             <label> Gate Out :</label>
                             <p>
-                                <b> <?= h($deliveryDetails->toArray()[0]->gateout_date) ?> </b>
+                                <b> <?= h($deliveryDetails->toArray()[0]->gateout_date->i18nFormat('dd-MM-YYYY')) ?> </b>
                             </p>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                                     <?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['actual_qty'] : '' ?>
                                 </td>
                                 <td>
-                                    <?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['delivery_date'] : '' ?>
+                                    <?= $deliveryDetail->has('PoItemSchedules') ? date('d-m-Y', strtotime($deliveryDetail->PoItemSchedules['delivery_date'])) : '' ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

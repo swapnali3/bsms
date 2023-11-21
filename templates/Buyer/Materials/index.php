@@ -33,6 +33,7 @@
                             <th>Material</th>
                             <th>Description</th>
                             <th>Minimum Stock</th>
+                            <th>UOM</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,7 +50,10 @@
                                     <?= h($vendorMaterials->description) ?>
                                 </td>
                                 <td>
-                                    <?= h($vendorMaterials->minimum_stock .' '.$vendorMaterials->uom) ?>
+                                    <?= h($vendorMaterials->minimum_stock) ?>
+                                </td>
+                                <td>
+                                    <?= h($vendorMaterials->uom) ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -77,18 +81,10 @@
             "searching": true,
             "ordering": false,
             "destroy": true,
-            "columns": [{
-                    "data": "code"
-                },
-                {
-                    "data": "description"
-                },
-                {
-                    "data": "minimum_stock",
-                },{
-                    "data": "uom",
-                }
-            ]
+            
+            dom: 'Blfrtip',
+            buttons: [{ extend: 'copy' },
+        { extend: 'excelHtml5', text : 'Export'},]
         });
 
         setTimeout(function () {
