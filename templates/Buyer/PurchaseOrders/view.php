@@ -21,7 +21,7 @@
     <div class="poHeaders view content card card_box_shadow" id="">
       <div class="p-2" id="purViewId">
         <div class="search_fileupload col-lg-12 d-flex justify-content-between align-items-center">
-        <div class="col-sm-4 col-lg-4 search-bar mb-3 mt-2">
+        <div class="col-sm-4 col-lg-3 search-bar mb-3 mt-2">
           <input type="search" placeholder="Search all orders, materials" class="form-control search-box">
         </div>
         <div class="po-file-submit col-sm-6 col-lg-6 pr-0">

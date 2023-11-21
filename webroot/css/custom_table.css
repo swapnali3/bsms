@@ -994,7 +994,17 @@ label { color: #121212 !important;}
 
 th.actions { width: unset !important;}
 
+.dt-buttons { position: absolute !important;}
 
+.buttons-copy { background-color: #F7941D; border: #121212; margin-right: 10px; border-radius: 4px !important;}
+
+.buttons-copy:hover { background-color: #F7941D; border: #121212;}
+
+.buttons-excel { background-color: #fff; color: #F7941D; border: 1px solid #F7941D; border-radius: 4px !important;}
+
+.buttons-excel:hover { background-color: #fff; color: #F7941D; border: 1px solid #F7941D;}
+
+.buyer_material div.dataTables_wrapper div.dataTables_filter label { text-align: right !important;}
 
 /* Responsive Styling start here */
 
