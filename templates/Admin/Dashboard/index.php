@@ -11,6 +11,171 @@
 <?= $this->Html->css('admincss') ?>
 <div class="content admin-console">
   <div class="row">
+  <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="card card_box_shadow">
+      <div class="card-header">
+        <h1 class="card-title">Vendors</h1>
+      </div>
+      <div class="card-body py-0">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Total</a>
+              <span class="p-value">
+                <?= h($vendorDashboardCount['total']) ?>
+              </span>
+            </div>
+          </li>
+
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-user-plus text-danger onboarding_icon"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Onboarding
+              </a>
+              <span class="p-value">
+                <?= h(isset($vendorDashboardCount[0]) ? $vendorDashboardCount[0] : 0) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-hourglass-half text-danger"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Approval Pending
+              </a>
+              <span class="p-value">
+              <?= h(isset($vendorDashboardCount[1]) ? $vendorDashboardCount[1] : 0) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="far fa-check-square text-success"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Approved
+              </a>
+              <span class="p-value">
+              <?= h(isset($vendorDashboardCount[3]) ? $vendorDashboardCount[3] : 0) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-share-square text-warning"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Sent to SAP
+              </a>
+              <span class="p-value">
+              <?= h(isset($vendorDashboardCount[2]) ? $vendorDashboardCount[2] : 0) ?>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="card card_box_shadow">
+      <div class="card-header">
+        <h3 class="card-title">Buyers</h3>
+      </div>
+      <div class="card-body py-0" style="min-height: 100%;">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="<?php echo $this->Url->build([ 'controller' => '/users']) ?>" class="product-title">Total</a>
+              <span class="p-value">
+                <?= h($buyerCounts['total']) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="far fa-calendar-check text-success"></i>
+
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => '/users']) ?>" class="product-title">Active</a>
+              <span class="p-value">
+              <?= h($buyerCounts['1']) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="far fa-clock text-danger"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Inactive</a>
+              <span class="p-value">
+              <?= h(isset($buyerCounts['0']) ? $buyerCounts['0'] : 0) ?>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="card card_box_shadow">
+      <div class="card-header">
+        <h3 class="card-title">Managers</h3>
+      </div>
+      <div class="card-body py-0" style="min-height: 100%;">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Total</a>
+              <span class="p-value">
+                <?= h($managerCounts['total']) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="far fa-calendar-check text-success"></i>
+
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Active</a>
+              <span class="p-value">
+              <?= h(isset($managerCounts['1']) ? $managerCounts['1'] : 0) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="far fa-clock text-danger"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Inactive</a>
+              <span class="p-value">
+              <?= h(isset($managerCounts['0']) ? $managerCounts['0'] : 0) ?>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
     <!-- <div class="col-12 landing">
       <div class="card">
         <div class="card-header">

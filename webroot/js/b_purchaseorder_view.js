@@ -239,9 +239,11 @@ function populateItemData(status, itemData) {
     }, 500);
 }
 
+var rowId = "";
 $(document).on("click", ".schedule_item", function () {
     $("#error_msg").html("");
     var id = $(this).attr("footer-id");
+    rowId = "id_st"+id;
     $(".check").prop("checked", false);
     if (!$("#check_" + id).is(":checked")) {
         $("#check_" + id).prop("checked", true);
@@ -478,6 +480,10 @@ $(document).ready(function () {
                             title: response.message,
                         });
                         $("#scheduleModal").modal("toggle");
+
+                        $( "#"+rowId ).trigger( "click" );
+                        $( "#"+rowId ).trigger( "click" );
+                        
                     } else {
                         $("#scheduleModal").modal("toggle");
                         Toast.fire({ icon: "error", title: response.message });

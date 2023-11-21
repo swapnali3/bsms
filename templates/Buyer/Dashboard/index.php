@@ -125,46 +125,6 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-3 col-lg-3" style="display: none;">
-    <div class="card card_box_shadow" style="min-height: 93%;">
-      <div class="card-header">
-        <h3 class="card-title">Payments</h3>
-      </div>
-      <div class="card-body py-0">
-        <ul class="products-list product-list-in-card">
-          <li class="item">
-            <div class="product-img">
-              <i class="fas fa-th-large text-info"></i>
-            </div>
-            <div class="product-info">
-              <a href="javascript:void(0)" class="product-title">Total Amount</a>
-              <span class="p-value">500000.00</span>
-            </div>
-          </li>
-          <li class="item">
-            <div class="product-img">
-              <i class="far fa-calendar-check text-warning"></i>
-
-            </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Paid</a>
-              <span class="p-value">400000.00</span>
-            </div>
-          </li>
-          <li class="item">
-            <div class="product-img">
-              <i class="fas fa-balance-scale text-success"></i>
-            </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="javascript:void(0)" class="product-title">Balance</a>
-              <span class="p-value">100000.00</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
   <div class="col-sm-12 col-md-3 col-lg-3">
     <div class="card card_box_shadow" style="min-height: 93%;">
       <div class="card-header">
@@ -224,7 +184,7 @@
   <div class="col-sm-12 col-md-6 col-lg-6">
     <div class="card card-default card_box_shadow">
       <div class="card-header">
-        <h3 class="card-title">Top Vendors by order Value</h3>
+        <h3 class="card-title">Top 5 Vendors by order Value</h3>
 
 
       </div>
@@ -240,6 +200,30 @@
         <canvas id="donutChart"
           style="min-height: 180px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
           width="487" height="150" class="chartjs-render-monitor"></canvas>
+      </div>
+      <!-- /.card-body -->
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-6 col-lg-6">
+    <div class="card card-default btm-card card_box_shadow">
+      <div class="card-header">
+        <h3 class="card-title">Top 5 Materials by quantity</h3>
+
+
+      </div>
+      <div class="card-body">
+        <div class="chartjs-size-monitor">
+          <div class="chartjs-size-monitor-expand">
+            <div class=""></div>
+          </div>
+          <div class="chartjs-size-monitor-shrink">
+            <div class=""></div>
+          </div>
+        </div>
+        <canvas id="donutChart1"
+          style="min-height: 180px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 300px;"
+          width="487" height="250" class="chartjs-render-monitor"></canvas>
       </div>
       <!-- /.card-body -->
     </div>
@@ -271,29 +255,7 @@
     </div>
   </div>
   
-  <div class="col-sm-12 col-md-6 col-lg-6">
-    <div class="card card-default btm-card card_box_shadow">
-      <div class="card-header">
-        <h3 class="card-title">Top Material by quantity</h3>
-
-
-      </div>
-      <div class="card-body">
-        <div class="chartjs-size-monitor">
-          <div class="chartjs-size-monitor-expand">
-            <div class=""></div>
-          </div>
-          <div class="chartjs-size-monitor-shrink">
-            <div class=""></div>
-          </div>
-        </div>
-        <canvas id="donutChart1"
-          style="min-height: 180px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 300px;"
-          width="487" height="250" class="chartjs-render-monitor"></canvas>
-      </div>
-      <!-- /.card-body -->
-    </div>
-  </div>
+  
 
   <div class="col-sm-12 col-md-6 col-lg-6">
     <div class="card card-default btm-card card_box_shadow">
@@ -329,11 +291,11 @@
   //-------------
   //- BAR CHART -
   //-------------
-  var areaChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  var poOrderData = {
+    labels: [<?php echo implode(',', $orderByPeriodList['code'])?>],
     datasets: [
       {
-        label: 'Payment',
+        label: 'Order',
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,
@@ -341,28 +303,31 @@
         pointStrokeColor: 'rgba(60,141,188,1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [28, 48, 40, 19, 86, 27, 90]
-      },
-      {
-        label: 'Order',
-        backgroundColor: 'rgba(210, 214, 222, 1)',
-        borderColor: 'rgba(210, 214, 222, 1)',
-        pointRadius: false,
-        pointColor: 'rgba(210, 214, 222, 1)',
-        pointStrokeColor: '#c1c7d1',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(220,220,220,1)',
-        data: [120, 100, 150, 200, 150, 100, 140]
+        data: [<?php echo implode(',', $orderByPeriodList['order'])?>],
       },
     ]
   }
+
+  var materialOrderData = {
+    labels: [<?php echo implode(',', $topMaterialValuesList['code'])?>],
+    datasets: [
+      {
+        label: 'Value',
+        backgroundColor: 'rgba(60,141,188,0.9)',
+        borderColor: 'rgba(60,141,188,0.8)',
+        pointRadius: false,
+        pointColor: '#3b8bba',
+        pointStrokeColor: 'rgba(60,141,188,1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data: [<?php echo implode(',', $topMaterialValuesList['value'])?>],
+      },
+    ]
+  }
+
   var barChartCanvas = $('#barChart').get(0).getContext('2d')
   var barChartCanvas1 = $('#barChart2').get(0).getContext('2d')
-  var barChartData = $.extend(true, {}, areaChartData)
-  var temp0 = areaChartData.datasets[0]
-  var temp1 = areaChartData.datasets[1]
-  barChartData.datasets[0] = temp1
-  barChartData.datasets[1] = temp0
+  
 
   var barChartOptions = {
     responsive: true,
@@ -372,12 +337,12 @@
 
   new Chart(barChartCanvas, {
     type: 'bar',
-    data: barChartData,
+    data: poOrderData,
     options: barChartOptions
   })
   new Chart(barChartCanvas1, {
     type: 'bar',
-    data: barChartData,
+    data: materialOrderData,
     options: barChartOptions
   })
 
@@ -390,15 +355,11 @@
   var donutChartCanvas = $('#donutChart').get(0).getContext('2d');
   var donutChartCanvas1 = $('#donutChart1').get(0).getContext('2d');
   var donutData = {
-    labels: [
-      '0000100119',
-      '0000100114',
-      '0000100123',
-    ],
+    labels: [<?php echo implode(',', $topVendorList['code'])?>],
     datasets: [
       {
-        data: [5000, 2000, 1500],
-        backgroundColor: ['#f56954', '#00a65a', '#f39c12'],
+        data: [<?php echo implode(',', $topVendorList['value'])?>],
+        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#f23c1a', "#f78s18"],
       }
     ]
   }
@@ -415,15 +376,11 @@
   })
 
   var donutData1 = {
-    labels: [
-      'PHFG0411',
-      'PHFG0417',
-
-    ],
+    labels: [<?php echo implode(',', $topMaterialList['code'])?>],
     datasets: [
       {
-        data: [345345345, 503232340],
-        backgroundColor: ['#f56954', '#00a65a'],
+        data: [<?php echo implode(',', $topMaterialList['qty'])?>],
+        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#f23c1a', "#f78s18"],
       }
     ]
   }

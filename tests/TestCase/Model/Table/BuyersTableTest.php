@@ -27,9 +27,9 @@ class BuyersTableTest extends TestCase
         'app.Buyers',
         'app.CompanyCodes',
         'app.PurchasingOrganizations',
+        'app.BuyerCodeFiles',
         'app.RfqCommunications',
         'app.Rfqs',
-        'app.VendorTemps',
     ];
 
     /**

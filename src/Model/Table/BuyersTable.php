@@ -13,6 +13,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\CompanyCodesTable&\Cake\ORM\Association\BelongsTo $CompanyCodes
  * @property \App\Model\Table\PurchasingOrganizationsTable&\Cake\ORM\Association\BelongsTo $PurchasingOrganizations
+ * @property \App\Model\Table\BuyerCodeFilesTable&\Cake\ORM\Association\HasMany $BuyerCodeFiles
  * @property \App\Model\Table\RfqCommunicationsTable&\Cake\ORM\Association\HasMany $RfqCommunications
  * @property \App\Model\Table\RfqsTable&\Cake\ORM\Association\HasMany $Rfqs
  *
@@ -115,6 +116,10 @@ class BuyersTable extends Table
         $validator
             ->scalar('remark')
             ->allowEmptyString('remark');
+
+        $validator
+            ->integer('status')
+            ->notEmptyString('status');
 
         $validator
             ->dateTime('added_date')
