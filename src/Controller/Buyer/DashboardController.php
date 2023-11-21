@@ -125,18 +125,62 @@ class DashboardController extends BuyerAppController
         $result = $conn->execute($query)->fetch('assoc');
         $poCompleteCount = $result['complete'];
 
-        $topVendor = $conn->execute("select * from (SELECT PH.sap_vendor_code, sum(pf.po_qty) total
+        $topVendor = $conn->execute("select * from (SELECT PH.sap_vendor_code, sum(PF.net_value) total
         from po_headers PH	
-        join po_footers pf on pf.po_header_id = PH.id
+        join po_footers PF on PF.po_header_id = PH.id
         group by PH.sap_vendor_code
     ) a order by total desc limit 5 ");
         $topVendors = $topVendor->fetchAll('assoc');
 
 
+        $topMaterial = $conn->execute("select * from (SELECT PF.material, sum(PF.po_qty) total, sum(PF.net_value) value
+        from po_footers PF
+        group by PF.material
+    ) a order by total desc limit 5 ");
+        $topMaterials = $topMaterial->fetchAll('assoc');
 
-        // echo $totalVendorTemps;exit;
+        $topMaterialValue = $conn->execute("select * from (SELECT PF.material, sum(PF.net_value) value
+        from po_footers PF
+        group by PF.material
+    ) a order by value desc limit 5 ");
+        $topMaterialValues = $topMaterialValue->fetchAll('assoc');
 
-        $this->set(compact('vendorDashboardCount', 'totalPos', 'asnDashboardCount', 'poCompleteCount', 'topVendors'));
+
+        $topVendorList = [];
+        foreach($topVendors as $vendor) {
+            $topVendorList['code'][] = "'$vendor[sap_vendor_code]'";
+            $topVendorList['value'][] = $vendor['total'];
+        }
+
+        $topMaterialList = [];
+        foreach($topMaterials as $material) {
+            $topMaterialList['code'][] = "'$material[material]'";
+            $topMaterialList['qty'][] = $material['total'];
+        }
+
+        $topMaterialValuesList = [];
+        foreach($topMaterialValues as $material) {
+            $topMaterialValuesList['code'][] = "'$material[material]'";
+            $topMaterialValuesList['value'][] = $material['value'];
+        }
+
+        
+        $orderByPeriod = $conn->execute("select * from (SELECT sum(PF.net_value) total, date_format(PH.created_on, '%b-%y') as month
+        from po_headers PH	
+        join po_footers PF on PF.po_header_id = PH.id
+        group by date_format(PH.created_on, '%b-%y')
+) a order by month desc limit 6");
+        $orderByPeriods = $orderByPeriod->fetchAll('assoc');
+
+        $orderByPeriodList = [];
+        foreach($orderByPeriod as $order) {
+            $orderByPeriodList['code'][] = "'$order[month]'";
+            $orderByPeriodList['order'][] = $order['total'];
+        }
+
+        //echo '<pre>'; print_r($topVendorList); exit;
+
+        $this->set(compact('vendorDashboardCount', 'totalPos', 'asnDashboardCount', 'poCompleteCount', 'topVendorList', 'topMaterialList', 'orderByPeriodList', 'topMaterialValuesList'));
     }
 
     public function clearMessageCount()

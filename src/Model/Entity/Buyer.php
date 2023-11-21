@@ -17,14 +17,15 @@ use Cake\ORM\Entity;
  * @property string $mobile
  * @property string $email
  * @property string|null $remark
+ * @property int $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
  *
  * @property \App\Model\Entity\CompanyCode $company_code
  * @property \App\Model\Entity\PurchasingOrganization $purchasing_organization
+ * @property \App\Model\Entity\BuyerCodeFile[] $buyer_code_files
  * @property \App\Model\Entity\RfqCommunication[] $rfq_communications
  * @property \App\Model\Entity\Rfq[] $rfqs
- * @property \App\Model\Entity\VendorTemp[] $vendor_temps
  */
 class Buyer extends Entity
 {
@@ -46,12 +47,13 @@ class Buyer extends Entity
         'mobile' => true,
         'email' => true,
         'remark' => true,
+        'status' => true,
         'added_date' => true,
         'updated_date' => true,
         'company_code' => true,
         'purchasing_organization' => true,
+        'buyer_code_files' => true,
         'rfq_communications' => true,
         'rfqs' => true,
-        'vendor_temps' => true,
     ];
 }

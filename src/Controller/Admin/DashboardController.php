@@ -49,12 +49,45 @@ class DashboardController extends AdminAppController
     
     public function index()
     {
-        $this->loadModel('CompanyCodes');
-        $company_codes = $this->CompanyCodes->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
-            return $row->code.' - '.$row->name;
-        }])->all();
+        $this->loadModel('VendorTemps');
+        $this->loadModel('Buyers');
+        $this->loadModel('Users');
 
-        $this->set(compact('company_codes'));
+        $vendorStatus = $this->VendorTemps->find()
+        ->select(['status' => 'VendorStatus.status','count' => 'count(VendorStatus.status)'])
+        ->innerJoin(['VendorStatus' => 'vendor_status'], ['VendorStatus.status=VendorTemps.status'])
+        ->group('VendorTemps.status')->toArray();
+
+        $buyers = $this->Buyers->find()
+        ->select(['status' => 'Buyers.status','count' => 'count(Buyers.status)'])
+        ->group('Buyers.status')->toArray();
+
+        $managers = $this->Users->find()
+        ->select(['status' => 'Users.status','count' => 'count(Users.status)'])
+        ->where(['Users.group_id' => 4])
+        ->group('Users.status')->toArray();
+
+
+        $vendorDashboardCount = [];
+        $vendorDashboardCount['total'] = array_sum(array_column($vendorStatus,'count'));
+        foreach($vendorStatus as $status) {
+            $vendorDashboardCount[$status->status] = $status->count;
+        }
+
+        $buyerCounts = [];
+        $buyerCounts['total'] = array_sum(array_column($buyers,'count'));
+        foreach($buyers as $status) {
+            $buyerCounts[$status->status] = $status->count;
+        }
+
+        $managerCounts = [];
+        $managerCounts['total'] = array_sum(array_column($managers,'count'));
+        foreach($managers as $status) {
+            $managerCounts[$status->status] = $status->count;
+        }
+
+
+        $this->set(compact('vendorDashboardCount', 'buyerCounts', 'managerCounts'));
 
     }
 
