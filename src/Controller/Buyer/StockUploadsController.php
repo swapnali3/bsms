@@ -315,7 +315,7 @@ class StockUploadsController extends BuyerAppController
                              else if ($col == 5) {
                                 $materials = $this->Materials->find('all')
                                 ->select(['id', 'code'])
-                                ->where(['code IN' => $value])->first();
+                                ->where(['code IN' => $value, 'sap_vendor_code' => $tmp['sap_vendor_code']])->first();
     
                                 $tmp['material_id'] = isset($materials['id']) ? $materials['id'] : null;
                                 $datas['material'] = $value;

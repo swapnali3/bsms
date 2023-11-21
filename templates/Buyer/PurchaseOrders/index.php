@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
-<?= $this->Html->css('cstyle.css') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
@@ -21,7 +21,7 @@
             </div>
 
             <div class="card-body buyer_material">
-                <table class="table table-hover" id="example1">
+                <table class="table table-hover table-responsive" id="example1">
                     <thead>
                         <tr>
                             <th>Vendor Code</th>
