@@ -180,6 +180,10 @@ class UsersController extends AppController
                     ->where(['username' => $this->request->getData('username')])->limit(1)->toArray();
 
                 if ($result) {
+                    if(!$result[0]->status) {
+                        $response['message'] = 'Your account has been deactivated, please contact admin!';
+                        echo json_encode($response); exit;
+                    }
                     if (password_verify($this->request->getData('password'), $result[0]->password)) {
                         $session = $this->getRequest()->getSession();
 
@@ -201,7 +205,7 @@ class UsersController extends AppController
                         
                         //echo '<pre>'; print_r($this->Cookie->getLoginToken()); 
                         //echo '<pre>'; print_r($token); exit;
-                        if($token && $token != $this->Cookie->getLoginToken()) {
+                        if(false && $token && $token != $this->Cookie->getLoginToken()) {
                             $response['message'] = 'User already logged in';
                             echo json_encode($response); exit;
                         } else {
@@ -269,6 +273,10 @@ class UsersController extends AppController
                     ->where(['mobile' => $this->request->getData('mobile')])->limit(1)->toArray();
                 //print_r($result); exit;
                 if ($result) {
+                    if(!$result[0]->status) {
+                        $response['message'] = 'Your account has been deactivated, please contact admin!';
+                        echo json_encode($response); exit;
+                    }
                     if ($this->request->getData('otp') == $result[0]->otp) {
                         $session = $this->getRequest()->getSession();
                         $session->write('username', $result[0]->username);

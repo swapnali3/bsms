@@ -155,4 +155,37 @@ class UsersController extends AdminAppController
             echo json_encode($response); exit;
         }
     }
+
+    function changeBuyerStatus () {
+        $this->autoRender = false;
+        $this->loadModel('Users');
+        $this->loadModel('Buyers');
+
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = '';
+
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            $data = $this->request->getData();
+            $user = $this->Users->get($data['id']);
+
+            $user = $this->Users->patchEntity($user, $data);
+
+            if ($this->Users->save($user)) {
+                $response['status'] = 1;
+                if($data['status']) {
+                    $response['message'] = 'User successfully activated';
+                } else {
+                    $response['message'] = 'User successfully deactivated';
+                }
+            } else {
+                $response['status'] = 0;
+                $response['message'] = 'Fail to updated data';
+            }
+
+        }
+
+        echo json_encode($response); exit;
+
+    }
 }
