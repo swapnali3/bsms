@@ -17,7 +17,7 @@
         <div class="card p-1 card_boxshadow">
             <div class="card m-1 card_boxshadow">
                 <div class="card-header asn_header_bg">
-                    <div class="row align-items-center justify-content-between">
+                    <div class="row align-items-center justify-content-between asn_view">
                         <div class="col-sm-12 col-lg-3">
                             <span class="text_light">Factory :</span> <b>
                                 <?= h($deliveryDetails[0]->VendorFactories['factory_code']) ?>
@@ -50,7 +50,7 @@
                                 <?php echo $this->Html->link('<button class="btn btn-custom-2 mb-0 mrk">Edit</button>', ['action' => 'edit', $deliveryDetails[0]->id], ['style' => 'display:block;', 'class' => 'asn_files', 'escape' => false]); ?>
                                     <button class="btn btn-custom-2 mb-0 mrk" data-toggle="modal"
                                     data-target="#modal-confirm">Mark Dispatched</button>
-                            </div>
+                            <!-- </div> -->
                         </div>
                         <!-- modal -->
                         <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
@@ -145,6 +145,7 @@
                 </div>
             </div>
             <div class="card-body p-1">
+                <div class="table-responsive">
                 <table class="table" id="example1">
                     <thead>
                         <tr>
@@ -180,7 +181,7 @@
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
-                </table>
+                </table></div>
             </div>
         </div>
     </div>

@@ -730,6 +730,7 @@ body:not(.layout-fixed) .main-sidebar {
 .menu_icon {
     position: absolute;
     left: 10%;
+    display: none;
 }
 
 .sidebar-collapse:not(.sidebar-mini):not(.sidebar-mini-md):not(.sidebar-mini-xs) .main-sidebar, .sidebar-collapse:not(.sidebar-mini):not(.sidebar-mini-md):not(.sidebar-mini-xs) .main-sidebar::before {
@@ -992,3 +993,156 @@ tr td, tr th {
 label { color: #121212 !important;}
 
 th.actions { width: unset !important;}
+
+.dt-buttons { position: absolute !important;}
+
+.buttons-copy { background-color: #F7941D; border: #121212; margin-right: 10px; border-radius: 4px !important;}
+
+.buttons-copy:hover { background-color: #F7941D; border: #121212;}
+
+.buttons-excel { background-color: #fff; color: #F7941D; border: 1px solid #F7941D; border-radius: 4px !important;}
+
+.buttons-excel:hover { background-color: #fff; color: #F7941D; border: 1px solid #F7941D;}
+
+.buyer_material div.dataTables_wrapper div.dataTables_filter label { text-align: right !important;}
+
+.table thead th a {
+    font-weight: 600 !important;
+    color: #121212 !important;
+    font-size: 12px !important;
+    letter-spacing: .7px !important;
+}
+
+.new_vendor_btn { 
+    background-color: #F7941D !important;
+    color: #121212 !important;
+    padding: 8px 15px !important;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+tr td a { color: #121212 !important;}
+
+.vendorTemps { background-color: #fff !important; padding: 15px  !important;}
+
+.vendorTemps .btn { background-color: #F7941D !important;
+    color: #121212 !important;  border: none !important; margin-top: 10px; }
+
+.po_padding {
+    margin: 10px !important;
+    padding: 10px 15px !important;
+    background-color: #fff;
+}
+
+.side-nav-item {
+    color: #121212;
+    margin-right: 15px;
+    padding: 8px;
+    background-color: #F7941D;
+    color: #121212;
+    border-radius: 5px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.related,.accountGroups { margin-top: 20px;}
+
+.side-nav .heading { margin-bottom: 15px;}
+
+.purchasingOrganizations { margin-top: 15px;}
+
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+        tr td,
+        tr th {
+            vertical-align: middle !important;
+        }
+    }
+}
+
+/* Responsive Styling start here */
+
+/* Media query for 1024px start here*/
+@media only screen and (max-width: 1024px) {
+    .navbar-nav .nav-item .nav-link { font-size: 14px;}
+    .collapse .nav-link { margin: unset;}
+    .menu_icon { left: 11.5%;}
+    .left-s img { width: 100px !important;}
+    .v_profile {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+    .table_centr { display: flex; justify-content: center;}
+
+    /* .buyer_profile { flex-direction: column !important;} */
+}
+/* Media query for 1024px end here */
+
+/* Media query for 768px and 966px start here */
+
+@media only screen and (min-width: 768px) and (max-width: 966px) {
+    .navbar-expand-md>.container-fluid { flex-wrap: wrap !important;}
+    .navbar-expand-md .navbar-toggler { display: block !important; }
+     .navbar-expand-md .navbar-collapse { display: unset !important; }
+     .collapse:not(.show) {
+        display: none !important;
+    }
+    .navbar-nav {
+        flex-direction: column !important;
+    }
+    .navbar-expand-md .navbar-collapse { flex-basis: 100% !important;}
+    .main-sidebar { display: none;}
+    .content-wrapper { margin-left: 0 !important;}
+
+    .profile_row {
+        flex-direction: column !important;
+    }
+}
+/* Media query for 768px and 966px end here */
+
+
+/* Media query for 768 px start here */
+@media only screen and (max-width: 768px){
+    .main-sidebar { display: none;}
+
+    .content-wrapper { margin-left: 0 !important;}
+
+    .navbar-nav .nav-link { padding-left: 20px;}
+
+    .dropdown-menu .nav-link { padding-left: 20px;}
+
+    .asn_header_bg .asn_view { gap: 15px !important;}
+
+    .table_centr { display: flex; justify-content: center;}
+    
+     .buyer_profile { margin-top: 10px !important; padding-left: 0 !important; padding-right: 10px !important;}
+
+     .navbar-nav .nav-item .nav-link { font-size: 16px; }
+
+}
+
+/* Media query for 768px end here */
+
+
+/* Media query for 425px start here*/
+@media only screen and (max-width: 425px) {
+    .prod_confrm { justify-content: start !important; margin-left: 9px; margin-top: 20px;}
+
+    .same_addr { float: left !important; margin-top: 10px ;}
+
+    .table_centr { display: flex; justify-content: center;}
+
+    .action-btn { justify-content: start !important; margin: 0 0 10px 0;}
+
+    .add-stock-btn,.add-monitor-btn,.add-material-btn, .material_fileupld { justify-content: start !important; margin-top: 20px;}
+
+    .upld-material-head { flex-direction: column !important;}
+
+    .stock_fileupload,.refresh_btn,.add_prod { justify-content: start !important; margin-top: 20px;}
+}
+/* Media query for 425px end here */

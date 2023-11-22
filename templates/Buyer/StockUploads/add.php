@@ -57,25 +57,25 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
         <div class="card">
             <div class="card-header">
                 <div class="row col-lg-12 pr-0 d-flex justify-content-between align-items-center">
-                    <div class="col-lg-6 pl-0">
+                    <div class="col-sm-6 col-lg-6 pl-0">
                         <h5 class="mb-0"><b>UPLOAD STOCKS</b></h5>
                     </div>
-                    <div class="col-lg-6 pr-0">
+                    <div class="stock_fileupload col-sm-6 col-lg-6 pr-0">
                 <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
                 <div class="row justify-content-end align-items-center">
-                    <div class="col-lg-4 d-flex justify-content-end">
+                    <div class="d-flex justify-content-end">
                         
                             <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_buyer.xlsx"
                                 download class="material_stock_file" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom"><i class="fa fa-solid fa-file-download"></i></a>
                         
                     </div>
-                    <div class="pl-1 pr-1">
+                    <div class="pl-2 pr-0">
                         <?= $this->Form->control('upload_file', [
                                 'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
                         <!-- <span id="filessnames"></span> -->
                     </div>
-                    <div class="col-sm-2 col-md-2 col-lg-2 pr-0">
+                    <div class="pl-2 pr-1">
                         <button class="btn bg-gradient-submit" id="id_import" type="button">
                             Submit
                         </button>
@@ -91,6 +91,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
                         
             <div class="card-footer" id="id_pohead">
+                <div class="table-responsive">
                 <table class="table table-hover" id="example1">
                     <thead>
                         <tr>
@@ -143,7 +144,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                         <?php endif; ?>
                         <?php endforeach; ?> 
                     </tbody>
-                </table>
+                </table></div>
             </div>
            
         </div>

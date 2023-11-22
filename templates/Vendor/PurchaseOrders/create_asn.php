@@ -15,14 +15,14 @@
         <div class="content-d">
             <div class="t1 pt-1">
                 <div class="row align-items-center">
-                    <div class="col-md-6 pt-2 pb-1">
+                    <div class="col-sm-12 col-md-6 pt-2 pb-1">
                         <div class="search-bar d-flex mb-2">
                             <input type="search" placeholder="Search all orders, materials.." class="form-control search-box">
                             <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
                         </div>
                     </div>
-                    <div class="col-md-6 pb-1">
-                        <div class="action-btn d-flex justify-content-end">
+                    <div class="col-sm-12 col-md-6 pb-1">
+                        <div class="action-btn d-flex justify-content-end continue-btn">
                             <!-- <input type="file" id="imgupload" style="display:none" />
                             <button id="OpenImgUpload" type="button" class="btn bg-gradient-button mr-2">
                                 <i class="fa fa-solid fa-file-import"></i>
@@ -50,9 +50,9 @@
                     </div>
                 </div>
             </div>
-            <div class="card-header pr-0 pl-0" id="id_pohead"></div>
+            <div class="table-responsive card-header pr-0 pl-0" id="id_pohead"></div>
             <div class="t2 mt-2 mb-1">
-                <div class="right-side">
+                <div class="table-responsive right-side">
                     <table class="table table-bordered material-list" id="example2">
                         <thead>
                             <tr>

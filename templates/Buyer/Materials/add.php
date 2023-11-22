@@ -13,12 +13,12 @@
 
 
 <div class="card">
-<div class="card-header d-flex justify-content-between align-items-center">
-    <div class="col-lg-6 pl-0">
+<div class="upld-material-head card-header d-flex justify-content-between align-items-center">
+    <div class=" col-sm-6 col-lg-6 pl-0">
         <h5 class="m-0"><b>Upload Material Master</b></h5>
     </div>
     
-    <div class="col-lg-6 form-content d-flex justify-content-end pr-0">
+    <div class="material_fileupld col-sm-6 col-lg-6 form-content d-flex justify-content-end pr-0 pl-0">
         <?= $this->Form->create($materials, ['id' => 'formUpload', 'url' => ['controller' => '/materials', 'action' => 'upload']]) ?>
         <div class="row align-items-center">
             <div class="col-auto pr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="left">
@@ -52,6 +52,7 @@
 
 <div class="card">
     <div class="card-header p-0 mb-0 mt-3 ml-3 mr-3" id="id_pohead">
+        <div class="table-responsive">
         <table class="table table-hover" id="example1">
             <thead>
                 <tr>
@@ -65,7 +66,7 @@
             <tbody>
             </tbody>
             </tbody>
-        </table>
+        </table></div>
     </div>
 </div>
 <script>

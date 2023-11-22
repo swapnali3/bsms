@@ -20,6 +20,7 @@
                 </h5>
             </div>
             <div class="card-body p-2">
+                <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover" id="example1">
                     <thead>
                         <tr>
@@ -64,7 +65,7 @@
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
-                </table>
+                </table></div>
             </div>
         </div>
     </div>

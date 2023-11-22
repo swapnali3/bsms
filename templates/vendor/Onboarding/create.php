@@ -63,6 +63,8 @@
 .note-btn[data-bs-original-title="Code View"],
 .note-btn[data-bs-original-title="Full Screen"]
 { display: none !important;}
+
+/* .card { border: 1px solid #eee !important;} */
     
 </style>
 <div class="row">

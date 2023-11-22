@@ -85,6 +85,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             </div>
             
             <div class="card-footer" id="id_pohead">
+                <div class="table-responsive">
                 <table class="table table-hover" id="example1">
                     <thead>
                         <tr>
@@ -98,7 +99,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                     </thead>
                     <tbody>
                     </tbody>
-                </table>
+                </table></div>
             </div>
         </div>
     </div>

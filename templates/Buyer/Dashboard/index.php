@@ -7,7 +7,7 @@
 <?= $this->Html->css('custom') ?>
 <div class="row buyer-dash">
 
-  <div class="col-sm-12 col-md-3 col-lg-3">
+  <div class="col-sm-12 col-lg-4">
     <div class="card card_box_shadow">
       <div class="card-header">
         <h1 class="card-title">Vendors</h1>
@@ -79,7 +79,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-3 col-lg-3">
+  <div class="col-sm-12 col-lg-4">
     <div class="card card_box_shadow" style="min-height: 93%;">
       <div class="card-header">
         <h3 class="card-title">Purchase Orders</h3>
@@ -181,7 +181,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-6 col-lg-6">
+  <div class="col-sm-12 col-lg-6">
     <div class="card card-default card_box_shadow">
       <div class="card-header">
         <h3 class="card-title">Top 5 Vendors by order Value</h3>
@@ -257,7 +257,7 @@
   
   
 
-  <div class="col-sm-12 col-md-6 col-lg-6">
+  <div class="col-sm-12 col-lg-6">
     <div class="card card-default btm-card card_box_shadow">
       <div class="card-header">
         <h3 class="card-title">Top Material by order value</h3>

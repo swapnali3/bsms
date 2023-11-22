@@ -4,7 +4,10 @@
  * @var \App\Model\Entity\PurchasingOrganization $purchasingOrganization
  */
 ?>
-<div class="row">
+<?= $this->Html->css('custom_table.css') ?>
+<?= $this->Html->css('custom.css') ?>
+<?= $this->Html->css('table.css') ?>
+<div class="row po_padding">
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>

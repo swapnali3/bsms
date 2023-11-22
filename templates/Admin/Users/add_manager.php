@@ -21,7 +21,7 @@
         <?= $this->Form->create(null, ['id' => 'userForm']) ?>
         <div class="card-body">
           <div class="row">
-            <div class="col-4 mt-3">
+            <div class="col-lg-4 mt-3">
               <label for="mobileno">Role</label>
               <select class="custom-select" id="myCustomSelect" name="group_id" required>
                 <!-- <option disabled selected>Please Select</option>
@@ -29,7 +29,7 @@
                 <option value="4" selected>Manager</option>
               </select>
             </div>
-            <div class="col-4 mt-3">
+            <div class="col-lg-4 mt-3">
               <div class="form-group">
                 <?php
                       echo $this->Form->control('first_name', [
@@ -39,7 +39,7 @@
                       ?>
               </div>
             </div>
-            <div class="col-4 mt-3">
+            <div class="col-lg-4 mt-3">
               <div class="form-group">
                 <?php
                       echo $this->Form->control('last_name', [
@@ -49,14 +49,14 @@
                       ?>
               </div>
             </div>
-            <div class="col-4 mt-3">
+            <div class="col-lg-4 mt-3">
               <div class="form-group">
                 <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0', 'placeholder' => 'please enter email id', 'required')); ?>
               </div>
             </div>
 
 
-            <div class="col-4 mt-3">
+            <div class="col-lg-4 mt-3">
               <div class="form-group">
                 <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
               </div>

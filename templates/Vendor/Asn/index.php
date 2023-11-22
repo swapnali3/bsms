@@ -10,6 +10,7 @@
     <div class="col-12">
         <div class="deliveryDetails index content card">
             <div class="card-body">
+                <div class="table-responsive">
                 <table class="table table-hover" id="example1">
                     <thead>
                         <tr>
@@ -58,7 +59,7 @@
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
-                </table>
+                </table></div>
             </div>
         </div>
     </div>

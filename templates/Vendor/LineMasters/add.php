@@ -49,18 +49,18 @@
     </div>
     <div class="card-body">
         <div class="row pl-3">
-            <div class="template_file_vendorline" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
+            <div class="template_file_vendorline mt-2" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
             <a href="<?= $this->Url->build('/') ?>webroot/templates/line_master_upload.xlsx" target="_blank"
                     rel="noopener noreferrer" class="bulk_upload"><i class="fa fa-solid fa-file-download pr-2"></i>Master Template
                 </a>
             </div>
-            <div class="pl-2">
+            <div class="pl-2 mt-2">
                 <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                 <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
                 'button', 'label' => 'Upload File', 'class' => 'd-block btn btn-block bg-gradient-button mb-0 file-upld-btn']); ?>
                 <!-- <span id="filessnames"></span> -->
             </div>
-            <div class="col-sm-6 col-md-4 col-lg-2">
+            <div class="col-sm-6 col-md-4 col-lg-2 mt-2">
                 <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
             </div>
             

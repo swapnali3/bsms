@@ -37,7 +37,7 @@
             </ul>
         </div>
 
-        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+        <ul class="order-1 order-lg-3 navbar-nav navbar-no-expand ml-auto">
             <li class="nav-item dropdown show">
                 <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
                     <i class="far fa-bell"></i>
@@ -56,13 +56,13 @@
             </li>
         </ul>
 
-        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+        <ul class="order-1 order-lg-3 navbar-nav navbar-no-expand">
         <li class="nav-item dropdown show">
         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
             <div class="user-panel d-flex">
                 <div class="image">
                     <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2"
-                        alt="User Image" style="box-shadow:none !important;margin-right:15px; ">
+                        alt="User Image" style="box-shadow:none !important;">
                 </div>
             </div>
         </a>

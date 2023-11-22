@@ -10,8 +10,8 @@
 <?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('v_vendorCustom') ?>
 <?= $this->Html->css('v_vendortemp_view') ?>
-<div class="row pt-3">
-    <div class="col-sm-12 col-md-3 col-lg-3">
+<div class="row buyer_profile">
+    <div class="col-sm-12 col-md-12 col-lg-3">
         <div class="card">
             <div class="card-body">
                 <div class="prof-img text-center">
@@ -219,7 +219,7 @@
             <?php endif; ?>
         </div>
     </div>
-    <div class="col-sm-12 col-md-9 col-lg-9">
+    <div class="col-sm-12 col-md-12 col-lg-9">
         <div class="card">
             <div class="card-header">
                 <span class="User_head text-info d-flex justify-content-between align-items-center">
@@ -290,7 +290,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-sm-9">
+                    <div class="col-lg-12 col-sm-12">
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-one-tabContent">
                                 <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"

@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="row align-items-center">
-                    <div class="col-lg-6 d-flex justify-content-start">
+                    <div class="col-sm-6 col-lg-6 d-flex justify-content-start">
                         <h5 class="mb-0"><b>Stock Upload</b></h5>
                     </div>
                     <!-- <div class="col-lg-6 d-flex justify-content-end text-align-end">

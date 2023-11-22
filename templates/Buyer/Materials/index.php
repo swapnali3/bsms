@@ -14,10 +14,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-lg-6 d-flex justify-content-start align-items-center">
+                    <div class="col-sm-6 col-lg-6 d-flex justify-content-start align-items-center">
                         <h5 class="mb-0">Vendor Materials</h5>
                     </div>
-                    <div class="col-lg-6 d-flex justify-content-end text-align-end">
+                    <div class="add-material-btn col-sm-6 col-lg-6 d-flex justify-content-end text-align-end">
                         <a href="<?= $this->Url->build('/') ?>buyer/materials/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn">Add Material</button></a>
                         <!-- <button type="button" id="reload_stocks" class="btn bg-gradient-button mb-0 continue_btn">Refresh min. Stk.</button> -->
                     </div>
@@ -25,6 +25,7 @@
             </div>
 
             <div class="card-body buyer_material">
+                <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered" id="example1">
                     <thead>
                         <tr>
@@ -64,7 +65,7 @@
                             </tr>
                         <?php endif; ?>
                     </tbody>
-                </table>
+                </table></div>
             </div>
         </div>
     </div>
