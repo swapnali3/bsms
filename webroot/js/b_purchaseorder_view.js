@@ -241,6 +241,14 @@ function populateItemData(status, itemData) {
 
 var rowId = "";
 $(document).on("click", ".schedule_item", function () {
+    
+    $(".alert-body").addClass("d-none");
+    $(".a-data").removeClass("d-none");
+    $("#btnClose").addClass("d-none");
+    $(".btnSub").removeClass("d-none");
+    $(".dismiss-btn").show();
+    $(".btn-success").addClass("d-none");
+
     $("#error_msg").html("");
     var id = $(this).attr("footer-id");
     rowId = "id_st"+id;

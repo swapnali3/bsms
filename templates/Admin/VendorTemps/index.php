@@ -4,8 +4,16 @@
  * @var \App\Model\Entity\VendorTemp[]|\Cake\Collection\CollectionInterface $vendorTemps
  */
 ?>
+
+<?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
+<?= $this->Html->css('b_vendortemps_index') ?>
+<?= $this->Html->css('admincss') ?>
+
 <div class="vendorTemps index content">
-    <?= $this->Html->link(__('New Vendor'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <?= $this->Html->link(__('New Vendor'), ['action' => 'add'], ['class' => 'new_vendor_btn button float-right']) ?>
     <h3><?= __('Vendors') ?></h3>
     <div class="table-responsive">
         <table class="table table-bordered">

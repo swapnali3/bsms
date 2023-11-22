@@ -9,8 +9,10 @@
 ?>
 
 <?= $this->Html->css('admincss') ?>
+<?= $this->Html->css('custom_table') ?>
+<?= $this->Html->css('custom') ?>
 <div class="content admin-console">
-  <div class="row">
+  <div class="row buyer-dash">
   <div class="col-sm-12 col-md-3 col-lg-3">
     <div class="card card_box_shadow">
       <div class="card-header">

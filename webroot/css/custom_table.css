@@ -1006,6 +1006,65 @@ th.actions { width: unset !important;}
 
 .buyer_material div.dataTables_wrapper div.dataTables_filter label { text-align: right !important;}
 
+.table thead th a {
+    font-weight: 600 !important;
+    color: #121212 !important;
+    font-size: 12px !important;
+    letter-spacing: .7px !important;
+}
+
+.new_vendor_btn { 
+    background-color: #F7941D !important;
+    color: #121212 !important;
+    padding: 8px 15px !important;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+tr td a { color: #121212 !important;}
+
+.vendorTemps { background-color: #fff !important; padding: 15px  !important;}
+
+.vendorTemps .btn { background-color: #F7941D !important;
+    color: #121212 !important;  border: none !important; margin-top: 10px; }
+
+.po_padding {
+    margin: 10px !important;
+    padding: 10px 15px !important;
+    background-color: #fff;
+}
+
+.side-nav-item {
+    color: #121212;
+    margin-right: 15px;
+    padding: 8px;
+    background-color: #F7941D;
+    color: #121212;
+    border-radius: 5px;
+}
+
+.action-btn {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.related,.accountGroups { margin-top: 20px;}
+
+.side-nav .heading { margin-bottom: 15px;}
+
+.purchasingOrganizations { margin-top: 15px;}
+
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+        tr td,
+        tr th {
+            vertical-align: middle !important;
+        }
+    }
+}
+
 /* Responsive Styling start here */
 
 /* Media query for 1024px start here*/
