@@ -38,6 +38,7 @@ class User extends Entity
         'otp_expiry_date' => true,
         'group_id' => true,
         'sap_user' => true,
+        'status' => true,
         'created' => true,
         'modified' => true,
         'group' => true,
