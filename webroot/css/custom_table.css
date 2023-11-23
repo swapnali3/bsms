@@ -1048,13 +1048,19 @@ tr td a { color: #121212 !important;}
     flex-direction: column;
 }
 
+.padd_ing { margin: 10px;}
 
+.change-buyer-status { padding: 6px 10px; background-color: #F7941D; border-radius: 4px;}
+
+.admin-edit { background-color: #fff; padding: 10px 15px;}
 
 .related,.accountGroups { margin-top: 20px;}
 
 .side-nav .heading { margin-bottom: 15px;}
 
 .purchasingOrganizations { margin-top: 15px;}
+
+.btn_npo { padding: 8px 10px ; background-color: #F7941D; border-radius: 4px; color: #121212; }
 
 @media not all and (min-resolution:.001dpcm) {
     @supports (-webkit-appearance:none) {
