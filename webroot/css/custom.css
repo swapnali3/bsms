@@ -111,10 +111,7 @@ body {
     border-radius: 30px !important;
     margin-left: -10px !important;
     border-color: #eee !important;
-    border-radius: 6px !important;
 }
-
-.schedule_cancel_ok { color: #121212 !important;}
 
 #example1_filter label {
     width: 100% !important;
@@ -216,8 +213,6 @@ table#example1 tr td {
 .deliveryDetails .dataTables_info {
     font-size: 12px;
 }
-
-footer { max-height: 50px !important;}
 
 /* end */
 /* Setting */
