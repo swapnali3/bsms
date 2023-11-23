@@ -16,7 +16,7 @@
     <?= $this->Html->link(__('New Vendor'), ['action' => 'add'], ['class' => 'new_vendor_btn button float-right']) ?>
     <h3><?= __('Vendors') ?></h3>
     <div class="table-responsive">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="tb_pg">
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
@@ -87,7 +87,8 @@
             </tbody>
         </table>
     </div>
-    <div class="paginator">
+    <!-- <div class="paginator">
+    <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
             <?= $this->Paginator->prev('< ' . __('previous')) ?>
@@ -95,6 +96,18 @@
             <?= $this->Paginator->next(__('next') . ' >') ?>
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
+        
+    </div> -->
 </div>
+
+
+
+<script>
+    $(document).ready(function () {
+    $("#tb_pg").DataTable({
+        pagination: true,
+        searching: false,
+        lengthChange: false
+    });
+});
+</script>
