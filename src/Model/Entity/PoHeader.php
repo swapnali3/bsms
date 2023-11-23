@@ -47,5 +47,6 @@ class PoHeader extends Entity
         'added_date' => true,
         'updated_date' => true,
         'po_footers' => true,
+        'acknowledge' => true
     ];
 }

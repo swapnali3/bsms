@@ -24,12 +24,14 @@ $(document).on("click", "#ckbCheckAll", function () {
             if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")); }
             this.checked = true;
             $("#select" + $(this).data("id")).trigger("change");
+            $("#qty" + $(this).data("id")).removeAttr("disabled"); 
         });
     } else {
         $('.checkBoxClass').each(function () {
             $("#qty" + $(this).data("id")).val('0');
             this.checked = false;
             $("#select" + $(this).data("id")).trigger("change");
+            $("#qty" + $(this).data("id")).attr("disabled", "disabled"); 
         });
     }
     if ($('.checkBoxClass:checked').length) { $(".continue_btn").addClass('btn-success').removeAttr('disabled').removeClass('btn-secondary'); }
@@ -37,8 +39,10 @@ $(document).on("click", "#ckbCheckAll", function () {
 });
 
 $(document).on("change", ".checkBoxClass", function () {
-    if ($(this).is(':checked')) { if ($("#qty" + $(this).data("id")).val() == "0" || $("#qty" + $(this).data("id")).val() == "") { $("#qty" + $(this).data("id")).val($(this).data("pendingqty")); } }
-    else { $("#qty" + $(this).data("id")).val(''); }
+    if ($(this).is(':checked')) { if ($("#qty" + $(this).data("id")).val() == "0" || $("#qty" + $(this).data("id")).val() == "") { 
+        $("#qty" + $(this).data("id")).removeAttr("disabled"); 
+        $("#qty" + $(this).data("id")).val($(this).data("pendingqty")); } }
+    else { $("#qty" + $(this).data("id")).attr("disabled", "disabled");  $("#qty" + $(this).data("id")).val(''); }
 });
 
 $(document).on("change", ".checkBoxClass", function () {
@@ -123,7 +127,7 @@ function format(rowData) {
                      <td>`+ actQty + ` ` + val['PoFooters'].order_unit + `</td>
                      <td>`+ curr + `</td>
                      <td>`+ mins + `</td>
-                     <td><input type="number" name="footer_id_qty[]" class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
+                     <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
                     </tr>`;
                 });
                 var thead = `<table class="table table-bordered material-list" id="example2">

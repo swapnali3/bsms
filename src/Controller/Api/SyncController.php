@@ -359,6 +359,8 @@ class SyncController extends ApiAppController
                         $hederData['currency'] = $row->WAERS;
                         $hederData['exchange_rate'] = $row->WKURS;
                         $hederData['release_status'] = $row->FRGZU;
+                        $hederData['acknowledge'] = 0;
+                        
 
                         if($this->PoHeaders->exists(['po_no' => $row->EBELN])) {
                             $poInstance = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
@@ -391,7 +393,7 @@ class SyncController extends ApiAppController
                                     $footerData = $tmp;
                                     if($this->PoFooters->exists(['po_header_id' => $po_header_id, 'item' => $item->EBELP])) {
                                         $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
-                                        $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $hederData);
+                                        $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
                                     }  else {
                                         $poItemsInstance = $this->PoFooters->newEmptyEntity();
                                         $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);

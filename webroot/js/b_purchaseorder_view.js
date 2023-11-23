@@ -380,6 +380,7 @@ $(document).on("click", ".flu", function () {
     var id = $(this).attr("data-id");
     var po_no = $("#schedulebutton_" + id).attr("po-no");
     var item_no = $("#schedulebutton_" + id).attr("item-no");
+    rowId = "id_st"+id;
 
     var response = "";
     if ($(this).data("alt") == "+") {
@@ -661,6 +662,8 @@ $(".schedule_cancel_ok").click(function () {
             if (response.status == "success") {
                 $("#modal-cancel").modal("hide");
                 Toast.fire({ icon: "success", title: response.message });
+                $( "#"+rowId ).trigger( "click" );
+                $( "#"+rowId ).trigger( "click" );
             } else {
                 Toast.fire({ icon: "error", title: response.message });
             }

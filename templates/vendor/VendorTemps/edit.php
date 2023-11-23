@@ -1152,13 +1152,13 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6 col-lg-3">
-                                        <div class="form-group required">
+                                        <div class="form-group">
                                             <label for="id_sigma">Six Sigma</label>
                                             <textarea id="id_vendor_otherdetails_six_sigma" name="otherdetails[six_sigma]"
                                                 cols="30" rows="1" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3 required">
+                                    <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label">Upload File</label>
                                         <div class="custom-file">
                                             <input name="otherdetails[six_sigma_file]"
@@ -1168,13 +1168,13 @@
                                         </div>
                                         <a class="id_vendor_otherdetails_six_sigma_file"></a>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-3 required">
+                                    <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label>Registration No.</label>
-                                        <input required="required" type="number" id="id_vendor_otherdetails_iso"
+                                        <input type="number" id="id_vendor_otherdetails_iso"
                                             class="form-control other_details_iso" name="otherdetails[iso]">
                                     </div>
 
-                                    <div class="col-sm-12 col-md-6 col-lg-3 required">
+                                    <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label class="form-label">ISO Registration / Certificate</label>
                                         <div class="custom-file">
                                             <input name="otherdetails[iso_file]"
