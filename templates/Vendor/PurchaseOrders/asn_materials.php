@@ -525,9 +525,19 @@
     });
 
     $("#Create-btn").click(function () {
-      if ($("#asnForm").valid()) { // Check form validation
-        $('#modal-confirm').modal('show'); // Show the modal
+      var currentDate = new Date();
+      var inputDate = new Date($("#invoice-date").val());
+      if(inputDate > currentDate){
+        if ($("#asnForm").valid()) { // Check form validation
+          $('#modal-confirm').modal('show'); // Show the modal
+        }
+      } else {
+        Toast.fire({ icon: "error", title: 'Past Invoice Date Restricted' });
       }
+
+      /*if ($("#asnForm").valid()) { // Check form validation
+        $('#modal-confirm').modal('show'); // Show the modal
+      }*/
     });
     // 
     $('#modal-confirm').on('click', '.btn-success', function () {

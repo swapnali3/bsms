@@ -410,8 +410,10 @@ $(document).on("click", ".flu", function () {
                     var currentDate = new Date().toISOString().split('T')[0];
                     var deliveryDate = val.delivery_date;
 
+                    var dt = val.delivery_date.split('-');
+                    delDt = dt[2] + "-" + dt[1] +"-" +dt[0];
 
-                    var updateButton = val.received_qty > 0 ? '' : `<span class="badge schedule_update_button lbluebadge mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + val.delivery_date + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `' data-target='#modal-sm'  title="Modify" data-original-title="Modify"><i class="fas fa-user-edit"></i></span>`;
+                    var updateButton = val.received_qty > 0 ? '' : `<span class="badge schedule_update_button lbluebadge mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + delDt + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `' data-target='#modal-sm'  title="Modify" data-original-title="Modify"><i class="fas fa-user-edit"></i></span>`;
 
                     var status = val.received_qty > 0 ? 'Received' : 'Schedule'
 
@@ -608,12 +610,13 @@ $(document).ready(function () {
 // =================================PurchaseOrder Update schedule ===============================
 
 $(document).on("click", ".schedule_update_button", function () {
+    var today = new Date().toISOString().slice(0, 10);
     $("#modal-sm").modal("show");
     var sid = $(this).attr("schedue-id");
     $(".schedule_button").attr("data-id", sid);
 
     var delivery_date = $(this).attr("delivery_date");
-    $("#delivery_dates").val(delivery_date);
+    $("#delivery_dates").val(delivery_date).attr('min', today);
 
     var po = $(this).attr("data-po");
     $("#schedule_po").text(po);
@@ -626,25 +629,38 @@ $(document).on("click", ".schedule_update_button", function () {
 });
 
 $(document).on("click", ".schedule_button", function () {
-    $.ajax({
-        type: "POST",
-        url: create_schedule_update + $(this).attr("data-id"),
-        data: $("#scheduleUpdate").serialize(),
-        dataType: "json",
-        beforeSend: function () { $("#gif_loader").show(); },
-        success: function (response) {
-            console.log(response);
-            if (response.status == "success") {
-                $("#modal-sm").modal("hide");
-                Toast.fire({ icon: "success", title: response.message });
-                $( "#"+rowId ).trigger( "click" );
-                $( "#"+rowId ).trigger( "click" );
-            } else {
-                Toast.fire({ icon: "error", title: response.message });
-            }
-        },
-        complete: function () { $("#gif_loader").hide(); }
-    });
+    if (
+        $("#delivery_dates").val() == null ||
+        $("#delivery_dates").val() == undefined ||
+        $("#delivery_dates").val() == ""
+    ) {
+        $("#error_msg_update").text("Schedule Date Mandatory");
+        $("#delivery_dates").focus();
+    } else {
+        var currentDate = new Date();
+        var inputDate = new Date($("#delivery_dates").val());
+        if (inputDate > currentDate) {
+            $.ajax({
+                type: "POST",
+                url: create_schedule_update + $(this).attr("data-id"),
+                data: $("#scheduleUpdate").serialize(),
+                dataType: "json",
+                beforeSend: function () { $("#gif_loader").show(); },
+                success: function (response) {
+                    console.log(response);
+                    if (response.status == "success") {
+                        $("#modal-sm").modal("hide");
+                        Toast.fire({ icon: "success", title: response.message });
+                        $( "#"+rowId ).trigger( "click" );
+                        $( "#"+rowId ).trigger( "click" );
+                    } else {
+                        Toast.fire({ icon: "error", title: response.message });
+                    }
+                },
+                complete: function () { $("#gif_loader").hide(); }
+            });
+        } else { Toast.fire({ icon: "error", title: 'Past Date Restricted' }); }
+    }
     // return false;
 });
 
@@ -698,12 +714,19 @@ $(".btnSub").click(function (event) {
 
     if (status) {
         $(".dly_dt").each(function (key, obj) {
+            var inputDate = new Date($(obj).val());
+            var currentDate = new Date();
             if (
                 $(obj).val() == null ||
                 $(obj).val() == undefined ||
                 $(obj).val() == ""
             ) {
                 $("#error_msg").text("Schedule Date Mandatory");
+                status = false;
+                $(obj).focus();
+            }
+            else if (inputDate < currentDate) {
+                $("#error_msg").text("Past Schedule Restricted");
                 status = false;
                 $(obj).focus();
             }

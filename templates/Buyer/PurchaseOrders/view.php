@@ -195,7 +195,7 @@
             </tbody>
           </table>
         </div>
-        <div id="error_msg" class="text-danger"></div>
+        <div id="error_msg_update" class="text-danger"></div>
 
       </div>
       <div class="modal-footer">
