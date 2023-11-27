@@ -328,7 +328,10 @@ class PurchaseOrdersController extends BuyerAppController
         $response['message'] = '';
         $this->autoRender = false;
 
+        $this->loadModel('PoHeaders');
+        $this->loadModel("Notifications");
         $this->loadModel("PoItemSchedules");
+        $this->loadModel("VendorTemps");
 
 
         // $flash = [];
@@ -340,6 +343,50 @@ class PurchaseOrdersController extends BuyerAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $this->request->getData());
             if ($this->PoItemSchedules->save($PoItemSchedule)) {
+                
+                $sapVendorcode = $this->PoHeaders->find()
+                        ->select(['sap_vendor_code'])
+                        ->where(['id' => $PoItemSchedule->po_header_id])
+                        ->first();
+
+                        $vendorRecord = $this->VendorTemps->find()
+                        ->where(['sap_vendor_code' => $sapVendorcode->sap_vendor_code])
+                        ->first();
+
+                $filteredBuyers = $this->VendorTemps->find()
+                            ->select(['VendorTemps.id','user_id'=> 'Users.id'])
+                            ->innerJoin(['Users' => 'users'], ['Users.username = VendorTemps.email'])
+                            ->where(['VendorTemps.id' => $vendorRecord['id']]);
+
+                            foreach ($filteredBuyers as $buyer) {
+                                $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'Schedule Updated'])->first();
+                                if ($n) {
+                                    $n->Notifications = 'Schedule Updated';
+                                    $n->message_count = $n->message_count+1;
+                                } else {
+                                    $n = $this->Notifications->newEntity([
+                                        'user_id' => $buyer->user_id,
+                                        'notification_type' => 'Schedule Updated',
+                                        'message_count' => '1',
+                                    ]);
+                                }
+                                $this->Notifications->save($n);
+                            }
+
+
+                            $visit_url = Router::url('/', true);
+                            $mailer = new Mailer('default');
+                            $mailer
+                                ->setTransport('smtp')
+                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A new PO has been schedule. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                ->setTo($vendorRecord->email)
+                                ->setEmailFormat('html')
+                                ->setSubject('Vendor Portal - Schedule Updated')
+                                ->viewBuilder()
+                                    ->setTemplate('mail_template');
+                            $mailer->deliver();
+
                 $response['status'] = 'success';
                 $response['message'] = 'Delivery Date Update.';
             } else {

@@ -2,7 +2,7 @@ $("#newrfqlist").DataTable({
     "responsive": false, "lengthChange": false, "autoWidth": false,
     "ordering": false,
     "searching": false,
-    "paging": false
+    "paging": true
 
   });
 
@@ -10,7 +10,7 @@ $("#newrfqlist").DataTable({
     "responsive": false, "lengthChange": false, "autoWidth": false,
     "ordering": false,
     "searching": false,
-    "paging": false
+    "paging": true
 
   });
 

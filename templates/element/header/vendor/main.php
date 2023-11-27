@@ -56,7 +56,7 @@
                             <?= $this->Html->link(__('Line Master'), ['controller' => 'line-masters', 'action' => 'index'], ['class' => "nav-link $lineMaster", 'escape' => false]) ?>
                           </li>
                           <li class="nav-item ">
-                            <?= $this->Html->link(__('Stocks Upload'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+                            <?= $this->Html->link(__('Opening Stock'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
                           </li>
                           <li class="nav-item ">
                             <?= $this->Html->link(__('Production Line'), ['controller' => 'ProductionLines', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>

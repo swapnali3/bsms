@@ -254,6 +254,7 @@
             title: response.message,
           });
           $('.notify').hide();
+          $('#example2 tr').removeAttr('style');
           $('#' + id).data('flag', 1);
         } else {
           Toast.fire({

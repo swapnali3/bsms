@@ -224,7 +224,7 @@ class ProductionLinesController extends VendorAppController
 
         $materials = [];
         foreach($materialList as $mat) {
-            $materials[] = ['prod_line' => $mat->id,'id' => $mat->material->id, 'description' => $mat->material->description, 'capacity' => $mat->capacity];
+            $materials[] = ['prod_line' => $mat->id,'id' => $mat->material->id, 'code' => $mat->material->code, 'description' => $mat->material->description, 'capacity' => $mat->capacity];
         }
 
         $response['status'] = 1;

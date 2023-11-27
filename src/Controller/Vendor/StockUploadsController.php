@@ -32,24 +32,29 @@ class StockUploadsController extends VendorAppController
 
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('vendor_id');
-        /*$stockupload = $this->StockUploads->find('all', [
-            'conditions' => ['StockUploads.sap_vendor_code' => $session->read('vendor_code')]
-        ])->select([
-            'id', 'opening_stock', 'material_id', 'sap_vendor_code', 'added_date', 'updated_date',
-            'vm_description' => 'vm.description', 'vm_vendor_code' => 'vm.code', 'vm.uom',
-        ])->join([
-            'table' => 'materials',
-            'alias' => 'vm',
-            'type' => 'LEFT',
-            'conditions' => 'vm.id = StockUploads.material_id',
-        ])->toArray(); */
-        // echo '<pre>';print_r($stockupload);exit;
+        $this->loadModel('AsnFooters');
 
         $stockupload = $this->StockUploads->find('all')->contain(['Materials', 'VendorFactories'])
         ->where(['StockUploads.sap_vendor_code' => $session->read('vendor_code')])
         ->toArray();
 
 
+        //echo '<pre>'; prin
+        $intransitMaterials = $this->AsnFooters->find('all')
+        ->select(['vendor_factory_id' => 'VendorFactories.id', 'material' => 'PoFooters.material', 'qty' => 'sum(AsnFooters.qty)'])
+        ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
+        ->where(['AsnHeaders.status in ' => ['1','2'], 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')])
+        ->group(['VendorFactories.id','PoFooters.material'])->toArray();
+
+        foreach($stockupload as &$stock) {
+            foreach($intransitMaterials as $asn) {
+                if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material->code == $asn->material) {
+                    $stock->asn_stock = $asn->qty;
+                    $stock->current_stock = ($stock->opening_stock + $stock->production_stock) - $stock->asn_stock;
+                }
+            }
+        }
+        
         $this->set(compact('stockupload'));
     }
 

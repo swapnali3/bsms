@@ -637,6 +637,8 @@ $(document).on("click", ".schedule_button", function () {
             if (response.status == "success") {
                 $("#modal-sm").modal("hide");
                 Toast.fire({ icon: "success", title: response.message });
+                $( "#"+rowId ).trigger( "click" );
+                $( "#"+rowId ).trigger( "click" );
             } else {
                 Toast.fire({ icon: "error", title: response.message });
             }

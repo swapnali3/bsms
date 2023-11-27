@@ -132,6 +132,7 @@
               <tr>
                 <th>Factory</th>
                 <th>Material</th>
+                <th>Description </th>
                 <th>Opening Stock</th>
                 <th>Production Stock</th>
                 <th>ASN / IN transit</th>
@@ -143,11 +144,12 @@
                 <?php foreach($stocks as $stock) :  ?>
                 <tr>
                 <td><?= ($stock->vendor_factory) ? $stock->vendor_factory->factory_code : '-'; ?></td>
+                <td><?= $stock->material->code; ?></td>
                 <td><?= $stock->material->description; ?></td>
-                <td><?= $stock->opening_stock; ?></td>
-                <td><?= $stock->production_stock; ?></td>
-                <td><?= $stock->asn_stock; ?></td>
-                <td><?= $stock->closing_stock; ?></td>
+                <td><?= $stock->opening_stock . ' '. $stock->material->uom; ?></td>
+                <td><?= $stock->production_stock . ' '. $stock->material->uom; ?></td>
+                <td><?= $stock->asn_stock . ' '. $stock->material->uom; ?></td>
+                <td><?= $stock->current_stock . ' '. $stock->material->uom; ?></td>
               </tr>
               <?php endforeach; ?>
               <?php else :?>

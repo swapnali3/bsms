@@ -393,6 +393,7 @@ class SyncController extends ApiAppController
                                     $footerData = $tmp;
                                     if($this->PoFooters->exists(['po_header_id' => $po_header_id, 'item' => $item->EBELP])) {
                                         $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
+                                        $footerData['is_updated'] = 1;
                                         $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
                                     }  else {
                                         $poItemsInstance = $this->PoFooters->newEmptyEntity();

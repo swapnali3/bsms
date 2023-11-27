@@ -313,6 +313,7 @@ class StockUploadsController extends BuyerAppController
                                 $datas['line_item'] = $value;
                             }
                              else if ($col == 5) {
+                                $value = trim($value);
                                 $materials = $this->Materials->find('all')
                                 ->select(['id', 'code'])
                                 ->where(['code IN' => $value, 'sap_vendor_code' => $tmp['sap_vendor_code']])->first();
@@ -321,9 +322,12 @@ class StockUploadsController extends BuyerAppController
                                 $datas['material'] = $value;
                                 if(!$tmp['material_id']) {
                                     $matError = true;
-                                    $datas['error'] = 'Invalid material';
+                                    $datas['error'] = 'Material not found';
                                 } else {
-                                    if ($this->Dailymonitor->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id']])) { 
+                                    if ($this->StockUploads->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id']])) { 
+                                        $matError = true;
+                                        $datas['error'] = 'Stock exists';
+                                    } else if ($this->Dailymonitor->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id']])) { 
                                         $matError = true;
                                         $datas['error'] = 'Production Detail Exists';
                                     }

@@ -59,6 +59,7 @@ class PurchaseOrdersController extends VendorAppController
         $session = $this->getRequest()->getSession();
 
         $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
         $this->loadModel('VendorTemps');
         $this->loadModel('Users');
         $this->loadModel('Buyers');
@@ -75,6 +76,7 @@ class PurchaseOrdersController extends VendorAppController
             $poHeader->acknowledge_no = time(); 
             $poHeader->acknowledge_date = date('Y-m-d H:i:s'); 
             if($this->PoHeaders->save($poHeader)) {
+                $this->PoFooters->updateAll(['is_updated' => 0], ['po_header_id' => $id]);
                 $filteredBuyers = $this->Buyers->find()
                 ->select(['Buyers.id','user_id'=> 'Users.id', 'email'])
                 ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
@@ -676,7 +678,7 @@ class PurchaseOrdersController extends VendorAppController
         $this->loadModel('VendorFactories');
 
         $data = $this->PoHeaders->find('all')
-            ->select(['PoHeaders.id', 'PoHeaders.sap_vendor_code', 'PoHeaders.po_no', 'PoHeaders.document_type', 'PoHeaders.created_by', 'created_date' => 'date_format(PoHeaders.created_on, "%d-%m-%Y")', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'date_format(PoItemSchedules.delivery_date, "%d-%m-%Y")', 'current_stock' => 'StockUploads.current_stock', 'minimum_stock' => 'Materials.minimum_stock'])
+            ->select(['PoHeaders.id', 'PoHeaders.sap_vendor_code', 'PoHeaders.po_no', 'PoHeaders.document_type', 'PoHeaders.created_by', 'created_date' => 'date_format(PoHeaders.created_on, "%d-%m-%Y")', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'date_format(PoItemSchedules.delivery_date, "%d-%m-%Y")', 'current_stock' => 'StockUploads.current_stock', 'minimum_stock' => 'Materials.minimum_stock', 'is_expired' => 'if(delivery_date < CURDATE() , "1" , "0")'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
             ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
@@ -778,7 +780,7 @@ class PurchaseOrdersController extends VendorAppController
         //$data = $this->PoFooters->find('all', ['conditions' => ['po_header_id' => $id]]);
 
         $data = $this->PoHeaders->find('all')
-            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.po_qty', 'PoFooters.net_price', 'PoFooters.net_value'])
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.po_qty', 'PoFooters.net_price', 'PoFooters.net_value', 'PoFooters.is_updated'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->where(['PoHeaders.id' => $id]);
 
@@ -806,7 +808,11 @@ class PurchaseOrdersController extends VendorAppController
             $totalQty = 0;
             foreach ($data as $row) {
                 //print_r($row); exit;
-                $html .= '<tr>
+                $style="";
+                if($row->PoFooters['is_updated']) {
+                    $style = "style='background-color:red;'";
+                }
+                $html .= '<tr '.$style.'>
 
                  <td>' . $row->PoFooters['item'] . '</td>
                  <td>' . $row->PoFooters['material'] . '</td>

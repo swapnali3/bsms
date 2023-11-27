@@ -15,7 +15,7 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-sm-6 col-lg-6 d-flex justify-content-start">
-                        <h5 class="mb-0"><b>Stock Upload</b></h5>
+                        <h5 class="mb-0"><b>Material Stocks</b></h5>
                     </div>
                     <!-- <div class="col-lg-6 d-flex justify-content-end text-align-end">
                         <a href="<?= $this->Url->build('/') ?>vendor/stock-uploads/add"><button type="button"
@@ -33,6 +33,9 @@
                             <th>Material</th>
                             <th>Material Description</th>
                             <th>Opening Stock</th>
+                            <th>Production Stock</th>
+                            <th>ASN qty</th>
+                            <th>Current Stock</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,6 +56,15 @@
                             </td>
                             <td>
                                 <?= h($stockuploads->opening_stock . ' '. $stockuploads->material->uom) ?>
+                            </td>
+                            <td>
+                                <?= h($stockuploads->production_stock . ' '. $stockuploads->material->uom) ?>
+                            </td>
+                            <td>
+                                <?= h($stockuploads->asn_stock . ' '. $stockuploads->material->uom) ?>
+                            </td>
+                            <td>
+                                <?= h($stockuploads->current_stock . ' '. $stockuploads->material->uom) ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

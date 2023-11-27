@@ -189,7 +189,7 @@ $("#production-line-id").change(function () {
                 success: function (response) {
                     if (response.status) {
                         $.each(response.data.materials, function (key, val) { 
-                            $("#material-id").append("<option value='"+val.id+"' prod-line='"+val.prod_line+"' data-capacity='"+val.capacity+"'>"+val.description+"</option>");
+                            $("#material-id").append("<option value='"+val.id+"' prod-line='"+val.prod_line+"' data-capacity='"+val.capacity+"'>"+val.code +" - "+val.description+"</option>");
                         });
                     }
                 },
@@ -207,7 +207,7 @@ $("#production-line-id").change(function () {
         var capacity = $('option:selected', this).attr("data-capacity");
         var line = $('option:selected', this).attr("prod-line");
         console.log(capacity);
-        $("#target-production").val(capacity);
+        //$("#target-production").val(capacity);
         $("#prod-line").val(line);
     });
 

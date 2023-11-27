@@ -54,25 +54,22 @@ $(document).on("change", ".checkBoxClass", function () {
 
 $(document).on("change focusout", ".check_qty", function () { if ($(this).val() > $(this).data('max')) { $(this).val($(this).data('max')) } });
 
-$('.search-box').on('keypress', function (event) {
-    if (event.which === 13) {
-        var searchName = $(this).closest('.search-bar').find('.search-box').val();
-        $(".right-side tbody:first").empty().hide().append(`<tr><td colspan="6" class="text-center"><p>No data found !</p></td></tr>`);
-        poform(searchName);
-        return false;
-    }
-});
 
-$('.search-box').on('keydown', function (event) {
-    if (event.which === 8) {
-        // Check if Backspace key is pressed 
-        var searchName = $(this).closest('.search-bar').find('.search-box').val();
-        if (searchName.length === 1) {
-            $(".right-side tbody:first").empty().hide();
-            poform(searchName);
-        }
-    }
-});
+
+$('.search-box').on('keyup', function (event) {
+    //if (event.which === 13) {
+      var searchName = $(this).val();
+      $(".related tbody").empty().append(`<tr>
+          <td colspan="7" class="text-center">
+            <p>No data found !</p>
+          </td>
+        </tr>`);
+        searchPo(searchName);
+      //return false;
+    //}
+  });
+
+
 
 function format(rowData) {
     $.ajax({
@@ -107,19 +104,23 @@ function format(rowData) {
 
                 var tbody = ``;
                 $.each(response.data, function (key, val) {
-                    var curr = (val.current_stock == null ? 0 : val.current_stock);
-                    var mins = (val.minimum_stock == null ? 0 : val.minimum_stock);
+                    var curr = (val.current_stock == null ? 0 : parseFloat(val.current_stock));
+                    var mins = (val.minimum_stock == null ? 0 : parseFloat(val.minimum_stock));
+                    var isExpired = (val.is_expired == null ? 0 : val.is_expired);
                     var actQty = parseFloat(val.actual_qty);
                     maxQty = actQty + actQty * 0.05;
                     if (maxQty > curr || curr == 0) { maxQty = curr; }
                     var chekbox = ``;
-                    if (curr != 0) {
+                    var style="";
+                    if(isExpired == "1") {
+                        var style="style='background-color:red;'";
+                    }else if (curr != 0) {
                         chekbox = `<input type="checkbox" name="footer_id[]" value="` + val['PoFooters'].id + `" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="` + val.actual_qty + `" data-id="` + val['PoItemSchedules'].id + `">`;
                     }
                     if (val.minimum_stock == null) { mins = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Minimum Stock"></i>` }
                     if (val.current_stock == null) { curr = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Current Stock"></i>` }
                     else if (curr <= mins) { curr = `<i class="text-warning fas fa-exclamation-triangle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Maintain Minimum Stock"></i> &nbsp; ` + curr }
-                    tbody += `<tr><td>` + chekbox + `</td>
+                    tbody += `<tr `+style+`><td>` + chekbox + `</td>
                      <td>`+ val['PoFooters'].item + `</td>
                      <td>`+ val['PoFooters'].material + `</td>
                      <td>` + val.delivery_date + `</td>
@@ -130,6 +131,7 @@ function format(rowData) {
                      <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
                     </tr>`;
                 });
+
                 var thead = `<table class="table table-bordered material-list" id="example2">
                 <thead>
                     <tr>
@@ -180,6 +182,28 @@ function poform(search = "", createAsn = "as") {
     });
 }
 
+function searchPo(search = "") {
+    $("#poItemss").html('');
+    $(".right-side tbody:first").show();
+    $.ajax({
+        type: "GET",
+        url: get_po_for_asn + "/" +search,
+        dataType: 'json',
+        beforeSend: function () { $("#gif_loader").show(); },
+        success: function (response) {
+            if (response.status) {
+                $.each(response.data, function (key, val) {
+                    $("#poItemss").append(`<div class="po-box details-control  ponum" header-id="` + val.id + `">
+                                            <p class="po-no mb-0">PO No.</p>
+                                            <b class="text-info">` + val.po_no + `</b>
+                                        </div>`);
+                });
+                $('div.details-control:first').click();
+            }
+        },
+        complete: function () { $("#gif_loader").hide(); }
+    });
+}
 
 $(document).ready(function () {
     poform();

@@ -123,7 +123,7 @@
       <?= $this->Html->link(__('<i class="fas fa-industry nav-icon"></i><p>Line Master</p>'), ['controller' => 'line-masters', 'action' => 'index'], ['class' => "nav-link $lineMaster", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Opening Stock</p>'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
       <?= $this->Html->link(__('<i class="fas fa-sitemap nav-icon"></i><p>Production Line</p>'), ['controller' => 'ProductionLines', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
