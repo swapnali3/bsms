@@ -170,7 +170,7 @@
               <i class="fas fa-truck text-info received_icon"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'delivery-details']) ?>" class="product-title">Received</a>
+              <a href="#" class="product-title">Received</a>
               <span class="p-value">
               <?= h(isset($asnDashboardCount['3']) ? $asnDashboardCount['3'] : 0) ?>
               </span>

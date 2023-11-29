@@ -35,13 +35,24 @@ class PurchaseOrdersController extends BuyerAppController
     {
         $this->set('headTitle', 'Purchase Order List');
         $this->loadModel('PoFooters');
-        $this->paginate = ['contain' => ['PoHeaders', 'PoItemSchedules'], 'order' => ['PoFooters.po_header_id asc, PoFooters.item asc']];
-            
-        $poHeaders = $this->paginate($this->PoFooters);
+        $this->loadModel('AsnHeaders');
+        $this->loadModel('AsnFooters');
 
-        //echo '<prE>'; print_r($poHeaders); exit;
+        //$this->paginate = ['contain' => ['PoHeaders', 'PoItemSchedules'], 'order' => ['PoFooters.po_header_id asc, PoFooters.item asc']];
+        //$poHeaders = $this->paginate($this->PoFooters);
 
-        $this->set(compact('poHeaders'));
+        $conn = ConnectionManager::get('default');
+        $poReportData = $conn->execute('select po_headers.sap_vendor_code, po_no, item, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, 
+        po_item_schedules.actual_qty, po_item_schedules.received_qty,po_item_schedules.delivery_date, a.asn_no, a.status  from po_headers
+        join po_footers on po_footers.po_header_id = po_headers.id
+        left join materials on materials.code = po_footers.material
+        left join po_item_schedules on po_item_schedules.po_header_id = po_headers.id and po_item_schedules.po_footer_id = po_footers.id
+        left join asn_footers on asn_footers.po_schedule_id=po_item_schedules.id  and asn_footers.po_footer_id = po_footers.id
+        left join (select asn_headers.status, asn_no, po_header_id, asn_footers.id as asn_footer_id, po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_headers.id and asn_footer_id = asn_footers.id');
+        
+        //echo '<prE>'; print_r($poReportData); exit;
+
+        $this->set(compact('poReportData'));
     }
 
     public function view()
@@ -92,7 +103,8 @@ class PurchaseOrdersController extends BuyerAppController
                     ['PoFooters.short_text LIKE' => '%' . $search . '%'],
                     ['V.name LIKE' => '%' . $search . '%'],
                     ['V.sap_vendor_code LIKE' => '%' . $search . '%'],
-                ]
+                ],
+                ['PoHeaders.created_on >= now()-interval 3 month']
             ])->order(['PoHeaders.created_on' => 'desc']);
 
         //echo '<pre>';print_r($data);exit;
@@ -456,8 +468,9 @@ class PurchaseOrdersController extends BuyerAppController
         $this->autoRender = false;
         $this->loadModel("PoItemSchedules");
         $response = ['status' => 0, 'message' => '', 'totalQty' => ''];
-        $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id, 'status' => 1]]);
-
+        $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id, 'status' => 1, 'PoItemSchedules.id not in (select po_schedule_id from asn_footers where po_footer_id ='.$id.')']]);
+        
+        //print_r($data); exit;
         if ($data->count() > 0) {
             $totalQty = 0;
             foreach ($data as $row) {

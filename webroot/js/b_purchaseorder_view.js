@@ -639,7 +639,7 @@ $(document).on("click", ".schedule_button", function () {
     } else {
         var currentDate = new Date();
         var inputDate = new Date($("#delivery_dates").val());
-        if (inputDate > currentDate) {
+        if (inputDate >= currentDate) {
             $.ajax({
                 type: "POST",
                 url: create_schedule_update + $(this).attr("data-id"),

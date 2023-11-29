@@ -21,8 +21,8 @@
                             <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 pb-1">
-                        <div class="action-btn d-flex justify-content-end continue-btn">
+                    <div class="col-sm-12 col-md-6 pb-1 d-flex justify-content-end">
+                        <div class="action-btn  continue-btn">
                             <!-- <input type="file" id="imgupload" style="display:none" />
                             <button id="OpenImgUpload" type="button" class="btn bg-gradient-button mr-2">
                                 <i class="fa fa-solid fa-file-import"></i>

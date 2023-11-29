@@ -39,126 +39,88 @@
                             <th>Gross Value</th>
                             <th>Actual Qty</th>
                             <th>Received Qty</th>
+                            <th>ASN No</th>
                             <th>Delivery Date</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (isset($poHeaders)) : ?>
-                            <?php foreach ($poHeaders as $material) : 
-                                if(count($material->po_item_schedules)) : 
-                                    foreach($material->po_item_schedules as $schedule) : ?>
+                        <?php if (isset($poReportData)) : ?>
+                            <?php foreach ($poReportData as $material) : 
+                                        //echo '<pre>'; print_r($material); exit;
+                                ?>
                                         <tr>
                                             <td>
-                                                <?= h($material->po_header->sap_vendor_code) ?>
+                                                <?= h($material['sap_vendor_code']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->po_header->po_no) ?>
+                                                <?= h($material['po_no']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->item) ?>
+                                                <?= h($material['item']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->material) ?>
+                                                <?= h($material['material']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->short_text) ?>
+                                                <?= h($material['short_text']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->po_qty) ?>
+                                                <?= h($material['po_qty']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->grn_qty) ?>
+                                                <?= h($material['grn_qty']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->pending_qty) ?>
+                                                <?= h($material['pending_qty']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->order_unit) ?>
+                                                <?= h($material['order_unit']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->net_price) ?>
+                                                <?= h($material['net_price']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->price_unit) ?>
+                                                <?= h($material['price_unit']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->net_value) ?>
+                                                <?= h($material['net_value']) ?>
                                             </td>
                                             <td>
-                                                <?= h($material->gross_value) ?>
+                                                <?= h($material['gross_value']) ?>
                                             </td>
                                             <td>
-                                                <?= h($schedule->actual_qty)?> 
+                                                <?= h($material['actual_qty'])?> 
                                             </td>
                                             <td>
-                                                <?= h($schedule->received_qty)?>
+                                                <?= h($material['received_qty'])?>
                                             </td>
                                             <td>
-                                                <?= h($schedule->delivery_date->i18nFormat('dd-MM-YYYY'))?>
+                                                <?= h($material['asn_no'])?>
                                             </td>
                                             <td>
-                                                <?php if($schedule->received_qty == 0) : ?>
-                                                        Scheduled
-                                                <?php elseif($schedule->received_qty < $schedule->actual_qty) : ?>
-                                                    Partial
-                                                <?php else : ?>
-                                                    Received
-                                                <?php endif ?>
+                                                <?= h($material['delivery_date'] ? date('d-m-y', strtotime($material['delivery_date'])): '')?>
+                                            </td>
+                                            <td>
+                                                <?php 
+                                                $status = '';
+                                                if($material['status'] == 3) {
+                                                    $status = 'Received';
+                                                }else if($material['status'] == 2) {
+                                                    $status = 'In-Transit';
+                                                } else if(!$material['delivery_date']) {
+                                                    $status = '';
+                                                }else if($material['received_qty'] == 0) {
+                                                    $status = 'Scheduled';
+                                                }else if($material['received_qty'] < $material['actual_qty']) {
+                                                    $status = 'Partial ASN created';
+                                                } else {
+                                                    $status = 'ASN created';
+                                                }
+                                                echo $status;
+                                                ?>
                                             </td>
                                         </tr>
-                                <?php 
-                                    endforeach;?>
-
-                                <?php else : ?>
-
-                                    <tr>
-                                            <td>
-                                                <?= h($material->po_header->sap_vendor_code) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->po_header->po_no) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->item) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->material) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->short_text) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->po_qty) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->grn_qty) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->pending_qty) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->order_unit) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->net_price) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->price_unit) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->net_value) ?>
-                                            </td>
-                                            <td>
-                                                <?= h($material->gross_value) ?>
-                                            </td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                        </tr>
-                                        
-                                <?php endif?>
                             <?php 
                         endforeach; ?>
                         <?php else : ?>

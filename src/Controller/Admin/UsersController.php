@@ -74,6 +74,13 @@ class UsersController extends AdminAppController
             $response = array();
             $response['status'] = 0;
             $response['message'] = '';
+
+            if(!$this->checkUserLimit()) {
+                $response['status'] = 0;
+                $response['message'] = 'Allowed 25 active user has been exceeded, please contact authorized person.';
+                echo json_encode($response); exit;
+            }
+            
             try {
                 $sapUser = strtoupper($this->request->getData('sap_user'));
                 if (!$this->Buyers->exists(['sap_user' => $sapUser])) { 
@@ -126,6 +133,13 @@ class UsersController extends AdminAppController
             $response = array();
             $response['status'] = 0;
             $response['message'] = '';
+
+            if(!$this->checkUserLimit()) {
+                $response['status'] = 0;
+                $response['message'] = 'Allowed 25 active user has been exceeded, please contact authorized person.';
+                echo json_encode($response); exit;
+            }
+
             try {
                 $data = $this->request->getData();
                 if (!$this->Users->exists(['username' => $data['email']])) { 
@@ -187,5 +201,16 @@ class UsersController extends AdminAppController
 
         echo json_encode($response); exit;
 
+    }
+
+    private function checkUserLimit() {
+        $limit = 25;
+        $this->loadModel('Users');
+        $userList = $this->Users->find('all')->where(['group_id in (2,4)']);
+        if($userList->count() <= $limit) {
+            return true;
+        }
+
+        return false;
     }
 }
