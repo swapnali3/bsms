@@ -240,7 +240,7 @@ class LineMastersController extends VendorAppController
 
         $materials = [];
         foreach($materialList as $mat) {
-            $materials[] = ['id' => $mat->material->id, 'description' => $mat->material->description];
+            $materials[] = ['id' => $mat->material->id, 'code'=>$mat->material->code, 'description' => $mat->material->code .' - '. $mat->material->description];
         }
 
         $response['status'] = 0;

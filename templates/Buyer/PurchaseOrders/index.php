@@ -37,8 +37,8 @@
                             <th>Price Unit</th>
                             <th>Net Value</th>
                             <th>Gross Value</th>
-                            <th>Actual Qty</th>
-                            <th>Received Qty</th>
+                            <th>Schedule Qty</th>
+                            <th>ASN Qty</th>
                             <th>ASN No</th>
                             <th>Delivery Date</th>
                             <th>Status</th>

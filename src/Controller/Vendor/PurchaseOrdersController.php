@@ -780,13 +780,20 @@ class PurchaseOrdersController extends VendorAppController
         //$data = $this->PoFooters->find('all', ['conditions' => ['po_header_id' => $id]]);
 
         $data = $this->PoHeaders->find('all')
-            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.po_qty', 'PoFooters.net_price', 'PoFooters.net_value', 'PoFooters.is_updated'])
+            ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text','PoFooters.grn_qty','PoFooters.pending_qty', 'PoFooters.order_unit', 'PoFooters.po_qty', 'PoFooters.net_price', 'PoFooters.net_value', 'PoFooters.is_updated'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->where(['PoHeaders.id' => $id]);
 
+            $conn = ConnectionManager::get('default');
+            $asnQty = $conn->execute("select item, sum(po_item_schedules.received_qty) as qty from po_headers
+        join po_footers on po_footers.po_header_id = po_headers.id
+        left join po_item_schedules on po_item_schedules.po_header_id = po_headers.id and po_item_schedules.po_footer_id = po_footers.id
+        where po_headers.id=$id group by po_footers.item");
 
-
-        //echo '<pre>'; print_r($data); exit;
+        $matAsnQty = [];
+        foreach($asnQty as $qty) {
+            $matAsnQty[$qty['item']] = doubleval($qty['qty']);
+        }
 
         $html = '';
         if ($data->count() > 0) {
@@ -812,15 +819,17 @@ class PurchaseOrdersController extends VendorAppController
                 if($row->PoFooters['is_updated']) {
                     $style = "style='background-color:red;'";
                 }
-                $html .= '<tr '.$style.'>
 
+                $pendQty = $row->PoFooters['po_qty'] - $row->PoFooters['grn_qty'] - $matAsnQty[$row->PoFooters['item']];
+                $html .= '<tr '.$style.'>
                  <td>' . $row->PoFooters['item'] . '</td>
                  <td>' . $row->PoFooters['material'] . '</td>
                  <td>' . $row->PoFooters['short_text'] . '</td>
                  <td>' . $row->PoFooters['po_qty'] . ' ' . $row->PoFooters['order_unit'] . '</td>
-                 <td>-</td>
-                 <td>-</td>
-                 <td>-</td>
+                 <td>' . $row->PoFooters['grn_qty'] . ' ' . $row->PoFooters['order_unit'] . '</td>
+                 <td>' . $pendQty . ' ' . $row->PoFooters['order_unit'] . '</td>
+                 <td>' . $matAsnQty[$row->PoFooters['item']] . ' ' . $row->PoFooters['order_unit'] . '</td>
+
                  <td>' . $row->PoFooters['net_price'] . '</td>
                  <td>' . $row->PoFooters['net_value'] . '</td>
                  
