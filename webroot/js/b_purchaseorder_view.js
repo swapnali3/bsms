@@ -397,8 +397,8 @@ $(document).on("click", ".flu", function () {
                                 <table class="table mb-0" id="example2">
                                 <thead>
                                         <tr>
-                                            <th>Actual Qty</th>
-                                            <th>Received Qty</th>
+                                            <th>Schedule Qty</th>
+                                            <th>ASN Qty</th>
                                             <th>Delivery Date</th>
                                             <th>Status</th>
                                             <th>Action</th>

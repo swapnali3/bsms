@@ -51,8 +51,41 @@ class PurchaseOrdersController extends BuyerAppController
         left join (select asn_headers.status, asn_no, po_header_id, asn_footers.id as asn_footer_id, po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_headers.id and asn_footer_id = asn_footers.id');
         
         //echo '<prE>'; print_r($poReportData); exit;
+        $vendorList = [];
+        $poList = [];
+        $materialList = [];
+        $statusList = [];
+        foreach($poReportData as $row) {
+            $vendorList[] = $row['sap_vendor_code'];
+            $poList[] = $row['po_no'];
+            $materialList[] = $row['material'];
 
-        $this->set(compact('poReportData'));
+            $status = '';
+            if($row['status'] == 3) {
+                $status = 'Received';
+            }else if($row['status'] == 2) {
+                $status = 'In-Transit';
+            } else if(!$row['delivery_date']) {
+                $status = '';
+            }else if($row['received_qty'] == 0) {
+                $status = 'Scheduled';
+            }else if($row['received_qty'] < $row['actual_qty']) {
+                $status = 'Partial ASN created';
+            } else {
+                $status = 'ASN created';
+            }
+            if($status) {
+                $statusList[] = $status ;
+            }
+        }
+
+        $vendorList = array_unique($vendorList);
+        $poList = array_unique($poList);
+        $materialList = array_unique($materialList);
+        $statusList = array_unique($statusList);
+
+
+        $this->set(compact('poReportData', 'vendorList','poList', 'materialList', 'statusList'));
     }
 
     public function view()

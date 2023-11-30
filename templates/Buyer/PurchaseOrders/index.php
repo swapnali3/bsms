@@ -18,6 +18,66 @@
                         <h5 class="mb-0">Purchase Orders</h5>
                     </div>
                 </div>
+
+                <div class="row">
+                <div class="col-12 add-vendor">
+        <div class="card mb-2 card_box_shadow">
+            <div class="card-body fm">
+                <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
+                <div class="row">
+                    
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
+                        <div class="form-group">
+                        <?php echo $this->Form->control('vendor_code', array('class' => 'form-control', 'options' => $vendorList, 'empty' => 'Please Select')); ?>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
+                        <div class="form-group">
+                            <?php echo $this->Form->control('po_no', array('class' => 'form-control', 'options' => $poList, 'empty' => 'Please Select')); ?>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
+                        <div class="form-group">
+                            <?php echo $this->Form->control('material', array('class' => 'form-control', 'options' => $materialList, 'empty' => 'Please Select')); ?>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
+                        <div class="form-group">
+                            <?php echo $this->Form->control('status', array('class' => 'form-control', 'options' => $statusList, 'empty' => 'Please Select')); ?>
+                        </div>
+                    </div>
+                    <div class="ml-2 mt-2">
+                        <div class="form-group mt-4">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_addvendor', 'type' => 'button']) ?>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
+                        <span class="errorm">
+                            <?= $this->Flash->render() ?>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-body text-center">
+                                <h6>Are you sure you want to add vendor?</h6>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="modal_cancel btn "  data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="modal_ok btn " >Ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <?= $this->Form->end() ?>
+            </div>
+        </div>
+    </div>
+                </div>
+
             </div>
 
             <div class="card-body buyer_material">
