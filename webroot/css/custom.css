@@ -1234,7 +1234,13 @@ body:not(.layout-fixed) .main-sidebar {
 
 /* Sidebar styling ends here */
 
-.main-footer { padding: .5rem !important;}
+.main-footer { 
+    padding: .5rem !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+}
 .card-body { padding: 1rem !important;}
 
 tr td , tr th{

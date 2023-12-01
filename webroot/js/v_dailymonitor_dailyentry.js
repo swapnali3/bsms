@@ -1,6 +1,45 @@
+// $(document).on("click", ".save", function () {
+//     var id = $(this).data('id');
+//     var confirmprd = $("#confirmprd" + id).val();
+//     $.ajax({
+//         type: "GET",
+//         url: getConfirmedProductionUrl + "/" + id + "/" + confirmprd,
+//         contentType: "application/x-www-form-urlencoded; charset=utf-8",
+//         dataType: "json",
+//         async: false,
+//         beforeSend: function () { $("#gif_loader").show(); },
+//         success: function (resp) {
+//             if(resp.status){
+//                 $("#confirmprd"+id).attr('disabled', true);
+//                 $("#confirmsave"+id).remove();
+//                 Toast.fire({
+//                     icon: 'success',
+//                     title: resp.message
+//                 });
+//             }
+//         },
+//         complete: function () { $("#gif_loader").hide(); }
+//     });
+// });
+
 $(document).on("click", ".save", function () {
     var id = $(this).data('id');
     var confirmprd = $("#confirmprd" + id).val();
+
+    if (!/^\d+$/.test(confirmprd)) {
+        $('#modal-sm').modal('show');
+
+        $('.addCancel').on('click', function() {
+            $('#modal-sm').modal('hide');
+        });
+
+        $('.addSubmit').on('click', function() {
+            $('#modal-sm').modal('hide');
+        });
+
+        return;
+    }
+
     $.ajax({
         type: "GET",
         url: getConfirmedProductionUrl + "/" + id + "/" + confirmprd,
@@ -9,9 +48,9 @@ $(document).on("click", ".save", function () {
         async: false,
         beforeSend: function () { $("#gif_loader").show(); },
         success: function (resp) {
-            if(resp.status){
-                $("#confirmprd"+id).attr('disabled', true);
-                $("#confirmsave"+id).remove();
+            if (resp.status) {
+                $("#confirmprd" + id).attr('disabled', true);
+                $("#confirmsave" + id).remove();
                 Toast.fire({
                     icon: 'success',
                     title: resp.message
