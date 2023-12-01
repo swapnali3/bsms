@@ -113,7 +113,7 @@ function format(rowData) {
                     var chekbox = ``;
                     var style="";
                     if(isExpired == "1") {
-                        var style="style='background-color:#f44336;'";
+                        var style="style='background-color:#FAA0A0;'";
                     }else if (curr != 0) {
                         chekbox = `<input type="checkbox" name="footer_id[]" value="` + val['PoFooters'].id + `" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="` + val.actual_qty + `" data-id="` + val['PoItemSchedules'].id + `">`;
                     }
