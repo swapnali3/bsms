@@ -69,7 +69,8 @@
         <div class="row dgf">
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
+            <?= $this->form->control('vendor_factory_id', ['id' => 'vendor_factory_id', 'label' => false, 'type' => 'hidden']) ?>
+              <?php echo $this->Form->control('vendor_factory_id', array( 'name' => '', 'class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required', 'disabled', 'empty' => 'Please Select')); ?>
             </div>
           </div>
 
@@ -463,10 +464,10 @@
         },
         driver_contact: {
           required: true,
-          // number: true,
-          // maxlength: 10,
-          // minlength: 10
-          pattern: /^\d{10}$/,
+          number: true,
+          maxlength: 10,
+          minlength: 10
+          //pattern: /^\d{10}$/,
         },
         invoices: {
           required: true

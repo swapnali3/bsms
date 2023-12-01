@@ -49,7 +49,7 @@
                     </div>
                     <div class="ml-2 mt-2">
                         <div class="form-group mt-4">
-                        <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_addvendor', 'type' => 'button']) ?>
+                        <?= $this->Form->button(__('Search'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_addvendor', 'type' => 'button']) ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
