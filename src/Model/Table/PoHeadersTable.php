@@ -70,7 +70,7 @@ class PoHeadersTable extends Table
 
         $validator
             ->scalar('document_type')
-            ->maxLength('document_type', 4)
+            ->maxLength('document_type', 20)
             ->requirePresence('document_type', 'create')
             ->notEmptyString('document_type');
 
@@ -81,7 +81,7 @@ class PoHeadersTable extends Table
 
         $validator
             ->scalar('created_by')
-            ->maxLength('created_by', 12)
+            ->maxLength('created_by', 20)
             ->requirePresence('created_by', 'create')
             ->notEmptyString('created_by');
 

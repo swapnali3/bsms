@@ -190,7 +190,12 @@ class PurchaseOrdersController extends BuyerAppController
 
     public function update($id = null)
     {
-        $this->loadModel('PoItemSchedules');
+
+        $this->loadModel('PoHeaders');
+        $this->loadModel("Notifications");
+        $this->loadModel("PoItemSchedules");
+        $this->loadModel("VendorTemps");
+
         $response['status'] = 'fail';
         $response['message'] = '';
         $this->autoRender = false;
@@ -203,11 +208,55 @@ class PurchaseOrdersController extends BuyerAppController
 
             $schedule = $this->PoItemSchedules->get($id);
             if ($this->PoItemSchedules->delete($schedule)) {
+
+                $sapVendorcode = $this->PoHeaders->find()
+                        ->select(['sap_vendor_code'])
+                        ->where(['id' => $PoItemSchedule->po_header_id])
+                        ->first();
+
+                        $vendorRecord = $this->VendorTemps->find()
+                        ->where(['sap_vendor_code' => $sapVendorcode->sap_vendor_code])
+                        ->first();
+
+                $filteredBuyers = $this->VendorTemps->find()
+                            ->select(['VendorTemps.id','user_id'=> 'Users.id'])
+                            ->innerJoin(['Users' => 'users'], ['Users.username = VendorTemps.email'])
+                            ->where(['VendorTemps.id' => $vendorRecord['id']]);
+
+                            foreach ($filteredBuyers as $buyer) {
+                                $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'Schedule Cancelled'])->first();
+                                if ($n) {
+                                    $n->Notifications = 'Schedule Cancelled';
+                                    $n->message_count = $n->message_count+1;
+                                } else {
+                                    $n = $this->Notifications->newEntity([
+                                        'user_id' => $buyer->user_id,
+                                        'notification_type' => 'Schedule Cancelled',
+                                        'message_count' => '1',
+                                    ]);
+                                }
+                                $this->Notifications->save($n);
+                            }
+
+
+                            $visit_url = Router::url('/', true);
+                            $mailer = new Mailer('default');
+                            $mailer
+                                ->setTransport('smtp')
+                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A new PO has been schedule. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                ->setTo($vendorRecord->email)
+                                ->setEmailFormat('html')
+                                ->setSubject('Vendor Portal - Schedule Cancelled')
+                                ->viewBuilder()
+                                    ->setTemplate('mail_template');
+                            $mailer->deliver();
+
                 $response['status'] = 'success';
-                $response['message'] = 'schedule status updated successfully';
+                $response['message'] = 'Schedule deleted successfully';
             } else {
                 $response['status'] = 'fail';
-                $response['message'] = 'failed to update schedule status';
+                $response['message'] = 'failed to delete schedule';
             }
         }
         echo json_encode($response);
