@@ -407,8 +407,8 @@ $(document).on("click", ".flu", function () {
                                 <tbody>`;
             $.each(response.message, function (key, val) {
                 if (val.status == 1) {
-                    var currentDate = new Date().toISOString().split('T')[0];
-                    var deliveryDate = val.delivery_date;
+                    var currentDate = new Date();
+                    var deliveryDate = new Date(val.delivery_date);
 
                     var dt = val.delivery_date.split('-');
                     delDt = dt[2] + "-" + dt[1] +"-" +dt[0];
@@ -416,8 +416,8 @@ $(document).on("click", ".flu", function () {
                     var updateButton = val.received_qty > 0 ? '' : `<span class="badge schedule_update_button lbluebadge mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + delDt + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `' data-target='#modal-sm'  title="Modify" data-original-title="Modify"><i class="fas fa-user-edit"></i></span>`;
 
                     var status = val.received_qty > 0 ? 'Received' : 'Schedule'
-
-                    var cancelButton = val.received_qty > 0 || Date.parse(currentDate) > Date.parse(deliveryDate) ? '' : `<span class="badge redbadge schedule_cancel_button mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + val.delivery_date + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `'  title="Cancel" data-original-title="Cancel"><i class="fas fa-trash"></i></span>`;
+                    var deliveryDate = new Date(currentDate);
+                    var cancelButton = val.received_qty > 0 || currentDate.setHours(0, 0, 0, 0) > deliveryDate.setHours(0, 0, 0, 0) ? '' : `<span class="badge redbadge schedule_cancel_button mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + val.delivery_date + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `'  title="Cancel" data-original-title="Cancel"><i class="fas fa-trash"></i></span>`;
                     subtable += `<tr>
                             <td>`+ val.actual_qty + `</td>
                             <td>`+ val.received_qty + `</td>
@@ -639,7 +639,7 @@ $(document).on("click", ".schedule_button", function () {
     } else {
         var currentDate = new Date();
         var inputDate = new Date($("#delivery_dates").val());
-        if (inputDate >= currentDate) {
+        if (inputDate.setHours(0, 0, 0, 0) >= currentDate.setHours(0, 0, 0, 0)) {
             $.ajax({
                 type: "POST",
                 url: create_schedule_update + $(this).attr("data-id"),
@@ -714,8 +714,8 @@ $(".btnSub").click(function (event) {
 
     if (status) {
         $(".dly_dt").each(function (key, obj) {
-            var inputDate = new Date($(obj).val());
-            var currentDate = new Date();
+            var inputDate = new Date($(obj).val()).toLocaleDateString(undefined, { year: 'numeric', month: 'numeric', day: 'numeric' });
+            var currentDate = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'numeric', day: 'numeric' });
             if (
                 $(obj).val() == null ||
                 $(obj).val() == undefined ||
@@ -725,7 +725,7 @@ $(".btnSub").click(function (event) {
                 status = false;
                 $(obj).focus();
             }
-            else if (inputDate < currentDate) {
+            if (inputDate.setHours(0, 0, 0, 0) < currentDate.setHours(0, 0, 0, 0)) {
                 $("#error_msg").text("Past Schedule Restricted");
                 status = false;
                 $(obj).focus();

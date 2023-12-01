@@ -527,7 +527,7 @@
     $("#Create-btn").click(function () {
       var currentDate = new Date();
       var inputDate = new Date($("#invoice-date").val());
-      if(inputDate >= currentDate){
+      if(inputDate.setHours(0, 0, 0, 0) >= currentDate.setHours(0, 0, 0, 0)){
         if ($("#asnForm").valid()) { // Check form validation
           $('#modal-confirm').modal('show'); // Show the modal
         }

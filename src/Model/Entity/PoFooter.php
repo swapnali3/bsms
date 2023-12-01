@@ -61,5 +61,6 @@ class PoFooter extends Entity
         'updated_date' => true,
         'po_header' => true,
         'delivery_details' => true,
+        'is_updated'=>true
     ];
 }
