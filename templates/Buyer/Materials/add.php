@@ -126,17 +126,21 @@
 
                     // Loop through the response data and build the table rows dynamically
                     $.each(response.data, function (key, val) { 
+                        // Format val.minimum_stock to always show two decimal places
+                        var formattedMinimumStock = parseFloat(val.minimum_stock).toFixed(2);
+
                         var rowHtml = `<tr>
-                        <td>` + val.sap_vendor_code + `</td>
-                        <td> `+ val.material_code + `</td>
-                        <td> `+ val.description +` </td>
-                        <td> `+ val.minimum_stock +` </td>
-                        <td> `+ val.uom +`</td>
-                        <td> `+ val.error + `</td>
-                        </tr>`;
+                            <td>` + val.sap_vendor_code + `</td>
+                            <td> `+ val.material_code + `</td>
+                            <td> `+ val.description +` </td>
+                            <td> `+ formattedMinimumStock +` </td>
+                            <td> `+ val.uom +`</td>
+                            <td> `+ val.error + `</td>
+                            </tr>`;
                         $("#example1 tbody").append(rowHtml);
                     });
 
+                    
                 } else {
                     Toast.fire({
                         icon: 'error',

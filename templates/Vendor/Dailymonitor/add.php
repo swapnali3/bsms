@@ -91,6 +91,10 @@
 
             <div class="card-body">
             <div class="row">
+                <div class="template_file pl-2 ml-3 mr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
+                    <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_planner_template.xlsx"
+                                    target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download"></i></a>
+                </div>
                 <div class="col-sm-6 col-md-4 col-lg-2">
 
                     <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
@@ -101,12 +105,7 @@
                 <div class="col-sm-6 col-md-4 col-lg-2">
                     <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
                 </div>
-                <div class="col-12 pt-2">
-                    <i>
-                    <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_planner_template.xlsx"
-                                    target="_blank" rel="noopener noreferrer">Sample_Excel_Template.xlsx</a>
-                    </i>
-                </div>
+                
             </div>
     </div>
 
