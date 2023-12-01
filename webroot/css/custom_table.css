@@ -331,6 +331,8 @@ body {
     background-image: none !important;
 }
 
+input.form-control:focus { border: 1px solid #ddd !important;}
+
 /* .bg-gradient-warn.btn:hover {
     background: #F7941D !important;
     border-color: none !important;
@@ -340,6 +342,8 @@ body {
 #id_backmodal { width: 80px;}
 
 .btn-success:hover { border: none !important;}
+
+.btn-success { color: #121212 !important;}
 
 /* .bg-gradient-warn.btn:not(:disabled):not(.disabled):active,
 .bg-gradient-warn.btn:not(:disabled):not(.disabled).active,
@@ -779,35 +783,21 @@ table.dataTable>thead .sorting:after, table.dataTable>thead .sorting_asc:after, 
     display: none !important;
 }
 
+.buyer_material table.dataTable>thead .sorting_asc:before, table.dataTable>thead .sorting_desc:after { opacity: 100% !important;}
+
+.buyer_material table.dataTable>thead .sorting:before, table.dataTable>thead .sorting_asc:before, table.dataTable>thead .sorting_desc:before, table.dataTable>thead .sorting_asc_disabled:before, table.dataTable>thead .sorting_desc_disabled:before {
+    display: block !important;
+}
+
+.buyer_material table.dataTable>thead .sorting:after, table.dataTable>thead .sorting_asc:after, table.dataTable>thead .sorting_desc:after, table.dataTable>thead .sorting_asc_disabled:after, table.dataTable>thead .sorting_desc_disabled:after {
+    display: block !important;
+}
+
+.save { color: #121212 !important;}
+
+
 .table_width { width: 13% !important;}
 
-/* .dropdown_class {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown_class .dropdown_classlist {
-    display: none;
-    position: absolute;
-    z-index: 1;
-}
-
-.dropdown_class .dropdown_classlist a {
-    display: block;
-}
-
-.dropdown_class:hover { height: 200px !important; transition: all ease-in-out 1s;}
-
-.dropdown_class:hover .dropdown_classlist {
-    display: block;
-    transition: all ease-in-out 1s;
-} */
-
-/* .template_download {
-    padding: 0.65rem 1rem;
-    border: 1px solid #F7941D;
-    border-radius: 5px;
-} */
 
 #example1_filter input[type="search"] {
     height: 42px !important;
@@ -889,11 +879,20 @@ div.dataTables_wrapper div.dataTables_filter input { margin-left: 0 !important;}
 .note-btn[data-original-title="Full Screen"]
 { display: none !important;}
 
-.main-footer { padding: .5rem !important;}
+.main-footer { 
+    padding: .5rem !important;
+    position: fixed ;
+    bottom: 0 ;
+    left: 0 ;
+    width: 100%;
+}
+
 .card-body { padding: 1rem !important;}
+
 .change_pass  { 
     background-color: #F7941D !important;
     color: #121212 !important;
+    border: 1px solid #F7941D !important;
 }
 
 .input.password label { font-size: 1rem !important;}
@@ -996,12 +995,14 @@ th.actions { width: unset !important;}
 
 .dt-buttons { position: absolute !important;}
 
-.buttons-copy { background-color: #F7941D; border: #121212; margin-right: 10px; border-radius: 4px !important;}
+.buttons-copy { background-color: #F7941D; color: #121212; margin-right: 10px; border-radius: 4px !important; border-color: #F7941D !important;}
 
-.buttons-copy:hover { background-color: #F7941D; border: #121212;}
+.buttons-copy:hover { background-color: #F7941D; color: #121212; }
+
+.buttons-copy:focus { background-color: #F7941D !important;}
 
 .buttons-excel { background-color: #fff; color: #F7941D; border: 1px solid #F7941D; border-radius: 4px !important;}
-
+.buttons-excel:focus { background-color: #fff !important; color: #F7941D !important; border: 1px solid #F7941D !important;}
 .buttons-excel:hover { background-color: #fff; color: #F7941D; border: 1px solid #F7941D;}
 
 .buyer_material div.dataTables_wrapper div.dataTables_filter label { text-align: right !important;}

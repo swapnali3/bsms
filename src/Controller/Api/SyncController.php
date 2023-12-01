@@ -352,9 +352,9 @@ class SyncController extends ApiAppController
 
                         $hederData['sap_vendor_code'] = $row->LIFNR;
                         $hederData['po_no'] = $row->EBELN;
-                        $hederData['document_type'] = $row->BSART;
+                        $hederData['document_type'] = $row->BATXT;
                         $hederData['created_on'] = date("Y-m-d H:i:s", strtotime($row->AEDAT));
-                        $hederData['created_by'] = $row->ERNAM;
+                        $hederData['created_by'] = $row->F_NAME;
                         $hederData['pay_terms'] = $row->ZTERM;
                         $hederData['currency'] = $row->WAERS;
                         $hederData['exchange_rate'] = $row->WKURS;
@@ -391,9 +391,12 @@ class SyncController extends ApiAppController
                                     $tmp['gross_value'] = $item->BRTWR;
 
                                     $footerData = $tmp;
+                                    if($item->CHG_IND == 'X') {
+                                        $footerData['is_updated'] = 1;
+                                    }
+                                    
                                     if($this->PoFooters->exists(['po_header_id' => $po_header_id, 'item' => $item->EBELP])) {
                                         $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
-                                        $footerData['is_updated'] = 1;
                                         $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
                                     }  else {
                                         $poItemsInstance = $this->PoFooters->newEmptyEntity();

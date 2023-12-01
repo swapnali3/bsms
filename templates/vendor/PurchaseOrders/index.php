@@ -15,7 +15,7 @@
     <div class="table-responsive">
       <div class="table-responsive" id="purViewId">
         <div class="search-bar d-flex mb-2">
-          <input type="search" placeholder="Search all orders, materials.." class="form-control search-box">
+          <input type="search" placeholder="Search all orders, materials, vendor" class="form-control search-box">
           <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
         </div>
         <div class="po-list">

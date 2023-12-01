@@ -149,6 +149,19 @@
         </div>
     </div>
 </div>
+<div class="modal fade numericValidationErrorModal" id="modal-sm" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h6>Please enter a valid numeric value in Confirm Save.</h6>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn addCancel"  data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn addSubmit" >Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     var getConfirmedProductionUrl = "<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'confirmedproduction')); ?>"
     var uploadConfirmedProductionUrl = "<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'upload')); ?>";
