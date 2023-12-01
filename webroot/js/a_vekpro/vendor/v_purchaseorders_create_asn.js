@@ -11,11 +11,12 @@ $(document).on("click", ".flu", function () {
 });
 
 $(document).on('click', 'div.details-control', function () {
+    $("#id_select_factory").trigger('click');
     $('div.details-control').removeClass('active');
     $(this).addClass('active');
     $(".continue_btn").removeClass('btn-success').attr('disabled', 'disabled');
     $("#po_header_id").val($(this).attr('header-id'));
-    format($(this).attr('header-id'));
+    active_po_header_id = $(this).attr('header-id');
 });
 
 $(document).on("click", "#ckbCheckAll", function () {
@@ -71,10 +72,10 @@ $('.search-box').on('keyup', function (event) {
 
 
 
-function format(rowData) {
+function format(rowData, factory_id) {
     $.ajax({
         type: "GET",
-        url: get_po_data + "/" + rowData,
+        url: get_po_data + "/" + rowData+"/"+factory_id,
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
         async: false,

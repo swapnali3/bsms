@@ -273,12 +273,14 @@ class PurchaseOrdersController extends VendorAppController
         $this->set('headTitle', 'Create ASN');
         $this->loadModel('PoHeaders');
         $this->loadModel('PoItemSchedules');
+        $this->loadModel('VendorFactories');
+        
         $session = $this->getRequest()->getSession();
         $poHeaders = $this->paginate($this->PoHeaders->find()
             ->where(['sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id) > 0']));
+        $factoryset = $this->VendorFactories->find('all')->where(['vendor_temp_id' => $session->read('vendor_id')])->all();
 
-
-        $this->set(compact('poHeaders'));
+        $this->set(compact('poHeaders', 'factoryset'));
     }
 
     /**
