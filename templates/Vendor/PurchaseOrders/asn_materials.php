@@ -463,9 +463,10 @@
         },
         driver_contact: {
           required: true,
-          number: true,
-          maxlength: 10,
-          minlength: 10
+          // number: true,
+          // maxlength: 10,
+          // minlength: 10
+          pattern: /^\d{10}$/,
         },
         invoices: {
           required: true

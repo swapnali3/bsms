@@ -319,7 +319,7 @@ label {
 
 .form-control:focus {
     color: #212529;
-    border:unset;
+    border:1px solid #F7941D;
     background-color: #fff;
 }
 
