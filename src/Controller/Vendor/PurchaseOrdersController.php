@@ -817,7 +817,7 @@ class PurchaseOrdersController extends VendorAppController
                 //print_r($row); exit;
                 $style="";
                 if($row->PoFooters['is_updated']) {
-                    $style = "style='background-color:red;'";
+                    $style = "style='background-color:#f44336;'";
                 }
 
                 $pendQty = $row->PoFooters['po_qty'] - $row->PoFooters['grn_qty'] - $matAsnQty[$row->PoFooters['item']];
