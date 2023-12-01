@@ -5,7 +5,7 @@
  * @var \App\Model\Entity\Dailymonitor $dailymonitor
  */
 ?>
-<?= $this->Html->css('cstyle.css') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>

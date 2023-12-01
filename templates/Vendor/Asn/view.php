@@ -45,7 +45,7 @@
                         <?php
                         if ($deliveryDetails[0]->status == '1') { ?>
                         
-                        <div class="col-sm-2 col-lg-2">
+                        <div class="col-sm-2 col-lg-3">
                             <div class="d-flex justify-content-end">
                                 <?php echo $this->Html->link('<button class="btn btn-custom-2 mb-0 mrk">Edit</button>', ['action' => 'edit', $deliveryDetails[0]->id], ['style' => 'display:block;', 'class' => 'asn_files', 'escape' => false]); ?>
                                     <button class="btn btn-custom-2 mb-0 mrk" data-toggle="modal"

@@ -113,13 +113,13 @@ function format(rowData) {
                     var chekbox = ``;
                     var style="";
                     if(isExpired == "1") {
-                        var style="style='background-color:red;'";
+                        var style="style='background-color:#f44336;'";
                     }else if (curr != 0) {
                         chekbox = `<input type="checkbox" name="footer_id[]" value="` + val['PoFooters'].id + `" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="` + val.actual_qty + `" data-id="` + val['PoItemSchedules'].id + `">`;
                     }
                     if (val.minimum_stock == null) { mins = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Minimum Stock"></i>` }
                     if (val.current_stock == null) { curr = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Current Stock"></i>` }
-                    else if (curr <= mins) { curr = `<i class="text-warning fas fa-exclamation-triangle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Maintain Minimum Stock"></i> &nbsp; ` + curr }
+                    else if (curr < mins) { curr = `<i class="text-warning fas fa-exclamation-triangle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Maintain Minimum Stock"></i> &nbsp; ` + curr }
                     tbody += `<tr `+style+`><td>` + chekbox + `</td>
                      <td>`+ val['PoFooters'].item + `</td>
                      <td>`+ val['PoFooters'].material + `</td>
