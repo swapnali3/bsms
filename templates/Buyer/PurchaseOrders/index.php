@@ -204,7 +204,7 @@
             "lengthChange": false,
             "autoWidth": false,
             "searching": true,
-            "ordering": false,
+            "ordering": true,
             "destroy": true,
             dom: 'Blfrtip',
             buttons: [{ extend: 'copy' },{ extend: 'excelHtml5', text : 'Export'}]
