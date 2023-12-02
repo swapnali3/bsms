@@ -337,6 +337,8 @@ class SyncController extends ApiAppController
         $this->loadModel("PoHeaders");
         $this->loadModel("PoFooters");
         $this->loadModel("Materials");
+        $this->loadModel("PoItemSchedules");
+        $this->loadModel("Buyers");
 
         foreach($list as $fileKey) {
             if(str_starts_with($fileKey, 'PO_')) {
@@ -354,6 +356,7 @@ class SyncController extends ApiAppController
                         $hederData['po_no'] = $row->EBELN;
                         $hederData['document_type'] = $row->BATXT;
                         $hederData['created_on'] = date("Y-m-d H:i:s", strtotime($row->AEDAT));
+                        $hederData['created_user'] = $row->ERNAM;
                         $hederData['created_by'] = $row->F_NAME;
                         $hederData['pay_terms'] = $row->ZTERM;
                         $hederData['currency'] = $row->WAERS;
@@ -370,6 +373,7 @@ class SyncController extends ApiAppController
                             $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
                         }
 
+                        //echo '<prE>'; print_r($poInstance); exit;
                         try {
                             if ($this->PoHeaders->save($poInstance)) {
                                 $po_header_id = $poInstance->id;
@@ -395,9 +399,43 @@ class SyncController extends ApiAppController
                                         $footerData['is_updated'] = 1;
                                     }
                                     
+                                    
+                                    $valid = true;
                                     if($this->PoFooters->exists(['po_header_id' => $po_header_id, 'item' => $item->EBELP])) {
                                         $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
+                                        
+                                        //echo '<pre>'; print_r($poItemsInstance); exit;
+                                        $total = $this->PoItemSchedules->find()
+                                        ->select(['total' => 'sum(actual_qty)'])
+                                        ->where(array('PoItemSchedules.po_footer_id'=>$poItemsInstance->id))->toArray();
                                         $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
+                                        //echo '<pre>'; print_r($total[0]->total); exit;
+                                        if(doubleval($total[0]->total) > doubleval($item->MENGE)) {
+                                            $buyer = $this->Buyers->find()->where(['sap_user'=>$row->ERNAM]);
+                                            $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
+                                            $buyersEmails = [];
+                                            foreach($buyerList as $email) {
+                                                $buyersEmails[] = $email->email; 
+                                            }
+                                            
+                                            $valid = false;
+
+                                            try{
+                                                $mailer = new Mailer('default');
+                                                $mailer
+                                                    ->setTransport('smtp')
+                                                    ->setViewVars([ 'subject' => 'Hi ', 'mailbody' => "PO : $row->EBELN , Item: $item->EBELP qty should be greater than ".$total[0]->total ])
+                                                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                                    ->setTo($buyersEmails)
+                                                    ->setEmailFormat('html')
+                                                    ->setSubject('Vendor Portal - PO Item not updated')
+                                                    ->viewBuilder()
+                                                        ->setTemplate('mail_template');
+                                                $mailer->deliver();
+                                            } catch (\Exception $e) {
+
+                                            }
+                                        }
                                     }  else {
                                         $poItemsInstance = $this->PoFooters->newEmptyEntity();
                                         $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
@@ -411,7 +449,7 @@ class SyncController extends ApiAppController
                                         `description`=VALUES(`description`), `uom`=VALUES(`uom`)')
                                         ->execute();
 
-                                    if ($this->PoFooters->save($poItemsInstance)) {
+                                    if ($valid && $this->PoFooters->save($poItemsInstance)) {
                                         $response['message'][] = 'PO : '.$row->EBELN.' Item : '.$item->EBELP.' saved successfully';
                                     } else {
                                         $response['message'][] = 'PO :'.$row->EBELN.' Item : '.$item->EBELP.' save fail';

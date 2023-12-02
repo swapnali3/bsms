@@ -37,18 +37,14 @@ class PurchaseOrdersController extends BuyerAppController
         $this->loadModel('PoFooters');
         $this->loadModel('AsnHeaders');
         $this->loadModel('AsnFooters');
-
-        //$this->paginate = ['contain' => ['PoHeaders', 'PoItemSchedules'], 'order' => ['PoFooters.po_header_id asc, PoFooters.item asc']];
-        //$poHeaders = $this->paginate($this->PoFooters);
-
         $conn = ConnectionManager::get('default');
-        $poReportData = $conn->execute('select po_headers.sap_vendor_code, po_no, item, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, 
+        $poReportData = $conn->execute('select po_headers.id, po_headers.sap_vendor_code, po_no, item, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, 
         po_item_schedules.actual_qty, po_item_schedules.received_qty,po_item_schedules.delivery_date, a.asn_no, a.status  from po_headers
         join po_footers on po_footers.po_header_id = po_headers.id
         left join materials on materials.code = po_footers.material
         left join po_item_schedules on po_item_schedules.po_header_id = po_headers.id and po_item_schedules.po_footer_id = po_footers.id
         left join asn_footers on asn_footers.po_schedule_id=po_item_schedules.id  and asn_footers.po_footer_id = po_footers.id
-        left join (select asn_headers.status, asn_no, po_header_id, asn_footers.id as asn_footer_id, po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_headers.id and asn_footer_id = asn_footers.id');
+        left join (select asn_headers.status, asn_no, po_header_id, asn_footers.id as asn_footer_id, po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_headers.id and asn_footer_id = asn_footers.id ' );
         
         //echo '<prE>'; print_r($poReportData); exit;
         $vendorList = [];
@@ -56,9 +52,9 @@ class PurchaseOrdersController extends BuyerAppController
         $materialList = [];
         $statusList = [];
         foreach($poReportData as $row) {
-            $vendorList[] = $row['sap_vendor_code'];
-            $poList[] = $row['po_no'];
-            $materialList[] = $row['material'];
+            $vendorList[$row['sap_vendor_code']] = $row['sap_vendor_code'];
+            $poList[$row['po_no']] = $row['po_no'];
+            $materialList[$row['material']] = $row['material'];
 
             $status = '';
             if($row['status'] == 3) {
@@ -75,7 +71,7 @@ class PurchaseOrdersController extends BuyerAppController
                 $status = 'ASN created';
             }
             if($status) {
-                $statusList[] = $status ;
+                $statusList[$status] = $status ;
             }
         }
 
@@ -86,6 +82,104 @@ class PurchaseOrdersController extends BuyerAppController
 
 
         $this->set(compact('poReportData', 'vendorList','poList', 'materialList', 'statusList'));
+    }
+
+    public function searchData()
+    {
+        $this->autoRender = false;
+        $this->loadModel('PoFooters');
+        $this->loadModel('AsnHeaders');
+        $this->loadModel('AsnFooters');
+
+        $response['status'] = 0;
+        $response['message'] = '';
+
+
+        $conditions = " where 1=1 ";
+        if ($this->request->is(['patch', 'post', 'put'])) {
+
+            $request = $this->request->getData();
+            if($request['vendor_code']) {
+                $conditions .= " and po_headers.sap_vendor_code='$request[vendor_code]' ";
+            }
+            if($request['po_no']) {
+                $conditions .= " and po_headers.po_no='$request[po_no]' ";
+            }
+            if($request['material']) {
+                $conditions .= " and po_footers.material='$request[material]' ";
+            }
+            //echo '<pre>'; print_r($request); exit;
+
+            $conn = ConnectionManager::get('default');
+            $poReportData = $conn->execute('select po_headers.id, po_headers.sap_vendor_code, po_no, item, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, 
+            po_item_schedules.actual_qty, po_item_schedules.received_qty,po_item_schedules.delivery_date, a.asn_no, a.status  from po_headers
+            join po_footers on po_footers.po_header_id = po_headers.id
+            left join materials on materials.code = po_footers.material
+            left join po_item_schedules on po_item_schedules.po_header_id = po_headers.id and po_item_schedules.po_footer_id = po_footers.id
+            left join asn_footers on asn_footers.po_schedule_id=po_item_schedules.id  and asn_footers.po_footer_id = po_footers.id
+            left join (select asn_headers.status, asn_no, po_header_id, asn_footers.id as asn_footer_id, po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_headers.id and asn_footer_id = asn_footers.id '. $conditions );
+            
+            $results = [];
+            foreach ($poReportData as $material) {
+                $tmp = [];
+
+                $status = '';
+                if($material['status'] == 3) {
+                    $status = 'Received';
+                }else if($material['status'] == 2) {
+                    $status = 'In-Transit';
+                } else if(!$material['delivery_date']) {
+                    $status = '';
+                }else if($material['received_qty'] == 0) {
+                    $status = 'Scheduled';
+                }else if($material['received_qty'] < $material['actual_qty']) {
+                    $status = 'Partial ASN created';
+                } else {
+                    $status = 'ASN created';
+                }
+
+                $tmp[] = $material['sap_vendor_code'];
+                $tmp[] = $material['po_no'];
+                $tmp[] = $material['item'];
+                $tmp[] = $material['material'];
+                $tmp[] = $material['short_text'];
+                $tmp[] = $material['po_qty'];
+                $tmp[] = $material['grn_qty'];
+                $tmp[] = $material['pending_qty'];
+                $tmp[] = $material['order_unit'];
+                $tmp[] = $material['net_price'];
+                $tmp[] = $material['price_unit'];
+                $tmp[] = $material['net_value'];
+                $tmp[] = $material['gross_value'];
+                $tmp[] = $material['actual_qty'];
+                $tmp[] = $material['received_qty'];
+                $tmp[] = $material['asn_no'];
+                $tmp[] = $material['delivery_date'] ? date('d-m-y', strtotime($material['delivery_date'])): '';
+                $tmp[] = $status;
+
+
+                if($request['status'] && $request['status'] == $status) {
+                    $results[] = $tmp;
+                } else if(!$request['status']) {
+                    $results[] = $tmp;
+                }
+
+                
+            }
+
+            //echo '<pre>'; print_r(count($results)); exit;
+            if(count($results) > 0) {
+                $response['status'] = 1;
+                $response['message'] = '';
+                $response['data'] = $results;
+            } else {
+                $response['status'] = 0;
+                $response['message'] = 'No record';
+            }
+
+
+            echo json_encode($response); exit;
+        }
     }
 
     public function view()
@@ -138,7 +232,7 @@ class PurchaseOrdersController extends BuyerAppController
                     ['V.sap_vendor_code LIKE' => '%' . $search . '%'],
                 ],
                 ['PoHeaders.created_on >= now()-interval 3 month']
-            ])->order(['PoHeaders.created_on' => 'desc']);
+            ])->order(['PoHeaders.id' => 'desc']);
 
         //echo '<pre>';print_r($data);exit;
 

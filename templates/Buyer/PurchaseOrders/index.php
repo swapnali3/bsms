@@ -49,7 +49,7 @@
                     </div>
                     <div class="ml-2 mt-2">
                         <div class="form-group mt-4">
-                        <?= $this->Form->button(__('Search'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_addvendor', 'type' => 'button']) ?>
+                        <?= $this->Form->button(__('Search'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_addvendor', 'type' => 'submit']) ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2 mb-3">
@@ -197,8 +197,10 @@
     </div>
 </div>
 <script>
+   
     $(document).ready(function () {
-        $("#example1").DataTable({
+
+        var datatable = $("#example1").DataTable({
             "paging": true,
             "responsive": false,
             "lengthChange": false,
@@ -209,5 +211,58 @@
             dom: 'Blfrtip',
             buttons: [{ extend: 'copy' },{ extend: 'excelHtml5', text : 'Export'}]
         });
+    $("#addvendorform").validate({
+      rules: {
+        vendor_code: {
+          required: false,
+        },
+      },
+      messages: {
+        vendor_code: {
+          required: "Please enter a first name",
+        },
+      },
+      errorElement: "span",
+      errorPlacement: function (error, element) {
+        error.addClass("invalid-feedback");
+        element.closest(".form-group").append(error);
+      },
+      highlight: function (element, errorClass, validClass) {
+        $(element).addClass("is-invalid");
+      },
+      unhighlight: function (element, errorClass, validClass) {
+        $(element).removeClass("is-invalid");
+      },
+      submitHandler: function (form) {
+        $.ajax({
+          type: "POST",
+          url:  "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'search-data')); ?>",
+          data: $("#addvendorform").serialize(),
+          dataType: "json",
+          beforeSend: function () { $("#gif_loader").show(); },
+          success: function (response) {
+            console.log(response);
+            if (response.status) {
+              /*Toast.fire({
+                icon: "success",
+                title: response.message,
+              });*/
+              
+              datatable.clear().draw();
+              datatable.rows.add(response.data).draw(); // Add new data
+              datatable.columns.adjust().draw();
+            } else {
+              /*Toast.fire({
+                icon: "error",
+                title: response.message,
+              }); */
+              datatable.clear().draw();
+            }
+          },
+          complete: function () { $("#gif_loader").hide(); }
+        });
+      },
     });
+  });
+
 </script>

@@ -13,11 +13,15 @@ use Cake\ORM\Entity;
  * @property string $po_no
  * @property string $document_type
  * @property \Cake\I18n\FrozenTime $created_on
+ * @property string $created_user
  * @property string $created_by
  * @property string $pay_terms
  * @property string $currency
  * @property string $exchange_rate
  * @property string $release_status
+ * @property int $acknowledge
+ * @property string|null $acknowledge_no
+ * @property \Cake\I18n\FrozenTime|null $acknowledge_date
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
  *
@@ -39,14 +43,17 @@ class PoHeader extends Entity
         'po_no' => true,
         'document_type' => true,
         'created_on' => true,
+        'created_user' => true,
         'created_by' => true,
         'pay_terms' => true,
         'currency' => true,
         'exchange_rate' => true,
         'release_status' => true,
+        'acknowledge' => true,
+        'acknowledge_no' => true,
+        'acknowledge_date' => true,
         'added_date' => true,
         'updated_date' => true,
         'po_footers' => true,
-        'acknowledge' => true
     ];
 }
