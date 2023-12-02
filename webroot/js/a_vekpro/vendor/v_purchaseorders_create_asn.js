@@ -12,10 +12,11 @@ $(document).on("click", ".flu", function () {
 
 $(document).on('click', 'div.details-control', function () {
     $("#id_select_factory").trigger('click');
-    $('div.details-control').removeClass('active');
-    $(this).addClass('active');
+    //$('div.details-control').removeClass('active');
+    //$(this).addClass('active');
     $(".continue_btn").removeClass('btn-success').attr('disabled', 'disabled');
     $("#po_header_id").val($(this).attr('header-id'));
+    //format($(this).attr('header-id'));
     active_po_header_id = $(this).attr('header-id');
 });
 
@@ -171,12 +172,12 @@ function poform(search = "", createAsn = "as") {
         success: function (response) {
             if (response.status) {
                 $.each(response.data, function (key, val) {
-                    $("#poItemss").append(`<div class="po-box details-control  ponum" header-id="` + val.id + `">
+                    $("#poItemss").append(`<div class="po-box details-control high` + val.id + ` ponum" header-id="` + val.id + `">
                                             <p class="po-no mb-0">PO No.</p>
                                             <b class="text-info">` + val.po_no + `</b>
                                         </div>`);
                 });
-                $('div.details-control:first').click();
+                //$('div.details-control:first').click();
             }
         },
         complete: function () { $("#gif_loader").hide(); }

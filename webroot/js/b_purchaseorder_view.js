@@ -714,6 +714,8 @@ $(".btnSub").click(function (event) {
 
     if (status) {
         $(".dly_dt").each(function (key, obj) {
+            //var inputDate = new Date($(obj).val()).toLocaleDateString(undefined, { year: 'numeric', month: 'numeric', day: 'numeric' });
+            //var currentDate = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'numeric', day: 'numeric' });
             var inputDate = new Date($(obj).val());
             var currentDate = new Date();
             if (
