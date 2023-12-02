@@ -81,13 +81,8 @@
 </div>
 <?= $this->form->end() ?>
 
-<script>
-    var get_po_for_asn = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-for-asn')); ?>`;
-    var get_po_data = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-po-headers-with-items')); ?>`;
-</script>
+<button type="button" id="id_select_factory" style="display: none;" data-toggle="modal" data-target="#select_factory"></button>
 
-<button type="button" id="id_select_factory" style="display: none;" data-toggle="modal"
-    data-target="#select_factory"></button>
 <div class="modal fade" id="select_factory">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -101,7 +96,7 @@
                 <div class="row">
                     <?php foreach ($factoryset as $item): ?>
                     <div class="col-4">
-                        <button class="btn btn-app p-3 fc_btn" data-fc_id="<?= h($item["id"]) ?>" style="height:
+                        <button class="btn btn-app p-3 fc_btn" data-fc_id="<?= h($item["id"]) ?>" id="fc_id<?= h($item["id"]) ?>" style="height:
                             auto;">
                             <i class="fas fa-industry"></i>&nbsp;
                             <?= h($item["factory_code"]) ?>
@@ -119,6 +114,15 @@
 </div>
 
 <script>
+    var factory_list = [
+        <?php foreach ($factoryset as $item): ?>
+            {
+                "id": <?= h($item["id"]) ?>,
+                "code": `<?= h($item["factory_code"]) ?>`,
+                "address" : `<?= h($item["address"]." ".$item["address_2"]) ?><br><?= h($item["city"]." ".$item["state"]) ?><br><?= h($item["country"]) ?><br><?= h($item["pincode"]) ?>`,
+            },
+        <?php endforeach; ?>
+    ]
     var active_po_header_id;
     var get_po_for_asn = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-for-asn')); ?>`;
     var get_po_data = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-po-headers-with-items')); ?>`;

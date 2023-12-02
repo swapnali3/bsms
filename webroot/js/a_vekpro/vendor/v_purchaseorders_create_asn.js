@@ -11,13 +11,15 @@ $(document).on("click", ".flu", function () {
 });
 
 $(document).on('click', 'div.details-control', function () {
-    $("#id_select_factory").trigger('click');
     //$('div.details-control').removeClass('active');
     //$(this).addClass('active');
     $(".continue_btn").removeClass('btn-success').attr('disabled', 'disabled');
     $("#po_header_id").val($(this).attr('header-id'));
     //format($(this).attr('header-id'));
     active_po_header_id = $(this).attr('header-id');
+    if (factory_list.length == 1) {
+        $("#fc_id" + factory_list[0]["id"]).trigger("click");
+    } else { $("#id_select_factory").trigger('click'); }
 });
 
 $(document).on("click", "#ckbCheckAll", function () {
@@ -26,14 +28,14 @@ $(document).on("click", "#ckbCheckAll", function () {
             if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")); }
             this.checked = true;
             $("#select" + $(this).data("id")).trigger("change");
-            $("#qty" + $(this).data("id")).removeAttr("disabled"); 
+            $("#qty" + $(this).data("id")).removeAttr("disabled");
         });
     } else {
         $('.checkBoxClass').each(function () {
             $("#qty" + $(this).data("id")).val('0');
             this.checked = false;
             $("#select" + $(this).data("id")).trigger("change");
-            $("#qty" + $(this).data("id")).attr("disabled", "disabled"); 
+            $("#qty" + $(this).data("id")).attr("disabled", "disabled");
         });
     }
     if ($('.checkBoxClass:checked').length) { $(".continue_btn").addClass('btn-success').removeAttr('disabled').removeClass('btn-secondary'); }
@@ -41,10 +43,13 @@ $(document).on("click", "#ckbCheckAll", function () {
 });
 
 $(document).on("change", ".checkBoxClass", function () {
-    if ($(this).is(':checked')) { if ($("#qty" + $(this).data("id")).val() == "0" || $("#qty" + $(this).data("id")).val() == "") { 
-        $("#qty" + $(this).data("id")).removeAttr("disabled"); 
-        $("#qty" + $(this).data("id")).val($(this).data("pendingqty")); } }
-    else { $("#qty" + $(this).data("id")).attr("disabled", "disabled");  $("#qty" + $(this).data("id")).val(''); }
+    if ($(this).is(':checked')) {
+        if ($("#qty" + $(this).data("id")).val() == "0" || $("#qty" + $(this).data("id")).val() == "") {
+            $("#qty" + $(this).data("id")).removeAttr("disabled");
+            $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
+        }
+    }
+    else { $("#qty" + $(this).data("id")).attr("disabled", "disabled"); $("#qty" + $(this).data("id")).val(''); }
 });
 
 $(document).on("change", ".checkBoxClass", function () {
@@ -60,23 +65,23 @@ $(document).on("change focusout", ".check_qty", function () { if ($(this).val() 
 
 $('.search-box').on('keyup', function (event) {
     //if (event.which === 13) {
-      var searchName = $(this).val();
-      $(".related tbody").empty().append(`<tr>
+    var searchName = $(this).val();
+    $(".related tbody").empty().append(`<tr>
           <td colspan="7" class="text-center">
             <p>No data found !</p>
           </td>
         </tr>`);
-        searchPo(searchName);
-      //return false;
+    searchPo(searchName);
+    //return false;
     //}
-  });
+});
 
 
 
 function format(rowData, factory_id) {
     $.ajax({
         type: "GET",
-        url: get_po_data + "/" + rowData+"/"+factory_id,
+        url: get_po_data + "/" + rowData + "/" + factory_id,
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
         async: false,
@@ -113,16 +118,16 @@ function format(rowData, factory_id) {
                     maxQty = actQty + actQty * 0.05;
                     if (maxQty > curr || curr == 0) { maxQty = curr; }
                     var chekbox = ``;
-                    var style="";
-                    if(isExpired == "1") {
-                        var style="style='background-color:#FAA0A0;'";
-                    }else if (curr != 0) {
+                    var style = "";
+                    if (isExpired == "1") {
+                        var style = "style='background-color:#FAA0A0;'";
+                    } else if (curr != 0) {
                         chekbox = `<input type="checkbox" name="footer_id[]" value="` + val['PoFooters'].id + `" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="` + val.actual_qty + `" data-id="` + val['PoItemSchedules'].id + `">`;
                     }
                     if (val.minimum_stock == null) { mins = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Minimum Stock"></i>` }
                     if (val.current_stock == null) { curr = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Current Stock"></i>` }
                     else if (curr < mins) { curr = `<i class="text-warning fas fa-exclamation-triangle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Maintain Minimum Stock"></i> &nbsp; ` + curr }
-                    tbody += `<tr `+style+`><td>` + chekbox + `</td>
+                    tbody += `<tr ` + style + `><td>` + chekbox + `</td>
                      <td>`+ val['PoFooters'].item + `</td>
                      <td>`+ val['PoFooters'].material + `</td>
                      <td>` + val.delivery_date + `</td>
@@ -189,7 +194,7 @@ function searchPo(search = "") {
     $(".right-side tbody:first").show();
     $.ajax({
         type: "GET",
-        url: get_po_for_asn + "/" +search,
+        url: get_po_for_asn + "/" + search,
         dataType: 'json',
         beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {

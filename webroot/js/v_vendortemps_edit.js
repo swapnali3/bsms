@@ -162,7 +162,7 @@ function load_data(i, v) {
                         </div>
                         <div class="col-sm-12 col-md-3 mb-3 required">
                             <label for="id_vendor_branch_offices_telephone">Telephone</label>
-                            <input required="required" type="number" value="`+ b.telephone + `" class="form-control maxlength_validation" maxlength="10" name="branch_offices[` + a + `][telephone]" id="id_vendor_branch_offices_` + a + `_telephone">
+                            <input required="required" type="number" value="`+ b.telephone + `" class="form-control maxlength_validation" maxlength="14" minlength="10" name="branch_offices[` + a + `][telephone]" id="id_vendor_branch_offices_` + a + `_telephone">
                         </div>
                     </div>
                     <div class="row">
@@ -264,7 +264,7 @@ function load_data(i, v) {
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                         <input required="required" type="text" class="form-control"
-                                            name="factories[`+ a + `][power_available]" placeholder="Power Available" value="` + b.power_available + `"
+                                            name="factories[`+ a + `][power_available]" placeholder="Power Consumption" value="` + b.power_available + `"
                                             required="true" id="id_vendor_factories_`+ a + `_power_available">
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-6">
@@ -949,7 +949,7 @@ $(document).on("click", "#id_vendor_factories_add", function () {
                             <div class="col-sm-12 col-md-6 col-lg-6">
                                 <input required="required" type="text" class="form-control"
                                     name="factories[`+ lid + `][power_available]"
-                                    placeholder="Power Available" required="true"
+                                    placeholder="Power Consumption" required="true"
                                     id="id_vendor_factories_`+ lid + `_power_available">
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6">

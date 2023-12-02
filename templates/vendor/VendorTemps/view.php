@@ -987,7 +987,7 @@
                                                         <?php if($vendorTemp->vendor_otherdetail->fully_manufactured != 'yes') : ?>
                                                         <?= h($vendorTemp->vendor_otherdetail->suppliers_name) ?>
                                                         <?php else :?>
-                                                        No
+                                                        Yes
                                                         <?php endif; ?>
                                                     </b>
                                                 </div>

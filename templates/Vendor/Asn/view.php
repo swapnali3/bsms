@@ -50,9 +50,7 @@
                                 <?php echo $this->Html->link('<button class="btn btn-custom-2 mb-0 mrk">Edit</button>', ['action' => 'edit', $deliveryDetails[0]->id], ['style' => 'display:block;', 'class' => 'asn_files', 'escape' => false]); ?>
                                     <button class="btn btn-custom-2 mb-0 mrk" data-toggle="modal"
                                     data-target="#modal-confirm">Mark Dispatched</button>
-                            <!-- </div> -->
                         </div>
-                        <!-- modal -->
                         <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
                             <div class="modal-dialog modal-sm">
                                 <div class="modal-content">
@@ -69,11 +67,10 @@
                             </div>
 
                         </div>
-                        <!-- end modal -->
                         <?php } ?>
 
                         <div class="col-sm-12 col-lg-6">
-                            <div class="d-flex justify-content-start mt-4 align-items-center">
+                            <div class="d-flex justify-content-start mt-4" style="font-size: smaller;">
                                 <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
 
                                     if (!empty($files)) {
