@@ -45,8 +45,8 @@
                         <?php
                         if ($deliveryDetails[0]->status == '1') { ?>
                         
-                        <div class="col-sm-2 col-lg-3">
-                            <div class="d-flex justify-content-end">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class=" d-flex justify-content-end">
                                 <?php echo $this->Html->link('<button class="btn btn-custom-2 mb-0 mrk">Edit</button>', ['action' => 'edit', $deliveryDetails[0]->id], ['style' => 'display:block;', 'class' => 'asn_files', 'escape' => false]); ?>
                                     <button class="btn btn-custom-2 mb-0 mrk" data-toggle="modal"
                                     data-target="#modal-confirm">Mark Dispatched</button>
@@ -68,9 +68,9 @@
 
                         </div>
                         <?php } ?>
-
-                        <div class="col-sm-12 col-lg-6">
-                            <div class="d-flex justify-content-start mt-4" style="font-size: smaller;">
+                    </div>
+                    <div class="col-sm-12 col-lg-6">
+                            <div class="d-flex justify-content-start align-items-center mt-4" style="font-size: smaller;">
                                 <?php $files = json_decode($deliveryDetails[0]->invoice_path, true);
 
                                     if (!empty($files)) {
@@ -92,8 +92,6 @@
                                 
                             </div>
                         </div>
-
-                    </div>
 
                 </div>
                 <div class="card-body">

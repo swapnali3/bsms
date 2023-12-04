@@ -1,5 +1,33 @@
+// function showConfirmationModal() {
+//   $('#modal-sm').modal('show');
+// }
+
+function validateForm() {
+  var isValid = true;
+
+  $('.form-field').each(function () {
+      var input = $(this);
+      var errorContainer = input.next('.text-danger');
+      var errorMessage = '';
+
+      if (input.attr('type') === 'date' && !input.val()) {
+          errorMessage = 'Please enter a date.';
+          isValid = false;
+      } else if (input.val() === '') {
+          errorMessage = 'This field is required.';
+          isValid = false;
+      }
+
+      errorContainer.text(errorMessage).toggle(!!errorMessage);
+  });
+
+  return isValid;
+}
+
 function showConfirmationModal() {
-  $('#modal-sm').modal('show');
+  if (validateForm()) {
+      $('#modal-sm').modal('show');
+  }
 }
 
 $('#OpenImgUpload').click(function () { $('#vendorCodeInput').trigger('click'); });
