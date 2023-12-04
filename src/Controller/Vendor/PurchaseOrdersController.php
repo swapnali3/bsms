@@ -848,9 +848,8 @@ class PurchaseOrdersController extends VendorAppController
                  <td>' . $row->PoFooters['short_text'] . '</td>
                  <td>' . $row->PoFooters['po_qty'] . ' ' . $row->PoFooters['order_unit'] . '</td>
                  <td>' . $row->PoFooters['grn_qty'] . ' ' . $row->PoFooters['order_unit'] . '</td>
-                 <td>' . $pendQty . ' ' . $row->PoFooters['order_unit'] . '</td>
-                 <td>' . $matAsnQty[$row->PoFooters['item']] . ' ' . $row->PoFooters['order_unit'] . '</td>
-
+                 <td>' . $row->PoFooters['pending_qty'] . ' ' . $row->PoFooters['order_unit'] . '</td>
+                 <td>' . ($matAsnQty[$row->PoFooters['item']] - $row->PoFooters['grn_qty']) . ' ' . $row->PoFooters['order_unit'] . '</td>
                  <td>' . $row->PoFooters['net_price'] . '</td>
                  <td>' . $row->PoFooters['net_value'] . '</td>
                  

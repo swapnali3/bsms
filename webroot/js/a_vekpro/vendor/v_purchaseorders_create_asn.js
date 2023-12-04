@@ -25,7 +25,8 @@ $(document).on('click', 'div.details-control', function () {
 $(document).on("click", "#ckbCheckAll", function () {
     if (this.checked) {
         $('.checkBoxClass').each(function (key, val) {
-            if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")); }
+            if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")).attr('readonly','readonly'); }
+            //if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")); }
             this.checked = true;
             $("#select" + $(this).data("id")).trigger("change");
             $("#qty" + $(this).data("id")).removeAttr("disabled");
@@ -135,7 +136,7 @@ function format(rowData, factory_id) {
                      <td>`+ actQty + ` ` + val['PoFooters'].order_unit + `</td>
                      <td>`+ curr + `</td>
                      <td>`+ mins + `</td>
-                     <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
+                     <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0" readonly></td>
                     </tr>`;
                 });
 
