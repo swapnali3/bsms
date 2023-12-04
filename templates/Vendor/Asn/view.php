@@ -94,7 +94,7 @@
                         </div>
 
                 </div>
-                <div class="mt-4">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-12 col-lg-12">
                             <h5 class="tracking-det"><b><?= __('Tracking Details') ?></b></h5>
