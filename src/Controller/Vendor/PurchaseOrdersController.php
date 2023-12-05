@@ -706,6 +706,9 @@ class PurchaseOrdersController extends VendorAppController
             //echo '<pre>'; print_r($row); exit;
             $row->asn_qty = $matAsnQty[$row->PoFooters['item']];
             $row->current_stock = ($row->opening_stock + $row->production_stock) - $matAsnQty[$row->PoFooters['item']];
+            if($row->current_stock < 0) {
+                $row->current_stock = 0;
+            }
         }
 
         if ($data->count() > 0) { 

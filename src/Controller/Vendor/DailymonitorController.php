@@ -160,6 +160,7 @@ class DailymonitorController extends VendorAppController
                                 
                                 $tmp['material_id'] = $mat ? $mat->id : null;
                                 $datas['material'] = $value;
+                                $datas['material_description'] = $mat ? $mat->description : '-';
 
                             } else if ($col == 4) {
                                 $tmp['target_production'] = $value;

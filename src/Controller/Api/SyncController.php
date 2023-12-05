@@ -362,7 +362,7 @@ class SyncController extends ApiAppController
                         $hederData['currency'] = $row->WAERS;
                         $hederData['exchange_rate'] = $row->WKURS;
                         $hederData['release_status'] = $row->FRGZU;
-                        $hederData['acknowledge'] = 0;
+                        //$hederData['acknowledge'] = 0;
                         
 
                         if($this->PoHeaders->exists(['po_no' => $row->EBELN])) {
@@ -397,6 +397,11 @@ class SyncController extends ApiAppController
                                     $footerData = $tmp;
                                     if($item->CHG_IND == 'X') {
                                         $footerData['is_updated'] = 1;
+                                        $poInstance = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
+                                        $hederData = [];
+                                        $hederData['acknowledge'] = 0;
+                                        $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
+                                        $this->PoHeaders->save($poInstance);
                                     }
                                     
                                     

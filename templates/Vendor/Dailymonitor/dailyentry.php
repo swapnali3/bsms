@@ -209,9 +209,10 @@
                         <td> `+ val.factory_code + `</td>
                         <td> `+ val.line + `</td>
                         <td> `+ val.material +`</td>
+                        <td> `+ val.material_description +`</td>
+                        <td> `+ val.plan_date + `</td>
                         <td> `+ val.target_production + `</td>
                         <td> `+ val.confirm_production + `</td>
-                        <td> `+ val.plan_date + `</td>
                         <td> `+ val.error + `</td>
                         </tr>`;
                         $("#example1 tbody").append(rowHtml);
