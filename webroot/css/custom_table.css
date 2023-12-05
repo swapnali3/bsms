@@ -885,6 +885,7 @@ div.dataTables_wrapper div.dataTables_filter input { margin-left: 0 !important;}
     bottom: 0 ;
     left: 0 ;
     width: 100%;
+    z-index: 99;
 }
 
 .card-body { padding: 1rem !important;}
