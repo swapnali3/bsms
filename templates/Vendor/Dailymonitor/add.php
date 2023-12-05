@@ -26,36 +26,34 @@
                 <div class="row dgf m-0">
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('plan_date', array('type'=>'date', 'class' => 'form-control w-100')); ?>
+                            <?php echo $this->Form->control('plan_date', array('type' => 'date', 'class' => 'form-control w-100 form-field')); ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-2 col-lg-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factory', 'required')); ?>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-8 col-md-2">
-                        <div class="form-group">
-                            <?php echo $this->Form->control('production_line_id', array('name' => 'production_line_id', 'class' => 'form-control w-100', 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100 form-field', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factory', 'required')); ?>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('production_line_id', array('name' => 'production_line_id', 'class' => 'form-control w-100 form-field', 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
-
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('target_production', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'div' => 'form-group', 'required')); ?>
-                            <?php echo $this->Form->control('prod_line', array('type' => 'hidden', 'class' => 'form-control rounded-0 w-100', 'div' => 'form-group', 'required')); ?>
+                            <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100 form-field', 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
-
+                    <div class="col-sm-8 col-md-2">
+                        <div class="form-group">
+                            <?php echo $this->Form->control('target_production', array('type' => 'number', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
+                            <?php echo $this->Form->control('prod_line', array('type' => 'hidden', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
+                            <span class="text-danger"></span>
+                        </div>
+                    </div>
                     <div class="col-sm-8 col-md-2" style="display:none;">
                         <div class="form-group">
-                            <?php echo $this->Form->control('confirm_production', array('type' => 'number', 'value' => '0','class' => 'form-control rounded-0 w-100', 'div' => 'form-group', 'required')); ?>
+                            <?php echo $this->Form->control('confirm_production', array('type' => 'number', 'value' => '0', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-2">
@@ -64,20 +62,20 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
-                <div class="modal-content">
-                    <div class="modal-body text-center">
-                        <h6>Are you sure you want to Add?</h6>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn addCancel"  data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn addSubmit" >Ok</button>
-                    </div>
                 </div>
             </div>
+            <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-body text-center">
+                            <h6>Are you sure you want to Add?</h6>
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn addCancel"  data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn addSubmit" >Ok</button>
+                        </div>
+                    </div>
+                </div>
         </div>
 
         <?= $this->Form->end() ?>

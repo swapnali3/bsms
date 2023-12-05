@@ -92,15 +92,13 @@
                             </td>
                             
                             <?php if ($dailymonitors->status == 1) : ?>
-                            <td>
-                                <input type="number" class="form-control form-control-sm confirm-input"
-                                    id="confirmprd<?= h($dailymonitors->id) ?>" data-id="<?= h($dailymonitors->id) ?>">
-                            </td>
-                            <td>
-                                <button class="btn btn-success save btn-sm mb-0"
-                                    id="confirmsave<?= h($dailymonitors->id) ?>"
-                                    data-id="<?= h($dailymonitors->id) ?>">Save</button>
-                            </td>
+                                <td>
+                                    <input type="number" class="form-control form-control-sm confirm-input" id="confirmprd<?= h($dailymonitors->id) ?>" data-id="<?= h($dailymonitors->id) ?>">
+                                    <span id="validationMessage<?= h($dailymonitors->id) ?>" class="text-danger" style="display: none;"></span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-success save btn-sm mb-0" id="confirmsave<?= h($dailymonitors->id) ?>" data-id="<?= h($dailymonitors->id) ?>">Save</button>
+                                </td>
                             <?php elseif ($dailymonitors->status == 2) : ?>
                             <td colspan="2" class="text-center">
                                 Plan Cancelled
@@ -149,15 +147,15 @@
         </div>
     </div>
 </div>
-<div class="modal fade numericValidationErrorModal" id="modal-sm" style="display: none;" aria-hidden="true">
+<div class="modal fade confirmationModal" id="modal-sm" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-body text-center">
-                <h6>Please enter a valid numeric value in Confirm Save.</h6>
+                <h6>Are you sure you want to save Confirm Production?</h6>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn addCancel"  data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn addSubmit" >Ok</button>
+                <button type="button" class="btn addCancel" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn addSubmit" id="confirmOkButton">Ok</button>
             </div>
         </div>
     </div>

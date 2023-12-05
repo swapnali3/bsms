@@ -27,18 +27,21 @@ $(document).on("click", ".save", function () {
     var confirmprd = $("#confirmprd" + id).val();
 
     if (!/^\d+$/.test(confirmprd)) {
+        $("#validationMessage" + id).text("Enter valid numeric value.").show();
+
+        $("#confirmprd" + id).addClass('is-invalid');
+    } else {
+        $("#validationMessage" + id).hide();
+
+        $("#confirmprd" + id).removeClass('is-invalid');
+
         $('#modal-sm').modal('show');
-
-        $('.addCancel').on('click', function() {
-            $('#modal-sm').modal('hide');
-        });
-
-        $('.addSubmit').on('click', function() {
-            $('#modal-sm').modal('hide');
-        });
-
-        return;
     }
+});
+
+$('#confirmOkButton').on('click', function () {
+    var id = $(".save").data('id');
+    var confirmprd = $("#confirmprd" + id).val();
 
     $.ajax({
         type: "GET",
@@ -51,13 +54,19 @@ $(document).on("click", ".save", function () {
             if (resp.status) {
                 $("#confirmprd" + id).attr('disabled', true);
                 $("#confirmsave" + id).remove();
+
+                $("#confirmprd" + id).removeClass('is-invalid');
+
                 Toast.fire({
                     icon: 'success',
                     title: resp.message
                 });
             }
         },
-        complete: function () { $("#gif_loader").hide(); }
+        complete: function () {
+            $("#gif_loader").hide();
+            $('#modal-sm').modal('hide');
+        }
     });
 });
 
