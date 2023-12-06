@@ -112,14 +112,14 @@ document.addEventListener('keydown', preventEnterKey);
 
 
 const fileInput = document.getElementById("bulk_file");
-    const uploadButton = document.getElementById("OpenImgUpload");
+const uploadButton = document.getElementById("OpenImgUpload");
 
-    fileInput.addEventListener("change", function () {
-        if (this.files.length > 0) {
-            const fileName = this.files[0].name;
-            uploadButton.innerText = `${fileName}`;
-        } else {
-            uploadButton.innerText = "Upload File";
-            fileNameDisplay.innerText = "";
-        }
-});
+// fileInput.addEventListener("change", function () {
+//     if (this.files.length > 0) {
+//         const fileName = this.files[0].name;
+//         uploadButton.innerText = `${fileName}`;
+//     } else {
+//         uploadButton.innerText = "Upload File";
+//         fileNameDisplay.innerText = "";
+//     }
+// });
