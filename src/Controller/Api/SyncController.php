@@ -339,6 +339,8 @@ class SyncController extends ApiAppController
         $this->loadModel("Materials");
         $this->loadModel("PoItemSchedules");
         $this->loadModel("Buyers");
+        $this->loadModel('VendorTemps');
+        
 
         foreach($list as $fileKey) {
             if(str_starts_with($fileKey, 'PO_')) {
@@ -397,11 +399,32 @@ class SyncController extends ApiAppController
                                     $footerData = $tmp;
                                     if($item->CHG_IND == 'X') {
                                         $footerData['is_updated'] = 1;
-                                        $poInstance = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
+                                        $poInstanceAck = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
                                         $hederData = [];
                                         $hederData['acknowledge'] = 0;
-                                        $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
-                                        $this->PoHeaders->save($poInstance);
+                                        $poInstanceAck = $this->PoHeaders->patchEntity($poInstanceAck, $hederData);
+                                        $this->PoHeaders->save($poInstanceAck);
+
+                                        $vendorDetail = $this->VendorTemps->find()->where(['sap_vendor_code' => $row->LIFNR])->first();
+                                        if($vendorDetail) {
+                                            try{
+                                                $mailer = new Mailer('default');
+                                                $mailer
+                                                    ->setTransport('smtp')
+                                                    ->setViewVars([ 'subject' => 'Hi ', 'mailbody' => "PO : $row->EBELN , Item: $item->EBELP has been updated." ])
+                                                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                                    ->setTo($vendorDetail->email)
+                                                    ->setEmailFormat('html')
+                                                    ->setSubject('Vendor Portal - PO Item updated')
+                                                    ->viewBuilder()
+                                                        ->setTemplate('mail_template');
+                                                $mailer->deliver();
+                                            } catch (\Exception $e) {
+
+                                            }
+                                        }
+
+
                                     }
                                     
                                     

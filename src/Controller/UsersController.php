@@ -205,7 +205,7 @@ class UsersController extends AppController
                         
                         //echo '<pre>'; print_r($this->Cookie->getLoginToken()); 
                         //echo '<pre>'; print_r($token); exit;
-                        if(false && $token && $token != $this->Cookie->getLoginToken()) {
+                        if($token && $token != $this->Cookie->getLoginToken()) {
                             $response['message'] = 'User already logged in';
                             echo json_encode($response); exit;
                         } else {

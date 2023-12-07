@@ -154,7 +154,7 @@
 </li>
 
 <!-- <li class="nav-item">
-  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Material Master</p>'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
+  <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>MSL Stock</p>'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
 </li> -->
 
 <!-- 

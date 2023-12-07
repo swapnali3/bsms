@@ -286,6 +286,8 @@ class PurchaseOrdersController extends BuyerAppController
     {
 
         $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+        
         $this->loadModel("Notifications");
         $this->loadModel("PoItemSchedules");
         $this->loadModel("VendorTemps");
@@ -303,13 +305,18 @@ class PurchaseOrdersController extends BuyerAppController
             $schedule = $this->PoItemSchedules->get($id);
             if ($this->PoItemSchedules->delete($schedule)) {
 
-                $sapVendorcode = $this->PoHeaders->find()
-                        ->select(['sap_vendor_code'])
+                $poDetail = $this->PoHeaders->find()
+                        ->select(['sap_vendor_code', 'po_no'])
                         ->where(['id' => $PoItemSchedule->po_header_id])
                         ->first();
 
+                $poItem = $this->PoFooters->find()
+                        ->select(['item'])
+                        ->where(['id' => $PoItemSchedule->po_footer_id])
+                        ->first();
+
                         $vendorRecord = $this->VendorTemps->find()
-                        ->where(['sap_vendor_code' => $sapVendorcode->sap_vendor_code])
+                        ->where(['sap_vendor_code' => $poDetail->sap_vendor_code])
                         ->first();
 
                 $filteredBuyers = $this->VendorTemps->find()
@@ -337,7 +344,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
-                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A new PO has been schedule. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A schedule has been cancelled for PO : '.$poDetail->po_no.' and Item : '.$poItem->item.' . Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
                                 ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
@@ -435,6 +442,7 @@ class PurchaseOrdersController extends BuyerAppController
         $response['message'] = '';
         $this->autoRender = false;
         $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
         $this->loadModel("Notifications");
         $this->loadModel("PoItemSchedules");
         $this->loadModel("VendorTemps");
@@ -445,14 +453,20 @@ class PurchaseOrdersController extends BuyerAppController
             
             foreach ($data as $row) {
                 try {
-                    $sapVendorcode = $this->PoHeaders->find()
-                        ->select(['sap_vendor_code'])
-                        ->where(['id' => $row['po_header_id']])
+
+                    $poDetail = $this->PoHeaders->find()
+                        ->select(['sap_vendor_code', 'po_no'])
+                        ->where(['id' => $row['po_header_id']])->first();
+                    
+                $poItem = $this->PoFooters->find()
+                        ->select(['item'])
+                        ->where(['id' => $row['po_footer_id']])
                         ->first();
 
                         $vendorRecord = $this->VendorTemps->find()
-                        ->where(['sap_vendor_code' => $sapVendorcode->sap_vendor_code])
+                        ->where(['sap_vendor_code' => $poDetail->sap_vendor_code])
                         ->first();
+
 
                     if ($vendorRecord->update_flag) {
                         $response['status'] = 0;
@@ -486,7 +500,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
-                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A new PO has been schedule. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A new schedule has been created for PO: '.$poDetail->po_no.' and Item : '.$poItem->item.'. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
                                 ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
@@ -517,6 +531,7 @@ class PurchaseOrdersController extends BuyerAppController
         $this->autoRender = false;
 
         $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
         $this->loadModel("Notifications");
         $this->loadModel("PoItemSchedules");
         $this->loadModel("VendorTemps");
@@ -532,13 +547,18 @@ class PurchaseOrdersController extends BuyerAppController
             $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $this->request->getData());
             if ($this->PoItemSchedules->save($PoItemSchedule)) {
                 
-                $sapVendorcode = $this->PoHeaders->find()
-                        ->select(['sap_vendor_code'])
+                $poDetail = $this->PoHeaders->find()
+                        ->select(['sap_vendor_code', 'po_no'])
                         ->where(['id' => $PoItemSchedule->po_header_id])
                         ->first();
 
+                $poItem = $this->PoFooters->find()
+                        ->select(['item'])
+                        ->where(['id' => $PoItemSchedule->po_footer_id])
+                        ->first();
+
                         $vendorRecord = $this->VendorTemps->find()
-                        ->where(['sap_vendor_code' => $sapVendorcode->sap_vendor_code])
+                        ->where(['sap_vendor_code' => $poDetail->sap_vendor_code])
                         ->first();
 
                 $filteredBuyers = $this->VendorTemps->find()
@@ -566,7 +586,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
-                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A new PO has been schedule. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'Schedule has been changed for PO : '.$poDetail->po_no.' and Item : '.$poItem->item.'. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
                                 ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')

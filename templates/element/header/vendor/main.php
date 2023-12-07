@@ -50,7 +50,7 @@
                     </a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li class="nav-item ">
-                            <?= $this->Html->link(__('Material Master'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
+                            <?= $this->Html->link(__('MSL Stock'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
                           </li>
                           <li class="nav-item ">
                             <?= $this->Html->link(__('Line Master'), ['controller' => 'line-masters', 'action' => 'index'], ['class' => "nav-link $lineMaster", 'escape' => false]) ?>
