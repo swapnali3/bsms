@@ -664,7 +664,9 @@ class PurchaseOrdersController extends BuyerAppController
         $this->autoRender = false;
         $this->loadModel("PoItemSchedules");
         $response = ['status' => 0, 'message' => '', 'totalQty' => ''];
-        $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id, 'status' => 1, 'PoItemSchedules.id not in (select po_schedule_id from asn_footers where po_footer_id ='.$id.')']]);
+        $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id, 'status' => 1, 
+        //'PoItemSchedules.id not in (select po_schedule_id from asn_footers where po_footer_id ='.$id.')'
+        ]]);
         
         //print_r($data); exit;
         if ($data->count() > 0) {
@@ -856,8 +858,16 @@ class PurchaseOrdersController extends BuyerAppController
                         if(empty($datas['error'])) {
                             $uploadData[] = $tmp; 
                             
+                            $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
+                            $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $tmp);
+                            if ($this->PoItemSchedules->save($PoItemSchedule)) {
+                                $datas['error'] = "Schedule created";
+                            } else {
+                                $datas['error'] = "Fail to create schedule";
+                            }
+
                             //echo '<pre>'; print_r($uploadData); exit;
-                            if($this->PoItemSchedules->exists(['po_header_id' => $tmp['po_header_id'], 'po_footer_id' => $tmp['po_footer_id'], 'delivery_date' => $tmp['delivery_date'], 'status' => 1])) {
+                            /*if($this->PoItemSchedules->exists(['po_header_id' => $tmp['po_header_id'], 'po_footer_id' => $tmp['po_footer_id'], 'delivery_date' => $tmp['delivery_date'], 'status' => 1])) {
                                 $datas['error'] = 'Schedule already created';
                             } else {
                                 $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
@@ -867,7 +877,7 @@ class PurchaseOrdersController extends BuyerAppController
                                 } else {
                                     $datas['error'] = "Fail to create schedule";
                                 }
-                            }
+                            } */
                         }
 
                         $showData[] = $datas;

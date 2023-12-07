@@ -126,6 +126,10 @@ function format(rowData, factory_id) {
                     var isExpired = 0;
                     var actQty = parseFloat(val.actual_qty);
                     maxQty = actQty + actQty * 0.05;
+                    if(val['PoFooters'].order_unit.toUpperCase() == 'NO') {
+                        maxQty = Math.round(maxQty);
+                    }
+                    
                     if (maxQty > curr || curr == 0) { maxQty = curr; }
                     var chekbox = ``;
                     var style = "";
@@ -146,7 +150,7 @@ function format(rowData, factory_id) {
                      <td>`+ actQty + ` ` + val['PoFooters'].order_unit + `</td>
                      <td>`+ curr + `</td>
                      <td>`+ mins + `</td>
-                     <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
+                     <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" order-unit="`+val['PoFooters'].order_unit+`" value="0"></td>
                     </tr>`;
                 });
 
