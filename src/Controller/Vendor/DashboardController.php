@@ -86,13 +86,18 @@ class DashboardController extends VendorAppController
         ->where(['AsnHeaders.status in ' => ['1','2'], 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')])
         ->group(['VendorFactories.id','PoFooters.material'])->limit(10)->toArray();
 
+        //echo '<pre>'; print_r($asnMaterials); exit;
         foreach($stocks as &$stock) {
             foreach($asnMaterials as $asn) {
                 if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material->code == $asn->material) {
                     $stock->asn_stock = $asn->qty;
                     $stock->current_stock = ($stock->opening_stock + $stock->production_stock) - $stock->asn_stock;
                 }
+                if($stock->current_stock < 0) {
+                    $stock->current_stock = 0;
+                }
             }
+            
         }
 
 
