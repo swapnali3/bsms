@@ -64,5 +64,5 @@
 </li>
 
 <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Stocks Upload</p>'), ['controller' => '/stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fas fa-warehouse nav-icon"></i><p>Opening stock</p>'), ['controller' => '/stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
   </li>

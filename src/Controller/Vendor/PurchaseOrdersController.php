@@ -914,12 +914,12 @@ class PurchaseOrdersController extends VendorAppController
             $poHeader = $this->PoHeaders->find('all')
                 ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'PoItemSchedules.delivery_date', 'current_stock'=>'StockUploads.current_stock', 'min_stock'=>'Materials.minimum_stock'])
                 ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
-                ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
+                ->leftJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
                 ->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
                 ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
                 ->leftJoin(['StockUploads' => 'stock_uploads'], ['StockUploads.material_id = Materials.id'])
                 ->where($conditions)
-                ->order(['PoFooters.id' => 'DESC'])
+                ->order(['PoItemSchedules.id' => 'ASC'])
                 //->limit(1)
                 ->toArray();
     

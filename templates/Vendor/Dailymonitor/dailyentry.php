@@ -168,9 +168,12 @@
         var val = parseFloat($(this).val().trim());
         var maxQty = parseFloat($("#plan_qty_" + id).val().trim());
         console.log(val + "=" + maxQty);
-        if (val > maxQty) {
-            $(this).val(maxQty);
+        if(val < 1) {
+            $(this).val("");
         }
+        /*if (val > maxQty) {
+            $(this).val(maxQty);
+        }*/
     });
 
     $('#OpenImgUpload').click(function() {

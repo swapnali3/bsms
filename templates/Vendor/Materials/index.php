@@ -15,11 +15,11 @@
             <div class="card-header">
                 <div class="row align-items-center">
                     <div class="col-sm-6 col-lg-6">
-                        <h5 class="mb-0"><b>Vendor Materials</b></h5>
+                        <h5 class="mb-0"><b>MSL Stock</b></h5>
                     </div>
                     <div class="col-sm-6 col-lg-6 d-flex justify-content-end refresh_btn">
                         <!-- <a href="<?= $this->Url->build('/') ?>vendor/materials/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Material</button></a> -->
-                        <button type="button" id="reload_stocks" class="btn bg-gradient-button mb-0 continue_btn">Refresh min. Stk.</button>
+                        <!-- <button type="button" id="reload_stocks" class="btn bg-gradient-button mb-0 continue_btn">Refresh min. Stk.</button> -->
                     </div>
                 </div>
             </div>

@@ -25,8 +25,8 @@ $(document).on('click', 'div.details-control', function () {
 $(document).on("click", "#ckbCheckAll", function () {
     if (this.checked) {
         $('.checkBoxClass').each(function (key, val) {
-            if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")).attr('readonly','readonly'); }
-            //if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")); }
+            //if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")).attr('readonly','readonly'); }
+            if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")); }
             this.checked = true;
             $("#select" + $(this).data("id")).trigger("change");
             $("#qty" + $(this).data("id")).removeAttr("disabled");
@@ -114,7 +114,8 @@ function format(rowData, factory_id) {
                 $.each(response.data, function (key, val) {
                     var curr = (val.current_stock == null ? 0 : parseFloat(val.current_stock));
                     var mins = (val.minimum_stock == null ? 0 : parseFloat(val.minimum_stock));
-                    var isExpired = (val.is_expired == null ? 0 : val.is_expired);
+                    //var isExpired = (val.is_expired == null ? 0 : val.is_expired);
+                    var isExpired = 0;
                     var actQty = parseFloat(val.actual_qty);
                     maxQty = actQty + actQty * 0.05;
                     if (maxQty > curr || curr == 0) { maxQty = curr; }
@@ -136,7 +137,7 @@ function format(rowData, factory_id) {
                      <td>`+ actQty + ` ` + val['PoFooters'].order_unit + `</td>
                      <td>`+ curr + `</td>
                      <td>`+ mins + `</td>
-                     <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0" readonly></td>
+                     <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
                     </tr>`;
                 });
 
