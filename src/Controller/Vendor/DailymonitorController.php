@@ -206,7 +206,7 @@ class DailymonitorController extends VendorAppController
                             $upsertQuery->values($row);
                         }
                         if($highestColumnIndex == 6) {
-                            $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `confirm_production`=VALUES(`confirm_production`)')
+                            $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `confirm_production`=VALUES(`confirm_production`), `status`=VALUES(`status`)')
                             ->execute();
                         } else {
                             $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `target_production`=VALUES(`target_production`)')
