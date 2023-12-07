@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Buyer;
 
 use App\Model\Table\VendorMaterialTable;
+use Cake\Datasource\ConnectionManager;
 
 
 /**
@@ -29,14 +30,88 @@ class StockUploadsController extends BuyerAppController
      */
     public function index()
     {
-        
         $session = $this->getRequest()->getSession();
-        $stockupload = $this->StockUploads->find('all')->contain(['Materials', 'VendorFactories'])
-        ->toArray();
-        
+        $this->loadModel("VendorTemps");
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
+        $materials = $this->Materials->find('all')->toArray();
+        $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
+        $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
+        $vendortype = $this->VendorTypes->find('all')->toArray();
+        $this->set(compact('materials', 'vendor', 'vendortype', 'segment'));
+    }
 
-        //echo '<pre>'; print_r($stockupload); exit;
-        $this->set(compact('stockupload'));
+    public function stocklist(){
+        $this->autoRender = false;
+        $this->loadModel("VendorTemps");
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
+        $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
+
+        $conditions = " where 1=1 ";
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+            if(isset($request['vendor'])) {
+                $search = '';
+                foreach ($request['vendor'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and vendor_temps.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
+                else{ $conditions .= " and materials.id in (".$search.")"; }
+            }
+            if(isset($request['vendortype'])) {
+                $search = '';
+                foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+                else{ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+            }
+            if(isset($request['segment'])) {
+                $search = '';
+                foreach ($request['segment'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " or materials.segment in (".$search.")";
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype'])){ $conditions .= " and materials.segment in (".$search.")"; }
+                else{ $conditions .= " and materials.segment in (".$search.")"; }
+            }
+            $conn = ConnectionManager::get('default');
+        }
+        
+        $conn = ConnectionManager::get('default');
+        $material = $conn->execute("SELECT
+        vendor_temps.sap_vendor_code as 'v_code', vendor_factories.factory_code as 'f_code', '-' as 'po_no',
+        vendor_types.name as 'vt_id', materials.segment as 'mt_segment', '-' as 'line_item',
+        materials.code as 'mt_code', materials.description as 'mt_description',
+        stock_uploads.opening_stock, materials.uom as 'mt_uom' FROM stock_uploads
+        left join vendor_temps on vendor_temps.sap_vendor_code = stock_uploads.sap_vendor_code
+        left join vendor_types on vendor_types.id = vendor_temps.vendor_type_id
+        left join vendor_factories on vendor_factories.id = stock_uploads.vendor_factory_id
+        left join materials on materials.id = stock_uploads.material_id". $conditions);
+        // echo '<pre>'; print_r($request);print_r($material);
+        $materialist = $material->fetchAll('assoc');
+
+        $results = [];
+        foreach ($materialist as $mat) {
+            $tmp[] = $mat['v_code'];
+            $tmp[] = $mat['f_code'];
+            $tmp[] = $mat['po_no'];
+            $tmp[] = $mat['vt_id'];
+            $tmp[] = $mat['mt_segment'];
+            $tmp[] = $mat['line_item'];
+            $tmp[] = $mat['mt_code'];
+            $tmp[] = $mat['mt_description'];
+            $tmp[] = $mat['opening_stock'];
+            $tmp[] = $mat['mt_uom'];
+            $results[] = $tmp;
+        }
+
+        $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+        echo json_encode($response); exit;
     }
 
     /**

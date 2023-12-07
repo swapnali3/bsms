@@ -70,11 +70,11 @@
                         </select>
                     </div>
                     <div class="col-1 mt-4 pt-2">
-                        <button class="btn btn-sm bg-gradient-button" type="submit" id="id_sub">Search</button>
+                        <button class="btn bg-gradient-button" type="submit" id="id_sub">Search</button>
                     </div>
                     <div class="col-2 mt-4 pt-2">
                         <a href="<?= $this->Url->build('/') ?>buyer/materials/add" id="continueSub"
-                            class="btn btn-sm mb-0 continue_btn float-right">Add Material</a>
+                            class="btn mb-0 continue_btn float-right">Add Material</a>
                     </div>
                 </div>
                 <?= $this->Form->end() ?>
