@@ -30,6 +30,7 @@ $(document).on("click", "#ckbCheckAll", function () {
             this.checked = true;
             $("#select" + $(this).data("id")).trigger("change");
             $("#qty" + $(this).data("id")).removeAttr("disabled");
+            $("#schedule_id" + $(this).data("id")).removeAttr("disabled");
         });
     } else {
         $('.checkBoxClass').each(function () {
@@ -37,6 +38,7 @@ $(document).on("click", "#ckbCheckAll", function () {
             this.checked = false;
             $("#select" + $(this).data("id")).trigger("change");
             $("#qty" + $(this).data("id")).attr("disabled", "disabled");
+            $("#schedule_id" + $(this).data("id")).attr("disabled", "disabled");
         });
     }
     if ($('.checkBoxClass:checked').length) { $(".continue_btn").addClass('btn-success').removeAttr('disabled').removeClass('btn-secondary'); }
@@ -48,9 +50,15 @@ $(document).on("change", ".checkBoxClass", function () {
         if ($("#qty" + $(this).data("id")).val() == "0" || $("#qty" + $(this).data("id")).val() == "") {
             $("#qty" + $(this).data("id")).removeAttr("disabled");
             $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
+            $("#schedule_id" + $(this).data("id")).removeAttr("disabled");
+            
         }
     }
-    else { $("#qty" + $(this).data("id")).attr("disabled", "disabled"); $("#qty" + $(this).data("id")).val(''); }
+    else { 
+        $("#qty" + $(this).data("id")).attr("disabled", "disabled"); 
+        $("#qty" + $(this).data("id")).val(''); 
+        $("#schedule_id" + $(this).data("id")).attr("disabled", "disabled"); 
+    }
 });
 
 $(document).on("change", ".checkBoxClass", function () {
@@ -118,6 +126,10 @@ function format(rowData, factory_id) {
                     var isExpired = 0;
                     var actQty = parseFloat(val.actual_qty);
                     maxQty = actQty + actQty * 0.05;
+                    if(val['PoFooters'].order_unit.toUpperCase() == 'NO') {
+                        maxQty = Math.round(maxQty);
+                    }
+                    
                     if (maxQty > curr || curr == 0) { maxQty = curr; }
                     var chekbox = ``;
                     var style = "";
@@ -125,6 +137,7 @@ function format(rowData, factory_id) {
                         var style = "style='background-color:#FAA0A0;'";
                     } else if (curr != 0) {
                         chekbox = `<input type="checkbox" name="footer_id[]" value="` + val['PoFooters'].id + `" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="` + val.actual_qty + `" data-id="` + val['PoItemSchedules'].id + `">`;
+                        chekbox += `<input type="hidden" name="po_schedule_id[]" value="` + val['PoItemSchedules'].id + `" disabled style="max-width: 20px;" class="form-control form-control-sm"  id="schedule_id` + val['PoItemSchedules'].id + `"">`;
                     }
                     if (val.minimum_stock == null) { mins = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Minimum Stock"></i>` }
                     if (val.current_stock == null) { curr = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Current Stock"></i>` }
@@ -137,7 +150,7 @@ function format(rowData, factory_id) {
                      <td>`+ actQty + ` ` + val['PoFooters'].order_unit + `</td>
                      <td>`+ curr + `</td>
                      <td>`+ mins + `</td>
-                     <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" value="0"></td>
+                     <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" order-unit="`+val['PoFooters'].order_unit+`" value="0"></td>
                     </tr>`;
                 });
 
