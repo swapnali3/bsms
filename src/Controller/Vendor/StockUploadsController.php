@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Vendor;
 
 use App\Model\Table\VendorMaterialTable;
+use Cake\Datasource\ConnectionManager;
 
 
 /**
@@ -27,35 +28,116 @@ class StockUploadsController extends VendorAppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    // public function index()
+    // {
+
+    //     $session = $this->getRequest()->getSession();
+    //     $vendorId = $session->read('vendor_id');
+    //     $this->loadModel('AsnFooters');
+
+    //     $stockupload = $this->StockUploads->find('all')->contain(['Materials', 'VendorFactories'])
+    //     ->where(['StockUploads.sap_vendor_code' => $session->read('vendor_code')])
+    //     ->toArray();
+
+    //     $intransitMaterials = $this->AsnFooters->find('all')
+    //     ->select(['vendor_factory_id' => 'VendorFactories.id', 'material' => 'PoFooters.material', 'qty' => 'sum(AsnFooters.qty)'])
+    //     ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
+    //     ->where(['AsnHeaders.status in ' => ['1','2'], 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')])
+    //     ->group(['VendorFactories.id','PoFooters.material'])->toArray();
+
+    //     foreach($stockupload as &$stock) {
+    //         foreach($intransitMaterials as $asn) {
+    //             if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material->code == $asn->material) {
+    //                 $stock->asn_stock = $asn->qty;
+    //                 $stock->current_stock = ($stock->opening_stock + $stock->production_stock) - $stock->asn_stock;
+    //             }
+    //         }
+    //     }
+        
+    //     $this->set(compact('stockupload'));
+    // }
+
     public function index()
     {
-
         $session = $this->getRequest()->getSession();
-        $vendorId = $session->read('vendor_id');
-        $this->loadModel('AsnFooters');
+        $this->loadModel('Materials');
+        $materials = $this->Materials->find('all')->where(['Materials.sap_vendor_code' => $session->read('vendor_code')])->toArray();
+        $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
+        $this->set(compact('materials', 'segment'));
+    }
 
-        $stockupload = $this->StockUploads->find('all')->contain(['Materials', 'VendorFactories'])
-        ->where(['StockUploads.sap_vendor_code' => $session->read('vendor_code')])
-        ->toArray();
+    public function stocklist(){
+        $this->autoRender = false;
+        $this->loadModel("VendorTemps");
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
+        $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
 
-
-        //echo '<pre>'; prin
-        $intransitMaterials = $this->AsnFooters->find('all')
-        ->select(['vendor_factory_id' => 'VendorFactories.id', 'material' => 'PoFooters.material', 'qty' => 'sum(AsnFooters.qty)'])
-        ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
-        ->where(['AsnHeaders.status in ' => ['1','2'], 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')])
-        ->group(['VendorFactories.id','PoFooters.material'])->toArray();
-
-        foreach($stockupload as &$stock) {
-            foreach($intransitMaterials as $asn) {
-                if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material->code == $asn->material) {
-                    $stock->asn_stock = $asn->qty;
-                    $stock->current_stock = ($stock->opening_stock + $stock->production_stock) - $stock->asn_stock;
-                }
+        $conditions = " where 1=1 ";
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+            if(isset($request['vendor'])) {
+                $search = '';
+                foreach ($request['vendor'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and vendor_temps.sap_vendor_code in (".$search.")";
             }
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
+                else{ $conditions .= " and materials.id in (".$search.")"; }
+            }
+            if(isset($request['vendortype'])) {
+                $search = '';
+                foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+                else{ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+            }
+            if(isset($request['segment'])) {
+                $search = '';
+                foreach ($request['segment'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " or materials.segment in (".$search.")";
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype'])){ $conditions .= " and materials.segment in (".$search.")"; }
+                else{ $conditions .= " and materials.segment in (".$search.")"; }
+            }
+            $conn = ConnectionManager::get('default');
         }
         
-        $this->set(compact('stockupload'));
+        $conn = ConnectionManager::get('default');
+        $material = $conn->execute("SELECT
+        vendor_temps.sap_vendor_code as 'v_code', vendor_factories.factory_code as 'f_code', '-' as 'po_no',
+        vendor_types.name as 'vt_id', materials.segment as 'mt_segment', '-' as 'line_item',
+        materials.code as 'mt_code', materials.description as 'mt_description',
+        stock_uploads.opening_stock, materials.uom as 'mt_uom' FROM stock_uploads
+        left join vendor_temps on vendor_temps.sap_vendor_code = stock_uploads.sap_vendor_code
+        left join vendor_types on vendor_types.id = vendor_temps.vendor_type_id
+        left join vendor_factories on vendor_factories.id = stock_uploads.vendor_factory_id
+        left join materials on materials.id = stock_uploads.material_id". $conditions);
+        // echo '<pre>'; print_r($request);print_r($material);
+        $materialist = $material->fetchAll('assoc');
+
+        $results = [];
+        foreach ($materialist as $mat) {
+            $tmp = [];
+            $tmp[] = $mat['v_code'];
+            $tmp[] = $mat['f_code'];
+            $tmp[] = $mat['po_no'];
+            $tmp[] = $mat['vt_id'];
+            $tmp[] = $mat['mt_segment'];
+            $tmp[] = $mat['line_item'];
+            $tmp[] = $mat['mt_code'];
+            $tmp[] = $mat['mt_description'];
+            $tmp[] = $mat['opening_stock'];
+            $tmp[] = $mat['mt_uom'];
+            $results[] = $tmp;
+        }
+
+        $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+        echo json_encode($response); exit;
     }
 
     /**

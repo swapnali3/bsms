@@ -7,6 +7,7 @@ namespace App\Controller\Vendor;
 use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
+use Cake\Datasource\ConnectionManager;
 use Cake\Routing\Router;
 use Cake\Http\Client;
 
@@ -32,21 +33,83 @@ class MaterialsController extends VendorAppController
     
     public function index()
     {
-        $this->loadModel('Uoms');
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-
         $this->loadModel('Materials');
 
-        $vendorMaterial = $this->Materials->find('all', [
-            'conditions' => ['Materials.sap_vendor_code' => $session->read('vendor_code')]
-        ])->select([
-            'id', 'sap_vendor_code', 'code', 'description', 'minimum_stock','uom'
-        ])->toArray();
+        $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
 
-        // echo '<pre>';print_r($vendorMaterial);exit;
+        $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
+        
+        $this->set(compact('materials', 'segment'));
+    }
 
-        $this->set(compact('vendorMaterial'));
+    public function materiallist(){
+        $this->autoRender = false;
+        $this->loadModel("VendorTemps");
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
+        $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
+
+        $conditions = " where 1=1 ";
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+            if(isset($request['vendor'])) {
+                $search = '';
+                foreach ($request['vendor'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and vendor_temps.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
+                else{ $conditions .= " and materials.id in (".$search.")"; }
+            }
+            if(isset($request['vendortype'])) {
+                $search = '';
+                foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+                else{ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+            }
+            if(isset($request['segment'])) {
+                $search = '';
+                foreach ($request['segment'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " or materials.segment in (".$search.")";
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype'])){ $conditions .= " and materials.segment in (".$search.")"; }
+                else{ $conditions .= " and materials.segment in (".$search.")"; }
+            }
+            $conn = ConnectionManager::get('default');
+        }
+        
+        $conn = ConnectionManager::get('default');
+        $material = $conn->execute("select
+            vendor_temps.id as 'v_id', vendor_temps.sap_vendor_code as 'v_code', vendor_temps.name as 'v_name',
+            materials.id as 'mt_id', materials.code as 'mt_code', materials.description as 'mt_description', materials.minimum_stock as 'mt_ms', materials.uom as 'mt_uom', IFNULL(materials.segment, '') as 'mt_segment',
+            vendor_temps.vendor_type_id as 'vt_id', vendor_types.code as 'vt_code', vendor_types.name as 'vt_name' from materials
+            left join vendor_temps on materials.sap_vendor_code = vendor_temps.sap_vendor_code
+            left join vendor_types on vendor_types.id = vendor_temps.vendor_type_id". $conditions);
+        // echo '<pre>'; print_r($request);print_r($material);
+        $materialist = $material->fetchAll('assoc');
+
+        $results = [];
+        foreach ($materialist as $mat) {
+            $tmp = [];
+            $tmp[] = $mat['v_code'];
+            $tmp[] = $mat['mt_code'];
+            $tmp[] = $mat['mt_description'];
+            $tmp[] = $mat['vt_name'];
+            $tmp[] = $mat['mt_segment'];
+            $tmp[] = $mat['mt_ms'];
+            $tmp[] = $mat['mt_uom'];
+            $results[] = $tmp;
+        }
+
+        $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+        echo json_encode($response); exit;
     }
 
     /**
