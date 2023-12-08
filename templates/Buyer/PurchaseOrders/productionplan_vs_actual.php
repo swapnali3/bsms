@@ -112,6 +112,6 @@
 </div>
 
 <script>
-    var materiallist_url = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'sarlist')); ?>`;
+    var materiallist_url = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'ppalist')); ?>`;
 </script>
-<?= $this->Html->script('a_vekpro/buyer/b_purchaseorder_secondaryAgeingReport') ?>
+<?= $this->Html->script('a_vekpro/buyer/b_purchaseorder_ppa') ?>

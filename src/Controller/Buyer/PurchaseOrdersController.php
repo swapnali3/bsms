@@ -139,6 +139,7 @@ class PurchaseOrdersController extends BuyerAppController
 
         $results = [];
         foreach ($materialist as $mat) {
+            $tmp = [];
             $tmp[] = $mat['sap_vendor_code'];
             $tmp[] = $mat['po_no'];
             $tmp[] = $mat['item'];
@@ -265,6 +266,7 @@ class PurchaseOrdersController extends BuyerAppController
 
         $results = [];
         foreach ($materialist as $mat) {
+            $tmp = [];
             $tmp[] = $mat['added_date'];
             $tmp[] = $mat['name'];
             $tmp[] = $mat['segment'];
@@ -298,7 +300,96 @@ class PurchaseOrdersController extends BuyerAppController
     }
 
     public function ppalist(){
-        
+        $this->autoRender = false;
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+        $this->loadModel('AsnHeaders');
+        $this->loadModel('AsnFooters');
+        $this->loadModel("VendorTemps");
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
+        $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
+
+        $conditions = " where 1=1 ";
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+            if(isset($request['vendor'])) {
+                $search = '';
+                foreach ($request['vendor'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and vendor_temps.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
+                else{ $conditions .= " and materials.id in (".$search.")"; }
+            }
+            if(isset($request['vendortype'])) {
+                $search = '';
+                foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+                else{ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+            }
+            if(isset($request['segment'])) {
+                $search = '';
+                foreach ($request['segment'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype'])){ $conditions .= " and materials.segment in (".$search.")"; }
+                else{ $conditions .= " and materials.segment in (".$search.")"; }
+            }
+            if(isset($request['from']) && !empty($request['from'])) {
+                $search = $request['from'];
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']))
+                { $conditions .= " and dailymonitor.plan_date>='".$search." 00:00:00'"; }
+                else{ $conditions .= " and dailymonitor.plan_date>='".$search." 00:00:00'"; }
+            }
+            if(isset($request['till']) && !empty($request['till'])) {
+                $search = $request['till'];
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']) and !isset($request['from']))
+                { $conditions .= " and dailymonitor.plan_date<='".$search." 23:59:59'"; }
+                else{ $conditions .= " and dailymonitor.plan_date<='".$search." 23:59:59'"; }
+            }
+            $conn = ConnectionManager::get('default');
+        }
+
+        $conn = ConnectionManager::get('default');
+        $material = $conn->execute("SELECT
+        dailymonitor.plan_date, vendor_temps.sap_vendor_code, vendor_types.name as 'type', materials.segment, line_masters.name,
+        materials.code, materials.description, dailymonitor.target_production, dailymonitor.confirm_production, dailymonitor.plan_date,
+        case when dailymonitor.status=1 then 'Active' else case when dailymonitor.status=3 then 'Planned Confirmed' else 'Cancelled' end end as 'status',
+        '' as 'action', CURDATE() - dailymonitor.plan_date as 'ageing'
+        FROM dailymonitor
+        left join vendor_temps on dailymonitor.sap_vendor_code=vendor_temps.sap_vendor_code
+        left join vendor_types on vendor_types.id=vendor_temps.vendor_type_id
+        left join materials on materials.id=dailymonitor.material_id
+        left join production_lines on production_lines.id=dailymonitor.production_line_id
+        left join line_masters on line_masters.id=production_lines.line_master_id". $conditions);
+        $materialist = $material->fetchAll('assoc');
+
+        $results = [];
+        foreach ($materialist as $mat) {
+            $tmp = [];
+            $tmp[] = $mat['plan_date'];
+            $tmp[] = $mat['sap_vendor_code'];
+            $tmp[] = $mat['type'];
+            $tmp[] = $mat['segment'];
+            $tmp[] = $mat['name'];
+            $tmp[] = $mat['code'];
+            $tmp[] = $mat['description'];
+            $tmp[] = $mat['target_production'];
+            $tmp[] = $mat['confirm_production'];
+            $tmp[] = $mat['plan_date'];
+            $tmp[] = $mat['status'];
+            $tmp[] = $mat['action'];
+            $tmp[] = $mat['ageing'];
+            $results[] = $tmp;
+        }
+        // echo '<pre>';print_r($results);
+        $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+        echo json_encode($response); exit;
     }
 
     public function view()

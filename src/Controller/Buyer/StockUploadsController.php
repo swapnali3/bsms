@@ -97,6 +97,7 @@ class StockUploadsController extends BuyerAppController
 
         $results = [];
         foreach ($materialist as $mat) {
+            $tmp = [];
             $tmp[] = $mat['v_code'];
             $tmp[] = $mat['f_code'];
             $tmp[] = $mat['po_no'];
