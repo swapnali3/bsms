@@ -34,152 +34,271 @@ class PurchaseOrdersController extends BuyerAppController
     public function index()
     {
         $this->set('headTitle', 'Purchase Order List');
+        $this->loadModel('PoHeaders');
         $this->loadModel('PoFooters');
         $this->loadModel('AsnHeaders');
         $this->loadModel('AsnFooters');
-        $conn = ConnectionManager::get('default');
-        $poReportData = $conn->execute('select po_headers.id, po_headers.sap_vendor_code, po_no, item, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, 
-        po_item_schedules.actual_qty, po_item_schedules.received_qty,po_item_schedules.delivery_date, a.asn_no, a.status  from po_headers
-        join po_footers on po_footers.po_header_id = po_headers.id
-        left join materials on materials.code = po_footers.material
-        left join po_item_schedules on po_item_schedules.po_header_id = po_headers.id and po_item_schedules.po_footer_id = po_footers.id
-        left join asn_footers on asn_footers.po_schedule_id=po_item_schedules.id  and asn_footers.po_footer_id = po_footers.id
-        left join (select asn_headers.status, asn_no, po_header_id, asn_footers.id as asn_footer_id, po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_headers.id and asn_footer_id = asn_footers.id ' );
+        $this->loadModel("VendorTemps");
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
         
-        //echo '<prE>'; print_r($poReportData); exit;
-        $vendorList = [];
-        $poList = [];
-        $materialList = [];
-        $statusList = [];
-        foreach($poReportData as $row) {
-            $vendorList[$row['sap_vendor_code']] = $row['sap_vendor_code'];
-            $poList[$row['po_no']] = $row['po_no'];
-            $materialList[$row['material']] = $row['material'];
+        $vendorList = $this->VendorTemps->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
+        $poList = $this->PoHeaders->find('all')->toArray();
+        $materialList = $this->Materials->find('all')->toArray();
+        $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
+        $vendortype = $this->VendorTypes->find('all')->toArray();
 
-            $status = '';
-            if($row['status'] == 3) {
-                $status = 'Received';
-            }else if($row['status'] == 2) {
-                $status = 'In-Transit';
-            } else if(!$row['delivery_date']) {
-                $status = '';
-            }else if($row['received_qty'] == 0) {
-                $status = 'Scheduled';
-            }else if($row['received_qty'] < $row['actual_qty']) {
-                $status = 'Partial ASN created';
-            } else {
-                $status = 'ASN created';
-            }
-            if($status) {
-                $statusList[$status] = $status ;
-            }
-        }
-
-        $vendorList = array_unique($vendorList);
-        $poList = array_unique($poList);
-        $materialList = array_unique($materialList);
-        $statusList = array_unique($statusList);
-
-
-        $this->set(compact('poReportData', 'vendorList','poList', 'materialList', 'statusList'));
+        $this->set(compact('vendorList','poList', 'materialList', 'vendortype', 'segment'));
     }
 
-    public function searchData()
-    {
+    public function purchaseorderlist(){
         $this->autoRender = false;
+        $this->loadModel('PoHeaders');
         $this->loadModel('PoFooters');
         $this->loadModel('AsnHeaders');
         $this->loadModel('AsnFooters');
-
-        $response['status'] = 0;
-        $response['message'] = '';
-
+        $this->loadModel("VendorTemps");
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
+        $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
 
         $conditions = " where 1=1 ";
         if ($this->request->is(['patch', 'post', 'put'])) {
-
             $request = $this->request->getData();
-            if($request['vendor_code']) {
-                $conditions .= " and po_headers.sap_vendor_code='$request[vendor_code]' ";
+            if(isset($request['vendor'])) {
+                $search = '';
+                foreach ($request['vendor'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and vendor_temps.sap_vendor_code in (".$search.")";
             }
-            if($request['po_no']) {
-                $conditions .= " and po_headers.po_no='$request[po_no]' ";
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
+                else{ $conditions .= " and materials.id in (".$search.")"; }
             }
-            if($request['material']) {
-                $conditions .= " and po_footers.material='$request[material]' ";
+            if(isset($request['vendortype'])) {
+                $search = '';
+                foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+                else{ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
             }
-            //echo '<pre>'; print_r($request); exit;
-
+            if(isset($request['segment'])) {
+                $search = '';
+                foreach ($request['segment'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype'])){ $conditions .= " and materials.segment in (".$search.")"; }
+                else{ $conditions .= " and materials.segment in (".$search.")"; }
+            }
+            if(isset($request['status'])) {
+                $search = '';
+                foreach ($request['status'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment'])){ $conditions .= " and status in (".$search.")"; }
+                else{ $conditions .= " and status in (".$search.")"; }
+            }
+            if(isset($request['po_no'])) {
+                $search = '';
+                foreach ($request['po_no'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']) and !isset($request['status'])){ $conditions .= " and po_headers.po_no in (".$search.")"; }
+                else{ $conditions .= " and po_headers.po_no in (".$search.")"; }
+            }
+            if(isset($request['po_no_date']) && !empty($request['po_no_date'])) {
+                $search = $request['po_no_date'];
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']) and !isset($request['status']) and !isset($request['po_no'])){ $conditions .= " and po_headers.created_on>='".$search." 00:00:00'"; }
+                else{ $conditions .= " and po_headers.created_on>='".$search." 00:00:00'"; }
+            }
             $conn = ConnectionManager::get('default');
-            $poReportData = $conn->execute('select po_headers.id, po_headers.sap_vendor_code, po_no, item, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, 
-            po_item_schedules.actual_qty, po_item_schedules.received_qty,po_item_schedules.delivery_date, a.asn_no, a.status  from po_headers
-            join po_footers on po_footers.po_header_id = po_headers.id
-            left join materials on materials.code = po_footers.material
-            left join po_item_schedules on po_item_schedules.po_header_id = po_headers.id and po_item_schedules.po_footer_id = po_footers.id
-            left join asn_footers on asn_footers.po_schedule_id=po_item_schedules.id  and asn_footers.po_footer_id = po_footers.id
-            left join (select asn_headers.status, asn_no, po_header_id, asn_footers.id as asn_footer_id, po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_headers.id and asn_footer_id = asn_footers.id '. $conditions );
-            
-            $results = [];
-            foreach ($poReportData as $material) {
-                $tmp = [];
-
-                $status = '';
-                if($material['status'] == 3) {
-                    $status = 'Received';
-                }else if($material['status'] == 2) {
-                    $status = 'In-Transit';
-                } else if(!$material['delivery_date']) {
-                    $status = '';
-                }else if($material['received_qty'] == 0) {
-                    $status = 'Scheduled';
-                }else if($material['received_qty'] < $material['actual_qty']) {
-                    $status = 'Partial ASN created';
-                } else {
-                    $status = 'ASN created';
-                }
-
-                $tmp[] = $material['sap_vendor_code'];
-                $tmp[] = $material['po_no'];
-                $tmp[] = $material['item'];
-                $tmp[] = $material['material'];
-                $tmp[] = $material['short_text'];
-                $tmp[] = $material['po_qty'];
-                $tmp[] = $material['grn_qty'];
-                $tmp[] = $material['pending_qty'];
-                $tmp[] = $material['order_unit'];
-                $tmp[] = $material['net_price'];
-                $tmp[] = $material['price_unit'];
-                $tmp[] = $material['net_value'];
-                $tmp[] = $material['gross_value'];
-                $tmp[] = $material['actual_qty'];
-                $tmp[] = $material['received_qty'];
-                $tmp[] = $material['asn_no'];
-                $tmp[] = $material['delivery_date'] ? date('d-m-y', strtotime($material['delivery_date'])): '';
-                $tmp[] = $status;
-
-
-                if($request['status'] && $request['status'] == $status) {
-                    $results[] = $tmp;
-                } else if(!$request['status']) {
-                    $results[] = $tmp;
-                }
-
-                
-            }
-
-            //echo '<pre>'; print_r(count($results)); exit;
-            if(count($results) > 0) {
-                $response['status'] = 1;
-                $response['message'] = '';
-                $response['data'] = $results;
-            } else {
-                $response['status'] = 0;
-                $response['message'] = 'No record';
-            }
-
-
-            echo json_encode($response); exit;
         }
+
+        $conn = ConnectionManager::get('default');
+        $material = $conn->execute("select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, vendor_types.name as 'type', materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, po_item_schedules.received_qty,po_item_schedules.delivery_date, a.asn_no,
+        case
+            when a.status = 3 then 'Received' else
+            case when a.status = 2 then 'In-Transit' else
+                case when po_item_schedules.delivery_date is null then '' else
+                    case when po_item_schedules.received_qty = 0 then 'Scheduled' else
+                        case when po_item_schedules.received_qty < po_item_schedules.actual_qty then 'Partial ASN created' else 'ASN created'
+                        end
+                    end
+                end
+            end
+        end as 'status'
+        from po_headers
+        join po_footers on po_footers.po_header_id = po_headers.id
+        left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
+        left join vendor_types on vendor_types.id = vendor_temps.vendor_type_id
+        left join materials on materials.code = po_footers.material
+        left join po_item_schedules on po_item_schedules.po_header_id = po_headers.id and po_item_schedules.po_footer_id = po_footers.id
+        left join asn_footers on asn_footers.po_schedule_id=po_item_schedules.id  and asn_footers.po_footer_id = po_footers.id
+        left join (select asn_headers.status, asn_no, po_header_id, asn_footers.id as asn_footer_id, po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_headers.id and asn_footer_id = asn_footers.id ". $conditions);
+        $materialist = $material->fetchAll('assoc');
+
+        $results = [];
+        foreach ($materialist as $mat) {
+            $tmp[] = $mat['sap_vendor_code'];
+            $tmp[] = $mat['po_no'];
+            $tmp[] = $mat['item'];
+            $tmp[] = $mat['type'];
+            $tmp[] = $mat['segment'];
+            $tmp[] = $mat['material'];
+            $tmp[] = $mat['short_text'];
+            $tmp[] = $mat['po_qty'];
+            $tmp[] = $mat['grn_qty'];
+            $tmp[] = $mat['pending_qty'];
+            $tmp[] = $mat['order_unit'];
+            $tmp[] = $mat['net_price'];
+            $tmp[] = $mat['net_value'];
+            $tmp[] = $mat['gross_value'];
+            $tmp[] = $mat['price_unit'];
+            $tmp[] = $mat['actual_qty'];
+            $tmp[] = $mat['received_qty'];
+            $tmp[] = $mat['asn_no'];
+            $tmp[] = $mat['delivery_date'];
+            $tmp[] = $mat['status'];
+            $results[] = $tmp;
+        }
+
+        $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+        echo json_encode($response); exit;
+    }
+
+    public function secondaryAgeingReport(){
+        $this->loadModel("VendorTemps");
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
+        $materials = $this->Materials->find('all')->toArray();
+        $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
+        $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
+        $vendortype = $this->VendorTypes->find('all')->toArray();
+        $this->set(compact('materials', 'vendor', 'vendortype', 'segment'));
+    }
+
+    public function sarlist(){
+        $this->autoRender = false;
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+        $this->loadModel('AsnHeaders');
+        $this->loadModel('AsnFooters');
+        $this->loadModel("VendorTemps");
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
+        $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
+
+        $conditions = " where 1=1 ";
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+            if(isset($request['vendor'])) {
+                $search = '';
+                foreach ($request['vendor'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and vendor_temps.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
+                else{ $conditions .= " and materials.id in (".$search.")"; }
+            }
+            if(isset($request['vendortype'])) {
+                $search = '';
+                foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+                else{ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+            }
+            if(isset($request['segment'])) {
+                $search = '';
+                foreach ($request['segment'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype'])){ $conditions .= " and materials.segment in (".$search.")"; }
+                else{ $conditions .= " and materials.segment in (".$search.")"; }
+            }
+            if(isset($request['from']) && !empty($request['from'])) {
+                $search = $request['from'];
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']))
+                { $conditions .= " and po_headers.created_on>='".$search." 00:00:00'"; }
+                else{ $conditions .= " and po_headers.created_on>='".$search." 00:00:00'"; }
+            }
+            if(isset($request['till']) && !empty($request['till'])) {
+                $search = $request['till'];
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']) and !isset($request['from']))
+                { $conditions .= " and po_headers.created_on<='".$search." 23:59:59'"; }
+                else{ $conditions .= " and po_headers.created_on<='".$search." 23:59:59'"; }
+            }
+            $conn = ConnectionManager::get('default');
+        }
+
+        $conn = ConnectionManager::get('default');
+        $material = $conn->execute("select
+        CAST(po_item_schedules.added_date as DATE), vendor_types.name, materials.segment, materials.code, materials.description,
+        '' as 'size', po_footers.po_qty, po_item_schedules.received_qty, po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty', vendor_temps.name, po_item_schedules.delivery_date, TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) as 'no_of_days',
+        case
+            when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) <= 0 then 'Within 7 days' else
+            case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16 then '7 to 15 days' else 'Greater than 15 days'
+            end
+        end as 'ageing',
+        case
+            when asn_headers.status = 3 then 'Received' else
+            case when asn_headers.status = 2 then 'In-Transit' else
+                case when po_item_schedules.delivery_date is null then '' else
+                    case when po_item_schedules.received_qty = 0 then 'Scheduled' else
+                        case when po_item_schedules.received_qty < po_item_schedules.actual_qty then 'Partial ASN created' else 'ASN created'
+                        end
+                    end
+                end
+            end
+        end as 'status'
+        from po_item_schedules
+        left join po_footers on po_footers.id = po_item_schedules.po_footer_id
+        left join materials on materials.code = po_footers.material
+        left join po_headers on po_footers.po_header_id = po_headers.id
+        left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
+        left join vendor_types on vendor_types.id = vendor_temps.vendor_type_id
+        left join asn_footers on asn_footers.po_schedule_id = po_item_schedules.id
+        left join asn_headers on asn_footers.asn_header_id = asn_headers.id". $conditions);
+        $materialist = $material->fetchAll('assoc');
+
+        $results = [];
+        foreach ($materialist as $mat) {
+            $tmp[] = $mat['added_date'];
+            $tmp[] = $mat['name'];
+            $tmp[] = $mat['segment'];
+            $tmp[] = $mat['code'];
+            $tmp[] = $mat['description'];
+            $tmp[] = $mat['size'];
+            $tmp[] = $mat['po_qty'];
+            $tmp[] = $mat['received_qty'];
+            $tmp[] = $mat['pending_qty'];
+            $tmp[] = $mat['name'];
+            $tmp[] = $mat['delivery_date'];
+            $tmp[] = $mat['no_of_days'];
+            $tmp[] = $mat['ageing'];
+            $tmp[] = $mat['status'];
+            $results[] = $tmp;
+        }
+
+        $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+        echo json_encode($response); exit;
+    }
+
+    public function productionplanVsActual(){
+        $this->loadModel("VendorTemps");
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
+        $materials = $this->Materials->find('all')->toArray();
+        $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
+        $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
+        $vendortype = $this->VendorTypes->find('all')->toArray();
+        $this->set(compact('materials', 'vendor', 'vendortype', 'segment'));
+    }
+
+    public function ppalist(){
+        
     }
 
     public function view()

@@ -91,6 +91,18 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Reports</a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li>
+                            <?= $this->Html->link(__('Ageing Report'), ['controller' => '/purchase-orders', 'action'=>'secondaryAgeingReport'], ['class' => "nav-link", 'escape' => false]) ?>
+                        </li>
+                        
+                        <li>
+                            <?= $this->Html->link(__('PRD Plan / Actual'), ['controller' => '/purchase-orders', 'action' => 'productionplanVsActual'], ['class' => "nav-link", 'escape' => false]) ?>
+                        </li>
+                    </ul>
+                </li>
                 <!-- <li class="nav-item ">
                     <?= $this->Html->link(__('Opening stock'), ['controller' => '/stock-uploads', 'action' => 'add'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
                 </li> -->
