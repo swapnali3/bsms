@@ -119,6 +119,7 @@ class DailymonitorController extends VendorAppController
                         $facError = false;
                         $target = true;
                         $confirm = true;
+                        $validDate = true;
                         for ($col = 1; $col <= $highestColumnIndex; $col++) {
                             $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                             if($col == 1) {
@@ -171,6 +172,9 @@ class DailymonitorController extends VendorAppController
                             } else if ($col == 5) {
                                 $tmp['plan_date'] = date('Y-m-d', strtotime($value));
                                 $datas['plan_date'] = date('Y-m-d', strtotime($value));
+                                if($datas['plan_date'] != date('Y-m-d')) {
+                                    $validDate = false;
+                                }
                             } else if($highestColumnIndex == 6 && $col == 6) {
                                 $tmp['confirm_production'] = $value;
                                 $datas['confirm_production'] = $value;
@@ -189,7 +193,11 @@ class DailymonitorController extends VendorAppController
                         }
                         if($highestColumnIndex == 6 && !$confirm) {
                             $datas['error'] = 'Invalid confirm value';
-                        } 
+                        }
+                        
+                        if(!$validDate) {
+                            $datas['error'] = 'Only today\'s confirmation allowed';
+                        }
 
                         $planner[] = $datas;
                         if(empty($datas['error'])) {

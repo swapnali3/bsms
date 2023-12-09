@@ -360,10 +360,10 @@ class SyncController extends ApiAppController
                         $hederData['created_on'] = date("Y-m-d H:i:s", strtotime($row->AEDAT));
                         $hederData['created_user'] = $row->ERNAM;
                         $hederData['created_by'] = $row->F_NAME;
-                        $hederData['pay_terms'] = $row->ZTERM;
+                        $hederData['pay_terms'] = $row->ZTERM ? $row->ZTERM : 'P01';
                         $hederData['currency'] = $row->WAERS;
                         $hederData['exchange_rate'] = $row->WKURS;
-                        $hederData['release_status'] = $row->FRGZU;
+                        $hederData['release_status'] = $row->FRGZU ? $row->FRGZU : 'X';
                         //$hederData['acknowledge'] = 0;
                         
 

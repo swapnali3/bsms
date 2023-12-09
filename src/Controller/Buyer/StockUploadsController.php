@@ -326,7 +326,7 @@ class StockUploadsController extends BuyerAppController
                                 } else {
                                     if ($this->StockUploads->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id']])) { 
                                         $matError = true;
-                                        $datas['error'] = 'Stock exists';
+                                        $datas['error'] = 'Already stock exists';
                                     } else if ($this->Dailymonitor->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id']])) { 
                                         $matError = true;
                                         $datas['error'] = 'Production Detail Exists';
@@ -348,12 +348,9 @@ class StockUploadsController extends BuyerAppController
                             
                         }
 
-                        $datas['error'] = '';
                         if($facError) {
                             $datas['error'] = 'Invalid factory code';
-                        } else if($matError) {
-                            $datas['error'] = 'Invalid Material';
-                        }
+                        } 
 
                         /*if($this->StockUploads->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'vendor_factory_id' => $tmp['vendor_factory_id'], 'material_id' => $tmp['material_id']])) {
                             $datas['error'] = "Stock exists";
