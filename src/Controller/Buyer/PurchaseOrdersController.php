@@ -500,13 +500,13 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
-                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A new schedule has been created for PO: '.$poDetail->po_no.' and Item : '.$poItem->item.'. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                ->setViewVars([ 'vendor_name' => $vendorRecord->name, 'po' => $sapVendorcode->po_no ]) 
+                                ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
-                                ->setSubject('Vendor Portal - Schedule created')
+                                ->setSubject('DELVERY SCHEDULE CREATED')
                                 ->viewBuilder()
-                                    ->setTemplate('mail_template');
+                                    ->setTemplate('delivery_schedule');
                             $mailer->deliver();
                             $response['status'] = 1;
                             $response['message'] = "Schedule created successfully";

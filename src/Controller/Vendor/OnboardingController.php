@@ -98,13 +98,13 @@ class OnboardingController extends VendorAppController
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
-                    ->setViewVars([ 'subject' => 'Hi '.$vendorTemp->name, 'mailbody' => 'OTP : ' . $otp, 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                    ->setViewVars([ 'subject' => 'Hi '.$vendorTemp->name, 'mailbody' => 'OTP : ' . $otp, 'link' => $visit_url, 'spt_email' => 'support@apar.in' , 'spt_contact' => '7718801906'])
                     ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                     ->setTo($vendorTemp->email)
                     ->setEmailFormat('html')
-                    ->setSubject('Vendor Portal - Verify New Account OTP')
+                    ->setSubject('VENDOR REGISTRATION OTP GENERATION')
                     ->viewBuilder()
-                        ->setTemplate('mail_template');
+                        ->setTemplate('vendor_otp');
                 $mailer->deliver();
             }
         }

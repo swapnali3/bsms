@@ -196,12 +196,12 @@ class DashboardController extends AdminAppController
                         $mailer
                             ->setTransport('smtp')
                             ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] . '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                            ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                            ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
                             ->setTo($data['username'])
                             ->setEmailFormat('html')
-                            ->setSubject('Vendor Portal - Account created')
+                            ->setSubject('BUYER ONBOARDING')
                             ->viewBuilder()
-                                ->setTemplate('mail_template');
+                                ->setTemplate('onboarding');
                         $mailer->deliver();
 
 

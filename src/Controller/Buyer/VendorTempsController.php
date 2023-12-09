@@ -674,13 +674,13 @@ class VendorTempsController extends BuyerAppController
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
-                        ->setViewVars([ 'subject' => 'Hi ' . $data['name'], 'mailbody' => 'Welcome to Vendor portal', 'link' => $visit_url, 'linktext' => 'Click Here for Onboarding' ])
-                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                        ->setViewVars([ 'vendor_name' => $data[ 'name' ], 'link' => $visit_url, 'vendor_email' => $data[ 'email' ], 'spt_email' => 'support@apar.in' , 'spt_contact' => '7718801906' ]) 
+                        ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
                         ->setTo($data['email'])
                         ->setEmailFormat('html')
-                        ->setSubject('Vendor Portal - Verify New Account')
+                        ->setSubject('NEW VENDOR REGISTRATION FIRST COMMUNICATION')
                         ->viewBuilder()
-                            ->setTemplate('mail_template');
+                            ->setTemplate('new_communication');
                     $mailer->deliver();
                 }
                 //echo '<pre>'; print_r($VendorTemp); exit;
@@ -790,14 +790,14 @@ class VendorTempsController extends BuyerAppController
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
-                            ->setViewVars([ 'subject' => 'Hi ' . $val->first_name, 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $val->username .
-                            '<br/>Password:' . $val->mobile, 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                            ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                            ->setViewVars([ 'vendor_name' => $val->first_name, 'username' => $val->username, 'password' => $val->mobile, 'link' => $visit_url ]) 
+
+                            ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
                             ->setTo($val->username)
                             ->setEmailFormat('html')
-                            ->setSubject('Vendor Portal - Account created')
+                            ->setSubject('NEW VENDOR ONBOARDING')
                             ->viewBuilder()
-                                ->setTemplate('mail_template');
+                                ->setTemplate('onboarding');
                         $mailer->deliver();
                         $response['status'] = 1;
                         $response['message'] = 'Credentials Mail Send successfully';
