@@ -68,8 +68,8 @@ class StockUploadsController extends BuyerAppController
                 $search = '';
                 foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
-                else{ $conditions .= " and vendor_temps.vendor_type_id in (".$search.")"; }
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
+                else{ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
             }
             if(isset($request['segment'])) {
                 $search = '';
@@ -89,9 +89,9 @@ class StockUploadsController extends BuyerAppController
         materials.code as 'mt_code', materials.description as 'mt_description',
         stock_uploads.opening_stock, materials.uom as 'mt_uom' FROM stock_uploads
         left join vendor_temps on vendor_temps.sap_vendor_code = stock_uploads.sap_vendor_code
-        left join vendor_types on vendor_types.id = vendor_temps.vendor_type_id
-        left join vendor_factories on vendor_factories.id = stock_uploads.vendor_factory_id
-        left join materials on materials.id = stock_uploads.material_id". $conditions);
+        left join materials on materials.id = stock_uploads.material_id
+        left join vendor_types on vendor_types.id = materials.vendor_type_id
+        left join vendor_factories on vendor_factories.id = stock_uploads.vendor_factory_id". $conditions);
         // echo '<pre>'; print_r($request);print_r($material);
         $materialist = $material->fetchAll('assoc');
 

@@ -37,44 +37,20 @@
                 <label for="id_po_no">PO Date</label><br>
                 <input class="form-control" type="date" name="po_no_date" id="id_po_no_date">
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2">
+            <div class="col-sm-12 col-md-3 col-lg-4">
                 <label for="id_vendor">Vendor</label><br>
                 <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
                     <?php if (isset($vendorList)) : ?>
                     <?php foreach ($vendorList as $mat) : ?>
                     <option value="<?= h($mat->sap_vendor_code) ?>">
-                        <?= h($mat->sap_vendor_code) ?>
-                    </option>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
-                </select>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-2">
-                <label for="id_vendortype">Type</label><br>
-                <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
-                    <?php if (isset($vendortype)) : ?>
-                    <?php foreach ($vendortype as $mat) : ?>
-                    <option value="<?= h($mat->id) ?>">
-                        <?= h($mat->code) ?> -
+                        <?= h($mat->sap_vendor_code) ?> - 
                         <?= h($mat->name) ?>
                     </option>
                     <?php endforeach; ?>
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2">
-                <label for="id_segment">Segment</label><br>
-                <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
-                    <?php if (isset($segment)) : ?>
-                    <?php foreach ($segment as $mat) : ?>
-                    <option value="<?= h($mat->segment) ?>">
-                        <?= h($mat->segment) ?>
-                    </option>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
-                </select>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-2">
+            <div class="col-sm-12 col-md-3 col-lg-4">
                 <label for="id_material">Material</label><br>
                 <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                     <?php if (isset($materialList)) : ?>
@@ -87,7 +63,32 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2 mt-3">
+            <div class="col-sm-12 col-md-3 col-lg-2 mt-2">
+                <label for="id_vendortype">Type</label><br>
+                <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
+                    <?php if (isset($vendortype)) : ?>
+                    <?php foreach ($vendortype as $mat) : ?>
+                    <option value="<?= h($mat->id) ?>">
+                        <?= h($mat->code) ?> -
+                        <?= h($mat->name) ?>
+                    </option>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-2 mt-2">
+                <label for="id_segment">Segment</label><br>
+                <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
+                    <?php if (isset($segment)) : ?>
+                    <?php foreach ($segment as $mat) : ?>
+                    <option value="<?= h($mat->segment) ?>">
+                        <?= h($mat->segment) ?>
+                    </option>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-2 mt-2">
                 <label for="id_status">Status</label><br>
                 <select name="status[]" id="id_status" multiple="multiple" class="form-control chosen">
                     <option value="Scheduled">Scheduled</option>
@@ -116,7 +117,7 @@
                     <th>Type</th>
                     <th>Segment</th>
                     <th>Material</th>
-                    <th>Description</th>
+                    <th style="min-width: 400px;">Description</th>
                     <th>PO Qty</th>
                     <th>Grn Qty</th>
                     <th>Pending Qty</th>
@@ -145,7 +146,7 @@
         includeSelectAllOption: false,
         buttonText: function (options, select) {
             if (options.length === 0) { return 'Select'; }
-            else if (options.length > 2) { return options.length + ' Filter'; }
+            else if (options.length > 1) { return options.length + 'Filter'; }
             else {
                 var labels = [];
                 options.each(function () {

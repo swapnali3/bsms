@@ -49,7 +49,17 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-3">
+            <div class="col-sm-12 col-md-3 col-lg-2">
+                <label for="id_status">Status</label><br>
+                <select name="status[]" id="id_status" multiple="multiple" class="form-control chosen">
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="ASN created">ASN created</option>
+                    <option value="Partial ASN created">Partial ASN created</option>
+                    <option value="In-Transit">In-Transit</option>
+                    <option value="Received">Received</option>
+                </select>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-4">
                 <label for="id_material">Material</label><br>
                 <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                     <?php if (isset($materialList)) : ?>
@@ -60,16 +70,6 @@
                     </option>
                     <?php endforeach; ?>
                     <?php endif; ?>
-                </select>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-2">
-                <label for="id_status">Status</label><br>
-                <select name="status[]" id="id_status" multiple="multiple" class="form-control chosen">
-                    <option value="Scheduled">Scheduled</option>
-                    <option value="ASN created">ASN created</option>
-                    <option value="Partial ASN created">Partial ASN created</option>
-                    <option value="In-Transit">In-Transit</option>
-                    <option value="Received">Received</option>
                 </select>
             </div>
             <div class="col-sm-12 col-md-3 col-lg-1 mt-2">
@@ -91,7 +91,7 @@
                     <th>Type</th>
                     <th>Segment</th>
                     <th>Material</th>
-                    <th>Description</th>
+                    <th style="min-width: 400px;">Description</th>
                     <th>PO Qty</th>
                     <th>Grn Qty</th>
                     <th>Pending Qty</th>
@@ -103,7 +103,7 @@
                     <th>Schedule Qty</th>
                     <th>ASN Qty</th>
                     <th>ASN No</th>
-                    <th>Delivery Date</th>
+                    <th style="min-width: 100px;">Delivery Date</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -120,7 +120,7 @@
         includeSelectAllOption: false,
         buttonText: function (options, select) {
             if (options.length === 0) { return 'Select'; }
-            else if (options.length > 2) { return options.length + ' Filter'; }
+            else if (options.length > 1) { return options.length + 'Filter'; }
             else {
                 var labels = [];
                 options.each(function () {

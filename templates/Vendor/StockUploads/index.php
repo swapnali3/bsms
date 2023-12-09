@@ -40,7 +40,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <label for="id_material">Material</label><br>
                         <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                             <?php if (isset($materials)) : ?>

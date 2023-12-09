@@ -1,4 +1,4 @@
-var dtable;
+var dtable, stable;
 
 $(".chosen").multiselect({
     enableClickableOptGroups: false,
@@ -9,27 +9,32 @@ $(".chosen").multiselect({
         if (options.length === 0) {
             return 'Select';
         }
-        else if (options.length > 2) {
-            return options.length + ' Filter';
-        }
+        else if (options.length > 1) { return options.length + 'Filter'; }
         else {
             var labels = [];
             options.each(function () {
-                if ($(this).attr('label') !== undefined) {
-                    labels.push($(this).attr('label'));
-                }
-                else {
-                    labels.push($(this).html());
-                }
+                if ($(this).attr('label') !== undefined) { labels.push($(this).attr('label')); }
+                else { labels.push($(this).html()); }
             });
             return labels.join(', ') + '';
         }
     }
-
 });
 
 $(function () {
     dtable = $("#example1").DataTable({
+        "paging": true,
+        "responsive": false,
+        "lengthChange": false,
+        "autoWidth": false,
+        "searching": true,
+        "ordering": true,
+        "destroy": true,
+        dom: 'Blfrtip',
+        buttons: [{ extend: 'copy' }, { extend: 'excelHtml5', text: 'Export' }]
+    });
+
+    stable = $("#example1").DataTable({
         "paging": true,
         "responsive": false,
         "lengthChange": false,
@@ -59,12 +64,15 @@ $(function () {
                 dataType: "json",
                 beforeSend: function () { $("#gif_loader").show(); },
                 success: function (response) {
-                    console.log(response);
                     if (response.status) {
                         dtable.clear().draw();
-                        dtable.rows.add(response.data).draw(); // Add new data
+                        dtable.rows.add(response.data[0]).draw();
                         dtable.columns.adjust().draw();
-                    } else { dtable.clear().draw(); }
+
+                        // stable.clear().draw();
+                        // stable.rows.add(response.data[1]).draw();
+                        // stable.columns.adjust().draw();
+                    } else { dtable.clear().draw(); stable.clear().draw(); }
                 },
                 complete: function () { $("#gif_loader").hide(); }
             });

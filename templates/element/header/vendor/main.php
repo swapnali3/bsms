@@ -40,7 +40,7 @@
                         Purchase Orders </a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li class="nav-item ">
-                            <?= $this->Html->link(__('List'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link po_acknowledge $polickActive" , 'escape' => false]) ?>
+                            <?= $this->Html->link(__('PO List'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link po_acknowledge $polickActive" , 'escape' => false]) ?>
                         </li>
                         <li class="nav-item ">
                             <?= $this->Html->link(__('Report'), ['controller' => 'purchase-orders', 'action' => 'report'], ['class' => "nav-link" , 'escape' => false]) ?>

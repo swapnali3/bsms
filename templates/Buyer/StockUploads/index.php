@@ -28,13 +28,26 @@
             <div class="card-body">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-4">
                         <label for="id_vendor">Vendor</label><br>
                         <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
                             <?php if (isset($vendor)) : ?>
                             <?php foreach ($vendor as $mat) : ?>
                             <option value="<?= h($mat->sap_vendor_code) ?>">
                                 <?= h($mat->sap_vendor_code) ?>
+                            </option>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="id_material">Material</label><br>
+                        <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
+                            <?php if (isset($materials)) : ?>
+                            <?php foreach ($materials as $mat) : ?>
+                            <option value="<?= h($mat->id) ?>">
+                                <?= h($mat->code) ?> -
+                                <?= h($mat->description) ?>
                             </option>
                             <?php endforeach; ?>
                             <?php endif; ?>
@@ -65,29 +78,15 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-3">
-                        <label for="id_material">Material</label><br>
-                        <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
-                            <?php if (isset($materials)) : ?>
-                            <?php foreach ($materials as $mat) : ?>
-                            <option value="<?= h($mat->id) ?>">
-                                <?= h($mat->code) ?> -
-                                <?= h($mat->description) ?>
-                            </option>
-                            <?php endforeach; ?>
-                            <?php endif; ?>
-                        </select>
-                    </div>
-                    <div class="col-1 mt-4 pt-2">
+                    <div class="col-2 mt-4">
                         <button class="btn bg-gradient-button" type="submit" id="id_sub">Search</button>
-                    </div>
-                    <div class="col-2 mt-4 pt-2">
                         <a href="<?= $this->Url->build('/') ?>buyer/stock-uploads/add" id="continueSub"
                             class="btn mb-0 continue_btn float-right">Add Material</a>
                     </div>
                 </div>
                 <?= $this->Form->end() ?>
             </div>
+            <hr class="m-0">
             <div class="card-body" id="id_pohead">
                 <table class="table table-bordered table-striped table-hover" id="example1">
                     <thead>

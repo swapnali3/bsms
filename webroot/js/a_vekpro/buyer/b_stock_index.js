@@ -9,8 +9,8 @@ $(".chosen").multiselect({
         if (options.length === 0) {
             return 'Select';
         }
-        else if (options.length > 2) {
-            return options.length + ' Filter';
+        else if (options.length > 1) {
+            return options.length + 'Filter';
         }
         else {
             var labels = [];
