@@ -253,12 +253,27 @@ class PurchaseOrdersController extends BuyerAppController
         $response['status'] = '0';
         $response['message'] = '';
 
+        /*
+          
+         $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+        $poHeader = $this->PoHeaders->find()
+        ->select($this->PoFooters)
+        ->select($this->PoHeaders)
+        ->Join(['PoFooters' => 'po_footers'],['PoFooters.po_header_id=PoHeaders.id'])
+        ->where(['PoHeaders.id' => $id, "PoFooters.deleted_indication=''"])->all();
+
+        */
         $this->loadModel('PoHeaders');
         $poHeader = $this->PoHeaders->get($id, [
-            'contain' => ['PoFooters'],
+            'contain' => [
+                'PoFooters' => function($query){
+                    return $query->where(['deleted_indication' => '']);
+                }
+            ]
         ]);
 
-        
+        //echo '<pre>'; print_r($poHeader); exit;
         if (!$poHeader->acknowledge) {
             $response['status'] = 0;
             $response['data'] = $poHeader;
