@@ -172,8 +172,10 @@ class DailymonitorController extends VendorAppController
                             } else if ($col == 5) {
                                 $tmp['plan_date'] = date('Y-m-d', strtotime($value));
                                 $datas['plan_date'] = date('Y-m-d', strtotime($value));
-                                if($datas['plan_date'] != date('Y-m-d')) {
-                                    $validDate = false;
+                                if($highestColumnIndex == 6) {
+                                    if($datas['plan_date'] != date('Y-m-d')) {
+                                        $validDate = false;
+                                    }
                                 }
                             } else if($highestColumnIndex == 6 && $col == 6) {
                                 $tmp['confirm_production'] = $value;

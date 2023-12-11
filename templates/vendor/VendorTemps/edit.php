@@ -1153,7 +1153,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <div class="form-group">
-                                            <label for="id_sigma">Six Sigma</label>
+                                            <label for="id_sigma">Six Sigma / Any Other Certificate</label>
                                             <textarea id="id_vendor_otherdetails_six_sigma" name="otherdetails[six_sigma]"
                                                 cols="30" rows="1" class="form-control"></textarea>
                                         </div>

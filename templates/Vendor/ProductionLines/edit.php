@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-sm-8 col-md-3">
                     <div class="form-group">
-                        <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Material Code', 'readonly')); ?>
+                        <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Material Code', 'readonly', 'disabled')); ?>
                     </div>
                     
                 </div>
