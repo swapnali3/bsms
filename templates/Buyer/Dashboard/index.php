@@ -585,7 +585,7 @@
                     labels.push($(this).html());
                 }
             });
-            return labels.join(', ') + '';
+            return labels.join(', ');
         }
     }
 

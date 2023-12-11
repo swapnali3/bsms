@@ -77,7 +77,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-2 mt-4 pt-2">
+                    <div class="col-2 mt-4 pt-3">
                         <button class="btn bg-gradient-button" type="submit" id="id_sub">Search</button>
                     </div>
                 </div>

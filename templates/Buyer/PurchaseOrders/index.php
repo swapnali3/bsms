@@ -15,34 +15,36 @@
     }
 </style>
 <?= $this->Html->css('bootstrap-multiselect') ?>
+<?= $this->Html->css('filter_multi_select') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
+<?= $this->Html->script('FilterMultiSelect') ?>
 <div class="card">
     <div class="card-header text-center">PURCHASE ORDER TRACKING REPORT</div>
-    <div class="card-body">
+    <div class="card-body search-filter">
         <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
         <div class="row">
-            <div class="col-sm-12 col-md-3 col-lg-2">
+            <div class="col-4">
                 <label for="id_po_no">PO No</label><br>
-                <select name="po_no[]" id="id_po_no" multiple="multiple" class="form-control chosen">
+                <select name="po_no[]" id="id_po_no" multiple="multiple" class="form-control chosen filter-multi-select">
                     <?php if (isset($poList)) : ?>
                     <?php foreach ($poList as $mat) : ?>
-                    <option value="<?= h($mat->po_no) ?>">
+                    <option value="<?= h($mat->po_no) ?>" data-select="hello">
                         <?= h($mat->po_no) ?>
                     </option>
                     <?php endforeach; ?>
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2">
+            <div class="col-3">
                 <label for="id_po_no">PO Date</label><br>
                 <input class="form-control" type="date" name="po_no_date" id="id_po_no_date">
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-4">
+            <div class="col-4">
                 <label for="id_vendor">Vendor</label><br>
                 <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
                     <?php if (isset($vendorList)) : ?>
                     <?php foreach ($vendorList as $mat) : ?>
-                    <option value="<?= h($mat->sap_vendor_code) ?>">
+                    <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
                         <?= h($mat->sap_vendor_code) ?> - 
                         <?= h($mat->name) ?>
                     </option>
@@ -50,12 +52,12 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-4">
+            <div class="col-4">
                 <label for="id_material">Material</label><br>
                 <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                     <?php if (isset($materialList)) : ?>
                     <?php foreach ($materialList as $mat) : ?>
-                    <option value="<?= h($mat->id) ?>">
+                    <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->id) ?>">
                         <?= h($mat->code) ?>
                         <?= h($mat->description) ?>
                     </option>
@@ -63,12 +65,12 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2 mt-2">
+            <div class="col-3">
                 <label for="id_vendortype">Type</label><br>
                 <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
                     <?php if (isset($vendortype)) : ?>
                     <?php foreach ($vendortype as $mat) : ?>
-                    <option value="<?= h($mat->id) ?>">
+                    <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->id) ?>">
                         <?= h($mat->code) ?> -
                         <?= h($mat->name) ?>
                     </option>
@@ -76,19 +78,19 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2 mt-2">
+            <div class="col-2">
                 <label for="id_segment">Segment</label><br>
                 <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
                     <?php if (isset($segment)) : ?>
                     <?php foreach ($segment as $mat) : ?>
-                    <option value="<?= h($mat->segment) ?>">
+                    <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
                         <?= h($mat->segment) ?>
                     </option>
                     <?php endforeach; ?>
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2 mt-2">
+            <div class="col-2">
                 <label for="id_status">Status</label><br>
                 <select name="status[]" id="id_status" multiple="multiple" class="form-control chosen">
                     <option value="Scheduled">Scheduled</option>
@@ -98,8 +100,8 @@
                     <option value="Received">Received</option>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2 mt-3">
-                <div class="form-group mt-4">
+            <div class="col-1">
+                <div class="form-group mt-4 pt-2">
                     <?= $this->Form->button(__('Search'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_sub', 'type' => 'submit']) ?>
                 </div>
             </div>
@@ -146,14 +148,14 @@
         includeSelectAllOption: false,
         buttonText: function (options, select) {
             if (options.length === 0) { return 'Select'; }
-            else if (options.length > 1) { return options.length + 'Filter'; }
+            // else if (options.length > 1) { return options.length + 'Filter'; }
             else {
                 var labels = [];
                 options.each(function () {
-                    if ($(this).attr('label') !== undefined) { labels.push($(this).attr('label')); }
+                    if ($(this).attr('data-select') !== undefined) { labels.push($(this).attr('data-select')); }
                     else { labels.push($(this).html()); }
                 });
-                return labels.join(', ') + '';
+                return labels.join(', ');
             }
         }
     });
