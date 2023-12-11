@@ -298,10 +298,14 @@ class PurchaseOrdersController extends BuyerAppController
         end as 'status',
         vendor_types.name as 'type', 
         case
-            when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) <= 0 then 'Within 7 days' else
-            case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16 then '7 to 15 days' else 'Greater than 15 days'
-            end
-        end as 'ageing', po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty'
+            when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then po_footers.po_qty - po_item_schedules.received_qty else ''
+            end as 'Within 7 days',
+        case
+            when 7 < TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16 then po_footers.po_qty - po_item_schedules.received_qty else ''
+            end as '7 to 15 days',
+        case
+            when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15 then po_footers.po_qty - po_item_schedules.received_qty else ''
+            end as 'Greater than 15 days'
         from po_item_schedules
         left join po_footers on po_footers.id = po_item_schedules.po_footer_id
         left join materials on materials.code = po_footers.material
@@ -310,15 +314,42 @@ class PurchaseOrdersController extends BuyerAppController
         left join vendor_types on vendor_types.id = materials.vendor_type_id
         left join asn_footers on asn_footers.po_schedule_id = po_item_schedules.id
         left join asn_headers on asn_footers.asn_header_id = asn_headers.id". $conditions."
-        group by ageing, status, type");
+        group by status, type order by status, type");
         $summaryist = $summary->fetchAll('assoc');
 
-        $s_result = [];
+        $s_result = []; $tmparr = []; $x=0; $y=0; $z=0;
         foreach ($summaryist as $mat) {
+            if(!isset($tmparr[$mat['status']])){
+                $tmp = [];
+                $tmp[] = $mat['status'];
+                $tmp[] = "";
+                $tmp[] = "";
+                $tmp[] = "";
+                $tmp[] = "";
+                $s_result[] = $tmp;                
+                $tmparr[$mat['status']] = 5;
+            }
             $tmp = [];
-            $tmp[$mat['status']][$mat['type']][$mat['ageing']] = $mat['pending_qty'];
+            $tmp[] = $mat['type'];
+            $tmp[] = $mat['Within 7 days'];
+            $tmp[] = $mat['7 to 15 days'];
+            $tmp[] = $mat['Greater than 15 days'];
+            $a = !empty($mat['Within 7 days']) ? intval($mat['Within 7 days']) : 0;
+            $x = $x + $a;
+            $b = !empty($mat['7 to 15 days']) ? intval($mat['7 to 15 days']) : 0;
+            $y = $y + $b;
+            $c = !empty($mat['Greater than 15 days']) ? intval($mat['Greater than 15 days']) : 0;
+            $z = $z + $c;
+            $tmp[] = $a + $b + $c;
             $s_result[] = $tmp;
         }
+        $tmp = [];
+        $tmp[] = "Grand Total";
+        $tmp[] = $x;
+        $tmp[] = $y;
+        $tmp[] = $z;
+        $tmp[] = $x + $y + $z;
+        $s_result[] = $tmp;
 
         $response = array('status'=>1, 'message'=>'success', 'data'=>array($results, $s_result));
         echo json_encode($response); exit;

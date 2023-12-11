@@ -34,16 +34,22 @@ $(function () {
         buttons: [{ extend: 'copy' }, { extend: 'excelHtml5', text: 'Export' }]
     });
 
-    stable = $("#example1").DataTable({
-        "paging": true,
+    stable = $("#example2").DataTable({
+        "paging": false,
         "responsive": false,
         "lengthChange": false,
         "autoWidth": false,
-        "searching": true,
-        "ordering": true,
+        "searching": false,
+        "ordering": false,
         "destroy": true,
-        dom: 'Blfrtip',
-        buttons: [{ extend: 'copy' }, { extend: 'excelHtml5', text: 'Export' }]
+        "createdRow": function(row, data, dataIndex) {
+            if(data[0] == 'Grand Total'){
+                $(row).attr("style","background-color: coral !important; color: black;");
+            } else if (data[1] == "" && data[2] == "" && data[3] == "" && data[4] == "") {
+                $(row).attr("style","background-color:#08132F !important;color:white;");
+            }
+            console.log(data);
+        }
     });
 
     $("#addvendorform").validate({
@@ -69,9 +75,9 @@ $(function () {
                         dtable.rows.add(response.data[0]).draw();
                         dtable.columns.adjust().draw();
 
-                        // stable.clear().draw();
-                        // stable.rows.add(response.data[1]).draw();
-                        // stable.columns.adjust().draw();
+                        stable.clear().draw();
+                        stable.rows.add(response.data[1]).draw();
+                        stable.columns.adjust().draw();
                     } else { dtable.clear().draw(); stable.clear().draw(); }
                 },
                 complete: function () { $("#gif_loader").hide(); }

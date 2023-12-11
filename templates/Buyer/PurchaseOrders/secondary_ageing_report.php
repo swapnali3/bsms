@@ -131,6 +131,7 @@
                             </div>
                             <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel"
                                 aria-labelledby="custom-tabs-three-profile-tab">
+                                <div class="table-responsive">
                                 <table class="table table-hover table-striped table-bordered" id="example2">
                                     <thead>
                                         <tr>
@@ -143,6 +144,7 @@
                                     </thead>
                                     <tbody></tbody>
                                 </table>
+                            </div>
                             </div>
                         </div>
                     </div>
