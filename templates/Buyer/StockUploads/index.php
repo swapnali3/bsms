@@ -17,16 +17,9 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-lg-6 d-flex justify-content-start">
-                        <h5>Opening Stock</h5>
+                    <div class="col-lg-12 text-center">
+                        Opening Stock
                     </div>
-                    <div class="col-lg-6 d-flex justify-content-end text-align-end">
-                        <a href="<?= $this->Url->build('/') ?>buyer/stock-uploads/add"><button type="button"
-                                id="continueSub" class="btn bg-gradient-button mb-0 continue_btn">Add Stock</button></a>
-                    </div>
-                    <!-- <div class="col-lg-6 d-flex justify-content-end text-align-end">
-                        <a href="<?= $this->Url->build('/') ?>buyer/stock-uploads/add"><button type="button" id="continueSub" class="btn bg-gradient-button mb-0 continue_btn">Add Stock</button></a>
-                    </div> -->
                 </div>
             </div>
             <div class="card-body">
