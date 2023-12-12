@@ -5,119 +5,92 @@
  * @var iterable<\App\Model\Entity\VendorMaterial> $vendorMaterial
  */
 ?>
-<!-- <?= $this->Html->css('cstyle.css') ?> -->
-<!-- <?= $this->Html->css('custom') ?> -->
-<!-- <?= $this->Html->css('table.css') ?> -->
-<!-- <?= $this->Html->css('listing.css') ?> -->
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+<?= $this->Html->css('bootstrap-multiselect') ?>
+<?= $this->Html->script('bootstrap-multiselect') ?>
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <div class="row align-items-center">
-                    <div class="col-sm-6 col-lg-6">
-                        <h5 class="mb-0"><b>MSL Stock</b></h5>
+            <div class="card-header"><div class="row"><div class="col-sm-12 col-md-12 text-center">VENDOR MATERIALS</div></div></div>
+            <div class="card-body">
+                <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
+                <div class="row">
+                    <div class="col-2">
+                        <label for="id_segment">Segment</label><br>
+                        <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
+                            <?php if (isset($segment)) : ?>
+                            <?php foreach ($segment as $mat) : ?>
+                            <option value="<?= h($mat->segment) ?>">
+                                <?= h($mat->segment) ?>
+                            </option>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
                     </div>
-                    <div class="col-sm-6 col-lg-6 d-flex justify-content-end refresh_btn">
-                        <!-- <a href="<?= $this->Url->build('/') ?>vendor/materials/add"><button type="button" id="continueSub" class="btn mb-0 continue_btn btn-dark">Add Material</button></a> -->
-                        <!-- <button type="button" id="reload_stocks" class="btn bg-gradient-button mb-0 continue_btn">Refresh min. Stk.</button> -->
+                    <div class="col-4">
+                        <label for="id_material">Material</label><br>
+                        <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
+                            <?php if (isset($materials)) : ?>
+                            <?php foreach ($materials as $mat) : ?>
+                            <option value="<?= h($mat->id) ?>">
+                                <?= h($mat->code) ?> -
+                                <?= h($mat->description) ?>
+                            </option>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <label for="id_vendortype">Type</label><br>
+                        <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
+                            <?php if (isset($vendortype)) : ?>
+                            <?php foreach ($vendortype as $mat) : ?>
+                            <option value="<?= h($mat->id) ?>">
+                                <?= h($mat->code) ?> -
+                                <?= h($mat->name) ?>
+                            </option>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="col-1 mt-4 pt-2">
+                        <button class="btn bg-gradient-button" type="submit" id="id_sub">Search</button>
+                    </div>
+                    <div class="col-6 mt-4 pt-2">
                     </div>
                 </div>
+                <?= $this->Form->end() ?>
             </div>
-
-            <div class="card-body">
+            <hr class="m-0">
+            <div class="card-body buyer_material">
                 <div class="table-responsive">
-                <table class="table table-hover table-striped table-bordered" id="example1">
-                    <thead>
-                        <tr>
-                            <th>Material Code</th>
-                            <th>Description</th>
-                            <th>Minimum Stock</th>
-                            <th>UOM</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (isset($vendorMaterial)) : ?>
-                            <?php foreach ($vendorMaterial as $vendorMaterials) : ?>
+                    <table class="table table-hover table-striped table-bordered" id="example1">
+                        <thead>
                             <tr>
-                                <td>
-                                    <?= h($vendorMaterials->code) ?>
-                                </td>
-                                <td>
-                                    <?= h($vendorMaterials->description) ?>
-                                </td>
-                                <td>
-                                    <?= h($vendorMaterials->minimum_stock) ?>
-                                </td>
-                                <td>
-                                    <?= h($vendorMaterials->uom) ?>
-                                </td>
+                                <th>Vendor Code</th>
+                                <th>Material Code</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Segment</th>
+                                <th>Minimum Stock</th>
+                                <th>UOM Code</th>
                             </tr>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <tr>
-                                <td colspan="5">
-                                    No Records Found
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table></div>
+                        </thead>
+                        <tbody>
+                          
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).ready(function () {
-        var table = $("#example1").DataTable({
-            "paging": true,
-            "responsive": false,
-            "lengthChange": false,
-            "autoWidth": false,
-            "searching": true,
-            "ordering": false,
-            "destroy": false,
-            dom: 'Blfrtip',
-            buttons: [{ extend: 'copy' },
-        { extend: 'excelHtml5', text : 'Export'},]
-        });//.buttons().container().appendTo( '#example_wrapper .col-md-6:eq(0)' );
-
-        setTimeout(function () {
-            $('.success').fadeOut('slow');
-        }, 2000);
-
-        $(document).on("click", ".redirect", function () {
-            window.location.href = $(this).data("href");
-        });
-
-
-
-        $(document).on("click", "#reload_stocks", function () {
-            $.ajax({
-                type: "get",
-                url: "<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'api/sync', 'action' => 'get-material-min-stock')); ?> ",
-                dataType: 'json',
-                beforeSend: function () { $("#gif_loader").show(); },
-                success: function (response) {
-                    console.log(response);
-                    if (response.status == '1') {
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.message
-                        });
-
-                        table.clear().rows.add(response.data).draw();
-                    } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: response.message
-                        });
-                    }
-
-                },
-                complete: function () { $("#gif_loader").hide(); }
-            });
-        });
-
-    });
+    var materiallist_url = `<?php echo \Cake\Routing\Router::url(array('controller' => '/materials', 'action' => 'materiallist')); ?>`;
 </script>
+<?= $this->Html->script('a_vekpro/buyer/b_material_index') ?>

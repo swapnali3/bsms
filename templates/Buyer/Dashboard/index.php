@@ -4,6 +4,13 @@
  * @var \App\Model\Entity\AdminUser[]|\ ake\Collection\CollectionInterface $adminUsers
  */
 ?>
+<style>
+  .hide {
+      display: none;
+  }
+</style>
+<?= $this->Html->css('bootstrap-multiselect') ?>
+<?= $this->Html->script('bootstrap-multiselect') ?>
 <?= $this->Html->css('custom') ?>
 <div class="row buyer-dash">
 
@@ -19,7 +26,8 @@
               <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Total</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>"
+                class="product-title">Total</a>
               <span class="p-value">
                 <?= h($vendorDashboardCount['total']) ?>
               </span>
@@ -31,7 +39,8 @@
               <i class="fas fa-user-plus text-danger onboarding_icon"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Onboarding
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>"
+                class="product-title">Onboarding
               </a>
               <span class="p-value">
                 <?= h(isset($vendorDashboardCount[0]) ? $vendorDashboardCount[0] : 0) ?>
@@ -43,10 +52,11 @@
               <i class="fas fa-hourglass-half text-danger"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Approval Pending
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>"
+                class="product-title">Approval Pending
               </a>
               <span class="p-value">
-              <?= h(isset($vendorDashboardCount[1]) ? $vendorDashboardCount[1] : 0) ?>
+                <?= h(isset($vendorDashboardCount[1]) ? $vendorDashboardCount[1] : 0) ?>
               </span>
             </div>
           </li>
@@ -55,10 +65,11 @@
               <i class="far fa-check-square text-success"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Approved
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>"
+                class="product-title">Approved
               </a>
               <span class="p-value">
-              <?= h(isset($vendorDashboardCount[3]) ? $vendorDashboardCount[3] : 0) ?>
+                <?= h(isset($vendorDashboardCount[3]) ? $vendorDashboardCount[3] : 0) ?>
               </span>
             </div>
           </li>
@@ -67,10 +78,11 @@
               <i class="fas fa-share-square text-warning"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Sent to SAP
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Sent to
+                SAP
               </a>
               <span class="p-value">
-              <?= h(isset($vendorDashboardCount[2]) ? $vendorDashboardCount[2] : 0) ?>
+                <?= h(isset($vendorDashboardCount[2]) ? $vendorDashboardCount[2] : 0) ?>
               </span>
             </div>
           </li>
@@ -91,7 +103,8 @@
               <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>" class="product-title">Total</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>"
+                class="product-title">Total</a>
               <span class="p-value">
                 <?= h($totalPos) ?>
               </span>
@@ -103,7 +116,8 @@
 
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>" class="product-title">Completed</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>"
+                class="product-title">Completed</a>
               <span class="p-value">
                 <?= h($poCompleteCount) ?>
               </span>
@@ -114,7 +128,8 @@
               <i class="far fa-clock text-danger"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>" class="product-title">Pending</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>"
+                class="product-title">Pending</a>
               <span class="p-value">
                 <?= ($totalPos - $poCompleteCount ) ?>
               </span>
@@ -132,14 +147,15 @@
       </div>
       <div class="card-body py-0">
         <ul class="products-list product-list-in-card">
-        <li class="item">
+          <li class="item">
             <div class="product-img">
               <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'delivery-details']) ?>" class="product-title">Total</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'delivery-details']) ?>"
+                class="product-title">Total</a>
               <span class="p-value">
-              <?= h(isset($asnDashboardCount['total']) ? $asnDashboardCount['total'] : 0) ?>
+                <?= h(isset($asnDashboardCount['total']) ? $asnDashboardCount['total'] : 0) ?>
               </span>
             </div>
           </li>
@@ -159,9 +175,10 @@
               <i class="far fa-calendar-check text-warning intransit_icon"></i>
             </div>
             <div class="product-info" style="font-size: smaller;">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'delivery-details']) ?>" class="product-title">Intransit</a>
+              <a href="<?php echo $this->Url->build([ 'controller' => 'delivery-details']) ?>"
+                class="product-title">Intransit</a>
               <span class="p-value">
-              <?= h(isset($asnDashboardCount['2']) ? $asnDashboardCount['2'] : 0) ?>
+                <?= h(isset($asnDashboardCount['2']) ? $asnDashboardCount['2'] : 0) ?>
               </span>
             </div>
           </li>
@@ -172,7 +189,7 @@
             <div class="product-info" style="font-size: smaller;">
               <a href="#" class="product-title">Received</a>
               <span class="p-value">
-              <?= h(isset($asnDashboardCount['3']) ? $asnDashboardCount['3'] : 0) ?>
+                <?= h(isset($asnDashboardCount['3']) ? $asnDashboardCount['3'] : 0) ?>
               </span>
             </div>
           </li>
@@ -185,8 +202,6 @@
     <div class="card card-default card_box_shadow">
       <div class="card-header">
         <h3 class="card-title">Top 5 Vendors by order Value</h3>
-
-
       </div>
       <div class="card-body">
         <div class="chartjs-size-monitor">
@@ -201,7 +216,47 @@
           style="min-height: 180px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 487px;"
           width="487" height="150" class="chartjs-render-monitor"></canvas>
       </div>
-      <!-- /.card-body -->
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-4">
+            <label for="id_vendor">Vendor</label><br>
+            <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
+                <?php if (isset($vendor)) : ?>
+                <?php foreach ($vendor as $mat) : ?>
+                <option value="<?= h($mat->sap_vendor_code) ?>">
+                    <?= h($mat->sap_vendor_code) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="id_vendortype">Type</label><br>
+            <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
+                <?php if (isset($vendortype)) : ?>
+                <?php foreach ($vendortype as $mat) : ?>
+                <option value="<?= h($mat->id) ?>">
+                    <?= h($mat->code) ?> -
+                    <?= h($mat->name) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="id_segment">Segment</label><br>
+            <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
+                <?php if (isset($segment)) : ?>
+                <?php foreach ($segment as $mat) : ?>
+                <option value="<?= h($mat->segment) ?>">
+                    <?= h($mat->segment) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -209,8 +264,6 @@
     <div class="card card-default btm-card card_box_shadow">
       <div class="card-header">
         <h3 class="card-title">Top 5 Materials by quantity</h3>
-
-
       </div>
       <div class="card-body">
         <div class="chartjs-size-monitor">
@@ -225,7 +278,47 @@
           style="min-height: 180px; height: 220px; max-height: 250px; max-width: 100%; display: block; width: 300px;"
           width="487" height="250" class="chartjs-render-monitor"></canvas>
       </div>
-      <!-- /.card-body -->
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-4">
+            <label for="id_vendor">Vendor</label><br>
+            <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
+                <?php if (isset($vendor)) : ?>
+                <?php foreach ($vendor as $mat) : ?>
+                <option value="<?= h($mat->sap_vendor_code) ?>">
+                    <?= h($mat->sap_vendor_code) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="id_vendortype">Type</label><br>
+            <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
+                <?php if (isset($vendortype)) : ?>
+                <?php foreach ($vendortype as $mat) : ?>
+                <option value="<?= h($mat->id) ?>">
+                    <?= h($mat->code) ?> -
+                    <?= h($mat->name) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="id_segment">Segment</label><br>
+            <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
+                <?php if (isset($segment)) : ?>
+                <?php foreach ($segment as $mat) : ?>
+                <option value="<?= h($mat->segment) ?>">
+                    <?= h($mat->segment) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -233,8 +326,6 @@
     <div class="card card-dafault card_box_shadow">
       <div class="card-header">
         <h3 class="card-title">Po order value by period</h3>
-
-
       </div>
       <div class="card-body">
         <div class="chart">
@@ -251,18 +342,56 @@
             width="200" height="250" class="chartjs-render-monitor"></canvas>
         </div>
       </div>
-      <!-- /.card-body -->
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-4">
+            <label for="id_vendor">Vendor</label><br>
+            <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
+                <?php if (isset($vendor)) : ?>
+                <?php foreach ($vendor as $mat) : ?>
+                <option value="<?= h($mat->sap_vendor_code) ?>">
+                    <?= h($mat->sap_vendor_code) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="id_vendortype">Type</label><br>
+            <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
+                <?php if (isset($vendortype)) : ?>
+                <?php foreach ($vendortype as $mat) : ?>
+                <option value="<?= h($mat->id) ?>">
+                    <?= h($mat->code) ?> -
+                    <?= h($mat->name) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="id_segment">Segment</label><br>
+            <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
+                <?php if (isset($segment)) : ?>
+                <?php foreach ($segment as $mat) : ?>
+                <option value="<?= h($mat->segment) ?>">
+                    <?= h($mat->segment) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  
-  
+
+
 
   <div class="col-sm-12 col-lg-6">
     <div class="card card-default btm-card card_box_shadow">
       <div class="card-header">
         <h3 class="card-title">Top Material by order value</h3>
-
-
       </div>
       <div class="card-body">
         <div class="chart">
@@ -279,7 +408,47 @@
             width="487" height="250" class="chartjs-render-monitor"></canvas>
         </div>
       </div>
-      <!-- /.card-body -->
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-4">
+            <label for="id_vendor">Vendor</label><br>
+            <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
+                <?php if (isset($vendor)) : ?>
+                <?php foreach ($vendor as $mat) : ?>
+                <option value="<?= h($mat->sap_vendor_code) ?>">
+                    <?= h($mat->sap_vendor_code) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="id_vendortype">Type</label><br>
+            <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
+                <?php if (isset($vendortype)) : ?>
+                <?php foreach ($vendortype as $mat) : ?>
+                <option value="<?= h($mat->id) ?>">
+                    <?= h($mat->code) ?> -
+                    <?= h($mat->name) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+          <div class="col-4">
+            <label for="id_segment">Segment</label><br>
+            <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
+                <?php if (isset($segment)) : ?>
+                <?php foreach ($segment as $mat) : ?>
+                <option value="<?= h($mat->segment) ?>">
+                    <?= h($mat->segment) ?>
+                </option>
+                <?php endforeach; ?>
+                <?php endif; ?>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -292,7 +461,7 @@
   //- BAR CHART -
   //-------------
   var poOrderData = {
-    labels: [<?php echo implode(',', $orderByPeriodList['code'])?>],
+    labels: [<?php echo implode(',', $orderByPeriodList['code']) ?>],
     datasets: [
       {
         label: 'Order',
@@ -303,13 +472,13 @@
         pointStrokeColor: 'rgba(60,141,188,1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [<?php echo implode(',', $orderByPeriodList['order'])?>],
+        data: [<?php echo implode(',', $orderByPeriodList['order']) ?>],
       },
     ]
   }
 
   var materialOrderData = {
-    labels: [<?php echo implode(',', $topMaterialValuesList['code'])?>],
+    labels: [<?php echo implode(',', $topMaterialValuesList['code']) ?>],
     datasets: [
       {
         label: 'Value',
@@ -320,14 +489,14 @@
         pointStrokeColor: 'rgba(60,141,188,1)',
         pointHighlightFill: '#fff',
         pointHighlightStroke: 'rgba(60,141,188,1)',
-        data: [<?php echo implode(',', $topMaterialValuesList['value'])?>],
+        data: [<?php echo implode(',', $topMaterialValuesList['value']) ?>],
       },
     ]
   }
 
   var barChartCanvas = $('#barChart').get(0).getContext('2d')
   var barChartCanvas1 = $('#barChart2').get(0).getContext('2d')
-  
+
 
   var barChartOptions = {
     responsive: true,
@@ -376,10 +545,10 @@
   })
 
   var donutData1 = {
-    labels: [<?php echo implode(',', $topMaterialList['code'])?>],
+    labels: [<?php echo implode(',', $topMaterialList['code']) ?>],
     datasets: [
       {
-        data: [<?php echo implode(',', $topMaterialList['qty'])?>],
+        data: [<?php echo implode(',', $topMaterialList['qty']) ?>],
         backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#f23c1a', "#f78s18"],
       }
     ]
@@ -393,4 +562,32 @@
     data: donutData1,
     options: donutOptions1
   })
+
+  $(".chosen").multiselect({
+    enableClickableOptGroups: false,
+    enableCollapsibleOptGroups: false,
+    enableFiltering: true,
+    includeSelectAllOption: false,
+    buttonText: function (options, select) {
+        if (options.length === 0) {
+            return 'Select';
+        }
+        else if (options.length > 1) {
+            return options.length + 'Filter';
+        }
+        else {
+            var labels = [];
+            options.each(function () {
+                if ($(this).attr('label') !== undefined) {
+                    labels.push($(this).attr('label'));
+                }
+                else {
+                    labels.push($(this).html());
+                }
+            });
+            return labels.join(', ') + '';
+        }
+    }
+
+});
 </script>

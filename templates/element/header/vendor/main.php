@@ -33,48 +33,67 @@
                 <li class="nav-item">
                     <?= $this->Html->link(__('Dashboard'), ['controller' => 'dashboard', 'action' => 'index'], ['class' => "nav-link $dashactive", 'escape' => false]) ?>
                 </li>
-                <li class="nav-item">
-                    <?= $this->Html->link(__('Purchase Orders'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link po_acknowledge $polickActive" , 'escape' => false]) ?>
+
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        class="nav-link dropdown-toggle <?= $polickActive ?>">
+                        Purchase Orders </a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li class="nav-item ">
+                            <?= $this->Html->link(__('PO List'), ['controller' => 'purchase-orders', 'action' => 'index'], ['class' => "nav-link po_acknowledge $polickActive" , 'escape' => false]) ?>
+                        </li>
+                        <li class="nav-item ">
+                            <?= $this->Html->link(__('Report'), ['controller' => 'purchase-orders', 'action' => 'report'], ['class' => "nav-link" , 'escape' => false]) ?>
+                        </li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <?= $this->Html->link(__('Create ASN'), ['controller' => '/purchase-orders', 'action' => 'create-asn'], ['class' => "nav-link $createAsnActive" , 'escape' => false]) ?>
+
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        class="nav-link dropdown-toggle <?= $asnActive ?><?= $createAsnActive ?>">
+                        ASN </a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li class="nav-item ">
+                            <?= $this->Html->link(__('ASN List'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
+                        </li>
+                        <li class="nav-item ">
+                            <?= $this->Html->link(__('Create ASN'), ['controller' => '/purchase-orders', 'action' => 'create-asn'], ['class' => "nav-link $createAsnActive" , 'escape' => false]) ?>
+                        </li>
+                    </ul>
                 </li>
-                
-                <li class="nav-item ">
-                <?= $this->Html->link(__('ASN List'), ['controller' => 'asn', 'action' => 'index'], ['class' => "nav-link $asnActive" , 'escape' => false]) ?>
-                </li>                  
+
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle <?= $materialMaster ?><?= $lineMaster ?><?= $stocksUpload ?><?= $productionLine ?>">
-                    Vendor Master    
+                        Vendor Master
                     </a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li class="nav-item ">
                             <?= $this->Html->link(__('MSL Stock'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $materialMaster", 'escape' => false]) ?>
-                          </li>
-                          <li class="nav-item ">
+                        </li>
+                        <li class="nav-item ">
                             <?= $this->Html->link(__('Line Master'), ['controller' => 'line-masters', 'action' => 'index'], ['class' => "nav-link $lineMaster", 'escape' => false]) ?>
-                          </li>
-                          <li class="nav-item ">
+                        </li>
+                        <li class="nav-item ">
                             <?= $this->Html->link(__('Opening Stock'), ['controller' => 'stock-uploads', 'action' => 'index'], ['class' => "nav-link $stocksUpload", 'escape' => false]) ?>
-                          </li>
-                          <li class="nav-item ">
+                        </li>
+                        <li class="nav-item ">
                             <?= $this->Html->link(__('Production Line'), ['controller' => 'ProductionLines', 'action' => 'index'], ['class' => "nav-link $productionLine", 'escape' => false]) ?>
-                          </li>
+                        </li>
                     </ul>
-                </li>                  
+                </li>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle <?= h($dailymonitor) ?><?= h($planner) ?>">
-                        Production  
+                        Production
                     </a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li class="nav-item ">
                             <?= $this->Html->link(__('Planner'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
-                          </li>
-                          <li class="nav-item ">
+                        </li>
+                        <li class="nav-item ">
                             <?= $this->Html->link(__('Confirmation'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link $planner", 'escape' => false]) ?>
-                          </li>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item ">
@@ -105,53 +124,54 @@
         </ul>
 
         <ul class="order-1 order-lg-3 navbar-nav navbar-no-expand">
-        <li class="nav-item dropdown show">
-        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
-            <div class="user-panel d-flex">
-                <div class="image">
-                    <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2"
-                        alt="User Image" style="box-shadow:none !important;">
-                </div>
-            </div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting"
-            style="left: inherit; right: 10px;">
-            <span class="dropdown-header">
-                <div class="user">
-                    <div class="user-info text-left p-2">
-                        <h6 class="mb-0 text-info">
-                            <?php echo $this->getRequest()->getSession()->read('first_name'); ?>
-                        </h6>
+            <li class="nav-item dropdown show">
+                <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+                    <div class="user-panel d-flex">
+                        <div class="image">
+                            <img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle elevation-2"
+                                alt="User Image" style="box-shadow:none !important;">
+                        </div>
                     </div>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting"
+                    style="left: inherit; right: 10px;">
+                    <span class="dropdown-header">
+                        <div class="user">
+                            <div class="user-info text-left p-2">
+                                <h6 class="mb-0 text-info">
+                                    <?php echo $this->getRequest()->getSession()->read('first_name'); ?>
+                                </h6>
+                            </div>
+                        </div>
+                    </span>
+                    <div class="dropdown-divider"></div>
+                    <?php if ($role == 2) : ?>
+                    <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>"
+                        class="dropdown-item">
+                        <i class="fas fa-user-cog text-info mr-2"></i>
+                        <span>Profile</span>
+                    </a>
+                    <?php endif; ?>
+                    <?php if ($role == 3) : ?>
+                    <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>"
+                        class="dropdown-item">
+                        <i class="fas fa-user-cog text-info mr-2"></i>
+                        <span>Profile</span>
+                    </a>
+                    <?php endif; ?>
+                    <div class="dropdown-divider"></div>
+                    <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'changePassword']) ?>"
+                        class="dropdown-item">
+                        <i class="fas fa-solid fa-key text-info mr-2"></i>
+                        <span>Change Password</span>
+                    </a>
+                    <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>"
+                        class="dropdown-item">
+                        <i class="fas fa-power-off text-danger mr-2"></i>
+                        <span>Logout</span>
+                    </a>
                 </div>
-            </span>
-            <div class="dropdown-divider"></div>
-            <?php if ($role == 2) : ?>
-            <a href="<?= $this->Url->build(['controller' => '/admin-users', 'action' => 'view']) ?>"
-                class="dropdown-item">
-                <i class="fas fa-user-cog text-info mr-2"></i>
-                <span>Profile</span>
-            </a>
-            <?php endif; ?>
-            <?php if ($role == 3) : ?>
-            <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>"
-                class="dropdown-item">
-                <i class="fas fa-user-cog text-info mr-2"></i>
-                <span>Profile</span>
-            </a>
-            <?php endif; ?>
-            <div class="dropdown-divider"></div>
-            <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'changePassword']) ?>" class="dropdown-item">
-                <i class="fas fa-solid fa-key text-info mr-2"></i>
-                <span>Change Password</span>
-            </a>
-            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>"
-                class="dropdown-item">
-                <i class="fas fa-power-off text-danger mr-2"></i>
-                <span>Logout</span>
-            </a>
-        </div>
-    </li>
+            </li>
         </ul>
     </div>
 </nav>

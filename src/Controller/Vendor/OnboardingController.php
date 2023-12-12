@@ -218,9 +218,7 @@ class OnboardingController extends VendorAppController
                         $gstUpload->moveTo($imagePath);
                         $data["gst_file"]= "uploads/kyc/" . $fileName;
                     }
-                } else {
-                    $data["gst_file"] = "";
-                }
+                } else { unset($data["gst_file"]); }
             }
 
             if($data["pan_file"]) {
@@ -237,9 +235,7 @@ class OnboardingController extends VendorAppController
                         $panUpload->moveTo($imagePath);
                         $data["pan_file"] = "uploads/kyc/" . $fileName;
                     }
-                } else {
-                    $data["pan_file"] = "";
-                }
+                } else { unset($data["pan_file"]); }
             }
 
 
@@ -257,9 +253,7 @@ class OnboardingController extends VendorAppController
                     $bankUpload->moveTo($imagePath);
                     $data["bank_file"] = "uploads/kyc/" . $fileName;
                 }
-                } else {
-                    $data["bank_file"] = "";
-                }
+                } else { unset($data["bank_file"]); }
                 
             }
 
