@@ -1106,6 +1106,12 @@ span.otp-send-email { color: #121212 !important;}
 { display: none !important;}
 
 
+.dropdown-menu {
+    max-height: 200px !important;
+    overflow-y: auto !important;
+}
+
+
 /* Sidebar styling starts here */
 .sidebar {
     padding-left: 0rem !important;
