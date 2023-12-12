@@ -72,6 +72,19 @@
                     <?php endif; ?>
                 </select>
             </div>
+            <div class="col-sm-12 col-md-3 col-lg-2 mt-2">
+                <label for="id_vendortype">Type</label><br>
+                <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
+                    <?php if (isset($vendortype)) : ?>
+                    <?php foreach ($vendortype as $mat) : ?>
+                    <option value="<?= h($mat->id) ?>">
+                        <?= h($mat->code) ?> -
+                        <?= h($mat->name) ?>
+                    </option>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
             <div class="col-sm-12 col-md-3 col-lg-1 mt-2">
                 <div class="form-group mt-4">
                     <?= $this->Form->button(__('Search'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_sub', 'type' => 'submit']) ?>

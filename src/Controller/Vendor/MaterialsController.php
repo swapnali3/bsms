@@ -36,12 +36,13 @@ class MaterialsController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
         $this->loadModel('Materials');
+        $this->loadModel('VendorTypes');
 
         $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
 
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
-        
-        $this->set(compact('materials', 'segment'));
+        $vendortype = $this->VendorTypes->find('all')->toArray();
+        $this->set(compact('materials', 'segment', 'vendortype'));
     }
 
     public function materiallist(){
