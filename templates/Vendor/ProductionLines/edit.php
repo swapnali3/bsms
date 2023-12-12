@@ -26,7 +26,7 @@
             <div class="row">
                 <div class="col-sm-8 col-md-3">
                     <div class="form-group">
-                        <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Material Code', 'readonly')); ?>
+                        <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'id' => 'descripe', 'style' => "height: unset !important;", 'empty' => 'Please Select', 'label' => 'Material Code', 'readonly', 'disabled')); ?>
                     </div>
                     
                 </div>
@@ -42,7 +42,8 @@
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-3">
-                    <?php echo $this->Form->control('name', ['class' => 'form-control mb-3', 'label' => 'Production Line Description', 'readonly']); ?>
+                <?php echo $this->Form->control('line_master_id', [ 'type' => 'hidden', 'class' => 'form-control mb-3', 'label' => 'Production Line Description', 'readonly']); ?>
+                    <?php echo $this->Form->control('name', [ 'value' => $productionline->line_master->name, 'class' => 'form-control mb-3', 'label' => 'Production Line Description', 'readonly']); ?>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-3">
                     <?php echo $this->Form->control('capacity', ['class' => 'form-control mb-3', 'label' => 'Production Line Capacity']); ?>

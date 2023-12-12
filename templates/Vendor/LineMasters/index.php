@@ -30,7 +30,7 @@
                         <tbody>
                             <?php if (count($lineMasters)) : ?>
                                 <?php foreach ($lineMasters as $lineMaster): ?>
-                                <tr class="redirect"
+                                <tr class=""
                                     data-href="<?= $this->Url->build('/') ?>vendor/line-masters/edit/<?= $lineMaster->id ?>">
                                     <td>
                                         <?= $lineMaster->name ?>

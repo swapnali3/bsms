@@ -141,8 +141,10 @@ class ProductionLinesController extends VendorAppController
         $flash = [];
         $this->loadModel("Materials");
         $productionline = $this->ProductionLines->get($id, [
-            'contain' => [],
+            'contain' => ['LineMasters'],
         ]);
+
+        //echo '<pre>'; print_r($productionline); exit;
         if ($this->request->is(['patch', 'post', 'put'])) {
             $productionline = $this->ProductionLines->patchEntity($productionline, $this->request->getData());
 

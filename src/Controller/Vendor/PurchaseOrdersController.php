@@ -946,7 +946,8 @@ class PurchaseOrdersController extends VendorAppController
         $data = $this->PoHeaders->find('all')
             ->select(['PoHeaders.id', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text','PoFooters.grn_qty','PoFooters.pending_qty', 'PoFooters.order_unit', 'PoFooters.po_qty', 'PoFooters.net_price', 'PoFooters.net_value', 'PoFooters.is_updated'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
-            ->where(['PoHeaders.id' => $id]);
+            ->where(['PoHeaders.id' => $id])
+            ->order(['PoFooters.is_updated DESC']);
 
             $conn = ConnectionManager::get('default');
             $asnQty = $conn->execute("select item, sum(po_item_schedules.received_qty) as qty from po_headers

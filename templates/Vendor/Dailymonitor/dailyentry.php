@@ -106,7 +106,7 @@
                             <?php else: ?>
                             <td>
                                 <input type="number" class="form-control form-control-sm"
-                                    value="<?= h($dailymonitors->confirm_production . ' '. $dailymonitors->material->uom) ?>" disabled>
+                                    value="<?= h($dailymonitors->confirm_production) ?>" disabled>
                             </td>
                             <td></td>
                             <?php endif; ?>

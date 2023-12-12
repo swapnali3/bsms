@@ -940,7 +940,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    Six Sigma :
+                                                    Six Sigma / Any Other Certificate:
                                                     <?php if($vendorTemp->vendor_otherdetail->six_sigma_file) : ?>
                                                     <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $vendorTemp->vendor_otherdetail->six_sigma_file, ['target' => '_blank', 'escape' => false]) ?>
                                                     <?php endif; ?>

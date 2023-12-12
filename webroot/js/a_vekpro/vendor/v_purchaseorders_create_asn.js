@@ -26,7 +26,16 @@ $(document).on("click", "#ckbCheckAll", function () {
     if (this.checked) {
         $('.checkBoxClass').each(function (key, val) {
             //if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")).attr('readonly','readonly'); }
-            if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")); }
+            if ($("#qty" + $(val).data("id")).val() == 0) { 
+                $("#qty" + $(val).data("id")).val($(val).data("pendingqty"));
+                maxval = parseFloat($("#qty" + $(this).data("id")).attr('data-max'));
+                pendQty = parseFloat($(this).data("pendingqty"));
+                if(pendQty > maxval) {
+                    $("#qty" + $(this).data("id")).val(maxval);
+                } else {
+                    $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
+                }
+             }
             this.checked = true;
             $("#select" + $(this).data("id")).trigger("change");
             $("#qty" + $(this).data("id")).removeAttr("disabled");
@@ -49,7 +58,14 @@ $(document).on("change", ".checkBoxClass", function () {
     if ($(this).is(':checked')) {
         if ($("#qty" + $(this).data("id")).val() == "0" || $("#qty" + $(this).data("id")).val() == "") {
             $("#qty" + $(this).data("id")).removeAttr("disabled");
-            $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
+            maxval = parseFloat($("#qty" + $(this).data("id")).attr('data-max'));
+            pendQty = parseFloat($(this).data("pendingqty"));
+            if(pendQty > maxval) {
+                $("#qty" + $(this).data("id")).val(maxval);
+            } else {
+                $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
+            }
+            
             $("#schedule_id" + $(this).data("id")).removeAttr("disabled");
             
         }

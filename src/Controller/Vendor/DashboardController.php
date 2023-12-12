@@ -83,7 +83,7 @@ class DashboardController extends VendorAppController
         $asnMaterials = $this->AsnFooters->find('all')
         ->select(['vendor_factory_id' => 'VendorFactories.id', 'material' => 'PoFooters.material', 'qty' => 'sum(AsnFooters.qty)'])
         ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
-        ->where(['AsnHeaders.status in ' => ['1','2'], 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')])
+        ->where(['AsnHeaders.status in ' => ['1','2', '3'], 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')])
         ->group(['VendorFactories.id','PoFooters.material'])->limit(10)->toArray();
 
         //echo '<pre>'; print_r($asnMaterials); exit;
