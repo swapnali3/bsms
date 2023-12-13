@@ -24,7 +24,7 @@
                         <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
                             <?php if (isset($segment)) : ?>
                             <?php foreach ($segment as $mat) : ?>
-                            <option value="<?= h($mat->segment) ?>">
+                            <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
                                 <?= h($mat->segment) ?>
                             </option>
                             <?php endforeach; ?>
@@ -36,7 +36,7 @@
                         <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                             <?php if (isset($materials)) : ?>
                             <?php foreach ($materials as $mat) : ?>
-                            <option value="<?= h($mat->id) ?>">
+                            <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->id) ?>">
                                 <?= h($mat->code) ?> -
                                 <?= h($mat->description) ?>
                             </option>
@@ -49,10 +49,7 @@
                         <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
                             <?php if (isset($vendortype)) : ?>
                             <?php foreach ($vendortype as $mat) : ?>
-                            <option value="<?= h($mat->id) ?>">
-                                <?= h($mat->code) ?> -
-                                <?= h($mat->name) ?>
-                            </option>
+                            <option value="<?= h($mat->type) ?>"> <?= h($mat->type) ?> </option>
                             <?php endforeach; ?>
                             <?php endif; ?>
                         </select>

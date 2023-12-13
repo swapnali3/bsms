@@ -46,7 +46,7 @@ class PurchaseOrdersController extends BuyerAppController
         $poList = $this->PoHeaders->find('all')->toArray();
         $materialList = $this->Materials->find('all')->toArray();
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
-        $vendortype = $this->VendorTypes->find('all')->toArray();
+        $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
 
         $this->set(compact('vendorList','poList', 'materialList', 'vendortype', 'segment'));
     }
@@ -83,8 +83,8 @@ class PurchaseOrdersController extends BuyerAppController
                 $search = '';
                 foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
-                else{ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.type in (".$search.")"; }
+                else{ $conditions .= " and materials.type in (".$search.")"; }
             }
             if(isset($request['segment'])) {
                 $search = '';
@@ -116,7 +116,7 @@ class PurchaseOrdersController extends BuyerAppController
         }
 
         $conn = ConnectionManager::get('default');
-        $material = $conn->execute("select * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, vendor_types.name as 'type', materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, po_item_schedules.received_qty,po_item_schedules.delivery_date, a.asn_no,
+        $material = $conn->execute("select * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, po_item_schedules.received_qty,po_item_schedules.delivery_date, a.asn_no,
         case
             when a.status = 3 then 'Received' else
             case when a.status = 2 then 'In-Transit' else
@@ -132,7 +132,6 @@ class PurchaseOrdersController extends BuyerAppController
         join po_footers on po_footers.po_header_id = po_headers.id
         left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
         left join materials on materials.code = po_footers.material
-        left join vendor_types on vendor_types.id = materials.vendor_type_id
         left join po_item_schedules on po_item_schedules.po_header_id = po_headers.id and po_item_schedules.po_footer_id = po_footers.id
         left join asn_footers on asn_footers.po_schedule_id=po_item_schedules.id  and asn_footers.po_footer_id = po_footers.id
         left join (select asn_headers.status, asn_no, po_header_id, asn_footers.id as asn_footer_id, po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_headers.id and asn_footer_id = asn_footers.id ".$conditions." ) as a ". $statusconditions);
@@ -175,7 +174,7 @@ class PurchaseOrdersController extends BuyerAppController
         $materials = $this->Materials->find('all')->toArray();
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
         $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code', 'name'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
-        $vendortype = $this->VendorTypes->find('all')->toArray();
+        $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
         $this->set(compact('materials', 'vendor', 'vendortype', 'segment'));
     }
 
@@ -210,8 +209,8 @@ class PurchaseOrdersController extends BuyerAppController
                 $search = '';
                 foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
-                else{ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.type in (".$search.")"; }
+                else{ $conditions .= " and materials.type in (".$search.")"; }
             }
             if(isset($request['segment'])) {
                 $search = '';
@@ -237,7 +236,7 @@ class PurchaseOrdersController extends BuyerAppController
 
         $conn = ConnectionManager::get('default');
         $material = $conn->execute("select
-        CAST(po_item_schedules.added_date as DATE) as 'added_date', vendor_types.name as 'type', materials.segment, materials.code, materials.description,
+        CAST(po_item_schedules.added_date as DATE) as 'added_date', materials.type, materials.segment, materials.code, materials.description,
         '-' as 'size', po_footers.po_qty, po_item_schedules.received_qty, po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty', vendor_temps.name, po_item_schedules.delivery_date, TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) as 'no_of_days',
         case
             when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) <= 0 then 'Within 7 days' else
@@ -260,7 +259,6 @@ class PurchaseOrdersController extends BuyerAppController
         left join materials on materials.code = po_footers.material
         left join po_headers on po_footers.po_header_id = po_headers.id
         left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
-        left join vendor_types on vendor_types.id = materials.vendor_type_id
         left join asn_footers on asn_footers.po_schedule_id = po_item_schedules.id
         left join asn_headers on asn_footers.asn_header_id = asn_headers.id". $conditions);
         $materialist = $material->fetchAll('assoc');
@@ -286,32 +284,31 @@ class PurchaseOrdersController extends BuyerAppController
         }
 
         $summary = $conn->execute("select case
-            when asn_headers.status = 3 then 'Received' else
-            case when asn_headers.status = 2 then 'In-Transit' else
-                case when po_item_schedules.delivery_date is null then '-' else
-                    case when po_item_schedules.received_qty = 0 then 'Scheduled' else
-                        case when po_item_schedules.received_qty < po_item_schedules.actual_qty then 'Partial ASN created' else 'ASN created'
-                        end
+        when asn_headers.status = 3 then 'Received' else
+        case when asn_headers.status = 2 then 'In-Transit' else
+            case when po_item_schedules.delivery_date is null then '-' else
+                case when po_item_schedules.received_qty = 0 then 'Scheduled' else
+                    case when po_item_schedules.received_qty < po_item_schedules.actual_qty then 'Partial ASN created' else 'ASN created'
                     end
                 end
             end
+        end
         end as 'status',
-        vendor_types.name as 'type', 
+        materials.type, 
         case
-            when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then po_footers.po_qty - po_item_schedules.received_qty else ''
-            end as 'Within 7 days',
+        when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then po_footers.po_qty - po_item_schedules.received_qty else ''
+        end as 'Within 7 days',
         case
-            when 7 < TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16 then po_footers.po_qty - po_item_schedules.received_qty else ''
-            end as '7 to 15 days',
+        when 7 < TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16 then po_footers.po_qty - po_item_schedules.received_qty else ''
+        end as '7 to 15 days',
         case
-            when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15 then po_footers.po_qty - po_item_schedules.received_qty else ''
-            end as 'Greater than 15 days'
+        when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15 then po_footers.po_qty - po_item_schedules.received_qty else ''
+        end as 'Greater than 15 days'
         from po_item_schedules
         left join po_footers on po_footers.id = po_item_schedules.po_footer_id
         left join materials on materials.code = po_footers.material
         left join po_headers on po_footers.po_header_id = po_headers.id
         left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
-        left join vendor_types on vendor_types.id = materials.vendor_type_id
         left join asn_footers on asn_footers.po_schedule_id = po_item_schedules.id
         left join asn_headers on asn_footers.asn_header_id = asn_headers.id". $conditions."
         group by status, type order by status, type");
@@ -362,7 +359,7 @@ class PurchaseOrdersController extends BuyerAppController
         $materials = $this->Materials->find('all')->toArray();
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
         $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code', 'name'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
-        $vendortype = $this->VendorTypes->find('all')->toArray();
+        $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
         $this->set(compact('materials', 'vendor', 'vendortype', 'segment'));
     }
 
@@ -397,8 +394,8 @@ class PurchaseOrdersController extends BuyerAppController
                 $search = '';
                 foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
-                else{ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.type in (".$search.")"; }
+                else{ $conditions .= " and materials.type in (".$search.")"; }
             }
             if(isset($request['segment'])) {
                 $search = '';
@@ -424,14 +421,13 @@ class PurchaseOrdersController extends BuyerAppController
 
         $conn = ConnectionManager::get('default');
         $material = $conn->execute("SELECT
-        dailymonitor.plan_date, vendor_temps.sap_vendor_code, vendor_types.name as 'type', materials.segment, line_masters.name,
+        dailymonitor.plan_date, vendor_temps.sap_vendor_code, materials.type, materials.segment, line_masters.name,
         materials.code, materials.description, dailymonitor.target_production, dailymonitor.confirm_production, dailymonitor.plan_date,
         case when dailymonitor.status=1 then 'Active' else case when dailymonitor.status=3 then 'Planned Confirmed' else 'Cancelled' end end as 'status',
         '-' as 'action', CURDATE() - dailymonitor.plan_date as 'ageing'
         FROM dailymonitor
         left join vendor_temps on dailymonitor.sap_vendor_code=vendor_temps.sap_vendor_code
         left join materials on materials.id=dailymonitor.material_id
-        left join vendor_types on vendor_types.id=materials.vendor_type_id
         left join production_lines on production_lines.id=dailymonitor.production_line_id
         left join line_masters on line_masters.id=production_lines.line_master_id". $conditions);
         $materialist = $material->fetchAll('assoc');

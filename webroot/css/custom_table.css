@@ -985,6 +985,10 @@ tr td, tr th {
     border-radius: 4px;
 }
 
+#custom-tabs-three-tab a { color: #121212 !important;}
+
+#custom-tabs-three-tab .nav-link.active { color: #F7941D !important;}
+
 .notify {
     background-color: #F7941D;
     color: #121212;

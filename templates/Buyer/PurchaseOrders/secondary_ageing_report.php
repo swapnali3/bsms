@@ -57,10 +57,7 @@
                         <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
                             <?php if (isset($vendortype)) : ?>
                             <?php foreach ($vendortype as $mat) : ?>
-                            <option value="<?= h($mat->id) ?>">
-                                <?= h($mat->code) ?> -
-                                <?= h($mat->name) ?>
-                            </option>
+                            <option value="<?= h($mat->type) ?>"> <?= h($mat->type) ?> </option>
                             <?php endforeach; ?>
                             <?php endif; ?>
                         </select>
@@ -77,7 +74,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-2 mt-4 pt-2">
+                    <div class="col-2 mt-4 pt-3">
                         <button class="btn bg-gradient-button" type="submit" id="id_sub">Search</button>
                     </div>
                 </div>

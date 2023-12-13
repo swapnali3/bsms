@@ -26,7 +26,7 @@
                 <select name="po_no[]" id="id_po_no" multiple="multiple" class="form-control chosen">
                     <?php if (isset($poList)) : ?>
                     <?php foreach ($poList as $mat) : ?>
-                    <option value="<?= h($mat->po_no) ?>">
+                    <option value="<?= h($mat->po_no) ?>" data-select="<?= h($mat->po_no) ?>">
                         <?= h($mat->po_no) ?>
                     </option>
                     <?php endforeach; ?>
@@ -42,7 +42,7 @@
                 <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
                     <?php if (isset($segment)) : ?>
                     <?php foreach ($segment as $mat) : ?>
-                    <option value="<?= h($mat->segment) ?>">
+                    <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
                         <?= h($mat->segment) ?>
                     </option>
                     <?php endforeach; ?>
@@ -64,7 +64,7 @@
                 <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                     <?php if (isset($materialList)) : ?>
                     <?php foreach ($materialList as $mat) : ?>
-                    <option value="<?= h($mat->id) ?>">
+                    <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->id) ?>">
                         <?= h($mat->code) ?>
                         <?= h($mat->description) ?>
                     </option>
@@ -77,10 +77,7 @@
                 <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
                     <?php if (isset($vendortype)) : ?>
                     <?php foreach ($vendortype as $mat) : ?>
-                    <option value="<?= h($mat->id) ?>">
-                        <?= h($mat->code) ?> -
-                        <?= h($mat->name) ?>
-                    </option>
+                    <option value="<?= h($mat->type) ?>"> <?= h($mat->type) ?> </option>
                     <?php endforeach; ?>
                     <?php endif; ?>
                 </select>
@@ -133,14 +130,14 @@
         includeSelectAllOption: false,
         buttonText: function (options, select) {
             if (options.length === 0) { return 'Select'; }
-            else if (options.length > 1) { return options.length + 'Filter'; }
+            // else if (options.length > 1) { return options.length + 'Filter'; }
             else {
                 var labels = [];
                 options.each(function () {
-                    if ($(this).attr('label') !== undefined) { labels.push($(this).attr('label')); }
+                    if ($(this).attr('data-select') !== undefined) { labels.push($(this).attr('data-select')); }
                     else { labels.push($(this).html()); }
                 });
-                return labels.join(', ') + '';
+                return labels.join(', ');
             }
         }
     });

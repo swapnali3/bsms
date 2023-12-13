@@ -41,7 +41,7 @@ class MaterialsController extends VendorAppController
         $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
 
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
-        $vendortype = $this->VendorTypes->find('all')->toArray();
+        $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
         $this->set(compact('materials', 'segment', 'vendortype'));
     }
 
@@ -72,8 +72,8 @@ class MaterialsController extends VendorAppController
                 $search = '';
                 foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
-                else{ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.type in (".$search.")"; }
+                else{ $conditions .= " and materials.type in (".$search.")"; }
             }
             if(isset($request['segment'])) {
                 $search = '';
@@ -88,11 +88,10 @@ class MaterialsController extends VendorAppController
         
         $conn = ConnectionManager::get('default');
         $material = $conn->execute("select
-            vendor_temps.id as 'v_id', vendor_temps.sap_vendor_code as 'v_code', vendor_temps.name as 'v_name',
-            materials.id as 'mt_id', materials.code as 'mt_code', materials.description as 'mt_description', materials.minimum_stock as 'mt_ms', materials.uom as 'mt_uom', IFNULL(materials.segment, '') as 'mt_segment',
-            materials.vendor_type_id as 'vt_id', vendor_types.code as 'vt_code', vendor_types.name as 'vt_name' from materials
-            left join vendor_temps on materials.sap_vendor_code = vendor_temps.sap_vendor_code
-            left join vendor_types on vendor_types.id = materials.vendor_type_id". $conditions);
+        vendor_temps.id as 'v_id', vendor_temps.sap_vendor_code as 'v_code', vendor_temps.name as 'v_name',
+        materials.id as 'mt_id', materials.code as 'mt_code', materials.description as 'mt_description', materials.minimum_stock as 'mt_ms', materials.uom as 'mt_uom', IFNULL(materials.segment, '') as 'mt_segment',
+        materials.type as 'vt_id' from materials
+        left join vendor_temps on materials.sap_vendor_code = vendor_temps.sap_vendor_code". $conditions);
         // echo '<pre>'; print_r($request);print_r($material);
         $materialist = $material->fetchAll('assoc');
 
@@ -102,7 +101,7 @@ class MaterialsController extends VendorAppController
             $tmp[] = $mat['v_code'];
             $tmp[] = $mat['mt_code'];
             $tmp[] = $mat['mt_description'];
-            $tmp[] = $mat['vt_name'];
+            $tmp[] = $mat['vt_id'];
             $tmp[] = $mat['mt_segment'];
             $tmp[] = $mat['mt_ms'];
             $tmp[] = $mat['mt_uom'];

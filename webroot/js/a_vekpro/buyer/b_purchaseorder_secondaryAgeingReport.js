@@ -9,14 +9,14 @@ $(".chosen").multiselect({
         if (options.length === 0) {
             return 'Select';
         }
-        else if (options.length > 1) { return options.length + 'Filter'; }
+        // else if (options.length > 1) { return options.length + 'Filter'; }
         else {
             var labels = [];
             options.each(function () {
-                if ($(this).attr('label') !== undefined) { labels.push($(this).attr('label')); }
+                if ($(this).attr('data-select') !== undefined) { labels.push($(this).attr('data-select')); }
                 else { labels.push($(this).html()); }
             });
-            return labels.join(', ') + '';
+            return labels.join(', ');
         }
     }
 });
@@ -44,7 +44,7 @@ $(function () {
         "destroy": true,
         "createdRow": function(row, data, dataIndex) {
             if(data[0] == 'Grand Total'){
-                $(row).attr("style","background-color: coral !important; color: black;");
+                $(row).attr("style","background-color: #F7941D !important; color: black;");
             } else if (data[1] == "" && data[2] == "" && data[3] == "" && data[4] == "") {
                 $(row).attr("style","background-color:#08132F !important;color:white;");
             }

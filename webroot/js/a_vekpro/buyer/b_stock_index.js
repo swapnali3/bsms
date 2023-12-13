@@ -9,14 +9,14 @@ $(".chosen").multiselect({
         if (options.length === 0) {
             return 'Select';
         }
-        else if (options.length > 1) {
-            return options.length + 'Filter';
-        }
+        // else if (options.length > 1) {
+        //     return options.length + 'Filter';
+        // }
         else {
             var labels = [];
             options.each(function () {
-                if ($(this).attr('label') !== undefined) {
-                    labels.push($(this).attr('label'));
+                if ($(this).attr('data-select') !== undefined) {
+                    labels.push($(this).attr('data-select'));
                 }
                 else {
                     labels.push($(this).html());
