@@ -12,6 +12,8 @@ use Cake\Validation\Validator;
  * Materials Model
  *
  * @property \App\Model\Table\DailymonitorTable&\Cake\ORM\Association\HasMany $Dailymonitor
+ * @property \App\Model\Table\ProductionLinesTable&\Cake\ORM\Association\HasMany $ProductionLines
+ * @property \App\Model\Table\StockUploadsTable&\Cake\ORM\Association\HasMany $StockUploads
  *
  * @method \App\Model\Entity\Material newEmptyEntity()
  * @method \App\Model\Entity\Material newEntity(array $data, array $options = [])
@@ -81,8 +83,23 @@ class MaterialsTable extends Table
             ->notEmptyString('description');
 
         $validator
+            ->scalar('segment_code')
+            ->maxLength('segment_code', 5)
+            ->allowEmptyString('segment_code');
+
+        $validator
+            ->scalar('segment')
+            ->maxLength('segment', 50)
+            ->allowEmptyString('segment');
+
+        $validator
+            ->scalar('type')
+            ->maxLength('type', 50)
+            ->allowEmptyString('type');
+
+        $validator
             ->decimal('minimum_stock')
-            ->allowEmptyString('minimum_stock');
+            ->notEmptyString('minimum_stock');
 
         $validator
             ->scalar('uom')
