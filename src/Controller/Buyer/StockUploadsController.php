@@ -36,7 +36,7 @@ class StockUploadsController extends BuyerAppController
         $this->loadModel('Materials');
         $materials = $this->Materials->find('all')->toArray();
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
-        $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
+        $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code', 'name'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
         $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
         $this->set(compact('materials', 'vendor', 'vendortype', 'segment'));
     }
