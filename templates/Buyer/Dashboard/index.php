@@ -9,7 +9,6 @@
     display: none;
   }
 </style>
-<!-- <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?> -->
 <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
 <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 <?= $this->Html->css('bootstrap-multiselect') ?>
@@ -142,7 +141,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-3 col-lg-3">
+  <div class="col-sm-12 col-md-3 col-lg-4">
     <div class="card card_box_shadow" style="min-height: 93%;">
       <div class="card-header">
         <h3 class="card-title">ASN</h3>
@@ -189,7 +188,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-lg-6">
+  <div class="col-sm-12 col-lg-12">
     <div class="card card-default card_box_shadow">
       <div class="card-header">
         <div class="row">
@@ -246,7 +245,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-6 col-lg-6">
+  <div class="col-sm-12 col-md-6 col-lg-12">
     <div class="card card-default btm-card card_box_shadow">
       <div class="card-header">
         <div class="row">
@@ -303,7 +302,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-6 col-lg-6">
+  <div class="col-sm-12 col-md-6 col-lg-12">
     <div class="card card-dafault card_box_shadow">
       <div class="card-header">
         <div class="row">
@@ -362,7 +361,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12 col-lg-6">
+  <div class="col-sm-12 col-lg-12">
     <div class="card card-default btm-card card_box_shadow">
       <div class="card-header">
         <div class="row">
@@ -562,7 +561,7 @@ $('.chosen').select2({
     closeOnSelect : false,
     placeholder: 'Select',
     allowClear: true,
-    tags: true,
+    tags: false,
     tokenSeparators: [',', ' '],
     templateSelection: function(selection) {
         if (selection.element && $(selection.element).attr('data-select') !== undefined) {

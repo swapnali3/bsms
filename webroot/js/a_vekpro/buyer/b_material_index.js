@@ -32,7 +32,7 @@ $('.chosen').select2({
     closeOnSelect : false,
     placeholder: 'Select',
     allowClear: true,
-    tags: true,
+    tags: false,
     tokenSeparators: [',', ' '],
     templateSelection: function(selection) {
         if (selection.element && $(selection.element).attr('data-select') !== undefined) {
