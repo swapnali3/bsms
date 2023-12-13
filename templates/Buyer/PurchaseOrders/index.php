@@ -38,10 +38,6 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-3">
-                <label for="id_po_no">PO Date</label><br>
-                <input class="form-control" type="date" name="po_no_date" id="id_po_no_date">
-            </div>
             <div class="col-4">
                 <label for="id_vendor">Vendor</label><br>
                 <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
@@ -68,7 +64,15 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-3">
+            <div class="col-2 mt-2">
+                <label for="id_po_no">PO Date</label><br>
+                <input class="form-control" type="date" name="po_no_date" id="id_po_no_date">
+            </div>
+            <div class="col-2 mt-2">
+                <label for="id_dd">Delivery Date</label><br>
+                <input class="form-control" type="date" name="delivery_date" id="id_dd">
+            </div>
+            <div class="col-2 mt-2">
                 <label for="id_vendortype">Type</label><br>
                 <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
                     <?php if (isset($vendortype)) : ?>
@@ -78,7 +82,7 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-2 mt-2">
                 <label for="id_segment">Segment</label><br>
                 <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
                     <?php if (isset($segment)) : ?>
@@ -90,7 +94,7 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-2">
+            <div class="col-2 mt-2">
                 <label for="id_status">Status</label><br>
                 <select name="status[]" id="id_status" multiple="multiple" class="form-control chosen">
                     <option value="Scheduled">Scheduled</option>
