@@ -60,10 +60,7 @@
                         <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
                             <?php if (isset($vendortype)) : ?>
                             <?php foreach ($vendortype as $mat) : ?>
-                            <option value="<?= h($mat->id) ?>">
-                                <?= h($mat->code) ?> -
-                                <?= h($mat->name) ?>
-                            </option>
+                            <option value="<?= h($mat->type) ?>"> <?= h($mat->type) ?> </option>
                             <?php endforeach; ?>
                             <?php endif; ?>
                         </select>

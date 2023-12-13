@@ -153,7 +153,7 @@
               <i class="fas fa-th-large text-info"></i>
             </div>
             <div class="product-info">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'delivery-details']) ?>"
+              <a href="#"
                 class="product-title">Total</a>
               <span class="p-value">
                 <?= h(isset($asnDashboardCount['total']) ? $asnDashboardCount['total'] : 0) ?>
