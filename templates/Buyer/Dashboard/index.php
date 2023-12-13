@@ -9,6 +9,9 @@
     display: none;
   }
 </style>
+<!-- <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?> -->
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 <?= $this->Html->css('bootstrap-multiselect') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
 <?= $this->Html->css('custom') ?>
@@ -195,7 +198,7 @@
             <select name="segment1[]" id="id_segment1" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($segment)) : ?>
               <?php foreach ($segment as $mat) : ?>
-              <option value="<?= h($mat->segment) ?>">
+              <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
                 <?= h($mat->segment) ?>
               </option>
               <?php endforeach; ?>
@@ -206,7 +209,7 @@
             <select name="type1[]" id="id_type1" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendortype)) : ?>
               <?php foreach ($vendortype as $mat) : ?>
-              <option value="<?= h($mat->id) ?>">
+              <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->id) ?>">
                 <?= h($mat->code) ?> -
                 <?= h($mat->name) ?>
               </option>
@@ -218,7 +221,7 @@
             <select name="vendor1[]" id="id_vendor1" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendor)) : ?>
               <?php foreach ($vendor as $mat) : ?>
-              <option value="<?= h($mat->sap_vendor_code) ?>">
+              <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
                 <?= h($mat->sap_vendor_code) ?>
               </option>
               <?php endforeach; ?>
@@ -249,10 +252,10 @@
         <div class="row">
           <div class="col-3">Top 5 Materials by quantity</div>
           <div class="col-3">
-            <select name="segment1[]" id="id_segment1" class="chosen" multiple="multiple" style="width: 100%;">
+            <select name="segment2[]" id="id_segment2" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($segment)) : ?>
               <?php foreach ($segment as $mat) : ?>
-              <option value="<?= h($mat->segment) ?>">
+              <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
                 <?= h($mat->segment) ?>
               </option>
               <?php endforeach; ?>
@@ -260,10 +263,10 @@
             </select>
           </div>
           <div class="col-3">
-            <select name="type1[]" id="id_type1" class="chosen" multiple="multiple" style="width: 100%;">
+            <select name="type2[]" id="id_type2" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendortype)) : ?>
               <?php foreach ($vendortype as $mat) : ?>
-              <option value="<?= h($mat->id) ?>">
+              <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->id) ?>">
                 <?= h($mat->code) ?> -
                 <?= h($mat->name) ?>
               </option>
@@ -272,10 +275,10 @@
             </select>
           </div>
           <div class="col-3">
-            <select name="vendor1[]" id="id_vendor1" class="chosen" multiple="multiple" style="width: 100%;">
+            <select name="vendor2[]" id="id_vendor2" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendor)) : ?>
               <?php foreach ($vendor as $mat) : ?>
-              <option value="<?= h($mat->sap_vendor_code) ?>">
+              <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
                 <?= h($mat->sap_vendor_code) ?>
               </option>
               <?php endforeach; ?>
@@ -306,10 +309,10 @@
         <div class="row">
           <div class="col-3">Po order value by period</div>
           <div class="col-3">
-            <select name="segment1[]" id="id_segment1" class="chosen" multiple="multiple" style="width: 100%;">
+            <select name="segment3[]" id="id_segment3" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($segment)) : ?>
               <?php foreach ($segment as $mat) : ?>
-              <option value="<?= h($mat->segment) ?>">
+              <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
                 <?= h($mat->segment) ?>
               </option>
               <?php endforeach; ?>
@@ -317,10 +320,10 @@
             </select>
           </div>
           <div class="col-3">
-            <select name="type1[]" id="id_type1" class="chosen" multiple="multiple" style="width: 100%;">
+            <select name="type3[]" id="id_type3" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendortype)) : ?>
               <?php foreach ($vendortype as $mat) : ?>
-              <option value="<?= h($mat->id) ?>">
+              <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->id) ?>">
                 <?= h($mat->code) ?> -
                 <?= h($mat->name) ?>
               </option>
@@ -329,10 +332,10 @@
             </select>
           </div>
           <div class="col-3">
-            <select name="vendor1[]" id="id_vendor1" class="chosen" multiple="multiple" style="width: 100%;">
+            <select name="vendor3[]" id="id_vendor3" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendor)) : ?>
               <?php foreach ($vendor as $mat) : ?>
-              <option value="<?= h($mat->sap_vendor_code) ?>">
+              <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
                 <?= h($mat->sap_vendor_code) ?>
               </option>
               <?php endforeach; ?>
@@ -365,10 +368,10 @@
         <div class="row">
           <div class="col-3">Top Material by order value</div>
           <div class="col-3">
-            <select name="segment1[]" id="id_segment1" class="chosen" multiple="multiple" style="width: 100%;">
+            <select name="segment4[]" id="id_segment4" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($segment)) : ?>
               <?php foreach ($segment as $mat) : ?>
-              <option value="<?= h($mat->segment) ?>">
+              <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
                 <?= h($mat->segment) ?>
               </option>
               <?php endforeach; ?>
@@ -376,10 +379,10 @@
             </select>
           </div>
           <div class="col-3">
-            <select name="type1[]" id="id_type1" class="chosen" multiple="multiple" style="width: 100%;">
+            <select name="type4[]" id="id_type4" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendortype)) : ?>
               <?php foreach ($vendortype as $mat) : ?>
-              <option value="<?= h($mat->id) ?>">
+              <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->id) ?>">
                 <?= h($mat->code) ?> -
                 <?= h($mat->name) ?>
               </option>
@@ -388,10 +391,10 @@
             </select>
           </div>
           <div class="col-3">
-            <select name="vendor1[]" id="id_vendor1" class="chosen" multiple="multiple" style="width: 100%;">
+            <select name="vendor4[]" id="id_vendor4" class="chosen" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendor)) : ?>
               <?php foreach ($vendor as $mat) : ?>
-              <option value="<?= h($mat->sap_vendor_code) ?>">
+              <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
                 <?= h($mat->sap_vendor_code) ?>
               </option>
               <?php endforeach; ?>
@@ -528,30 +531,45 @@
     options: donutOptions1
   })
 
-  $(".chosen").multiselect({
-    enableClickableOptGroups: false,
-    enableCollapsibleOptGroups: false,
-    enableFiltering: true,
-    includeSelectAllOption: false,
-    buttonText: function (options, select) {
-      if (options.length === 0) {
-        return 'Select';
-      }
-      else if (options.length > 1) {
-        return options.length + 'Filter';
-      }
-      else {
-        var labels = [];
-        options.each(function () {
-          if ($(this).attr('label') !== undefined) {
-            labels.push($(this).attr('label'));
-          }
-          else {
-            labels.push($(this).html());
-          }
-        });
-        return labels.join(', ');
-      }
+//   $(".chosen").multiselect({
+//     enableClickableOptGroups: false,
+//     enableCollapsibleOptGroups: false,
+//     enableFiltering: true,
+//     includeSelectAllOption: false,
+//     buttonText: function (options, select) {
+//         if (options.length === 0) {
+//             return 'Select';
+//         }
+//         else if (options.length > 1) {
+//             return options.length + 'Filter';
+//         }
+//         else {
+//             var labels = [];
+//             options.each(function () {
+//                 if ($(this).attr('label') !== undefined) {
+//                     labels.push($(this).attr('label'));
+//                 }
+//                 else {
+//                     labels.push($(this).html());
+//                 }
+//             });
+//             return labels.join(', ');
+//         }
+//     }
+
+// });
+$('.chosen').select2({
+    closeOnSelect : false,
+    placeholder: 'Select',
+    allowClear: true,
+    tags: true,
+    tokenSeparators: [',', ' '],
+    templateSelection: function(selection) {
+        if (selection.element && $(selection.element).attr('data-select') !== undefined) {
+            return $(selection.element).attr('data-select');
+        } else {
+            return selection.text;
+        }
     }
-  });
+});
 </script>

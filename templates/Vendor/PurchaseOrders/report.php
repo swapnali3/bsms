@@ -9,6 +9,9 @@
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
 <?= $this->Html->css('b_index.css') ?>
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?>
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 <style>
     .hide {
         display: none;
@@ -123,21 +126,35 @@
 </div>
 
 <script>
-    $(".chosen").multiselect({
-        enableClickableOptGroups: false,
-        enableCollapsibleOptGroups: false,
-        enableFiltering: true,
-        includeSelectAllOption: false,
-        buttonText: function (options, select) {
-            if (options.length === 0) { return 'Select'; }
-            // else if (options.length > 1) { return options.length + 'Filter'; }
-            else {
-                var labels = [];
-                options.each(function () {
-                    if ($(this).attr('data-select') !== undefined) { labels.push($(this).attr('data-select')); }
-                    else { labels.push($(this).html()); }
-                });
-                return labels.join(', ');
+    // $(".chosen").multiselect({
+    //     enableClickableOptGroups: false,
+    //     enableCollapsibleOptGroups: false,
+    //     enableFiltering: true,
+    //     includeSelectAllOption: false,
+    //     buttonText: function (options, select) {
+    //         if (options.length === 0) { return 'Select'; }
+    //         // else if (options.length > 1) { return options.length + 'Filter'; }
+    //         else {
+    //             var labels = [];
+    //             options.each(function () {
+    //                 if ($(this).attr('data-select') !== undefined) { labels.push($(this).attr('data-select')); }
+    //                 else { labels.push($(this).html()); }
+    //             });
+    //             return labels.join(', ');
+    //         }
+    //     }
+    // });
+    $('.chosen').select2({
+        closeOnSelect : false,
+        placeholder: 'Select',
+        allowClear: true,
+        tags: true,
+        tokenSeparators: [',', ' '],
+        templateSelection: function(selection) {
+            if (selection.element && $(selection.element).attr('data-select') !== undefined) {
+                return $(selection.element).attr('data-select');
+            } else {
+                return selection.text;
             }
         }
     });
