@@ -64,7 +64,7 @@ class StockUploadsController extends VendorAppController
         $this->loadModel('VendorTypes');
         $materials = $this->Materials->find('all')->where(['Materials.sap_vendor_code' => $session->read('vendor_code')])->toArray();
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
-        $vendortype = $this->VendorTypes->find('all')->toArray();
+        $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
         $this->set(compact('materials', 'segment', 'vendortype'));
     }
 
@@ -95,8 +95,8 @@ class StockUploadsController extends VendorAppController
                 $search = '';
                 foreach ($request['vendortype'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
-                else{ $conditions .= " and materials.vendor_type_id in (".$search.")"; }
+                if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.type in (".$search.")"; }
+                else{ $conditions .= " and materials.type in (".$search.")"; }
             }
             if(isset($request['segment'])) {
                 $search = '';
@@ -112,12 +112,11 @@ class StockUploadsController extends VendorAppController
         $conn = ConnectionManager::get('default');
         $material = $conn->execute("SELECT
         vendor_temps.sap_vendor_code as 'v_code', vendor_factories.factory_code as 'f_code', '-' as 'po_no',
-        vendor_types.name as 'vt_id', materials.segment as 'mt_segment', '-' as 'line_item',
+        materials.type as 'vt_id', materials.segment as 'mt_segment', '-' as 'line_item',
         materials.code as 'mt_code', materials.description as 'mt_description',
         stock_uploads.opening_stock, materials.uom as 'mt_uom' FROM stock_uploads
         left join vendor_temps on vendor_temps.sap_vendor_code = stock_uploads.sap_vendor_code
         left join materials on materials.id = stock_uploads.material_id
-        left join vendor_types on vendor_types.id = materials.vendor_type_id
         left join vendor_factories on vendor_factories.id = stock_uploads.vendor_factory_id". $conditions);
         // echo '<pre>'; print_r($request);print_r($material);
         $materialist = $material->fetchAll('assoc');
