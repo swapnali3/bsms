@@ -5,6 +5,9 @@
 </style>
 <?= $this->Html->css('bootstrap-multiselect') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?>
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -31,7 +34,7 @@
                         <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
                             <?php if (isset($vendor)) : ?>
                             <?php foreach ($vendor as $mat) : ?>
-                            <option value="<?= h($mat->sap_vendor_code) ?>">
+                            <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
                                 <?= h($mat->sap_vendor_code) ?> - 
                                 <?= h($mat->name) ?>
                             </option>
@@ -44,7 +47,7 @@
                         <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                             <?php if (isset($materials)) : ?>
                             <?php foreach ($materials as $mat) : ?>
-                            <option value="<?= h($mat->id) ?>">
+                            <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->code) ?>">
                                 <?= h($mat->code) ?> -
                                 <?= h($mat->description) ?>
                             </option>
@@ -67,7 +70,7 @@
                         <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
                             <?php if (isset($segment)) : ?>
                             <?php foreach ($segment as $mat) : ?>
-                            <option value="<?= h($mat->segment) ?>">
+                            <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
                                 <?= h($mat->segment) ?>
                             </option>
                             <?php endforeach; ?>

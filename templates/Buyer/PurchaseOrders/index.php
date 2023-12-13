@@ -14,6 +14,9 @@
         display: none;
     }
 </style>
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?>
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 <?= $this->Html->css('bootstrap-multiselect') ?>
 <?= $this->Html->css('filter_multi_select') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
@@ -25,7 +28,7 @@
         <div class="row">
             <div class="col-4">
                 <label for="id_po_no">PO No</label><br>
-                <select name="po_no[]" id="id_po_no" multiple="multiple" class="form-control chosen filter-multi-select">
+                <select name="po_no[]" id="id_po_no" multiple="multiple" class="form-control chosen">
                     <?php if (isset($poList)) : ?>
                     <?php foreach ($poList as $mat) : ?>
                     <option value="<?= h($mat->po_no) ?>" data-select="hello">
@@ -53,7 +56,7 @@
                 <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                     <?php if (isset($materialList)) : ?>
                     <?php foreach ($materialList as $mat) : ?>
-                    <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->id) ?>">
+                    <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->code) ?>">
                         <?= h($mat->code) ?>
                         <?= h($mat->description) ?>
                     </option>
@@ -74,7 +77,7 @@
                 <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
                     <?php if (isset($vendortype)) : ?>
                     <?php foreach ($vendortype as $mat) : ?>
-                    <option value="<?= h($mat->type) ?>"> <?= h($mat->type) ?> </option>
+                    <option value="<?= h($mat->type) ?>" data-select="<?= h($mat->type) ?>"> <?= h($mat->type) ?> </option>
                     <?php endforeach; ?>
                     <?php endif; ?>
                 </select>
@@ -142,21 +145,35 @@
 </div>
 
 <script>
-    $(".chosen").multiselect({
-        enableClickableOptGroups: false,
-        enableCollapsibleOptGroups: false,
-        enableFiltering: true,
-        includeSelectAllOption: false,
-        buttonText: function (options, select) {
-            if (options.length === 0) { return 'Select'; }
-            // else if (options.length > 1) { return options.length + 'Filter'; }
-            else {
-                var labels = [];
-                options.each(function () {
-                    if ($(this).attr('data-select') !== undefined) { labels.push($(this).attr('data-select')); }
-                    else { labels.push($(this).html()); }
-                });
-                return labels.join(', ');
+    // $(".chosen").multiselect({
+    //     enableClickableOptGroups: false,
+    //     enableCollapsibleOptGroups: false,
+    //     enableFiltering: true,
+    //     includeSelectAllOption: false,
+    //     buttonText: function (options, select) {
+    //         if (options.length === 0) { return 'Select'; }
+    //         // else if (options.length > 1) { return options.length + 'Filter'; }
+    //         else {
+    //             var labels = [];
+    //             options.each(function () {
+    //                 if ($(this).attr('data-select') !== undefined) { labels.push($(this).attr('data-select')); }
+    //                 else { labels.push($(this).html()); }
+    //             });
+    //             return labels.join(',');
+    //         }
+    //     }
+    // });
+    $('.chosen').select2({
+        closeOnSelect : false,
+        placeholder: 'Select',
+        allowClear: true,
+        tags: false,
+        tokenSeparators: [',', ' '],
+        templateSelection: function(selection) {
+            if (selection.element && $(selection.element).attr('data-select') !== undefined) {
+                return $(selection.element).attr('data-select');
+            } else {
+                return selection.text;
             }
         }
     });
