@@ -23,11 +23,14 @@ class MaterialsFixture extends TestFixture
                 'sap_vendor_code' => 'Lorem ip',
                 'code' => 'Lorem ipsum dolor ',
                 'description' => 'Lorem ipsum dolor sit amet',
+                'segment_code' => 'Lor',
+                'segment' => 'Lorem ipsum dolor sit amet',
+                'type' => 'Lorem ipsum dolor sit amet',
                 'minimum_stock' => 1.5,
                 'uom' => 'L',
                 'status' => 1,
-                'added_date' => '2023-07-19 17:53:12',
-                'updated_date' => '2023-07-19 17:53:12',
+                'added_date' => '2023-12-13 12:34:10',
+                'updated_date' => '2023-12-13 12:34:10',
             ],
         ];
         parent::init();
