@@ -1,31 +1,46 @@
 var dtable;
 
-$(".chosen").multiselect({
-    enableClickableOptGroups: false,
-    enableCollapsibleOptGroups: false,
-    enableFiltering: true,
-    includeSelectAllOption: false,
-    buttonText: function (options, select) {
-        if (options.length === 0) {
-            return 'Select';
-        }
-        // else if (options.length > 1) {
-        //     return options.length + 'Filter';
-        // }
-        else {
-            var labels = [];
-            options.each(function () {
-                if ($(this).attr('data-select') !== undefined) {
-                    labels.push($(this).attr('data-select'));
-                }
-                else {
-                    labels.push($(this).html());
-                }
-            });
-            return labels.join(', ');
+// $(".chosen").multiselect({
+//     enableClickableOptGroups: false,
+//     enableCollapsibleOptGroups: false,
+//     enableFiltering: true,
+//     includeSelectAllOption: false,
+//     buttonText: function (options, select) {
+//         if (options.length === 0) {
+//             return 'Select';
+//         }
+//         // else if (options.length > 1) {
+//         //     return options.length + 'Filter';
+//         // }
+//         else {
+//             var labels = [];
+//             options.each(function () {
+//                 if ($(this).attr('data-select') !== undefined) {
+//                     labels.push($(this).attr('data-select'));
+//                 }
+//                 else {
+//                     labels.push($(this).html());
+//                 }
+//             });
+//             return labels.join(', ');
+//         }
+//     }
+
+// });
+
+$('.chosen').select2({
+    closeOnSelect : false,
+    placeholder: 'Select',
+    allowClear: true,
+    tags: true,
+    tokenSeparators: [',', ' '],
+    templateSelection: function(selection) {
+        if (selection.element && $(selection.element).attr('data-select') !== undefined) {
+            return $(selection.element).attr('data-select');
+        } else {
+            return selection.text;
         }
     }
-
 });
 
 $(function () {
