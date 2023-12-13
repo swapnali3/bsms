@@ -120,8 +120,10 @@ class UsersTable extends Table
         \ArrayObject $options)
     {
         $hasher = new DefaultPasswordHasher;
-        $entity->password = $hasher->hash($entity->password);
-        return true;
+        if($entity->password) {
+            $entity->password = $hasher->hash($entity->password);
+            return true;
+        }
     }
 
     public function bindNode($user) {

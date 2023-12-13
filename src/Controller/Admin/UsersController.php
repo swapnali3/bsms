@@ -183,6 +183,10 @@ class UsersController extends AdminAppController
             $data = $this->request->getData();
             $user = $this->Users->get($data['id']);
 
+            unset($user->password);
+            //print_r($data);
+            //print_r($user); exit;
+
             $user = $this->Users->patchEntity($user, $data);
 
             if ($this->Users->save($user)) {
