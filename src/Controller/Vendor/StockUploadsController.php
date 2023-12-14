@@ -102,13 +102,11 @@ class StockUploadsController extends VendorAppController
                 $search = '';
                 foreach ($request['segment'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                $conditions .= " or materials.segment in (".$search.")";
                 if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype'])){ $conditions .= " and materials.segment in (".$search.")"; }
                 else{ $conditions .= " and materials.segment in (".$search.")"; }
             }
-            $conn = ConnectionManager::get('default');
         }
-        
+        // echo '<pre>'; print_r($conditions);exit;
         $conn = ConnectionManager::get('default');
         $material = $conn->execute("SELECT
         vendor_temps.sap_vendor_code as 'v_code', vendor_factories.factory_code as 'f_code', '-' as 'po_no',
@@ -118,7 +116,7 @@ class StockUploadsController extends VendorAppController
         left join vendor_temps on vendor_temps.sap_vendor_code = stock_uploads.sap_vendor_code
         left join materials on materials.id = stock_uploads.material_id
         left join vendor_factories on vendor_factories.id = stock_uploads.vendor_factory_id". $conditions);
-        // echo '<pre>'; print_r($request);print_r($material);
+        
         $materialist = $material->fetchAll('assoc');
 
         $results = [];

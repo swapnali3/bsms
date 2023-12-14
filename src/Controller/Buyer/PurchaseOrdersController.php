@@ -121,7 +121,7 @@ class PurchaseOrdersController extends BuyerAppController
         }
 
         $conn = ConnectionManager::get('default');
-        $material = $conn->execute("select * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, po_item_schedules.received_qty,po_item_schedules.delivery_date, a.asn_no,
+        $material = $conn->execute("select * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, po_item_schedules.received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', a.asn_no,
         case
             when a.status = 3 then 'Received' else
             case when a.status = 2 then 'In-Transit' else
@@ -241,8 +241,8 @@ class PurchaseOrdersController extends BuyerAppController
 
         $conn = ConnectionManager::get('default');
         $material = $conn->execute("select
-        CAST(po_item_schedules.added_date as DATE) as 'added_date', materials.type, materials.segment, materials.code, materials.description,
-        '-' as 'size', po_footers.po_qty, po_item_schedules.received_qty, po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty', vendor_temps.name, po_item_schedules.delivery_date, TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) as 'no_of_days',
+        DATE_FORMAT(po_item_schedules.added_date, '%d-%m-%Y') as 'added_date', materials.type, materials.segment, materials.code, materials.description,
+        '-' as 'size', po_footers.po_qty, po_item_schedules.received_qty, po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty', vendor_temps.name, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) as 'no_of_days',
         case
             when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) <= 0 then 'Within 7 days' else
             case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16 then '7 to 15 days' else 'Greater than 15 days'
@@ -426,8 +426,8 @@ class PurchaseOrdersController extends BuyerAppController
 
         $conn = ConnectionManager::get('default');
         $material = $conn->execute("SELECT
-        dailymonitor.plan_date, vendor_temps.sap_vendor_code, materials.type, materials.segment, line_masters.name,
-        materials.code, materials.description, dailymonitor.target_production, dailymonitor.confirm_production, dailymonitor.plan_date,
+        DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as plan_date, vendor_temps.sap_vendor_code, materials.type, materials.segment, line_masters.name,
+        materials.code, materials.description, dailymonitor.target_production, dailymonitor.confirm_production, DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as 'plan_date',
         case when dailymonitor.status=1 then 'Active' else case when dailymonitor.status=3 then 'Planned Confirmed' else 'Cancelled' end end as 'status',
         '-' as 'action', CURDATE() - dailymonitor.plan_date as 'ageing'
         FROM dailymonitor
@@ -638,7 +638,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer
                                 ->setTransport('smtp')
                                 ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A schedule has been cancelled for PO : '.$poDetail->po_no.' and Item : '.$poItem->item.' . Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Schedule Cancelled')
@@ -767,6 +767,7 @@ class PurchaseOrdersController extends BuyerAppController
                     } else {
                         $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
                         $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $row);
+
                         if ($this->PoItemSchedules->save($PoItemSchedule)) {
                             $filteredBuyers = $this->VendorTemps->find()
                             ->select(['VendorTemps.id','user_id'=> 'Users.id'])
@@ -793,8 +794,8 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
-                                ->setViewVars([ 'vendor_name' => $vendorRecord->name, 'po' => $sapVendorcode->po_no ]) 
-                                ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
+                                ->setViewVars(['vendor_name' => $vendorRecord->name, 'po' => $poDetail->po_no, 'po_item'=>$poItem ]) 
+                                ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
                                 ->setSubject('DELVERY SCHEDULE CREATED')
@@ -874,13 +875,12 @@ class PurchaseOrdersController extends BuyerAppController
                                 $this->Notifications->save($n);
                             }
 
-
                             $visit_url = Router::url('/', true);
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
                                 ->setViewVars([ 'vendor_name' => $vendorRecord->name, 'po_item' => $poItem, 'item_po'=>$item_po, 'po_detail'=>$poDetail ])
-                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Schedule Updated')

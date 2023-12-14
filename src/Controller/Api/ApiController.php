@@ -136,7 +136,7 @@ class ApiController extends ApiAppController
                             'spt_contact' => '7718801906',
                             'ttlamt' => 900,
                             ]) 
-                        ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
+                        ->setFrom(Configure::read('MAIL_FROM'))
                         ->setTo($data['email'])
                         ->setEmailFormat('html')
                         ->setSubject('PURCHASE ORDER DETAILS')

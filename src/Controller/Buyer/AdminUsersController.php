@@ -132,7 +132,7 @@ class AdminUsersController extends BuyerAppController
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'Hi '.$data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: '.$data['username'].
                     '<br/>Password:'.$data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($data['username'])
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Account created')

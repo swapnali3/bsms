@@ -73,8 +73,10 @@
             <?php if (isset($po_footer)) : ?>
                 <p>
                     <?php foreach ($po_footer as $mat) : ?>
-                        <p>Line Item #<?= h($mat->short_text) ?></p>
-                        <p><?= h($mat->short_text) ?>   <?= h($mat->short_text) ?>  <?= h($mat->short_text) ?></p>
+                        <?php if($item->CHG_IND == 'X') : ?>
+                            <p>Line Item #<?= h($mat->EBELP) ?></p>
+                            <p><?= h($mat->MATNR) ?>   <?= h($mat->TXZ01) ?>  <?= h($mat->P_QTY) ?></p>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 </p>
             <?php endif; ?>

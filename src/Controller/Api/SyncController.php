@@ -411,8 +411,8 @@ class SyncController extends ApiAppController
                                                 $mailer = new Mailer('default');
                                                 $mailer
                                                     ->setTransport('smtp')
-                                                    ->setViewVars([ 'vendor_name' => $vendorDetail->name, 'po_footer' => $footerData,'po_header'=>$hederData ])
-                                                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                                    ->setViewVars([ 'vendor_name' => $vendorDetail->name, 'po_footer' => $item,'po_header'=>$row ])
+                                                    ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($vendorDetail->email)
                                                     ->setEmailFormat('html')
                                                     ->setSubject('Vendor Portal - PO Item updated')
@@ -453,7 +453,7 @@ class SyncController extends ApiAppController
                                                 $mailer
                                                     ->setTransport('smtp')
                                                     ->setViewVars([ 'subject' => 'Hi ', 'mailbody' => "PO : $row->EBELN , Item: $item->EBELP qty should be greater than ".$total[0]->total ])
-                                                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                                    ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($buyersEmails)
                                                     ->setEmailFormat('html')
                                                     ->setSubject('Vendor Portal - PO Item not updated')
@@ -589,7 +589,7 @@ class SyncController extends ApiAppController
                                 ->setTransport('smtp')
                                 ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
                                 '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($data['username'])
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Account created')

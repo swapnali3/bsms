@@ -228,3 +228,5 @@ Configure::write('StatusCode', [0 => 'new',1 => 'approved',2 => 'rejected',3 => 
 
 Configure::write('SMSAPI', ['KEY' => 'N2E3MDQyNTA0YTVhNjU2MTMwNmM0NDc0Njg1NDZhMzI=',
         'URL' => 'https://api.textlocal.in/send/', 'SENDER' => 'FTSVDR']);
+
+Configure::write('MAIL_FROM', ['vekpro@fts-pl.com' => 'FT Portal']);
