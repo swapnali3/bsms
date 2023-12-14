@@ -597,7 +597,7 @@ class PurchaseOrdersController extends BuyerAppController
           
 
             $schedule = $this->PoItemSchedules->get($id);
-            if ($this->PoItemSchedules->delete($schedule)) {
+            if ($item_po = $this->PoItemSchedules->delete($schedule)) {
 
                 $poDetail = $this->PoHeaders->find()
                         ->select(['sap_vendor_code', 'po_no'])
@@ -605,7 +605,7 @@ class PurchaseOrdersController extends BuyerAppController
                         ->first();
 
                 $poItem = $this->PoFooters->find()
-                        ->select(['item'])
+                        ->select(['item', 'material', 'short_text'])
                         ->where(['id' => $PoItemSchedule->po_footer_id])
                         ->first();
 
@@ -638,13 +638,18 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
-                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A schedule has been cancelled for PO : '.$poDetail->po_no.' and Item : '.$poItem->item.' . Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                                ->setViewVars([
+                                    'vendor_name' => $vendorRecord->name,
+                                    'po_item' => $poItem,
+                                    'po_detail'=>$poDetail,
+                                    'spt_email' => 'support@apar.in',
+                                    ])
                                 ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Schedule Cancelled')
                                 ->viewBuilder()
-                                    ->setTemplate('mail_template');
+                                    ->setTemplate('m_delivery_schedule_can');
                             $mailer->deliver();
 
                 $response['status'] = 'success';
