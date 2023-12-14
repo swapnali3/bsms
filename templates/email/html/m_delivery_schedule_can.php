@@ -26,14 +26,6 @@
             padding: 20px;
         }
 
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #F7941D;
-            color: #fff;
-            text-decoration: none;
-        }
-
         a {
             color: #F7941D;
         }
@@ -53,8 +45,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" alt=""
-                                style="width: 180px; max-width: 400px; height: auto; display: block;">
+                            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 180px; max-width: 400px; height: auto; display: block;">
                         </td>
                         <td valign="middle" class="hero bg_white" style="border-left: 1px solid rgb(19, 58, 88);"></td>
                         <td valign="middle" class="hero bg_white" style="padding: 0em 0px;">
@@ -67,22 +58,18 @@
         </div>
         <div class="content">
             <p>Dear <?= $vendor_name ?>,</p>
-
-            <p>I trust this message finds you well. We would like to inform you of some changes in the purchase order (<?= $po_header->po_no ?>) for the following line items:</p>
-
-            <p>
-                <p>Line Item #<?= h($mat->EBELP) ?></p>
-                <p><?= h($po_footer->MATNR) ?>   <?= h($po_footer->TXZ01) ?>  <?= h($po_footer->P_QTY) ?></p>
+            <p>I hope this message finds you well. We would like to inform you of a change in our delivery schedule for the upcoming month. Due to unforeseen circumstances, we need to adjust the delivery dates for the following line items in PO Number:
+                <?= $po_detail->po_no ?>
             </p>
-
-            <p> We kindly request your confirmation of the revised details at your earliest convenience. If you have any questions or concerns, please feel free to reach out to us at <?= h($spt_email) ?>.</p>
-
-            <p>We appreciate your flexibility and understanding in accommodating these adjustments. Thank you for your continued partnership.</p>
-            Best regards,
+            <p>
+            Line Item #<?= $po_item->item ?><br>
+            <?= $po_item->material ?>   |   <?= $po_item->short_text ?>
+            </p>
+            <p>We understand that this modification may cause inconvenience, and we sincerely apologize for any disruptions this may cause to your operations. We appreciate your understanding and cooperation in accommodating this change.</p><p>If you have any concerns or require further clarification, please don't hesitate to reach out to us at <?= $spt_email ?>. We value our partnership and look forward to your continued support.</p><p>Thank you for your attention to this matter.</p>
+            </p><p>
         </div>
         <div class="content">
-            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png"
-                style="width: 100px; max-width: 400px; height: auto; display: block;">
+            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 400px; height: auto; display: block;">
             <h3>APAR Industries Limited 18</h3>
             <h5>
                 TTC.,MIDC Industrial Area, Thane Belapur Road,

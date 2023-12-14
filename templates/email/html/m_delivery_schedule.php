@@ -59,14 +59,14 @@
         <div class="content">
             <p>Dear <?= $vendor_name ?>,</p>
             <p>I hope this message finds you well. We would like to inform you of a change in our delivery schedule for the upcoming month. Due to unforeseen circumstances, we need to adjust the delivery dates for the following line items in PO Number:
-                <?= $poDetail->po_no ?>
+                <?= $po_detail->po_no ?>
             </p>
             <p>
             Line Item #<?= $po_item->item ?><br>
-            <?= $po_item->material ?>   |   <?= $po_item->short_text ?>|   <?= $item_po->actual_qty ?>|   <?= $item_po->delivery_date ?>
+            <?= $po_item->material ?>   |   <?= $po_item->short_text ?> |   Qty <?= $item_po->actual_qty ?> |   DAL Date <?= $item_po->delivery_date ?>
             
             </p>
-            <p>We understand that this modification may cause inconvenience, and we sincerely apologize for any disruptions this may cause to your operations. We appreciate your understanding and cooperation in accommodating this change.</p><p>If you have any concerns or require further clarification, please don't hesitate to reach out to us at [Your Contact Information]. We value our partnership and look forward to your continued support.</p><p>Thank you for your attention to this matter.</p>
+            <p>We understand that this modification may cause inconvenience, and we sincerely apologize for any disruptions this may cause to your operations. We appreciate your understanding and cooperation in accommodating this change.</p><p>If you have any concerns or require further clarification, please don't hesitate to reach out to us at <?= $spt_email ?>. We value our partnership and look forward to your continued support.</p><p>Thank you for your attention to this matter.</p>
             </p><p>
         </div>
         <div class="content">

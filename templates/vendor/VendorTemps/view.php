@@ -485,25 +485,25 @@
                                                                     </th>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>telephone</td>
+                                                                    <td>Telephone</td>
                                                                     <th>
                                                                         <?= h($bo->telephone) ?>
                                                                     </th>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>registration_year</td>
+                                                                    <td>Registration Year</td>
                                                                     <th>
                                                                         <?= h($bo->registration_year) ?>
                                                                     </th>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>registration_no</td>
+                                                                    <td>Registration No</td>
                                                                     <th>
                                                                         <?= h($bo->registration_no) ?>
                                                                     </th>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>registration_certificate</td>
+                                                                    <td>Registration Certificate</td>
                                                                     <th>
                                                                         <?php if($bo->registration_certificate) : ?>
                                                                         <?= $this->Html->link(__('<i class="fas fa-file-download"></i>'), '/' . $bo->registration_certificate, ['target' => '_blank', 'escape' => false]) ?>
@@ -520,7 +520,7 @@
                                     </di>
                                     <div class="card card_border">
                                         <div class="card-header">
-                                            Small Scale Industry
+                                            Industry Registered Details
                                         </div>
                                         <div class="card-body">
                                             <table class="table table-hover table-striped">

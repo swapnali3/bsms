@@ -380,7 +380,7 @@ baseurl+                        val.certificate_file
                 $.each(response.message[0].partner_address, function (index, val) {
                     partenerView = `<div class="col-4">
                         <div class="card">
-                            <div class="card-header">Partner : Jones Thayil</div>
+                            <div class="card-header">Partner : </div>
                             <div class="card-body p-0">
                                 <table class="table table-hover table-striped">
                                     <tr>
