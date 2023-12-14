@@ -81,7 +81,7 @@ class VendorTempsController extends AdminAppController
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'Hi '.$data['name'], 'mailbody' => 'Welcome to Vekpro', 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($data['email'])
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')

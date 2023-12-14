@@ -638,7 +638,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer
                                 ->setTransport('smtp')
                                 ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'A schedule has been cancelled for PO : '.$poDetail->po_no.' and Item : '.$poItem->item.' . Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Schedule Cancelled')
@@ -795,7 +795,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer
                                 ->setTransport('smtp')
                                 ->setViewVars(['vendor_name' => $vendorRecord->name, 'po' => $poDetail->po_no, 'po_item'=>$poItem ]) 
-                                ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
+                                ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
                                 ->setSubject('DELVERY SCHEDULE CREATED')
@@ -880,7 +880,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer
                                 ->setTransport('smtp')
                                 ->setViewVars([ 'vendor_name' => $vendorRecord->name, 'po_item' => $poItem, 'item_po'=>$item_po, 'po_detail'=>$poDetail ])
-                                ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                                ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Schedule Updated')

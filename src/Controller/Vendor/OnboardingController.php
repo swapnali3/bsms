@@ -99,7 +99,7 @@ class OnboardingController extends VendorAppController
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'Hi '.$vendorTemp->name, 'mailbody' => 'OTP : ' . $otp, 'link' => $visit_url, 'spt_email' => 'support@apar.in' , 'spt_contact' => '7718801906'])
-                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($vendorTemp->email)
                     ->setEmailFormat('html')
                     ->setSubject('VENDOR REGISTRATION OTP GENERATION')
@@ -135,7 +135,7 @@ class OnboardingController extends VendorAppController
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'Hi '.$data['name'], 'mailbody' => 'Welcome to Vekpro', 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($data['email'])
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')
@@ -294,7 +294,7 @@ class OnboardingController extends VendorAppController
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'New Vendor Oboarding', 'mailbody' => 'A new vendor has onboarded', 'link' => $visit_url, 'linktext' => 'VEKPRO' ])
-                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($buyersEmails)
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')

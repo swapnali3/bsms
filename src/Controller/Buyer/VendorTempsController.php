@@ -394,7 +394,7 @@ class VendorTempsController extends BuyerAppController
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'Hi ' . $vendorTemp->name, 'mailbody' => 'Welcome to Vendor portal', 'link' => $visit_url, 'linktext' => 'Click Here for Onboarding' ])
-                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($vendorTemp->email)
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')
@@ -476,7 +476,7 @@ class VendorTempsController extends BuyerAppController
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([ 'subject' => 'Hi ' . $vendor->name, 'mailbody' => 'Your form has been rejected. Kindly Resubmit. <br/> <br/>Please find below the buyers remarks <br/>'.$remarks, 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                    ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                    ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($vendor->email)
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Vendor KYC Process')
@@ -594,7 +594,7 @@ class VendorTempsController extends BuyerAppController
                             ->setTransport('smtp')
                             ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] .
                             '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                            ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                            ->setFrom(Configure::read('MAIL_FROM'))
                             ->setTo($data['username'])
                             ->setEmailFormat('html')
                             ->setSubject('Vendor Portal - Account created')
@@ -675,7 +675,7 @@ class VendorTempsController extends BuyerAppController
                     $mailer
                         ->setTransport('smtp')
                         ->setViewVars([ 'vendor_name' => $data[ 'name' ], 'link' => $visit_url, 'vendor_email' => $data[ 'email' ], 'spt_email' => 'support@apar.in' , 'spt_contact' => '7718801906' ]) 
-                        ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
+                        ->setFrom(Configure::read('MAIL_FROM'))
                         ->setTo($data['email'])
                         ->setEmailFormat('html')
                         ->setSubject('NEW VENDOR REGISTRATION FIRST COMMUNICATION')
@@ -792,7 +792,7 @@ class VendorTempsController extends BuyerAppController
                             ->setTransport('smtp')
                             ->setViewVars([ 'vendor_name' => $val->first_name, 'username' => $val->username, 'password' => $val->mobile, 'link' => $visit_url ]) 
 
-                            ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
+                            ->setFrom(Configure::read('MAIL_FROM'))
                             ->setTo($val->username)
                             ->setEmailFormat('html')
                             ->setSubject('NEW VENDOR ONBOARDING')

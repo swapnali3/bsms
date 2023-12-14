@@ -234,7 +234,7 @@ class PurchaseOrdersController extends VendorAppController
                         $mailer
                             ->setTransport('smtp')
                             ->setViewVars([ 'subject' => 'Dear Buyer', 'mailbody' => 'This email is to inform you that your PO('.$poNumber.') has been successfully acknowledged', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                            ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                            ->setFrom(Configure::read('MAIL_FROM'))
                             ->setTo($buyer->email)
                             ->setEmailFormat('html')
                             ->setSubject('Vendor Portal - Order Acknowledgement')

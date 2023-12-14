@@ -115,7 +115,7 @@ class UsersController extends AppController
                         ->setTransport('smtp')
                         ->setViewVars([ 'subject' => 'Hi ' . $user->first_name, 'mailbody' => 'Vendor portal password. <br/> <br/> ' .
                         '<br/>Password:' . $user->mobile, 'link' => $visit_url, 'linktext' => 'Click Here' ])
-                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                        ->setFrom(Configure::read('MAIL_FROM'))
                         ->setTo($user->username)
                         ->setEmailFormat('html')
                         ->setSubject('Vendor Portal - Password changed')
@@ -337,7 +337,7 @@ class UsersController extends AppController
                     $mailer
                         ->setTransport('smtp')
                         ->setViewVars([ 'subject' => 'Hi ' . $result[0]->username, 'mailbody' => 'OTP :: ' . $otp, 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
-                        ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
+                        ->setFrom(Configure::read('MAIL_FROM'))
                         ->setTo($result[0]->username)
                         ->setEmailFormat('html')
                         ->setSubject('Vendor Portal - Login OTP')
