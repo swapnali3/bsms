@@ -8,6 +8,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Http\Client;
+use Cake\Core\Configure;
 
 /**
  * VendorTemps Controller
