@@ -61,6 +61,10 @@
             <p>We have created/modified purchase order number <?= $po ?>. Your timely confirmation and adherence to the
                 delivery schedule are essential to meet our project milestones and commitments.</p>
             <p>We have added line items in purchase order number <?= $po ?>.</p>
+            <p>
+                Line Item #<?= $po_item->item ?><br>
+                <?= $po_item->material ?>   |   <?= $po_item->short_text ?>|   <?= $item_po->actual_qty ?>|   <?= $item_po->delivery_date ?>
+            </p>
             <p>Please review this purchase order & schedule carefully. If any adjustments are necessary due to
                 unforeseen circumstances, please inform us as soon as possible so that we can make appropriate
                 accommodations.</p>

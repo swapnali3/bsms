@@ -767,6 +767,7 @@ class PurchaseOrdersController extends BuyerAppController
                     } else {
                         $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
                         $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $row);
+
                         if ($this->PoItemSchedules->save($PoItemSchedule)) {
                             $filteredBuyers = $this->VendorTemps->find()
                             ->select(['VendorTemps.id','user_id'=> 'Users.id'])
@@ -793,7 +794,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
-                                ->setViewVars([ 'vendor_name' => $vendorRecord->name, 'po' => $sapVendorcode->po_no ]) 
+                                ->setViewVars(['vendor_name' => $vendorRecord->name, 'po' => $poDetail->po_no, 'po_item'=>$poItem ]) 
                                 ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
@@ -873,7 +874,6 @@ class PurchaseOrdersController extends BuyerAppController
                                 }
                                 $this->Notifications->save($n);
                             }
-
 
                             $visit_url = Router::url('/', true);
                             $mailer = new Mailer('default');

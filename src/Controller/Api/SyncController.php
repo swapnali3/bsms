@@ -411,7 +411,7 @@ class SyncController extends ApiAppController
                                                 $mailer = new Mailer('default');
                                                 $mailer
                                                     ->setTransport('smtp')
-                                                    ->setViewVars([ 'vendor_name' => $vendorDetail->name, 'po_footer' => $footerData,'po_header'=>$hederData ])
+                                                    ->setViewVars([ 'vendor_name' => $vendorDetail->name, 'po_footer' => $item,'po_header'=>$row ])
                                                     ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                                                     ->setTo($vendorDetail->email)
                                                     ->setEmailFormat('html')
