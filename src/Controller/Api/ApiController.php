@@ -64,6 +64,7 @@ class ApiController extends ApiAppController
 
         $this->loadModel("PoHeaders");
         $this->loadModel("PoFooters");
+        $this->loadModel("VendorTemps");
 
         if (!empty($request) && count($request['DATA'])) {
 
@@ -85,7 +86,7 @@ class ApiController extends ApiAppController
                     $poInstance = $this->PoHeaders->newEmptyEntity();
                     $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
 
-                    if ($this->PoHeaders->save($poInstance)) {
+                    if ($the_po = $this->PoHeaders->save($poInstance)) {
                         $po_header_id = $poInstance->id;
 
                         foreach ($row['ITEMS'] as $no => $item) {
@@ -119,6 +120,30 @@ class ApiController extends ApiAppController
                         $response['status'] = 0;
                         $response['message'] = 'PO header save fail';
                     }
+
+                    // Mail Me
+                    $vendorTemps = $this->VendorTemps->find('all')->where(['sap_vendor_code' => $the_po->sap_vendor_code ])->toArray();
+                    $po_ftr = $this->PoFooters->find('all')->where(['PoFooters' => $the_po->id ])->toArray();
+                    $mailer = new Mailer('default');
+                    $mailer
+                        ->setTransport('smtp')
+                        ->setViewVars([
+                            'vendor_name' => $vendorTemps->name,
+                            'vendor_email' => $vendorTemps->email,
+                            'po_header' => $the_po,
+                            'po_footer' => $po_ftr,
+                            'spt_email' => 'support@apar.in',
+                            'spt_contact' => '7718801906',
+                            'ttlamt' => 900,
+                            ]) 
+                        ->setFrom(['vekpro@fts-pl.com' => 'Vendor Portal'])
+                        ->setTo($data['email'])
+                        ->setEmailFormat('html')
+                        ->setSubject('PURCHASE ORDER DETAILS')
+                        ->viewBuilder()
+                        ->setTemplate('purchase_order');
+                    $mailer->deliver();
+
                 }
             } catch (\PDOException $e) {
                 $response['status'] = 0;

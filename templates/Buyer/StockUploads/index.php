@@ -34,7 +34,8 @@
                             <?php if (isset($vendor)) : ?>
                             <?php foreach ($vendor as $mat) : ?>
                             <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
-                                <?= h($mat->sap_vendor_code) ?>
+                                <?= h($mat->sap_vendor_code) ?> - 
+                                <?= h($mat->name) ?>
                             </option>
                             <?php endforeach; ?>
                             <?php endif; ?>
@@ -45,7 +46,7 @@
                         <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                             <?php if (isset($materials)) : ?>
                             <?php foreach ($materials as $mat) : ?>
-                            <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->id) ?>">
+                            <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->code) ?>">
                                 <?= h($mat->code) ?> -
                                 <?= h($mat->description) ?>
                             </option>

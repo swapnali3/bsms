@@ -411,13 +411,13 @@ class SyncController extends ApiAppController
                                                 $mailer = new Mailer('default');
                                                 $mailer
                                                     ->setTransport('smtp')
-                                                    ->setViewVars([ 'subject' => 'Hi ', 'mailbody' => "PO : $row->EBELN , Item: $item->EBELP has been updated." ])
+                                                    ->setViewVars([ 'vendor_name' => $vendorDetail->name, 'po_footer' => $footerData,'po_header'=>$hederData ])
                                                     ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                                                     ->setTo($vendorDetail->email)
                                                     ->setEmailFormat('html')
                                                     ->setSubject('Vendor Portal - PO Item updated')
                                                     ->viewBuilder()
-                                                        ->setTemplate('mail_template');
+                                                        ->setTemplate('m_purchase_order');
                                                 $mailer->deliver();
                                             } catch (\Exception $e) {
 

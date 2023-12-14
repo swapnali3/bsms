@@ -838,7 +838,7 @@ class PurchaseOrdersController extends BuyerAppController
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $this->request->getData());
-            if ($this->PoItemSchedules->save($PoItemSchedule)) {
+            if ($item_po = $this->PoItemSchedules->save($PoItemSchedule)) {
                 
                 $poDetail = $this->PoHeaders->find()
                         ->select(['sap_vendor_code', 'po_no'])
@@ -879,13 +879,13 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
-                                ->setViewVars([ 'subject' => 'Hi ' . $vendorRecord->name, 'mailbody' => 'Schedule has been changed for PO : '.$poDetail->po_no.' and Item : '.$poItem->item.'. Visit Vekpro for more details.', 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                                ->setViewVars([ 'vendor_name' => $vendorRecord->name, 'po_item' => $poItem, 'item_po'=>$item_po, 'po_detail'=>$poDetail ])
                                 ->setFrom(['vekpro@fts-pl.com' => 'FT Portal'])
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
                                 ->setSubject('Vendor Portal - Schedule Updated')
                                 ->viewBuilder()
-                                    ->setTemplate('mail_template');
+                                    ->setTemplate('m_delivery_schedule');
                             $mailer->deliver();
 
                 $response['status'] = 'success';
