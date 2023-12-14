@@ -443,7 +443,7 @@ class SyncController extends ApiAppController
                                         $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
                                         //echo '<pre>'; print_r($total[0]->total); exit;
                                         if(doubleval($total[0]->total) > doubleval($item->MENGE)) {
-                                            $buyer = $this->Buyers->find()->where(['sap_user'=>$row->ERNAM]);
+                                            $buyer = $this->Buyers->find()->where(['sap_user'=>$row->ERNAM])->first();
                                             $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
                                             $buyersEmails = [];
                                             foreach($buyerList as $email) {
