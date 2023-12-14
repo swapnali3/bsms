@@ -13,7 +13,7 @@
 <?= $this->Html->css('admincss') ?>
 
 <div class="vendorTemps index content">
-    <?= $this->Html->link(__('New Vendor'), ['action' => 'add'], ['class' => 'new_vendor_btn button float-right']) ?>
+    <!-- <?= $this->Html->link(__('New Vendor'), ['action' => 'add'], ['class' => 'new_vendor_btn button float-right']) ?> -->
     <h3><?= __('Vendors') ?></h3>
     <div class="table-responsive">
         <table class="table table-hover table-responsive dataTable no-footer" id="tb_pg">
@@ -41,7 +41,7 @@
                     <th><?= $this->Paginator->sort('status') ?></th>
                     <th><?= $this->Paginator->sort('added_date') ?></th>
                     <th><?= $this->Paginator->sort('updated_date') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <!-- <th class="actions"><?= __('Actions') ?></th> -->
                 </tr>
             </thead>
             <tbody>
@@ -76,12 +76,12 @@
                     <td><?= h($status) ?></td>
                     <td><?= h($vendorTemp->added_date) ?></td>
                     <td><?= h($vendorTemp->updated_date) ?></td>
-                    <td class="actions">
+                    <!-- <td class="actions">
                     <?php if($vendorTemp->status == 1) : ?>
                             <?= $this->Html->link(__('Approve'), ['action' => 'approve-vendor', $vendorTemp->id, 'app']) ?>
                     <?php endif; ?>
                         <?= $this->Html->link(__('View'), ['action' => 'view', $vendorTemp->id]) ?>
-                    </td>
+                    </td> -->
                 </tr>
                 <?php endforeach; ?>
             </tbody>
