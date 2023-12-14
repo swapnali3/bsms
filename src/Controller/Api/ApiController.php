@@ -6,6 +6,7 @@ namespace App\Controller\Api;
 
 use Cake\Datasource\ConnectionManager;
 use Cake\Core\Exception\Exception;
+use Cake\Core\Configure;
 
 /**
  * Home Controller

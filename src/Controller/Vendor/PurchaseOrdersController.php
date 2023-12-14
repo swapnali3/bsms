@@ -8,6 +8,7 @@ use Cake\View\Helper\HtmlHelper;
 use Cake\Datasource\ConnectionManager;
 use Cake\Mailer\Mailer;
 use Cake\Routing\Router;
+use Cake\Core\Configure;
 
 /**
  * PoHeaders Controller

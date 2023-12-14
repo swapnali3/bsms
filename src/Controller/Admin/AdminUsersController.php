@@ -9,7 +9,7 @@ use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
-
+use Cake\Core\Configure;
 
 /**
  * AdminUsers Controller
