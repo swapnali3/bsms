@@ -63,7 +63,7 @@
             <p>We have added line items in purchase order number <?= $po ?>.</p>
             <p>
                 Line Item #<?= $po_item->item ?><br>
-                <?= $po_item->material ?>   |   <?= $po_item->short_text ?>|   <?= $item_po->actual_qty ?>|   <?= $item_po->delivery_date ?>
+                <?= $po_item->material ?>   |   <?= $po_item->short_text ?> | Qty <?= $schedule->actual_qty ?> | DAL Date <?= $schedule->delivery_date ?>
             </p>
             <p>Please review this purchase order & schedule carefully. If any adjustments are necessary due to
                 unforeseen circumstances, please inform us as soon as possible so that we can make appropriate

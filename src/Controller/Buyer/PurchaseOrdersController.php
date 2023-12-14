@@ -753,7 +753,7 @@ class PurchaseOrdersController extends BuyerAppController
                         ->where(['id' => $row['po_header_id']])->first();
                     
                 $poItem = $this->PoFooters->find()
-                        ->select(['item'])
+                        ->select(['item', 'material', 'short_text'])
                         ->where(['id' => $row['po_footer_id']])
                         ->first();
 
@@ -795,11 +795,11 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
-                                ->setViewVars(['vendor_name' => $vendorRecord->name, 'po' => $poDetail->po_no, 'po_item'=>$poItem ]) 
+                                ->setViewVars(['vendor_name' => $vendorRecord->name, 'po' => $poDetail->po_no, 'po_item'=>$poItem, 'schedule'=>$PoItemSchedule ]) 
                                 ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
-                                ->setSubject('DELVERY SCHEDULE CREATED')
+                                ->setSubject('DELVERY SCHEDULE CREATED (PO '.$po_item->item.')')
                                 ->viewBuilder()
                                     ->setTemplate('delivery_schedule');
                             $mailer->deliver();
@@ -848,7 +848,7 @@ class PurchaseOrdersController extends BuyerAppController
                         ->first();
 
                 $poItem = $this->PoFooters->find()
-                        ->select(['item'])
+                        ->select(['item', 'material', 'short_text'])
                         ->where(['id' => $PoItemSchedule->po_footer_id])
                         ->first();
 
@@ -880,11 +880,17 @@ class PurchaseOrdersController extends BuyerAppController
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
-                                ->setViewVars([ 'vendor_name' => $vendorRecord->name, 'po_item' => $poItem, 'item_po'=>$item_po, 'po_detail'=>$poDetail ])
+                                ->setViewVars([
+                                    'vendor_name' => $vendorRecord->name,
+                                    'po_item' => $poItem,
+                                    'item_po'=>$item_po,
+                                    'po_detail'=>$poDetail,
+                                    'spt_email' => 'support@apar.in',
+                                    ])
                                 ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
-                                ->setSubject('Vendor Portal - Schedule Updated')
+                                ->setSubject('Vendor Portal - Schedule Updated ('.$po_item->item.')')
                                 ->viewBuilder()
                                     ->setTemplate('m_delivery_schedule');
                             $mailer->deliver();

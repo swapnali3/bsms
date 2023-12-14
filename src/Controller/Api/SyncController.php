@@ -411,7 +411,11 @@ class SyncController extends ApiAppController
                                                 $mailer = new Mailer('default');
                                                 $mailer
                                                     ->setTransport('smtp')
-                                                    ->setViewVars([ 'vendor_name' => $vendorDetail->name, 'po_footer' => $item,'po_header'=>$row ])
+                                                    ->setViewVars([
+                                                        'vendor_name' => $vendorDetail->name,
+                                                        'po_footer' => $item,
+                                                        'po_header'=>$row,
+                                                        'spt_email' => 'support@apar.in',])
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($vendorDetail->email)
                                                     ->setEmailFormat('html')

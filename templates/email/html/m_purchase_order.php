@@ -70,18 +70,12 @@
 
             <p>I trust this message finds you well. We would like to inform you of some changes in the purchase order (<?= $po_header->po_no ?>) for the following line items:</p>
 
-            <?php if (isset($po_footer)) : ?>
-                <p>
-                    <?php foreach ($po_footer as $mat) : ?>
-                        <?php if($item->CHG_IND == 'X') : ?>
-                            <p>Line Item #<?= h($mat->EBELP) ?></p>
-                            <p><?= h($mat->MATNR) ?>   <?= h($mat->TXZ01) ?>  <?= h($mat->P_QTY) ?></p>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </p>
-            <?php endif; ?>
+            <p>
+                <p>Line Item #<?= h($mat->EBELP) ?></p>
+                <p><?= h($po_footer->MATNR) ?>   <?= h($po_footer->TXZ01) ?>  <?= h($po_footer->P_QTY) ?></p>
+            </p>
 
-            <p> We kindly request your confirmation of the revised details at your earliest convenience. If you have any questions or concerns, please feel free to reach out to us at [Your Contact Information].</p>
+            <p> We kindly request your confirmation of the revised details at your earliest convenience. If you have any questions or concerns, please feel free to reach out to us at <?= h($spt_email) ?>.</p>
 
             <p>We appreciate your flexibility and understanding in accommodating these adjustments. Thank you for your continued partnership.</p>
             Best regards,
