@@ -10,6 +10,9 @@
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
 <!-- <?= $this->Html->css('v_index.css') ?> -->
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?>
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 <div class="row">
     <div class="col-12">
         <?= $this->Form->create($dailymonitor) ?>
@@ -39,9 +42,9 @@
                             <?php echo $this->Form->control('production_line_id', array('name' => 'production_line_id', 'class' => 'form-control w-100 form-field', 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-8 col-md-2">
+                    <div class="col-sm-8 col-md-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100 form-field', 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100 form-field chosen', 'empty' => 'Please Select')); ?>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-2">
@@ -56,7 +59,7 @@
                             <?php echo $this->Form->control('confirm_production', array('type' => 'number', 'value' => '0', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
                         </div>
                     </div>
-                    <div class="col-sm-8 col-md-2">
+                    <div class="col-sm-8 col-md-1">
                         <div class="form-group mgt">
                             <button type="button" class="btn bg-gradient-submit" onclick="showConfirmationModal()">Submit</button>
                         </div>
@@ -264,6 +267,14 @@ $("#production-line-id").change(function () {
             },
             complete: function () { $("#gif_loader").hide(); }
         });
+    });
+
+    $('.chosen').select2({
+        closeOnSelect : false,
+        placeholder: 'Select',
+        allowClear: true,
+        tags: false,
+        tokenSeparators: [',', ' '],
     });
     
 </script>

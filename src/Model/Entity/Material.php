@@ -12,14 +12,14 @@ use Cake\ORM\Entity;
  * @property string $sap_vendor_code
  * @property string $code
  * @property string $description
- * @property string|null $segment_code
- * @property string|null $segment
- * @property string|null $type
  * @property string $minimum_stock
  * @property string|null $uom
  * @property bool|null $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
+ * @property string|null $segment
+ * @property string|null $type
+ * @property string|null $segment_code
  *
  * @property \App\Model\Entity\Dailymonitor[] $dailymonitor
  * @property \App\Model\Entity\ProductionLine[] $production_lines
@@ -40,14 +40,14 @@ class Material extends Entity
         'sap_vendor_code' => true,
         'code' => true,
         'description' => true,
-        'segment_code' => true,
-        'segment' => true,
-        'type' => true,
         'minimum_stock' => true,
         'uom' => true,
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
+        'segment' => true,
+        'type' => true,
+        'segment_code' => true,
         'dailymonitor' => true,
         'production_lines' => true,
         'stock_uploads' => true,

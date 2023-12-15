@@ -9,6 +9,9 @@
 <!-- <?= $this->Html->css('custom') ?> -->
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?>
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 <?= $this->Form->create($productionline, ['id'=>'productionLineForm']) ?>
 <div class="row">
     <div class="col-12">
@@ -38,7 +41,7 @@
 
                     <div class="col-sm-8 col-md-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'empty' => 'Please Select', 'label' => 'Material')); ?>
+                            <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100 chosen', 'options' => $vendor_mateial, 'empty' => 'Please Select', 'label' => 'Material')); ?>
                         </div>
                     </div>
   
@@ -132,6 +135,15 @@
 </div>
 
 <script>
+    $('.chosen').select2({
+        closeOnSelect : false,
+        placeholder: 'Select',
+        allowClear: true,
+        tags: false,
+        tokenSeparators: [',', ' '],
+    });
+
+
     function showConfirmationModal() {
         if ($('#productionLineForm').valid()) {
             checkRecordExists();
