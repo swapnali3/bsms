@@ -11,11 +11,11 @@ class CookieComponent extends Component {
 
         if(!$this->getLoginToken()) {
             //set a new cookie
-            setcookie('login_token', $token, time() + (1800), "/"); // 86400 = 1 day
+            setcookie('login_token', $token, time() + (3600), "/"); // 86400 = 1 day
         } else {
             //reset the time on existing cookie
             $token = $_COOKIE['login_token'];
-            setcookie('login_token', $token, time() + (1800), "/"); // 86400 = 1 day
+            setcookie('login_token', $token, time() + (3600), "/"); // 86400 = 1 day
         }
         return $token;
     }
