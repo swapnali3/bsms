@@ -63,7 +63,7 @@
             </p>
             <p>
             Line Item #<?= $po_item->item ?><br>
-            <?= $po_item->material ?>   |   <?= $po_item->short_text ?> |   Qty <?= $item_po->actual_qty ?> |   DAL Date <?= $item_po->delivery_date ?>
+            <?= $po_item->material ?>   |   <?= $po_item->short_text ?> |   Qty <?= $item_po->actual_qty ?> |   DEL Date <?= $item_po->delivery_date->format('d-m-Y') ?>
             
             </p>
             <p>We understand that this modification may cause inconvenience, and we sincerely apologize for any disruptions this may cause to your operations. We appreciate your understanding and cooperation in accommodating this change.</p><p>If you have any concerns or require further clarification, please don't hesitate to reach out to us at <?= $spt_email ?>. We value our partnership and look forward to your continued support.</p><p>Thank you for your attention to this matter.</p>
