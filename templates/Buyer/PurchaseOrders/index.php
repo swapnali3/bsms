@@ -18,7 +18,7 @@
 <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
 <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 <?= $this->Html->css('bootstrap-multiselect') ?>
-<?= $this->Html->css('filter_multi_select') ?>
+<?= $this->Html->css('dropdown-filter') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
 <?= $this->Html->script('FilterMultiSelect') ?>
 <div class="card">

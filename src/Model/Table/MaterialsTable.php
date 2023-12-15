@@ -83,21 +83,6 @@ class MaterialsTable extends Table
             ->notEmptyString('description');
 
         $validator
-            ->scalar('segment_code')
-            ->maxLength('segment_code', 5)
-            ->allowEmptyString('segment_code');
-
-        $validator
-            ->scalar('segment')
-            ->maxLength('segment', 50)
-            ->allowEmptyString('segment');
-
-        $validator
-            ->scalar('type')
-            ->maxLength('type', 50)
-            ->allowEmptyString('type');
-
-        $validator
             ->decimal('minimum_stock')
             ->notEmptyString('minimum_stock');
 
@@ -117,6 +102,21 @@ class MaterialsTable extends Table
         $validator
             ->dateTime('updated_date')
             ->notEmptyDateTime('updated_date');
+
+        $validator
+            ->scalar('segment')
+            ->maxLength('segment', 50)
+            ->allowEmptyString('segment');
+
+        $validator
+            ->scalar('type')
+            ->maxLength('type', 50)
+            ->allowEmptyString('type');
+
+        $validator
+            ->scalar('segment_code')
+            ->maxLength('segment_code', 5)
+            ->allowEmptyString('segment_code');
 
         return $validator;
     }
