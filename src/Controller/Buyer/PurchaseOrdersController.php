@@ -804,7 +804,7 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
-                                ->setSubject('DELVERY SCHEDULE CREATED (PO '.$po_item->item.')')
+                                ->setSubject('DELVERY SCHEDULE CREATED (PO '.$poDetail->po_no.')')
                                 ->viewBuilder()
                                     ->setTemplate('delivery_schedule');
                             $mailer->deliver();
@@ -895,7 +895,7 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
-                                ->setSubject('Vendor Portal - Schedule Updated ('.$po_item->item.')')
+                                ->setSubject('Vendor Portal - Schedule Updated ('.$poDetail->po_no.')')
                                 ->viewBuilder()
                                     ->setTemplate('m_delivery_schedule');
                             $mailer->deliver();
