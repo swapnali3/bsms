@@ -66,7 +66,7 @@ $(document).on("click", ".mydash", function () {
             tmp = [];
             t_data = data[3];
             for (var i = 0; i < t_data.length; i++) {
-                tmp.push({"network":t_data[i]['network'], "value": parseFloat(t_data[i]['value'])})
+                tmp.push({"country":t_data[i]['country'], "value": parseFloat(t_data[i]['value'])})
             }
             series4.data.setAll(tmp);
         },
