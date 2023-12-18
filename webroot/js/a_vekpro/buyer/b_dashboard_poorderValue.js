@@ -1,7 +1,5 @@
-var s3;
-am5.ready(function() {
 var root3 = am5.Root.new("chartdiv3");
-root3.setThemes([  am5themes_Animated.new(root3)]);
+root3.setThemes([am5themes_Animated.new(root3)]);
 var chart3 = root3.container.children.push(am5xy.XYChart.new(root3, {
   panX: false,
   panY: false,
@@ -39,7 +37,7 @@ var xAxis3 = chart3.xAxes.push(am5xy.ValueAxis.new(root3, {
   })
 }));
 
-var series3 = chart3.series.push(am5xy.ColumnSeries.new(root3, {
+series3 = chart3.series.push(am5xy.ColumnSeries.new(root3, {
   name: "Series 3",
   xAxis: xAxis3,
   yAxis: yAxis3,
@@ -69,7 +67,7 @@ series3.columns.template.adapters.add("stroke", function (stroke, target) {
 
 
 // Set data
-var data3 = chartdiv4_data;;
+data3 = chartdiv3_data;
 
 yAxis3.data.setAll(data3);
 series3.data.setAll(data3);
@@ -160,5 +158,3 @@ function updateData() {
 
 series3.appear(1000);
 chart3.appear(1000, 100);
-
-});

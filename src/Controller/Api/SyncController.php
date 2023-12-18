@@ -419,7 +419,7 @@ class SyncController extends ApiAppController
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($vendorDetail->email)
                                                     ->setEmailFormat('html')
-                                                    ->setSubject('Vendor Portal - PO Item updated')
+                                                    ->setSubject('VENDOR PORTAL - PO ITEM UPDATED')
                                                     ->viewBuilder()
                                                         ->setTemplate('m_purchase_order');
                                                 $mailer->deliver();
@@ -460,7 +460,7 @@ class SyncController extends ApiAppController
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($buyersEmails)
                                                     ->setEmailFormat('html')
-                                                    ->setSubject('Vendor Portal - PO Item not updated')
+                                                    ->setSubject('VENDOR PORTAL - PO ITEM NOT UPDATED')
                                                     ->viewBuilder()
                                                         ->setTemplate('mail_template');
                                                 $mailer->deliver();

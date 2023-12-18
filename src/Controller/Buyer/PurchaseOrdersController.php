@@ -647,7 +647,7 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
                                 ->setEmailFormat('html')
-                                ->setSubject('Vendor Portal - Schedule Cancelled')
+                                ->setSubject('VENDOR PORTAL - SCHEDULE CANCELLED ('.$po_detail->po_no.')')
                                 ->viewBuilder()
                                     ->setTemplate('m_delivery_schedule_can');
                             $mailer->deliver();

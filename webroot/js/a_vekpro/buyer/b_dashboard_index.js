@@ -61,13 +61,15 @@ $(document).on("click", ".mydash", function () {
             for (var i = 0; i < t_data.length; i++) {
                 tmp.push({"network":t_data[i]['network'], "value": parseFloat(t_data[i]['value'])})
             }
+            yAxis3.data.setAll(tmp);
             series3.data.setAll(tmp);
 
             tmp = [];
             t_data = data[3];
             for (var i = 0; i < t_data.length; i++) {
-                tmp.push({"network":t_data[i]['network'], "value": parseFloat(t_data[i]['value'])})
+                tmp.push({"country":t_data[i]['country'], "value": parseFloat(t_data[i]['value'])})
             }
+            yAxis4.data.setAll(tmp);
             series4.data.setAll(tmp);
         },
         complete: function () { $("#gif_loader").hide(); }
