@@ -73,9 +73,11 @@ class StockUploadsController extends VendorAppController
         $this->loadModel("VendorTemps");
         $this->loadModel('VendorTypes');
         $this->loadModel('Materials');
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('vendor_code');
         $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
 
-        $conditions = " where 1=1 ";
+        $conditions = " where 1=1 and vendor_temps.sap_vendor_code='".$vendorId."'";
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
             if(isset($request['vendor'])) {

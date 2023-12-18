@@ -47,12 +47,14 @@ class MaterialsController extends VendorAppController
 
     public function materiallist(){
         $this->autoRender = false;
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('vendor_code');
         $this->loadModel("VendorTemps");
         $this->loadModel('VendorTypes');
         $this->loadModel('Materials');
         $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
 
-        $conditions = " where vendor_temps.sap_vendor_code is not NULL ";
+        $conditions = " where vendor_temps.sap_vendor_code='".$vendorId."' ";
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
             if(isset($request['vendor'])) {
