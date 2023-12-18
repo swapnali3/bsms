@@ -80,7 +80,6 @@ class MaterialsController extends BuyerAppController
                 if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype'])){ $conditions .= " and materials.segment in (".$search.")"; }
                 else{ $conditions .= " and materials.segment in (".$search.")"; }
             }
-            $conn = ConnectionManager::get('default');
         }
         
         $conn = ConnectionManager::get('default');
