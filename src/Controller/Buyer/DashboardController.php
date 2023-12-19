@@ -56,10 +56,10 @@ class DashboardController extends BuyerAppController
         { $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login')); }
 
         // POST
-        $g1_filter = " where 1=1 and vendor_temps.sap_vendor_code is not NULL ";
-        $g2_filter = " where 1=1 and vendor_temps.sap_vendor_code is not NULL ";
-        $g3_filter = " where 1=1 and vendor_temps.sap_vendor_code is not NULL ";
-        $g4_filter = " where 1=1 and vendor_temps.sap_vendor_code is not NULL ";
+        $g1_filter = " where 1=1 ";
+        $g2_filter = " where 1=1 ";
+        $g3_filter = " where 1=1 ";
+        $g4_filter = " where 1=1 ";
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
             // FILTER : Vendor By Order Value
@@ -69,9 +69,9 @@ class DashboardController extends BuyerAppController
                 $search = rtrim($search, ',');
                 $g1_filter .= " and po_headers.sap_vendor_code in (".$search.")";
             }
-            if(isset($request['vendortype5'])) {
+            if(isset($request['type5'])) {
                 $search = '';
-                foreach ($request['vendortype5'] as $mat) { $search .= "'" . $mat . "',"; }
+                foreach ($request['type5'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
                 $g1_filter .= " and materials.type in (".$search.")";
             }
@@ -88,9 +88,9 @@ class DashboardController extends BuyerAppController
                 $search = rtrim($search, ',');
                 $g2_filter .= " and materials.sap_vendor_code in (".$search.")";
             }
-            if(isset($request['vendortype6'])) {
+            if(isset($request['type6'])) {
                 $search = '';
-                foreach ($request['vendortype6'] as $mat) { $search .= "'" . $mat . "',"; }
+                foreach ($request['type6'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
                 $g2_filter .= " and materials.type in (".$search.")";
             }
@@ -107,9 +107,9 @@ class DashboardController extends BuyerAppController
                 $search = rtrim($search, ',');
                 $g3_filter .= " and materials.sap_vendor_code in (".$search.")";
             }
-            if(isset($request['vendortype7'])) {
+            if(isset($request['type7'])) {
                 $search = '';
-                foreach ($request['vendortype7'] as $mat) { $search .= "'" . $mat . "',"; }
+                foreach ($request['type7'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
                 $g3_filter .= " and materials.type in (".$search.")";
             }
@@ -124,11 +124,11 @@ class DashboardController extends BuyerAppController
                 $search = '';
                 foreach ($request['vendor8'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                $g4_filter .= " and vendor_temps.sap_vendor_code in (".$search.")";
+                $g4_filter .= " and materials.sap_vendor_code in (".$search.")";
             }
-            if(isset($request['vendortype8'])) {
+            if(isset($request['type8'])) {
                 $search = '';
-                foreach ($request['vendortype8'] as $mat) { $search .= "'" . $mat . "',"; }
+                foreach ($request['type8'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
                 $g4_filter .= " and materials.type in (".$search.")";
             }
@@ -188,7 +188,7 @@ class DashboardController extends BuyerAppController
         // Vendor By Order value
         $topVendor = $conn->execute("select po_headers.sap_vendor_code as category, sum(po_footers.net_value) as value
         from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
-        left join materials on materials.code = po_footers.material
+        left join materials on materials.code = po_footers.material".$g1_filter."
         group by po_headers.sap_vendor_code
         order by po_footers.net_value desc
         limit 5 ");
@@ -196,24 +196,26 @@ class DashboardController extends BuyerAppController
 
         // Material by Quantity
         $topMaterial = $conn->execute("SELECT po_footers.material as category, sum(po_footers.po_qty) as value
-        from po_footers left join materials on materials.code = po_footers.material
+        from po_footers left join materials on materials.code = po_footers.material".$g2_filter."
         group by po_footers.material
         order by po_footers.net_value desc limit 5 ");
         $topMaterials = $topMaterial->fetchAll('assoc');
+        
+        $orderByPeriod = $conn->execute("SELECT sum(po_footers.net_value) as value, date_format(po_headers.created_on, '%b-%y') as network
+        from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
+        left join materials on materials.code = po_footers.material".$g3_filter."
+        group by date_format(po_headers.created_on, '%b-%y')
+        order by po_headers.created_on asc limit 5 ");
+        $orderByPeriods = $orderByPeriod->fetchAll('assoc');
 
         $topMaterialByValue = $conn->execute("SELECT po_footers.material as country, sum(po_footers.net_value) as value
-        from po_footers left join materials on materials.code = po_footers.material
+        from po_footers left join materials on materials.code = po_footers.material".$g4_filter."
         group by po_footers.material
         order by po_footers.net_value desc limit 5 ");
         $topMaterialByValues = $topMaterialByValue->fetchAll('assoc');
-
-        $orderByPeriod = $conn->execute("SELECT sum(po_footers.net_value) as value, date_format(po_headers.created_on, '%b-%y') as network
-        from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
-        left join materials on materials.code = po_footers.material
-        group by date_format(po_headers.created_on, '%b-%y')
-        order by po_headers.created_on desc limit 5 ");
-        $orderByPeriods = $orderByPeriod->fetchAll('assoc');
-
+        
+        // echo '<pre>'; print_r($topMaterial); exit;
+        
         if ($this->request->is(['patch', 'post', 'put'])) {
             $this->autoRender = false;
             $results = array($topVendors, $topMaterials, $orderByPeriods, $topMaterialByValues);
@@ -221,11 +223,10 @@ class DashboardController extends BuyerAppController
             echo json_encode($response); exit;
         }
 
-        // echo '<pre>'; print_r($topMaterialByValues); exit;
         // Filter List
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
-        $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
-        $vendortype = $this->VendorTypes->find('all')->toArray();
+        $vendor = $this->PoHeaders->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
+        $vendortype = $this->Materials->find('all')->select(['type'])->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
         
         $this->set(compact('vendor', 'vendortype', 'segment', 'topVendors', 'topMaterials', 'topMaterialByValues', 'orderByPeriods', 'vendorDashboardCount', 'totalPos', 'asnDashboardCount', 'poCompleteCount'));
     }

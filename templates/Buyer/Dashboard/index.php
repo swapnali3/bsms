@@ -238,9 +238,8 @@
             <select name="type5[]" id="id_type5" class="chosen types" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendortype)) : ?>
               <?php foreach ($vendortype as $mat) : ?>
-              <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->name) ?>">
-                <?= h($mat->code) ?> -
-                <?= h($mat->name) ?>
+              <option value="<?= h($mat->type) ?>" data-select="<?= h($mat->type) ?>">
+                <?= h($mat->type) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -290,9 +289,8 @@
             <select name="type6[]" id="id_type6" class="chosen types" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendortype)) : ?>
               <?php foreach ($vendortype as $mat) : ?>
-              <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->name) ?>">
-                <?= h($mat->code) ?> -
-                <?= h($mat->name) ?>
+                <option value="<?= h($mat->type) ?>" data-select="<?= h($mat->type) ?>">
+                <?= h($mat->type) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -342,9 +340,8 @@
             <select name="type7[]" id="id_type7" class="chosen types" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendortype)) : ?>
               <?php foreach ($vendortype as $mat) : ?>
-              <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->name) ?>">
-                <?= h($mat->code) ?> -
-                <?= h($mat->name) ?>
+                <option value="<?= h($mat->type) ?>" data-select="<?= h($mat->type) ?>">
+                <?= h($mat->type) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -394,9 +391,8 @@
             <select name="type8[]" id="id_type8" class="chosen types" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendortype)) : ?>
               <?php foreach ($vendortype as $mat) : ?>
-              <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->name) ?>">
-                <?= h($mat->code) ?> -
-                <?= h($mat->name) ?>
+                <option value="<?= h($mat->type) ?>" data-select="<?= h($mat->type) ?>">
+                <?= h($mat->type) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
