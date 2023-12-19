@@ -579,7 +579,7 @@
                                     </di>
                                     <div class="card card_border">
                                         <div class="card-header">
-                                            Small Scale Industry
+                                        Industry Registered Details
                                         </div>
                                         <div class="card-body">
                                             <table class="table table-hover table-striped">

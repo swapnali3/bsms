@@ -419,7 +419,7 @@ class SyncController extends ApiAppController
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($vendorDetail->email)
                                                     ->setEmailFormat('html')
-                                                    ->setSubject('VENDOR PORTAL - PO ITEM UPDATED')
+                                                    ->setSubject('VENDOR PORTAL - PO ITEM UPDATED ('.$po_header->EBELN.')')
                                                     ->viewBuilder()
                                                         ->setTemplate('m_purchase_order');
                                                 $mailer->deliver();
