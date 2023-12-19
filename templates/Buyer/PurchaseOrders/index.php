@@ -31,7 +31,7 @@
                 <select name="po_no[]" id="id_po_no" multiple="multiple" class="form-control chosen">
                     <?php if (isset($poList)) : ?>
                     <?php foreach ($poList as $mat) : ?>
-                    <option value="<?= h($mat->po_no) ?>" data-select="hello">
+                    <option value="<?= h($mat->po_no) ?>" data-select="<?= h($mat->po_no) ?>">
                         <?= h($mat->po_no) ?>
                     </option>
                     <?php endforeach; ?>

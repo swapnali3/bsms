@@ -68,11 +68,11 @@
         <div class="content">
             <p>Dear <?= $vendor_name ?>,</p>
 
-            <p>I trust this message finds you well. We would like to inform you of some changes in the purchase order (<?= $po_header->po_no ?>) for the following line items:</p>
+            <p>I trust this message finds you well. We would like to inform you of some changes in the purchase order (<?= $po_header->EBELN ?>) for the following line items:</p>
 
             <p>
-                <p>Line Item #<?= h($mat->EBELP) ?></p>
-                <p><?= h($po_footer->MATNR) ?>   <?= h($po_footer->TXZ01) ?>  <?= h($po_footer->P_QTY) ?></p>
+                <p>Line Item #<?= h($po_footer->EBELP) ?></p>
+                <p><?= h($po_footer->MATNR) ?>  |   <?= h($po_footer->TXZ01) ?>    |   QTY: <?= h($po_footer->P_QTY) ?></p>
             </p>
 
             <p> We kindly request your confirmation of the revised details at your earliest convenience. If you have any questions or concerns, please feel free to reach out to us at <?= h($spt_email) ?>.</p>
