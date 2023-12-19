@@ -175,7 +175,7 @@
         <!-- <div class="alert-body text-center d-none">
           <h6>Are you sure you want to create schedule ?</h6>
         </div> -->
-        <div class="a-data">
+        <div class="u-data">
           <table class="table table-bordered table-hover table-striped">
             <thead>
               <tr>
