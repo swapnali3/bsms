@@ -60,7 +60,7 @@
               <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>"
                 class="product-title">Total</a>
               <span class="p-value">
-                <?= h($vendorDashboardCount['total']) ?>
+                <?= h(array_sum($vendor_status_cnt)) ?>
               </span>
             </div>
           </li>
@@ -73,7 +73,7 @@
                 class="product-title">Onboarding
               </a>
               <span class="p-value">
-                <?= h(isset($vendorDashboardCount[0]) ? $vendorDashboardCount[0] : 0) ?>
+                <?= h($vendor_status_cnt['Sent to Vendor']) ?>
               </span>
             </div>
           </li>
@@ -86,7 +86,19 @@
                 class="product-title">Approval Pending
               </a>
               <span class="p-value">
-                <?= h(isset($vendorDashboardCount[1]) ? $vendorDashboardCount[1] : 0) ?>
+                <?= h($vendor_status_cnt['Pending for approval']) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-share-square text-warning"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Sent to SAP
+              </a>
+              <span class="p-value">
+                <?= h($vendor_status_cnt['Sent to SAP']) ?>
               </span>
             </div>
           </li>
@@ -99,20 +111,7 @@
                 class="product-title">Approved
               </a>
               <span class="p-value">
-                <?= h(isset($vendorDashboardCount[3]) ? $vendorDashboardCount[3] : 0) ?>
-              </span>
-            </div>
-          </li>
-          <li class="item">
-            <div class="product-img">
-              <i class="fas fa-share-square text-warning"></i>
-            </div>
-            <div class="product-info" style="font-size: smaller;">
-              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Sent to
-                SAP
-              </a>
-              <span class="p-value">
-                <?= h(isset($vendorDashboardCount[2]) ? $vendorDashboardCount[2] : 0) ?>
+                <?= h($vendor_status_cnt['Approved']) ?>
               </span>
             </div>
           </li>
@@ -136,7 +135,7 @@
               <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>"
                 class="product-title">Total</a>
               <span class="p-value">
-                <?= h($totalPos) ?>
+              <?= h($purchase_order_cnt['total']) ?>
               </span>
             </div>
           </li>
@@ -148,7 +147,7 @@
               <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>"
                 class="product-title">Completed</a>
               <span class="p-value">
-                <?= h($poCompleteCount) ?>
+              <?= h($purchase_order_cnt['complete']) ?>
               </span>
             </div>
           </li>
@@ -160,7 +159,7 @@
               <a href="<?php echo $this->Url->build([ 'controller' => 'purchase-orders', 'action'=>'view']) ?>"
                 class="product-title">Pending</a>
               <span class="p-value">
-                <?= ($totalPos - $poCompleteCount ) ?>
+              <?= h($purchase_order_cnt['pending']) ?>
               </span>
             </div>
           </li>
