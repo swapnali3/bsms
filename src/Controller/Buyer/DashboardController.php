@@ -201,22 +201,22 @@ class DashboardController extends BuyerAppController
         order by po_footers.net_value desc limit 5 ");
         $topMaterials = $topMaterial->fetchAll('assoc');
 
-        $topMaterialByValue = $conn->execute("SELECT po_footers.material as network, sum(po_footers.net_value) as value
+        $topMaterialByValue = $conn->execute("SELECT po_footers.material as country, sum(po_footers.net_value) as value
         from po_footers left join materials on materials.code = po_footers.material
         group by po_footers.material
-        order by po_footers.net_value desc limit 8 ");
+        order by po_footers.net_value desc limit 5 ");
         $topMaterialByValues = $topMaterialByValue->fetchAll('assoc');
 
         $orderByPeriod = $conn->execute("SELECT sum(po_footers.net_value) as value, date_format(po_headers.created_on, '%b-%y') as network
         from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
         left join materials on materials.code = po_footers.material
         group by date_format(po_headers.created_on, '%b-%y')
-        order by po_headers.created_on desc limit 8 ");
+        order by po_headers.created_on desc limit 5 ");
         $orderByPeriods = $orderByPeriod->fetchAll('assoc');
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $this->autoRender = false;
-            $results = array($topVendors, $topMaterials, $topMaterialByValues, $orderByPeriods);
+            $results = array($topVendors, $topMaterials, $orderByPeriods, $topMaterialByValues);
             $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
             echo json_encode($response); exit;
         }

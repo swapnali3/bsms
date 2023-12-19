@@ -432,13 +432,13 @@
   var chartdiv_data = <?php echo json_encode($topVendors); ?>;
   var chartdiv2_data = <?php echo json_encode($topMaterials); ?>;
   var chartdiv3_data = [
-    <?php foreach ($topMaterialByValues as $mat) : ?>
-      {"network":"<?= h($mat['network']) ?>","value":<?= h($mat['value']) ?>},
-    <?php endforeach; ?>
-  ];
-  var chartdiv4_data = [
     <?php foreach ($orderByPeriods as $mat) : ?>
       {"network":"<?= h($mat['network']) ?>","value":<?= h($mat['value']) ?>},
+      <?php endforeach; ?>
+    ];
+  var chartdiv4_data = [
+    <?php foreach ($topMaterialByValues as $mat) : ?>
+      {"country":"<?= h($mat['country']) ?>","value":<?= h($mat['value']) ?>},
     <?php endforeach; ?>
   ];
   
