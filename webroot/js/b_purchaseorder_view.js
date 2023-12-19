@@ -738,6 +738,7 @@ $(".btnSub").click(function (event) {
     // Display alert body and OK button
     if (status) {
         $(".a-data").addClass("d-none");
+        $(".u-data").addClass("d-block");
         $(".alert-body").removeClass("d-none");
         $(".btnSub").addClass("d-none");
         $("#btnClose").removeClass("d-none");

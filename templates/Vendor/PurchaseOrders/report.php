@@ -87,7 +87,7 @@
                 </select>
             </div>
             <div class="col-sm-12 col-md-3 col-lg-1 mt-2">
-                <div class="form-group mt-4">
+                <div class="form-group mt-4 pt-2">
                     <?= $this->Form->button(__('Search'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_sub', 'type' => 'submit']) ?>
                 </div>
             </div>
