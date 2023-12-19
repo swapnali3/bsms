@@ -76,11 +76,9 @@ class MaterialsController extends BuyerAppController
                 $search = '';
                 foreach ($request['segment'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                $conditions .= " or materials.segment in (".$search.")";
                 if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype'])){ $conditions .= " and materials.segment in (".$search.")"; }
                 else{ $conditions .= " and materials.segment in (".$search.")"; }
             }
-            $conn = ConnectionManager::get('default');
         }
         
         $conn = ConnectionManager::get('default');

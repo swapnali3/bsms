@@ -43,23 +43,104 @@ class DashboardController extends BuyerAppController
 
     public function index()
     {
-
         $this->set('headTitle', 'Dashboard');
-        $session = $this->getRequest()->getSession();
-
-        //echo '<pre>'; print_r($session->read()); exit;
-
-        if (!$session->check('id')) {
-            $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
-        }
-
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
         $this->loadModel('DeliveryDetails');
         $this->loadModel('AsnHeaders');
         $this->loadModel('VendorTypes');
         $this->loadModel('Materials');
+        $session = $this->getRequest()->getSession();
+        $conn = ConnectionManager::get('default');
+        if (!$session->check('id'))
+        { $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login')); }
 
+        // POST
+        $g1_filter = " where 1=1 ";
+        $g2_filter = " where 1=1 ";
+        $g3_filter = " where 1=1 ";
+        $g4_filter = " where 1=1 ";
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+            // FILTER : Vendor By Order Value
+            if(isset($request['vendor5'])) {
+                $search = '';
+                foreach ($request['vendor5'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g1_filter .= " and po_headers.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['type5'])) {
+                $search = '';
+                foreach ($request['type5'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g1_filter .= " and materials.type in (".$search.")";
+            }
+            if(isset($request['segment5'])) {
+                $search = '';
+                foreach ($request['segment5'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g1_filter .= " and materials.segment in (".$search.")";
+            }
+            // FILTER : Top 5 Materials by quantity
+            if(isset($request['vendor6'])) {
+                $search = '';
+                foreach ($request['vendor6'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g2_filter .= " and materials.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['type6'])) {
+                $search = '';
+                foreach ($request['type6'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g2_filter .= " and materials.type in (".$search.")";
+            }
+            if(isset($request['segment6'])) {
+                $search = '';
+                foreach ($request['segment6'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g2_filter .= " and materials.segment in (".$search.")";
+            }
+            // FILTER : PO order value by period
+            if(isset($request['vendor7'])) {
+                $search = '';
+                foreach ($request['vendor7'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g3_filter .= " and materials.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['type7'])) {
+                $search = '';
+                foreach ($request['type7'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g3_filter .= " and materials.type in (".$search.")";
+            }
+            if(isset($request['segment7'])) {
+                $search = '';
+                foreach ($request['segment7'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g3_filter .= " and materials.segment in (".$search.")";
+            }
+            // FILTER : Top Material by order value
+            if(isset($request['vendor8'])) {
+                $search = '';
+                foreach ($request['vendor8'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g4_filter .= " and materials.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['type8'])) {
+                $search = '';
+                foreach ($request['type8'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g4_filter .= " and materials.type in (".$search.")";
+            }
+            if(isset($request['segment8'])) {
+                $search = '';
+                foreach ($request['segment8'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g4_filter .= " and materials.segment in (".$search.")";
+            }
+        }
+
+        // Vendors
         $vendorStatus = $this->VendorTemps->find()
         ->select(['status' => 'VendorStatus.status','count' => 'count(VendorStatus.status)'])
         ->innerJoin(['VendorStatus' => 'vendor_status'], ['VendorStatus.status=VendorTemps.status'])
@@ -67,27 +148,14 @@ class DashboardController extends BuyerAppController
         'purchasing_organization_id' => $session->read('purchasing_organization_id')])
         ->group('VendorTemps.status')->toArray();
 
-
-        //echo '<pre>'; print_r($vendorStatus); exit;
-
         $vendorDashboardCount = [];
         $vendorDashboardCount['total'] = array_sum(array_column($vendorStatus,'count'));
-        foreach($vendorStatus as $status) {
-            $vendorDashboardCount[$status->status] = $status->count;
-        }
-        
-        // Asn deshbord card
+        foreach($vendorStatus as $status) { $vendorDashboardCount[$status->status] = $status->count; }
 
-        //$totalAsnCreated =  $this->AsnHeaders->find('all', array('conditions' => array('status' => '1')))->count();
-        //$totalAsnIntransit =  $this->AsnHeaders->find('all', array('conditions' => array('status' => '2')))->count();
-        //$totalAsnReceived =  $this->AsnHeaders->find('all', array('conditions' => array('status' => '3')))->count();
-
+        // ASN
         $asnCounts = $this->AsnHeaders->find()
         ->select(['status' => 'AsnHeaders.status','count' => 'count(AsnHeaders.status)'])
-        ->innerJoin(
-            ['PoHeaders' => 'po_headers'],
-            ['AsnHeaders.po_header_id = PoHeaders.id']
-        )
+        ->innerJoin( ['PoHeaders' => 'po_headers'], ['AsnHeaders.po_header_id = PoHeaders.id'] )
         ->innerJoin(
             ['VendorTemps' => 'vendor_temps'],
             ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code', 
@@ -97,12 +165,9 @@ class DashboardController extends BuyerAppController
 
         $asnDashboardCount = [];
         $asnDashboardCount['total'] = array_sum(array_column($asnCounts,'count'));
-        foreach($asnCounts as $status) {
-            $asnDashboardCount[$status->status] = $status->count;
-        }
+        foreach($asnCounts as $status) { $asnDashboardCount[$status->status] = $status->count; }
 
-        // Purchase order card count view 
-
+        // Purchase orders
         $query = $this->PoHeaders->find();
         $query->innerJoin(
             ['VendorTemps' => 'vendor_temps'],
@@ -110,76 +175,60 @@ class DashboardController extends BuyerAppController
             'VendorTemps.company_code_id' => $session->read('company_code_id'),
             'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')]
         );
-
-        
         $totalPos = $query->count();
-
-
         $conn = ConnectionManager::get('default');
-
         $query = "select count(1) complete from (SELECT sum(pf.pending_qty)
         from po_headers PH	
         join po_footers pf on pf.po_header_id = PH.id
         group by PH.id
         having sum(pf.pending_qty) = 0) a";
-
         $result = $conn->execute($query)->fetch('assoc');
         $poCompleteCount = $result['complete'];
 
-        $topVendor = $conn->execute("select * from (SELECT PH.sap_vendor_code, sum(PF.net_value) total
-        from po_headers PH	
-        join po_footers PF on PF.po_header_id = PH.id
-        group by PH.sap_vendor_code) a order by total desc limit 5 ");
+        // Vendor By Order value
+        $topVendor = $conn->execute("select po_headers.sap_vendor_code as category, sum(po_footers.net_value) as value
+        from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
+        left join materials on materials.code = po_footers.material".$g1_filter."
+        group by po_headers.sap_vendor_code
+        order by po_footers.net_value desc
+        limit 5 ");
         $topVendors = $topVendor->fetchAll('assoc');
 
-
-        $topMaterial = $conn->execute("select * from (SELECT PF.material, sum(PF.po_qty) total, sum(PF.net_value) value
-        from po_footers PF
-        group by PF.material) a order by total desc limit 5 ");
+        // Material by Quantity
+        $topMaterial = $conn->execute("SELECT po_footers.material as category, sum(po_footers.po_qty) as value
+        from po_footers left join materials on materials.code = po_footers.material".$g2_filter."
+        group by po_footers.material
+        order by po_footers.net_value desc limit 5 ");
         $topMaterials = $topMaterial->fetchAll('assoc');
-
-        $topMaterialValue = $conn->execute("select * from (SELECT PF.material, sum(PF.net_value) value
-        from po_footers PF
-        group by PF.material) a order by value desc limit 5 ");
-        $topMaterialValues = $topMaterialValue->fetchAll('assoc');
-
-
-        $topVendorList = [];
-        foreach($topVendors as $vendor) {
-            $topVendorList['code'][] = "'$vendor[sap_vendor_code]'";
-            $topVendorList['value'][] = $vendor['total'];
-        }
-
-        $topMaterialList = [];
-        foreach($topMaterials as $material) {
-            $topMaterialList['code'][] = "'$material[material]'";
-            $topMaterialList['qty'][] = $material['total'];
-        }
-
-        $topMaterialValuesList = [];
-        foreach($topMaterialValues as $material) {
-            $topMaterialValuesList['code'][] = "'$material[material]'";
-            $topMaterialValuesList['value'][] = $material['value'];
-        }
-
         
-        $orderByPeriod = $conn->execute("select * from (SELECT sum(PF.net_value) total, date_format(PH.created_on, '%b-%y') as month
-        from po_headers PH	
-        join po_footers PF on PF.po_header_id = PH.id
-        group by date_format(PH.created_on, '%b-%y')) a order by month desc limit 6");
+        $orderByPeriod = $conn->execute("SELECT sum(po_footers.net_value) as value, date_format(po_headers.created_on, '%b-%y') as network
+        from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
+        left join materials on materials.code = po_footers.material".$g3_filter."
+        group by date_format(po_headers.created_on, '%b-%y')
+        order by po_headers.created_on asc limit 5 ");
         $orderByPeriods = $orderByPeriod->fetchAll('assoc');
 
-        $orderByPeriodList = [];
-        foreach($orderByPeriod as $order) {
-            $orderByPeriodList['code'][] = "'$order[month]'";
-            $orderByPeriodList['order'][] = $order['total'];
+        $topMaterialByValue = $conn->execute("SELECT po_footers.material as country, sum(po_footers.net_value) as value
+        from po_footers left join materials on materials.code = po_footers.material".$g4_filter."
+        group by po_footers.material
+        order by po_footers.net_value desc limit 5 ");
+        $topMaterialByValues = $topMaterialByValue->fetchAll('assoc');
+        
+        // echo '<pre>'; print_r($topMaterial); exit;
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $this->autoRender = false;
+            $results = array($topVendors, $topMaterials, $orderByPeriods, $topMaterialByValues);
+            $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+            echo json_encode($response); exit;
         }
 
-        //echo '<pre>'; print_r($topVendorList); exit;
+        // Filter List
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
-        $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
-        $vendortype = $this->VendorTypes->find('all')->toArray();
-        $this->set(compact('vendorDashboardCount', 'totalPos', 'asnDashboardCount', 'poCompleteCount', 'topVendorList', 'topMaterialList', 'orderByPeriodList', 'topMaterialValuesList', 'vendor', 'vendortype', 'segment'));
+        $vendor = $this->PoHeaders->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
+        $vendortype = $this->Materials->find('all')->select(['type'])->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
+        
+        $this->set(compact('vendor', 'vendortype', 'segment', 'topVendors', 'topMaterials', 'topMaterialByValues', 'orderByPeriods', 'vendorDashboardCount', 'totalPos', 'asnDashboardCount', 'poCompleteCount'));
     }
 
     public function clearMessageCount()
