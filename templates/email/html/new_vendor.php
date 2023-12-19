@@ -48,18 +48,13 @@
                             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" alt=""
                                 style="width: 180px; max-width: 400px; height: auto; display: block;">
                         </td>
-                        <!-- <td valign="middle" class="hero bg_white" style="border-left: 1px solid rgb(19, 58, 88);"></td>
-                        <td valign="middle" class="hero bg_white" style="padding: 0em 0px;">
-                            <img src="http://apar.ftspl.in/webroot/img/logo_s.png" alt=""
-                                style="width: 280px; max-width: 600px; height: auto; display: block;">
-                        </td> -->
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="content">
-            <p>Dear Buyer</p>
-            <p>This email is to inform you that your PO(4000031848) has been successfully acknowledged</p>
+            <p>New Vendor Oboarding</p>
+            <p>A new vendor has onboarded</p>
             
         </div>
         <div class="content">

@@ -48,18 +48,14 @@
                             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" alt=""
                                 style="width: 180px; max-width: 400px; height: auto; display: block;">
                         </td>
-                        <!-- <td valign="middle" class="hero bg_white" style="border-left: 1px solid rgb(19, 58, 88);"></td>
-                        <td valign="middle" class="hero bg_white" style="padding: 0em 0px;">
-                            <img src="http://apar.ftspl.in/webroot/img/logo_s.png" alt=""
-                                style="width: 280px; max-width: 600px; height: auto; display: block;">
-                        </td> -->
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="content">
-            <p>Hi</p>
-            <p>PO : 4000031848 , Item: 00030 qty should be greater than 70.00</p>
+            <p>Dear Buyer</p>
+            <p>This email is to inform you that your PO(<?= $poNumber ?>) has been successfully acknowledged</p>
+            
         </div>
         <div class="content">
             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 400px; height: auto; display: block;">

@@ -58,9 +58,8 @@
             </table>
         </div>
         <div class="content">
-            <p>New Vendor Oboarding</p>
-            <p>A new vendor has onboarded</p>
-            
+            <p>Hi</p>
+            <p>PO : <?= $poNumber ?> , Item: <?= $item ?> qty should be greater than <?= $total ?></p>
         </div>
         <div class="content">
             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 400px; height: auto; display: block;">
