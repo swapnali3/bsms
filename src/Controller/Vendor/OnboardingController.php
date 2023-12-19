@@ -140,7 +140,7 @@ class OnboardingController extends VendorAppController
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')
                     ->viewBuilder()
-                        ->setTemplate('mail_template');
+                        ->setTemplate('new_vendor');
                 $mailer->deliver();
 
                 $flash = ['type'=>'success', 'msg'=>'The vendor temp has been saved'];
@@ -299,7 +299,7 @@ class OnboardingController extends VendorAppController
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')
                     ->viewBuilder()
-                        ->setTemplate('mail_template');
+                        ->setTemplate('new_vendor');
                 $mailer->deliver();
 
                 return $this->redirect(['prefix' => false, 'controller' => 'users','action' => 'welcome']);

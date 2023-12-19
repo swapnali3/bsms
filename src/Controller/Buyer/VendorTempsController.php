@@ -400,7 +400,7 @@ class VendorTempsController extends BuyerAppController
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')
                     ->viewBuilder()
-                        ->setTemplate('mail_template');
+                        ->setTemplate('new_vendor');
                 $mailer->deliver();
 
                 return $this->redirect(['action' => 'index']);
