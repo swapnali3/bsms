@@ -57,8 +57,11 @@ series3.columns.template.setAll({
 });
 
 // Make each column to be of a different color
+var customColors = ["#ED1C24", "#F7941D", "#28a745"];
+
 series3.columns.template.adapters.add("fill", function (fill, target) {
-  return chart3.get("colors").getIndex(series3.columns.indexOf(target));
+  var columnIndex = series3.columns.indexOf(target);
+  return customColors[columnIndex % customColors.length];
 });
 
 series3.columns.template.adapters.add("stroke", function (stroke, target) {

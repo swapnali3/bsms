@@ -79,8 +79,11 @@ columnTemplate4.setAll({
   cornerRadiusTR: 10,
   strokeOpacity: 0
 });
-columnTemplate4.adapters.add("fill", (fill, target) => {
-  return chart4.get("colors").getIndex(series4.columns.indexOf(target));
+var customColors = ["#ED1C24", "#F7941D", "#28a745"];
+
+columnTemplate4.adapters.add("fill", function (fill, target) {
+  var columnIndex = series4.columns.indexOf(target);
+  return customColors[columnIndex % customColors.length];
 });
 
 columnTemplate4.adapters.add("stroke", (stroke, target) => {

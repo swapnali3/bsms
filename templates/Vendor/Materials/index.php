@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col-12">
         <div class="card">
-            <div class="card-header"><div class="row"><div class="col-sm-12 col-md-12 text-center">VENDOR MATERIALS</div></div></div>
+            <div class="card-header"><div class="row"><div class="col-sm-12 col-md-12">VENDOR MATERIALS</div></div></div>
             <div class="card-body">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">

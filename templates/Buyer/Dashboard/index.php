@@ -256,7 +256,7 @@
             </select>
           </div>
           <div class="col-1">
-            <button type="button" class="btn bg-gradient-info mydash">
+            <button type="button" class="btn graph_search mydash">
             <i class="fas fa-search"></i>
             </button>
           </div>
@@ -307,7 +307,7 @@
             </select>
           </div>
           <div class="col-1">
-            <button type="button" class="btn bg-gradient-info mydash">
+            <button type="button" class="btn graph_search mydash">
             <i class="fas fa-search"></i>
             </button>
           </div>
@@ -358,7 +358,7 @@
             </select>
           </div>
           <div class="col-1">
-            <button type="button" class="btn bg-gradient-info mydash">
+            <button type="button" class="btn graph_search mydash">
             <i class="fas fa-search"></i>
             </button>
           </div>
@@ -409,7 +409,7 @@
             </select>
           </div>
           <div class="col-1">
-            <button type="button" class="btn bg-gradient-info mydash">
+            <button type="button" class="btn graph_search mydash">
             <i class="fas fa-search"></i>
             </button>
           </div>
