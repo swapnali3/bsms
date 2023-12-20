@@ -343,7 +343,7 @@
 
                         <div class="card card-primary card-outline">
                             <div class="card-header">
-                                <h5>Small Scale Industry</h5>
+                                <h5>Industry Registered Details</h5>
                             </div>
                             <div class="card-body">
                                 <input required="required" type="hidden" name="small_scale[id]"

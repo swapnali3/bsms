@@ -419,7 +419,7 @@ class SyncController extends ApiAppController
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($vendorDetail->email)
                                                     ->setEmailFormat('html')
-                                                    ->setSubject('VENDOR PORTAL - PO ITEM UPDATED')
+                                                    ->setSubject('VENDOR PORTAL - PO ITEM UPDATED ('.$po_header->EBELN.')')
                                                     ->viewBuilder()
                                                         ->setTemplate('m_purchase_order');
                                                 $mailer->deliver();
@@ -456,13 +456,13 @@ class SyncController extends ApiAppController
                                                 $mailer = new Mailer('default');
                                                 $mailer
                                                     ->setTransport('smtp')
-                                                    ->setViewVars([ 'subject' => 'Hi ', 'mailbody' => "PO : $row->EBELN , Item: $item->EBELP qty should be greater than ".$total[0]->total ])
+                                                    ->setViewVars([ 'poNumber'=>$poNumber, 'item'=>$row->EBELN,'total'=>$total[0]->total ])
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($buyersEmails)
                                                     ->setEmailFormat('html')
                                                     ->setSubject('VENDOR PORTAL - PO ITEM NOT UPDATED')
                                                     ->viewBuilder()
-                                                        ->setTemplate('mail_template');
+                                                        ->setTemplate('po_not_updated');
                                                 $mailer->deliver();
                                             } catch (\Exception $e) {
 

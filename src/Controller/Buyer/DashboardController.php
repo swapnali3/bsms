@@ -141,16 +141,54 @@ class DashboardController extends BuyerAppController
         }
 
         // Vendors
-        $vendorStatus = $this->VendorTemps->find()
-        ->select(['status' => 'VendorStatus.status','count' => 'count(VendorStatus.status)'])
-        ->innerJoin(['VendorStatus' => 'vendor_status'], ['VendorStatus.status=VendorTemps.status'])
-        ->where(['company_code_id' => $session->read('company_code_id'), 
-        'purchasing_organization_id' => $session->read('purchasing_organization_id')])
-        ->group('VendorTemps.status')->toArray();
+        $vendor_sts = $conn->execute("select vendor_status.description, ifnull(vendor_temps.count, 0) as cnt from vendor_status
+        left join (select vendor_temps.status, count(vendor_temps.status) as count from vendor_temps)
+        as vendor_temps on vendor_temps.status = vendor_status.status
+        where vendor_status.status not in (4,5)");
+        $vendor_status = $vendor_sts->fetchAll('assoc');
+        $vendor_status_cnt = array();
+        foreach($vendor_status as $per) { $vendor_status_cnt[$per['description']] = $per['cnt']; }
+        // echo '<pre>'; print_r($vendor_status_cnt); exit;
 
-        $vendorDashboardCount = [];
-        $vendorDashboardCount['total'] = array_sum(array_column($vendorStatus,'count'));
-        foreach($vendorStatus as $status) { $vendorDashboardCount[$status->status] = $status->count; }
+        $purchase_odr = $conn->execute("select sum(complete) as complete, sum(pending) as pending, sum(complete)+sum(pending) as total from (select po_headers.id,
+        case when sum(po_footers.po_qty) - sum(po_footers.pending_qty) = 0 then 1 else 0 end as complete,
+        case when sum(po_footers.po_qty) - sum(po_footers.pending_qty) = 0 then 0 else 1 end as pending
+        from po_headers
+        left join po_footers on po_footers.po_header_id=po_headers.id
+        group by po_headers.id) as po_status");
+        $purchase_order_cnt = $purchase_odr->fetchAll('assoc')[0];
+        // $purchase_order_cnt = array();
+        // foreach($purchase_order as $per) { $purchase_order_cnt[$per['description']] = $per['cnt']; }
+        // echo '<pre>'; print_r($purchase_order_cnt); exit;
+
+        // $vendorStatus = $this->VendorTemps->find()
+        // ->select(['status' => 'VendorStatus.status','count' => 'count(VendorStatus.status)'])
+        // ->innerJoin(['VendorStatus' => 'vendor_status'], ['VendorStatus.status=VendorTemps.status'])
+        // ->where(['company_code_id' => $session->read('company_code_id'), 
+        // 'purchasing_organization_id' => $session->read('purchasing_organization_id')])
+        // ->group('VendorTemps.status')->toArray();
+
+        // $vendorDashboardCount = [];
+        // $vendorDashboardCount['total'] = array_sum(array_column($vendorStatus,'count'));
+        // foreach($vendorStatus as $status) { $vendorDashboardCount[$status->status] = $status->count; }
+
+        // Purchase orders
+        // $query = $this->PoHeaders->find();
+        // $query->innerJoin(
+        //     ['VendorTemps' => 'vendor_temps'],
+        //     ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code', 
+        //     'VendorTemps.company_code_id' => $session->read('company_code_id'),
+        //     'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')]
+        // );
+        // $totalPos = $query->count();
+        // $conn = ConnectionManager::get('default');
+        // $query = "select count(1) complete from (SELECT sum(pf.pending_qty)
+        // from po_headers PH	
+        // join po_footers pf on pf.po_header_id = PH.id
+        // group by PH.id
+        // having sum(pf.pending_qty) = 0) a";
+        // $result = $conn->execute($query)->fetch('assoc');
+        // $poCompleteCount = $result['complete'];
 
         // ASN
         $asnCounts = $this->AsnHeaders->find()
@@ -166,24 +204,6 @@ class DashboardController extends BuyerAppController
         $asnDashboardCount = [];
         $asnDashboardCount['total'] = array_sum(array_column($asnCounts,'count'));
         foreach($asnCounts as $status) { $asnDashboardCount[$status->status] = $status->count; }
-
-        // Purchase orders
-        $query = $this->PoHeaders->find();
-        $query->innerJoin(
-            ['VendorTemps' => 'vendor_temps'],
-            ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code', 
-            'VendorTemps.company_code_id' => $session->read('company_code_id'),
-            'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')]
-        );
-        $totalPos = $query->count();
-        $conn = ConnectionManager::get('default');
-        $query = "select count(1) complete from (SELECT sum(pf.pending_qty)
-        from po_headers PH	
-        join po_footers pf on pf.po_header_id = PH.id
-        group by PH.id
-        having sum(pf.pending_qty) = 0) a";
-        $result = $conn->execute($query)->fetch('assoc');
-        $poCompleteCount = $result['complete'];
 
         // Vendor By Order value
         $topVendor = $conn->execute("select po_headers.sap_vendor_code as category, sum(po_footers.net_value) as value
@@ -214,7 +234,7 @@ class DashboardController extends BuyerAppController
         order by po_footers.net_value desc limit 5 ");
         $topMaterialByValues = $topMaterialByValue->fetchAll('assoc');
         
-        // echo '<pre>'; print_r($topMaterial); exit;
+        // echo '<pre>'; print_r($vendor_status_cnt); exit;
         
         if ($this->request->is(['patch', 'post', 'put'])) {
             $this->autoRender = false;
@@ -227,8 +247,19 @@ class DashboardController extends BuyerAppController
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
         $vendor = $this->PoHeaders->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
         $vendortype = $this->Materials->find('all')->select(['type'])->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
+
         
-        $this->set(compact('vendor', 'vendortype', 'segment', 'topVendors', 'topMaterials', 'topMaterialByValues', 'orderByPeriods', 'vendorDashboardCount', 'totalPos', 'asnDashboardCount', 'poCompleteCount'));
+        
+        $this->set(compact(
+            // Cards
+            'vendor_status_cnt', 'purchase_order_cnt', 'asnDashboardCount',
+            // Filters
+            'vendor', 'vendortype', 'segment',
+            // Graphs
+            'topVendors', 'topMaterials', 'topMaterialByValues', 'orderByPeriods',
+            // Cards
+            // 'vendorDashboardCount'
+        ));
     }
 
     public function clearMessageCount()

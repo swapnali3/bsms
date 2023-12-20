@@ -26,14 +26,6 @@
             padding: 20px;
         }
 
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #F7941D;
-            color: #fff;
-            text-decoration: none;
-        }
-
         a {
             color: #F7941D;
         }
@@ -56,33 +48,17 @@
                             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" alt=""
                                 style="width: 180px; max-width: 400px; height: auto; display: block;">
                         </td>
-                        <!-- <td valign="middle" class="hero bg_white" style="border-left: 1px solid rgb(19, 58, 88);"></td>
-                        <td valign="middle" class="hero bg_white" style="padding: 0em 0px;">
-                            <img src="http://apar.ftspl.in/webroot/img/logo_s.png" alt=""
-                                style="width: 280px; max-width: 600px; height: auto; display: block;">
-                        </td> -->
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="content">
-            <p>Dear <?= $vendor_name ?>,</p>
-
-            <p>I trust this message finds you well. We would like to inform you of some changes in the purchase order (<?= $po_header->EBELN ?>) for the following line items:</p>
-
-            <p>
-                <p>Line Item #<?= h($po_footer->EBELP) ?></p>
-                <p><?= h($po_footer->MATNR) ?>  |   <?= h($po_footer->TXZ01) ?>    |   QTY: <?= h($po_footer->P_QTY) ?></p>
-            </p>
-
-            <p> We kindly request your confirmation of the revised details at your earliest convenience. If you have any questions or concerns, please feel free to reach out to us at <?= h($spt_email) ?>.</p>
-
-            <p>We appreciate your flexibility and understanding in accommodating these adjustments. Thank you for your continued partnership.</p>
-            Best regards,
+            <p>New Vendor Oboarding</p>
+            <p>A new vendor has onboarded</p>
+            
         </div>
         <div class="content">
-            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png"
-                style="width: 100px; max-width: 400px; height: auto; display: block;">
+            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 400px; height: auto; display: block;">
             <h3>APAR Industries Limited 18</h3>
             <h5>
                 TTC.,MIDC Industrial Area, Thane Belapur Road,
