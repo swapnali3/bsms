@@ -77,15 +77,23 @@ class VendorTempsController extends AdminAppController
             if ($this->VendorTemps->save($vendorTemp)) {
                 $quryString = $data['email'].'||'.$vendorTemp->id;
                 
+                $buyer = $this->Buyers->find()->where(['id'=>$data['buyer_id']]);
+                $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
+                $buyersEmails = [];
+                foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
+                
                 $visit_url = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
-                    ->setViewVars([ 'subject' => 'Hi '.$data['name'], 'mailbody' => 'Welcome to Vekpro', 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                    ->setViewVars([
+                        'vendor_name' => $vendorTemp->name,
+                        'spt_email' => 'support@apar.in',
+                    ])
                     ->setFrom(Configure::read('MAIL_FROM'))
-                    ->setTo($data['email'])
+                    ->setTo($buyersEmails)
                     ->setEmailFormat('html')
-                    ->setSubject('Vendor Portal - Verify New Account')
+                    ->setSubject('VENDOR PORTAL - VERIFY NEW ACCOUNT')
                     ->viewBuilder()
                         ->setTemplate('new_vendor');
                 $mailer->deliver();

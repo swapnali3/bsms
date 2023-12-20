@@ -129,16 +129,24 @@ class OnboardingController extends VendorAppController
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
             //echo '<pre>'; print_r($data); exit;
             if ($this->VendorTemps->save($vendorTemp)) {
-
                 $visit_url = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'create', base64_encode($data['email']), '_full' => true, 'escape' => true]);
+
+                $buyer = $this->Buyers->find()->where(['id'=>$data['buyer_id']]);
+                $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
+                $buyersEmails = [];
+                foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
+
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
-                    ->setViewVars([ 'subject' => 'Hi '.$data['name'], 'mailbody' => 'Welcome to Vekpro', 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                    ->setViewVars([
+                        'vendor_name' => $vendorTemp->name,
+                        'spt_email' => 'support@apar.in',
+                        ])
                     ->setFrom(Configure::read('MAIL_FROM'))
-                    ->setTo($data['email'])
+                    ->setTo($buyersEmails)
                     ->setEmailFormat('html')
-                    ->setSubject('Vendor Portal - Verify New Account')
+                    ->setSubject('VENDOR PORTAL - VERIFY NEW ACCOUNT')
                     ->viewBuilder()
                         ->setTemplate('new_vendor');
                 $mailer->deliver();
@@ -293,11 +301,14 @@ class OnboardingController extends VendorAppController
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
-                    ->setViewVars([ 'subject' => 'New Vendor Oboarding', 'mailbody' => 'A new vendor has onboarded', 'link' => $visit_url, 'linktext' => 'VEKPRO' ])
+                    ->setViewVars([
+                        'vendor_name' => $vendorTemp->name,
+                        'spt_email' => 'support@apar.in',
+                    ])
                     ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($buyersEmails)
                     ->setEmailFormat('html')
-                    ->setSubject('Vendor Portal - Verify New Account')
+                    ->setSubject('VENDOR PORTAL - VERIFY NEW ACCOUNT')
                     ->viewBuilder()
                         ->setTemplate('new_vendor');
                 $mailer->deliver();

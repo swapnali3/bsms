@@ -53,9 +53,10 @@
             </table>
         </div>
         <div class="content">
-            <p>New Vendor Oboarding</p>
-            <p>A new vendor has onboarded</p>
-            
+            <p>Dear Buyers,</p>
+            <p>We are happy to know that a new Vendor has Onboarded <?= $vendor->name ?></p>
+            <p>Please review the Vendor. If any changes are Required in the circumstances, Please inform and Reject the vendor so that they can make appropriate Changes</p>
+            <p>Thank you for your cooperation and If you have any questions or concerns, please feel free to reach out to us at <?= $spt_email ?></p>            
         </div>
         <div class="content">
             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 400px; height: auto; display: block;">

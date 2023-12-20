@@ -53,9 +53,10 @@
             </table>
         </div>
         <div class="content">
-            <p>Dear Buyer</p>
-            <p>This email is to inform you that your PO(<?= $poNumber ?>) has been successfully acknowledged</p>
-            
+            <p>Dear <?= $buyer->first_name ?> <?= $buyer->last_name ?>,</p>
+            <p>This email is to inform you that your PO(<?= $poNumber ?>) has been successfully acknowledged by <?= $vendor->name ?>.</p>
+            <p>Please review this purchase order & create schedule accordingly.</p>
+            <p>Thank you for your cooperation and If you have any questions or concerns, please feel free to reach out to us at <?= $spt_email ?></p>            
         </div>
         <div class="content">
             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 400px; height: auto; display: block;">

@@ -386,17 +386,23 @@ class VendorTempsController extends BuyerAppController
                 $flash = ['type'=>'success', 'msg'=>'The vendor has been saved'];
                 $this->set('flash', $flash);
                 $this->Flash->success(__('The vendor has been saved'));
-
-                
                 $quryString = $vendorTemp->email . '||' . $vendorTemp->id;
+
+                $buyer = $this->Buyers->find()->where(['id'=>$data['buyer_id']]);
+                $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
+                $buyersEmails = [];
+                foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
 
                 $visit_url = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
-                    ->setViewVars([ 'subject' => 'Hi ' . $vendorTemp->name, 'mailbody' => 'Welcome to Vendor portal', 'link' => $visit_url, 'linktext' => 'Click Here for Onboarding' ])
+                    ->setViewVars([
+                        'vendor_name' => $vendorTemp->name,
+                        'spt_email' => 'support@apar.in',
+                        ])
                     ->setFrom(Configure::read('MAIL_FROM'))
-                    ->setTo($vendorTemp->email)
+                    ->setTo($buyersEmails)
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Verify New Account')
                     ->viewBuilder()
