@@ -9,7 +9,10 @@
 <!-- <?= $this->Html->css('custom') ?> -->
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
-<?= $this->Html->css('v_index.css') ?>
+<!-- <?= $this->Html->css('v_index.css') ?> -->
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?>
+<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 
 
 <div class="row">
@@ -52,6 +55,53 @@
                 </div>
             </div>
             <div class="card-header" id="id_pohead">
+            <?= $this->Form->create(null, ['id' => 'confirmatonform']) ?>
+            <div class="row">
+                
+                <div class="col-sm-12 col-md-3 col-lg-2">
+                    <label for="id_factory">Factory</label><br>
+                    <select name="segment[]" id="id_factory" multiple="multiple" class="form-control chosen">
+                        <?php if (isset($segment)) : ?>
+                        <?php foreach ($segment as $mat) : ?>
+                        <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
+                            <?= h($mat->segment) ?>
+                        </option>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-2">
+                    <label for="id_prod_line">Production Line</label><br>
+                    <select name="segment[]" id="id_prod_line" multiple="multiple" class="form-control chosen">
+                        <?php if (isset($segment)) : ?>
+                        <?php foreach ($segment as $mat) : ?>
+                        <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
+                            <?= h($mat->segment) ?>
+                        </option>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-4">
+                    <label for="id_material">Material</label><br>
+                    <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
+                        <?php if (isset($materialList)) : ?>
+                        <?php foreach ($materialList as $mat) : ?>
+                        <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->code) ?>">
+                            <?= h($mat->code) ?>
+                            <?= h($mat->description) ?>
+                        </option>
+                        <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-1 mt-2">
+                    <div class="form-group mt-4">
+                        <?= $this->Form->button(__('Search'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_sub', 'type' => 'submit']) ?>
+                    </div>
+                </div>
+            </div>
+            <?= $this->Form->end() ?>
                 <div class="tabe-responsive">
                 <table class="table table-bordered table-hover table-striped material-list" id="example1">
                     <thead>
@@ -161,6 +211,20 @@
     </div>
 </div>
 <script>
+    $('.chosen').select2({
+        closeOnSelect : false,
+        placeholder: 'Select',
+        allowClear: true,
+        tags: false,
+        tokenSeparators: [',', ' '],
+        templateSelection: function(selection) {
+            if (selection.element && $(selection.element).attr('data-select') !== undefined) {
+                return $(selection.element).attr('data-select');
+            } else {
+                return selection.text;
+            }
+        }
+    });
     var getConfirmedProductionUrl = "<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'confirmedproduction')); ?>"
     var uploadConfirmedProductionUrl = "<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'upload')); ?>";
     $(".confirm-input").keyup(function () {
