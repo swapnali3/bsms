@@ -398,15 +398,17 @@ class VendorTempsController extends BuyerAppController
                 $mailer
                     ->setTransport('smtp')
                     ->setViewVars([
-                        'vendor_name' => $vendorTemp->name,
+                        'vendor_name' => $vendorTemp,
                         'spt_email' => 'support@apar.in',
+                        'visit_url'=>$visit_url,
+                        'spt_contact' => '7718801906',
                         ])
                     ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($buyersEmails)
                     ->setEmailFormat('html')
-                    ->setSubject('Vendor Portal - Verify New Account')
+                    ->setSubject('NEW VENDOR ONBOARDING UPDATED COMMUNICATION')
                     ->viewBuilder()
-                        ->setTemplate('new_vendor');
+                        ->setTemplate('edit_vendor');
                 $mailer->deliver();
 
                 return $this->redirect(['action' => 'index']);
@@ -482,13 +484,13 @@ class VendorTempsController extends BuyerAppController
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
-                    ->setViewVars([ 'subject' => 'Hi ' . $vendor->name, 'mailbody' => 'Your form has been rejected. Kindly Resubmit. <br/> <br/>Please find below the buyers remarks <br/>'.$remarks, 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                    ->setViewVars([ 'vendor' => $vendor, 'remarks' => $remarks, 'spt_email' => 'support@apar.in', ])
                     ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($vendor->email)
                     ->setEmailFormat('html')
                     ->setSubject('Vendor Portal - Vendor KYC Process')
                     ->viewBuilder()
-                        ->setTemplate('mail_template');
+                        ->setTemplate('rejected_onboarding');
                 $mailer->deliver();
 
                 $flash = ['type'=>'success', 'msg'=>'The Vendor successfully rejected'];

@@ -216,7 +216,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
                 ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
                 
-                $vendor = $this->VendorTemps->find()->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']])->toArray();
+                $vendor = $this->VendorTemps->find()->where(['VendorTemps.sap_vendor_code' => $session->read('vendor_code')])->toArray();
                 
                 foreach ($filteredBuyers as $buyer) {
                     $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'PO Acknowledge'])->first();
@@ -245,7 +245,7 @@ class PurchaseOrdersController extends VendorAppController
                             ->setFrom(Configure::read('MAIL_FROM'))
                             ->setTo($buyer->email)
                             ->setEmailFormat('html')
-                            ->setSubject('VENDOR PORTAL - ORDER ACKNOWLEDGEMENT')
+                            ->setSubject('VENDOR PORTAL - ORDER ACKNOWLEDGEMENT ('.$poNumber.')')
                             ->viewBuilder()
                                 ->setTemplate('acknowledge');
                         $mailer->deliver();
