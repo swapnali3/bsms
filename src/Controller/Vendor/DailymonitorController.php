@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace App\Controller\Vendor;
+use Cake\Datasource\ConnectionManager;
 
 class DailymonitorController extends VendorAppController
 {
@@ -17,22 +18,51 @@ class DailymonitorController extends VendorAppController
     {
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-        $this->loadModel("Materials");
+        $this->loadModel('Materials');
+        $this->loadModel('VendorTypes');
         $this->loadModel("ProductionLines");
+        $this->loadModel("LineMasters");
 
-        $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code')]])
-        ->contain(['ProductionLines','ProductionLines.LineMasters', 'Materials']);
-        $this->set(compact('dailymonitor'));
+        $conditions = " where 1=1 ";
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
+                else{ $conditions .= " and materials.id in (".$search.")"; }
+            }
+            if(isset($request['line'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['vendor'])){ $conditions .= " and line_masters.id in (".$search.")"; }
+                else{ $conditions .= " and line_masters.id in (".$search.")"; }
+            }
+            if(isset($request['plan_date'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['vendor'])){ $conditions .= " and dailymonitor.plan_date in (".$search.")"; }
+                else{ $conditions .= " and dailymonitor.plan_date in (".$search.")"; }
+            }
+        }
+        $prd_lines = $this->LineMasters->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+        $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+        
+        // $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code')]])
+        // ->contain(['ProductionLines','ProductionLines.LineMasters', 'Materials']);
+
+        $conn = ConnectionManager::get('default');
+        $query = $conn->execute("select dailymonitor.* from dailymonitor
+        left join production_lines on production_lines.id = dailymonitor.production_line_id
+        left join line_masters on line_masters.id = production_lines.line_master_id
+        left join materials on materials.id = dailymonitor.material_id ". $conditions);
+        $dailymonitor = $query->fetchAll('assoc');
+        $this->set(compact('dailymonitor', 'materials', 'prd_lines'));
         
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Dailymonitor id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {
         $dailymonitor = $this->Dailymonitor->get($id);
@@ -74,13 +104,20 @@ class DailymonitorController extends VendorAppController
     {
         $session = $this->getRequest()->getSession();
         $vendorId = $session->read('id');
-        $this->loadModel("Materials");
+        $this->loadModel('Materials');
         $this->loadModel("ProductionLines");
+        $this->loadModel("VendorTemps");
+        $this->loadModel("LineMasters");
+        $this->loadModel("VendorFactories");
 
+        $prd_lines = $this->LineMasters->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+        $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+        $vendor = $this->VendorTemps->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+        $vendor_fty = $this->VendorFactories->find('all')->where(['vendor_temp_id="'.$vendor[0]->id.'"' ])->toArray();
         $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code'), 'Dailymonitor.plan_date <=' => date('y-m-d')]])
             ->contain(['ProductionLines', 'ProductionLines.LineMasters', 'ProductionLines.LineMasters.VendorFactories', 'Materials'])
             ->order(['Dailymonitor.plan_date' => 'DESC']);
-        $this->set(compact('dailymonitor'));
+        $this->set(compact('dailymonitor', 'materials', 'prd_lines', 'vendor_fty'));
     }
 
     public function upload()
