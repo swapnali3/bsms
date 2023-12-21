@@ -58,8 +58,18 @@
             </table>
         </div>
         <div class="content">
-            <p>Hi</p>
-            <p>PO : <?= $poNumber ?> , Item: <?= $item ?> qty should be greater than <?= $total ?></p>
+            <p>Hi <?= $vendor_name ?></p>
+            <p>
+            The PO that is modified purchase order number <?= $poNumber ?> qty should be greater than <?= $total ?>
+            <p>
+                <p>Line Item #<?= h($po_footer->EBELP) ?></p>
+                <p><?= h($po_footer->MATNR) ?>  |   <?= h($po_footer->TXZ01) ?>    |   QTY: <?= h($po_footer->P_QTY) ?></p>
+            </p>
+            <br>Please review this schedule Qty and then update the PO Properly
+            </p>
+            <p>
+                Thank you for your cooperation and If you have any questions or concerns, please feel free to reach out to us at <?= $spt_email ?>.
+            </p>
         </div>
         <div class="content">
             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 400px; height: auto; display: block;">

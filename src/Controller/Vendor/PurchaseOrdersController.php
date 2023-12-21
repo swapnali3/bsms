@@ -211,11 +211,13 @@ class PurchaseOrdersController extends VendorAppController
             if($this->PoHeaders->save($poHeader)) {
                 $this->PoFooters->updateAll(['is_updated' => 0], ['po_header_id' => $id]);
                 $filteredBuyers = $this->Buyers->find()
-                ->select(['Buyers.id','user_id'=> 'Users.id', 'email'])
+                ->select(['Buyers.id','user_id'=> 'Users.id', 'email', 'first_name', 'last_name'])
                 ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
                 ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
                 ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
-
+                
+                $vendor = $this->VendorTemps->find()->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']])->toArray();
+                
                 foreach ($filteredBuyers as $buyer) {
                     $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'PO Acknowledge'])->first();
                     if ($n) {
@@ -234,7 +236,12 @@ class PurchaseOrdersController extends VendorAppController
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
-                            ->setViewVars([ 'poNumber' => $poNumber, 'link' => $visit_url, 'linktext' => 'Visit Vekpro' ])
+                            ->setViewVars([
+                                'poNumber' => $poNumber,
+                                'buyer' => $buyer,
+                                'vendor' => $vendor,
+                                'spt_email' => 'support@apar.in',
+                                ])
                             ->setFrom(Configure::read('MAIL_FROM'))
                             ->setTo($buyer->email)
                             ->setEmailFormat('html')
