@@ -413,13 +413,13 @@ class SyncController extends ApiAppController
                                                     ->setTransport('smtp')
                                                     ->setViewVars([
                                                         'vendor_name' => $vendorDetail->name,
-                                                        'po_footer' => $item,
-                                                        'po_header'=>$row,
+                                                        'po_footer' => $footerData,
+                                                        'po_header'=>$hederData,
                                                         'spt_email' => 'support@apar.in',])
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($vendorDetail->email)
                                                     ->setEmailFormat('html')
-                                                    ->setSubject('VENDOR PORTAL - PO ITEM UPDATED ('.$po_header->EBELN.')')
+                                                    ->setSubject('VENDOR PORTAL - PO ITEM UPDATED ('.$po_header->po_no.')')
                                                     ->viewBuilder()
                                                         ->setTemplate('m_purchase_order');
                                                 $mailer->deliver();
@@ -465,7 +465,7 @@ class SyncController extends ApiAppController
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($buyersEmails)
                                                     ->setEmailFormat('html')
-                                                    ->setSubject('VENDOR PORTAL - PO ITEM NOT UPDATED')
+                                                    ->setSubject('VENDOR PORTAL - PO ITEM NOT UPDATED ('.$poNumber.')')
                                                     ->viewBuilder()
                                                         ->setTemplate('po_not_updated');
                                                 $mailer->deliver();

@@ -48,31 +48,24 @@
                             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" alt=""
                                 style="width: 180px; max-width: 400px; height: auto; display: block;">
                         </td>
-                        <!-- <td valign="middle" class="hero bg_white" style="border-left: 1px solid rgb(19, 58, 88);"></td>
-                        <td valign="middle" class="hero bg_white" style="padding: 0em 0px;">
-                            <img src="http://apar.ftspl.in/webroot/img/logo_s.png" alt=""
-                                style="width: 280px; max-width: 600px; height: auto; display: block;">
-                        </td> -->
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="content">
-            <p>Dear Buyers,</p>
-            <p>
-            The PO that is modified purchase order number <?= $po_header->po_no ?> qty should be greater than <?= $total ?>
-            <p>
-                <p>Line Item #<?= h($po_footer->item) ?></p>
-                <p><?= h($po_footer->material) ?>  |   <?= h($po_footer->short_text) ?>    |   QTY: <?= h($po_footer->po_qty) ?></p>
+            <p>Dear <?= h($vendor->name) ?>,
             </p>
-            <br>Please review this schedule Qty and then update the PO Properly
-            </p>
-            <p>
-                Thank you for your cooperation and If you have any questions or concerns, please feel free to reach out to us at <?= $spt_email ?>.
-            </p>
+            <p>Accessing the Vendor Portal:</p>
+            <p>1. Access the vendor portal by visiting $visit_url.</p>
+            <p>2. Use your registered email address (<?= $vendor->email ?>) as your username to log in. (Ensure that the same email ID we will use for OTP generation, which will be part of further registration process)</p>
+            <p>3. Follow the on-screen prompts to complete your profile and initiate the onboarding process.</p>
+            <p>If you encounter any issues or have questions during the process, our dedicated support team is here to assist you. You can reach them at <?= $spt_email ?> or <?= $spt_contact ?>.
+            We believe that this updated vendor onboarding process will enhance our collaboration and provide you with a more efficient and transparent experience. We look forward to having you on board as part of the APAR's vendor network.
+            Thank you for your continued partnership</p>
         </div>
         <div class="content">
-            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 400px; height: auto; display: block;">
+            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png"
+                style="width: 100px; max-width: 400px; height: auto; display: block;">
             <h3>APAR Industries Limited 18</h3>
             <h5>
                 TTC.,MIDC Industrial Area, Thane Belapur Road,

@@ -60,11 +60,11 @@
                 
                 <div class="col-sm-12 col-md-3 col-lg-2">
                     <label for="id_factory">Factory</label><br>
-                    <select name="segment[]" id="id_factory" multiple="multiple" class="form-control chosen">
-                        <?php if (isset($segment)) : ?>
-                        <?php foreach ($segment as $mat) : ?>
-                        <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
-                            <?= h($mat->segment) ?>
+                    <select name="factory[]" id="id_factory" multiple="multiple" class="form-control chosen">
+                        <?php if (isset($vendor_fty)) : ?>
+                        <?php foreach ($vendor_fty as $mat) : ?>
+                        <option value="<?= h($mat->factory_code) ?>" data-select="<?= h($mat->factory_code) ?>">
+                            <?= h($mat->factory_code) ?>
                         </option>
                         <?php endforeach; ?>
                         <?php endif; ?>
@@ -72,11 +72,11 @@
                 </div>
                 <div class="col-sm-12 col-md-3 col-lg-2">
                     <label for="id_prod_line">Production Line</label><br>
-                    <select name="segment[]" id="id_prod_line" multiple="multiple" class="form-control chosen">
-                        <?php if (isset($segment)) : ?>
-                        <?php foreach ($segment as $mat) : ?>
-                        <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
-                            <?= h($mat->segment) ?>
+                    <select name="line[]" id="id_prod_line" multiple="multiple" class="form-control chosen">
+                        <?php if (isset($prd_lines)) : ?>
+                        <?php foreach ($prd_lines as $mat) : ?>
+                        <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->name) ?>">
+                            <?= h($mat->name) ?>
                         </option>
                         <?php endforeach; ?>
                         <?php endif; ?>
@@ -85,8 +85,8 @@
                 <div class="col-sm-12 col-md-3 col-lg-4">
                     <label for="id_material">Material</label><br>
                     <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
-                        <?php if (isset($materialList)) : ?>
-                        <?php foreach ($materialList as $mat) : ?>
+                        <?php if (isset($materials)) : ?>
+                        <?php foreach ($materials as $mat) : ?>
                         <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->code) ?>">
                             <?= h($mat->code) ?>
                             <?= h($mat->description) ?>

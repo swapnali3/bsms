@@ -48,17 +48,21 @@
                             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" alt=""
                                 style="width: 180px; max-width: 400px; height: auto; display: block;">
                         </td>
-                        <!-- <td valign="middle" class="hero bg_white" style="border-left: 1px solid rgb(19, 58, 88);"></td>
-                        <td valign="middle" class="hero bg_white" style="padding: 0em 0px;">
-                            <img src="http://apar.ftspl.in/webroot/img/logo_s.png" alt=""
-                                style="width: 280px; max-width: 600px; height: auto; display: block;">
-                        </td> -->
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="content">
-            <p>Dear Buyers,</p>
+            <p>Dear <?= h($vendor->name) ?>,</p>
+            <p>I trust this message finds you well. We would like to inform you that your form has been Rejected. So kindly Resubmit.</p>
+            <p>Please find the Buyer Remarks Problem </p>
+            <p><?= h($remarks) ?></p>
+            <p>We kindly request you to revise the details at your earliest convenience. If you have any questions or concerns, please feel free to reach out to us at support@apar.in.</p>
+            <p>We appreciate your flexibility and understanding in accommodating these adjustments. Thank you for your continued partnership.</p>
+            <p>Best regards,</p>
+
+
+
             <p>
             The PO that is modified purchase order number <?= $po_header->po_no ?> qty should be greater than <?= $total ?>
             <p>
