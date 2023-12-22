@@ -343,14 +343,17 @@ class SyncController extends ApiAppController
         
 
         foreach($list as $fileKey) {
+            
             if(str_starts_with($fileKey, 'PO_')) {
                 $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
+                
                 
                 if($data) {
                     $data = trim(preg_replace('/\s+/', ' ', $data));
                     $d = json_decode($data);
 
                     foreach($d->PO_LIST as $key => $row) {
+                        $isNewPo = false;
                         $hederData = array();
                         $footerData = array();
 
@@ -373,11 +376,17 @@ class SyncController extends ApiAppController
                         } else {
                             $poInstance = $this->PoHeaders->newEmptyEntity();
                             $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
+                            $isNewPo = true;
                         }
 
-                        //echo '<prE>'; print_r($poInstance); exit;
+                        /*echo '<prE>'; print_r($poInstance);
+                        
+                        $vendorTemps = $this->VendorTemps->find('all')->where(['sap_vendor_code' => $row->LIFNR ])->first();
+                        print_r($vendorTemps);
+                        exit; */
                         try {
                             if ($this->PoHeaders->save($poInstance)) {
+
                                 $po_header_id = $poInstance->id;
 
                                 foreach ($row->ITEM as $no => $item) {
@@ -397,7 +406,6 @@ class SyncController extends ApiAppController
                                     $tmp['gross_value'] = $item->BRTWR;
 
                                     $footerData = $tmp;
-                                    $vendorDetail = $this->VendorTemps->find()->where(['sap_vendor_code' => $row->LIFNR])->first();
                                     if($item->CHG_IND == 'X') {
                                         $footerData['is_updated'] = 1;
                                         $poInstanceAck = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
@@ -406,6 +414,7 @@ class SyncController extends ApiAppController
                                         $poInstanceAck = $this->PoHeaders->patchEntity($poInstanceAck, $hederData);
                                         $this->PoHeaders->save($poInstanceAck);
 
+                                        $vendorDetail = $this->VendorTemps->find()->where(['sap_vendor_code' => $row->LIFNR])->first();
                                         if($vendorDetail) {
                                             try{
                                                 $mailer = new Mailer('default');
@@ -413,13 +422,13 @@ class SyncController extends ApiAppController
                                                     ->setTransport('smtp')
                                                     ->setViewVars([
                                                         'vendor_name' => $vendorDetail->name,
-                                                        'po_footer' => $footerData,
-                                                        'po_header'=>$hederData,
+                                                        'po_footer' => $item,
+                                                        'po_header'=>$row,
                                                         'spt_email' => 'support@apar.in',])
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($vendorDetail->email)
                                                     ->setEmailFormat('html')
-                                                    ->setSubject('VENDOR PORTAL - PO ITEM UPDATED ('.$po_header->po_no.')')
+                                                    ->setSubject('VENDOR PORTAL - PO ITEM UPDATED ('.$po_header->EBELN.')')
                                                     ->viewBuilder()
                                                         ->setTemplate('m_purchase_order');
                                                 $mailer->deliver();
@@ -446,7 +455,9 @@ class SyncController extends ApiAppController
                                             $buyer = $this->Buyers->find()->where(['sap_user'=>$row->ERNAM])->first();
                                             $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
                                             $buyersEmails = [];
-                                            foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
+                                            foreach($buyerList as $email) {
+                                                $buyersEmails[] = $email->email; 
+                                            }
                                             
                                             $valid = false;
 
@@ -454,18 +465,11 @@ class SyncController extends ApiAppController
                                                 $mailer = new Mailer('default');
                                                 $mailer
                                                     ->setTransport('smtp')
-                                                    ->setViewVars([
-                                                        'vendor_name' => $vendorDetail->name,
-                                                        'poNumber'=>$poNumber,
-                                                        'po_footer' => $item,
-                                                        'po_header'=>$row,
-                                                        'spt_email' => 'support@apar.in',
-                                                        'total'=>$total[0]->total
-                                                        ])
+                                                    ->setViewVars([ 'poNumber'=>$poNumber, 'item'=>$row->EBELN,'total'=>$total[0]->total ])
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($buyersEmails)
                                                     ->setEmailFormat('html')
-                                                    ->setSubject('VENDOR PORTAL - PO ITEM NOT UPDATED ('.$poNumber.')')
+                                                    ->setSubject('VENDOR PORTAL - PO ITEM NOT UPDATED')
                                                     ->viewBuilder()
                                                         ->setTemplate('po_not_updated');
                                                 $mailer->deliver();
@@ -491,6 +495,31 @@ class SyncController extends ApiAppController
                                     } else {
                                         $response['message'][] = 'PO :'.$row->EBELN.' Item : '.$item->EBELP.' save fail';
                                     }
+                                }
+
+
+                                if($isNewPo) {
+                                    $vendorTemps = $this->VendorTemps->find('all')->where(['sap_vendor_code' => $row->LIFNR ])->first();
+                                    $po_ftr = $this->PoFooters->find('all')->where(['PoFooters.po_header_id' => $po_header_id ])->toArray();
+                                    $mailer = new Mailer('default');
+                                    $mailer
+                                        ->setTransport('smtp')
+                                        ->setViewVars([
+                                            'vendor_name' => $vendorTemps->name,
+                                            'vendor_email' => $vendorTemps->email,
+                                            'po_header' => $hederData,
+                                            'po_footer' => $po_ftr,
+                                            'spt_email' => 'support@apar.in',
+                                            'spt_contact' => '7718801906',
+                                            'ttlamt' => 900,
+                                            ]) 
+                                        ->setFrom(Configure::read('MAIL_FROM'))
+                                        ->setTo($vendorTemps->email)
+                                        ->setEmailFormat('html')
+                                        ->setSubject('PURCHASE ORDER DETAILS')
+                                        ->viewBuilder()
+                                        ->setTemplate('purchase_order');
+                                    $mailer->deliver();
                                 }
 
                                 $this->Ftp->removeFile($ftpConn, $fileKey);
