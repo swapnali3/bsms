@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Vendor;
 use Cake\Datasource\ConnectionManager;
+use Cake\Routing\Router;
 
 class DailymonitorController extends VendorAppController
 {
@@ -23,42 +24,62 @@ class DailymonitorController extends VendorAppController
         $this->loadModel("ProductionLines");
         $this->loadModel("LineMasters");
 
-        $conditions = " where 1=1 ";
+        $conditions = ' where dailymonitor.sap_vendor_code="'.$session->read('vendor_code').'" ';
         if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            $request = $this->request->getData();
             if(isset($request['material'])) {
                 $search = '';
                 foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
-                else{ $conditions .= " and materials.id in (".$search.")"; }
+                $conditions .= " and materials.id in (".$search.")";
             }
             if(isset($request['line'])) {
                 $search = '';
-                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                foreach ($request['line'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['vendor'])){ $conditions .= " and line_masters.id in (".$search.")"; }
-                else{ $conditions .= " and line_masters.id in (".$search.")"; }
+                $conditions .= " and line_masters.id in (".$search.")";
             }
-            if(isset($request['plan_date'])) {
-                $search = '';
-                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
-                $search = rtrim($search, ',');
-                if(!isset($request['vendor'])){ $conditions .= " and dailymonitor.plan_date in (".$search.")"; }
-                else{ $conditions .= " and dailymonitor.plan_date in (".$search.")"; }
+            if(isset($request['plan_date']) && !empty($request['plan_date'])) {
+                $search = $request['plan_date'];
+                $conditions .= " and dailymonitor.created_on>='".$search." 00:00:00' and dailymonitor.created_on<='".$search." 11:59:59'";
             }
         }
         $prd_lines = $this->LineMasters->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
         $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
-        
-        // $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code')]])
-        // ->contain(['ProductionLines','ProductionLines.LineMasters', 'Materials']);
 
         $conn = ConnectionManager::get('default');
-        $query = $conn->execute("select dailymonitor.* from dailymonitor
+        $query = $conn->execute('select dailymonitor.id, dailymonitor.plan_date, line_masters.name as production_line_id, materials.code as material_id,
+        materials.description as material, CONCAT(dailymonitor.target_production, " ", materials.uom) as target_production, CONCAT(dailymonitor.confirm_production, " ", materials.uom) as confirm_production,
+        case when dailymonitor.status = 2 then "Cancelled" else case when dailymonitor.status = 3 then "Production Confirmed" else "Active" end end as status
+        from dailymonitor
         left join production_lines on production_lines.id = dailymonitor.production_line_id
         left join line_masters on line_masters.id = production_lines.line_master_id
-        left join materials on materials.id = dailymonitor.material_id ". $conditions);
+        left join materials on materials.id = dailymonitor.material_id'. $conditions);
         $dailymonitor = $query->fetchAll('assoc');
+        // echo '<pre>';  print_r($query); exit;
+        
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            $results = [];
+            foreach ($dailymonitor as $mat) {
+                $tmp = [];
+                $tmp[] = $mat["plan_date"];
+                $tmp[] = $mat["production_line_id"];
+                $tmp[] = $mat["material_id"];
+                $tmp[] = $mat["material"];
+                $tmp[] = $mat["target_production"];
+                $tmp[] = $mat["confirm_production"];
+                $tmp[] = $mat["status"];
+                if ($mat["status"] == 'Active'){
+                    $url = Router::url(['controller' => '/dailymonitor', 'action' => 'edit', $mat["id"]]);
+                    $tmp[] = '<a class="btn btn-info btn-sm mb-0" href="'.$url.'">Edit</a>';
+                } else { $tmp[] = ""; }
+                $results[] = $tmp;
+            }
+            $this->autoRender = false;
+            $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+            echo json_encode($response); exit;
+        }
+
         $this->set(compact('dailymonitor', 'materials', 'prd_lines'));
         
     }
