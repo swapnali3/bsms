@@ -161,7 +161,7 @@ class DailymonitorController extends VendorAppController
 
         $conn = ConnectionManager::get('default');
         // echo '<pre>';  print_r($conditions); exit;
-        $query = $conn->execute('select dailymonitor.id, vendor_factories.factory_code, line_masters.name, materials.code, materials.description, dailymonitor.plan_date, CONCAT(dailymonitor.target_production, " ", materials.uom) as target_production, dailymonitor.status, dailymonitor.confirm_production
+        $query = $conn->execute('select dailymonitor.id, vendor_factories.factory_code, line_masters.name, materials.code, materials.description, dailymonitor.plan_date, dailymonitor.target_production, dailymonitor.status, dailymonitor.confirm_production
         from dailymonitor
         left join production_lines on production_lines.id = dailymonitor.production_line_id
         left join vendor_factories on vendor_factories.id = production_lines.vendor_factory_id

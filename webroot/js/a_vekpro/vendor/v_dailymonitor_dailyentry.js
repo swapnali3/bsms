@@ -76,7 +76,7 @@ $("#id_exportme").click(function() {
     var fd = new FormData($('#formUpload')[0]);
 
     $.ajax({
-        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'upload')); ?>",
+        url: uploadConfirmedProductionUrl,
         type: "post",
         dataType: 'json',
         processData: false, // important
