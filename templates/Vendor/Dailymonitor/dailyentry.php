@@ -114,8 +114,8 @@
                                 <th>Production Line</th>
                                 <th>Material</th>
                                 <th>Material Desc.</th>
-                                <th>Plan Date</th>
                                 <th>Target Production</th>
+                                <th>Plan Date</th>
                                 <th class="table_width">Confirm Production</th>
                                 <th>Action</th>
                             </tr>

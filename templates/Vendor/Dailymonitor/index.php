@@ -91,7 +91,7 @@
 </div>
 
 <script>
-    var url_list = `<?php echo \Cake\Routing\Router::url(array('controller' => '/daily-monitor', 'action' => 'index')); ?>`;
-    var url_cancel = `<?php echo \Cake\Routing\Router::url(array('controller' => '/daily-monitor', 'action' => 'change-status')); ?>/`
+    var url_list = `<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'index')); ?>`;
+    var url_cancel = `<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'change-status')); ?>/`
 </script>
 <?= $this->Html->script('a_vekpro/vendor/v_dailymonitor_index') ?>

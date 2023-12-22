@@ -177,8 +177,8 @@ class DailymonitorController extends VendorAppController
                 $tmp[] = $mat["name"];
                 $tmp[] = $mat["code"];
                 $tmp[] = $mat["description"];
-                $tmp[] = date("d-m-Y", strtotime($mat["plan_date"]));;
                 $tmp[] = $mat["target_production"].'<input type="hidden" value="'.$mat["target_production"].'" id="plan_qty_'.$mat["id"].'" data-id="'.$mat["id"].'">';
+                $tmp[] = date("d-m-Y", strtotime($mat["plan_date"]));;
                 if ($mat["status"] == 1){
                     $tmp[] = '<input type="number" class="form-control form-control-sm confirm-input" id="confirmprd'.$mat["id"].'" data-id="'.$mat["id"].'"><span id="validationMessage'.$mat["id"].'" class="text-danger" style="display: none;"></span>';
                     $tmp[] = '<button class="btn btn-success save btn-sm mb-0" id="confirmsave'.$mat["id"].'" data-id="'.$mat["id"].'">Save</button>';
@@ -239,13 +239,17 @@ class DailymonitorController extends VendorAppController
                         for ($col = 1; $col <= $highestColumnIndex; $col++) {
                             $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                             if($col == 1) {
-                                $factory = $this->VendorFactories->find('list')
-                                ->select(['id'])
-                                ->where(['factory_code' => $value, 'vendor_temp_id' => $session->read('vendor_id')])
-                                ->first();
-                                $tmp['vendor_factory_id'] = $factory ? $factory : null;
-                                $datas['factory_code'] = $value;
-                                if(!$factory) {
+                                if($value) {
+                                    $factory = $this->VendorFactories->find('list')
+                                    ->select(['id'])
+                                    ->where(['factory_code' => $value, 'vendor_temp_id' => $session->read('vendor_id')])
+                                    ->first();
+                                    $tmp['vendor_factory_id'] = $factory ? $factory : null;
+                                    $datas['factory_code'] = $value;
+                                    if(!$factory) {
+                                        $facError = true;
+                                    }
+                                } else {
                                     $facError = true;
                                 }
 
