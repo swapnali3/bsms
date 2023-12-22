@@ -131,13 +131,71 @@ class DailymonitorController extends VendorAppController
         $this->loadModel("LineMasters");
         $this->loadModel("VendorFactories");
 
+        $conditions = ' where dailymonitor.sap_vendor_code="'.$session->read('vendor_code').'" and dailymonitor.plan_date <="'.date('y-m-d').'"';
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            $request = $this->request->getData();
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and materials.id in (".$search.")";
+            }
+            if(isset($request['line'])) {
+                $search = '';
+                foreach ($request['line'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and line_masters.id in (".$search.")";
+            }
+            if(isset($request['factory'])) {
+                $search = '';
+                foreach ($request['factory'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and factory.id in (".$search.")";
+            }
+        }
+
         $prd_lines = $this->LineMasters->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
         $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
         $vendor = $this->VendorTemps->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
         $vendor_fty = $this->VendorFactories->find('all')->where(['vendor_temp_id="'.$vendor[0]->id.'"' ])->toArray();
-        $dailymonitor = $this->Dailymonitor->find('all', ['conditions' => ['Dailymonitor.sap_vendor_code' => $session->read('vendor_code'), 'Dailymonitor.plan_date <=' => date('y-m-d')]])
-            ->contain(['ProductionLines', 'ProductionLines.LineMasters', 'ProductionLines.LineMasters.VendorFactories', 'Materials'])
-            ->order(['Dailymonitor.plan_date' => 'DESC']);
+
+        $conn = ConnectionManager::get('default');
+        // echo '<pre>';  print_r($conditions); exit;
+        $query = $conn->execute('select dailymonitor.id, vendor_factories.factory_code, line_masters.name, materials.code, materials.description, dailymonitor.plan_date, CONCAT(dailymonitor.target_production, " ", materials.uom) as target_production, dailymonitor.status, dailymonitor.confirm_production
+        from dailymonitor
+        left join production_lines on production_lines.id = dailymonitor.production_line_id
+        left join vendor_factories on vendor_factories.id = production_lines.vendor_factory_id
+        left join line_masters on line_masters.id = production_lines.line_master_id
+        left join materials on materials.id = dailymonitor.material_id'. $conditions.' order by dailymonitor.plan_date desc');
+        $dailymonitor = $query->fetchAll('assoc');
+
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            $results = [];
+            foreach ($dailymonitor as $mat) {
+                $tmp = [];
+                $tmp[] = $mat["factory_code"];
+                $tmp[] = $mat["name"];
+                $tmp[] = $mat["code"];
+                $tmp[] = $mat["description"];
+                $tmp[] = date("d-m-Y", strtotime($mat["plan_date"]));;
+                $tmp[] = $mat["target_production"].'<input type="hidden" value="'.$mat["target_production"].'" id="plan_qty_'.$mat["id"].'" data-id="'.$mat["id"].'">';
+                if ($mat["status"] == 1){
+                    $tmp[] = '<input type="number" class="form-control form-control-sm confirm-input" id="confirmprd'.$mat["id"].'" data-id="'.$mat["id"].'"><span id="validationMessage'.$mat["id"].'" class="text-danger" style="display: none;"></span>';
+                    $tmp[] = '<button class="btn btn-success save btn-sm mb-0" id="confirmsave'.$mat["id"].'" data-id="'.$mat["id"].'">Save</button>';
+                } else if ($mat["status"] == 1){
+                    $tmp[] = 'Plan Cancelled';
+                    $tmp[] = '';
+                } else {
+                    $tmp[] = $mat["confirm_production"];
+                    $tmp[] = '';
+                }
+                $results[] = $tmp;
+            }
+            $this->autoRender = false;
+            $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+            echo json_encode($response); exit;
+        }
+        
         $this->set(compact('dailymonitor', 'materials', 'prd_lines', 'vendor_fty'));
     }
 
