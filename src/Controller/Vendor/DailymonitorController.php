@@ -49,7 +49,7 @@ class DailymonitorController extends VendorAppController
 
         $conn = ConnectionManager::get('default');
         $query = $conn->execute('select dailymonitor.id, dailymonitor.plan_date, vendor_factories.factory_code, line_masters.name as production_line_id, materials.code as material_id,
-        materials.description as material, dailymonitor.target_production, CONCAT(dailymonitor.confirm_production, " ", materials.uom) as confirm_production,
+        materials.description as material, materials.uom, dailymonitor.target_production, dailymonitor.confirm_production,
         case when dailymonitor.status = 2 then "Cancelled" else case when dailymonitor.status = 3 then "Production Confirmed" else "Active" end end as status
         from dailymonitor
         left join production_lines on production_lines.id = dailymonitor.production_line_id
@@ -68,6 +68,7 @@ class DailymonitorController extends VendorAppController
                 $tmp[] = $mat["material_id"];
                 $tmp[] = $mat["material"];
                 $tmp[] = $mat["target_production"];
+                $tmp[] = $mat["uom"];
                 $tmp[] = $mat["plan_date"];
                 $tmp[] = $mat["confirm_production"];
                 $tmp[] = $mat["status"];
@@ -163,7 +164,7 @@ class DailymonitorController extends VendorAppController
 
         $conn = ConnectionManager::get('default');
         // echo '<pre>';  print_r($conditions); exit;
-        $query = $conn->execute('select dailymonitor.id, vendor_factories.factory_code, line_masters.name, materials.code, materials.description, dailymonitor.plan_date, dailymonitor.target_production, dailymonitor.status, dailymonitor.confirm_production
+        $query = $conn->execute('select dailymonitor.id, vendor_factories.factory_code, line_masters.name, materials.code, materials.description, materials.uom, dailymonitor.plan_date, dailymonitor.target_production, dailymonitor.status, dailymonitor.confirm_production
         from dailymonitor
         left join production_lines on production_lines.id = dailymonitor.production_line_id
         left join vendor_factories on vendor_factories.id = production_lines.vendor_factory_id
@@ -180,6 +181,7 @@ class DailymonitorController extends VendorAppController
                 $tmp[] = $mat["code"];
                 $tmp[] = $mat["description"];
                 $tmp[] = $mat["target_production"].'<input type="hidden" value="'.$mat["target_production"].'" id="plan_qty_'.$mat["id"].'" data-id="'.$mat["id"].'">';
+                $tmp[] = $mat["uom"];
                 $tmp[] = date("d-m-Y", strtotime($mat["plan_date"]));;
                 if ($mat["status"] == 1){
                     $tmp[] = '<input type="number" class="form-control form-control-sm confirm-input" id="confirmprd'.$mat["id"].'" data-id="'.$mat["id"].'"><span id="validationMessage'.$mat["id"].'" class="text-danger" style="display: none;"></span>';

@@ -76,6 +76,7 @@
                                 <th>Material</th>
                                 <th>Material Desc.</th>
                                 <th>Target Production</th>
+                                <th>UOM</th>
                                 <th>Plan Date</th>
                                 <th>Confirmed Production</th>
                                 <th>Status</th>

@@ -115,6 +115,7 @@
                                 <th>Material</th>
                                 <th>Material Desc.</th>
                                 <th>Target Production</th>
+                                <th>UOM</th>
                                 <th>Plan Date</th>
                                 <th class="table_width">Confirm Production</th>
                                 <th>Action</th>
