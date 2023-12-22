@@ -71,11 +71,12 @@
                     <table class="table table-hover table-striped table-bordered" id="example1">
                         <thead>
                             <tr>
-                                <th>Plan Date</th>
+                                <th>Factory Code</th>
                                 <th>Production Line</th>
                                 <th>Material</th>
                                 <th>Material Desc.</th>
-                                <th>Production Plan</th>
+                                <th>Target Production</th>
+                                <th>Plan Date</th>
                                 <th>Confirmed Production</th>
                                 <th>Status</th>
                                 <th>Action</th>

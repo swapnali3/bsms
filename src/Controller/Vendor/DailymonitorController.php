@@ -48,12 +48,13 @@ class DailymonitorController extends VendorAppController
         $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
 
         $conn = ConnectionManager::get('default');
-        $query = $conn->execute('select dailymonitor.id, dailymonitor.plan_date, line_masters.name as production_line_id, materials.code as material_id,
-        materials.description as material, CONCAT(dailymonitor.target_production, " ", materials.uom) as target_production, CONCAT(dailymonitor.confirm_production, " ", materials.uom) as confirm_production,
+        $query = $conn->execute('select dailymonitor.id, dailymonitor.plan_date, vendor_factories.factory_code, line_masters.name as production_line_id, materials.code as material_id,
+        materials.description as material, dailymonitor.target_production, CONCAT(dailymonitor.confirm_production, " ", materials.uom) as confirm_production,
         case when dailymonitor.status = 2 then "Cancelled" else case when dailymonitor.status = 3 then "Production Confirmed" else "Active" end end as status
         from dailymonitor
         left join production_lines on production_lines.id = dailymonitor.production_line_id
         left join line_masters on line_masters.id = production_lines.line_master_id
+        left join vendor_factories on vendor_factories.id = production_lines.vendor_factory_id
         left join materials on materials.id = dailymonitor.material_id'. $conditions);
         $dailymonitor = $query->fetchAll('assoc');
         // echo '<pre>';  print_r($query); exit;
@@ -62,11 +63,12 @@ class DailymonitorController extends VendorAppController
             $results = [];
             foreach ($dailymonitor as $mat) {
                 $tmp = [];
-                $tmp[] = $mat["plan_date"];
+                $tmp[] = $mat["factory_code"];
                 $tmp[] = $mat["production_line_id"];
                 $tmp[] = $mat["material_id"];
                 $tmp[] = $mat["material"];
                 $tmp[] = $mat["target_production"];
+                $tmp[] = $mat["plan_date"];
                 $tmp[] = $mat["confirm_production"];
                 $tmp[] = $mat["status"];
                 if ($mat["status"] == 'Active'){
