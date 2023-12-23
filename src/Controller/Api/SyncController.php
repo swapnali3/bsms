@@ -507,7 +507,7 @@ class SyncController extends ApiAppController
                                         ->setViewVars([
                                             'vendor_name' => $vendorTemps->name,
                                             'vendor_email' => $vendorTemps->email,
-                                            'po_header' => $hederData,
+                                            'po_header' => $row,
                                             'po_footer' => $po_ftr,
                                             'spt_email' => 'support@apar.in',
                                             'spt_contact' => '7718801906',
