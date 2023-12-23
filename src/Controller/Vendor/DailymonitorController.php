@@ -69,7 +69,7 @@ class DailymonitorController extends VendorAppController
                 $tmp[] = $mat["material"];
                 $tmp[] = $mat["target_production"];
                 $tmp[] = $mat["uom"];
-                $tmp[] = $mat["plan_date"];
+                $tmp[] = date("d-m-Y", strtotime($mat["plan_date"]));;
                 $tmp[] = $mat["confirm_production"];
                 $tmp[] = $mat["status"];
                 if ($mat["status"] == 'Active'){
