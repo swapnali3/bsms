@@ -75,21 +75,31 @@ class DashboardController extends VendorAppController
         //echo '<pre>'; print_r($totalPos); exit;
         $totalPos = $totalPos->count();
         
-        $stocks = $this->StockUploads->find('all')->contain(['Materials', 'VendorFactories'])
-        ->where(['StockUploads.sap_vendor_code' => $session->read('vendor_code')])->order("StockUploads.updated_date desc")->limit(10)
+        $stocks = $this->StockUploads->find('all')->contain(['VendorFactories'])
+        ->select($this->StockUploads)
+        ->select(['VendorFactories.factory_code'])
+        ->select(['material.code', 'material.description', 'material.uom', 'material.minimum_stock'])
+        ->select(['PoFooters.po_qty', 'PoFooters.grn_qty', 'PoFooters.pending_qty'])
+        ->innerJoin(['material' => 'materials'], ['material.id=StockUploads.material_id'])
+        ->leftJoin(['PoFooters' => "(select PoFooters.material, sum(PoFooters.po_qty) as po_qty, sum(PoFooters.grn_qty) as grn_qty, sum(PoFooters.pending_qty), pending_qty from po_footers as PoFooters where PoFooters.po_header_id in (select id from po_headers where sap_vendor_code = '".$session->read('vendor_code')."') group by PoFooters.material)"],
+        ['PoFooters.material = material.code']
+        )
+        ->where(['StockUploads.sap_vendor_code' => $session->read('vendor_code')])->order("StockUploads.updated_date desc")
         ->toArray();
+
+        //echo '<pre>'; print_r($stocks); exit;
 
         //echo '<pre>'; prin
         $asnMaterials = $this->AsnFooters->find('all')
         ->select(['vendor_factory_id' => 'VendorFactories.id', 'material' => 'PoFooters.material', 'qty' => 'sum(AsnFooters.qty)'])
         ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
         ->where(['AsnHeaders.status in ' => ['1','2', '3'], 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')])
-        ->group(['VendorFactories.id','PoFooters.material'])->limit(10)->toArray();
+        ->group(['VendorFactories.id','PoFooters.material'])->toArray();
 
         //echo '<pre>'; print_r($asnMaterials); exit;
         foreach($stocks as &$stock) {
             foreach($asnMaterials as $asn) {
-                if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material->code == $asn->material) {
+                if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material['code'] == $asn->material) {
                     $stock->asn_stock = $asn->qty;
                     $stock->current_stock = ($stock->opening_stock + $stock->production_stock) - $stock->asn_stock;
                 }

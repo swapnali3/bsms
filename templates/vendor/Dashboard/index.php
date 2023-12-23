@@ -137,6 +137,11 @@
                 <th>Production Stock</th>
                 <th>ASN / IN transit</th>
                 <th>Closing Stock</th>
+                <th>MSL</th>
+                <th>PO Qty.</th>
+                <th>Delivered Qty.</th>
+                <th>Pending Qty</th>
+
               </tr>
             </thead>
             <tbody>
@@ -144,12 +149,16 @@
                 <?php foreach($stocks as $stock) :  ?>
                 <tr>
                 <td><?= ($stock->vendor_factory) ? $stock->vendor_factory->factory_code : '-'; ?></td>
-                <td><?= $stock->material->code; ?></td>
-                <td><?= $stock->material->description; ?></td>
-                <td><?= $stock->opening_stock . ' '. $stock->material->uom; ?></td>
-                <td><?= $stock->production_stock . ' '. $stock->material->uom; ?></td>
-                <td><?= $stock->asn_stock . ' '. $stock->material->uom; ?></td>
-                <td><?= $stock->current_stock . ' '. $stock->material->uom; ?></td>
+                <td><?= $stock->material['code']; ?></td>
+                <td><?= $stock->material['description']; ?></td>
+                <td><?= $stock->opening_stock . ' '. $stock->material['uom']; ?></td>
+                <td><?= $stock->production_stock . ' '. $stock->material['uom']; ?></td>
+                <td><?= $stock->asn_stock . ' '. $stock->material['uom']; ?></td>
+                <td><?= $stock->current_stock . ' '. $stock->material['uom']; ?></td>
+                <td><?= $stock->material['minimum_stock'] . ' '. $stock->material['uom']; ?></td>
+                <td><?= $stock->PoFooters['po_qty']; ?></td>
+                <td><?= $stock->PoFooters['grn_qty']; ?></td>
+                <td><?= ($stock->PoFooters['po_qty'] - $stock->PoFooters['grn_qty']); ?></td>
               </tr>
               <?php endforeach; ?>
               <?php else :?>
