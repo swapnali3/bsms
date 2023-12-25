@@ -1238,6 +1238,8 @@ body:not(.layout-fixed) .main-sidebar {
     margin-right: 15px;
   }
 
+  select2-selection__choice { font-weight: normal !important;}
+  
 /* Sidebar styling ends here */
 
 .main-footer { 

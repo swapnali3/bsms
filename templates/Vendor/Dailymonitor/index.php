@@ -10,10 +10,9 @@
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
 <!-- <?= $this->Html->css('v_index.css') ?> -->
-<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?>
 <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
 <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
-<div class="row">
+<div class="row dailymonitor">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -27,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body" id="id_pohead">
+            <div class="card-header" id="id_pohead">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
 
@@ -35,7 +34,7 @@
                         <label for="id_plan_date">Plan Date</label><br>
                         <input class="form-control" type="date" name="plan_date" id="id_plan_date">
                     </div>
-                    <div class="col-sm-12 col-md-3 col-lg-2">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
                         <label for="id_prod_line">Production Line</label><br>
                         <select name="line[]" id="id_prod_line" multiple="multiple" class="form-control chosen">
                             <?php if (isset($prd_lines)) : ?>
@@ -67,27 +66,30 @@
                     </div>
                 </div>
                 <?= $this->Form->end() ?>
-                <div class="table-responsive">
-                    <table class="table table-hover table-striped table-bordered" id="example1">
-                        <thead>
-                            <tr>
-                                <th>Factory Code</th>
-                                <th>Production Line</th>
-                                <th>Material</th>
-                                <th>Material Desc.</th>
-                                <th>Target Production</th>
-                                <th>UOM</th>
-                                <th>Plan Date</th>
-                                <th>Confirmed Production</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
                 </div>
-            </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-bordered" id="example1">
+                            <thead>
+                                <tr>
+                                    <th>Factory Code</th>
+                                    <th>Production Line</th>
+                                    <th>Material</th>
+                                    <th>Material Desc.</th>
+                                    <th>Target Production</th>
+                                    <th>UOM</th>
+                                    <th>Plan Date</th>
+                                    <th>Confirmed Production</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            
         </div>
     </div>
 </div>
