@@ -10,7 +10,6 @@
 <!-- <?= $this->Html->css('table.css') ?> -->
 <!-- <?= $this->Html->css('listing.css') ?> -->
 <!-- <?= $this->Html->css('v_index.css') ?> -->
-<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?>
 <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
 <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 
@@ -56,11 +55,11 @@
                     </div>
                 </div>
             </div>
-            <div class="card-header" id="id_pohead">
+            <div class="card-header pb-3" id="id_pohead">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
 
-                    <div class="col-sm-12 col-md-3 col-lg-2">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
                         <label for="id_factory">Factory</label><br>
                         <select name="factory[]" id="id_factory" multiple="multiple" class="form-control chosen">
                             <?php if (isset($vendor_fty)) : ?>
@@ -73,7 +72,7 @@
                         </select>
                     </div>
 
-                    <div class="col-sm-12 col-md-3 col-lg-2">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
                         <label for="id_prod_line">Production Line</label><br>
                         <select name="line[]" id="id_prod_line" multiple="multiple" class="form-control chosen">
                             <?php if (isset($prd_lines)) : ?>
