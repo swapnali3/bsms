@@ -290,7 +290,7 @@ class DailymonitorController extends VendorAppController
                                 $tmp['material_id'] = $mat ? $mat->id : null;
                                 $datas['material'] = $value;
                                 $datas['material_description'] = $mat ? $mat->description : '-';
-
+                                $datas['uom'] = $mat ? $mat->uom : '-';
                             } else if ($col == 4) {
                                 $tmp['target_production'] = $value;
                                 $datas['target_production'] = $value;
@@ -299,12 +299,12 @@ class DailymonitorController extends VendorAppController
                                 } 
                             } else if ($col == 5) {
                                 $tmp['plan_date'] = date('Y-m-d', strtotime($value));
-                                $datas['plan_date'] = date('Y-m-d', strtotime($value));
-                                if($highestColumnIndex == 6) {
-                                    if($datas['plan_date'] != date('Y-m-d')) {
-                                        $validDate = false;
-                                    }
-                                }
+                                $datas['plan_date'] = date('d-m-Y', strtotime($value));
+                                // if($highestColumnIndex == 6) {
+                                //     if($datas['plan_date'] != date('Y-m-d')) {
+                                //         $validDate = false;
+                                //     }
+                                // }
                             } else if($highestColumnIndex == 6 && $col == 6) {
                                 $tmp['confirm_production'] = $value;
                                 $datas['confirm_production'] = $value;
