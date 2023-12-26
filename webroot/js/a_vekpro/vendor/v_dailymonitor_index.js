@@ -1,12 +1,12 @@
 var dtable;
 
 $('.chosen').select2({
-    closeOnSelect : false,
+    closeOnSelect: false,
     placeholder: 'Select',
     allowClear: true,
     tags: false,
     tokenSeparators: [',', ' '],
-    templateSelection: function(selection) {
+    templateSelection: function (selection) {
         if (selection.element && $(selection.element).attr('data-select') !== undefined) {
             return $(selection.element).attr('data-select');
         } else {
@@ -24,7 +24,23 @@ dtable = $("#example1").DataTable({
     "ordering": true,
     "destroy": true,
     dom: 'Blfrtip',
-    buttons: [{ extend: 'copy' }, { extend: 'excelHtml5', text: 'Export', title:'' }],
+    buttons: [
+        { extend: 'copy' },
+        {
+            extend: 'excel',
+            text: 'Export as Text',
+            customize: function (xlsx) {
+                // Modify the exported data here
+                var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                $('row c[r^="G"]', sheet).each(function () {
+                    // Convert date cells to text
+                    if ($(this).attr('t') === 'd') {
+                        $(this).attr('t', 's');
+                    }
+                });
+            }
+        }
+    ],
 });
 
 $("#addvendorform").validate({
@@ -57,22 +73,22 @@ $("#addvendorform").validate({
     },
 });
 
-$(document).on("click", ".cancel", function() {
+$(document).on("click", ".cancel", function () {
     var value = $(this).attr('data-value');
     var action = $(this).attr('data-key');
     if (value != "") {
         $.ajax({
             type: "get",
-            url: url_cancel + action +"/"+value,
+            url: url_cancel + action + "/" + value,
             dataType: "json",
-            beforeSend: function(xhr) {
+            beforeSend: function (xhr) {
                 $("#gif_loader").show();
                 xhr.setRequestHeader(
                     "Content-type",
                     "application/x-www-form-urlencoded"
                 );
             },
-            success: function(response) {
+            success: function (response) {
                 if (response.status == "1") {
                     table.draw();
                     Toast.fire({
@@ -86,7 +102,7 @@ $(document).on("click", ".cancel", function() {
                     });
                 }
             },
-            error: function(e) {
+            error: function (e) {
                 alert("An error occurred: " + e.responseText.message);
                 console.log(e);
             },
