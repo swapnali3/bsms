@@ -24,7 +24,23 @@ dtable = $("#example1").DataTable({
     "ordering": true,
     "destroy": true,
     dom: 'Blfrtip',
-    buttons: [{ extend: 'copy' }, { extend: 'excelHtml5', text: 'Export', title:'' }],
+    buttons: [
+        { extend: 'copy' },
+        {
+            extend: 'excel',
+            text: 'Export as Text',
+            customize: function (xlsx) {
+                // Modify the exported data here
+                var sheet = xlsx.xl.worksheets['sheet1.xml'];
+                $('row c[r^="G"]', sheet).each(function () {
+                    // Convert date cells to text
+                    if ($(this).attr('t') === 'd') {
+                        $(this).attr('t', 's');
+                    }
+                });
+            }
+        }
+    ]
 });
 
 $("#addvendorform").validate({
@@ -72,7 +88,7 @@ $('#bulk_file').change(function () {
     $("#filessnames").append(file);
 });
 
-$("#id_exportme").click(function() {
+$("#id_exportme").click(function () {
     var fd = new FormData($('#formUpload')[0]);
 
     $.ajax({
@@ -83,7 +99,7 @@ $("#id_exportme").click(function() {
         contentType: false, // important
         data: fd,
         beforeSend: function () { $("#gif_loader").show(); },
-        success: function(response) {
+        success: function (response) {
             if (response.status) {
                 Toast.fire({
                     icon: 'success',
@@ -93,12 +109,12 @@ $("#id_exportme").click(function() {
                 $("#example1 tbody").empty();
 
                 // Loop through the response data and build the table rows dynamically
-                $.each(response.data, function (key, val) { 
+                $.each(response.data, function (key, val) {
                     var rowHtml = `<tr>
                     <td> `+ val.factory_code + `</td>
                     <td> `+ val.line + `</td>
-                    <td> `+ val.material +`</td>
-                    <td> `+ val.material_description +`</td>
+                    <td> `+ val.material + `</td>
+                    <td> `+ val.material_description + `</td>
                     <td> `+ val.target_production + `</td>
                     <td> `+ val.uom + `</td>
                     <td> `+ val.plan_date + `</td>
@@ -115,7 +131,7 @@ $("#id_exportme").click(function() {
                 });
             }
         },
-        error: function() {
+        error: function () {
             Toast.fire({
                 icon: 'error',
                 title: 'An error occured, please try again.'

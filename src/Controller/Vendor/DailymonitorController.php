@@ -45,9 +45,15 @@ class DailymonitorController extends VendorAppController
             }
         }
         $prd_lines = $this->LineMasters->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
-        $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
-
+        
         $conn = ConnectionManager::get('default');
+        $query = $conn->execute('select materials.* from dailymonitor
+        left join materials on materials.id = dailymonitor.material_id
+        where materials.sap_vendor_code = "'.$session->read('vendor_code').'"');
+        $materials = $query->fetchAll('assoc');
+        
+        // $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+
         $query = $conn->execute('select dailymonitor.id, dailymonitor.plan_date, vendor_factories.factory_code, line_masters.name as production_line_id, materials.code as material_id,
         materials.description as material, materials.uom, dailymonitor.target_production, dailymonitor.confirm_production,
         case when dailymonitor.status = 2 then "Cancelled" else case when dailymonitor.status = 3 then "Production Confirmed" else "Active" end end as status
@@ -162,12 +168,17 @@ class DailymonitorController extends VendorAppController
         }
 
         $prd_lines = $this->LineMasters->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
-        $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
         $vendor = $this->VendorTemps->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
         $vendor_fty = $this->VendorFactories->find('all')->where(['vendor_temp_id="'.$vendor[0]->id.'"' ])->toArray();
 
         $conn = ConnectionManager::get('default');
-        // echo '<pre>';  print_r($conditions); exit;
+        $query = $conn->execute('select materials.* from dailymonitor
+        left join materials on materials.id = dailymonitor.material_id
+        where materials.sap_vendor_code = "'.$session->read('vendor_code').'"');
+        $materials = $query->fetchAll('assoc');
+
+        // $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+
         $query = $conn->execute('select dailymonitor.id, vendor_factories.factory_code, line_masters.name, materials.code, materials.description, materials.uom, dailymonitor.plan_date, dailymonitor.target_production, dailymonitor.status, dailymonitor.confirm_production
         from dailymonitor
         left join production_lines on production_lines.id = dailymonitor.production_line_id
