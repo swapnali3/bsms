@@ -99,8 +99,9 @@ $("#id_exportme").click(function() {
                     <td> `+ val.line + `</td>
                     <td> `+ val.material +`</td>
                     <td> `+ val.material_description +`</td>
-                    <td> `+ val.plan_date + `</td>
                     <td> `+ val.target_production + `</td>
+                    <td> `+ val.uom + `</td>
+                    <td> `+ val.plan_date + `</td>
                     <td> `+ val.confirm_production + `</td>
                     <td> `+ val.error + `</td>
                     </tr>`;
