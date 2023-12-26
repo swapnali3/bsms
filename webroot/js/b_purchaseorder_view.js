@@ -60,10 +60,16 @@ function poform(search = "") {
                         val.po_no +
                         `</b>
                                             </div>
-                                            <div class="po-code">
+                                            <div class="po-code po-code-block pl-3 ml-1" style="display:none">
                                                 <small class="mb-0"> Vendor Code </small><br>
                                                 <small><b>` +
                         val.sap_vendor_code +
+                        `</b></small>
+                                            </div>
+                                            <div class="po-code">
+                                                <small class="mb-0"> Vendor Name </small><br>
+                                                <small><b>` +
+                        val.name +
                         `</b></small>
                                             </div>
                                         </div>`
