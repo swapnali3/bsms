@@ -41,7 +41,7 @@ class DailymonitorController extends VendorAppController
             }
             if(isset($request['plan_date']) && !empty($request['plan_date'])) {
                 $search = $request['plan_date'];
-                $conditions .= " and dailymonitor.created_on>='".$search." 00:00:00' and dailymonitor.created_on<='".$search." 11:59:59'";
+                $conditions .= " and dailymonitor.plan_date='".$search."'";
             }
         }
         $prd_lines = $this->LineMasters->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
@@ -154,6 +154,10 @@ class DailymonitorController extends VendorAppController
                 foreach ($request['factory'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
                 $conditions .= " and factory.id in (".$search.")";
+            }
+            if(isset($request['plan_date']) && !empty($request['plan_date'])) {
+                $search = $request['plan_date'];
+                $conditions .= " and dailymonitor.plan_date='".$search."'";
             }
         }
 
