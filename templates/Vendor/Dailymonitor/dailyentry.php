@@ -85,6 +85,11 @@
                             <?php endif; ?>
                         </select>
                     </div>
+                    
+                    <div class="col-sm-12 col-md-3 col-lg-2">
+                        <label for="id_plan_date">Plan Date</label><br>
+                        <input class="form-control" type="date" name="plan_date" id="id_plan_date">
+                    </div>
 
                     <div class="col-sm-12 col-md-3 col-lg-4">
                         <label for="id_material">Material</label><br>
