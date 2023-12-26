@@ -484,10 +484,10 @@ class SyncController extends ApiAppController
 
                                     //sync material master
                                     $upsertQuery = $this->Materials->query();
-                                    $upsertQuery->insert(['sap_vendor_code', 'code', 'description', 'uom']);
-                                    $upsertQuery->values(['sap_vendor_code' => $row->LIFNR, 'code' => $item->MATNR, 'description' => $item->TXZ01, 'uom' => $item->MEINS]);
+                                    $upsertQuery->insert(['sap_vendor_code', 'code', 'description', 'uom', 'segment', 'segment_code', 'type']);
+                                    $upsertQuery->values(['sap_vendor_code' => $row->LIFNR, 'code' => $item->MATNR, 'description' => $item->TXZ01, 'uom' => $item->MEINS, 'segment' => $item->ZZSEGDESC, 'segment_code' => $item->ZZVENSEG, 'type' => $item->MAGRV ."-".$item->BEZEI]);
                                     $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
-                                        `description`=VALUES(`description`), `uom`=VALUES(`uom`)')
+                                        `description`=VALUES(`description`), `uom`=VALUES(`uom`), `segment`=VALUES(`segment`), `segment_code`=VALUES(`segment_code`), `type`=VALUES(`type`)')
                                         ->execute();
 
                                     if ($valid && $this->PoFooters->save($poItemsInstance)) {

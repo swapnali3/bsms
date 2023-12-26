@@ -686,7 +686,7 @@
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
                                                         <input required="required" type="text" class="form-control"
                                                             name="factories[0][power_available]"
-                                                            placeholder="Power Available" required="true"
+                                                            placeholder="Power Consumption" required="true"
                                                             id="id_vendor_factories_0_power_available">
                                                     </div>
                                                     <div class="col-sm-12 col-md-6 col-lg-6">
