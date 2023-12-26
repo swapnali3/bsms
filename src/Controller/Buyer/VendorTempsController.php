@@ -488,7 +488,7 @@ class VendorTempsController extends BuyerAppController
                     ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($vendor->email)
                     ->setEmailFormat('html')
-                    ->setSubject('Vendor Portal - Vendor KYC Process')
+                    ->setSubject('VENDOR PORTAL - VENDOR KYC PROCESS')
                     ->viewBuilder()
                         ->setTemplate('rejected_onboarding');
                 $mailer->deliver();

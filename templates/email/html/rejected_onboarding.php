@@ -60,20 +60,6 @@
             <p>We kindly request you to revise the details at your earliest convenience. If you have any questions or concerns, please feel free to reach out to us at support@apar.in.</p>
             <p>We appreciate your flexibility and understanding in accommodating these adjustments. Thank you for your continued partnership.</p>
             <p>Best regards,</p>
-
-
-
-            <p>
-            The PO that is modified purchase order number <?= $po_header->po_no ?> qty should be greater than <?= $total ?>
-            <p>
-                <p>Line Item #<?= h($po_footer->item) ?></p>
-                <p><?= h($po_footer->material) ?>  |   <?= h($po_footer->short_text) ?>    |   QTY: <?= h($po_footer->po_qty) ?></p>
-            </p>
-            <br>Please review this schedule Qty and then update the PO Properly
-            </p>
-            <p>
-                Thank you for your cooperation and If you have any questions or concerns, please feel free to reach out to us at <?= $spt_email ?>.
-            </p>
         </div>
         <div class="content">
             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 400px; height: auto; display: block;">
