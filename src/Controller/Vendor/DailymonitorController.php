@@ -247,7 +247,7 @@ class DailymonitorController extends VendorAppController
                     for ($row = 2; $row <= $highestRow; $row++) {
                         $tmp['sap_vendor_code']  = $session->read('vendor_code');
                         $tmp['status'] = 1;
-                        if($highestColumnIndex == 6) {
+                        if($highestColumnIndex >= 6) {
                             $tmp['status'] = 3;
                         }
                         $status = true;
@@ -316,7 +316,7 @@ class DailymonitorController extends VendorAppController
                                 //         $validDate = false;
                                 //     }
                                 // }
-                            } else if($highestColumnIndex == 6 && $col == 6) {
+                            } else if($highestColumnIndex >= 6 && $col == 6) {
                                 $tmp['confirm_production'] = $value;
                                 $datas['confirm_production'] = $value;
                                 if ($value < 1 || $value == "" || $value == null) {
@@ -332,7 +332,7 @@ class DailymonitorController extends VendorAppController
                         if(!$target) {
                             $datas['error'] = 'Invalid target value';
                         }
-                        if($highestColumnIndex == 6 && !$confirm) {
+                        if($highestColumnIndex >= 6 && !$confirm) {
                             $datas['error'] = 'Invalid confirm value';
                         }
                         
@@ -340,7 +340,18 @@ class DailymonitorController extends VendorAppController
                             $datas['error'] = 'Only today\'s confirmation allowed';
                         }
 
+                        if($highestColumnIndex >= 6) {
+                            $cont = $this->Dailymonitor->find()->where(['production_line_id' => $tmp['production_line_id'],
+                            'material_id' => $tmp['material_id'],
+                            'production_line_id' => $tmp['production_line_id'], 'plan_date' => $tmp['plan_date'], 'status' => 3])->count();
+
+                            if($cont) {
+                                $datas['error'] = 'Production Already Confirmed';
+                            }
+                        }
+
                         $planner[] = $datas;
+
                         if(empty($datas['error'])) {
                             $uploadData[] = $tmp;   
                         }
@@ -354,7 +365,7 @@ class DailymonitorController extends VendorAppController
                         foreach($uploadData as $row) {
                             $upsertQuery->values($row);
                         }
-                        if($highestColumnIndex == 6) {
+                        if($highestColumnIndex >= 6) {
                             $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `confirm_production`=VALUES(`confirm_production`), `status`=VALUES(`status`)')
                             ->execute();
                         } else {
