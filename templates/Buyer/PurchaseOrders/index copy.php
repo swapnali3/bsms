@@ -185,7 +185,7 @@
             "ordering": false,
             "destroy": true,
             dom: 'Blfrtip',
-            buttons: [{ extend: 'copy' },{ extend: 'excelHtml5', text : 'Export'}]
+            buttons: [{ extend: 'copy' },{ extend: 'excelHtml5', text : 'Export', title:''}]
         });
     });
 </script>

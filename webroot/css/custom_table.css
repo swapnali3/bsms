@@ -1086,7 +1086,14 @@ tr td a { color: #121212 !important;}
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove { color: #121212 !important;}
 
+div.dataTables_wrapper div.dataTables_filter label { color: transparent !important;}
 
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    border: unset !important;
+    font-weight: normal !important;
+}
+
+.select2-container--default .select2-selection--multiple { border: 1px solid #ddd !important;}
 @media not all and (min-resolution:.001dpcm) {
     @supports (-webkit-appearance:none) {
         tr td,
