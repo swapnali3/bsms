@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <div class="form-group">
-                        <?php echo $this->Form->control('production_line_id', array('class' => 'form-control w-100', 'options' => $productionline,  'disabled')); ?>
+                        <?php echo $this->Form->control('line_id', array('class' => 'form-control w-100', 'options' => $line,  'disabled')); ?>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3">

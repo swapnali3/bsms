@@ -270,7 +270,8 @@ class DailymonitorController extends VendorAppController
                                     $facError = true;
                                 }
 
-                            } else if ($col == 2) {
+                            } 
+                            if ($col == 2) {
                                 if(!$facError) {
                                     $lm = $this->LineMasters->find()
                                         ->where([
@@ -280,7 +281,8 @@ class DailymonitorController extends VendorAppController
                                         ])->first();
                                 }
                                 $datas['line'] = $value;
-                            } else if ($col == 3) {
+                            } 
+                            if ($col == 3) {
                                 $mat = $this->Materials->find()
                                     ->where([
                                         'sap_vendor_code' => $session->read('vendor_code'),
@@ -300,20 +302,24 @@ class DailymonitorController extends VendorAppController
                                             'vendor_factory_id' => $tmp['vendor_factory_id'],
                                             'material_id' => $tmp['material_id']
                                         ])->first();
+
                                         $tmp['production_line_id'] = $pl ? $pl->id : null;
                                 }
                                 unset($tmp['vendor_factory_id']);
 
-                            } else if ($col == 4) {
+                            } 
+                            if ($col == 4) {
                                 $tmp['target_production'] = $value;
                                 $datas['target_production'] = $value;
                                 if ($value < 1 || $value == "" || $value == null) {
                                     $target = false;
                                 } 
-                            } else if ($col == 5) {
+                            }  
+                            if ($col == 5) {
                                 $tmp['plan_date'] = date('Y-m-d', strtotime($value));
                                 $datas['plan_date'] = date('d-m-Y', strtotime($value));
-                            } else if($highestColumnIndex >= 6 && $col == 6) {
+                            } 
+                            if($highestColumnIndex >= 6 && $col == 6) {
                                 $tmp['confirm_production'] = $value;
                                 $datas['confirm_production'] = $value;
                                 if ($value < 1 || $value == "" || $value == null) {
@@ -321,10 +327,7 @@ class DailymonitorController extends VendorAppController
                                 } 
                             }
                         }
-                        if($highestColumnIndex >= 6) {
-                            $tmp['status'] = 3;
-                        }
-
+                        
                         $datas['error'] = '';
                         if($facError) {
                             $datas['error'] = 'Invalid factory code';
@@ -341,9 +344,9 @@ class DailymonitorController extends VendorAppController
                         }
 
                         if($highestColumnIndex >= 6) {
-                            $cont = $this->Dailymonitor->find()->where(['production_line_id' => $tmp['production_line_id'],
-                            'material_id' => $tmp['material_id'],
-                            'production_line_id' => $tmp['production_line_id'], 'plan_date' => $tmp['plan_date'], 'status' => 3])->count();
+                            $cont = $this->Dailymonitor->find()->where(['sap_vendor_code' => $session->read('vendor_code'),
+                            'production_line_id' => $tmp['production_line_id'],
+                            'material_id' => $tmp['material_id'], 'plan_date' => $tmp['plan_date'], 'status' => 3])->count();
 
                             if($cont) {
                                 $datas['error'] = 'Production Already Confirmed';
@@ -358,36 +361,41 @@ class DailymonitorController extends VendorAppController
                     }
 
                     if(!empty($uploadData)) {
-                        $columns = array_keys($uploadData[0]);
-                        $upsertQuery = $this->Dailymonitor->query();
-                        $upsertQuery->insert($columns);
-
-                        foreach($uploadData as $row) {
-                            $upsertQuery->values($row);
-                            //print_r($row); exit;
-                            if($highestColumnIndex >= 6) {
-                                $stockUpload = $this->StockUploads->find()
-                                ->where([
-                                    'sap_vendor_code' => $session->read('vendor_code'),
-                                    'material_id' => $row['material_id']
-                                ])
-                                ->first();
-
-                                $stockUpload->current_stock = $stockUpload->current_stock + $tmp['confirm_production'];
-                                $stockUpload->production_stock = $stockUpload->production_stock + $tmp['confirm_production'];
-                                $this->StockUploads->save($stockUpload);
-                            }
-                        }
-
                         if($highestColumnIndex >= 6) {
-                            $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `confirm_production`=VALUES(`confirm_production`), `status`=VALUES(`status`)')
-                            ->execute();
-
+                            foreach($uploadData as $row) {
+                                    $rec = $this->Dailymonitor->find()->where(['sap_vendor_code' => $row['sap_vendor_code'],
+                                    'production_line_id' => $row['production_line_id'],
+                                    'material_id' => $row['material_id'],
+                                    'plan_date' => $row['plan_date']
+                                ])->first();
+                                
+                                if($rec) {
+                                    $rec->confirm_production = $row['confirm_production'];
+                                    $rec->status = '3';
+                                    if($this->Dailymonitor->save($rec)) {
+                                        $stockUpload = $this->StockUploads->find()
+                                        ->where([
+                                            'sap_vendor_code' => $session->read('vendor_code'),
+                                            'material_id' => $row['material_id']
+                                        ])
+                                        ->first();
+                                            $stockUpload->current_stock = $stockUpload->current_stock + $tmp['confirm_production'];
+                                        $stockUpload->production_stock = $stockUpload->production_stock + $tmp['confirm_production'];
+                                        $this->StockUploads->save($stockUpload);
+                                    }
+                                }
+                            }
                         } else {
+                            $columns = array_keys($uploadData[0]);
+                            $upsertQuery = $this->Dailymonitor->query();
+                            $upsertQuery->insert($columns);
+
+                            foreach($uploadData as $row) {
+                                $upsertQuery->values($row);
+                            }
                             $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `target_production`=VALUES(`target_production`)')
                             ->execute();
                         }
-                        
                     }
 
                     $response['status'] = 1;
@@ -469,7 +477,11 @@ class DailymonitorController extends VendorAppController
         $flash = [];
         $this->loadModel("Materials");
         $this->loadModel("LineMasters");
+        $this->loadModel("ProductionLines");
         $dailymonitor = $this->Dailymonitor->get($id);
+        $productionLine = $this->ProductionLines->find()->where(['id' => $dailymonitor->production_line_id])->first();
+        $dailymonitor->line_id = $productionLine->line_master_id;
+        
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $this->request->getData());
@@ -482,8 +494,8 @@ class DailymonitorController extends VendorAppController
             $this->set('flash', $flash);
         }
         $vendor_mateial = $this->Materials->find('list', ['conditions' => ['Materials.sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'description'])->all();
-        $productionline = $this->LineMasters->find('list', ['conditions' => ['sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'name'])->all();
-        $this->set(compact('dailymonitor', 'vendor_mateial', 'productionline'));
+        $line = $this->LineMasters->find('list', ['conditions' => ['sap_vendor_code' => $session->read('vendor_code')], 'keyField' => 'id', 'valueField' => 'name'])->all();
+        $this->set(compact('dailymonitor', 'vendor_mateial', 'line'));
     }
 
     /**
