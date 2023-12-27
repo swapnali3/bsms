@@ -111,8 +111,8 @@ document.addEventListener('keydown', preventEnterKey);
 // });
 
 
-const fileInput = document.getElementById("bulk_file");
-const uploadButton = document.getElementById("OpenImgUpload");
+// const fileInput = document.getElementById("bulk_file");
+// const uploadButton = document.getElementById("OpenImgUpload");
 
 // fileInput.addEventListener("change", function () {
 //     if (this.files.length > 0) {

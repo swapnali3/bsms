@@ -95,7 +95,7 @@
         <div class="row ml-2">
              <div class="mt-2" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
                 <a class="template_format_productionline" href="<?= $this->Url->build('/') ?>webroot/templates/production_line_upload.xlsx"
-                    target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download pr-2"></i>Master Template
+                    target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download"></i>
                 </a>
             </div>
             <div class="pl-2">
@@ -324,9 +324,11 @@
     $('#OpenImgUpload').click(function() {
         $('#bulk_file').trigger('click');
     });
-    $('#bulk_file').change(function() {
-        var file = $(this).prop('files')[0].name;
-        $("#filessnames").append(file);
+    $('#bulk_file').change(function () {
+        var file = $(this).prop('files')[0];
+        var fileName = file ? file.name : '';
+
+        $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
     });
 
     $("#id_exportme").click(function() {

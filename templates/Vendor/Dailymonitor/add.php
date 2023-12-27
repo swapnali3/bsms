@@ -96,7 +96,7 @@
                     <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_planner_template.xlsx"
                                     target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download"></i></a>
                 </div>
-                <div class="col-sm-6 col-md-4 col-lg-2">
+                <div class="pl-1">
 
                     <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                     <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
@@ -214,9 +214,11 @@ $("#production-line-id").change(function () {
     $('#OpenImgUpload').click(function() {
         $('#bulk_file').trigger('click');
     });
-    $('#bulk_file').change(function() {
-        var file = $(this).prop('files')[0].name;
-        $("#filessnames").append(file);
+    $('#bulk_file').change(function () {
+        var file = $(this).prop('files')[0];
+        var fileName = file ? file.name : '';
+
+        $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
     });
 
     $("#id_exportme").click(function() {

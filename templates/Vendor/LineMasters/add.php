@@ -23,18 +23,20 @@
                     <div class="col-sm-12 col-md-3 col-lg-3">
                         <?php echo $this->Form->control('name', ['class' => 'form-control', 'label' => 'Line Name']); ?>
                     </div>
-                    <div class="col-sm-12 col-md-3 col-lg-3">
+                    <div class="col-sm-12 col-md-3 col-lg-2">
                         <?php echo $this->Form->control('capacity', ['class' => 'form-control']); ?>
                     </div>
-                    <div class="col-sm-12 col-md-3 col-lg-3">
+                    <div class="col-sm-12 col-md-3 col-lg-2">
                         <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'empty' => 'Please Select', 'label' => 'Unit Of Measurement')); ?>
                         <?php echo $this->Form->control('status', ['value' => 1, 'style' => 'visibility: hidden; position: absolute;', 'label' => false]); ?>
                     </div>
+                    <div class="pl-1 pr-1 mt-4 pt-2">
+                        <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit']) ?>
+                    </div>
+                    <div class="mt-4 pt-2">
+                        <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'btn bg-gradient-cancel ml-1']) ?>
+                    </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit']) ?>
-                <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'btn bg-gradient-cancel ml-1']) ?>
             </div>
         </div>
         <?= $this->Form->end() ?>
@@ -51,7 +53,7 @@
         <div class="row pl-3">
             <div class="template_file_vendorline mt-2" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
             <a href="<?= $this->Url->build('/') ?>webroot/templates/line_master_upload.xlsx" target="_blank"
-                    rel="noopener noreferrer" class="bulk_upload"><i class="fa fa-solid fa-file-download pr-2"></i>Master Template
+                    rel="noopener noreferrer" class="bulk_upload"><i class="fa fa-solid fa-file-download"></i>
                 </a>
             </div>
             <div class="pl-2 mt-2">
@@ -92,9 +94,11 @@
     $('#OpenImgUpload').click(function() {
         $('#bulk_file').trigger('click');
     });
-    $('#bulk_file').change(function() {
-        var file = $(this).prop('files')[0].name;
-        $("#filessnames").append(file);
+    $('#bulk_file').change(function () {
+        var file = $(this).prop('files')[0];
+        var fileName = file ? file.name : '';
+
+        $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
     });
 
     $("#id_exportme").click(function() {

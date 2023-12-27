@@ -191,11 +191,13 @@
     $(document).ready(function() {
 
         $('#OpenImgUpload').click(function() {
-            $('#vendorCodeInput').trigger('click');
+        $('#bulk_file').trigger('click');
         });
-        $('#vendorCodeInput').change(function() {
-            var file = $(this).prop('files')[0].name;
-            $("#filessnames").empty().append(file);
+        $('#bulk_file').change(function () {
+            var file = $(this).prop('files')[0];
+            var fileName = file ? file.name : '';
+
+            $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
         });
 
         setTimeout(function() {

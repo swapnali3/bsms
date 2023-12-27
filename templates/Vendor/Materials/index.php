@@ -13,7 +13,7 @@
 <?= $this->Html->css('bootstrap-multiselect') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
 <?= $this->Html->css('dropdown-filter') ?>
-<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?>
+<!-- <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?> -->
 <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
 <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 <div class="row">
@@ -35,7 +35,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="id_material">Material</label><br>
                         <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                             <?php if (isset($materials)) : ?>
@@ -61,8 +61,8 @@
                     <div class="col-1 mt-4 pt-2">
                         <button class="btn bg-gradient-button" type="submit" id="id_sub">Search</button>
                     </div>
-                    <div class="col-6 mt-4 pt-2">
-                    </div>
+                    <!-- <div class="col-6 mt-4 pt-2">
+                    </div> -->
                 </div>
                 <?= $this->Form->end() ?>
             </div>
