@@ -296,7 +296,7 @@ baseurl+                        val.certificate_file
                                                 </div>
                                                 <div class="col-6">
                                                     <a class="btn btn-app btn-block" target="_blank" href="`+val.power_available_file+`">
-                                                        <b>Power Available</b><br>
+                                                        <b>Power Consumption</b><br>
                                                         `+val.power_available+`
                                                       </a>
                                                 </div>

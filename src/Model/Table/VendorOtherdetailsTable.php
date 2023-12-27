@@ -65,8 +65,7 @@ class VendorOtherdetailsTable extends Table
         $validator
             ->scalar('six_sigma')
             ->maxLength('six_sigma', 250)
-            ->requirePresence('six_sigma', 'create')
-            ->notEmptyString('six_sigma');
+            ->allowEmptyString('six_sigma');
 
         $validator
             ->scalar('six_sigma_file')
@@ -76,8 +75,7 @@ class VendorOtherdetailsTable extends Table
         $validator
             ->scalar('iso')
             ->maxLength('iso', 250)
-            ->requirePresence('iso', 'create')
-            ->notEmptyString('iso');
+            ->allowEmptyString('iso');
 
         $validator
             ->scalar('iso_file')

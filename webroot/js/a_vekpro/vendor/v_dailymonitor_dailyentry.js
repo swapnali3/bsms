@@ -28,7 +28,8 @@ dtable = $("#example1").DataTable({
         { extend: 'copy' },
         {
             extend: 'excel',
-            text: 'Export as Text',
+            text: 'Export',
+            title :'',
             customize: function (xlsx) {
                 // Modify the exported data here
                 var sheet = xlsx.xl.worksheets['sheet1.xml'];

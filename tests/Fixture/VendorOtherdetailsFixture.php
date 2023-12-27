@@ -29,8 +29,8 @@ class VendorOtherdetailsFixture extends TestFixture
                 'declaration_file' => 'Lorem ipsum dolor sit amet',
                 'fully_manufactured' => 'Lorem ipsum dolor sit amet',
                 'suppliers_name' => 'Lorem ipsum dolor sit amet',
-                'added_date' => '2023-09-13 20:01:36',
-                'updated_date' => '2023-09-13 20:01:36',
+                'added_date' => '2023-12-26 18:32:14',
+                'updated_date' => '2023-12-26 18:32:14',
             ],
         ];
         parent::init();

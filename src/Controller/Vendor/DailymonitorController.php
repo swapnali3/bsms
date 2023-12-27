@@ -224,6 +224,7 @@ class DailymonitorController extends VendorAppController
         $this->loadModel("ProductionLines");
         $this->loadModel("LineMasters");
         $this->loadModel("VendorFactories");
+        $this->loadModel("StockUploads");
 
         $response['status'] = 0;
         $response['message'] = 'upload fail';
@@ -247,9 +248,6 @@ class DailymonitorController extends VendorAppController
                     for ($row = 2; $row <= $highestRow; $row++) {
                         $tmp['sap_vendor_code']  = $session->read('vendor_code');
                         $tmp['status'] = 1;
-                        if($highestColumnIndex == 6) {
-                            $tmp['status'] = 3;
-                        }
                         $status = true;
                         $facError = false;
                         $target = true;
@@ -280,15 +278,6 @@ class DailymonitorController extends VendorAppController
                                             'vendor_factory_id' => $tmp['vendor_factory_id'],
                                             'name' => $value
                                         ])->first();
-                                        unset($tmp['vendor_factory_id']);
-                                    if ($lm) {
-                                        $pl = $this->ProductionLines->find()
-                                            ->where([
-                                                'sap_vendor_code' => $session->read('vendor_code'),
-                                                'line_master_id' => $lm->id
-                                            ])->first();
-                                            $tmp['production_line_id'] = $pl ? $pl->id : null;
-                                    }
                                 }
                                 $datas['line'] = $value;
                             } else if ($col == 3) {
@@ -302,6 +291,19 @@ class DailymonitorController extends VendorAppController
                                 $datas['material'] = $value;
                                 $datas['material_description'] = $mat ? $mat->description : '-';
                                 $datas['uom'] = $mat ? $mat->uom : '-';
+
+                                if ($lm) {
+                                    $pl = $this->ProductionLines->find()
+                                        ->where([
+                                            'sap_vendor_code' => $session->read('vendor_code'),
+                                            'line_master_id' => $lm->id,
+                                            'vendor_factory_id' => $tmp['vendor_factory_id'],
+                                            'material_id' => $tmp['material_id']
+                                        ])->first();
+                                        $tmp['production_line_id'] = $pl ? $pl->id : null;
+                                }
+                                unset($tmp['vendor_factory_id']);
+
                             } else if ($col == 4) {
                                 $tmp['target_production'] = $value;
                                 $datas['target_production'] = $value;
@@ -311,18 +313,16 @@ class DailymonitorController extends VendorAppController
                             } else if ($col == 5) {
                                 $tmp['plan_date'] = date('Y-m-d', strtotime($value));
                                 $datas['plan_date'] = date('d-m-Y', strtotime($value));
-                                // if($highestColumnIndex == 6) {
-                                //     if($datas['plan_date'] != date('Y-m-d')) {
-                                //         $validDate = false;
-                                //     }
-                                // }
-                            } else if($highestColumnIndex == 6 && $col == 6) {
+                            } else if($highestColumnIndex >= 6 && $col == 6) {
                                 $tmp['confirm_production'] = $value;
                                 $datas['confirm_production'] = $value;
                                 if ($value < 1 || $value == "" || $value == null) {
                                     $confirm = false;
                                 } 
                             }
+                        }
+                        if($highestColumnIndex >= 6) {
+                            $tmp['status'] = 3;
                         }
 
                         $datas['error'] = '';
@@ -332,7 +332,7 @@ class DailymonitorController extends VendorAppController
                         if(!$target) {
                             $datas['error'] = 'Invalid target value';
                         }
-                        if($highestColumnIndex == 6 && !$confirm) {
+                        if($highestColumnIndex >= 6 && !$confirm) {
                             $datas['error'] = 'Invalid confirm value';
                         }
                         
@@ -340,7 +340,18 @@ class DailymonitorController extends VendorAppController
                             $datas['error'] = 'Only today\'s confirmation allowed';
                         }
 
+                        if($highestColumnIndex >= 6) {
+                            $cont = $this->Dailymonitor->find()->where(['production_line_id' => $tmp['production_line_id'],
+                            'material_id' => $tmp['material_id'],
+                            'production_line_id' => $tmp['production_line_id'], 'plan_date' => $tmp['plan_date'], 'status' => 3])->count();
+
+                            if($cont) {
+                                $datas['error'] = 'Production Already Confirmed';
+                            }
+                        }
+
                         $planner[] = $datas;
+
                         if(empty($datas['error'])) {
                             $uploadData[] = $tmp;   
                         }
@@ -353,10 +364,25 @@ class DailymonitorController extends VendorAppController
 
                         foreach($uploadData as $row) {
                             $upsertQuery->values($row);
+                            //print_r($row); exit;
+                            if($highestColumnIndex >= 6) {
+                                $stockUpload = $this->StockUploads->find()
+                                ->where([
+                                    'sap_vendor_code' => $session->read('vendor_code'),
+                                    'material_id' => $row['material_id']
+                                ])
+                                ->first();
+
+                                $stockUpload->current_stock = $stockUpload->current_stock + $tmp['confirm_production'];
+                                $stockUpload->production_stock = $stockUpload->production_stock + $tmp['confirm_production'];
+                                $this->StockUploads->save($stockUpload);
+                            }
                         }
-                        if($highestColumnIndex == 6) {
+
+                        if($highestColumnIndex >= 6) {
                             $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `confirm_production`=VALUES(`confirm_production`), `status`=VALUES(`status`)')
                             ->execute();
+
                         } else {
                             $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `target_production`=VALUES(`target_production`)')
                             ->execute();
