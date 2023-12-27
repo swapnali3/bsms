@@ -35,6 +35,7 @@ class PurchaseOrdersController extends BuyerAppController
     public function index()
     {
         $this->set('headTitle', 'Purchase Order List');
+        $session = $this->getRequest()->getSession();
         $this->loadModel('PoHeaders');
         $this->loadModel('PoFooters');
         $this->loadModel('AsnHeaders');
@@ -44,7 +45,11 @@ class PurchaseOrdersController extends BuyerAppController
         $this->loadModel('Materials');
         
         $vendorList = $this->VendorTemps->find('all')->select(['sap_vendor_code', 'name'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
-        $poList = $this->PoHeaders->find('all')->toArray();
+        $poList = $this->PoHeaders->find('all')
+        ->select(['po_no'])
+        ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code'])
+        ->where([ 'VendorTemps.company_code_id' => $session->read('company_code_id'), 'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id') ])->toArray();
+
         $materialList = $this->Materials->find('all')->toArray();
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
         $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
@@ -120,9 +125,9 @@ class PurchaseOrdersController extends BuyerAppController
             }
             $conn = ConnectionManager::get('default');
         }
-
+        // echo '<pre>';print_r($conditions);exit;
         $conn = ConnectionManager::get('default');
-        $material = $conn->execute("select * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, po_item_schedules.received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', a.asn_no,
+        $material = $conn->execute("select distinct * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, po_item_schedules.received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', a.asn_no,
         case
             when a.status = 3 then 'Received' else
             case when a.status = 2 then 'In-Transit' else
@@ -137,7 +142,7 @@ class PurchaseOrdersController extends BuyerAppController
         from po_headers
         join po_footers on po_footers.po_header_id = po_headers.id
         left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
-        left join materials on materials.code = po_footers.material
+        left join materials on materials.code = po_footers.material and materials.sap_vendor_code = vendor_temps.sap_vendor_code
         left join po_item_schedules on po_item_schedules.po_header_id = po_headers.id and po_item_schedules.po_footer_id = po_footers.id
         left join asn_footers on asn_footers.po_schedule_id=po_item_schedules.id  and asn_footers.po_footer_id = po_footers.id
         left join (select asn_headers.status, asn_no, po_header_id, asn_footers.id as asn_footer_id, po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_headers.id and asn_footer_id = asn_footers.id ".$conditions." ) as a ". $statusconditions);
