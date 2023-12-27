@@ -47,7 +47,7 @@ class DailymonitorController extends VendorAppController
         $prd_lines = $this->LineMasters->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
         
         $conn = ConnectionManager::get('default');
-        $query = $conn->execute('select materials.* from dailymonitor
+        $query = $conn->execute('select  distinct materials.id, materials.code, materials.description from dailymonitor
         left join materials on materials.id = dailymonitor.material_id
         where materials.sap_vendor_code = "'.$session->read('vendor_code').'"');
         $materials = $query->fetchAll('assoc');
@@ -172,7 +172,7 @@ class DailymonitorController extends VendorAppController
         $vendor_fty = $this->VendorFactories->find('all')->where(['vendor_temp_id="'.$vendor[0]->id.'"' ])->toArray();
 
         $conn = ConnectionManager::get('default');
-        $query = $conn->execute('select materials.* from dailymonitor
+        $query = $conn->execute('select distinct materials.id, materials.code, materials.description from dailymonitor
         left join materials on materials.id = dailymonitor.material_id
         where materials.sap_vendor_code = "'.$session->read('vendor_code').'"');
         $materials = $query->fetchAll('assoc');
