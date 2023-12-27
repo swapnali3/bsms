@@ -119,6 +119,10 @@ class PurchaseOrdersController extends VendorAppController
                 if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']) and !isset($request['status']) and !isset($request['po_no'])){ $conditions .= " and po_headers.created_on>='".$search." 00:00:00'"; }
                 else{ $conditions .= " and po_headers.created_on>='".$search." 00:00:00'"; }
             }
+            if(isset($request['delivery_date']) && !empty($request['delivery_date'])) {
+                $search = $request['delivery_date'];
+                $conditions .= " and po_item_schedules.delivery_date >='".$search." 00:00:00'";
+            }
             if(isset($request['status'])) {
                 $search = '';
                 foreach ($request['status'] as $mat) { $search .= "'" . $mat . "',"; }

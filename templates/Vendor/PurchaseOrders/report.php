@@ -42,6 +42,10 @@
                 <input class="form-control" type="date" name="po_no_date" id="id_po_no_date">
             </div>
             <div class="col-sm-12 col-md-3 col-lg-2">
+                <label for="id_dd">Delivery Date</label><br>
+                <input class="form-control" type="date" name="delivery_date" id="id_dd">
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-2">
                 <label for="id_segment">Segment</label><br>
                 <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
                     <?php if (isset($segment)) : ?>
