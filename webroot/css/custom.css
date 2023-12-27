@@ -1096,7 +1096,7 @@ span.otp-send-email { color: #121212 !important;}
     border-top: 3px solid #F7941D !important;
 }
 
-.purchase-order .po-code b { font-size: 1rem !important;}
+.purchase-order .po-code b,.pono b { font-size: .9rem !important;}
 
 /* .note-btn[data-original-title="Picture"], */
 .note-btn[data-original-title="Video"],

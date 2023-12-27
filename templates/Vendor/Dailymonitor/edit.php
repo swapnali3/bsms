@@ -24,12 +24,12 @@
             <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <div class="form-group">
-                        <?php echo $this->Form->control('production_line_id', array('class' => 'form-control w-100', 'options' => $productionline, 'style' => "height: unset !important;", 'disabled')); ?>
+                        <?php echo $this->Form->control('production_line_id', array('class' => 'form-control w-100', 'options' => $productionline,  'disabled')); ?>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <div class="form-group">
-                        <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial, 'style' => "height: unset !important;", 'empty' => 'Please Select', 'disabled')); ?>
+                        <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100', 'options' => $vendor_mateial,  'empty' => 'Please Select', 'disabled')); ?>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3">
