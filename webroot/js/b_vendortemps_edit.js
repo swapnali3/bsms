@@ -1,8 +1,18 @@
-$('#OpenImgUpload').click(function () { $('#vendorCodeInput').trigger('click'); });
+// $('#OpenImgUpload').click(function () { $('#vendorCodeInput').trigger('click'); });
 
+// $('#vendorCodeInput').change(function () {
+//   var file = $(this).prop('files')[0].name;
+//   $("#filessnames").append(file);
+// });
+
+$('#OpenImgUpload').click(function() {
+  $('#vendorCodeInput').trigger('click');
+});
 $('#vendorCodeInput').change(function () {
-  var file = $(this).prop('files')[0].name;
-  $("#filessnames").append(file);
+  var file = $(this).prop('files')[0];
+  var fileName = file ? file.name : '';
+
+  $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
 });
 
 var Toast = Swal.mixin({

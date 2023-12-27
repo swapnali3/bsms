@@ -66,7 +66,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                     <div class="d-flex justify-content-end">
                         
                             <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_buyer.xlsx"
-                                download class="material_stock_file" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom"><i class="fa fa-solid fa-file-download"></i></a>
+                                download class="material_stock_file" data-toggle="tooltip" data-original-title="Download Template" data-placement="left"><i class="fa fa-solid fa-file-download"></i></a>
                         
                     </div>
                     <div class="pl-2 pr-0">
@@ -263,11 +263,13 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
         $("input[name=_csrfToken]").val(csrf);
 
         $('#OpenImgUpload').click(function() {
-            $('#bulk_file').trigger('click');
+        $('#bulk_file').trigger('click');
         });
         $('#bulk_file').change(function () {
-            var file = $(this).prop('files')[0].name;
-            $("#filessnames").empty().append(file);
+            var file = $(this).prop('files')[0];
+            var fileName = file ? file.name : '';
+
+            $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
         });
 
         setTimeout(function () {

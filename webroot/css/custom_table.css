@@ -873,7 +873,8 @@ div.dataTables_wrapper div.dataTables_filter input { margin-left: 0 !important;}
 
 .main-footer { 
     padding: .5rem !important;
-    position: fixed ;
+    /* position: fixed ; */
+    z-index: 99999 !important;
     bottom: 0 ;
     left: 0 ;
     width: 100%;

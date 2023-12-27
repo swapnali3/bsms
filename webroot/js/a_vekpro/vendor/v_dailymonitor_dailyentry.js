@@ -82,11 +82,14 @@ $(".confirm-input").keyup(function () {
     if (val < 1) { $(this).val(""); }
 });
 
-$('#OpenImgUpload').click(function () { $('#bulk_file').trigger('click'); });
-
+$('#OpenImgUpload').click(function() {
+    $('#bulk_file').trigger('click');
+});
 $('#bulk_file').change(function () {
-    var file = $(this).prop('files')[0].name;
-    $("#filessnames").append(file);
+    var file = $(this).prop('files')[0];
+    var fileName = file ? file.name : '';
+
+    $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
 });
 
 $("#id_exportme").click(function () {

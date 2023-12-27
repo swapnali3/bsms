@@ -35,12 +35,12 @@
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <?php echo $this->Form->control('target_production', ['class' => 'form-control mb-3']); ?>
                 </div>
-                <div class="col-sm-12 col-md-4 col-lg-3">
+                <div class="col-sm-12 col-md-4 col-lg-2">
                     <div class="form-group">
                         <?php echo $this->Form->control('plan_date', array('class' => 'form-control w-100', 'disabled')); ?>
                     </div>
                 </div>
-                <div class="col-sm-4 col-md-4 col-lg-4 mt-4">
+                <div class="col-sm-4 col-md-4 col-lg-1 mt-4 pt-1">
                     <button type="button" class="btn btn-custom mt-1" onclick="showConfirmationModal()">Submit</button>
                 </div>
             </div>

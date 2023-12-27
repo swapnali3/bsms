@@ -1244,7 +1244,8 @@ body:not(.layout-fixed) .main-sidebar {
 
 .main-footer { 
     padding: .5rem !important;
-    position: fixed !important;
+    /* position: fixed !important; */
+    z-index: 99999 !important;
     bottom: 0 !important;
     left: 0 !important;
     width: 100% !important;

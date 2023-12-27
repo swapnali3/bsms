@@ -34,7 +34,7 @@
                         <label for="id_plan_date">Plan Date</label><br>
                         <input class="form-control" type="date" name="plan_date" id="id_plan_date">
                     </div>
-                    <div class="col-sm-12 col-md-3 col-lg-3">
+                    <div class="col-sm-12 col-md-3 col-lg-2">
                         <label for="id_prod_line">Production Line</label><br>
                         <select name="line[]" id="id_prod_line" multiple="multiple" class="form-control chosen">
                             <?php if (isset($prd_lines)) : ?>
@@ -46,7 +46,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-3 col-lg-4">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
                         <label for="id_material">Material</label><br>
                         <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                             <?php if (isset($materials)) : ?>

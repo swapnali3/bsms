@@ -6,7 +6,7 @@
 <?= $this->Html->css('bootstrap-multiselect') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
 <?= $this->Html->css('dropdown-filter') ?>
-<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?>
+<!-- <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?> -->
 <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
 <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
 <div class="row">
@@ -30,7 +30,7 @@
                         <label for="id_to">Date To</label>
                         <input type="date" name="till" class="form-control" id="id_to">
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="id_vendor">Vendor</label><br>
                         <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
                             <?php if (isset($vendor)) : ?>
@@ -43,7 +43,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="id_material">Material</label><br>
                         <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                             <?php if (isset($materials)) : ?>
@@ -56,7 +56,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-2 mt-2">
+                    <div class="col-2">
                         <label for="id_vendortype">Type</label><br>
                         <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
                             <?php if (isset($vendortype)) : ?>

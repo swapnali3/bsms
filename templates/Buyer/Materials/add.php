@@ -91,13 +91,15 @@
 
     });
 
-        $('#OpenImgUpload').click(function() {
-            $('#bulk_file').trigger('click');
-        });
-        $('#bulk_file').change(function() {
-            var file = $(this).prop('files')[0].name;
-            $("#filessnames").empty().append(file);
-        });
+    $('#OpenImgUpload').click(function() {
+        $('#bulk_file').trigger('click');
+    });
+    $('#bulk_file').change(function () {
+        var file = $(this).prop('files')[0];
+        var fileName = file ? file.name : '';
+
+        $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
+    });
 
         setTimeout(function() {
             $('.success').fadeOut('slow');

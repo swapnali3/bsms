@@ -37,7 +37,7 @@
                         <?= $this->Form->control('upload_file', [
                                 'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
                         <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
-                        <!-- <span id="filessnames"></span> -->
+                        <span id="filessnames"></span>
                     </div>
                     <div class="pl-2 pr-2">
                         <button class="btn bg-gradient-submit" id="id_import" type="button">
@@ -304,9 +304,11 @@
     $('#OpenImgUpload').click(function() {
         $('#bulk_file').trigger('click');
     });
-    $('#bulk_file').change(function() {
-        var file = $(this).prop('files')[0].name;
-        $("#filessnames").append(file);
+    $('#bulk_file').change(function () {
+        var file = $(this).prop('files')[0];
+        var fileName = file ? file.name : '';
+
+        $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
     });
 
     $("#id_import").click(function() {
