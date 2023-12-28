@@ -45,7 +45,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" alt=""
+                            <img src="http://apar.ftspl.in/webroot/img/apar_logo180.png" alt=""
                                 style="width: 180px; max-width: 180px; height: auto; display: block;">
                         </td>
                         <!-- <td valign="middle" class="hero bg_white" style="border-left: 1px solid rgb(19, 58, 88);"></td> -->
@@ -98,7 +98,7 @@
                 collaboration.</p>
         </div>
         <div class="content">
-            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 100px; height: auto; display: block;">
+            <img src="http://apar.ftspl.in/webroot/img/apar_logo180.png" style="width: 100px; max-width: 100px; height: auto; display: block;">
             <h3>APAR Industries Limited 18</h3>
             <h5>
                 TTC.,MIDC Industrial Area, Thane Belapur Road,
