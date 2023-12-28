@@ -45,7 +45,7 @@ function poform(search = "") {
             if (response.status == "success") {
                 $.each(response.message, function (key, val) {
                     var vendor_tmp = val['V'].name
-                    if ((vendor_tmp).length > 22 ){ vendor_tmp = vendor_tmp.substring(0, (vendor_tmp).length - 22) + '...'; }
+                    if ((vendor_tmp).length > 22 ){ vendor_tmp = vendor_tmp.substring(0, (vendor_tmp).length - ((vendor_tmp).length - 22)) + '...'; }
                     $("#poItemss").append(
                         `<div class="po-box details-control" data-id="` + val.id + `">
                             <div class="pono" style="display: flex; align-items: center;">
