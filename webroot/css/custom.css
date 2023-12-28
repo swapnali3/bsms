@@ -877,9 +877,9 @@ div#past_messages::-webkit-scrollbar-track {
     color: #F7941D !important;
 }
 
-.purchase-order .po-box .pono {
+/* .purchase-order .po-box .pono {
     padding-bottom: 5px;
-}
+} */
 
 /* .purchase-order #example2 thead {
     background-color: #b0c235 !important
@@ -1096,7 +1096,9 @@ span.otp-send-email { color: #121212 !important;}
     border-top: 3px solid #F7941D !important;
 }
 
-.purchase-order .po-code b,.pono b { font-size: .9rem !important;}
+.pono b { font-size: .9rem !important;}
+
+.purchase-order .po-code b { font-size: .7rem !important;}
 
 /* .note-btn[data-original-title="Picture"], */
 .note-btn[data-original-title="Video"],

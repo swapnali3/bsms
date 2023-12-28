@@ -66,7 +66,7 @@ function poform(search = "") {
                         val.sap_vendor_code +
                         `</b></small>
                                             </div>
-                                            <div class="po-code pt-1">
+                                            <div class="po-code">
                                                 
                                                 <small><b>` +
                         val.name +
