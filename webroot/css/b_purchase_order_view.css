@@ -34,7 +34,7 @@ div#modal-cancel .btn {
 }
 
 
-.po-box:hover .po-code-block {
+/* .po-box:hover .po-code-block {
     display: block !important;
     transition: all ease 1s !important;
 }
@@ -53,7 +53,7 @@ div#modal-cancel .btn {
     backdrop-filter: blur(30px); 
     top: 56%;
     left: 0;
-}
+} */
 
 
  

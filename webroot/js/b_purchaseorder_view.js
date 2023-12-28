@@ -54,20 +54,20 @@ function poform(search = "") {
                         `<div class="po-box details-control" data-id="` +
                         val.id +
                         `">
-                                            <div class="pono">
-                                                <small class="mb-0"> PO No </small><br>
-                                                <b>` +
+                        <div class="pono" style="display: flex; align-items: center;">
+                                                <small class="mb-0"> PO No:   </small><br>
+                                                <small class="pl-1"><b>` +
                         val.po_no +
-                        `</b>
+                        `</b></small>
                                             </div>
-                                            <div class="po-code po-code-block pl-3 ml-1" style="display:none">
-                                                <small class="mb-0"> Vendor Code </small><br>
-                                                <small><b>` +
+                                            <div class="po-code po-code-block" style="display: flex; align-items: center;">
+                                                <small class="mb-0"> Vendor Code: </small><br>
+                                                <small class="pl-1"><b>` +
                         val.sap_vendor_code +
                         `</b></small>
                                             </div>
-                                            <div class="po-code">
-                                                <small class="mb-0"> Vendor Name </small><br>
+                                            <div class="po-code pt-1">
+                                                
                                                 <small><b>` +
                         val.name +
                         `</b></small>
