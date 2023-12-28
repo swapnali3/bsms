@@ -852,7 +852,7 @@ div#past_messages::-webkit-scrollbar-track {
 
 .purchase-order .po-box {
     border-right: 1px solid #e4e4e4;
-    padding: 5px 20px;
+    padding: 5px 12px;
     min-width: 170px;
     cursor: pointer;
     color: #444;

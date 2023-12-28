@@ -32,20 +32,20 @@
 
                         </div>
                     </div>
-                    <div class="col-sm-8 col-md-3">
+                    <div class="col-sm-8 col-md-3 col-lg-3">
                         <div class="form-group">
                             <?php echo $this->Form->control('line_master_id', array('class' => 'form-control w-100', 'options' => $lineMasterList, 'empty' => 'Please Select', 'label' => 'Line')); ?>
                         </div>
                     </div>
 
 
-                    <div class="col-sm-8 col-md-3">
+                    <div class="col-sm-8 col-md-3 col-lg-3">
                         <div class="form-group">
                             <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100 chosen', 'options' => $vendor_mateial, 'empty' => 'Please Select', 'label' => 'Material')); ?>
                         </div>
                     </div>
   
-                    <div class="col-sm-8 col-md-2">
+                    <div class="col-sm-8 col-md-2 col-lg-2">
                         <div class="form-group">
                             <?php echo $this->Form->control('capacity', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'div' => 'form-group', 'required', 'label' => 'Capacity (Per Day)')); ?>
                         </div>
@@ -235,8 +235,13 @@
     $("#capacity").keyup(function () {
         var val = $(this).val();
         console.log(val);
-        if (val > capacityBal) {
-            $(this).val(capacityBal);
+        // if (val > capacityBal) {
+        //     $(this).val(capacityBal);
+        // }
+        var numericValue = parseFloat(val);
+
+        if (isNaN(numericValue) || numericValue < 1) {
+            $(this).val("");
         }
     });
 
