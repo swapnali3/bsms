@@ -62,7 +62,7 @@ class PurchaseOrdersController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $vendorList = $this->VendorTemps->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
         $poList = $this->PoHeaders->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
-        $materialList = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+        $materialList = $this->Materials->find('all')->select(['code', 'description'])->distinct(['code', 'description'])->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
         $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
 
@@ -90,8 +90,8 @@ class PurchaseOrdersController extends VendorAppController
                 $search = '';
                 foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
-                else{ $conditions .= " and materials.id in (".$search.")"; }
+                if(!isset($request['vendor'])){ $conditions .= " and materials.code in (".$search.")"; }
+                else{ $conditions .= " and materials.code in (".$search.")"; }
             }
             if(isset($request['vendortype'])) {
                 $search = '';

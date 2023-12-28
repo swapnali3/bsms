@@ -50,7 +50,7 @@ class PurchaseOrdersController extends BuyerAppController
         ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code'])
         ->where([ 'VendorTemps.company_code_id' => $session->read('company_code_id'), 'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id') ])->toArray();
 
-        $materialList = $this->Materials->find('all')->toArray();
+        $materialList = $this->Materials->find('all')->select(['code', 'description'])->distinct(['code', 'description'])->toArray();
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
         $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
 
@@ -82,8 +82,8 @@ class PurchaseOrdersController extends BuyerAppController
                 $search = '';
                 foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                if(!isset($request['vendor'])){ $conditions .= " and materials.id in (".$search.")"; }
-                else{ $conditions .= " and materials.id in (".$search.")"; }
+                if(!isset($request['vendor'])){ $conditions .= " and materials.code in (".$search.")"; }
+                else{ $conditions .= " and materials.code in (".$search.")"; }
             }
             if(isset($request['vendortype'])) {
                 $search = '';
