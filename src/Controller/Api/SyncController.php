@@ -338,6 +338,7 @@ class SyncController extends ApiAppController
         $this->loadModel("PoFooters");
         $this->loadModel("Materials");
         $this->loadModel("PoItemSchedules");
+        $this->loadModel("PaymentTerms");
         $this->loadModel("Buyers");
         $this->loadModel('VendorTemps');
         
@@ -500,18 +501,20 @@ class SyncController extends ApiAppController
 
                                 if($isNewPo) {
                                     $vendorTemps = $this->VendorTemps->find('all')->where(['sap_vendor_code' => $row->LIFNR ])->first();
-                                    $po_ftr = $this->PoFooters->find('all')->where(['PoFooters.po_header_id' => $po_header_id ])->toArray();
+                                    $ttlamt=0;
+                                    foreach ($row->ITEM as $item) { $ttlamt = $ttlamt + $item->NETPR; }
                                     $mailer = new Mailer('default');
                                     $mailer
                                         ->setTransport('smtp')
                                         ->setViewVars([
                                             'vendor_name' => $vendorTemps->name,
                                             'vendor_email' => $vendorTemps->email,
-                                            'po_header' => $row,
-                                            'po_footer' => $po_ftr,
+                                            'po_header' => $poInstance,
+                                            'po_footer' => $row->ITEM,
                                             'spt_email' => 'support@apar.in',
                                             'spt_contact' => '7718801906',
-                                            'ttlamt' => 900,
+                                            'ttlamt' => $ttlamt,
+                                            'pay_term'=>$this->PaymentTerms->find('all')->where(['code' => $poInstance->pay_terms ])->first()
                                             ]) 
                                         ->setFrom(Configure::read('MAIL_FROM'))
                                         ->setTo($vendorTemps->email)
