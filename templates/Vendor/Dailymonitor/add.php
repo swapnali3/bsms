@@ -84,7 +84,7 @@
         <?= $this->Form->end() ?>
     </div>
     <div class="col-12">
-        <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload']]) ?>
+        <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload-plan']]) ?>
         <div class="card">
             <div class="card-header">
                 <h5><b>Bulk Production Planner</b></h5>
@@ -225,7 +225,7 @@ $("#production-line-id").change(function () {
         var fd = new FormData($('#formUpload')[0]);
 
         $.ajax({
-            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'upload')); ?>",
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/dailymonitor', 'action' => 'upload-plan')); ?>",
             type: "post",
             dataType: 'json',
             processData: false, // important

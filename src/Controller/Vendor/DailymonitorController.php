@@ -309,6 +309,7 @@ class DailymonitorController extends VendorAppController
 
                             } 
                             if ($col == 4) {
+                                $value = intval($value);
                                 $tmp['target_production'] = $value;
                                 $datas['target_production'] = $value;
                                 if ($value < 1 || $value == "" || $value == null) {
@@ -351,6 +352,17 @@ class DailymonitorController extends VendorAppController
                             if($cont) {
                                 $datas['error'] = 'Production Already Confirmed';
                             }
+
+                            $stockUpload = $this->StockUploads->find()
+                            ->where([
+                                'sap_vendor_code' => $session->read('vendor_code'),
+                                'material_id' => $tmp['material_id']
+                            ])->count();
+
+                            if(!$stockUpload) {
+                                $datas['error'] = 'Stock not found';
+                            }
+
                         }
 
                         $planner[] = $datas;
@@ -379,7 +391,7 @@ class DailymonitorController extends VendorAppController
                                             'material_id' => $row['material_id']
                                         ])
                                         ->first();
-                                            $stockUpload->current_stock = $stockUpload->current_stock + $tmp['confirm_production'];
+                                        $stockUpload->current_stock = $stockUpload->current_stock + $tmp['confirm_production'];
                                         $stockUpload->production_stock = $stockUpload->production_stock + $tmp['confirm_production'];
                                         $this->StockUploads->save($stockUpload);
                                     }
@@ -396,6 +408,163 @@ class DailymonitorController extends VendorAppController
                             $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `target_production`=VALUES(`target_production`)')
                             ->execute();
                         }
+                    }
+
+                    $response['status'] = 1;
+                    $response['data'] = $planner;
+                    $response['message'] = 'file uploaded successfully';
+
+                } else {
+                    $response['status'] = 0;
+                    $response['message'] = 'file not uploaded';
+                }
+            } catch (\Exception $e) {
+                $response['status'] = 0;
+                $response['message'] = $e->getMessage();
+            }
+        }
+
+        echo json_encode($response);
+    }
+
+
+    public function uploadPlan()
+    {
+        $this->loadModel("Materials");
+        $this->loadModel("ProductionLines");
+        $this->loadModel("LineMasters");
+        $this->loadModel("VendorFactories");
+        $this->loadModel("StockUploads");
+
+        $response['status'] = 0;
+        $response['message'] = 'upload fail';
+        $this->autoRender = false;
+        $session = $this->getRequest()->getSession();
+
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            try {
+                $uploadData = [];
+                if (isset($_FILES['upload_file']) && $_FILES['upload_file']['name'] != "" && isset($_FILES['upload_file']['name'])) {
+                    $inputFileType = \PhpOffice\PhpSpreadsheet\IOFactory::identify($_FILES['upload_file']['tmp_name']);
+                    $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader($inputFileType);
+                    $spreadsheet = $reader->load($_FILES['upload_file']['tmp_name']);
+                    $worksheet = $spreadsheet->getActiveSheet();
+                    $highestRow = $worksheet->getHighestRow();
+                    $highestColumn = $worksheet->getHighestColumn();
+                    $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
+
+                    $tmp = [];
+
+                    for ($row = 2; $row <= $highestRow; $row++) {
+                        $tmp['sap_vendor_code']  = $session->read('vendor_code');
+                        $tmp['status'] = 1;
+                        $status = true;
+                        $facError = false;
+                        $target = true;
+                        for ($col = 1; $col <= $highestColumnIndex; $col++) {
+                            $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+                            if($col == 1) {
+                                if($value) {
+                                    $factory = $this->VendorFactories->find('list')
+                                    ->select(['id'])
+                                    ->where(['factory_code' => $value, 'vendor_temp_id' => $session->read('vendor_id')])
+                                    ->first();
+                                    $tmp['vendor_factory_id'] = $factory ? $factory : null;
+                                    $datas['factory_code'] = $value;
+                                    if(!$factory) {
+                                        $facError = true;
+                                    }
+                                } else {
+                                    $facError = true;
+                                }
+
+                            } 
+                            if ($col == 2) {
+                                if(!$facError) {
+                                    $lm = $this->LineMasters->find()
+                                        ->where([
+                                            'sap_vendor_code' => $session->read('vendor_code'),
+                                            'vendor_factory_id' => $tmp['vendor_factory_id'],
+                                            'name' => $value
+                                        ])->first();
+                                }
+                                $datas['line'] = $value;
+                            } 
+                            if ($col == 3) {
+                                $mat = $this->Materials->find()
+                                    ->where([
+                                        'sap_vendor_code' => $session->read('vendor_code'),
+                                        'code' => $value
+                                    ])->first();
+                                
+                                $tmp['material_id'] = $mat ? $mat->id : null;
+                                $datas['material'] = $value;
+                                $datas['material_description'] = $mat ? $mat->description : '-';
+                                $datas['uom'] = $mat ? $mat->uom : '-';
+
+                                if ($lm) {
+                                    $pl = $this->ProductionLines->find()
+                                        ->where([
+                                            'sap_vendor_code' => $session->read('vendor_code'),
+                                            'line_master_id' => $lm->id,
+                                            'vendor_factory_id' => $tmp['vendor_factory_id'],
+                                            'material_id' => $tmp['material_id']
+                                        ])->first();
+
+                                        $tmp['production_line_id'] = $pl ? $pl->id : null;
+                                }
+                                unset($tmp['vendor_factory_id']);
+
+                            } 
+                            if ($col == 4) {
+                                $value = intval($value);
+                                $tmp['target_production'] = $value;
+                                $datas['target_production'] = $value;
+                                if ($value < 1 || $value == "" || $value == null) {
+                                    $target = false;
+                                } 
+                            }  
+                            if ($col == 5) {
+                                $tmp['plan_date'] = date('Y-m-d', strtotime($value));
+                                $datas['plan_date'] = date('d-m-Y', strtotime($value));
+                            }
+                        }
+                        
+                        $datas['error'] = '';
+                        if($facError) {
+                            $datas['error'] = 'Invalid factory code';
+                        }
+                        if(!$target) {
+                            $datas['error'] = 'Invalid target value';
+                        }
+
+                        if(empty($datas['error'])) {
+                            $cont = $this->Dailymonitor->find()->where(['sap_vendor_code' => $session->read('vendor_code'),
+                            'production_line_id' => $tmp['production_line_id'],
+                            'material_id' => $tmp['material_id'], 'plan_date' => $tmp['plan_date']])->count();
+
+                            if($cont) {
+                                $datas['error'] = 'Production Plan Exists';
+                            }
+                        }
+
+                        $planner[] = $datas;
+
+                        if(empty($datas['error'])) {
+                            $uploadData[] = $tmp;   
+                        }
+                    }
+
+                    if(!empty($uploadData)) {
+                        $columns = array_keys($uploadData[0]);
+                        $upsertQuery = $this->Dailymonitor->query();
+                        $upsertQuery->insert($columns);
+
+                        foreach($uploadData as $row) {
+                            $upsertQuery->values($row);
+                        }
+                        $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `target_production`=VALUES(`target_production`)')
+                        ->execute();
                     }
 
                     $response['status'] = 1;
