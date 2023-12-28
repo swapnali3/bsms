@@ -402,7 +402,7 @@ class StockUploadsController extends BuyerAppController
                                     if ($this->StockUploads->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id']])) { 
                                         $matError = true;
                                         $datas['error'] = 'Already stock exists';
-                                    } else if ($this->Dailymonitor->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id']])) { 
+                                    } else if ($this->Dailymonitor->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id'], 'status' => 3])) { 
                                         $matError = true;
                                         $datas['error'] = 'Production Detail Exists';
                                     }
