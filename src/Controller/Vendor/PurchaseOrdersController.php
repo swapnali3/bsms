@@ -1084,7 +1084,7 @@ class PurchaseOrdersController extends VendorAppController
             foreach ($poHeader as &$row) {
                 foreach ($request['footer_id'] as $key => $footer_id) {
                     if ($row->PoFooters['id'] == $footer_id && $row->PoItemSchedules['id'] == $request['po_schedule_id'][$key]) {
-                        $row->actual_qty = $request['footer_id_qty'][$key];
+                        $row->ship_qty = $request['footer_id_qty'][$key];
                     }
                 }
             }

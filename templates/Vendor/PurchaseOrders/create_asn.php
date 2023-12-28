@@ -64,7 +64,7 @@
                                 <th>Material</th>
                                 <th>Delivery Date</th>
                                 <th>Short Text</th>
-                                <th>Pending Qty</th>
+                                <th>Schedule Qty</th>
                                 <th>Set Delivery Qty</th>
                             </tr>
                         </thead>

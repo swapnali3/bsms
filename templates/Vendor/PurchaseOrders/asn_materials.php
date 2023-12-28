@@ -193,7 +193,7 @@
                       <?= __('Short Text') ?>
                     </th>
                     <th>
-                      <?= __('Pending Qty') ?>
+                      <?= __('Schedule Qty') ?>
                     </th>
                     <th>
                       <?= __('Base Price') ?>
@@ -242,11 +242,11 @@
                       <div class="form-group mb-0">
                         <?= $this->form->control('po_footer_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoFooters']['id']]) ?>
                         <?= $this->form->control('schedule_id[]', ['label' => false, 'type' => 'hidden', 'value' => $row['PoItemSchedules']['id']]) ?>
-                        <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['actual_qty'], 'readonly' => 'readonly', 'class' => 'form-control form-control-sm check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'data-minstock'=>$row['current_stock'], 'max' => $row['actual_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
+                        <?= $this->form->control('qty[]', ['label' => false, 'value' => $row['ship_qty'], 'readonly' => 'readonly', 'class' => 'form-control form-control-sm check_qty', 'type' => 'number', 'required', 'data-item' => $row['PoFooters']['item'], 'min' => '0', 'data-minstock'=>$row['current_stock'], 'max' => $row['ship_qty'],  'div' => 'form-group', 'data-net-price' => $row['PoFooters']['net_price']]) ?>
                       </div>
                     </td>
                     <td class="net_value" id="net_value_<?= h($row['PoFooters']['item']) ?>">
-                      <?= ($row['PoFooters']['net_price'] * $row['actual_qty']) ?>
+                      <?= ($row['PoFooters']['net_price'] * $row['ship_qty']) ?>
                     </td>
                     <td><span id="current_stock">
                         <?php echo $row['current_stock'] ?>
@@ -497,7 +497,7 @@
           required: "Please enter a quantity",
           number: "Please enter a valid number",
           //maxlength: "Maximum length exceeded",
-          checkQty: "Current value is less than actual_qty"
+          checkQty: "Current value is less than shiping qty"
         }
       },
       errorElement: 'span',
