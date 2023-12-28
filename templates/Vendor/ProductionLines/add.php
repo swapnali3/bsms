@@ -213,13 +213,13 @@
                         $("#line-capacity").text(capacity);
                         $("#total").text(total);
                         $("#balance").text(capacityBal);
-                        if (capacityBal <= 0) {
+                        /*if (capacityBal <= 0) {
                             $("#submit-btn").attr('disabled', 'disabled');
                             $("#capacity").attr('disabled', 'disabled');
                         } else {
                             $("#submit-btn").removeAttr('disabled');
                             $("#capacity").removeAttr('disabled');
-                        }
+                        }*/
 
                     }
                 },
