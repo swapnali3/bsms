@@ -135,10 +135,8 @@ function sortCategoryAxis() {
 }
 
 
-// update data with random values each 1.5 sec
-// setInterval(function () {
-//   updateData();
-// }, 1500)
+xAxis3.get("renderer").labels.template.setAll({ fontSize: 12 });
+yAxis3.get("renderer").labels.template.setAll({ fontSize: 12 });
 
 function updateData() {
   am5.array.each(series3.dataItems, function (dataItem) {

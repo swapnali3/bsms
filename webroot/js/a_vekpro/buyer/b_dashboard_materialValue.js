@@ -161,6 +161,9 @@ function sortCategoryAxis() {
 // Set data
 var data4 = chartdiv4_data;
 
+xAxis4.get("renderer").labels.template.setAll({ fontSize: 12 });
+yAxis4.get("renderer").labels.template.setAll({ fontSize: 12 });
+
 yAxis4.data.setAll(data4);
 series4.data.setAll(data4);
 

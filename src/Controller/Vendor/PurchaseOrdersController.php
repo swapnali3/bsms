@@ -832,7 +832,8 @@ class PurchaseOrdersController extends VendorAppController
             ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
             ->leftJoin(['StockUploads' => 'stock_uploads'], ['StockUploads.material_id = Materials.id', 'PoHeaders.sap_vendor_code = StockUploads.sap_vendor_code', "vendor_factory_id = $factoryId"])
             //->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
-            ->where(['PoHeaders.id' => $id,'PoItemSchedules.status' => 1, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0']);
+            ->where(['PoHeaders.id' => $id,'PoItemSchedules.status' => 1, '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0'])
+            ->order(['delivery_date' => 'ASC']);
 
             $conn = ConnectionManager::get('default');
             $asnQty = $conn->execute("select item, sum(po_item_schedules.received_qty) as qty from po_headers

@@ -21,5 +21,6 @@ series.get("colors").set("colors", [
     am5.color(0xF7681D),
     am5.color(0xF7B81D)
   ]);
+series.labels.template.set("fontSize", 12);
 refresh_topVendor(chartdiv_data)
 series.appear(1000, 100);

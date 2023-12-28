@@ -206,7 +206,7 @@ class DashboardController extends BuyerAppController
         foreach($asnCounts as $status) { $asnDashboardCount[$status->status] = $status->count; }
 
         // Vendor By Order value
-        $topVendor = $conn->execute("select po_headers.sap_vendor_code as category, sum(po_footers.net_value) as value
+        $topVendor = $conn->execute("select CAST(po_headers.sap_vendor_code as UNSIGNED) as category, sum(po_footers.net_value) as value
         from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
         left join materials on materials.code = po_footers.material".$g1_filter."
         group by po_headers.sap_vendor_code
@@ -256,9 +256,7 @@ class DashboardController extends BuyerAppController
             // Filters
             'vendor', 'vendortype', 'segment',
             // Graphs
-            'topVendors', 'topMaterials', 'topMaterialByValues', 'orderByPeriods',
-            // Cards
-            // 'vendorDashboardCount'
+            'topVendors', 'topMaterials', 'topMaterialByValues', 'orderByPeriods'
         ));
     }
 
