@@ -193,7 +193,7 @@
                       <?= __('Short Text') ?>
                     </th>
                     <th>
-                      <?= __('Pending Qty') ?>
+                      <?= __('Schedule Qty') ?>
                     </th>
                     <th>
                       <?= __('Base Price') ?>

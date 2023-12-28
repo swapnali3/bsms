@@ -180,7 +180,7 @@ function format(rowData, factory_id) {
                         <th>Material</th>
                         <th>Delivery Date</th>
                         <th>Short Text</th>
-                        <th>Pending Qty</th>
+                        <th>Schedule Qty</th>
                         <th>Current Stock</th>
                         <th>Minimum Stock</th>
                         <th>Set Delivery Qty</th>
