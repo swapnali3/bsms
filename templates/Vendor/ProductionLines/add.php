@@ -144,7 +144,7 @@
         placeholder: 'Select',
         allowClear: true,
         tags: false,
-        tokenSeparators: [',', ' '],
+        tokenSeparators: [','],
     });
 
     $(document).ready(function() {

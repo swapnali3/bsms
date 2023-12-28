@@ -5,7 +5,7 @@ $('.chosen').select2({
     placeholder: 'Select',
     allowClear: true,
     tags: false,
-    tokenSeparators: [',', ' '],
+    tokenSeparators: [','],
     templateSelection: function (selection) {
         if (selection.element && $(selection.element).attr('data-select') !== undefined) {
             return $(selection.element).attr('data-select');

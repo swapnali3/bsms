@@ -276,7 +276,7 @@ $("#production-line-id").change(function () {
         placeholder: 'Select',
         allowClear: true,
         tags: false,
-        tokenSeparators: [',', ' '],
+        tokenSeparators: [','],
     });
     
 </script>
