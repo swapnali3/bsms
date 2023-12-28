@@ -69,36 +69,16 @@
             <p>Dear <?= $vendor_name ?>,
             </p>
 
-            <p>We are writing to confirm the creation of Purchase Order <?= $po_header->po_no ?> and to provide you with the delivery
-                schedule for the associated products/services.</p>
-
+            <p>We are writing to confirm the creation of Purchase Order <?= $po_header->po_no ?> and to provide you with the delivery schedule for the associated products/services.</p>
             <p>
                 <b>Purchase Order Details:</b><br>
                 <ul>
-                    <li>PO Number:
-                        <?= $po_header->po_no ?> - Details should be generated through system automatically to avoid manual
-                        intervention.
-                    </li>
-                    <li>PO Date:
-                        <?= $po_header->created_on ?> - Details should be generated through system automatically to avoid manual
-                        intervention.
-                    </li>
-                    <li>Vendor:
-                        <?= $vendor_name ?> - Details should be generated through system automatically to avoid manual
-                        intervention.
-                    </li>
-                    <li>Payment Terms:
-                        <?= $po_header->pay_terms ?> - Details should be generated through system automatically to avoid manual
-                        intervention.
-                    </li>
-                    <li>Currency:
-                        <?= $po_header->currency ?> - Details should be generated through system automatically to avoid manual
-                        intervention.
-                    </li>
-                    <li>Total Amount:
-                        <?= $ttlamt ?> - Details should be generated through system automatically to avoid manual
-                        intervention.
-                    </li>
+                    <li>PO Number: <?= $po_header->po_no ?></li>
+                    <li>PO Date: <?= $po_header->created_on->format('Y-m-d') ?></li>
+                    <li>Vendor: <?= $vendor_name ?></li>
+                    <li>Payment Terms: <?= $pay_term->description ?></li>
+                    <li>Currency: <?= $po_header->currency ?></li>
+                    <li>Total Amount: <?= $ttlamt ?></li>
                 </ul>
             </p>
             <?php if (isset($po_footer)) : ?>
@@ -106,10 +86,10 @@
                     <b>Product/Service Details:</b>
                     <?php foreach ($po_footer as $mat) : ?>
                         <ul>
-                            <li>Description: <?= h($mat->short_text) ?> - ( Drum/Bucket/Bottle/Carton/Lable/Coupon)</li>
-                            <li>Quantity: <?= h($mat->po_qty) ?></li>
-                            <li>Unit Price: <?= h($mat->net_price) ?></li>
-                            <li>Total Amount: <?= h($mat->net_value) ?></li>
+                            <li>Material: <b><?= h($mat->MATNR) ?></b> <?= h($mat->TXZ01) ?></li>
+                            <li>Quantity: <?= h($mat->MENGE) ?> <?= h($mat->MEINS) ?></li>
+                            <li>Unit Price: <?= h($mat->PEINH) ?></li>
+                            <li>Total Amount: <?= h($mat->NETPR) ?></li>
                         </ul>
                     <?php endforeach; ?>
                 </p>

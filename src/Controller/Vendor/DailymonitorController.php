@@ -109,23 +109,36 @@ class DailymonitorController extends VendorAppController
         $dailymonitor->confirm_production = $confirm_production;
         $dailymonitor->status= 3;
         
-        if ($this->Dailymonitor->save($dailymonitor)) { 
+        $hasStock = $this->StockUploads->find()
+                            ->where([
+                                'sap_vendor_code' => $session->read('vendor_code'),
+                                'material_id' => $dailymonitor->material_id
+                            ])->count();
+
+        if($hasStock) {
+            if ($this->Dailymonitor->save($dailymonitor)) { 
             
-            $stockUpload = $this->StockUploads->find()
-                ->where([
-                    'sap_vendor_code' => $session->read('vendor_code'),
-                    'material_id' => $dailymonitor->material_id
-                ])
-                ->first();
-
-            $stockUpload->current_stock = $stockUpload->current_stock + $confirm_production;
-            $stockUpload->production_stock = $stockUpload->production_stock + $confirm_production;
-            $this->StockUploads->save($stockUpload);
-
-            $response = ['status' => 1, 'message' => "Production confirmed successfully"];
+                $stockUpload = $this->StockUploads->find()
+                    ->where([
+                        'sap_vendor_code' => $session->read('vendor_code'),
+                        'material_id' => $dailymonitor->material_id
+                    ])
+                    ->first();
+    
+                $stockUpload->current_stock = $stockUpload->current_stock + $confirm_production;
+                $stockUpload->production_stock = $stockUpload->production_stock + $confirm_production;
+                $this->StockUploads->save($stockUpload);
+    
+                $response = ['status' => 1, 'message' => "Production confirmed successfully"];
+            } else {
+                $response = ['status' => 0, 'message' => 'Failed'];
+            }
+            
         } else {
-            $response = ['status' => 0, 'message' => 'Failed'];
+            $response = ['status' => 0, 'message' => 'Stock not found'];
         }
+
+        
         echo json_encode($response);
         exit;
     }
@@ -372,6 +385,8 @@ class DailymonitorController extends VendorAppController
                         }
                     }
 
+                    //echo '<pre>'; print_r($uploadData); exit;
+
                     if(!empty($uploadData)) {
                         if($highestColumnIndex >= 6) {
                             foreach($uploadData as $row) {
@@ -391,8 +406,8 @@ class DailymonitorController extends VendorAppController
                                             'material_id' => $row['material_id']
                                         ])
                                         ->first();
-                                        $stockUpload->current_stock = $stockUpload->current_stock + $tmp['confirm_production'];
-                                        $stockUpload->production_stock = $stockUpload->production_stock + $tmp['confirm_production'];
+                                        $stockUpload->current_stock = $stockUpload->current_stock + $row['confirm_production'];
+                                        $stockUpload->production_stock = $stockUpload->production_stock + $row['confirm_production'];
                                         $this->StockUploads->save($stockUpload);
                                     }
                                 }

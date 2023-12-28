@@ -224,6 +224,7 @@ class LineMastersController extends VendorAppController
     public function getFactoryLines($factoryId = null) {
         $this->autoRender = false;
         $this->loadModel("LineMasters");
+        $this->loadModel("Materials");
         $this->loadModel("StockUploads");
 
         $session = $this->getRequest()->getSession();
@@ -233,14 +234,20 @@ class LineMastersController extends VendorAppController
         ->select(['id', 'name'])
         ->where(['sap_vendor_code' => $sapVendor, 'vendor_factory_id' => $factoryId]);
 
-        $materialList = $this->StockUploads->find('all')
+        /*$materialList = $this->StockUploads->find('all')
         ->select(['Materials.id', 'Materials.code', 'Materials.description'])
         ->contain(['Materials'])
         ->where(['StockUploads.sap_vendor_code' => $sapVendor, 'vendor_factory_id' => $factoryId]);
+        */
+
+        $materialList = $this->Materials->find('all')
+        ->select(['id', 'code', 'description'])
+        ->where(['sap_vendor_code' => $sapVendor]);
+
 
         $materials = [];
         foreach($materialList as $mat) {
-            $materials[] = ['id' => $mat->material->id, 'code'=>$mat->material->code, 'description' => $mat->material->code .' - '. $mat->material->description];
+            $materials[] = ['id' => $mat->id, 'code'=>$mat->code, 'description' => $mat->code .' - '. $mat->description];
         }
 
         $response['status'] = 0;

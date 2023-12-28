@@ -38,7 +38,7 @@
   }
 </style>
 
-<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<?= $this->Html->script('amcharts/index.js') ?>
 <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>

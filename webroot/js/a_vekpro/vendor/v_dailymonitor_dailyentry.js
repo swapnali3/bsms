@@ -186,6 +186,11 @@ $('#confirmOkButton').on('click', function () {
                     icon: 'success',
                     title: resp.message
                 });
+            } else {
+                Toast.fire({
+                    icon: 'error',
+                    title: resp.message
+                });
             }
         },
         complete: function () {
