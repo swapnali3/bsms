@@ -28,26 +28,30 @@
 
                     <div class="col-sm-12 col-md-3 col-lg-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factory', 'required')); ?>
+                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control custom-required w-100', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factory', 'required'=>false)); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
 
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-3 col-lg-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('line_master_id', array('class' => 'form-control w-100', 'options' => $lineMasterList, 'empty' => 'Please Select', 'label' => 'Line')); ?>
+                            <?php echo $this->Form->control('line_master_id', array('class' => 'form-control custom-required w-100', 'options' => $lineMasterList, 'empty' => 'Please Select', 'label' => 'Line','required'=>false)); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
 
 
                     <div class="col-sm-8 col-md-3 col-lg-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100 chosen', 'options' => $vendor_mateial, 'empty' => 'Please Select', 'label' => 'Material')); ?>
+                            <?php echo $this->Form->control('material_id', array('class' => 'form-control custom-required w-100 chosen', 'options' => $vendor_mateial, 'empty' => 'Please Select', 'label' => 'Material', 'required'=>false)); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
   
                     <div class="col-sm-8 col-md-2 col-lg-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('capacity', array('type' => 'number', 'class' => 'form-control rounded-0 w-100', 'div' => 'form-group', 'required', 'label' => 'Capacity (Per Day)')); ?>
+                            <?php echo $this->Form->control('capacity', array('type' => 'number', 'class' => 'form-control custom-required rounded-0 w-100', 'div' => 'form-group', 'label' => 'Capacity (Per Day)','required'=>false)); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
 
@@ -74,9 +78,9 @@
                         <h6>Are you sure you want to Add?</h6>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn" style="border:1px solid #6610f2"
+                        <button type="button" class="btn bg-gradient-cancel"
                             data-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn" style="border:1px solid #28a745">Ok</button>
+                        <button type="submit" class="btn bg-gradient-submit">Ok</button>
                     </div>
                 </div>
             </div>
@@ -143,12 +147,63 @@
         tokenSeparators: [',', ' '],
     });
 
+    $(document).ready(function() {
+    $('.custom-required').on('input', function() {
+        validateField($(this));
+    });
 
-    function showConfirmationModal() {
-        if ($('#productionLineForm').valid()) {
-            checkRecordExists();
+    $('#submit-btn').on('click', function() {
+        $('.custom-required').each(function() {
+            validateField($(this));
+        });
+
+        if ($('.custom-required .error-message:visible').length === 0) {
+            console.log('Form submitted successfully!');
+        } else {
+            console.log('Form validation failed.');
+        }
+    });
+
+    function validateField($field) {
+        var value = $field.val();
+        var $errorMessage = $field.closest('.form-group').find('.error-message');
+
+        if (!value || value.trim() === '') {
+            $errorMessage.show();
+        } else {
+            $errorMessage.hide();
         }
     }
+});
+
+function showConfirmationModal() {
+    var formIsValid = validateForm();
+
+    if (formIsValid) {
+        $('#modal-sm').modal('show');
+    } else {
+        console.log('Please fill in all fields before submitting.');
+    }
+}
+
+function validateForm() {
+    var formIsValid = true;
+
+    $('#productionLineForm .custom-required').each(function() {
+        var value = $(this).val();
+        var $errorMessage = $(this).closest('.form-group').find('.error-message');
+
+        if (!value || value.trim() === '') {
+            $errorMessage.show();
+            formIsValid = false;
+        } else {
+            $errorMessage.hide();
+        }
+    });
+
+    return formIsValid;
+}
+
 
 
     $("#descripe").change(function () {
