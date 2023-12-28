@@ -108,13 +108,13 @@ class PurchaseOrdersController extends BuyerAppController
             }
             if(isset($request['po_no_date']) && !empty($request['po_no_date'])) {
                 $search = $request['po_no_date'];
-                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']) and !isset($request['status']) and !isset($request['po_no'])){ $conditions .= " and po_headers.created_on>='".$search." 00:00:00'"; }
-                else{ $conditions .= " and po_headers.created_on>='".$search." 00:00:00'"; }
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']) and !isset($request['status']) and !isset($request['po_no'])){ $conditions .= " and po_headers.created_on>='".$search." 00:00:00' and po_headers.created_on<='".$search." 23:59:59'"; }
+                else{ $conditions .= " and po_headers.created_on>='".$search." 00:00:00' and po_headers.created_on<='".$search." 23:59:59'"; }
             }
             if(isset($request['delivery_date']) && !empty($request['delivery_date'])) {
                 $search = $request['delivery_date'];
-                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']) and !isset($request['status']) and !isset($request['po_no'])){ $conditions .= " and po_item_schedules.delivery_date >='".$search." 00:00:00'"; }
-                else{ $conditions .= " and po_item_schedules.delivery_date >='".$search." 00:00:00'"; }
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype']) and !isset($request['segment']) and !isset($request['status']) and !isset($request['po_no'])){ $conditions .= " and po_item_schedules.delivery_date ='".$search."'"; }
+                else{ $conditions .= " and po_item_schedules.delivery_date ='".$search."'"; }
             }
             if(isset($request['status'])) {
                 $search = '';
