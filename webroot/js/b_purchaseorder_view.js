@@ -68,9 +68,9 @@ function poform(search = "") {
                                             </div>
                                             <div class="po-code">
                                                 
-                                                <small><b>` +
+                                                <small>` +
                         val.name +
-                        `</b></small>
+                        `</small>
                                             </div>
                                         </div>`
                     );
