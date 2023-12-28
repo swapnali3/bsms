@@ -10,22 +10,16 @@ function searchPo(search = "") {
             if (response.status == "success") {
                 $.each(response.message, function (key, val) {
                     $("#poItemss").append(
-                        `<div class="po-box details-control" data-id="` +
-                        val.id +
-                        `">
-                                            <div class="pono">
-                                                <small class="mb-0"> PO No </small><br>
-                                                <b>` +
-                        val.po_no +
-                        `</b>
-                                            </div>
-                                            <div class="po-code">
-                                                <small class="mb-0"> Vendor Code </small><br>
-                                                <small><b>` +
-                        val.sap_vendor_code +
-                        `</b></small>
-                                            </div>
-                                        </div>`
+                        `<div class="po-box details-control" data-id="` + val.id + `">
+                            <div class="pono">
+                                <small class="mb-0"> PO No </small><br>
+                                <b>` + val.po_no + `</b>
+                            </div>
+                            <div class="po-code">
+                                <small class="mb-0"> Vendor Code </small><br>
+                                <small><b>` + val.sap_vendor_code + `</b></small>
+                            </div>
+                        </div>`
                     );
                 });
                 $("div.po-box:first").click();
@@ -50,29 +44,22 @@ function poform(search = "") {
         success: function (response) {
             if (response.status == "success") {
                 $.each(response.message, function (key, val) {
+                    var vendor_tmp = val['V'].name
+                    if ((vendor_tmp).length > 22 ){ vendor_tmp = vendor_tmp.substring(0, (vendor_tmp).length - 22) + '...'; }
                     $("#poItemss").append(
-                        `<div class="po-box details-control" data-id="` +
-                        val.id +
-                        `">
-                        <div class="pono" style="display: flex; align-items: center;">
-                                                <small class="mb-0"> PO No:   </small><br>
-                                                <small class="pl-1"><b>` +
-                        val.po_no +
-                        `</b></small>
-                                            </div>
-                                            <div class="po-code po-code-block" style="display: flex; align-items: center;">
-                                                <small class="mb-0"> Vendor Code: </small><br>
-                                                <small class="pl-1"><b>` +
-                        val.sap_vendor_code +
-                        `</b></small>
-                                            </div>
-                                            <div class="po-code">
-                                                
-                                                <small><b>` +
-                        val.name +
-                        `</b></small>
-                                            </div>
-                                        </div>`
+                        `<div class="po-box details-control" data-id="` + val.id + `">
+                            <div class="pono" style="display: flex; align-items: center;">
+                                <small class="mb-0"> PO No:   </small><br>
+                                <small class="pl-1"><b>` + val.po_no + `</b></small>
+                            </div>
+                            <div class="po-code po-code-block" style="display: flex; align-items: center;">
+                                <small class="mb-0"> Vendor Code: </small><br>
+                                <small class="pl-1"><b>` + val.sap_vendor_code + `</b></small>
+                            </div>
+                            <div class="po-code">
+                                <small>` + vendor_tmp + `</small>
+                            </div>
+                        </div>`
                     );
                 });
                 $("div.po-box:first").click();
@@ -135,7 +122,7 @@ $("#purViewId").on("click", ".po-box", function () {
             console.log(response.status + "=" + response.data);
             if ((response.status || !response.status) && response.data) {
                 populateItemData(response.status, response.data);
-                if(!response.status) {
+                if (!response.status) {
                     $("#action_schedule").hide();
                     $("#res_message").html(response.message);
                 }
@@ -227,7 +214,7 @@ function populateItemData(status, itemData) {
         );
     });
 
-    if(!status) {
+    if (!status) {
         $(".schedule_item, .check, .checkall, .flu").hide();
     }
 
@@ -247,7 +234,7 @@ function populateItemData(status, itemData) {
 
 var rowId = "";
 $(document).on("click", ".schedule_item", function () {
-    
+
     $(".alert-body").addClass("d-none");
     $(".a-data").removeClass("d-none");
     $("#btnClose").addClass("d-none");
@@ -257,7 +244,7 @@ $(document).on("click", ".schedule_item", function () {
 
     $("#error_msg").html("");
     var id = $(this).attr("footer-id");
-    rowId = "id_st"+id;
+    rowId = "id_st" + id;
     $(".check").prop("checked", false);
     if (!$("#check_" + id).is(":checked")) {
         $("#check_" + id).prop("checked", true);
@@ -357,14 +344,14 @@ $(document).on("click", ".notify_item", function () {
 
 $(".search-box").on("keyup", function (event) {
     //if (event.which === 13) {
-        var searchName = $(this).val();
-        $(".related tbody:first").empty().hide().append(`<tr>
+    var searchName = $(this).val();
+    $(".related tbody:first").empty().hide().append(`<tr>
                 <td colspan="13" class="text-center">
                     <p>No data found !</p>
                 </td>
             </tr>`);
-        searchPo(searchName);
-        //return false;
+    searchPo(searchName);
+    //return false;
     //}
 });
 
@@ -386,7 +373,7 @@ $(document).on("click", ".flu", function () {
     var id = $(this).attr("data-id");
     var po_no = $("#schedulebutton_" + id).attr("po-no");
     var item_no = $("#schedulebutton_" + id).attr("item-no");
-    rowId = "id_st"+id;
+    rowId = "id_st" + id;
 
     var response = "";
     if ($(this).data("alt") == "+") {
@@ -417,7 +404,7 @@ $(document).on("click", ".flu", function () {
                     var deliveryDate = new Date(val.delivery_date);
 
                     var dt = val.delivery_date.split('-');
-                    delDt = dt[2] + "-" + dt[1] +"-" +dt[0];
+                    delDt = dt[2] + "-" + dt[1] + "-" + dt[0];
 
                     var updateButton = val.received_qty > 0 ? '' : `<span class="badge schedule_update_button lbluebadge mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + delDt + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `' data-target='#modal-sm'  title="Modify" data-original-title="Modify"><i class="fas fa-user-edit"></i></span>`;
 
@@ -498,9 +485,9 @@ $(document).ready(function () {
                         });
                         $("#scheduleModal").modal("toggle");
 
-                        $( "#"+rowId ).trigger( "click" );
-                        $( "#"+rowId ).trigger( "click" );
-                        
+                        $("#" + rowId).trigger("click");
+                        $("#" + rowId).trigger("click");
+
                     } else {
                         $("#scheduleModal").modal("toggle");
                         Toast.fire({ icon: "error", title: response.message });
@@ -657,8 +644,8 @@ $(document).on("click", ".schedule_button", function () {
                     if (response.status == "success") {
                         $("#modal-sm").modal("hide");
                         Toast.fire({ icon: "success", title: response.message });
-                        $( "#"+rowId ).trigger( "click" );
-                        $( "#"+rowId ).trigger( "click" );
+                        $("#" + rowId).trigger("click");
+                        $("#" + rowId).trigger("click");
                     } else {
                         Toast.fire({ icon: "error", title: response.message });
                     }
@@ -686,8 +673,8 @@ $(".schedule_cancel_ok").click(function () {
             if (response.status == "success") {
                 $("#modal-cancel").modal("hide");
                 Toast.fire({ icon: "success", title: response.message });
-                $( "#"+rowId ).trigger( "click" );
-                $( "#"+rowId ).trigger( "click" );
+                $("#" + rowId).trigger("click");
+                $("#" + rowId).trigger("click");
             } else {
                 Toast.fire({ icon: "error", title: response.message });
             }
@@ -702,7 +689,7 @@ $(".btnSub").click(function (event) {
     // jthayil
     $(".act_qty").each(function (key, obj) {
 
-        console.log("QTY="+$(obj).attr("max")+"="+$(obj).val());
+        console.log("QTY=" + $(obj).attr("max") + "=" + $(obj).val());
         if (
             $(obj).val() == "" ||
             $(obj).val() == null ||
