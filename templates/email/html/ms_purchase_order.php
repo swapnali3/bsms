@@ -54,12 +54,12 @@
                     <tr>
                         <td>
                             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" alt=""
-                                style="width: 180px; max-width: 400px; height: auto; display: block;">
+                                style="width: 180px; max-width: 180px; height: auto; display: block;">
                         </td>
                         <td valign="middle" class="hero bg_white" style="border-left: 1px solid rgb(19, 58, 88);"></td>
                         <td valign="middle" class="hero bg_white" style="padding: 0em 0px;">
                             <img src="http://apar.ftspl.in/webroot/img/logo_s.png" alt=""
-                                style="width: 280px; max-width: 600px; height: auto; display: block;">
+                                style="width: 280px; max-width: 280px; height: auto; display: block;">
                         </td>
                     </tr>
                 </tbody>
@@ -82,7 +82,7 @@
         </div>
         <div class="content">
             <img src="http://apar.ftspl.in/webroot/img/apar_logo.png"
-                style="width: 100px; max-width: 400px; height: auto; display: block;">
+                style="width: 100px; max-width: 100px; height: auto; display: block;">
             <h3>APAR Industries Limited 18</h3>
             <h5>
                 TTC.,MIDC Industrial Area, Thane Belapur Road,
