@@ -72,7 +72,7 @@
                 <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                     <?php if (isset($materialList)) : ?>
                     <?php foreach ($materialList as $mat) : ?>
-                    <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->code) ?>">
+                    <option value="<?= h($mat->code) ?>" data-select="<?= h($mat->code) ?>">
                         <?= h($mat->code) ?>
                         <?= h($mat->description) ?>
                     </option>
