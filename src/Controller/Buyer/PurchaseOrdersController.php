@@ -1168,10 +1168,35 @@ class PurchaseOrdersController extends BuyerAppController
                         if(empty($datas['error'])) {
                             $uploadData[] = $tmp; 
                             
+                            $poDetail = $this->PoHeaders->find()
+                                ->select(['sap_vendor_code', 'po_no'])
+                                ->where(['id' => $tmp['po_header_id']])->first();
+                            
+                            $poItem = $this->PoFooters->find()
+                                ->select(['item', 'material', 'short_text'])
+                                ->where(['id' => $tmp['po_footer_id']])
+                                ->first();
+
+                                $vendorRecord = $this->VendorTemps->find()
+                                ->where(['sap_vendor_code' => $poDetail->sap_vendor_code])
+                                ->first();
+
                             $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
                             $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $tmp);
                             if ($this->PoItemSchedules->save($PoItemSchedule)) {
                                 $datas['error'] = "Schedule created";
+                                $visit_url = Router::url('/', true);
+                                $mailer = new Mailer('default');
+                                $mailer
+                                    ->setTransport('smtp')
+                                    ->setViewVars(['vendor_name' => $vendorRecord->name, 'po' => $poDetail->po_no, 'po_item'=>$poItem, 'schedule'=>$PoItemSchedule ]) 
+                                    ->setFrom(Configure::read('MAIL_FROM'))
+                                    ->setTo($vendorRecord->email)
+                                    ->setEmailFormat('html')
+                                    ->setSubject('DELVERY SCHEDULE CREATED (PO '.$poDetail->po_no.')')
+                                    ->viewBuilder()
+                                        ->setTemplate('delivery_schedule');
+                                $mailer->deliver();
                             } else {
                                 $datas['error'] = "Fail to create schedule";
                             }

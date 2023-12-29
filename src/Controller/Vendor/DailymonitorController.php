@@ -336,7 +336,7 @@ class DailymonitorController extends VendorAppController
                             if($highestColumnIndex >= 6 && $col == 6) {
                                 $tmp['confirm_production'] = $value;
                                 $datas['confirm_production'] = $value;
-                                if ($value < 1 || $value == "" || $value == null) {
+                                if ($value == "" || $value == null) {
                                     $confirm = false;
                                 } 
                             }
