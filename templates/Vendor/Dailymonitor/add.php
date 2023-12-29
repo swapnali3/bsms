@@ -29,7 +29,7 @@
                 <div class="row dgf m-0">
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('plan_date', array('type' => 'date', 'class' => 'form-control w-100 form-field')); ?>
+                            <?php echo $this->Form->control('plan_date', array('type' => 'date', 'class' => 'form-control w-100 form-field','min' => date('Y-m-d'))); ?>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-2 col-lg-2">
