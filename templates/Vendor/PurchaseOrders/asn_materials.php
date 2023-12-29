@@ -577,17 +577,17 @@
 
   // for page leave popup
   $(document).ready(function () { 
-    var previousUrl = null;
-    $('.nav-link').click(function () {
-      previousUrl = $(this).attr('href');
-      $("#modal-default").modal('show');
-      $("#leaveButton").click(function () {
-        if (previousUrl) {
-          window.location.href = previousUrl;
-        }
-      });
-      return false; // cancel the event
-    });
+    // var previousUrl = null;
+    // $('.nav-link').click(function () {
+    //   previousUrl = $(this).attr('href');
+    //   $("#modal-default").modal('show');
+    //   $("#leaveButton").click(function () {
+    //     if (previousUrl) {
+    //       window.location.href = previousUrl;
+    //     }
+    //   });
+    //   return false; // cancel the event
+    // });
 
     var currStock = parseFloat($("#current_stock").text());
     var minStock = parseFloat($("#minimum_stock").text());
