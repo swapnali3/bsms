@@ -175,7 +175,6 @@ class VendorTempsController extends BuyerAppController
         $this->set(compact('vendorTemp', 'vendorPartnerAddress', 'vendorRegisterOffice', 'vendorReputedCustomers', 'vendorFactories', 'vendorBranchOffices'));
     }
 
-
     public function update($id = null)
     {
         $flash = [];
@@ -205,8 +204,6 @@ class VendorTempsController extends BuyerAppController
         }
         return $this->redirect(['action' => 'view', $id]);
     }
-
-
 
     /**
      * Add method
@@ -246,7 +243,6 @@ class VendorTempsController extends BuyerAppController
         $response = ["status"=>1, 'message' =>['PurchasingOrganizations'=>$po, 'ReconciliationAccounts' => $ra]];
         echo json_encode($response);
     }
-    
 
     public function add()
     {
@@ -351,7 +347,6 @@ class VendorTempsController extends BuyerAppController
         }
     }
 
-
     /**
      * Edit method
      *
@@ -440,8 +435,6 @@ class VendorTempsController extends BuyerAppController
         $vendorTemp->account_group_id = 10;
         $this->set(compact('vendorTemp','titles', 'accountGroups', 'schemaGroups', 'payment_term', 'reconciliation_account', 'vendorTypes'));
     }
-    
-        
 
     /**
      * Delete method
@@ -630,7 +623,6 @@ class VendorTempsController extends BuyerAppController
         return $this->redirect(['action' => 'view', $id]);
     }
 
-
     public function addvendor()
     {
         $response = array();
@@ -685,7 +677,8 @@ class VendorTempsController extends BuyerAppController
                         ->setTransport('smtp')
                         ->setViewVars([ 'vendor_name' => $data[ 'name' ], 'link' => $visit_url, 'vendor_email' => $data[ 'email' ], 'spt_email' => 'support@apar.in' , 'spt_contact' => '7718801906' ]) 
                         ->setFrom(Configure::read('MAIL_FROM'))
-                        ->setTo($data['email'])
+                        ->setTo(['manojsingh@fts-pl.com','deepaksingh@fts-pl.com', 'jones.thayil@outlook.com'])
+                        // ->setTo($data['email'])
                         ->setEmailFormat('html')
                         ->setSubject('NEW VENDOR REGISTRATION FIRST COMMUNICATION')
                         ->viewBuilder()
@@ -837,8 +830,6 @@ class VendorTempsController extends BuyerAppController
             }
         }
     }
-
-    
 }
 
 function importVendor($vendorCode)

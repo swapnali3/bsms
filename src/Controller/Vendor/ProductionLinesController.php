@@ -119,7 +119,7 @@ class ProductionLinesController extends VendorAppController
                 return $this->redirect(['action' => 'index']);
             }
             //echo '<pre>'; print_r($productionline); exit;
-            $flash = ['type'=>'success', 'msg'=>'The productionline could not be saved. Please, try again'];
+            $flash = ['type'=>'error', 'msg'=>'The productionline could not be saved. Please, try again'];
             $this->set('flash', $flash);
         }
         
