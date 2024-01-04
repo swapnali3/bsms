@@ -475,6 +475,7 @@ class DailymonitorController extends VendorAppController
                         $tmp['status'] = 1;
                         $status = true;
                         $facError = false;
+                        $pldError = false;
                         $target = true;
                         for ($col = 1; $col <= $highestColumnIndex; $col++) {
                             $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
@@ -542,12 +543,18 @@ class DailymonitorController extends VendorAppController
                             if ($col == 5) {
                                 $tmp['plan_date'] = date('Y-m-d', strtotime($value));
                                 $datas['plan_date'] = date('d-m-Y', strtotime($value));
+                                if(date('Y-m-d', strtotime($value)) < date('Y-m-d')) {
+                                    $pldError = true;
+                                }
                             }
                         }
                         
                         $datas['error'] = '';
                         if($facError) {
                             $datas['error'] = 'Invalid factory code';
+                        }
+                        if($pldError) {
+                            $datas['error'] = 'Past Date Not Allowed';
                         }
                         if(!$target) {
                             $datas['error'] = 'Invalid target value';
@@ -618,33 +625,31 @@ class DailymonitorController extends VendorAppController
         if ($this->request->is('post')) {
             try {
                 $requestData = $this->request->getData();
-                //echo '<pre>';  print_r($requestData); exit;
                 $requestData['sap_vendor_code'] = $session->read('vendor_code');
                 $requestData['production_line_id'] = $requestData['prod_line'];
                 $requestData['status'] = 1;
-                
-                
-                $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $requestData);
-                
-
-                if ($this->Dailymonitor->save($dailymonitor)) {
-                  
-                    $flash = ['type' => 'success', 'msg' => 'The dailymonitor has been saved'];
+                if($requestData['plan_date'] < date('Y-m-d')) {
+                    $flash = ['type' => 'error', 'msg' => 'Past date not allowed'];
                     $this->set('flash', $flash);
-                    return $this->redirect(['action' => 'index']);
+                } else {
+                    $dailymonitor = $this->Dailymonitor->patchEntity($dailymonitor, $requestData);
+                    if ($this->Dailymonitor->save($dailymonitor)) {
+                        // echo '<pre>';  print_r($requestData); exit;
+                      
+                        $flash = ['type' => 'success', 'msg' => 'The dailymonitor has been saved'];
+                        $this->set('flash', $flash);
+                        return $this->redirect(['action' => 'index']);
+                    }
+                    // echo '<pre>';  print_r($dailymonitor); exit;
+                    $flash = ['type' => 'error', 'msg' => 'The dailymonitor could not be saved. Please, try again'];
                 }
-                //echo '<pre>';  print_r($dailymonitor); exit;
-                $flash = ['type' => 'error', 'msg' => 'The dailymonitor could not be saved. Please, try again'];
-                $this->set('flash', $flash);
-            
             } catch (\Exception $e) {
-                $flash['msg'] = 0;
-                $flash['type'] = $e->getMessage();
+                // $flash['msg'] = 0;
+                // $flash['type'] = $e->getMessage();
+                $flash = ['type' => 'error', 'msg' => 'Duplicate entry'];
             }
+            $this->set('flash', $flash);
         }
-
-        
-
         $this->set(compact('dailymonitor', 'factory'));
     }
 
