@@ -407,6 +407,7 @@ class SyncController extends ApiAppController
                                     $tmp['gross_value'] = $item->BRTWR;
 
                                     $footerData = $tmp;
+                                    $vendorDetail = $this->VendorTemps->find()->where(['sap_vendor_code' => $row->LIFNR])->first();
                                     if($item->CHG_IND == 'X') {
                                         $footerData['is_updated'] = 1;
                                         $poInstanceAck = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
@@ -415,7 +416,6 @@ class SyncController extends ApiAppController
                                         $poInstanceAck = $this->PoHeaders->patchEntity($poInstanceAck, $hederData);
                                         $this->PoHeaders->save($poInstanceAck);
 
-                                        $vendorDetail = $this->VendorTemps->find()->where(['sap_vendor_code' => $row->LIFNR])->first();
                                         if($vendorDetail) {
                                             try{
                                                 $mailer = new Mailer('default');
@@ -456,9 +456,7 @@ class SyncController extends ApiAppController
                                             $buyer = $this->Buyers->find()->where(['sap_user'=>$row->ERNAM])->first();
                                             $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
                                             $buyersEmails = [];
-                                            foreach($buyerList as $email) {
-                                                $buyersEmails[] = $email->email; 
-                                            }
+                                            foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
                                             
                                             $valid = false;
 
@@ -466,7 +464,14 @@ class SyncController extends ApiAppController
                                                 $mailer = new Mailer('default');
                                                 $mailer
                                                     ->setTransport('smtp')
-                                                    ->setViewVars([ 'poNumber'=>$poNumber, 'item'=>$row->EBELN,'total'=>$total[0]->total ])
+                                                    ->setViewVars([
+                                                        'vendor_name' => $vendorDetail->name,
+                                                        'poNumber'=>$poNumber,
+                                                        'po_footer' => $item,
+                                                        'po_header'=>$row,
+                                                        'spt_email' => 'support@apar.in',
+                                                        'total'=>$total[0]->total
+                                                        ])
                                                     ->setFrom(Configure::read('MAIL_FROM'))
                                                     ->setTo($buyersEmails)
                                                     ->setEmailFormat('html')
