@@ -1087,6 +1087,28 @@ div.dataTables_wrapper div.dataTables_filter label { color: transparent !importa
 }
 
 .select2-container--default .select2-selection--multiple { border: 1px solid #ddd !important;}
+
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li:first-child.select2-search.select2-search--inline .select2-search__field {
+    width: 100%!important;
+    height: 25px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover, .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:focus {
+    background-color: unset !important;
+    color: #333;
+    outline: none;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove { border-right: none !important;}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice { padding-right: 5px !important;}
+
+.select2-container .select2-search--inline .select2-search__field { height: 26px !important;}
+
+.select2-container--default .select2-dropdown .select2-search__field:focus, .select2-container--default .select2-search--inline .select2-search__field:focus {
+    border: none !important;
+}
 @media not all and (min-resolution:.001dpcm) {
     @supports (-webkit-appearance:none) {
         tr td,
