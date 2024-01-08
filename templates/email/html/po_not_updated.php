@@ -45,8 +45,8 @@
                 <tbody>
                     <tr>
                         <td>
-                            <img src="http://apar.ftspl.in/webroot/img/apar_logo180.png" alt=""
-                                style="width: 180px; max-width: 180px; height: auto; display: block;">
+                            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" alt=""
+                                style="width: 180px; max-width: 400px; height: auto; display: block;">
                         </td>
                         <!-- <td valign="middle" class="hero bg_white" style="border-left: 1px solid rgb(19, 58, 88);"></td>
                         <td valign="middle" class="hero bg_white" style="padding: 0em 0px;">
@@ -58,12 +58,12 @@
             </table>
         </div>
         <div class="content">
-            <p>Dear Buyers,</p>
+            <p>Hi <?= $vendor_name ?></p>
             <p>
-            The PO that is modified purchase order number <?= $po_header->po_no ?> qty should be greater than <?= $total ?>
+            The PO that is modified purchase order number <?= $poNumber ?> qty should be greater than <?= $total ?>
             <p>
-                <p>Line Item #<?= h($po_footer->item) ?></p>
-                <p><?= h($po_footer->material) ?>  |   <?= h($po_footer->short_text) ?>    |   QTY: <?= h($po_footer->po_qty) ?></p>
+                <p>Line Item #<?= h($po_footer->EBELP) ?></p>
+                <p><?= h($po_footer->MATNR) ?>  |   <?= h($po_footer->TXZ01) ?>    |   QTY: <?= h($po_footer->P_QTY) ?></p>
             </p>
             <br>Please review this schedule Qty and then update the PO Properly
             </p>
@@ -72,7 +72,7 @@
             </p>
         </div>
         <div class="content">
-            <img src="http://apar.ftspl.in/webroot/img/apar_logo180.png" style="width: 100px; max-width: 100px; height: auto; display: block;">
+            <img src="http://apar.ftspl.in/webroot/img/apar_logo.png" style="width: 100px; max-width: 400px; height: auto; display: block;">
             <h3>APAR Industries Limited 18</h3>
             <h5>
                 TTC.,MIDC Industrial Area, Thane Belapur Road,
