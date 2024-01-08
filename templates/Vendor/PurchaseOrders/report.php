@@ -10,9 +10,10 @@
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
 <?= $this->Html->css('b_index.css') ?>
-<!-- <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?> -->
-<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
-<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
+<?= $this->Html->css('select2.min.css') ?>
+<?= $this->Html->script('select2.js') ?>
+<!-- <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?> -->
+<!-- <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?> -->
 <style>
     .hide {
         display: none;
@@ -80,7 +81,7 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-2 mt-2">
+            <div class="col-sm-12 col-md-3 col-lg-2">
                 <label for="id_vendortype">Type</label><br>
                 <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
                     <?php if (isset($vendortype)) : ?>
@@ -90,7 +91,7 @@
                     <?php endif; ?>
                 </select>
             </div>
-            <div class="col-sm-12 col-md-3 col-lg-1 mt-2">
+            <div class="col-sm-12 col-md-3 col-lg-1">
                 <div class="form-group mt-4 pt-2">
                     <?= $this->Form->button(__('Search'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_sub', 'type' => 'submit']) ?>
                 </div>
