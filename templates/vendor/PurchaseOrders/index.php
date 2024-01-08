@@ -93,9 +93,8 @@
     var flagdata = $("#" + poHeaderID).data('flag');
 
     if (flagdata != 1) {
-      $('.flagButton').empty().append('<button type="button" class="btn bg-gradient-button notify mb-0"><i class="fa fa-envelope"></i> Acknowledge</button><button type="button" class="btn bg-gradient-danger ignoreme ml-2"><i class="fa fa-exclamation"></i> Reject</button>');
+      $('.flagButton').empty().append('<button type="button" data-id="" class="btn bg-gradient-button notify mb-0"><i class="fa fa-envelope"></i> Acknowledge</button>');
       $('.notify').attr('data-id', poHeaderID);
-      $('.ignoreme').attr('data-id', poHeaderID);
     } else { $('.flagButton').empty(); }
 
     $(".right-side").html(format($(this).attr('data-id')));
@@ -254,7 +253,6 @@
             icon: "success",
             title: response.message,
           });
-          $('.ignoreme').hide();
           $('.notify').hide();
           $('#example2 tr').removeAttr('style');
           $('#' + id).data('flag', 1);
@@ -264,31 +262,6 @@
             title: response.message,
           });
         }
-      },
-      error: function (xhr, status, error) { console.log(xhr, status, error); },
-      complete: function () { $("#gif_loader").hide(); }
-    });
-  });
-
-
-  $(document).on('click', '.ignoreme', function (e) {
-    e.preventDefault();
-    var id = $(this).attr("data-id");
-    $.ajax({
-      type: "GET",
-      url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-ignore')); ?>/" +
-        id,
-      dataType: "json",
-      beforeSend: function () { $("#gif_loader").show(); },
-      success: function (response) {
-        if (response.status == "1") {
-          Toast.fire({ icon: "success", title: response.message});
-          $('.ignoreme').hide();
-          $('.notify').hide();
-          $('#example2 tr').removeAttr('style');
-          $('#' + id).data('flag', 1);
-        }
-        else { Toast.fire({ icon: "error", title: response.message}); }
       },
       error: function (xhr, status, error) { console.log(xhr, status, error); },
       complete: function () { $("#gif_loader").hide(); }
