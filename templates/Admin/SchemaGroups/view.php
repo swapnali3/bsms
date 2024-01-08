@@ -4,7 +4,8 @@
  * @var \App\Model\Entity\SchemaGroup $schemaGroup
  */
 ?>
-<div class="row">
+<?= $this->Html->css('table.css') ?>
+<div class="row card pl-2 pt-2 ml-1 mt-1">
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
@@ -14,7 +15,7 @@
             <?= $this->Html->link(__('New Schema Group'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>
     </aside>
-    <div class="column-responsive column-80">
+    <div class="pt-3 column-responsive column-80">
         <div class="schemaGroups view content">
             <h3><?= h($schemaGroup->name) ?></h3>
             <table>
@@ -43,8 +44,8 @@
                 <h4><?= __('Related Vendor Temps') ?></h4>
                 <?php if (!empty($schemaGroup->vendor_temps)) : ?>
                 <div class="table-responsive">
-                    <table>
-                        <tr>
+                    <table class="table table-responsive dataTable no-footer">
+                        <thead><tr>
                             <th><?= __('Id') ?></th>
                             <th><?= __('Purchasing Organization Id') ?></th>
                             <th><?= __('Account Group Id') ?></th>
@@ -71,7 +72,7 @@
                             <th><?= __('Added Date') ?></th>
                             <th><?= __('Updated Date') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
+                        </tr></thead>
                         <?php foreach ($schemaGroup->vendor_temps as $vendorTemps) : ?>
                         <tr>
                             <td><?= h($vendorTemps->id) ?></td>

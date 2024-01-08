@@ -4,6 +4,7 @@
  * @var \App\Model\Entity\AccountGroup $accountGroup
  */
 ?>
+<?= $this->Html->css('table.css') ?>
 <div class=" po_padding">
     <aside class="column">
         <div class="side-nav">
