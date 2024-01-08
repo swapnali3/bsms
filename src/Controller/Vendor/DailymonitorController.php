@@ -335,6 +335,7 @@ class DailymonitorController extends VendorAppController
                             }
 
                             if($highestColumnIndex >= 6 && $col == 6) {
+                                $value = intval($value);
                                 $tmp['confirm_production'] = $value;
                                 $datas['confirm_production'] = $value;
                                 if ($value === "" || $value === null) {
@@ -381,7 +382,7 @@ class DailymonitorController extends VendorAppController
                                     
                                     if($rec) {
                                         $rec->confirm_production = $row['confirm_production'];
-                                        $rec->status = '3';
+                                        $rec->status = 3;
                                     if($this->Dailymonitor->save($rec)) {
                                         $stockUpload = $this->StockUploads->find()
                                         ->where([
