@@ -9,6 +9,8 @@
     cursor: pointer;
 }
 
+.table tbody tr td { white-space: nowrap;}
+
 .hr {
 	margin-top: 10rem;
 	margin-bottom: 10rem;

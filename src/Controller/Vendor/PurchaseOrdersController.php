@@ -268,42 +268,6 @@ class PurchaseOrdersController extends VendorAppController
 
         echo json_encode($response);
     }
-    public function poIgnore($id = null)
-    {
-
-        $response = array();
-        $response['status'] = '0';
-        $response['message'] = '';
-        $this->autoRender = false;
-
-        $session = $this->getRequest()->getSession();
-
-        $this->loadModel('PoHeaders');
-        $this->loadModel('PoFooters');
-        $this->loadModel('VendorTemps');
-        $this->loadModel('Users');
-        $this->loadModel('Buyers');
-        $this->loadModel('Notifications');
-
-        $poHeader = $this->PoHeaders->get($id, [ 'contain' => []]);
-
-        if ($poHeader->acknowledge == 0) {
-            $visit_url = Router::url('/', true);
-            $poNumber  = $poHeader->po_no;
-            $poHeader->acknowledge = 2; // Set reject value to 2
-            $poHeader->acknowledge_no = time(); 
-            $poHeader->acknowledge_date = date('Y-m-d H:i:s'); 
-            if($this->PoHeaders->save($poHeader)) {
-                $response['status'] = '1';
-                $response['message'] = 'PO Acknowledged successfully';
-            }
-        }  else {
-            $response['status'] = '0';
-            $response['message'] = 'Already Acknowledged successfully';
-        }
-
-        echo json_encode($response);
-    }
 
     public function poApi($search = null, $createAsn = null)
     {

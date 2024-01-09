@@ -266,8 +266,10 @@ class DailymonitorController extends VendorAppController
                         $target = true;
                         $confirm = true;
                         $validDate = true;
+                        $lm = null;
                         for ($col = 1; $col <= $highestColumnIndex; $col++) {
                             $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
+                            
                             if($col == 1) {
                                 if($value) {
                                     $factory = $this->VendorFactories->find('list')
@@ -276,14 +278,10 @@ class DailymonitorController extends VendorAppController
                                     ->first();
                                     $tmp['vendor_factory_id'] = $factory ? $factory : null;
                                     $datas['factory_code'] = $value;
-                                    if(!$factory) {
-                                        $facError = true;
-                                    }
-                                } else {
-                                    $facError = true;
-                                }
-
+                                    if(!$factory) { $facError = true; }
+                                } else { $facError = true; }
                             } 
+                            
                             if ($col == 2) {
                                 if(!$facError) {
                                     $lm = $this->LineMasters->find()
@@ -294,7 +292,8 @@ class DailymonitorController extends VendorAppController
                                         ])->first();
                                 }
                                 $datas['line'] = $value;
-                            } 
+                            }
+
                             if ($col == 3) {
                                 $mat = $this->Materials->find()
                                     ->where([
@@ -315,12 +314,12 @@ class DailymonitorController extends VendorAppController
                                             'vendor_factory_id' => $tmp['vendor_factory_id'],
                                             'material_id' => $tmp['material_id']
                                         ])->first();
-
-                                        $tmp['production_line_id'] = $pl ? $pl->id : null;
+                                    $tmp['production_line_id'] = $pl ? $pl->id : null;
                                 }
                                 unset($tmp['vendor_factory_id']);
 
-                            } 
+                            }
+
                             if ($col == 4) {
                                 $value = intval($value);
                                 $tmp['target_production'] = $value;
@@ -328,64 +327,48 @@ class DailymonitorController extends VendorAppController
                                 if ($value < 1 || $value == "" || $value == null) {
                                     $target = false;
                                 } 
-                            }  
+                            }
+
                             if ($col == 5) {
                                 $tmp['plan_date'] = date('Y-m-d', strtotime($value));
                                 $datas['plan_date'] = date('d-m-Y', strtotime($value));
-                            } 
+                            }
+
                             if($highestColumnIndex >= 6 && $col == 6) {
                                 $tmp['confirm_production'] = $value;
                                 $datas['confirm_production'] = $value;
-                                if ($value == "" || $value == null) {
+                                if ($value === "" || $value === null) {
                                     $confirm = false;
-                                } 
+                                }
                             }
                         }
                         
                         $datas['error'] = '';
-                        if($facError) {
-                            $datas['error'] = 'Invalid factory code';
-                        }
-                        if(!$target) {
-                            $datas['error'] = 'Invalid target value';
-                        }
-                        if($highestColumnIndex >= 6 && !$confirm) {
-                            $datas['error'] = 'Invalid confirm value';
-                        }
-                        
-                        if(!$validDate) {
-                            $datas['error'] = 'Only today\'s confirmation allowed';
-                        }
+                        if($facError) { $datas['error'] = 'Invalid factory code'; }
+                        if(!$target) { $datas['error'] = 'Invalid target value'; }
+                        if($highestColumnIndex >= 6 && !$confirm) { $datas['error'] = 'Invalid confirm value'; }
+                        if(!$validDate) { $datas['error'] = 'Only today\'s confirmation allowed'; }
 
                         if($highestColumnIndex >= 6) {
                             $cont = $this->Dailymonitor->find()->where(['sap_vendor_code' => $session->read('vendor_code'),
                             'production_line_id' => $tmp['production_line_id'],
                             'material_id' => $tmp['material_id'], 'plan_date' => $tmp['plan_date'], 'status' => 3])->count();
-
-                            if($cont) {
-                                $datas['error'] = 'Production Already Confirmed';
-                            }
+                            if($cont) { $datas['error'] = 'Production Already Confirmed'; }
 
                             $stockUpload = $this->StockUploads->find()
-                            ->where([
-                                'sap_vendor_code' => $session->read('vendor_code'),
+                            ->where([ 'sap_vendor_code' => $session->read('vendor_code'),
                                 'material_id' => $tmp['material_id']
                             ])->count();
 
-                            if(!$stockUpload) {
-                                $datas['error'] = 'Stock not found';
-                            }
-
+                            if(!$stockUpload) { $datas['error'] = 'Stock not found'; }
                         }
 
                         $planner[] = $datas;
 
-                        if(empty($datas['error'])) {
-                            $uploadData[] = $tmp;   
-                        }
+                        if(empty($datas['error'])) { $uploadData[] = $tmp; }
                     }
 
-                    //echo '<pre>'; print_r($uploadData); exit;
+                    // echo '<pre>'; print_r($uploadData);
 
                     if(!empty($uploadData)) {
                         if($highestColumnIndex >= 6) {
@@ -394,11 +377,11 @@ class DailymonitorController extends VendorAppController
                                     'production_line_id' => $row['production_line_id'],
                                     'material_id' => $row['material_id'],
                                     'plan_date' => $row['plan_date']
-                                ])->first();
-                                
-                                if($rec) {
-                                    $rec->confirm_production = $row['confirm_production'];
-                                    $rec->status = '3';
+                                    ])->first();
+                                    
+                                    if($rec) {
+                                        $rec->confirm_production = $row['confirm_production'];
+                                        $rec->status = '3';
                                     if($this->Dailymonitor->save($rec)) {
                                         $stockUpload = $this->StockUploads->find()
                                         ->where([
