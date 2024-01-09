@@ -9,8 +9,10 @@
     display: none;
   }
 </style>
-<?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
-<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?>
+<!-- <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?> -->
+<?= $this->Html->css('select2.min.css') ?>
+<?= $this->Html->script('select2.js') ?>
 <?= $this->Html->css('bootstrap-multiselect') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
 <?= $this->Html->css('custom') ?>
@@ -39,9 +41,12 @@
 </style>
 
 <?= $this->Html->script('amcharts/index.js') ?>
-<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+<?= $this->Html->script('xy.js') ?>
+<?= $this->Html->script('percent.js') ?>
+<?= $this->Html->script('Animated.js') ?>
+<!-- <script src="https://cdn.amcharts.com/lib/5/xy.js"></script> -->
+<!-- <script src="https://cdn.amcharts.com/lib/5/percent.js"></script> -->
+<!-- <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script> -->
 
 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
 <div class="row buyer-dash">
