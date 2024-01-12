@@ -16,7 +16,7 @@
                     <div class="left-s">
                         <div class="m-5 text-center">
                             <img width="200px"
-                                src="<?= $this->Url->build('/') ?>img/<?= substr($adminUser->first_name,0,1) ?>.png"
+                                src="<?= $this->Url->build('/') ?>img/<?= strtoupper(substr($adminUser->first_name,0,1)) ?>.png"
                                 alt="Buyer">
                         </div>
                         <div class="desc">

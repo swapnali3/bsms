@@ -15,7 +15,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="prof-img text-center">
-                    <img width="100px" src="<?= $this->Url->build('/') ?>img/<?= substr($vendorTemp->name,0,1) ?>.png"
+                    <img width="100px" src="<?= $this->Url->build('/') ?>img/<?= strtoupper(substr($vendorTemp->name,0,1)) ?>.png"
                         alt="Vendor">
                 </div>
                 <div class="mt-3">
