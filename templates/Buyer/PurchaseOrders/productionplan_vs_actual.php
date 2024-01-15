@@ -103,6 +103,7 @@
                                 <th>Confirmed Production</th>
                                 <th>Confirmation Date</th>
                                 <th>Status</th>
+                                <th>Closing Stock</th>
                                 <th>Action</th>
                                 <th>No. of Stock Aging Days</th>
                             </tr>

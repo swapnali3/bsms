@@ -434,13 +434,14 @@ class PurchaseOrdersController extends BuyerAppController
         $material = $conn->execute("SELECT
         DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as plan_date, vendor_temps.sap_vendor_code, materials.type, materials.segment, line_masters.name,
         materials.code, materials.description, dailymonitor.target_production, dailymonitor.confirm_production, DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as 'plan_date',
-        case when dailymonitor.status=1 then 'Active' else case when dailymonitor.status=3 then 'Planned Confirmed' else 'Cancelled' end end as 'status',
+        case when dailymonitor.status=1 then 'Active' else case when dailymonitor.status=3 then 'Planned Confirmed' else 'Cancelled' end end as 'status', stock_uploads.current_stock as 'closing_stock', 
         '-' as 'action', CURDATE() - dailymonitor.plan_date as 'ageing'
         FROM dailymonitor
         left join vendor_temps on dailymonitor.sap_vendor_code=vendor_temps.sap_vendor_code
         left join materials on materials.id=dailymonitor.material_id
         left join production_lines on production_lines.id=dailymonitor.production_line_id
-        left join line_masters on line_masters.id=production_lines.line_master_id". $conditions);
+        left join line_masters on line_masters.id=production_lines.line_master_id
+        left join stock_uploads on vendor_temps.sap_vendor_code = stock_uploads.sap_vendor_code and materials.id=stock_uploads.material_id and production_lines.vendor_factory_id=stock_uploads.vendor_factory_id ". $conditions);
         $materialist = $material->fetchAll('assoc');
 
         $results = [];
@@ -457,6 +458,7 @@ class PurchaseOrdersController extends BuyerAppController
             $tmp[] = $mat['confirm_production'];
             $tmp[] = $mat['plan_date'];
             $tmp[] = $mat['status'];
+            $tmp[] = $mat['closing_stock'];
             $tmp[] = $mat['action'];
             $tmp[] = $mat['ageing'];
             $results[] = $tmp;
