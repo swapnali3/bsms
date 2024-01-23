@@ -360,6 +360,7 @@ class VendorTempsController extends BuyerAppController
         $session = $this->getRequest()->getSession();
 
         $this->loadModel("Titles");
+        $this->loadModel("Buyers");
         $this->loadModel("VendorTypes");
         $this->loadModel("VendorTemps");
         $this->loadModel("VendorStatus");
@@ -383,8 +384,7 @@ class VendorTempsController extends BuyerAppController
                 $this->Flash->success(__('The vendor has been saved'));
                 $quryString = $vendorTemp->email . '||' . $vendorTemp->id;
 
-                $buyer = $this->Buyers->find()->where(['id'=>$data['buyer_id']]);
-                $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
+                $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $vendorTemp->company_code_id, 'purchasing_organization_id' => $vendorTemp->purchasing_organization_id])->toArray();
                 $buyersEmails = [];
                 foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
 
