@@ -268,6 +268,73 @@ class PurchaseOrdersController extends VendorAppController
 
         echo json_encode($response);
     }
+    public function poIgnore($id = null)
+    {
+
+        $response = array();
+        $response['status'] = '0';
+        $response['message'] = '';
+        $this->autoRender = false;
+
+        $session = $this->getRequest()->getSession();
+
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+        $this->loadModel('VendorTemps');
+        $this->loadModel('Users');
+        $this->loadModel('Buyers');
+        $this->loadModel('Notifications');
+
+        $poHeader = $this->PoHeaders->get($id, [ 'contain' => []]);
+
+        if ($poHeader->acknowledge == 0) {
+            $visit_url = Router::url('/', true);
+            $poNumber  = $poHeader->po_no;
+            $poHeader->acknowledge = 2; // Set reject value to 2
+            $poHeader->acknowledge_date = date('Y-m-d H:i:s'); 
+            $poHeader->remark = $this->request->getQuery('remark');
+            if($this->PoHeaders->save($poHeader)) {
+                $filteredBuyers = $this->Buyers->find()
+                ->select(['Buyers.id','user_id'=> 'Users.id', 'email', 'first_name', 'last_name'])
+                ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
+                ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
+                ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
+                
+                $vendor = $this->VendorTemps->find()->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']])->first();
+                $po_footer = $this->PoFooters->find('all')->where(['PoFooters.po_header_id' => $poHeader['id']])->toArray();
+                foreach ($filteredBuyers as $buyer) {
+                    if ($buyer->email !== "") {
+                        $mailer = new Mailer('default');
+                        $mailer
+                            ->setTransport('smtp')
+                            ->setViewVars([
+                                'poNumber' => $poNumber,
+                                'buyer' => $buyer,
+                                'vendor' => $vendor,
+                                'po_footer' => $po_footer,
+                                'spt_email' => 'support@apar.in',
+                                'remark' => $this->request->getData('remark'),
+                                ])
+                            ->setFrom(Configure::read('MAIL_FROM'))
+                            ->setTo($buyer->email)
+                            ->setEmailFormat('html')
+                            ->setSubject('VENDOR PORTAL - ORDER REJECTED ('.$poNumber.')')
+                            ->viewBuilder()
+                                ->setTemplate('non_acknowledge');
+                        $mailer->deliver();
+                    }
+                }
+
+                $response['status'] = '1';
+                $response['message'] = 'PO Rejected successfully';
+            }
+        } else {
+            $response['status'] = '1';
+            $response['message'] = 'PO Rejected successfully';
+        }
+
+        echo json_encode($response);
+    }
 
     public function poApi($search = null, $createAsn = null)
     {
