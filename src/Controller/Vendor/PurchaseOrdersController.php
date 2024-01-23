@@ -81,7 +81,7 @@ class PurchaseOrdersController extends VendorAppController
         $session = $this->getRequest()->getSession();
         $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
 
-        $conditions = " where 1=1 ";
+        $conditions = " where 1=1 AND po_headers.release_status <> 'X' ";
         $statusconditions = "";
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
