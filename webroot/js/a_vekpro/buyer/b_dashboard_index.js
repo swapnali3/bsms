@@ -3,7 +3,7 @@ $('.segment').select2({
     placeholder: 'Segment Filter',
     allowClear: true,
     tags: false,
-    tokenSeparators: [',', ' '],
+    tokenSeparators: [','],
     templateSelection: function (selection) {
         if (selection.element && $(selection.element).attr('data-select') !== undefined) {
             return $(selection.element).attr('data-select');
@@ -18,7 +18,7 @@ $('.types').select2({
     placeholder: 'Type Filter',
     allowClear: true,
     tags: false,
-    tokenSeparators: [',', ' '],
+    tokenSeparators: [','],
     templateSelection: function (selection) {
         if (selection.element && $(selection.element).attr('data-select') !== undefined) {
             return $(selection.element).attr('data-select');
@@ -33,7 +33,7 @@ $('.vendor').select2({
     placeholder: 'Vendor Filter',
     allowClear: true,
     tags: false,
-    tokenSeparators: [',', ' '],
+    tokenSeparators: [','],
     templateSelection: function (selection) {
         if (selection.element && $(selection.element).attr('data-select') !== undefined) {
             return $(selection.element).attr('data-select');
