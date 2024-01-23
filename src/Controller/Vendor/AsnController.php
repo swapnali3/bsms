@@ -231,6 +231,9 @@ class AsnController extends VendorAppController
             foreach($asn->asn_footers as $item) {
                 $tmp = [];
                 $tmp['ASN_NO'] = $asn->asn_no;
+                $tmp['INVOICE_NO'] = $asn->invoice_no;
+                $tmp['INVOICE_DATE'] = $asn->invoice_date;
+                $tmp['VEHICLE_NO'] = $asn->vehicle_no;
                 $tmp['EBELN'] = $asn->po_header->po_no;
                 $tmp['EBELP'] = $item->po_footer->item;
                 $tmp['MATNR'] = $item->po_footer->material;

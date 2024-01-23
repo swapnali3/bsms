@@ -355,12 +355,11 @@ class StockUploadsController extends BuyerAppController
                     $this->loadModel("VendorFactories");
                     $this->loadModel("Dailymonitor");
 
-                    $tmp = [];
-                    $datas = [];
                     
-
                     // echo "<pre>";
                     for ($row = 2; $row <= $highestRow; $row++) {
+                        $tmp = [];
+                        $datas = [];
                         $facError = false;
                         $matError = false;
                         for ($col = 1; $col <= $highestColumnIndex; ++$col) {
@@ -392,7 +391,7 @@ class StockUploadsController extends BuyerAppController
                                 $value = trim($value);
                                 $materials = $this->Materials->find('all')
                                 ->select(['id', 'code'])
-                                ->where(['code IN' => $value, 'sap_vendor_code' => $tmp['sap_vendor_code']])->first();
+                                ->where(['code' => $value, 'sap_vendor_code' => $tmp['sap_vendor_code']])->first();
     
                                 $tmp['material_id'] = isset($materials['id']) ? $materials['id'] : null;
                                 $datas['material'] = $value;

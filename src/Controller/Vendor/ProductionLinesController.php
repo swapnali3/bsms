@@ -300,7 +300,7 @@ class ProductionLinesController extends VendorAppController
                             }else if($col == 3) {
                                 $materials = $this->Materials->find('all')
                                 ->select(['id', 'code'])
-                                ->where(['code IN' => $value])->first();
+                                ->where(['code' => $value, 'sap_vendor_code' => $tmp['sap_vendor_code']])->first();
     
                                 $tmp['material_id'] = $materials['id'] ? $materials['id'] : null;
                                 $datas['material'] = $value;

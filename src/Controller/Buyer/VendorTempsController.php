@@ -399,7 +399,9 @@ class VendorTempsController extends BuyerAppController
                         'spt_contact' => '7718801906',
                         ])
                     ->setFrom(Configure::read('MAIL_FROM'))
-                    ->setTo($buyersEmails)
+                    //->setTo($buyersEmails)
+                    ->setTo($vendorTemp->email)
+
                     ->setEmailFormat('html')
                     ->setSubject('NEW VENDOR ONBOARDING UPDATED COMMUNICATION')
                     ->viewBuilder()
