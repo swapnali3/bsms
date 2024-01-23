@@ -256,6 +256,7 @@
           });
           $('.ignoreme').hide();
           $('.notify').hide();
+          $('#id_remark').hide();
           $('#example2 tr').removeAttr('style');
           $('#' + id).data('flag', 1);
         } else {
@@ -288,6 +289,7 @@
           Toast.fire({ icon: "success", title: response.message});
           $('.ignoreme').hide();
           $('.notify').hide();
+          $('#id_remark').hide();
           $('#example2 tr').removeAttr('style');
           $('#' + id).data('flag', 1);
         }

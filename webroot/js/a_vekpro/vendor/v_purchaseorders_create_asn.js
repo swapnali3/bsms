@@ -166,7 +166,7 @@ function format(rowData, factory_id) {
                      <td>`+ actQty + ` ` + val['PoFooters'].order_unit + `</td>
                      <td>`+ curr + `</td>
                      <td>`+ mins + `</td>
-                     <td><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" order-unit="`+val['PoFooters'].order_unit+`" value="0"></td>
+                     <td><span class="float-left"><input type="number" name="footer_id_qty[]" disabled class="form-control form-control-sm check_qty" data-max="` + maxQty + `" max="` + maxQty + `" required="required" data-item="` + val['PoFooters'].item + `" id="qty` + val['PoItemSchedules'].id + `" order-unit="`+val['PoFooters'].order_unit+`" value="0"></span><i class="ml-3 mt-2 text-primary fas fa-exclamation" data-toggle="tooltip" data-placement="top" title="" data-original-title="Qty + Tolerance: `+maxQty+`"></i></td>
                     </tr>`;
                 });
 
