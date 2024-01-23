@@ -68,7 +68,7 @@ class PurchaseOrdersController extends BuyerAppController
         $this->loadModel('Materials');
         $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
 
-        $conditions = " where 1=1 AND po_headers.release_status <> 'X' ";
+        $conditions = " where 1=1 AND po_headers.deleted_indication <> 'X' ";
         $statusconditions = "";
         if ($this->request->is(['patch', 'post', 'put'])) {
             $request = $this->request->getData();
