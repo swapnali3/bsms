@@ -399,7 +399,7 @@ $(document).on("click", ".flu", function () {
                                 </thead>
                                 <tbody>`;
             $.each(response.message, function (key, val) {
-                if (val.status == 1) {
+                // if (val.status == 1) {
                     var currentDate = new Date();
                     var deliveryDate = new Date(val.delivery_date);
 
@@ -418,7 +418,7 @@ $(document).on("click", ".flu", function () {
                             <td>`+ status + `</td>
                             <td><!-- <span class="badge  mt-2 dbluebadge notify_item" schedue-id='`+ val.id + `' ata-toggle='modal' data-target='#notifyModal' data-toggle="tooltip" data-placement="right" title="Notify"><i class="fas fa-comments"></i></span> -->` + updateButton + cancelButton + `</td>
                         </tr>`;
-                }
+                // }
             });
             newTR.innerHTML = subtable;
         } else {
