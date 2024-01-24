@@ -1,4 +1,5 @@
 var dtable;
+var confRow;
 
 $('.chosen').select2({
     closeOnSelect: false,
@@ -156,6 +157,7 @@ $(document).on("click", ".save", function () {
 
         $("#confirmprd" + id).addClass('is-invalid');
     } else {
+        confRow = id;
         $("#validationMessage" + id).hide();
 
         $("#confirmprd" + id).removeClass('is-invalid');
@@ -165,7 +167,7 @@ $(document).on("click", ".save", function () {
 });
 
 $('#confirmOkButton').on('click', function () {
-    var id = $(".save").data('id');
+    var id = confRow;
     var confirmprd = $("#confirmprd" + id).val();
 
     $.ajax({
