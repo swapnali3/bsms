@@ -986,16 +986,35 @@ class PurchaseOrdersController extends BuyerAppController
         $this->autoRender = false;
         $this->loadModel("PoItemSchedules");
         $response = ['status' => 0, 'message' => '', 'totalQty' => ''];
-        $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id, 'status' => 1, 
+        // $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $id, 'status' => 1, 
         //'PoItemSchedules.id not in (select po_schedule_id from asn_footers where po_footer_id ='.$id.')'
-        ]]);
+        // ]]);
+
+        $conn = ConnectionManager::get('default');
+        $query = $conn->execute("select po_item_schedules.id, po_item_schedules.po_header_id, po_item_schedules.po_footer_id, po_item_schedules.actual_qty, po_item_schedules.received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as delivery_date, po_item_schedules.added_date, po_item_schedules.updated_date,
+        case
+            when a.status = 3 then 'Received' else
+            case when a.status = 2 then 'In-Transit' else
+                case when po_item_schedules.delivery_date is null then '' else
+                    case when po_item_schedules.received_qty = 0 then 'Scheduled' else
+                        case when po_item_schedules.received_qty < po_item_schedules.actual_qty then 'Partial ASN created' else 'ASN created'
+                        end
+                    end
+                end
+            end
+        end as 'status'
+        from po_item_schedules
+        left join (select asn_headers.status, asn_headers.asn_no, asn_headers.po_header_id, asn_footers.id as asn_footer_id, asn_footers.po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_item_schedules.po_header_id and a.po_schedule_id = po_item_schedules.id
+        where po_item_schedules.status=1 AND po_item_schedules.po_footer_id =". $id);
+        $data = $query->fetchAll('assoc');
+
         
-        //print_r($data); exit;
-        if ($data->count() > 0) {
+        // print_r(count($data)); exit;
+        if (count($data) > 0) {
             $totalQty = 0;
             foreach ($data as $row) {
-                $totalQty += $row->actual_qty;
-                $row->delivery_date = $row->delivery_date->i18nFormat('dd-MM-YYYY');
+                $totalQty += $row['actual_qty'];
+                // $row->delivery_date = $row->delivery_date->i18nFormat('dd-MM-YYYY');
             }
             $response['status'] = 1;
             $response['message'] = $data;
