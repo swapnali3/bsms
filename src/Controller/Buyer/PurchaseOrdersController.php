@@ -434,11 +434,13 @@ class PurchaseOrdersController extends BuyerAppController
         $material = $conn->execute("SELECT
         DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as plan_date, vendor_temps.sap_vendor_code, materials.type, materials.segment, line_masters.name,
         materials.code, materials.description, dailymonitor.target_production, dailymonitor.confirm_production, DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as 'plan_date',
-        case when dailymonitor.status=1 then 'Active' else case when dailymonitor.status=3 then 'Planned Confirmed' else 'Cancelled' end end as 'status', IFNULL(stu.live_asn, 0) as 'closing_stock', 
+        case when dailymonitor.status=1 then 'Active' else case when dailymonitor.status=3 then 'Planned Confirmed' else 'Cancelled' end end as 'status', stu.opening_stock + z.confirm_production - IFNULL(stu.live_asn, 0) as 'closing_stock', 
         '-' as 'action', CURDATE() - dailymonitor.plan_date as 'ageing'
         FROM dailymonitor
         left join vendor_temps on dailymonitor.sap_vendor_code=vendor_temps.sap_vendor_code
         left join materials on materials.id=dailymonitor.material_id
+        left join (select sap_vendor_code, production_line_id, material_id, sum(confirm_production) as confirm_production from dailymonitor
+        group by sap_vendor_code, production_line_id, material_id) as z on z.sap_vendor_code = dailymonitor.sap_vendor_code and z.material_id = materials.id
         left join production_lines on production_lines.id=dailymonitor.production_line_id
         left join line_masters on line_masters.id=production_lines.line_master_id
         left join (select stock_uploads.*, tmp.live_asn from stock_uploads inner join (
