@@ -408,14 +408,14 @@ $(document).on("click", ".flu", function () {
 
                     var updateButton = val.received_qty > 0 ? '' : `<span class="badge schedule_update_button lbluebadge mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + delDt + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `' data-target='#modal-sm'  title="Modify" data-original-title="Modify"><i class="fas fa-user-edit"></i></span>`;
 
-                    var status = val.received_qty > 0 ? 'Received' : 'Schedule'
+                    // var status = val.received_qty > 0 ? 'Received' : 'Schedule'
                     var deliveryDate = new Date(currentDate);
                     var cancelButton = val.received_qty > 0 || currentDate.setHours(0, 0, 0, 0) > deliveryDate.setHours(0, 0, 0, 0) ? '' : `<span class="badge redbadge schedule_cancel_button mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + val.delivery_date + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `'  title="Cancel" data-original-title="Cancel"><i class="fas fa-trash"></i></span>`;
                     subtable += `<tr>
                             <td>`+ val.actual_qty + `</td>
                             <td>`+ val.received_qty + `</td>
                             <td>`+ val.delivery_date + `</td>
-                            <td>`+ status + `</td>
+                            <td>`+ val.status + `</td>
                             <td><!-- <span class="badge  mt-2 dbluebadge notify_item" schedue-id='`+ val.id + `' ata-toggle='modal' data-target='#notifyModal' data-toggle="tooltip" data-placement="right" title="Notify"><i class="fas fa-comments"></i></span> -->` + updateButton + cancelButton + `</td>
                         </tr>`;
                 // }
