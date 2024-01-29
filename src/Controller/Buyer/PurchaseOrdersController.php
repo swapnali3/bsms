@@ -248,7 +248,7 @@ class PurchaseOrdersController extends BuyerAppController
         $conn = ConnectionManager::get('default');
         $material = $conn->execute("select
         DATE_FORMAT(po_item_schedules.added_date, '%d-%m-%Y') as 'added_date', materials.type, materials.segment, materials.code, materials.description,
-        '-' as 'size', po_footers.po_qty, po_item_schedules.received_qty, po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty', vendor_temps.name, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) as 'no_of_days',
+        materials.pack_size as 'size', po_footers.po_qty, po_item_schedules.received_qty, po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty', vendor_temps.name, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) as 'no_of_days',
         case
             when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) <= 0 then 'Within 7 days' else
             case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16 then '7 to 15 days' else 'Greater than 15 days'
