@@ -491,9 +491,10 @@ class SyncController extends ApiAppController
                                     //sync material master
                                     $upsertQuery = $this->Materials->query();
                                     $upsertQuery->insert(['sap_vendor_code', 'code', 'description', 'uom', 'segment', 'segment_code', 'type']);
-                                    $upsertQuery->values(['sap_vendor_code' => $row->LIFNR, 'code' => $item->MATNR, 'description' => $item->TXZ01, 'uom' => $item->MEINS, 'segment' => $item->ZZSEGDESC, 'segment_code' => $item->ZZVENSEG, 'type' => $item->MAGRV ."-".$item->BEZEI]);
+                                    $upsertQuery->values(['sap_vendor_code' => $row->LIFNR, 'code' => $item->MATNR, 'description' => $item->TXZ01, 'uom' => $item->MEINS, 
+                                    'segment' => $item->ZZSEGDESC, 'segment_code' => $item->ZZVENSEG, 'type' => $item->MAGRV ."-".$item->BEZEI, 'pack_size' => $item->ZZERGEW4, 'pack_uom' => $item->ZZMEINS4]);
                                     $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
-                                        `description`=VALUES(`description`), `uom`=VALUES(`uom`), `segment`=VALUES(`segment`), `segment_code`=VALUES(`segment_code`), `type`=VALUES(`type`)')
+                                        `description`=VALUES(`description`), `uom`=VALUES(`uom`), `segment`=VALUES(`segment`), `segment_code`=VALUES(`segment_code`), `type`=VALUES(`type`), `pack_size`=VALUES(`pack_size`), `pack_uom`=VALUES(`pack_uom`)')
                                         ->execute();
 
                                     if ($valid && $this->PoFooters->save($poItemsInstance)) {
