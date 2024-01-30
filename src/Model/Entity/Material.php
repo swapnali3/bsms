@@ -51,5 +51,7 @@ class Material extends Entity
         'dailymonitor' => true,
         'production_lines' => true,
         'stock_uploads' => true,
+        'pack_size' => true,
+        'pack_uom' => true,
     ];
 }
