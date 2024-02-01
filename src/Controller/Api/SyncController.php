@@ -343,205 +343,207 @@ class SyncController extends ApiAppController
         $this->loadModel('VendorTemps');
         
 
-        foreach($list as $fileKey) {
-            
-            if(str_starts_with($fileKey, 'PO_')) {
-                $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
+        if($list) {
+            foreach($list as $fileKey) {
                 
-                
-                if($data) {
-                    $data = trim(preg_replace('/\s+/', ' ', $data));
-                    $d = json_decode($data);
+                if(str_starts_with($fileKey, 'PO_')) {
+                    $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
+                    
+                    
+                    if($data) {
+                        $data = trim(preg_replace('/\s+/', ' ', $data));
+                        $d = json_decode($data);
 
-                    foreach($d->PO_LIST as $key => $row) {
-                        $isNewPo = false;
-                        $hederData = array();
-                        $footerData = array();
+                        foreach($d->PO_LIST as $key => $row) {
+                            $isNewPo = false;
+                            $hederData = array();
+                            $footerData = array();
 
-                        $hederData['sap_vendor_code'] = $row->LIFNR;
-                        $hederData['po_no'] = $row->EBELN;
-                        $hederData['document_type'] = $row->BATXT;
-                        $hederData['created_on'] = date("Y-m-d H:i:s", strtotime($row->AEDAT));
-                        $hederData['created_user'] = $row->ERNAM;
-                        $hederData['created_by'] = $row->F_NAME;
-                        $hederData['pay_terms'] = $row->ZTERM ? $row->ZTERM : 'P01';
-                        $hederData['currency'] = $row->WAERS;
-                        $hederData['exchange_rate'] = $row->WKURS;
-                        $hederData['release_status'] = $row->FRGZU ? $row->FRGZU : 'X';
-                        //$hederData['acknowledge'] = 0;
-                        
+                            $hederData['sap_vendor_code'] = $row->LIFNR;
+                            $hederData['po_no'] = $row->EBELN;
+                            $hederData['document_type'] = $row->BATXT;
+                            $hederData['created_on'] = date("Y-m-d H:i:s", strtotime($row->AEDAT));
+                            $hederData['created_user'] = $row->ERNAM;
+                            $hederData['created_by'] = $row->F_NAME;
+                            $hederData['pay_terms'] = $row->ZTERM ? $row->ZTERM : 'P01';
+                            $hederData['currency'] = $row->WAERS;
+                            $hederData['exchange_rate'] = $row->WKURS;
+                            $hederData['release_status'] = $row->FRGZU ? $row->FRGZU : 'X';
+                            //$hederData['acknowledge'] = 0;
+                            
 
-                        if($this->PoHeaders->exists(['po_no' => $row->EBELN])) {
-                            $poInstance = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
-                            $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
-                        } else {
-                            $poInstance = $this->PoHeaders->newEmptyEntity();
-                            $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
-                            $isNewPo = true;
-                        }
-
-                        /*echo '<prE>'; print_r($poInstance);
-                        
-                        $vendorTemps = $this->VendorTemps->find('all')->where(['sap_vendor_code' => $row->LIFNR ])->first();
-                        print_r($vendorTemps);
-                        exit; */
-                        try {
-                            if ($this->PoHeaders->save($poInstance)) {
-
-                                $po_header_id = $poInstance->id;
-
-                                foreach ($row->ITEM as $no => $item) {
-                                    $tmp = array();
-                                    $tmp['po_header_id'] = $po_header_id;
-                                    $tmp['item'] = $item->EBELP;
-                                    $tmp['deleted_indication'] = $item->LOEKZ;
-                                    $tmp['material'] = $item->MATNR;
-                                    $tmp['short_text'] = $item->TXZ01;
-                                    $tmp['po_qty'] = $item->MENGE;
-                                    $tmp['grn_qty'] = $item->R_QTY;
-                                    $tmp['pending_qty'] = $item->P_QTY;
-                                    $tmp['order_unit'] = $item->MEINS;
-                                    $tmp['net_price'] = $item->NETPR;
-                                    $tmp['price_unit'] = $item->PEINH;
-                                    $tmp['net_value'] = $item->NETWR;
-                                    $tmp['gross_value'] = $item->BRTWR;
-
-                                    $footerData = $tmp;
-                                    $vendorDetail = $this->VendorTemps->find()->where(['sap_vendor_code' => $row->LIFNR])->first();
-                                    if($item->CHG_IND == 'X') {
-                                        $footerData['is_updated'] = 1;
-                                        $poInstanceAck = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
-                                        $hederData = [];
-                                        $hederData['acknowledge'] = 0;
-                                        $poInstanceAck = $this->PoHeaders->patchEntity($poInstanceAck, $hederData);
-                                        $this->PoHeaders->save($poInstanceAck);
-
-                                        if($vendorDetail) {
-                                            try{
-                                                $mailer = new Mailer('default');
-                                                $mailer
-                                                    ->setTransport('smtp')
-                                                    ->setViewVars([
-                                                        'vendor_name' => $vendorDetail->name,
-                                                        'po_footer' => $item,
-                                                        'po_header'=>$row,
-                                                        'spt_email' => 'support@apar.in',])
-                                                    ->setFrom(Configure::read('MAIL_FROM'))
-                                                    ->setTo($vendorDetail->email)
-                                                    ->setEmailFormat('html')
-                                                    ->setSubject('VENDOR PORTAL - PO ITEM UPDATED ('.$po_header->EBELN.')')
-                                                    ->viewBuilder()
-                                                        ->setTemplate('m_purchase_order');
-                                                $mailer->deliver();
-                                            } catch (\Exception $e) {
-
-                                            }
-                                        }
-
-
-                                    }
-                                    
-                                    
-                                    $valid = true;
-                                    if($this->PoFooters->exists(['po_header_id' => $po_header_id, 'item' => $item->EBELP])) {
-                                        $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
-                                        
-                                        //echo '<pre>'; print_r($poItemsInstance); exit;
-                                        $total = $this->PoItemSchedules->find()
-                                        ->select(['total' => 'sum(actual_qty)'])
-                                        ->where(array('PoItemSchedules.po_footer_id'=>$poItemsInstance->id))->toArray();
-                                        $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
-                                        //echo '<pre>'; print_r($total[0]->total); exit;
-                                        if(doubleval($total[0]->total) > doubleval($item->MENGE)) {
-                                            $buyer = $this->Buyers->find()->where(['sap_user'=>$row->ERNAM])->first();
-                                            $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
-                                            $buyersEmails = [];
-                                            foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
-                                            
-                                            $valid = false;
-
-                                            try{
-                                                $mailer = new Mailer('default');
-                                                $mailer
-                                                    ->setTransport('smtp')
-                                                    ->setViewVars([
-                                                        'vendor_name' => $vendorDetail->name,
-                                                        'poNumber'=>$poNumber,
-                                                        'po_footer' => $item,
-                                                        'po_header'=>$row,
-                                                        'spt_email' => 'support@apar.in',
-                                                        'total'=>$total[0]->total
-                                                        ])
-                                                    ->setFrom(Configure::read('MAIL_FROM'))
-                                                    ->setTo($buyersEmails)
-                                                    ->setEmailFormat('html')
-                                                    ->setSubject('VENDOR PORTAL - PO ITEM NOT UPDATED')
-                                                    ->viewBuilder()
-                                                        ->setTemplate('po_not_updated');
-                                                $mailer->deliver();
-                                            } catch (\Exception $e) {
-
-                                            }
-                                        }
-                                    }  else {
-                                        $poItemsInstance = $this->PoFooters->newEmptyEntity();
-                                        $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
-                                    }
-
-                                    //sync material master
-                                    $upsertQuery = $this->Materials->query();
-                                    $upsertQuery->insert(['sap_vendor_code', 'code', 'description', 'uom', 'segment', 'segment_code', 'type', 'pack_size', 'pack_uom']);
-                                    $upsertQuery->values(['sap_vendor_code' => $row->LIFNR, 'code' => $item->MATNR, 'description' => $item->TXZ01, 'uom' => $item->MEINS, 
-                                    'segment' => $item->ZZSEGDESC, 'segment_code' => $item->ZZVENSEG, 'type' => $item->MAGRV ."-".$item->BEZEI, 'pack_size' => $item->ZZERGEW4, 'pack_uom' => $item->ZZMEINS4]);
-                                    $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
-                                        `description`=VALUES(`description`), `uom`=VALUES(`uom`), `segment`=VALUES(`segment`), `segment_code`=VALUES(`segment_code`), `type`=VALUES(`type`), `pack_size`=VALUES(`pack_size`), `pack_uom`=VALUES(`pack_uom`)')
-                                        ->execute();
-
-                                    if ($valid && $this->PoFooters->save($poItemsInstance)) {
-                                        $response['message'][] = 'PO : '.$row->EBELN.' Item : '.$item->EBELP.' saved successfully';
-                                    } else {
-                                        $response['message'][] = 'PO :'.$row->EBELN.' Item : '.$item->EBELP.' save fail';
-                                    }
-                                }
-
-
-                                if($isNewPo) {
-                                    $vendorTemps = $this->VendorTemps->find('all')->where(['sap_vendor_code' => $row->LIFNR ])->first();
-                                    $ttlamt=0;
-                                    foreach ($row->ITEM as $item) { $ttlamt = $ttlamt + $item->NETPR; }
-                                    $mailer = new Mailer('default');
-                                    $mailer
-                                        ->setTransport('smtp')
-                                        ->setViewVars([
-                                            'vendor_name' => $vendorTemps->name,
-                                            'vendor_email' => $vendorTemps->email,
-                                            'po_header' => $poInstance,
-                                            'po_footer' => $row->ITEM,
-                                            'spt_email' => 'support@apar.in',
-                                            'spt_contact' => '7718801906',
-                                            'ttlamt' => $ttlamt,
-                                            'pay_term'=>$this->PaymentTerms->find('all')->where(['code' => $poInstance->pay_terms ])->first()
-                                            ]) 
-                                        ->setFrom(Configure::read('MAIL_FROM'))
-                                        ->setTo($vendorTemps->email)
-                                        ->setEmailFormat('html')
-                                        ->setSubject('PURCHASE ORDER DETAILS')
-                                        ->viewBuilder()
-                                        ->setTemplate('purchase_order');
-                                    $mailer->deliver();
-                                }
-
-                                $this->Ftp->removeFile($ftpConn, $fileKey);
-                                
-                            } else if($poInstance->getError('po_no')) {
-                                $response['message'][] = $poInstance->getError('po_no');
-                            }else {
-                                $response['message'][] = 'PO :'.$row->EBELN.' save fail';
+                            if($this->PoHeaders->exists(['po_no' => $row->EBELN])) {
+                                $poInstance = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
+                                $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
+                            } else {
+                                $poInstance = $this->PoHeaders->newEmptyEntity();
+                                $poInstance = $this->PoHeaders->patchEntity($poInstance, $hederData);
+                                $isNewPo = true;
                             }
-                        } catch (\PDOException $e) {
-                            $response['message'][] = $e->getMessage();
-                        } catch (\Exception $e) {
-                            $response['message'][] = $e->getMessage();
+
+                            /*echo '<prE>'; print_r($poInstance);
+                            
+                            $vendorTemps = $this->VendorTemps->find('all')->where(['sap_vendor_code' => $row->LIFNR ])->first();
+                            print_r($vendorTemps);
+                            exit; */
+                            try {
+                                if ($this->PoHeaders->save($poInstance)) {
+
+                                    $po_header_id = $poInstance->id;
+
+                                    foreach ($row->ITEM as $no => $item) {
+                                        $tmp = array();
+                                        $tmp['po_header_id'] = $po_header_id;
+                                        $tmp['item'] = $item->EBELP;
+                                        $tmp['deleted_indication'] = $item->LOEKZ;
+                                        $tmp['material'] = $item->MATNR;
+                                        $tmp['short_text'] = $item->TXZ01;
+                                        $tmp['po_qty'] = $item->MENGE;
+                                        $tmp['grn_qty'] = $item->R_QTY;
+                                        $tmp['pending_qty'] = $item->P_QTY;
+                                        $tmp['order_unit'] = $item->MEINS;
+                                        $tmp['net_price'] = $item->NETPR;
+                                        $tmp['price_unit'] = $item->PEINH;
+                                        $tmp['net_value'] = $item->NETWR;
+                                        $tmp['gross_value'] = $item->BRTWR;
+
+                                        $footerData = $tmp;
+                                        $vendorDetail = $this->VendorTemps->find()->where(['sap_vendor_code' => $row->LIFNR])->first();
+                                        if($item->CHG_IND == 'X') {
+                                            $footerData['is_updated'] = 1;
+                                            $poInstanceAck = $this->PoHeaders->find()->where(['po_no' => $row->EBELN])->first();
+                                            $hederData = [];
+                                            $hederData['acknowledge'] = 0;
+                                            $poInstanceAck = $this->PoHeaders->patchEntity($poInstanceAck, $hederData);
+                                            $this->PoHeaders->save($poInstanceAck);
+
+                                            if($vendorDetail) {
+                                                try{
+                                                    $mailer = new Mailer('default');
+                                                    $mailer
+                                                        ->setTransport('smtp')
+                                                        ->setViewVars([
+                                                            'vendor_name' => $vendorDetail->name,
+                                                            'po_footer' => $item,
+                                                            'po_header'=>$row,
+                                                            'spt_email' => 'support@apar.in',])
+                                                        ->setFrom(Configure::read('MAIL_FROM'))
+                                                        ->setTo($vendorDetail->email)
+                                                        ->setEmailFormat('html')
+                                                        ->setSubject('VENDOR PORTAL - PO ITEM UPDATED ('.$po_header->EBELN.')')
+                                                        ->viewBuilder()
+                                                            ->setTemplate('m_purchase_order');
+                                                    $mailer->deliver();
+                                                } catch (\Exception $e) {
+
+                                                }
+                                            }
+
+
+                                        }
+                                        
+                                        
+                                        $valid = true;
+                                        if($this->PoFooters->exists(['po_header_id' => $po_header_id, 'item' => $item->EBELP])) {
+                                            $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
+                                            
+                                            //echo '<pre>'; print_r($poItemsInstance); exit;
+                                            $total = $this->PoItemSchedules->find()
+                                            ->select(['total' => 'sum(actual_qty)'])
+                                            ->where(array('PoItemSchedules.po_footer_id'=>$poItemsInstance->id))->toArray();
+                                            $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
+                                            //echo '<pre>'; print_r($total[0]->total); exit;
+                                            if(doubleval($total[0]->total) > doubleval($item->MENGE)) {
+                                                $buyer = $this->Buyers->find()->where(['sap_user'=>$row->ERNAM])->first();
+                                                $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
+                                                $buyersEmails = [];
+                                                foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
+                                                
+                                                $valid = false;
+
+                                                try{
+                                                    $mailer = new Mailer('default');
+                                                    $mailer
+                                                        ->setTransport('smtp')
+                                                        ->setViewVars([
+                                                            'vendor_name' => $vendorDetail->name,
+                                                            'poNumber'=>$poNumber,
+                                                            'po_footer' => $item,
+                                                            'po_header'=>$row,
+                                                            'spt_email' => 'support@apar.in',
+                                                            'total'=>$total[0]->total
+                                                            ])
+                                                        ->setFrom(Configure::read('MAIL_FROM'))
+                                                        ->setTo($buyersEmails)
+                                                        ->setEmailFormat('html')
+                                                        ->setSubject('VENDOR PORTAL - PO ITEM NOT UPDATED')
+                                                        ->viewBuilder()
+                                                            ->setTemplate('po_not_updated');
+                                                    $mailer->deliver();
+                                                } catch (\Exception $e) {
+
+                                                }
+                                            }
+                                        }  else {
+                                            $poItemsInstance = $this->PoFooters->newEmptyEntity();
+                                            $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $footerData);
+                                        }
+
+                                        //sync material master
+                                        $upsertQuery = $this->Materials->query();
+                                        $upsertQuery->insert(['sap_vendor_code', 'code', 'description', 'uom', 'segment', 'segment_code', 'type', 'pack_size', 'pack_uom']);
+                                        $upsertQuery->values(['sap_vendor_code' => $row->LIFNR, 'code' => $item->MATNR, 'description' => $item->TXZ01, 'uom' => $item->MEINS, 
+                                        'segment' => $item->ZZSEGDESC, 'segment_code' => $item->ZZVENSEG, 'type' => $item->MAGRV ."-".$item->BEZEI, 'pack_size' => $item->ZZERGEW4, 'pack_uom' => $item->ZZMEINS4]);
+                                        $upsertQuery->epilog('ON DUPLICATE KEY UPDATE `sap_vendor_code`=VALUES(`sap_vendor_code`), `code`=VALUES(`code`),
+                                            `description`=VALUES(`description`), `uom`=VALUES(`uom`), `segment`=VALUES(`segment`), `segment_code`=VALUES(`segment_code`), `type`=VALUES(`type`), `pack_size`=VALUES(`pack_size`), `pack_uom`=VALUES(`pack_uom`)')
+                                            ->execute();
+
+                                        if ($valid && $this->PoFooters->save($poItemsInstance)) {
+                                            $response['message'][] = 'PO : '.$row->EBELN.' Item : '.$item->EBELP.' saved successfully';
+                                        } else {
+                                            $response['message'][] = 'PO :'.$row->EBELN.' Item : '.$item->EBELP.' save fail';
+                                        }
+                                    }
+
+
+                                    if($isNewPo) {
+                                        $vendorTemps = $this->VendorTemps->find('all')->where(['sap_vendor_code' => $row->LIFNR ])->first();
+                                        $ttlamt=0;
+                                        foreach ($row->ITEM as $item) { $ttlamt = $ttlamt + $item->NETPR; }
+                                        $mailer = new Mailer('default');
+                                        $mailer
+                                            ->setTransport('smtp')
+                                            ->setViewVars([
+                                                'vendor_name' => $vendorTemps->name,
+                                                'vendor_email' => $vendorTemps->email,
+                                                'po_header' => $poInstance,
+                                                'po_footer' => $row->ITEM,
+                                                'spt_email' => 'support@apar.in',
+                                                'spt_contact' => '7718801906',
+                                                'ttlamt' => $ttlamt,
+                                                'pay_term'=>$this->PaymentTerms->find('all')->where(['code' => $poInstance->pay_terms ])->first()
+                                                ]) 
+                                            ->setFrom(Configure::read('MAIL_FROM'))
+                                            ->setTo($vendorTemps->email)
+                                            ->setEmailFormat('html')
+                                            ->setSubject('PURCHASE ORDER DETAILS')
+                                            ->viewBuilder()
+                                            ->setTemplate('purchase_order');
+                                        $mailer->deliver();
+                                    }
+
+                                    $this->Ftp->removeFile($ftpConn, $fileKey);
+                                    
+                                } else if($poInstance->getError('po_no')) {
+                                    $response['message'][] = $poInstance->getError('po_no');
+                                }else {
+                                    $response['message'][] = 'PO :'.$row->EBELN.' save fail';
+                                }
+                            } catch (\PDOException $e) {
+                                $response['message'][] = $e->getMessage();
+                            } catch (\Exception $e) {
+                                $response['message'][] = $e->getMessage();
+                            }
                         }
                     }
                 }
@@ -735,102 +737,104 @@ class SyncController extends ApiAppController
         $response['status'] = 0;
         $response['message'] = [];
         
-        foreach($list as $fileKey) {
-            if(str_starts_with($fileKey, 'VENDOR_GET_')) {
-                $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
-                if($data) {
-                    $this->loadModel("VendorTemps");
-        
-                    $data = trim(preg_replace('/\s+/', ' ', $data));
-                    $d = json_decode($data);
-        
-                    foreach($d->VENDOR_LIST as $key => $row) {
-                        $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
-                        $puOrg = $this->VendorTemps->PurchasingOrganizations->findByCode($row->EKORG)->first();
-                        $accGrp = $this->VendorTemps->AccountGroups->findByCode($row->KTOKK)->first();
-                        $reconAccount = $this->VendorTemps->ReconciliationAccounts->findByCode($row->AKONT)->first();
-                        $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
-                        $schemaGroup = $this->VendorTemps->SchemaGroups->findByCode($row->KALSK)->first();
-                        //$region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
-                        $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
-                        $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
-                        
-                        if(trim($row->SUCCESS) == "0") { continue; }
-                        $vendorExists = false;
-                        $createUser = false;
-                        if($this->VendorTemps->exists(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])) {
-                            $vendor = $this->VendorTemps->find()->where(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])->first();
-                            $vendorExists = true;
-                        } else {
-                            $vendor = $this->VendorTemps->newEmptyEntity();
-                            $vendor->status = 5;
-                            $vendor->from_sap = 1;
+        if($list) {
+            foreach($list as $fileKey) {
+                if(str_starts_with($fileKey, 'VENDOR_GET_')) {
+                    $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
+                    if($data) {
+                        $this->loadModel("VendorTemps");
+            
+                        $data = trim(preg_replace('/\s+/', ' ', $data));
+                        $d = json_decode($data);
+            
+                        foreach($d->VENDOR_LIST as $key => $row) {
+                            $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
+                            $puOrg = $this->VendorTemps->PurchasingOrganizations->findByCode($row->EKORG)->first();
+                            $accGrp = $this->VendorTemps->AccountGroups->findByCode($row->KTOKK)->first();
+                            $reconAccount = $this->VendorTemps->ReconciliationAccounts->findByCode($row->AKONT)->first();
+                            $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
+                            $schemaGroup = $this->VendorTemps->SchemaGroups->findByCode($row->KALSK)->first();
+                            //$region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
+                            $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
+                            $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
+                            
+                            if(trim($row->SUCCESS) == "0") { continue; }
                             $vendorExists = false;
-                        }
-                        
-                        if(!$vendorExists && $this->VendorTemps->exists(['name' => $row->NAME1, 'email' => $row->SMTP_ADDR, 'mobile' => $row->MOB_NUMBER])) {
-                            $vendor = $this->VendorTemps->find()->where(['name' => $row->NAME1, 'email' => $row->SMTP_ADDR, 'mobile' => $row->MOB_NUMBER])->first();
-                            $vendor->status = 5;
-                            $vendorExists = true;
-                            $createUser = true;
-                        }
-
-                        $vendor->sap_vendor_code = $row->LIFNR;
-                        $vendor->company_code_id = $companyCode->id;
-                        $vendor->purchasing_organization_id = $puOrg->id;
-                        $vendor->account_group_id = $accGrp->id;
-                        $vendor->reconciliation_account_id = $reconAccount->id;
-                        $vendor->payment_term_id = $payTerm->id;
-                        if($schemaGroup) {
-                            $vendor->schema_group_id = $schemaGroup->id;
-                        }
-                        if($region) {
-                            $vendor->state_id = $region->id;
-                        }
-                        if($country) {
-                            $vendor->country_id = $country->id;
-                        }
-                        $vendor->title = $row->TITLE_MEDI;
-                        $vendor->name = $row->NAME1;
-                        $vendor->address = $row->NAME2;
-                        $vendor->address_2 = $row->NAME3;
-                        $vendor->city = $row->CITY1;
-                        $vendor->pincode = $row->POST_CODE1;
-                        $vendor->email = $row->SMTP_ADDR;
-                        $vendor->mobile = $row->MOB_NUMBER;
-                        $vendor->gst_no = $row->GSIN;
-                        $vendor->pan_no = $row->PAN;
-                        //$vendor->buyer_id = 8;
-        
-                        if($this->VendorTemps->save($vendor)) {
-                            $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
-                            if(!$vendorExists || $createUser) {
-                                $this->loadModel("Users");
-                                $user = $this->Users->newEmptyEntity();
-                                
-                                $data = array();
-                                $data['first_name'] = $vendor->name;
-                                $data['last_name'] = $vendor->name;
-                                $data['username'] = $vendor->email;
-                                $data['mobile'] = $vendor->mobile;
-                                $data['password'] = $vendor->mobile;
-                                $data['group_id'] = 3;
-        
-                                $user = $this->Users->patchEntity($user, $data);
-        
-                                try{
-                                    if ($this->Users->save($user)) {
-                                        $response['message'][] = 'User '.$row->LIFNR.' created successfully!';
-                                        $this->Ftp->removeFile($ftpConn, $fileKey);
-                                    }
-                                } catch (\Exception $e) {
-                                    $response['message'][] = 'Vendor fail - '.$e->getMessage();
-                                } 
+                            $createUser = false;
+                            if($this->VendorTemps->exists(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])) {
+                                $vendor = $this->VendorTemps->find()->where(['sap_vendor_code' => str_pad($row->LIFNR, 10, "0", STR_PAD_LEFT)])->first();
+                                $vendorExists = true;
                             } else {
-                                $this->Ftp->removeFile($ftpConn, $fileKey);
+                                $vendor = $this->VendorTemps->newEmptyEntity();
+                                $vendor->status = 5;
+                                $vendor->from_sap = 1;
+                                $vendorExists = false;
                             }
-                        } else {
-                            $response['message'][] = 'Vendor '.$row->LIFNR.' save fail';
+                            
+                            if(!$vendorExists && $this->VendorTemps->exists(['name' => $row->NAME1, 'email' => $row->SMTP_ADDR, 'mobile' => $row->MOB_NUMBER])) {
+                                $vendor = $this->VendorTemps->find()->where(['name' => $row->NAME1, 'email' => $row->SMTP_ADDR, 'mobile' => $row->MOB_NUMBER])->first();
+                                $vendor->status = 5;
+                                $vendorExists = true;
+                                $createUser = true;
+                            }
+
+                            $vendor->sap_vendor_code = $row->LIFNR;
+                            $vendor->company_code_id = $companyCode->id;
+                            $vendor->purchasing_organization_id = $puOrg->id;
+                            $vendor->account_group_id = $accGrp->id;
+                            $vendor->reconciliation_account_id = $reconAccount->id;
+                            $vendor->payment_term_id = $payTerm->id;
+                            if($schemaGroup) {
+                                $vendor->schema_group_id = $schemaGroup->id;
+                            }
+                            if($region) {
+                                $vendor->state_id = $region->id;
+                            }
+                            if($country) {
+                                $vendor->country_id = $country->id;
+                            }
+                            $vendor->title = $row->TITLE_MEDI;
+                            $vendor->name = $row->NAME1;
+                            $vendor->address = $row->NAME2;
+                            $vendor->address_2 = $row->NAME3;
+                            $vendor->city = $row->CITY1;
+                            $vendor->pincode = $row->POST_CODE1;
+                            $vendor->email = $row->SMTP_ADDR;
+                            $vendor->mobile = $row->MOB_NUMBER;
+                            $vendor->gst_no = $row->GSIN;
+                            $vendor->pan_no = $row->PAN;
+                            //$vendor->buyer_id = 8;
+            
+                            if($this->VendorTemps->save($vendor)) {
+                                $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
+                                if(!$vendorExists || $createUser) {
+                                    $this->loadModel("Users");
+                                    $user = $this->Users->newEmptyEntity();
+                                    
+                                    $data = array();
+                                    $data['first_name'] = $vendor->name;
+                                    $data['last_name'] = $vendor->name;
+                                    $data['username'] = $vendor->email;
+                                    $data['mobile'] = $vendor->mobile;
+                                    $data['password'] = $vendor->mobile;
+                                    $data['group_id'] = 3;
+            
+                                    $user = $this->Users->patchEntity($user, $data);
+            
+                                    try{
+                                        if ($this->Users->save($user)) {
+                                            $response['message'][] = 'User '.$row->LIFNR.' created successfully!';
+                                            $this->Ftp->removeFile($ftpConn, $fileKey);
+                                        }
+                                    } catch (\Exception $e) {
+                                        $response['message'][] = 'Vendor fail - '.$e->getMessage();
+                                    } 
+                                } else {
+                                    $this->Ftp->removeFile($ftpConn, $fileKey);
+                                }
+                            } else {
+                                $response['message'][] = 'Vendor '.$row->LIFNR.' save fail';
+                            }
                         }
                     }
                 }
@@ -847,89 +851,91 @@ class SyncController extends ApiAppController
         $response['status'] = 0;
         $response['message'] = [];
 
-        foreach($list as $fileKey) {
-            if(str_starts_with($fileKey, 'VENDOR_CR_')) {
-                $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
-                if($data) {
-                    $this->loadModel("VendorTemps");
-        
-                    $data = trim(preg_replace('/\s+/', ' ', $data));
-                    $d = json_decode($data);
-        
-                    foreach($d->VENDOR_LIST as $key => $row) {
-                        $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
-                        $puOrg = $this->VendorTemps->PurchasingOrganizations->findByCode($row->EKORG)->first();
-                        $accGrp = $this->VendorTemps->AccountGroups->findByCode($row->KTOKK)->first();
-                        $reconAccount = $this->VendorTemps->ReconciliationAccounts->findByCode($row->AKONT)->first();
-                        $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
-                        $schemaGroup = $this->VendorTemps->SchemaGroups->findByCode($row->KALSK)->first();
-                        //$region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
-                        $region = '';
-                        $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
-                        $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
-                        
-                        
-                        if($this->VendorTemps->exists(['id' => $row->VENDOR_PORTAL_ID])) {
-                            $vendor = $this->VendorTemps->get($row->VENDOR_PORTAL_ID);
-                            if(trim($row->SUCCESS) == "0") { 
-                                $vendor->remark = $row->MESSAGE;
-                                $this->VendorTemps->save($vendor);
-                                continue; 
-                            } else {
+        if($list) {
+            foreach($list as $fileKey) {
+                if(str_starts_with($fileKey, 'VENDOR_CR_')) {
+                    $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
+                    if($data) {
+                        $this->loadModel("VendorTemps");
+            
+                        $data = trim(preg_replace('/\s+/', ' ', $data));
+                        $d = json_decode($data);
+            
+                        foreach($d->VENDOR_LIST as $key => $row) {
+                            $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
+                            $puOrg = $this->VendorTemps->PurchasingOrganizations->findByCode($row->EKORG)->first();
+                            $accGrp = $this->VendorTemps->AccountGroups->findByCode($row->KTOKK)->first();
+                            $reconAccount = $this->VendorTemps->ReconciliationAccounts->findByCode($row->AKONT)->first();
+                            $companyCode = $this->VendorTemps->CompanyCodes->findByCode($row->BUKRS)->first();
+                            $schemaGroup = $this->VendorTemps->SchemaGroups->findByCode($row->KALSK)->first();
+                            //$region = $this->VendorTemps->States->findByRegionCode($row->REGION)->first();
+                            $region = '';
+                            $country = $this->VendorTemps->Countries->findByCountryCode($row->COUNTRY)->first();
+                            $payTerm = $this->VendorTemps->PaymentTerms->findByCode($row->ZTERM)->first();
                             
-                                $vendor->status = 5;
-                                $vendor->sap_vendor_code = $row->LIFNR;
-                                $vendor->company_code_id = $companyCode->id;
-                                $vendor->purchasing_organization_id = $puOrg->id;
-                                $vendor->account_group_id = $accGrp->id;
-                                $vendor->reconciliation_account_id = $reconAccount->id;
-                                $vendor->payment_term_id = $payTerm->id;
-                                if($schemaGroup) {
-                                    $vendor->schema_group_id = $schemaGroup->id;
-                                }
-                                if($region) {
-                                    $vendor->state_id = $region->id;
-                                }
-                                if($country) {
-                                    $vendor->country_id = $country->id;
-                                }
-                                $vendor->title = $row->TITLE_MEDI;
-                                $vendor->name = $row->NAME1;
-                                $vendor->address = $row->NAME2;
-                                $vendor->address_2 = $row->NAME3;
-                                $vendor->city = $row->CITY1;
-                                $vendor->pincode = $row->POST_CODE1;
-                                $vendor->email = $row->SMTP_ADDR;
-                                $vendor->mobile = $row->MOB_NUMBER;
-                                $vendor->gst_no = $row->GSIN;
-                                $vendor->pan_no = $row->PAN;
-                                
-                                if($this->VendorTemps->save($vendor)) {
-                                    $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
-                                    
-                                    $this->loadModel("Users");
-                                    $user = $this->Users->newEmptyEntity();
-                                    
-                                    $data = array();
-                                    $data['first_name'] = $vendor->name;
-                                    $data['last_name'] = $vendor->name;
-                                    $data['username'] = $vendor->email;
-                                    $data['mobile'] = $vendor->mobile;
-                                    $data['password'] = $vendor->mobile;
-                                    $data['group_id'] = 3;
-            
-                                    $user = $this->Users->patchEntity($user, $data);
-            
-                                    try {
-                                        if ($this->Users->save($user)) {
-                                            $response['message'][] = 'User '.$row->LIFNR.' created successfully';
-                                            $this->Ftp->removeFile($ftpConn, $fileKey);
-                                        }
-                                    } catch (\Exception $e) {
-                                        $response['message'][] = 'User '.$row->LIFNR.' fail - '.$e->getMessage();
-                                    }
+                            
+                            if($this->VendorTemps->exists(['id' => $row->VENDOR_PORTAL_ID])) {
+                                $vendor = $this->VendorTemps->get($row->VENDOR_PORTAL_ID);
+                                if(trim($row->SUCCESS) == "0") { 
+                                    $vendor->remark = $row->MESSAGE;
+                                    $this->VendorTemps->save($vendor);
+                                    continue; 
                                 } else {
-                                    $response['message'][] = 'Vendor 2 '.$row->LIFNR.' save fail';
+                                
+                                    $vendor->status = 5;
+                                    $vendor->sap_vendor_code = $row->LIFNR;
+                                    $vendor->company_code_id = $companyCode->id;
+                                    $vendor->purchasing_organization_id = $puOrg->id;
+                                    $vendor->account_group_id = $accGrp->id;
+                                    $vendor->reconciliation_account_id = $reconAccount->id;
+                                    $vendor->payment_term_id = $payTerm->id;
+                                    if($schemaGroup) {
+                                        $vendor->schema_group_id = $schemaGroup->id;
+                                    }
+                                    if($region) {
+                                        $vendor->state_id = $region->id;
+                                    }
+                                    if($country) {
+                                        $vendor->country_id = $country->id;
+                                    }
+                                    $vendor->title = $row->TITLE_MEDI;
+                                    $vendor->name = $row->NAME1;
+                                    $vendor->address = $row->NAME2;
+                                    $vendor->address_2 = $row->NAME3;
+                                    $vendor->city = $row->CITY1;
+                                    $vendor->pincode = $row->POST_CODE1;
+                                    $vendor->email = $row->SMTP_ADDR;
+                                    $vendor->mobile = $row->MOB_NUMBER;
+                                    $vendor->gst_no = $row->GSIN;
+                                    $vendor->pan_no = $row->PAN;
+                                    
+                                    if($this->VendorTemps->save($vendor)) {
+                                        $response['message'][] = 'Vendor '.$row->LIFNR.' saved successfully!';
+                                        
+                                        $this->loadModel("Users");
+                                        $user = $this->Users->newEmptyEntity();
+                                        
+                                        $data = array();
+                                        $data['first_name'] = $vendor->name;
+                                        $data['last_name'] = $vendor->name;
+                                        $data['username'] = $vendor->email;
+                                        $data['mobile'] = $vendor->mobile;
+                                        $data['password'] = $vendor->mobile;
+                                        $data['group_id'] = 3;
+                
+                                        $user = $this->Users->patchEntity($user, $data);
+                
+                                        try {
+                                            if ($this->Users->save($user)) {
+                                                $response['message'][] = 'User '.$row->LIFNR.' created successfully';
+                                                $this->Ftp->removeFile($ftpConn, $fileKey);
+                                            }
+                                        } catch (\Exception $e) {
+                                            $response['message'][] = 'User '.$row->LIFNR.' fail - '.$e->getMessage();
+                                        }
+                                    } else {
+                                        $response['message'][] = 'Vendor 2 '.$row->LIFNR.' save fail';
+                                    }
                                 }
                             }
                         }
@@ -967,64 +973,66 @@ class SyncController extends ApiAppController
         $response['status'] = 0;
         $response['message'] = [];
         
-        foreach($list as $fileKey) {
-            if(str_starts_with($fileKey, 'BUYER_GET_')) {
-                $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
-                if($data) {
-                    $data = trim(preg_replace('/\s+/', ' ', $data));
-                    $d = json_decode($data);
-        
-                    foreach($d->BUYER_LIST as $key => $row) {
-                        $companyCode = $this->Buyers->CompanyCodes->findByCode($row->BUKRS)->first();
-                        $puOrg = $this->Buyers->PurchasingOrganizations->findByCode($row->EKORG)->first();
-                        
-                        if(trim($row->SUCCESS) == "0") { continue; }
-                        $buyerExists = false;
-                        if($this->Buyers->exists(['sap_user' => $row->UNAME])) {
-                            $buyer = $this->Buyers->find()->where(['sap_user' => $row->UNAME])->first();
-                            $buyerExists = true;
-                        } else {
-                            $buyer = $this->Buyers->newEmptyEntity();
-                            $buyer->status = 1;
+        if($list) {
+            foreach($list as $fileKey) {
+                if(str_starts_with($fileKey, 'BUYER_GET_')) {
+                    $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
+                    if($data) {
+                        $data = trim(preg_replace('/\s+/', ' ', $data));
+                        $d = json_decode($data);
+            
+                        foreach($d->BUYER_LIST as $key => $row) {
+                            $companyCode = $this->Buyers->CompanyCodes->findByCode($row->BUKRS)->first();
+                            $puOrg = $this->Buyers->PurchasingOrganizations->findByCode($row->EKORG)->first();
+                            
+                            if(trim($row->SUCCESS) == "0") { continue; }
                             $buyerExists = false;
-                        }
-                        
-                        $buyer->sap_user = $row->UNAME;
-                        $buyer->company_code_id = $companyCode->id;
-                        $buyer->purchasing_organization_id = $puOrg->id;
-                        
-                        $buyer->first_name = $row->FIRSTNAME;
-                        $buyer->last_name = $row->LASTNAME;
-                        $buyer->email = $row->E_MAIL;
-                        $buyer->mobile = $row->TEL_NUMBER;
-                        
-                        if($this->Buyers->save($buyer)) {
-                            $response['message'][] = 'Buyer '.$row->UNAME.' saved successfully!';
-                            if(!$buyerExists) {
-                                $this->loadModel("Users");
-                                $user = $this->Users->newEmptyEntity();
-                                
-                                $data = array();
-                                $data['first_name'] = $buyer->first_name;
-                                $data['last_name'] = $buyer->last_name;
-                                $data['username'] = $buyer->email;
-                                $data['mobile'] = $buyer->mobile;
-                                $data['password'] = $buyer->mobile;
-                                $data['group_id'] = 2;
-        
-                                $user = $this->Users->patchEntity($user, $data);
-                                try{
-                                    if ($this->Users->save($user)) {
-                                        $this->Ftp->removeFile($ftpConn, $fileKey);
+                            if($this->Buyers->exists(['sap_user' => $row->UNAME])) {
+                                $buyer = $this->Buyers->find()->where(['sap_user' => $row->UNAME])->first();
+                                $buyerExists = true;
+                            } else {
+                                $buyer = $this->Buyers->newEmptyEntity();
+                                $buyer->status = 1;
+                                $buyerExists = false;
+                            }
+                            
+                            $buyer->sap_user = $row->UNAME;
+                            $buyer->company_code_id = $companyCode->id;
+                            $buyer->purchasing_organization_id = $puOrg->id;
+                            
+                            $buyer->first_name = $row->FIRSTNAME;
+                            $buyer->last_name = $row->LASTNAME;
+                            $buyer->email = $row->E_MAIL;
+                            $buyer->mobile = $row->TEL_NUMBER;
+                            
+                            if($this->Buyers->save($buyer)) {
+                                $response['message'][] = 'Buyer '.$row->UNAME.' saved successfully!';
+                                if(!$buyerExists) {
+                                    $this->loadModel("Users");
+                                    $user = $this->Users->newEmptyEntity();
+                                    
+                                    $data = array();
+                                    $data['first_name'] = $buyer->first_name;
+                                    $data['last_name'] = $buyer->last_name;
+                                    $data['username'] = $buyer->email;
+                                    $data['mobile'] = $buyer->mobile;
+                                    $data['password'] = $buyer->mobile;
+                                    $data['group_id'] = 2;
+            
+                                    $user = $this->Users->patchEntity($user, $data);
+                                    try{
+                                        if ($this->Users->save($user)) {
+                                            $this->Ftp->removeFile($ftpConn, $fileKey);
+                                        }
+                                    } catch (\Exception $e) {
+                                        $response['message'][] = 'User creation failed - '.$e->getMessage();
                                     }
-                                } catch (\Exception $e) {
-                                    $response['message'][] = 'User creation failed - '.$e->getMessage();
+                                } else {
+                                    $this->Ftp->removeFile($ftpConn, $fileKey);
                                 }
                             } else {
-                                $this->Ftp->removeFile($ftpConn, $fileKey);
+                                $response['message'][] = 'Buyer '.$row->UNAME.' save fail';
                             }
-                        } else {
-                            $response['message'][] = 'Buyer '.$row->UNAME.' save fail';
                         }
                     }
                 }
@@ -1045,46 +1053,48 @@ class SyncController extends ApiAppController
         $this->loadModel("AsnHeaders");
         $this->loadModel("AsnFooters");
 
-        foreach($list as $fileKey) {
-            if(str_starts_with($fileKey, 'ASN_')) {
-                $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
-                
-                if($data) {
-                    $data = trim(preg_replace('/\s+/', ' ', $data));
-                    $d = json_decode($data);
+        if($list) {
+            foreach($list as $fileKey) {
+                if(str_starts_with($fileKey, 'ASN_')) {
+                    $data  = $this->Ftp->downloadFile($ftpConn, $fileKey);
+                    
+                    if($data) {
+                        $data = trim(preg_replace('/\s+/', ' ', $data));
+                        $d = json_decode($data);
 
-                    foreach($d as $key => $row) {
-                        $hederData = array();
-                        $footerData = array();
+                        foreach($d as $key => $row) {
+                            $hederData = array();
+                            $footerData = array();
 
-                        if($row->SUCCESS == "1") {
-                            if($this->AsnHeaders->exists(['asn_no' => $row->ASN_NO])) {
-                                $hederData['status'] = 3;
-                                $poInstance = $this->AsnHeaders->find()->where(['asn_no' => $row->ASN_NO])->first();
-                                $poInstance = $this->AsnHeaders->patchEntity($poInstance, $hederData);
-                            
-                                try {
-                                    if ($this->AsnHeaders->save($poInstance)) {
-                                        $po_header_id = $poInstance->id;
-        
-                                        /*if($this->AsnFooters->exists(['po_header_id' => $po_header_id])) {
-                                            $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
-                                            $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $hederData);
-                                        }*/
-                                        $response['message'][] = 'ASN-' . $row->ASN_NO . ' received successfully';
-                                        $this->Ftp->removeFile($ftpConn, $fileKey);
+                            if($row->SUCCESS == "1") {
+                                if($this->AsnHeaders->exists(['asn_no' => $row->ASN_NO])) {
+                                    $hederData['status'] = 3;
+                                    $poInstance = $this->AsnHeaders->find()->where(['asn_no' => $row->ASN_NO])->first();
+                                    $poInstance = $this->AsnHeaders->patchEntity($poInstance, $hederData);
+                                
+                                    try {
+                                        if ($this->AsnHeaders->save($poInstance)) {
+                                            $po_header_id = $poInstance->id;
+            
+                                            /*if($this->AsnFooters->exists(['po_header_id' => $po_header_id])) {
+                                                $poItemsInstance = $this->PoFooters->find()->where(['po_header_id' => $po_header_id, 'item' => $item->EBELP])->first();
+                                                $poItemsInstance = $this->PoFooters->patchEntity($poItemsInstance, $hederData);
+                                            }*/
+                                            $response['message'][] = 'ASN-' . $row->ASN_NO . ' received successfully';
+                                            $this->Ftp->removeFile($ftpConn, $fileKey);
+                                        }
+                                    } catch (\PDOException $e) {
+                                        $response['message'][] = $e->getMessage();
+                                    } catch (\Exception $e) {
+                                        $response['message'][] = $e->getMessage();
                                     }
-                                } catch (\PDOException $e) {
-                                    $response['message'][] = $e->getMessage();
-                                } catch (\Exception $e) {
-                                    $response['message'][] = $e->getMessage();
+                                } else {
+                                    $response['message'][] = 'ASN-' . $row->ASN_NO . ' not found';
+                                    $this->Ftp->removeFile($ftpConn, $fileKey);
                                 }
                             } else {
-                                $response['message'][] = 'ASN-' . $row->ASN_NO . ' not found';
-                                $this->Ftp->removeFile($ftpConn, $fileKey);
+                                $response['message'][] = 'ASN-' . $row->ASN_NO . ' fail - ';
                             }
-                        } else {
-                            $response['message'][] = 'ASN-' . $row->ASN_NO . ' fail - ';
                         }
                     }
                 }

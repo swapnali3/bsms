@@ -1007,7 +1007,7 @@ class PurchaseOrdersController extends VendorAppController
 
 
         //echo '<pre>'; print_r($data); exit;
-        echo json_encode($response);
+        echo json_encode($response); exit;
     }
 
     public function getPurchaseItem($id = null)
