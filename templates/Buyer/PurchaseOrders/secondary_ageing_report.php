@@ -117,7 +117,7 @@
                                                 <th>Segment</th>
                                                 <th>Material</th>
                                                 <th>Material Description</th>
-                                                <th>Size</th>
+                                                <th>Pack Size</th>
                                                 <th>Indent Qty</th>
                                                 <th>Receipt</th>
                                                 <th>Pending</th>
