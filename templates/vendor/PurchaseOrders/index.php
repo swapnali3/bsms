@@ -239,64 +239,163 @@
 
 
 
+  // $(document).on('click', '.notify', function (e) {
+  //   e.preventDefault();
+  //   var id = $(this).attr("data-id");
+  //   $.ajax({
+  //     type: "GET",
+  //     url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-notify')); ?>/" +
+  //       id,
+  //     dataType: "json",
+  //     beforeSend: function () { $("#gif_loader").show(); },
+  //     success: function (response) {
+  //       if (response.status == "1") {
+  //         Toast.fire({
+  //           icon: "success",
+  //           title: response.message,
+  //         });
+  //         $('.ignoreme').hide();
+  //         $('.notify').hide();
+  //         $('#id_remark').hide();
+  //         $('#example2 tr').removeAttr('style');
+  //         $('#' + id).data('flag', 1);
+  //       } else {
+  //         Toast.fire({
+  //           icon: "error",
+  //           title: response.message,
+  //         });
+  //       }
+  //     },
+  //     error: function (xhr, status, error) { console.log(xhr, status, error); },
+  //     complete: function () { $("#gif_loader").hide(); }
+  //   });
+  // });
+
   $(document).on('click', '.notify', function (e) {
     e.preventDefault();
-    var id = $(this).attr("data-id");
+    var notifyButton = $(this);
+    var ignoreButton = $('.ignoreme');
+    var remarkInput = $('#id_remark');
+    var id = notifyButton.attr("data-id");
+
     $.ajax({
-      type: "GET",
-      url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-notify')); ?>/" +
-        id,
-      dataType: "json",
-      beforeSend: function () { $("#gif_loader").show(); },
-      success: function (response) {
-        if (response.status == "1") {
-          Toast.fire({
-            icon: "success",
-            title: response.message,
-          });
-          $('.ignoreme').hide();
-          $('.notify').hide();
-          $('#id_remark').hide();
-          $('#example2 tr').removeAttr('style');
-          $('#' + id).data('flag', 1);
-        } else {
-          Toast.fire({
-            icon: "error",
-            title: response.message,
-          });
+        type: "GET",
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-notify')); ?>/" + id,
+        dataType: "json",
+        beforeSend: function () {
+            ignoreButton.prop('disabled', true);
+            notifyButton.prop('disabled', true);
+            remarkInput.prop('readonly', true);
+            $("#gif_loader").show();
+        },
+        success: function (response) {
+            if (response.status == "1") {
+                Toast.fire({ icon: "success", title: response.message });
+                ignoreButton.hide();
+                notifyButton.hide();
+                remarkInput.hide();
+                $('#example2 tr').removeAttr('style');
+                $('#' + id).data('flag', 1);
+            } else {
+                Toast.fire({ icon: "error", title: response.message });
+                ignoreButton.prop('disabled', false).show();
+                notifyButton.prop('disabled', false).show();
+                remarkInput.prop('readonly', false).show();
+            }
+        },
+        error: function (xhr, status, error) {
+            console.log(xhr, status, error);
+            ignoreButton.prop('disabled', false).show();
+            notifyButton.prop('disabled', false).show();
+            remarkInput.prop('readonly', false).show();
+            Toast.fire({ icon: "error", title: 'Failed to make the request.' });
+        },
+        complete: function () {
+            $("#gif_loader").hide();
         }
-      },
-      error: function (xhr, status, error) { console.log(xhr, status, error); },
-      complete: function () { $("#gif_loader").hide(); }
     });
-  });
+});
 
 
+
+  // $(document).on('click', '.ignoreme', function (e) {
+  //   e.preventDefault();
+  //   var id = $(this).attr("data-id");
+  //   var remark = $("#id_remark").val();
+  //   if (remark)
+  //   {$.ajax({
+  //     type: "GET",
+  //     url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-ignore')); ?>/" +
+  //       id,
+  //     data : {"remark":remark},
+  //     dataType: "json",
+  //     beforeSend: function () { $("#gif_loader").show(); },
+  //     success: function (response) {
+  //       if (response.status == "1") {
+  //         Toast.fire({ icon: "success", title: response.message});
+  //         $('.ignoreme').hide();
+  //         $('.notify').hide();
+  //         $('#id_remark').hide();
+  //         $('#example2 tr').removeAttr('style');
+  //         $('#' + id).data('flag', 1);
+  //       }
+  //       else { Toast.fire({ icon: "error", title: response.message}); }
+  //     },
+  //     error: function (xhr, status, error) { console.log(xhr, status, error); },
+  //     complete: function () { $("#gif_loader").hide(); }
+  //   });} else{ Toast.fire({ icon: "error", title: 'Remark Mandatory' }); }
+  // });
   $(document).on('click', '.ignoreme', function (e) {
     e.preventDefault();
-    var id = $(this).attr("data-id");
-    var remark = $("#id_remark").val();
-    if (remark)
-    {$.ajax({
-      type: "GET",
-      url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-ignore')); ?>/" +
-        id,
-      data : {"remark":remark},
-      dataType: "json",
-      beforeSend: function () { $("#gif_loader").show(); },
-      success: function (response) {
-        if (response.status == "1") {
-          Toast.fire({ icon: "success", title: response.message});
-          $('.ignoreme').hide();
-          $('.notify').hide();
-          $('#id_remark').hide();
-          $('#example2 tr').removeAttr('style');
-          $('#' + id).data('flag', 1);
-        }
-        else { Toast.fire({ icon: "error", title: response.message}); }
-      },
-      error: function (xhr, status, error) { console.log(xhr, status, error); },
-      complete: function () { $("#gif_loader").hide(); }
-    });} else{ Toast.fire({ icon: "error", title: 'Remark Mandatory' }); }
-  });
+    var ignoreButton = $(this);
+    var notifyButton = $('.notify');
+    var remarkInput = $('#id_remark');
+    var id = ignoreButton.attr("data-id");
+    var remark = remarkInput.val();
+
+    if (remark) {
+        $.ajax({
+            type: "GET",
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-ignore')); ?>/" + id,
+            data: { "remark": remark },
+            dataType: "json",
+            beforeSend: function () {
+                ignoreButton.prop('disabled', true);
+                notifyButton.prop('disabled', true);
+                remarkInput.prop('readonly', true);
+                $("#gif_loader").show();
+            },
+            success: function (response) {
+                if (response.status == "1") {
+                    Toast.fire({ icon: "success", title: response.message });
+                    ignoreButton.hide();
+                    notifyButton.hide();
+                    remarkInput.hide();
+                    $('#example2 tr').removeAttr('style');
+                    $('#' + id).data('flag', 1);
+                } else {
+                    Toast.fire({ icon: "error", title: response.message });
+                    ignoreButton.prop('disabled', false).show();
+                    notifyButton.prop('disabled', false).show();
+                    remarkInput.prop('readonly', false).show();
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr, status, error);
+                ignoreButton.prop('disabled', false).show();
+                notifyButton.prop('disabled', false).show();
+                remarkInput.prop('readonly', false).show();
+                Toast.fire({ icon: "error", title: 'Failed to make the request.' });
+            },
+            complete: function () {
+                $("#gif_loader").hide();
+            }
+        });
+    } else {
+        Toast.fire({ icon: "error", title: 'Remark Mandatory' });
+    }
+});
+
+
+
 </script>
