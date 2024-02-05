@@ -118,6 +118,7 @@
                                                 <th>Material</th>
                                                 <th>Material Description</th>
                                                 <th>Pack Size</th>
+                                                <th>UOM</th>
                                                 <th>Indent Qty</th>
                                                 <th>Receipt</th>
                                                 <th>Pending</th>
