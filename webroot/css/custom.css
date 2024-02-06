@@ -929,6 +929,11 @@ div#past_messages::-webkit-scrollbar-track {
     background-color: #fff !important;
 } */
 
+#id_potableresp input.form-control.form-control-sm[type="search"] {
+    margin-top: 10px;
+    margin-left: -50px !important;
+}
+
 .btn-custom-2:hover {
     color: #fff;
 }

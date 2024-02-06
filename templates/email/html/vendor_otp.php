@@ -99,9 +99,9 @@
         </div>
         <div class="content">
             <img src="http://apar.ftspl.in/webroot/img/apar_logo180.png" style="width: 100px; max-width: 100px; height: auto; display: block;">
-            <h3>APAR Industries Limited 18</h3>
+            <h3>APAR Industries Limited</h3>
             <h5>
-                TTC.,MIDC Industrial Area, Thane Belapur Road,
+                18,TTC.,MIDC Industrial Area, Thane Belapur Road,
                 <br>Opp. Rabale Railway Station, Rabale, Navi Mumbai - 400701, India
                 <br>+91 22 6111 0444 / 6123 7545
                 <br>www.apar.com
