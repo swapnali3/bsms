@@ -1,3 +1,49 @@
+$('#OpenImgUpload').click(function () { $('#bulk_file').trigger('click'); });
+
+$('#bulk_file').change(function () {
+    var file = $(this).prop('files')[0];
+    var fileName = file ? file.name : '';
+    $('#OpenImgUpload').text(fileName ? fileName : 'Choose File');
+});
+
+$("#id_import").click(function () {
+    var fd = new FormData($('#formUpload')[0]);
+
+    $.ajax({
+        url: po_upload_url,
+        type: "post",
+        dataType: 'json',
+        processData: false, // important
+        contentType: false, // important
+        data: fd,
+        beforeSend: function () { $("#gif_loader").show(); },
+        success: function (response) {
+            if (response.status) {
+                Toast.fire({ icon: 'success', title: response.message });
+                $("#uploadInfoTable tbody").empty();
+                $("#upload_info").modal("toggle");
+
+                // Loop through the response data and build the table rows dynamically
+                $.each(response.data, function (key, val) {
+                    var rowHtml = `<tr>
+                        <td> `+ val.sap_vendor_code + `</td>
+                        <td> `+ val.po_no + `</td>
+                        <td> `+ val.item_no + `</td>
+                        <td> `+ val.material + `</td>
+                        <td> `+ val.schedule_qty + `</td>
+                        <td> `+ val.delivery_date + `</td>
+                        <td> `+ val.error + `</td>
+                        </tr>`;
+                    $("#uploadInfoTable tbody").append(rowHtml);
+                });
+
+            } else { Toast.fire({ icon: 'error', title: response.message }); }
+        },
+        error: function () { Toast.fire({ icon: 'error', title: 'An error occured, please try again.' }); },
+        complete: function () { $("#gif_loader").hide(); }
+    });
+});
+
 function searchPo(search = "") {
     $("#poItemss").html('');
     $(".related tbody:first").show();
@@ -45,7 +91,7 @@ function poform(search = "") {
             if (response.status == "success") {
                 $.each(response.message, function (key, val) {
                     var vendor_tmp = val['V'].name
-                    if ((vendor_tmp).length > 22 ){ vendor_tmp = vendor_tmp.substring(0, (vendor_tmp).length - ((vendor_tmp).length - 22)) + '...'; }
+                    if ((vendor_tmp).length > 22) { vendor_tmp = vendor_tmp.substring(0, (vendor_tmp).length - ((vendor_tmp).length - 22)) + '...'; }
                     $("#poItemss").append(
                         `<div class="po-box details-control" data-id="` + val.id + `">
                             <div class="pono" style="display: flex; align-items: center;">
@@ -92,9 +138,7 @@ $("#purViewId").on("click", ".po-box", function () {
         url: get_po_Footers + poid,
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
-        beforeSend: function () {
-            $("#loaderss").show();
-        },
+        beforeSend: function () { $("#loaderss").show(); },
         success: function (response) {
             $("#id_potableresp").empty().hide()
                 .append(`<table class="table" id="example1">
@@ -119,7 +163,7 @@ $("#purViewId").on("click", ".po-box", function () {
                             <tbody id="id_pofooter"></tbody>
                         </table>`);
 
-            console.log(response.status + "=" + response.data);
+            // console.log(response.status + "=" + response.data);
             if ((response.status || !response.status) && response.data) {
                 populateItemData(response.status, response.data);
                 if (!response.status) {
@@ -132,9 +176,7 @@ $("#purViewId").on("click", ".po-box", function () {
                 $("#res_message").html(response.message);
             }
         },
-        complete: function () {
-            $("#loaderss").hide();
-        },
+        complete: function () { $("#loaderss").hide(); },
     });
 });
 
@@ -143,80 +185,32 @@ function populateItemData(status, itemData) {
         $("#action_schedule").show();
         $("#res_message").html('');
         $("#id_pofooter").append(
-            `<tr class="odd" data-trid="id_tr` +
-            val.id +
-            `">
-        <td class="details-control" data-id="` +
-            val.id +
-            `" footer-id="` +
-            val.id +
-            `"><span class="material-symbols-outlined flu" id="id_st` +
-            val.id +
-            `" data-id="` +
-            val.id +
-            `" data-alt="+">add</span></td>
-            <td><input type="checkbox" class="form-control check" id="check_` +
-            val.id +
-            `"></td>
-            <td>` +
-            val.item +
-            `</td>
-            <td>` +
-            val.material +
-            `</td>
-            <td>` +
-            val.short_text +
-            `</td>
-            <td class="poqtyvalu">` +
-            val.po_qty +
-            `</td>
-            <td>` +
-            val.grn_qty +
-            `</td>
-            <td>` +
-            val.pending_qty +
-            `</td>
-            <td>` +
-            val.order_unit +
-            `</td>
-            <td>` +
-            val.net_price +
-            `</td>
-            <td>` +
-            val.price_unit +
-            `</td>
-            <td>` +
-            val.net_value +
-            `</td>
-            <td>` +
-            val.gross_value +
-            `</td>
+            `<tr class="odd" data-trid="id_tr` + val.id + `">
+            <td class="details-control" data-id="` + val.id + `" footer-id="` + val.id + `">
+                <span class="material-symbols-outlined flu" id="id_st` + val.id + `" data-id="` + val.id + `" data-alt="+">add</span>
+            </td>
+            <td><input type="checkbox" class="form-control check" id="check_` + val.id + `"></td>
+            <td>` + val.item + `</td>
+            <td>` + val.material + `</td>
+            <td>` + val.short_text + `</td>
+            <td class="poqtyvalu">` + val.po_qty + `</td>
+            <td>` + val.grn_qty + `</td>
+            <td>` + val.pending_qty + `</td>
+            <td>` + val.order_unit + `</td>
+            <td>` + val.net_price + `</td>
+            <td>` + val.price_unit + `</td>
+            <td>` + val.net_value + `</td>
+            <td>` + val.gross_value + `</td>
             <td class="actions">
                 <div class="btn-group">
-                    <a id="schedulebutton_` +
-            val.id +
-            `" class="schedule_item btn btn-sm bg-gradient-button" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#scheduleModal" item-id="` +
-            val.item +
-            `" po-no="` +
-            itemData.po_no +
-            `" po_qty="` +
-            val.po_qty +
-            `" header-id="` +
-            val.po_header_id +
-            `" footer-id="` +
-            val.id +
-            `" item-no=` +
-            val.item +
-            `>Schedule</a>
+                    <a id="schedulebutton_` + val.id + `" class="schedule_item btn btn-sm bg-gradient-button" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#scheduleModal" item-id="` + val.item + `" po-no="` + itemData.po_no + `" po_qty="` + val.po_qty + `" header-id="` + val.po_header_id + `" footer-id="` + val.id + `" item-no=` + val.item + `>Schedule</a>
                 </div>
             </td>
         </tr>`
         );
     });
 
-    if (!status) {
-        $(".schedule_item, .check, .checkall, .flu").hide();
-    }
+    if (!status) { $(".schedule_item, .check, .checkall, .flu").hide(); }
 
     setTimeout(function () {
         $("#id_potableresp").show();
@@ -400,18 +394,18 @@ $(document).on("click", ".flu", function () {
                                 <tbody>`;
             $.each(response.message, function (key, val) {
                 // if (val.status == 1) {
-                    var currentDate = new Date();
-                    var deliveryDate = new Date(val.delivery_date);
+                var currentDate = new Date();
+                var deliveryDate = new Date(val.delivery_date);
 
-                    var dt = val.delivery_date.split('-');
-                    delDt = dt[2] + "-" + dt[1] + "-" + dt[0];
+                var dt = val.delivery_date.split('-');
+                delDt = dt[2] + "-" + dt[1] + "-" + dt[0];
 
-                    var updateButton = val.received_qty > 0 ? '' : `<span class="badge schedule_update_button lbluebadge mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + delDt + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `' data-target='#modal-sm'  title="Modify" data-original-title="Modify"><i class="fas fa-user-edit"></i></span>`;
+                var updateButton = val.received_qty > 0 ? '' : `<span class="badge schedule_update_button lbluebadge mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + delDt + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `' data-target='#modal-sm'  title="Modify" data-original-title="Modify"><i class="fas fa-user-edit"></i></span>`;
 
-                    // var status = val.received_qty > 0 ? 'Received' : 'Schedule'
-                    var deliveryDate = new Date(currentDate);
-                    var cancelButton = val.received_qty > 0 || currentDate.setHours(0, 0, 0, 0) > deliveryDate.setHours(0, 0, 0, 0) ? '' : `<span class="badge redbadge schedule_cancel_button mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + val.delivery_date + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `'  title="Cancel" data-original-title="Cancel"><i class="fas fa-trash"></i></span>`;
-                    subtable += `<tr>
+                // var status = val.received_qty > 0 ? 'Received' : 'Schedule'
+                var deliveryDate = new Date(currentDate);
+                var cancelButton = val.received_qty > 0 || currentDate.setHours(0, 0, 0, 0) > deliveryDate.setHours(0, 0, 0, 0) ? '' : `<span class="badge redbadge schedule_cancel_button mt-2 ml-2" data-toggle="tooltip" data-placement="right" schedue-id='` + val.id + `' delivery_date='` + val.delivery_date + `' actual_qty='` + val.actual_qty + `' data-po='` + po_no + `' data-item='` + item_no + `' data-actual-qty='` + val.actual_qty + `'  title="Cancel" data-original-title="Cancel"><i class="fas fa-trash"></i></span>`;
+                subtable += `<tr>
                             <td>`+ val.actual_qty + `</td>
                             <td>`+ val.received_qty + `</td>
                             <td>`+ val.delivery_date + `</td>

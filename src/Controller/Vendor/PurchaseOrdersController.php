@@ -354,6 +354,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
                 ->where([
                     'sap_vendor_code' => $session->read('vendor_code'),
+                    'acknowledge <' => 2,
                     'OR' => [
                         ['PoHeaders.po_no LIKE' => '%' . $search . '%'],
                         ['PoFooters.material LIKE' => '%' . $search . '%'],
