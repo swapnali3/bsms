@@ -55,15 +55,20 @@ function searchPo(search = "") {
         success: function (response) {
             if (response.status == "success") {
                 $.each(response.message, function (key, val) {
+                    var vendor_tmp = val['V'].name
+                    if ((vendor_tmp).length > 22) { vendor_tmp = vendor_tmp.substring(0, (vendor_tmp).length - ((vendor_tmp).length - 22)) + '...'; }
                     $("#poItemss").append(
                         `<div class="po-box details-control" data-id="` + val.id + `">
-                            <div class="pono">
-                                <small class="mb-0"> PO No </small><br>
-                                <b>` + val.po_no + `</b>
+                            <div class="pono" style="display: flex; align-items: center;">
+                                <small class="mb-0"> PO No:   </small><br>
+                                <small class="pl-1"><b>` + val.po_no + `</b></small>
+                            </div>
+                            <div class="po-code po-code-block" style="display: flex; align-items: center;">
+                                <small class="mb-0"> Vendor Code: </small><br>
+                                <small class="pl-1"><b>` + val.sap_vendor_code + `</b></small>
                             </div>
                             <div class="po-code">
-                                <small class="mb-0"> Vendor Code </small><br>
-                                <small><b>` + val.sap_vendor_code + `</b></small>
+                                <small>` + vendor_tmp + `</small>
                             </div>
                         </div>`
                     );
@@ -123,9 +128,7 @@ function getRemote(remote_url, method = "GET", type = "json", convertapi = true)
     return resp;
 }
 
-$(".btnSub").on("click", function (e) {
-    e.preventDefault();
-});
+$(".btnSub").on("click", function (e) {e.preventDefault();});
 
 $("#purViewId").on("click", ".po-box", function () {
     $("#id_pofooter").empty();
