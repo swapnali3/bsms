@@ -92,7 +92,7 @@
                     <table class="table table-hover table-striped table-bordered" id="example1">
                         <thead>
                             <tr>
-                                <th>Plan Date</th>
+                                <th style="width:70px;">Plan Date</th>
                                 <th>Vendor Code</th>
                                 <th>Vendor Name Type</th>
                                 <th>Segment</th>

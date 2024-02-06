@@ -61,7 +61,7 @@ $(function () {
             if(data[0] == 'Grand Total'){
                 $(row).attr("style","background-color: #F7941D !important; color: black;");
             } else if (data[1] == "" && data[2] == "" && data[3] == "" && data[4] == "") {
-                $(row).attr("style","background-color:#08132F !important;color:white;");
+                $(row).attr("style","background-color:#F7941D !important;color:white;");
             }
             console.log(data);
         }

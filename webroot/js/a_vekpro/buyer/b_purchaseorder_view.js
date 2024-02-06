@@ -222,9 +222,13 @@ function populateItemData(status, itemData) {
             responsive: false,
             lengthChange: false,
             autoWidth: false,
-            ordering: false,
-            searching: false,
+            ordering: true,
+            searching: true,
             destroy: true,
+            initComplete: function () {
+                var searchInput = $('.dataTables_filter input');
+                searchInput.attr('placeholder', 'Search');
+            }
         });
     }, 500);
 }
