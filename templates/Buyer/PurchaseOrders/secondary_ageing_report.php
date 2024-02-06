@@ -80,6 +80,26 @@
                             <?php endif; ?>
                         </select>
                     </div>
+                    <div class="col-2 mt-2">
+                        <label for="id_pack_size">Pack Size</label><br>
+                        <select name="pack_size[]" id="id_pack_size" multiple="multiple" class="form-control chosen">
+                            <?php if (isset($pack_size)) : ?>
+                            <?php foreach ($pack_size as $mat) : ?>
+                            <option value="<?= h($mat->pack_size) ?>"> <?= h($mat->pack_size) ?> </option>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="col-2 mt-2">
+                        <label for="id_pack_uom">Pack UOM</label><br>
+                        <select name="pack_uom[]" id="id_pack_uom" multiple="multiple" class="form-control chosen">
+                            <?php if (isset($pack_uom)) : ?>
+                            <?php foreach ($pack_uom as $mat) : ?>
+                            <option value="<?= h($mat->pack_uom) ?>"> <?= h($mat->pack_uom) ?> </option>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
                     <div class="col-2 mt-4 pt-3">
                         <button class="btn bg-gradient-button" type="submit" id="id_sub">Search</button>
                     </div>
