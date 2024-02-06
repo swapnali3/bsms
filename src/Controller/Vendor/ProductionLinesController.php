@@ -5,6 +5,7 @@ namespace App\Controller\Vendor;
 
 
 use App\Model\Table\VendorMaterialTable;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Productionline Controller
@@ -29,21 +30,77 @@ class ProductionLinesController extends VendorAppController
     public function index()
     {
 
-       $this->loadModel("ProductionLines");
+        $this->loadModel("ProductionLines");
+        $this->loadModel('Materials');
+        $this->loadModel('LineMasters');
         $session = $this->getRequest()->getSession();
-        
-        $productionline = $this->ProductionLines->find('all', [
+
+        $lines = $this->ProductionLines->find('all', [
             'conditions' => ['ProductionLines.sap_vendor_code' => $session->read('vendor_code')]
-        ])->contain(['LineMasters', 'Materials'])->toArray();
+        ])->select(['LineMasters.name', 'LineMasters.id'])
+        ->distinct(['LineMasters.name', 'LineMasters.id'])->contain(['LineMasters', 'Materials'])->toArray();
 
-        $this->set(compact('productionline'));
+        $materials = $this->ProductionLines->find('all', [
+            'conditions' => ['ProductionLines.sap_vendor_code' => $session->read('vendor_code')]
+        ])->select(['Materials.code', 'Materials.description'])
+        ->distinct(['Materials.code', 'Materials.description'])->contain(['LineMasters', 'Materials'])->toArray();
 
+        $this->set(compact('materials', 'lines'));
 
        //echo '<pre>';  print_r($productionline);exit;
 
+    }
 
-    
+    public function prdordlist(){
+        $this->autoRender = false;
+        $this->loadModel("ProductionLines");
+        $this->loadModel('Materials');
+        $this->loadModel('LineMasters');
+
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('vendor_code');
+        $response = array('status'=>0, 'message'=>'fail', 'data'=>'');
+
+        $conditions = " where 1=1 and production_lines.sap_vendor_code='".$session->read('vendor_code')."' ";
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+            if(isset($request['lines'])) {
+                $search = '';
+                foreach ($request['lines'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and production_lines.line_master_id in (".$search.")";
+            }
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['lines'])){ $conditions .= " and materials.code in (".$search.")"; }
+                else{ $conditions .= " and materials.code in (".$search.")"; }
+            }
+        }
+        $conn = ConnectionManager::get('default');
+        $material = $conn->execute("SELECT production_lines.id, line_masters.name, materials.code, materials.description, CONCAT(production_lines.capacity, ' ', materials.uom) as capacity
+        FROM production_lines
+        left join materials on materials.id = production_lines.material_id 
+            and materials.sap_vendor_code = production_lines.sap_vendor_code
+        left join line_masters on line_masters.id = production_lines.line_master_id 
+            and line_masters.sap_vendor_code = production_lines.sap_vendor_code". $conditions);
         
+        // echo '<pre>'; print_r($material);exit;
+        $materialist = $material->fetchAll('assoc');
+
+        $results = [];
+        foreach ($materialist as $mat) {
+            $tmp = [];
+            $tmp[] = $mat['name'];
+            $tmp[] = $mat['code'];
+            $tmp[] = $mat['description'];
+            $tmp[] = $mat['capacity'];
+            $results[] = $tmp;
+        }
+
+        $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+        echo json_encode($response); exit;
     }
 
     /**
