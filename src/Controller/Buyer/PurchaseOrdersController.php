@@ -183,10 +183,12 @@ class PurchaseOrdersController extends BuyerAppController
         $this->loadModel('VendorTypes');
         $this->loadModel('Materials');
         $materials = $this->Materials->find('all')->select(['code', 'description'])->distinct(['code', 'description'])->toArray();
+        $pack_uom = $this->Materials->find('all')->select(['pack_uom'])->distinct(['pack_uom'])->toArray();
+        $pack_size = $this->Materials->find('all')->select(['pack_size'])->distinct(['pack_size'])->toArray();
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
         $vendor = $this->VendorTemps->find('all')->select(['sap_vendor_code', 'name'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
         $vendortype = $this->Materials->find('all')->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
-        $this->set(compact('materials', 'vendor', 'vendortype', 'segment'));
+        $this->set(compact('materials', 'vendor', 'vendortype', 'segment', 'pack_uom', 'pack_size'));
     }
 
     public function sarlist(){
@@ -222,6 +224,20 @@ class PurchaseOrdersController extends BuyerAppController
                 $search = rtrim($search, ',');
                 if(!isset($request['material']) and !isset($request['vendor'])){ $conditions .= " and materials.type in (".$search.")"; }
                 else{ $conditions .= " and materials.type in (".$search.")"; }
+            }
+            if(isset($request['pack_size'])) {
+                $search = '';
+                foreach ($request['pack_size'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['vendortype'])){ $conditions .= " and materials.pack_size in (".$search.")"; }
+                else{ $conditions .= " and materials.pack_size in (".$search.")"; }
+            }
+            if(isset($request['pack_uom'])) {
+                $search = '';
+                foreach ($request['pack_uom'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                if(!isset($request['material']) and !isset($request['vendor']) and !isset($request['pack_size']) and !isset($request['vendortype'])){ $conditions .= " and materials.pack_uom in (".$search.")"; }
+                else{ $conditions .= " and materials.pack_uom in (".$search.")"; }
             }
             if(isset($request['segment'])) {
                 $search = '';
