@@ -294,6 +294,7 @@ class PurchaseOrdersController extends BuyerAppController
         foreach ($materialist as $mat) {
             $tmp = [];
             $tmp[] = $mat['added_date'];
+            $tmp[] = $mat['delivery_date'];
             $tmp[] = $mat['type'];
             $tmp[] = $mat['segment'];
             $tmp[] = $mat['code'];
@@ -304,7 +305,6 @@ class PurchaseOrdersController extends BuyerAppController
             $tmp[] = $mat['received_qty'];
             $tmp[] = $mat['pending_qty'];
             $tmp[] = $mat['name'];
-            $tmp[] = $mat['delivery_date'];
             $tmp[] = $mat['no_of_days'];
             $tmp[] = $mat['ageing'];
             $tmp[] = $mat['status'];
@@ -452,7 +452,7 @@ class PurchaseOrdersController extends BuyerAppController
         DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as plan_date, vendor_temps.sap_vendor_code, materials.type, materials.segment, line_masters.name,
         materials.code, materials.description, dailymonitor.target_production, dailymonitor.confirm_production, DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as 'plan_date',
         case when dailymonitor.status=1 then 'Active' else case when dailymonitor.status=3 then 'Planned Confirmed' else 'Cancelled' end end as 'status', stu.opening_stock + z.confirm_production - IFNULL(stu.live_asn, 0) as 'closing_stock', 
-        '-' as 'action', CURDATE() - dailymonitor.plan_date as 'ageing'
+        '-' as 'action', DATEDIFF(CURDATE(), dailymonitor.plan_date) as 'ageing'
         FROM dailymonitor
         left join vendor_temps on dailymonitor.sap_vendor_code=vendor_temps.sap_vendor_code
         left join materials on materials.id=dailymonitor.material_id
@@ -477,6 +477,7 @@ class PurchaseOrdersController extends BuyerAppController
         foreach ($materialist as $mat) {
             $tmp = [];
             $tmp[] = $mat['plan_date'];
+            $tmp[] = $mat['plan_date'];
             $tmp[] = $mat['sap_vendor_code'];
             $tmp[] = $mat['type'];
             $tmp[] = $mat['segment'];
@@ -485,7 +486,6 @@ class PurchaseOrdersController extends BuyerAppController
             $tmp[] = $mat['description'];
             $tmp[] = $mat['target_production'];
             $tmp[] = $mat['confirm_production'];
-            $tmp[] = $mat['plan_date'];
             $tmp[] = $mat['status'];
             $tmp[] = $mat['closing_stock'];
             $tmp[] = $mat['action'];

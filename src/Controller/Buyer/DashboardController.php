@@ -245,7 +245,7 @@ class DashboardController extends BuyerAppController
 
         // Filter List
         $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
-        $vendor = $this->PoHeaders->find('all')->select(['sap_vendor_code'])->distinct(['sap_vendor_code'])->where(['sap_vendor_code IS NOT NULL' ])->toArray();
+        $vendor = $this->PoHeaders->find('all')->select(['sap_vendor_code', 'VendorTemps.name'])->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code'])->distinct(['PoHeaders.sap_vendor_code', 'VendorTemps.name'])->where(['PoHeaders.sap_vendor_code IS NOT NULL' ])->toArray();
         $vendortype = $this->Materials->find('all')->select(['type'])->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
 
         
