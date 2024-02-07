@@ -301,7 +301,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
                 
                 $vendor = $this->VendorTemps->find()->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']])->first();
-                $po_footer = $this->PoFooters->find('all')->where(['PoFooters.po_header_id' => $poHeader['id']])->toArray();
+                $po_footer = $this->PoFooters->find('all')->where(['PoFooters.po_header_id' => $poHeader['id'], 'deleted_indication' => ''])->toArray();
                 foreach ($filteredBuyers as $buyer) {
                     if ($buyer->email !== "") {
                         $mailer = new Mailer('default');
@@ -313,7 +313,7 @@ class PurchaseOrdersController extends VendorAppController
                                 'vendor' => $vendor,
                                 'po_footer' => $po_footer,
                                 'spt_email' => 'support@apar.in',
-                                'remark' => $this->request->getData('remark'),
+                                'remark' => $poHeader->remark,
                                 ])
                             ->setFrom(Configure::read('MAIL_FROM'))
                             ->setTo($buyer->email)
