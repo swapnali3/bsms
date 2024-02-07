@@ -125,10 +125,10 @@ div#example1_wrapper .row:first-child,
     flex-direction: row-reverse !important;
 }
 
-table#example1 tr th {
+/* table#example1 tr th {
     padding: 10px 0px !important;
-    /* background-color: #f1f1f1 !important; */
-}
+    background-color: #f1f1f1 !important;
+} */
 
 table#example1 span.material-symbols-outlined.flu {
     font-size: 18px;
@@ -147,7 +147,7 @@ div#scheduleModal .btn,div#modal-sm .btn {
 
 table#example1 tr th,
 table#example1 tr td {
-    padding: 5px 10px !important;
+    /* padding: 5px 10px !important; */
     vertical-align: middle;
     cursor: pointer;
 }
