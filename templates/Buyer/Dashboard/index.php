@@ -254,7 +254,7 @@
               <?php if (isset($vendor)) : ?>
               <?php foreach ($vendor as $mat) : ?>
               <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
-                <?= h($mat->sap_vendor_code) ?>
+              <?= h($mat->VendorTemps['name']) ?> ( <?= h($mat->sap_vendor_code) ?> )
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -305,7 +305,7 @@
               <?php if (isset($vendor)) : ?>
               <?php foreach ($vendor as $mat) : ?>
               <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
-                <?= h($mat->sap_vendor_code) ?>
+              <?= h($mat->VendorTemps['name']) ?> ( <?= h($mat->sap_vendor_code) ?> )
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -356,7 +356,7 @@
               <?php if (isset($vendor)) : ?>
               <?php foreach ($vendor as $mat) : ?>
               <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
-                <?= h($mat->sap_vendor_code) ?>
+                <?= h($mat->VendorTemps['name']) ?> ( <?= h($mat->sap_vendor_code) ?> )
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -407,7 +407,7 @@
               <?php if (isset($vendor)) : ?>
               <?php foreach ($vendor as $mat) : ?>
               <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
-                <?= h($mat->sap_vendor_code) ?>
+              <?= h($mat->VendorTemps['name']) ?> ( <?= h($mat->sap_vendor_code) ?> )
               </option>
               <?php endforeach; ?>
               <?php endif; ?>

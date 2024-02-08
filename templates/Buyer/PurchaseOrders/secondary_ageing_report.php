@@ -133,6 +133,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Actual Indent Date</th>
+                                                <th>Actual delivery date</th>
                                                 <th>PM TYPE</th>
                                                 <th>Segment</th>
                                                 <th>Material</th>
@@ -143,7 +144,6 @@
                                                 <th>Receipt</th>
                                                 <th>Pending</th>
                                                 <th>Vendor Name</th>
-                                                <th>Actual delivery date</th>
                                                 <th>No of Days</th>
                                                 <th>Aging Bucket</th>
                                                 <th>Status</th>

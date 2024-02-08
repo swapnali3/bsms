@@ -5,12 +5,10 @@
  * @var \App\Model\Entity\VendorMaterial $vendorMaterial
  */
 ?>
-<!-- <?= $this->Html->css('cstyle.css') ?> -->
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('listing.css') ?>
 <?= $this->Html->css('v_index.css') ?>
-
 
 <div class="card">
 <div class="upld-material-head card-header d-flex justify-content-between align-items-center">
@@ -63,9 +61,7 @@
                     <th>Status</th>
                 </tr>
             </thead>
-            <tbody>
-            </tbody>
-            </tbody>
+            <tbody></tbody>
         </table></div>
     </div>
 </div>
@@ -122,7 +118,6 @@
                         icon: 'success',
                         title: response.message
                     });
-
     
                     $("#example1 tbody").empty();
 
