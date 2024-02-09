@@ -250,15 +250,18 @@
             </select>
           </div>
           <div class="col-5">
-            <select name="vendor5[]" id="id_vendor5" class="chosen vendor" multiple="multiple" style="width: 100%;">
-              <?php if (isset($vendor)) : ?>
-              <?php foreach ($vendor as $mat) : ?>
-              <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
-              <?= h($mat->VendorTemps['name']) ?> ( <?= h($mat->sap_vendor_code) ?> )
-              </option>
-              <?php endforeach; ?>
-              <?php endif; ?>
-            </select>
+          <select name="vendor5[]" id="id_vendor5" class="chosen vendor" multiple="multiple" style="width: 100%;">
+            <?php if (isset($vendor)) : ?>
+                <?php foreach ($vendor as $mat) : ?>
+                    <?php
+                    $sap_vendor_code = preg_replace('/^0+/', '', $mat->sap_vendor_code);
+                    ?>
+                    <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($sap_vendor_code) ?>">
+                        <?= h($mat->VendorTemps['name']) ?> ( <?= h($sap_vendor_code) ?> )
+                    </option>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </select>
           </div>
           <div class="col-1">
             <button type="button" class="btn graph_search mydash">
@@ -301,15 +304,19 @@
             </select>
           </div>
           <div class="col-5">
-            <select name="vendor6[]" id="id_vendor6" class="chosen vendor" multiple="multiple" style="width: 100%;">
+          <select name="vendor6[]" id="id_vendor6" class="chosen vendor" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendor)) : ?>
-              <?php foreach ($vendor as $mat) : ?>
-              <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
-              <?= h($mat->VendorTemps['name']) ?> ( <?= h($mat->sap_vendor_code) ?> )
-              </option>
-              <?php endforeach; ?>
+                  <?php foreach ($vendor as $mat) : ?>
+                      <?php
+                      $sap_vendor_code = preg_replace('/^0+/', '', $mat->sap_vendor_code);
+                      ?>
+                      <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($sap_vendor_code) ?>">
+                          <?= h($mat->VendorTemps['name']) ?> ( <?= h($sap_vendor_code) ?> )
+                      </option>
+                  <?php endforeach; ?>
               <?php endif; ?>
-            </select>
+          </select>
+
           </div>
           <div class="col-1">
             <button type="button" class="btn graph_search mydash">
@@ -352,15 +359,19 @@
             </select>
           </div>
           <div class="col-5">
-            <select name="vendor7[]" id="id_vendor7" class="chosen vendor" multiple="multiple" style="width: 100%;">
+          <select name="vendor7[]" id="id_vendor7" class="chosen vendor" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendor)) : ?>
-              <?php foreach ($vendor as $mat) : ?>
-              <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
-                <?= h($mat->VendorTemps['name']) ?> ( <?= h($mat->sap_vendor_code) ?> )
-              </option>
-              <?php endforeach; ?>
+                  <?php foreach ($vendor as $mat) : ?>
+                      <?php
+                      $sap_vendor_code = preg_replace('/^0+/', '', $mat->sap_vendor_code);
+                      ?>
+                      <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($sap_vendor_code) ?>">
+                          <?= h($mat->VendorTemps['name']) ?> ( <?= h($sap_vendor_code) ?> )
+                      </option>
+                  <?php endforeach; ?>
               <?php endif; ?>
-            </select>
+          </select>
+
           </div>
           <div class="col-1">
             <button type="button" class="btn graph_search mydash">
@@ -403,15 +414,19 @@
             </select>
           </div>
           <div class="col-5">
-            <select name="vendor8[]" id="id_vendor8" class="chosen vendor" multiple="multiple" style="width: 100%;">
+          <select name="vendor8[]" id="id_vendor8" class="chosen vendor" multiple="multiple" style="width: 100%;">
               <?php if (isset($vendor)) : ?>
-              <?php foreach ($vendor as $mat) : ?>
-              <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
-              <?= h($mat->VendorTemps['name']) ?> ( <?= h($mat->sap_vendor_code) ?> )
-              </option>
-              <?php endforeach; ?>
+                  <?php foreach ($vendor as $mat) : ?>
+                      <?php
+                      $sap_vendor_code = preg_replace('/^0+/', '', $mat->sap_vendor_code);
+                      ?>
+                      <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($sap_vendor_code) ?>">
+                          <?= h($mat->VendorTemps['name']) ?> ( <?= h($sap_vendor_code) ?> )
+                      </option>
+                  <?php endforeach; ?>
               <?php endif; ?>
-            </select>
+          </select>
+
           </div>
           <div class="col-1">
             <button type="button" class="btn graph_search mydash">
