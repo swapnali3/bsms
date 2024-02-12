@@ -935,7 +935,7 @@ class PurchaseOrdersController extends VendorAppController
             //print_r($data); exit;
             $response = array('status'=>1, 'message'=>'Data Found', 'data'=>$data); 
         }
-        echo json_encode($response);
+        echo json_encode($response); exit;
     }
     
     public function getItems($id = null)

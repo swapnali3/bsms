@@ -1045,6 +1045,110 @@ class PurchaseOrdersController extends BuyerAppController
         echo json_encode($response);
     }
 
+    public function getScheduleexport($id = null)
+    {
+        $this->autoRender = false;
+        $response = ['status' => 0, 'message' => '', 'totalQty' => ''];
+        $conn = ConnectionManager::get('default');
+        $query = $conn->execute("select po_headers.sap_vendor_code, po_headers.po_no, po_footers.item, po_footers.material, po_footers.po_qty, po_item_schedules.actual_qty, po_item_schedules.received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as delivery_date,
+        case when asn.status = 3 then 'Received' else
+            case when asn.status = 2 then 'In-Transit' else
+                case when po_item_schedules.delivery_date is null then '' else
+                    case when po_item_schedules.received_qty = 0 then 'Scheduled' else
+                        case when po_item_schedules.received_qty < po_item_schedules.actual_qty then 'Partial ASN created' else 'ASN created'
+        end end end end end as 'status'
+        from po_headers
+        left join po_footers on po_headers.id = po_footers.po_header_id
+        left join materials on po_footers.material = materials.code and po_headers.sap_vendor_code = materials.sap_vendor_code
+        left join po_item_schedules on po_item_schedules.po_footer_id = po_footers.id
+        left join (select distinct asn_headers.status, asn_footers.po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as asn on asn.po_schedule_id = po_item_schedules.id
+        where po_item_schedules.status=1 AND po_footers.deleted_indication = '' AND po_headers.id =". $id);
+        $data = $query->fetchAll('assoc');
+
+        if (count($data) > 0) {
+            $sap_vendor_code = null;
+            $po_no = null;
+            $item = null;
+            $po_qty = null;
+            $material = null;
+            $pending = 0;
+            $cnt = 0 ;
+            $excel = array();
+
+            foreach ($data as $row) {
+                $cnt=$cnt+1;
+                if( $sap_vendor_code == $row['sap_vendor_code'] && 
+                    $po_no == $row['po_no'] && 
+                    $item == $row['item'] && 
+                    $po_qty == $row['po_qty']
+                ) { $pending -= $row['actual_qty']; }
+                else if ($pending != 0) {
+                    $excel[] = [
+                        'sap_vendor_code' => $sap_vendor_code,
+                        'po_no' => $po_no,
+                        'item' => $item,
+                        'material' => $material,
+                        'po_qty' => $po_qty,
+                        'received_qty' => $pending,
+                        'delivery_date' => '',
+                        'status' => 'Pending'
+                    ];
+                    $pending = 0;
+                }
+                if ($cnt == count($data)) {
+                    if ($sap_vendor_code){
+                        $excel[] = [
+                            'sap_vendor_code' => $sap_vendor_code,
+                            'po_no' => $po_no,
+                            'item' => $item,
+                            'material' => $material,
+                            'po_qty' => $po_qty,
+                            'received_qty' => $pending,
+                            'delivery_date' => '',
+                            'status' => 'Pending'
+                        ];
+                    } else if (count($data) == 1){
+                        $excel[] = [
+                            'sap_vendor_code' => $row['sap_vendor_code'],
+                            'po_no' => $row['po_no'],
+                            'item' => $row['item'],
+                            'material' => $row['material'],
+                            'po_qty' => $row['po_qty'],
+                            'received_qty' => $row['po_qty'] - $row['actual_qty'],
+                            'delivery_date' => '',
+                            'status' => 'Pending'
+                        ];
+                    }
+                } else if ($pending == 0) {
+                    $sap_vendor_code = $row['sap_vendor_code'];
+                    $po_no = $row['po_no'];
+                    $item = $row['item'];
+                    $material = $row['material'];
+                    $po_qty = $row['po_qty'];
+                    $pending = $row['po_qty'] - $row['actual_qty'];
+                }
+            }
+            // echo '<pre>'; print_r($excel); exit;
+        }
+        $data = array_merge($data, $excel);
+        $excel = [];
+        foreach ($data as $row) {
+            $temp = [];
+            $temp[] = $row['sap_vendor_code'];
+            $temp[] = $row['po_no'];
+            $temp[] = $row['item'];
+            $temp[] = $row['material'];
+            if ($row['status'] == 'Scheduled'){ $temp[] = $row['actual_qty']; }
+            else { $temp[] = $row['received_qty']; }
+            $temp[] = $row['delivery_date'];
+            $temp[] = $row['status'];
+            $excel[] = $temp;
+        }
+
+        $response = ['status' => 1, 'message' => '', 'data' => $excel ];
+        echo json_encode($response);
+    }
+
     public function getScheduleMessages($id = null)
     {
         $response = array();

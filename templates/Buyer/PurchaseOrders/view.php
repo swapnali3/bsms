@@ -77,6 +77,24 @@
         <button type="button" disabled class="btn bg-gradient-button" id="action_schedule" onclick="prepare()"
           data-toggle="modal" data-backdrop="static" data-keyboard="false"
           data-target="#scheduleModal">Schedule</button>
+        <button type="button" class="btn bg-gradient-button schexp" onclick="tableToExcel()">Export</button>
+        <div id="expme">
+          <table id="meme">
+          <thead>
+            <tr>
+              <th>Vendor</th>
+              <th>PO</th>
+              <th>Item</th>
+              <th>Material</th>
+              <th>schedule_qty</th>
+              <th>delivery_date</th>
+              <th>Status</th>
+            </tr>
+            </thead>
+            <tbody id="meexp">
+            </tbody>
+          </table>
+        </div>
       </div>
       <div class="table-responsive card-body" id="id_potableresp" style="display:none;"></div>
     </div>
@@ -303,5 +321,6 @@
   var po_api = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-api')); ?>";
   var save_schedule_remarks = "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'save-schedule-remarks')); ?>";
   var po_upload_url = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'upload')); ?>"
+  var po_schedule_export = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'getScheduleexport')); ?>/"
 </script>
 <?= $this->Html->script('a_vekpro/buyer/b_purchaseorder_view') ?>
