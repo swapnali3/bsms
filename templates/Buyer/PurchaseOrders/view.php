@@ -48,25 +48,35 @@
         <div class="po-list">
           <div class="d-flex" id="poItemss"></div>
         </div>
-        <div class="non-schdule-list p-2">
+        <div class="card non-schdule-list p-2 mb-0">
           <div class="d-flex justify-content-between align-items-center">
-            <h6><strong>Non-Schdule PO Items</strong></h6>
+            <h6><strong>Non-Schedule PO Items</strong></h6>
             <button class="btn bg-gradient-submit" id="expandButton" style="width: 100px;">Expand</button>
           </div>
-          <table id="expandedTable" class="table mt-2" style="display: none;">
-        <thead>
-            <tr>
-                <th>Column 1</th>
-                <th>Column 2</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Data 1</td>
-                <td>Data 2</td>
-            </tr>
-        </tbody>
-    </table>
+          <div class="card-body table-responsive" id="expanded_tbl">
+          <table id="expandedTable" class="table table-bordered table-hover table-striped mt-5 pt-5">
+            <thead>
+              <tr>
+                <th>Vendor</th>
+                <th>PO No</th>
+                <th>Item</th>
+                <th>Material</th>
+                <th>Description</th>
+                <th>PO Qty</th>
+                <th>Net Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($no_schedule as $mat) : ?>
+              
+              <tr>
+                <?php foreach ($mat as $sat) : ?>
+                <td><?= h($sat) ?></td>
+                <?php endforeach; ?>
+              </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table></div>
         </div>
       </div>
     </div>
@@ -80,16 +90,16 @@
         <button type="button" class="btn bg-gradient-button schexp" onclick="tableToExcel()">Export</button>
         <div id="expme">
           <table id="meme">
-          <thead>
-            <tr>
-              <th>Vendor</th>
-              <th>PO</th>
-              <th>Item</th>
-              <th>Material</th>
-              <th>schedule_qty</th>
-              <th>delivery_date</th>
-              <th>Status</th>
-            </tr>
+            <thead>
+              <tr>
+                <th>Vendor</th>
+                <th>PO</th>
+                <th>Item</th>
+                <th>Material</th>
+                <th>schedule_qty</th>
+                <th>delivery_date</th>
+                <th>Status</th>
+              </tr>
             </thead>
             <tbody id="meexp">
             </tbody>

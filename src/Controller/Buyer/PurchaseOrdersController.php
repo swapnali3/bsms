@@ -502,10 +502,19 @@ class PurchaseOrdersController extends BuyerAppController
         $session = $this->getRequest()->getSession();
         $this->set('headTitle', 'PO Detail');
         $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+        $this->loadModel('PoItemSchedules');
         $poHeaders = $this->PoHeaders->find()
             ->select(['id', 'po_no', 'sap_vendor_code'])->toArray();
+            $conn = ConnectionManager::get('default');
+            $material = $conn->execute("select po_headers.sap_vendor_code, po_headers.po_no, po_footers.item, po_footers.material, po_footers.short_text, po_footers.po_qty, po_footers.net_value from po_headers
+            inner join po_footers on po_headers.id = po_footers.po_header_id
+            where po_footers.id not in (select po_footer_id from po_item_schedules)
+            and po_headers.acknowledge = 1 and  po_footers.deleted_indication = ''");
+            $no_schedule = $material->fetchAll('assoc');
+        // echo '<pre>';print_r($query);exit;
 
-        $this->set(compact('poHeaders'));
+        $this->set(compact('poHeaders', 'no_schedule'));
     }
 
     

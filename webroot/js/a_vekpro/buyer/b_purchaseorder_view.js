@@ -132,6 +132,18 @@ function getRemote(remote_url, method = "GET", type = "json", convertapi = true)
 $(".btnSub").on("click", function (e) { e.preventDefault(); });
 
 $("#expme").hide();
+
+$("#expandedTable").DataTable({
+    searching: false,
+    paging: false,
+    dom: 'Bfrtip',
+    buttons: [{
+        extend: 'excel',
+        text: 'Export to Excel',
+        attr: { id: 'memebtn' }
+    }]
+});
+
 schexp_dtbl = $("#meme").DataTable({
     searching: false,
     paging: false,
@@ -208,7 +220,7 @@ $("#purViewId").on("click", ".po-box", function () {
                 schexp_dtbl.clear().draw();
                 schexp_dtbl.rows.add(response.data).draw();
                 schexp_dtbl.columns.adjust().draw();
-            } else { schexp_dtbl.clear().draw();}
+            } else { schexp_dtbl.clear().draw(); }
         },
         complete: function () { $("#gif_loader").hide(); }
     });
@@ -798,7 +810,7 @@ $("#btnClose").click(function () {
     $("#btnClose").removeClass("d-none");
 });
 
-document.getElementById("expandButton").addEventListener("click", function() {
+document.getElementById("expandButton").addEventListener("click", function () {
     var table = document.getElementById("expandedTable");
     if (table.style.display === "none") {
         table.style.display = "table";
@@ -808,3 +820,8 @@ document.getElementById("expandButton").addEventListener("click", function() {
         document.getElementById("expandButton").innerText = "Expand";
     }
 });
+
+$(document).on("click", "#expandButton", function () {
+    $("#expanded_tbl").toggle(); 
+});
+$("#expandButton").trigger('click');
