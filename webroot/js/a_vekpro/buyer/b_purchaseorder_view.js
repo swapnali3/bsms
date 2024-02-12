@@ -227,7 +227,7 @@ function populateItemData(status, itemData) {
             destroy: true,
             initComplete: function () {
                 var searchInput = $('.dataTables_filter input');
-                searchInput.attr('placeholder', 'Search');
+                searchInput.attr('placeholder', 'Search material in PO');
             }
         });
     }, 500);
@@ -749,4 +749,15 @@ $("#btnClose").click(function () {
     $(".btn-success").hide();
     $("#btnClose").hide();
     $("#btnClose").removeClass("d-none");
+});
+
+document.getElementById("expandButton").addEventListener("click", function() {
+    var table = document.getElementById("expandedTable");
+    if (table.style.display === "none") {
+        table.style.display = "table";
+        document.getElementById("expandButton").innerText = "Collapse";
+    } else {
+        table.style.display = "none";
+        document.getElementById("expandButton").innerText = "Expand";
+    }
 });
