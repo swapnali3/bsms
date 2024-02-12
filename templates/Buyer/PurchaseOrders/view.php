@@ -48,6 +48,26 @@
         <div class="po-list">
           <div class="d-flex" id="poItemss"></div>
         </div>
+        <div class="non-schdule-list p-2">
+          <div class="d-flex justify-content-between align-items-center">
+            <h6><strong>Non-Schdule PO Items</strong></h6>
+            <button class="btn bg-gradient-submit" id="expandButton" style="width: 100px;">Expand</button>
+          </div>
+          <table id="expandedTable" class="table mt-2" style="display: none;">
+        <thead>
+            <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Data 1</td>
+                <td>Data 2</td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
       </div>
     </div>
 
