@@ -135,7 +135,7 @@ $("#expme").hide();
 
 $("#expandedTable").DataTable({
     searching: false,
-    paging: false,
+    paging: true,
     dom: 'Bfrtip',
     buttons: [{
         extend: 'excel',
@@ -824,4 +824,5 @@ document.getElementById("expandButton").addEventListener("click", function () {
 $(document).on("click", "#expandButton", function () {
     $("#expanded_tbl").toggle(); 
 });
+
 $("#expandButton").trigger('click');
