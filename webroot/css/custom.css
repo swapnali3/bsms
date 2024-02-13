@@ -932,6 +932,7 @@ div#past_messages::-webkit-scrollbar-track {
 #id_potableresp input.form-control.form-control-sm[type="search"] {
     margin-top: 10px;
     margin-left: -50px !important;
+    border: 1px solid #ddd !important;
 }
 
 .btn-custom-2:hover {
