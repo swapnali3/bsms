@@ -1,4 +1,5 @@
-$('#OpenImgUpload').click(function () { $('#bulk_file').trigger('click'); });
+var global_poid, schexp_dtbl;
+$('OpenImgUpload').click(function () { $('#bulk_file').trigger('click'); });
 
 $('#bulk_file').change(function () {
     var file = $(this).prop('files')[0];
@@ -128,14 +129,38 @@ function getRemote(remote_url, method = "GET", type = "json", convertapi = true)
     return resp;
 }
 
-$(".btnSub").on("click", function (e) {e.preventDefault();});
+$(".btnSub").on("click", function (e) { e.preventDefault(); });
+
+$("#expme").hide();
+
+$("#expandedTable").DataTable({
+    searching: false,
+    paging: true,
+    dom: 'Bfrtip',
+    buttons: [{
+        extend: 'excel',
+        text: 'Export to Excel',
+        attr: { id: 'memebtn' }
+    }]
+});
+
+schexp_dtbl = $("#meme").DataTable({
+    searching: false,
+    paging: false,
+    dom: 'Bfrtip',
+    buttons: [{
+        extend: 'excel',
+        text: 'Export to Excel',
+        attr: { id: 'memebtn' }
+    }]
+});
 
 $("#purViewId").on("click", ".po-box", function () {
     $("#id_pofooter").empty();
     $(".po-box").removeClass("active");
     $(this).addClass("active");
     var poid = $(this).attr("data-id");
-
+    global_poid = poid;
     $.ajax({
         type: "GET",
         url: get_po_Footers + poid,
@@ -169,9 +194,11 @@ $("#purViewId").on("click", ".po-box", function () {
             // console.log(response.status + "=" + response.data);
             if ((response.status || !response.status) && response.data) {
                 populateItemData(response.status, response.data);
+                $(".schexp").show();
                 if (!response.status) {
                     $("#action_schedule").hide();
                     $("#res_message").html(response.message);
+                    $(".schexp").hide();
                 }
 
             } else {
@@ -181,7 +208,39 @@ $("#purViewId").on("click", ".po-box", function () {
         },
         complete: function () { $("#loaderss").hide(); },
     });
+
+    $.ajax({
+        type: "GET",
+        url: po_schedule_export + global_poid,
+        data: $("#addvendorform").serialize(),
+        dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
+        success: function (response) {
+            if (response.status) {
+                schexp_dtbl.clear().draw();
+                schexp_dtbl.rows.add(response.data).draw();
+                schexp_dtbl.columns.adjust().draw();
+            } else { schexp_dtbl.clear().draw(); }
+        },
+        complete: function () { $("#gif_loader").hide(); }
+    });
 });
+
+
+function tableToExcel() {
+    $("#memebtn").trigger("click");
+    // var location = 'data:application/vnd.ms-excel;base64,';
+    // var excelTemplate = '<html> '+
+    //     '<head> '+
+    //     '<meta http-equiv="content-type" content="text/plain; charset=UTF-8"/> '+
+    //     '</head> '+
+    //     '<body> '+
+    //     document.getElementById("expme").innerHTML +
+    //     '</body> '+
+    //     '</html>'
+    // window.location.href = location + window.btoa(excelTemplate);
+}
+
 
 function populateItemData(status, itemData) {
     $.each(itemData.po_footers, function (key, val) {
@@ -761,3 +820,9 @@ document.getElementById("expandButton").addEventListener("click", function() {
         document.getElementById("expandButton").innerText = "Expand";
     }
 });
+
+$(document).on("click", "#expandButton", function () {
+    $("#expanded_tbl").toggle(); 
+});
+
+$("#expandButton").trigger('click');

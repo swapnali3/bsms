@@ -38,6 +38,10 @@
     width: 100%;
     height: 300px;
   }
+  #chartdiv5 {
+    width: 100%;
+    height: 300px;
+  }
 </style>
 
 <?= $this->Html->script('amcharts/index.js') ?>
@@ -437,15 +441,30 @@
       </div>
     </div>
   </div>
+  <div class="col-sm-12 col-lg-6 d-none">
+    <div class="card card-default card_box_shadow">
+      <div class="card-header">copy of pie graph</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div id="chartdiv5"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <?= $this->Form->end() ?>
 
 <script src="<?= $this->Url->build('/') ?>js/chart.js"></script>
 
+
+
 <script>
   var dashboard_url = `<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'buyer/dashboard', 'action' => 'index')); ?>`;
   var chartdiv_data = <?php echo json_encode($topVendors); ?>;
   var chartdiv2_data = <?php echo json_encode($topMaterials); ?>;
+  var chartdiv5_data = <?php echo json_encode($topVendors); ?>;
   var chartdiv3_data = [
     <?php foreach ($orderByPeriods as $mat) : ?>
       {"network":"<?= h($mat['network']) ?>","value":<?= h($mat['value']) ?>},
@@ -463,3 +482,24 @@
 <script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_topMaterial.js"></script>
 <script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_poorderValue.js"></script>
 <script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_materialValue.js"></script>
+
+<script>
+ function refreshh_topVendor(data){ series5.data.setAll(data); }
+
+var root5 = am5.Root.new("chartdiv5");
+root5.setThemes([am5themes_Animated.new(root5)]);
+var chart5 = root5.container.children.push(am5percent.PieChart.new(root5, { layout: root5.verticalLayout }));
+var series5 = chart5.series.push(am5percent.PieSeries.new(root5, { valueField: "value", categoryField: "category" }));
+series5.get("colors").set("colors", [
+    am5.color(0xF7941D),
+    am5.color(0xED1C24),
+    am5.color(0x28a745),
+    am5.color(0xF7681D),
+    am5.color(0xF7B81D)
+  ]);
+series5.labels.template.set("fontSize", 12);
+refreshh_topVendor(chartdiv5_data)
+series5.appear(1000, 100);
+
+
+</script>
