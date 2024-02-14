@@ -17,24 +17,20 @@ $(document).on('click', 'div.details-control', function () {
     $("#po_header_id").val($(this).attr('header-id'));
     //format($(this).attr('header-id'));
     active_po_header_id = $(this).attr('header-id');
-    if (factory_list.length == 1) {
-        $("#fc_id" + factory_list[0]["id"]).trigger("click");
-    } else { $("#id_select_factory").trigger('click'); }
+    if (factory_list.length == 1) { $("#fc_id" + factory_list[0]["id"]).trigger("click"); }
+    else { $("#id_select_factory").trigger('click'); }
 });
 
 $(document).on("click", "#ckbCheckAll", function () {
     if (this.checked) {
         $('.checkBoxClass').each(function (key, val) {
             //if ($("#qty" + $(val).data("id")).val() == 0) { $("#qty" + $(val).data("id")).val($(val).data("pendingqty")).attr('readonly','readonly'); }
-            if ($("#qty" + $(val).data("id")).val() == 0) {
+            if ($("#qty" + $(val).data("id")).val() == 0) { 
                 $("#qty" + $(val).data("id")).val($(val).data("pendingqty"));
                 maxval = parseFloat($("#qty" + $(this).data("id")).attr('data-max'));
                 pendQty = parseFloat($(this).data("pendingqty"));
-                if (pendQty > maxval) {
-                    $("#qty" + $(this).data("id")).val(maxval);
-                } else {
-                    $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
-                }
+                if (pendQty > maxval) { $("#qty" + $(this).data("id")).val(maxval); }
+                else { $("#qty" + $(this).data("id")).val($(this).data("pendingqty")); }
             }
             this.checked = true;
             $("#select" + $(this).data("id")).trigger("change");
@@ -60,20 +56,15 @@ $(document).on("change", ".checkBoxClass", function () {
             $("#qty" + $(this).data("id")).removeAttr("disabled");
             maxval = parseFloat($("#qty" + $(this).data("id")).attr('data-max'));
             pendQty = parseFloat($(this).data("pendingqty"));
-            if (pendQty > maxval) {
-                $("#qty" + $(this).data("id")).val(maxval);
-            } else {
-                $("#qty" + $(this).data("id")).val($(this).data("pendingqty"));
-            }
-
+            if (pendQty > maxval) { $("#qty" + $(this).data("id")).val(maxval); }
+            else { $("#qty" + $(this).data("id")).val($(this).data("pendingqty")); }
             $("#schedule_id" + $(this).data("id")).removeAttr("disabled");
-
         }
     }
-    else {
-        $("#qty" + $(this).data("id")).attr("disabled", "disabled");
-        $("#qty" + $(this).data("id")).val('');
-        $("#schedule_id" + $(this).data("id")).attr("disabled", "disabled");
+    else { 
+        $("#qty" + $(this).data("id")).attr("disabled", "disabled"); 
+        $("#qty" + $(this).data("id")).val(''); 
+        $("#schedule_id" + $(this).data("id")).attr("disabled", "disabled"); 
     }
 });
 
@@ -85,8 +76,6 @@ $(document).on("change", ".checkBoxClass", function () {
 });
 
 $(document).on("change focusout", ".check_qty", function () { if ($(this).val() > $(this).data('max')) { $(this).val($(this).data('max')) } });
-
-
 
 $('.search-box').on('keyup', function (event) {
     //if (event.which === 13) {
@@ -101,23 +90,12 @@ $('.search-box').on('keyup', function (event) {
     //}
 });
 
+
+
 function format(rowData, factory_id) {
     $.ajax({
-        type: "GET",
-        url: get_po_data + "/" + rowData + "/" + factory_id,
-        contentType: "application/x-www-form-urlencoded; charset=utf-8",
-        dataType: "json",
-        async: false,
-        beforeSend: function () { $("#gif_loader").show(); },
-        success: function (response) { asn(response); },
-        complete: function () { $("#gif_loader").hide(); }
-    });
-}
-
-$(document).on('change', '.badla', function () {
-    $.ajax({
         type: "POST",
-        url: get_po_data + "/" + active_po_header_id + "/" + $("#vendor_factory_id").val(),
+        url: get_po_data + "/" + rowData + "/" + factory_id,
         contentType: "application/x-www-form-urlencoded; charset=utf-8",
         dataType: "json",
         data: $("#addvendorform").serialize(),
@@ -126,6 +104,10 @@ $(document).on('change', '.badla', function () {
         success: function (response) { asn(response); },
         complete: function () { $("#gif_loader").hide(); }
     });
+}
+
+$(document).on('change', '.badla', function () {
+    poform()
 });
 
 function asn(response) {
@@ -230,17 +212,19 @@ $('.chosen').select2({
     }
 });
 
-function poform(search = "", createAsn = "as") {
+function poform() {
     $("#poItemss").empty();
     $(".right-side tbody:first").show();
-    if (search != "") { get_po_for_asn += "/" + search }
+    // if (search != "") { get_po_for_asn += "/" + search }
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: get_po_for_asn,
         dataType: 'json',
+        data: $("#addvendorform").serialize(),
         beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
-            if (response.status) {
+            if (response.status && (response.data).length > 0) {
+                $("#poItemss").empty();
                 $.each(response.data, function (key, val) {
                     $("#poItemss").append(`<div class="po-box details-control high` + val.id + ` ponum" header-id="` + val.id + `">
                                             <p class="po-no mb-0">PO No.</p>
@@ -287,5 +271,5 @@ function searchPo(search = "") {
 
 $(document).ready(function () {
     poform();
-    $('div.details-control:first').click();
+    // $('div.details-control:first').click();
 });

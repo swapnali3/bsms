@@ -375,6 +375,68 @@ class PurchaseOrdersController extends VendorAppController
         echo json_encode($response);
     }
 
+    public function asntocreate()
+    {
+        $this->autoRender = false;
+        $conn = ConnectionManager::get('default');
+        $session = $this->getRequest()->getSession();
+        $response = array('status'=>0, 'message'=>'', 'data'=>'');
+        $fromdate = '2023/01/01';
+        $todate = date('Y/m/d');
+
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+        $this->loadModel("StockUploads");
+        $this->loadModel("Materials");
+        $this->loadModel('PoItemSchedules');
+        $this->loadModel('VendorFactories');
+        
+        $conditions = ' WHERE po_item_schedules.status = 1 AND po_headers.acknowledge=1 AND po_headers.sap_vendor_code='.$session->read('vendor_code').' AND (po_item_schedules.actual_qty - po_item_schedules.received_qty) > 0 AND po_footers.deleted_indication = "" '; 
+        
+        $data = $conn->execute('SELECT DISTINCT po_headers.id, po_headers.sap_vendor_code, po_headers.acknowledge, po_headers.po_no
+        FROM po_headers
+        INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
+        INNER JOIN po_item_schedules ON po_item_schedules.po_footer_id = po_footers.id
+        LEFT JOIN materials ON materials.code = po_footers.material AND po_headers.sap_vendor_code = materials.sap_vendor_code
+        LEFT JOIN stock_uploads ON stock_uploads.material_id = materials.id AND po_headers.sap_vendor_code = stock_uploads.sap_vendor_code'.$conditions);
+        
+        if ($this->request->is(['post'])) {
+            $request = $this->request->getData();
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and po_footers.material IN (".$search.")";
+            }
+            if(isset($request['schqty'])) {
+                $search = '';
+                foreach ($request['schqty'] as $mat) { $search .= $mat . ","; }
+                $search = rtrim($search, ',');
+                $conditions .= " and po_item_schedules.actual_qty - po_item_schedules.received_qty IN (".$search.")";
+            }
+            if(isset($request['delfrom']) && !empty($request['delfrom'])) {
+                $search = $request['delfrom'];
+                $conditions .= " and po_item_schedules.delivery_date>='".$search." 00:00:00'";
+            }
+            if(isset($request['deltill']) && !empty($request['deltill'])) {
+                $search = $request['deltill'];
+                $conditions .= " and po_item_schedules.delivery_date<='".$search." 23:59:59'";
+            }
+            $data = $conn->execute('SELECT DISTINCT po_headers.id, po_headers.sap_vendor_code, po_headers.acknowledge, po_headers.po_no
+            FROM po_headers
+            INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
+            INNER JOIN po_item_schedules ON po_item_schedules.po_footer_id = po_footers.id
+            LEFT JOIN materials ON materials.code = po_footers.material AND po_headers.sap_vendor_code = materials.sap_vendor_code
+            LEFT JOIN stock_uploads ON stock_uploads.material_id = materials.id AND po_headers.sap_vendor_code = stock_uploads.sap_vendor_code'.$conditions);
+        }
+
+        $data = $data->fetchAll('assoc');
+        //echo '<pre>'; print_r($data); exit;
+
+        $response = array('status'=>1, 'message'=>'', 'data'=>$data);
+        echo json_encode($response);
+    }
+
     public function poForAsn($search = null)
     {
         $response = array();
@@ -938,8 +1000,8 @@ class PurchaseOrdersController extends VendorAppController
         foreach($actqty as $qty) { $scharr[] = $qty['actual_qty']; }
 
         
-        $conditions = ' WHERE po_item_schedules.status = 1 AND (po_item_schedules.actual_qty - po_item_schedules.received_qty) > 0 AND po_footers.deleted_indication = "" '; 
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        $conditions = ' WHERE po_item_schedules.status = 1 AND po_headers.id='.$id.' AND stock_uploads.vendor_factory_id='.$factoryId.' AND(po_item_schedules.actual_qty - po_item_schedules.received_qty) > 0 AND po_footers.deleted_indication = "" '; 
+        if ($this->request->is(['post'])) {
             $request = $this->request->getData();
             if(isset($request['material'])) {
                 $search = '';
@@ -963,7 +1025,7 @@ class PurchaseOrdersController extends VendorAppController
             }
         }
 
-        $data = $conn->execute('SELECT po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, po_headers.document_type, po_headers.created_by, DATE_FORMAT(po_headers.created_on, "%d-%m-%Y") AS created_date, po_headers.currency, po_footers.id, po_footers.item, po_footers.material, po_footers.short_text, po_footers.order_unit,    po_footers.net_price, po_item_schedules.id, (po_item_schedules.actual_qty - po_item_schedules.received_qty) AS actual_qty, DATE_FORMAT(po_item_schedules.delivery_date, "%d-%m-%Y") AS delivery_date, stock_uploads.opening_stock, stock_uploads.production_stock, stock_uploads.current_stock, materials.minimum_stock, IF(po_item_schedules.delivery_date < CURDATE(), "1", "0") AS is_expired
+        $data = $conn->execute('SELECT po_headers.id, po_headers.sap_vendor_code, po_headers.acknowledge, po_headers.po_no, po_headers.document_type, po_headers.created_by, DATE_FORMAT(po_headers.created_on, "%d-%m-%Y") AS created_date, po_headers.currency, po_footers.id, po_footers.item, po_footers.material, po_footers.short_text, po_footers.order_unit,    po_footers.net_price, po_item_schedules.id, (po_item_schedules.actual_qty - po_item_schedules.received_qty) AS actual_qty, DATE_FORMAT(po_item_schedules.delivery_date, "%d-%m-%Y") AS delivery_date, stock_uploads.opening_stock, stock_uploads.production_stock, stock_uploads.current_stock, materials.minimum_stock, IF(po_item_schedules.delivery_date < CURDATE(), "1", "0") AS is_expired
         FROM po_headers
         INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
         INNER JOIN po_item_schedules ON po_item_schedules.po_footer_id = po_footers.id
