@@ -7,10 +7,55 @@
 
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('v_purchaseorder_createasn') ?>
+
+<?= $this->Html->css('bootstrap-multiselect') ?>
+<?= $this->Html->script('bootstrap-multiselect') ?>
+<?= $this->Html->css('dropdown-filter') ?>
+<?= $this->Html->css('select2.min.css') ?>
+<?= $this->Html->script('select2.js') ?>
+
+<?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
+<div class="row m-2">
+    <div class="col-sm-12 col-md-4 col-lg-3">
+        <label for="id_material">Material</label><br>
+        
+        <select name="material[]" id="id_material" multiple="multiple" class="badla form-control chosen">
+            <?php if (isset($materials)) : ?>
+            <?php foreach ($materials as $mat) : ?>
+                <?= h($mat) ?>
+            <option value="<?= h($mat[0]) ?>" data-select="<?= h($mat[0]) ?>">
+            <?= h($mat[0]) ?> - <?= h($mat[1]) ?>
+            </option>
+            <?php endforeach; ?>
+            <?php endif; ?>
+        </select>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-3">
+        <label for="id_schqty">Schedule Qty</label><br>
+        <select name="schqty[]" id="id_schqty" multiple="multiple" class="badla form-control chosen">
+            <?php if (isset($scheduleqty)) : ?>
+            <?php foreach ($scheduleqty as $mat) : ?>
+            <option value="<?= h($mat) ?>" data-select="<?= h($mat) ?>">
+                <?= h($mat) ?>
+            </option>
+            <?php endforeach; ?>
+            <?php endif; ?>
+        </select>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-3">
+        <label for="id_delfrom">Delivery Date From</label>
+        <input type="date" class="form-control badla" name="delfrom" id="id_delfrom">
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-3">
+        <label for="id_deltill">Delivery Date Till</label>
+        <input type="date" class="form-control badla" name="deltill" id="id_deltill">
+    </div>
+</div>
+<?= $this->form->end() ?>
+
 <?= $this->Form->create(null, ['action' => 'asn-materials', 'id' => 'asnForm']) ?>
 <?= $this->form->control('po_header_id', ['id' => 'po_header_id', 'label' => false, 'type' => 'hidden', 'value' => '']) ?>
 <?= $this->form->control('vendor_factory_id', ['id' => 'vendor_factory_id', 'label' => false, 'type' => 'hidden', 'value' => '']) ?>
-
 <div class="poHeaders index content card create-asn">
     <div class="card-body">
         <div class="content-d">
@@ -126,13 +171,6 @@
     var active_po_header_id;
     var get_po_for_asn = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-for-asn')); ?>`;
     var get_po_data = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-po-headers-with-items')); ?>`;
-    $(document).on('click', '.fc_btn', function () {
-        $('div.details-control').removeClass('active');
-        $("#vendor_factory_id").val($(this).data('fc_id'));
-        format(active_po_header_id, $(this).data('fc_id'));
-        $(".close").trigger("click");
-        $(".high"+active_po_header_id).addClass('active');
-    });
 </script>
 
 <?= $this->Html->script('a_vekpro/vendor/v_purchaseorders_create_asn') ?>
