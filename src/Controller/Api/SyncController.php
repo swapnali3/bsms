@@ -426,7 +426,7 @@ class SyncController extends ApiAppController
                                                             'vendor_name' => $vendorDetail->name,
                                                             'po_footer' => $item,
                                                             'po_header'=>$row,
-                                                            'spt_email' => 'support@apar.in',])
+                                                            'spt_email' => get_email($po_id=$row->id)[0],])
                                                         ->setFrom(Configure::read('MAIL_FROM'))
                                                         ->setTo($vendorDetail->email)
                                                         ->setEmailFormat('html')
@@ -470,7 +470,7 @@ class SyncController extends ApiAppController
                                                             'poNumber'=>$poNumber,
                                                             'po_footer' => $item,
                                                             'po_header'=>$row,
-                                                            'spt_email' => 'support@apar.in',
+                                                            'spt_email' => get_email($po_id=$row->id)[0],
                                                             'total'=>$total[0]->total
                                                             ])
                                                         ->setFrom(Configure::read('MAIL_FROM'))
@@ -518,7 +518,7 @@ class SyncController extends ApiAppController
                                                 'vendor_email' => $vendorTemps->email,
                                                 'po_header' => $poInstance,
                                                 'po_footer' => $row->ITEM,
-                                                'spt_email' => 'support@apar.in',
+                                                'spt_email' => get_email($po_id=$poInstance->id)[0],
                                                 'spt_contact' => '7718801906',
                                                 'ttlamt' => $ttlamt,
                                                 'pay_term'=>$this->PaymentTerms->find('all')->where(['code' => $poInstance->pay_terms ])->first()

@@ -687,7 +687,7 @@ class PurchaseOrdersController extends BuyerAppController
                                     'vendor_name' => $vendorRecord->name,
                                     'po_item' => $poItem,
                                     'po_detail'=>$poDetail,
-                                    'spt_email' => 'support@apar.in',
+                                    'spt_email' => get_email($sap_vendor_code=$poDetail->sap_vendor_code)[0],
                                     ])
                                 ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
@@ -935,7 +935,7 @@ class PurchaseOrdersController extends BuyerAppController
                                     'po_item' => $poItem,
                                     'item_po'=>$item_po,
                                     'po_detail'=>$poDetail,
-                                    'spt_email' => 'support@apar.in',
+                                    'spt_email' => get_email($sap_vendor_code=$vendorRecord->sap_vendor_code)[0],
                                     ])
                                 ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
