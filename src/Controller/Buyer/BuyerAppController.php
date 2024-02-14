@@ -55,7 +55,7 @@ class BuyerAppController extends Controller
         $this->loadComponent('Sms');
         $this->loadComponent("Cookie"); 
         
-        $this->set('title', 'VeKPro');
+        $this->set('title', 'APAR');
         
 
         /*
