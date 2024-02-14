@@ -62,7 +62,7 @@ class VendorAppController extends Controller
         
         $flash = [];  
         $this->set('flash', $flash);
-        $this->set('title', 'VeKPro');
+        $this->set('title', 'APAR');
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
