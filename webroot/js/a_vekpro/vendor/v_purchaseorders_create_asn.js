@@ -152,7 +152,7 @@ function asn(response) {
                 if (isExpired == "1") {
                     var style = "style='background-color:#FAA0A0;'";
                 } else if (curr != 0) {
-                    chekbox = `<input type="checkbox" name="footer_id[]" value="` + val.id + `" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="` + val.actual_qty + `" data-id="` + val.id + `">`;
+                    chekbox = `<input type="checkbox" name="footer_id[]" value="` + val.fid + `" style="max-width: 20px;" class="form-control form-control-sm checkBoxClass"  data-pendingqty="` + val.actual_qty + `" data-id="` + val.id + `">`;
                     chekbox += `<input type="hidden" name="po_schedule_id[]" value="` + val.id + `" disabled style="max-width: 20px;" class="form-control form-control-sm"  id="schedule_id` + val.id + `"">`;
                 }
                 if (val.minimum_stock == null) { mins = `<i class="text-danger fas fa-exclamation-circle" data-toggle="tooltip" data-placement="top" title="" data-original-title="Define Minimum Stock"></i>` }

@@ -1025,7 +1025,7 @@ class PurchaseOrdersController extends VendorAppController
             }
         }
 
-        $data = $conn->execute('SELECT po_headers.id, po_headers.sap_vendor_code, po_headers.acknowledge, po_headers.po_no, po_headers.document_type, po_headers.created_by, DATE_FORMAT(po_headers.created_on, "%d-%m-%Y") AS created_date, po_headers.currency, po_footers.id, po_footers.item, po_footers.material, po_footers.short_text, po_footers.order_unit,    po_footers.net_price, po_item_schedules.id, (po_item_schedules.actual_qty - po_item_schedules.received_qty) AS actual_qty, DATE_FORMAT(po_item_schedules.delivery_date, "%d-%m-%Y") AS delivery_date, stock_uploads.opening_stock, stock_uploads.production_stock, stock_uploads.current_stock, materials.minimum_stock, IF(po_item_schedules.delivery_date < CURDATE(), "1", "0") AS is_expired
+        $data = $conn->execute('SELECT po_headers.id, po_headers.sap_vendor_code, po_headers.acknowledge, po_headers.po_no, po_headers.document_type, po_headers.created_by, DATE_FORMAT(po_headers.created_on, "%d-%m-%Y") AS created_date, po_headers.currency, po_footers.id as fid, po_footers.item, po_footers.material, po_footers.short_text, po_footers.order_unit,    po_footers.net_price, po_item_schedules.id, (po_item_schedules.actual_qty - po_item_schedules.received_qty) AS actual_qty, DATE_FORMAT(po_item_schedules.delivery_date, "%d-%m-%Y") AS delivery_date, stock_uploads.opening_stock, stock_uploads.production_stock, stock_uploads.current_stock, materials.minimum_stock, IF(po_item_schedules.delivery_date < CURDATE(), "1", "0") AS is_expired
         FROM po_headers
         INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
         INNER JOIN po_item_schedules ON po_item_schedules.po_footer_id = po_footers.id
