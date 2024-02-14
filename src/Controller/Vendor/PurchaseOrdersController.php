@@ -953,12 +953,12 @@ class PurchaseOrdersController extends VendorAppController
                 $search = rtrim($search, ',');
                 $conditions .= " and po_item_schedules.actual_qty - po_item_schedules.received_qty IN (".$search.")";
             }
-            if(isset($request['delfrom'])) {
+            if(isset($request['delfrom']) && !empty($request['delfrom'])) {
                 $search = $request['delfrom'];
                 $conditions .= " and po_item_schedules.delivery_date>='".$search." 00:00:00'";
             }
-            if(isset($request['delfrom'])) {
-                $search = $request['delfrom'];
+            if(isset($request['deltill']) && !empty($request['deltill'])) {
+                $search = $request['deltill'];
                 $conditions .= " and po_item_schedules.delivery_date<='".$search." 23:59:59'";
             }
         }
