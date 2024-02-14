@@ -140,7 +140,8 @@ $("#expandedTable").DataTable({
     buttons: [{
         extend: 'excel',
         text: 'Export to Excel',
-        attr: { id: 'memebtn' }
+        attr: { id: 'memebt' },
+        filename: 'Non_Scheduled_PO_Items'
     }]
 });
 
@@ -151,7 +152,8 @@ schexp_dtbl = $("#meme").DataTable({
     buttons: [{
         extend: 'excel',
         text: 'Export to Excel',
-        attr: { id: 'memebtn' }
+        attr: { id: 'memebtn' },
+        filename: 'PO_Items_Status'
     }]
 });
 

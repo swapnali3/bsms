@@ -54,7 +54,7 @@ class AdminAppController extends Controller
         $this->loadComponent('Ftp');
         $this->loadComponent("Cookie"); 
         
-        $this->set('title', 'VeKPro');
+        $this->set('title', 'APAR');
         
 
         /*
