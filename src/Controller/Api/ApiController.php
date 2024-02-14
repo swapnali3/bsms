@@ -56,6 +56,24 @@ class ApiController extends ApiAppController
         echo json_encode($response); exit;
     }
 
+    public function get_email($sap_vendor_code = null, $po_id=null)
+    {
+        $conditions = " 1=1 ";
+        if ($sap_vendor_code){
+            $conditions = $conditions." AND vendor_temps.sap_vendor_code='".$sap_vendor_code."' "; }
+        if ($po_id){
+            $conditions = $conditions." AND po_headers.id='".$po_id."' "; }
+        
+        $conn = ConnectionManager::get('default');
+        $query = $conn->execute("select buyers.email, vendor_temps.email from buyers
+        left join po_headers on po_headers.created_user = buyers.sap_user
+        left join users on buyers.email = users.username
+        left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
+        where ".$conditions);
+        $response = $query->fetchAll('assoc');
+        return $response;
+    }
+
     public function postPo()
     {
         $response = array();
@@ -133,7 +151,7 @@ class ApiController extends ApiAppController
                             'vendor_email' => $vendorTemps->email,
                             'po_header' => $the_po,
                             'po_footer' => $po_ftr,
-                            'spt_email' => 'support@apar.in',
+                            'spt_email' => get_email($po_id=$the_po->id)[0],
                             'spt_contact' => '7718801906',
                             'ttlamt' => 900,
                             ]) 

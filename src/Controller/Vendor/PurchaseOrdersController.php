@@ -244,7 +244,7 @@ class PurchaseOrdersController extends VendorAppController
                                 'poNumber' => $poNumber,
                                 'buyer' => $buyer,
                                 'vendor' => $vendor,
-                                'spt_email' => 'support@apar.in',
+                                'spt_email' => get_email($sap_vendor_code=$poHeader['sap_vendor_code'])[0],
                                 ])
                             ->setFrom(Configure::read('MAIL_FROM'))
                             ->setTo($buyer->email)
@@ -312,7 +312,7 @@ class PurchaseOrdersController extends VendorAppController
                                 'buyer' => $buyer,
                                 'vendor' => $vendor,
                                 'po_footer' => $po_footer,
-                                'spt_email' => 'support@apar.in',
+                                'spt_email' => get_email($sap_vendor_code=$poHeader['sap_vendor_code'])[0],
                                 'remark' => $poHeader->remark,
                                 ])
                             ->setFrom(Configure::read('MAIL_FROM'))
@@ -372,6 +372,68 @@ class PurchaseOrdersController extends VendorAppController
             $response['status'] = '0';
             $response['message'] = 'Order not found';
         }
+        echo json_encode($response);
+    }
+
+    public function asntocreate()
+    {
+        $this->autoRender = false;
+        $conn = ConnectionManager::get('default');
+        $session = $this->getRequest()->getSession();
+        $response = array('status'=>0, 'message'=>'', 'data'=>'');
+        $fromdate = '2023/01/01';
+        $todate = date('Y/m/d');
+
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+        $this->loadModel("StockUploads");
+        $this->loadModel("Materials");
+        $this->loadModel('PoItemSchedules');
+        $this->loadModel('VendorFactories');
+        
+        $conditions = ' WHERE po_item_schedules.status = 1 AND po_headers.acknowledge=1 AND po_headers.sap_vendor_code='.$session->read('vendor_code').' AND (po_item_schedules.actual_qty - po_item_schedules.received_qty) > 0 AND po_footers.deleted_indication = "" '; 
+        
+        $data = $conn->execute('SELECT DISTINCT po_headers.id, po_headers.sap_vendor_code, po_headers.acknowledge, po_headers.po_no
+        FROM po_headers
+        INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
+        INNER JOIN po_item_schedules ON po_item_schedules.po_footer_id = po_footers.id
+        LEFT JOIN materials ON materials.code = po_footers.material AND po_headers.sap_vendor_code = materials.sap_vendor_code
+        LEFT JOIN stock_uploads ON stock_uploads.material_id = materials.id AND po_headers.sap_vendor_code = stock_uploads.sap_vendor_code'.$conditions);
+        
+        if ($this->request->is(['post'])) {
+            $request = $this->request->getData();
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and po_footers.material IN (".$search.")";
+            }
+            if(isset($request['schqty'])) {
+                $search = '';
+                foreach ($request['schqty'] as $mat) { $search .= $mat . ","; }
+                $search = rtrim($search, ',');
+                $conditions .= " and po_item_schedules.actual_qty - po_item_schedules.received_qty IN (".$search.")";
+            }
+            if(isset($request['delfrom']) && !empty($request['delfrom'])) {
+                $search = $request['delfrom'];
+                $conditions .= " and po_item_schedules.delivery_date>='".$search." 00:00:00'";
+            }
+            if(isset($request['deltill']) && !empty($request['deltill'])) {
+                $search = $request['deltill'];
+                $conditions .= " and po_item_schedules.delivery_date<='".$search." 23:59:59'";
+            }
+            $data = $conn->execute('SELECT DISTINCT po_headers.id, po_headers.sap_vendor_code, po_headers.acknowledge, po_headers.po_no
+            FROM po_headers
+            INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
+            INNER JOIN po_item_schedules ON po_item_schedules.po_footer_id = po_footers.id
+            LEFT JOIN materials ON materials.code = po_footers.material AND po_headers.sap_vendor_code = materials.sap_vendor_code
+            LEFT JOIN stock_uploads ON stock_uploads.material_id = materials.id AND po_headers.sap_vendor_code = stock_uploads.sap_vendor_code'.$conditions);
+        }
+
+        $data = $data->fetchAll('assoc');
+        //echo '<pre>'; print_r($data); exit;
+
+        $response = array('status'=>1, 'message'=>'', 'data'=>$data);
         echo json_encode($response);
     }
 
@@ -484,6 +546,7 @@ class PurchaseOrdersController extends VendorAppController
     {
         $this->set('headTitle', 'Create ASN');
         $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
         $this->loadModel('PoItemSchedules');
         $this->loadModel('VendorFactories');
         $this->loadModel('Materials');
@@ -492,10 +555,36 @@ class PurchaseOrdersController extends VendorAppController
         $poHeaders = $this->paginate($this->PoHeaders->find()
             ->where(['sap_vendor_code' => $session->read('vendor_code'), '(select count(1) from po_item_schedules PoItemSchedules where po_header_id = PoHeaders.id) > 0']));
 
-        $materials = $this->Materials->find()
-        ->where(['sap_vendor_code' => $session->read('vendor_code')])->toArray();
+        $data = $this->PoHeaders->find('all')
+        ->select(['PoHeaders.id', 'PoHeaders.sap_vendor_code', 'PoHeaders.po_no', 'PoHeaders.document_type', 'PoHeaders.created_by', 'created_date' => 'date_format(PoHeaders.created_on, "%d-%m-%Y")', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'date_format(PoItemSchedules.delivery_date, "%d-%m-%Y")', 'opening_stock' => 'StockUploads.opening_stock', 'production_stock' => 'StockUploads.production_stock', 'current_stock' => 'StockUploads.current_stock', 'minimum_stock' => 'Materials.minimum_stock', 'is_expired' => 'if(delivery_date < CURDATE() , "1" , "0")'])
+        ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id', "PoFooters.deleted_indication = ''"])
+        ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
+        ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
+        ->leftJoin(['StockUploads' => 'stock_uploads'], ['StockUploads.material_id = Materials.id', 'PoHeaders.sap_vendor_code = StockUploads.sap_vendor_code'])
+        ->where([
+            'PoHeaders.sap_vendor_code' => $session->read('vendor_code'),
+            'PoItemSchedules.status' => 1,
+            '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',
+            ])
+        ->order(['delivery_date' => 'ASC'])->toArray();
+        
+        $materials = [];
+        $mattmp = [];
+        $scheduleqty = [];
+        foreach ($data as $mat) {
+            if (!in_array($mat['PoFooters']['material'], $mattmp)) {
+                $materials[] = [$mat['PoFooters']['material'], $mat['PoFooters']['short_text']];
+                $mattmp[] = $mat['PoFooters']['material'];
+            }
+            if (!in_array($mat['actual_qty'], $scheduleqty)) { $scheduleqty[] = $mat['actual_qty']; }
+        }
 
-        $scheduleqty = $this->PoItemSchedules->find('all')->select(['actual_qty'])->distinct(['actual_qty'])->order(['actual_qty' => 'ASC'])->toArray();
+
+        //  print_r($materials); exit;
+        // $materials = $this->Materials->find()
+        // ->where(['sap_vendor_code' => $session->read('vendor_code')])->toArray();
+
+        // $scheduleqty = $this->PoItemSchedules->find('all')->select(['actual_qty'])->distinct(['actual_qty'])->order(['actual_qty' => 'ASC'])->toArray();
 
 
         $factoryset = $this->VendorFactories->find('all')->where(['vendor_temp_id' => $session->read('vendor_id')])->all();
@@ -899,6 +988,7 @@ class PurchaseOrdersController extends VendorAppController
         $this->loadModel("Materials");
         $this->loadModel('PoItemSchedules');
         $this->loadModel('VendorFactories');
+        $conn = ConnectionManager::get('default');
         $matarr = [];
         $fromdate = '2023/01/01';
         $todate = date('Y/m/d');
@@ -909,37 +999,62 @@ class PurchaseOrdersController extends VendorAppController
         $actqty = $this->PoItemSchedules->find('all')->select(['actual_qty'])->distinct(['actual_qty'])->toArray();
         foreach($actqty as $qty) { $scharr[] = $qty['actual_qty']; }
 
-        if ($this->request->is(['patch', 'post', 'put'])) {
+        
+        $conditions = ' WHERE po_item_schedules.status = 1 AND po_headers.id='.$id.' AND stock_uploads.vendor_factory_id='.$factoryId.' AND(po_item_schedules.actual_qty - po_item_schedules.received_qty) > 0 AND po_footers.deleted_indication = "" '; 
+        if ($this->request->is(['post'])) {
             $request = $this->request->getData();
             if(isset($request['material'])) {
-                // $search = '';
-                // foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
-                // $search = rtrim($search, ',');
-                // if(!isset($request['vendor'])){ $conditions .= " and materials.code in (".$search.")"; }
-                // else{ $conditions .= " and materials.code in (".$search.")"; }
-                $matarr = $request['material'];
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and po_footers.material IN (".$search.")";
+            }
+            if(isset($request['schqty'])) {
+                $search = '';
+                foreach ($request['schqty'] as $mat) { $search .= $mat . ","; }
+                $search = rtrim($search, ',');
+                $conditions .= " and po_item_schedules.actual_qty - po_item_schedules.received_qty IN (".$search.")";
+            }
+            if(isset($request['delfrom']) && !empty($request['delfrom'])) {
+                $search = $request['delfrom'];
+                $conditions .= " and po_item_schedules.delivery_date>='".$search." 00:00:00'";
+            }
+            if(isset($request['deltill']) && !empty($request['deltill'])) {
+                $search = $request['deltill'];
+                $conditions .= " and po_item_schedules.delivery_date<='".$search." 23:59:59'";
             }
         }
 
-        $data = $this->PoHeaders->find('all')
-            ->select(['PoHeaders.id', 'PoHeaders.sap_vendor_code', 'PoHeaders.po_no', 'PoHeaders.document_type', 'PoHeaders.created_by', 'created_date' => 'date_format(PoHeaders.created_on, "%d-%m-%Y")', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'date_format(PoItemSchedules.delivery_date, "%d-%m-%Y")', 'opening_stock' => 'StockUploads.opening_stock', 'production_stock' => 'StockUploads.production_stock', 'current_stock' => 'StockUploads.current_stock', 'minimum_stock' => 'Materials.minimum_stock', 'is_expired' => 'if(delivery_date < CURDATE() , "1" , "0")'])
-            ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id', "PoFooters.deleted_indication = ''"])
-            ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
-            ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
-            ->leftJoin(['StockUploads' => 'stock_uploads'], ['StockUploads.material_id = Materials.id', 'PoHeaders.sap_vendor_code = StockUploads.sap_vendor_code', "vendor_factory_id = $factoryId"])
-            //->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
-            ->where([
-                'PoHeaders.id' => $id,
-                'PoItemSchedules.status' => 1,
-                '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',
-                'Materials.code IN' => $matarr,
-                'PoItemSchedules.delivery_date >'=> $fromdate,
-                'PoItemSchedules.delivery_date <'=> $todate,
-                'PoItemSchedules.actual_qty IN'=> $scharr,
-                ])
-            ->order(['delivery_date' => 'ASC']);
+        $data = $conn->execute('SELECT po_headers.id, po_headers.sap_vendor_code, po_headers.acknowledge, po_headers.po_no, po_headers.document_type, po_headers.created_by, DATE_FORMAT(po_headers.created_on, "%d-%m-%Y") AS created_date, po_headers.currency, po_footers.id, po_footers.item, po_footers.material, po_footers.short_text, po_footers.order_unit,    po_footers.net_price, po_item_schedules.id, (po_item_schedules.actual_qty - po_item_schedules.received_qty) AS actual_qty, DATE_FORMAT(po_item_schedules.delivery_date, "%d-%m-%Y") AS delivery_date, stock_uploads.opening_stock, stock_uploads.production_stock, stock_uploads.current_stock, materials.minimum_stock, IF(po_item_schedules.delivery_date < CURDATE(), "1", "0") AS is_expired
+        FROM po_headers
+        INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
+        INNER JOIN po_item_schedules ON po_item_schedules.po_footer_id = po_footers.id
+        LEFT JOIN materials ON materials.code = po_footers.material AND po_headers.sap_vendor_code = materials.sap_vendor_code
+        LEFT JOIN stock_uploads ON stock_uploads.material_id = materials.id AND po_headers.sap_vendor_code = stock_uploads.sap_vendor_code'.$conditions);
+        $data = $data->fetchAll('assoc');
+        // echo '<pre>'; print_r($data); exit;
+        
+        // $data = $this->PoHeaders->find('all')
+        //     ->select(['PoHeaders.id', 'PoHeaders.sap_vendor_code', 'PoHeaders.po_no', 'PoHeaders.document_type', 'PoHeaders.created_by', 'created_date' => 'date_format(PoHeaders.created_on, "%d-%m-%Y")', 'PoHeaders.po_no', 'PoHeaders.currency', 'PoFooters.id', 'PoFooters.item', 'PoFooters.material', 'PoFooters.short_text', 'PoFooters.order_unit', 'PoFooters.net_price', 'PoItemSchedules.id', 'actual_qty' => '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty)', 'delivery_date' => 'date_format(PoItemSchedules.delivery_date, "%d-%m-%Y")', 'opening_stock' => 'StockUploads.opening_stock', 'production_stock' => 'StockUploads.production_stock', 'current_stock' => 'StockUploads.current_stock', 'minimum_stock' => 'Materials.minimum_stock', 'is_expired' => 'if(delivery_date < CURDATE() , "1" , "0")'])
+        //     ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id', "PoFooters.deleted_indication = ''"])
+        //     ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_footer_id = PoFooters.id'])
+        //     ->leftJoin(['Materials' => 'materials'], ['Materials.code = PoFooters.material', 'PoHeaders.sap_vendor_code = Materials.sap_vendor_code'])
+        //     ->leftJoin(['StockUploads' => 'stock_uploads'], ['StockUploads.material_id = Materials.id', 'PoHeaders.sap_vendor_code = StockUploads.sap_vendor_code', "vendor_factory_id = $factoryId"])
+        //     //->innerJoin(['dateDe' => '(select min(delivery_date) date, po_footer_id from po_item_schedules PoItemSchedules where (PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0  group by po_footer_id )'], ['dateDe.date = PoItemSchedules.delivery_date', 'dateDe.po_footer_id = PoItemSchedules.po_footer_id'])
+        //     ->where([
+        //         'PoHeaders.id' => $id,
+        //         'PoItemSchedules.status' => 1,
+        //         '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',
+        //         'Materials.code IN' => $matarr,
+        //         'PoItemSchedules.delivery_date >'=> $fromdate,
+        //         'PoItemSchedules.delivery_date <'=> $todate,
+        //         'PoItemSchedules.actual_qty IN'=> $scharr,
+        //         ])
+        //     ->order(['delivery_date' => 'ASC']);
 
-        $conn = ConnectionManager::get('default');
+        // echo '<pre>'; print_r($data); exit;
+
+        
         $asnQty = $conn->execute("select item, sum(po_item_schedules.received_qty) as qty from po_headers
         join po_footers on po_footers.po_header_id = po_headers.id
         left join po_item_schedules on po_item_schedules.po_header_id = po_headers.id and po_item_schedules.po_footer_id = po_footers.id
@@ -951,22 +1066,28 @@ class PurchaseOrdersController extends VendorAppController
         //echo '<pre>'; print_r($matarr); exit;
         $itemOldCurrentStock = [];
         foreach ($data as $row) {
-            //echo '<pre>'; print_r($row); exit;
-            $row->asn_qty = $matAsnQty[$row->PoFooters['item']];
-            if(isset($itemOldCurrentStock[$row->PoFooters['item']])) {
-                $row->current_stock = $itemOldCurrentStock[$row->PoFooters['item']];
+            if (in_array($row['item'], $matAsnQty)) {
+                $row['asn_qty'] = $matAsnQty[$row['item']];
             } else {
-                $row->current_stock = ($row->opening_stock + $row->production_stock) - $matAsnQty[$row->PoFooters['item']];
+                $row['asn_qty'] = 0;
+            }
+            if(isset($itemOldCurrentStock[$row['item']])) {
+                $row['current_stock'] = $itemOldCurrentStock[$row['item']];
+            } else {
+                $row['current_stock'] = ($row['opening_stock'] + $row['production_stock']);
+                if (in_array($row['item'], $matAsnQty)) {
+                    $row['current_stock'] = $row['current_stock'] - $matAsnQty[$row['item']];
+                }
             }
             
-            $itemOldCurrentStock[$row->PoFooters['item']]= $row->current_stock - $row->actual_qty;
-            if($row->current_stock < 0) { $row->current_stock = 0; }
+            $itemOldCurrentStock[$row['item']]= $row['current_stock'] - $row['actual_qty'];
+            if($row['current_stock'] < 0) { $row['current_stock'] = 0; }
         }
 
-        if ($data->count() > 0) { 
+        // if ($data->count() > 0) { 
             //print_r($data); exit;
             $response = array('status'=>1, 'message'=>'Data Found', 'data'=>$data); 
-        }
+        // }
         echo json_encode($response); exit;
     }
     

@@ -7,47 +7,79 @@
 
 <?= $this->Html->css('custom') ?>
 <?= $this->Html->css('v_purchaseorder_createasn') ?>
-<?= $this->Form->create(null, ['action' => 'asn-materials', 'id' => 'asnForm']) ?>
-<?= $this->form->control('po_header_id', ['id' => 'po_header_id', 'label' => false, 'type' => 'hidden', 'value' => '']) ?>
-<?= $this->form->control('vendor_factory_id', ['id' => 'vendor_factory_id', 'label' => false, 'type' => 'hidden', 'value' => '']) ?>
+<?= $this->Html->css('bootstrap-multiselect') ?>
+<?= $this->Html->script('bootstrap-multiselect') ?>
+<?= $this->Html->css('dropdown-filter') ?>
+<?= $this->Html->css('select2.min.css') ?>
+<?= $this->Html->script('select2.js') ?>
 
-<div class="poHeaders index content card create-asn">
-    <div class="card-body">
-        <div class="content-d">
-            <div class="t1 pt-1">
-                <div class="row align-items-center">
-                    <div class="col-sm-12 col-md-6 pt-2 pb-1">
-                        <div class="search-bar d-flex mb-2">
-                            <input type="search" placeholder="Search all orders, materials.." class="form-control search-box">
-                            <!-- <button type="button" class="btn-go searchgo ">GO</button> -->
-                        </div>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-sm-12 col-md-11">
+                <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
+                <div class="row">
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <label for="id_material">Material</label><br>
+                        
+                        <select name="material[]" id="id_material" multiple="multiple" class="badla form-control chosen">
+                            <?php if (isset($materials)) : ?>
+                            <?php foreach ($materials as $mat) : ?>
+                                <?= h($mat) ?>
+                            <option value="<?= h($mat[0]) ?>" data-select="<?= h($mat[0]) ?>">
+                            <?= h($mat[0]) ?> - <?= h($mat[1]) ?>
+                            </option>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
                     </div>
-                    <div class="col-sm-12 col-md-6 pb-1 d-flex justify-content-end">
-                        <div class="action-btn  continue-btn">
-                            <!-- <input type="file" id="imgupload" style="display:none" />
-                            <button id="OpenImgUpload" type="button" class="btn bg-gradient-button mr-2">
-                                <i class="fa fa-solid fa-file-import"></i>
-                                Upload ASN File
-                            </button> -->
-                            <button type="button" id="continueSub" class="btn bg-gradient-cancel continue_btn" disabled>Continue</button>
-                        </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                        <label for="id_schqty">Schedule Qty</label><br>
+                        <select name="schqty[]" id="id_schqty" multiple="multiple" class="badla form-control chosen">
+                            <?php if (isset($scheduleqty)) : ?>
+                            <?php foreach ($scheduleqty as $mat) : ?>
+                            <option value="<?= h($mat) ?>" data-select="<?= h($mat) ?>">
+                                <?= h($mat) ?>
+                            </option>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                    <div class="col-sm-12 col-md-2 col-lg-2">
+                        <label for="id_delfrom">Delivery Date From</label>
+                        <input type="date" class="form-control badla" name="delfrom" id="id_delfrom">
+                    </div>
+                    <div class="col-sm-12 col-md-2 col-lg-2">
+                        <label for="id_deltill">Delivery Date Till</label>
+                        <input type="date" class="form-control badla" name="deltill" id="id_deltill">
                     </div>
                 </div>
-                <div class="scrollable-div mb-1">
-                    <!-- <div class="search-bar mb-2">
-                        <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
-                    </div> -->
-                    <div class="polist">
-                        <div class="d-flex" id="poItemss">
-                            <!-- <?php foreach ($poHeaders as $poHeader) : ?>
-                                <div class="po-box details-control  ponum" header-id="<?= $poHeader->id ?>">
-                                    <p class="po-no mb-0">PO No</p>
-                                    <b class="text-info">
-                                        <?= h($poHeader->po_no) ?>
-                                    </b>
-                                </div>
-                                <?php endforeach; ?> -->
-                        </div>
+                <?= $this->form->end() ?>
+            </div>
+            <div class="col-sm-12 col-md-1 mt-3 pt-3">
+                <button type="button" id="continueSub" class="btn bg-gradient-cancel continue_btn" disabled>Create ASN</button>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <?= $this->Form->create(null, ['action' => 'asn-materials', 'id' => 'asnForm']) ?>
+        <?= $this->form->control('po_header_id', ['id' => 'po_header_id', 'label' => false, 'type' => 'hidden', 'value' => '']) ?>
+        <?= $this->form->control('vendor_factory_id', ['id' => 'vendor_factory_id', 'label' => false, 'type' => 'hidden', 'value' => '']) ?>
+        <div class="poHeaders index content create-asn">
+            <div class="scrollable-div mb-1">
+                <!-- <div class="search-bar mb-2">
+                    <input type="search" placeholder="Search all orders, meterials" class="form-control search-box">
+                </div> -->
+                <div class="polist">
+                    <div class="d-flex" id="poItemss">
+                        <!-- <?php foreach ($poHeaders as $poHeader) : ?>
+                            <div class="po-box details-control  ponum" header-id="<?= $poHeader->id ?>">
+                                <p class="po-no mb-0">PO No</p>
+                                <b class="text-info">
+                                    <?= h($poHeader->po_no) ?>
+                                </b>
+                            </div>
+                            <?php endforeach; ?> -->
                     </div>
                 </div>
             </div>
@@ -77,9 +109,9 @@
                 </div>
             </div>
         </div>
+        <?= $this->form->end() ?>
     </div>
 </div>
-<?= $this->form->end() ?>
 
 <button type="button" id="id_select_factory" style="display: none;" data-toggle="modal" data-target="#select_factory"></button>
 
@@ -124,7 +156,7 @@
         <?php endforeach; ?>
     ]
     var active_po_header_id;
-    var get_po_for_asn = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'po-for-asn')); ?>`;
+    var get_po_for_asn = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'asntocreate')); ?>`;
     var get_po_data = `<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'get-po-headers-with-items')); ?>`;
     $(document).on('click', '.fc_btn', function () {
         $('div.details-control').removeClass('active');

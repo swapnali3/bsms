@@ -138,7 +138,7 @@ class VendorTempsController extends AdminAppController
                     ->setTransport('smtp')
                     ->setViewVars([
                         'vendor_name' => $vendorTemp->name,
-                        'spt_email' => 'support@apar.in',
+                        'spt_email' => get_email($sap_vendor_code=$vendorTemp->sap_vendor_code)[0],
                     ])
                     ->setFrom(Configure::read('MAIL_FROM'))
                     ->setTo($buyersEmails)
