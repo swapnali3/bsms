@@ -244,7 +244,7 @@ class PurchaseOrdersController extends VendorAppController
                                 'poNumber' => $poNumber,
                                 'buyer' => $buyer,
                                 'vendor' => $vendor,
-                                'spt_email' => get_email($sap_vendor_code=$poHeader['sap_vendor_code'])[0],
+                                'spt_email' => $vendor->email,
                                 ])
                             ->setFrom(Configure::read('MAIL_FROM'))
                             ->setTo($buyer->email)
@@ -304,6 +304,13 @@ class PurchaseOrdersController extends VendorAppController
                 $po_footer = $this->PoFooters->find('all')->where(['PoFooters.po_header_id' => $poHeader['id'], 'deleted_indication' => ''])->toArray();
                 foreach ($filteredBuyers as $buyer) {
                     if ($buyer->email !== "") {
+
+                        $conn = ConnectionManager::get('default');
+                        $query = $conn->execute("select buyers.email from buyers
+                        left join po_headers on po_headers.created_user = buyers.sap_user
+                        where po_headers.id=".$poHeader['id']);
+                        $response = $query->fetchAll('assoc');
+
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
@@ -312,7 +319,7 @@ class PurchaseOrdersController extends VendorAppController
                                 'buyer' => $buyer,
                                 'vendor' => $vendor,
                                 'po_footer' => $po_footer,
-                                'spt_email' => get_email($sap_vendor_code=$poHeader['sap_vendor_code'])[0],
+                                'spt_email' => $response[0]['email'],
                                 'remark' => $poHeader->remark,
                                 ])
                             ->setFrom(Configure::read('MAIL_FROM'))

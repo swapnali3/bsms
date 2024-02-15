@@ -678,6 +678,11 @@ class PurchaseOrdersController extends BuyerAppController
                                 $this->Notifications->save($n);
                             }
 
+                            $conn = ConnectionManager::get('default');
+                            $query = $conn->execute("select buyers.email from buyers
+                            left join po_headers on po_headers.created_user = buyers.sap_user
+                            where po_headers.id=".$PoItemSchedule->po_header_id);
+                            $response = $query->fetchAll('assoc');
 
                             $visit_url = Router::url('/', true);
                             $mailer = new Mailer('default');
@@ -687,7 +692,7 @@ class PurchaseOrdersController extends BuyerAppController
                                     'vendor_name' => $vendorRecord->name,
                                     'po_item' => $poItem,
                                     'po_detail'=>$poDetail,
-                                    'spt_email' => get_email($sap_vendor_code=$poDetail->sap_vendor_code)[0],
+                                    'spt_email' => $response[0]['email'],
                                     ])
                                 ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
@@ -926,6 +931,12 @@ class PurchaseOrdersController extends BuyerAppController
                                 $this->Notifications->save($n);
                             }
 
+                            $conn = ConnectionManager::get('default');
+                            $query = $conn->execute("select buyers.email from buyers
+                            left join po_headers on po_headers.created_user = buyers.sap_user
+                            where po_headers.id=".$PoItemSchedule->po_header_id);
+                            $response = $query->fetchAll('assoc');
+
                             $visit_url = Router::url('/', true);
                             $mailer = new Mailer('default');
                             $mailer
@@ -935,7 +946,7 @@ class PurchaseOrdersController extends BuyerAppController
                                     'po_item' => $poItem,
                                     'item_po'=>$item_po,
                                     'po_detail'=>$poDetail,
-                                    'spt_email' => get_email($sap_vendor_code=$vendorRecord->sap_vendor_code)[0],
+                                    'spt_email' => $response[0]['email'],
                                     ])
                                 ->setFrom(Configure::read('MAIL_FROM'))
                                 ->setTo($vendorRecord->email)
