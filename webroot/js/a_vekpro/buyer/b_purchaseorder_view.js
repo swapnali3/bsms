@@ -1,5 +1,5 @@
 var global_poid, schexp_dtbl;
-$('OpenImgUpload').click(function () { $('#bulk_file').trigger('click'); });
+$('#OpenImgUpload').click(function () { $('#bulk_file').trigger('click'); });
 
 $('#bulk_file').change(function () {
     var file = $(this).prop('files')[0];
