@@ -394,7 +394,7 @@ class VendorTempsController extends BuyerAppController
                     ->setTransport('smtp')
                     ->setViewVars([
                         'vendor_name' => $vendorTemp,
-                        'spt_email' => get_email($sap_vendor_code=$vendorTemp->sap_vendor_code)[0],
+                        'spt_email' => 'support@apar.in',
                         'visit_url'=>$visit_url,
                         'spt_contact' => '7718801906',
                         ])
@@ -678,7 +678,7 @@ class VendorTempsController extends BuyerAppController
                     $mailer
                         ->setTransport('smtp')
                         ->setViewVars([ 'vendor_name' => $data[ 'name' ], 'link' => $visit_url, 'vendor_email' => $data[ 'email' ],
-                        'spt_email' => get_email($sap_vendor_code=$VendorTemp->sap_vendor_code)[0] , 'spt_contact' => '7718801906' ]) 
+                        'spt_email' => 'support@apar.in' , 'spt_contact' => '7718801906' ]) 
                         ->setFrom(Configure::read('MAIL_FROM'))
                         ->setTo($data['email'])
                         ->setEmailFormat('html')

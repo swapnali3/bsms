@@ -419,6 +419,12 @@ class SyncController extends ApiAppController
 
                                             if($vendorDetail) {
                                                 try{
+                                                    $conn = ConnectionManager::get('default');
+                                                    $query = $conn->execute("select buyers.email from buyers
+                                                    left join po_headers on po_headers.created_user = buyers.sap_user
+                                                    where po_headers.id=".$row->id);
+                                                    $response = $query->fetchAll('assoc');
+
                                                     $mailer = new Mailer('default');
                                                     $mailer
                                                         ->setTransport('smtp')
@@ -426,7 +432,7 @@ class SyncController extends ApiAppController
                                                             'vendor_name' => $vendorDetail->name,
                                                             'po_footer' => $item,
                                                             'po_header'=>$row,
-                                                            'spt_email' => get_email($po_id=$row->id)[0],])
+                                                            'spt_email' => $response[0]['email'],])
                                                         ->setFrom(Configure::read('MAIL_FROM'))
                                                         ->setTo($vendorDetail->email)
                                                         ->setEmailFormat('html')
@@ -462,6 +468,12 @@ class SyncController extends ApiAppController
                                                 $valid = false;
 
                                                 try{
+                                                    $conn = ConnectionManager::get('default');
+                                                    $query = $conn->execute("select buyers.email from buyers
+                                                    left join po_headers on po_headers.created_user = buyers.sap_user
+                                                    where po_headers.id=".$row->id);
+                                                    $response = $query->fetchAll('assoc');
+
                                                     $mailer = new Mailer('default');
                                                     $mailer
                                                         ->setTransport('smtp')
@@ -470,7 +482,7 @@ class SyncController extends ApiAppController
                                                             'poNumber'=>$poNumber,
                                                             'po_footer' => $item,
                                                             'po_header'=>$row,
-                                                            'spt_email' => get_email($po_id=$row->id)[0],
+                                                            'spt_email' => $response[0]['email'],
                                                             'total'=>$total[0]->total
                                                             ])
                                                         ->setFrom(Configure::read('MAIL_FROM'))
@@ -510,6 +522,13 @@ class SyncController extends ApiAppController
                                         $vendorTemps = $this->VendorTemps->find('all')->where(['sap_vendor_code' => $row->LIFNR ])->first();
                                         $ttlamt=0;
                                         foreach ($row->ITEM as $item) { $ttlamt = $ttlamt + $item->NETPR; }
+                                        
+                                        $conn = ConnectionManager::get('default');
+                                        $query = $conn->execute("select buyers.email from buyers
+                                        left join po_headers on po_headers.created_user = buyers.sap_user
+                                        where po_headers.id=".$poInstance->id);
+                                        $response = $query->fetchAll('assoc');
+
                                         $mailer = new Mailer('default');
                                         $mailer
                                             ->setTransport('smtp')
@@ -518,7 +537,7 @@ class SyncController extends ApiAppController
                                                 'vendor_email' => $vendorTemps->email,
                                                 'po_header' => $poInstance,
                                                 'po_footer' => $row->ITEM,
-                                                'spt_email' => get_email($po_id=$poInstance->id)[0],
+                                                'spt_email' => $response[0]['email'],
                                                 'spt_contact' => '7718801906',
                                                 'ttlamt' => $ttlamt,
                                                 'pay_term'=>$this->PaymentTerms->find('all')->where(['code' => $poInstance->pay_terms ])->first()
