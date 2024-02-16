@@ -266,7 +266,7 @@ class AsnController extends VendorAppController
             echo json_encode($response); exit;
         }
 
-        $deliveryDetail = $this->AsnHeaders->patchEntity($deliveryDetail, ['status' => 2, 'gateout_date'=>date('Y-m-d h:i:s')]);
+        $deliveryDetail = $this->AsnHeaders->patchEntity($deliveryDetail, ['status' => 2, 'gateout_date'=>date('Y-m-d H:i:s')]);
 
         if ($this->AsnHeaders->save($deliveryDetail)) {
 
