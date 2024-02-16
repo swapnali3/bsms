@@ -1355,11 +1355,14 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->where(['sap_vendor_code' => $poDetail->sap_vendor_code])
                                 ->first();
 
-                            $data = $this->PoItemSchedules->find('all', ['conditions' => ['po_footer_id' => $poFooterId]]);
+                            $sum_of = $this->$PoItemSchedules->find();
+                            $sum_of->select(['actual_qty' => $sum_of->func()->sum('actual_qty')])
+                            ->where(['po_footer_id' => $tmp['po_footer_id']]);
 
-                            $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
-                            $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $tmp);
-                            if ($tmp['actual_qty'] <= $data && $this->PoItemSchedules->save($PoItemSchedule)) {
+                            $foter = $this->$PoFooters->find()->where(['id' => $tmp['po_footer_id']])->first();
+                            $avail_sched_qty = $foter['qty'] - $sum_of['actual_qty'];
+                            
+                            if ($tmp['actual_qty'] <= $avail_sched_qty && $this->PoItemSchedules->save($PoItemSchedule)) {
                                 $datas['error'] = "Schedule created";
                                 $visit_url = Router::url('/', true);
                                 $mailer = new Mailer('default');
