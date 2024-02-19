@@ -142,7 +142,7 @@ class DashboardController extends BuyerAppController
 
         // Vendors
         $vendor_sts = $conn->execute("select vendor_status.description, ifnull(vendor_temps.count, 0) as cnt from vendor_status
-        left join (select vendor_temps.status, count(vendor_temps.status) as count from vendor_temps)
+        left join (select vendor_temps.status, count(vendor_temps.status) as count from vendor_temps group by vendor_temps.status)
         as vendor_temps on vendor_temps.status = vendor_status.status
         where vendor_status.status not in (4,5)");
         $vendor_status = $vendor_sts->fetchAll('assoc');
@@ -209,7 +209,7 @@ class DashboardController extends BuyerAppController
         $topVendor = $conn->execute("select CAST(po_headers.sap_vendor_code as UNSIGNED) as category, sum(po_footers.net_value) as value
         from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
         left join materials on materials.code = po_footers.material".$g1_filter."
-        group by po_headers.sap_vendor_code
+        group by po_headers.sap_vendor_code, po_footers.net_value
         order by po_footers.net_value desc
         limit 5 ");
         $topVendors = $topVendor->fetchAll('assoc');
@@ -217,20 +217,20 @@ class DashboardController extends BuyerAppController
         // Material by Quantity
         $topMaterial = $conn->execute("SELECT po_footers.material as category, sum(po_footers.po_qty) as value
         from po_footers left join materials on materials.code = po_footers.material".$g2_filter."
-        group by po_footers.material
+        group by po_footers.material, po_footers.net_value
         order by po_footers.net_value desc limit 5 ");
         $topMaterials = $topMaterial->fetchAll('assoc');
         
         $orderByPeriod = $conn->execute("SELECT sum(po_footers.net_value) as value, date_format(po_headers.created_on, '%b-%y') as network
         from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
         left join materials on materials.code = po_footers.material".$g3_filter."
-        group by date_format(po_headers.created_on, '%b-%y')
+        group by po_headers.created_on
         order by po_headers.created_on asc limit 5 ");
         $orderByPeriods = $orderByPeriod->fetchAll('assoc');
 
         $topMaterialByValue = $conn->execute("SELECT po_footers.material as country, sum(po_footers.net_value) as value
         from po_footers left join materials on materials.code = po_footers.material".$g4_filter."
-        group by po_footers.material
+        group by po_footers.material, po_footers.net_value
         order by po_footers.net_value desc limit 5 ");
         $topMaterialByValues = $topMaterialByValue->fetchAll('assoc');
         
