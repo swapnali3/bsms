@@ -99,6 +99,20 @@
                 <li class="nav-item ">
                     <?= $this->Html->link(__('Intransit'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intransit", 'escape' => false]) ?>
                 </li>
+                <li class="nav-item dropdown">
+                    <a id="dropdownSubMenu2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        class="nav-link dropdown-toggle <?= h($dailymonitor) ?><?= h($planner) ?>">
+                        Transfer
+                    </a>
+                    <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                        <li class="nav-item ">
+                            <?= $this->Html->link(__('Stock Transfer'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
+                        </li>
+                        <li class="nav-item ">
+                            <?= $this->Html->link(__('Log'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link $planner", 'escape' => false]) ?>
+                        </li>
+                    </ul>
+                </li>
 
                 <?= $this->element('header/menu') ?>
             </ul>
