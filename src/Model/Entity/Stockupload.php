@@ -15,6 +15,8 @@ use Cake\ORM\Entity;
  * @property string $opening_stock
  * @property string $production_stock
  * @property string $current_stock
+ * @property string $in_transfer_stock
+ * @property string $out_transfer_stock
  * @property string $asn_stock
  * @property \Cake\I18n\FrozenTime|null $added_date
  * @property \Cake\I18n\FrozenTime|null $updated_date
@@ -40,6 +42,8 @@ class StockUpload extends Entity
         'opening_stock' => true,
         'production_stock' => true,
         'current_stock' => true,
+        'in_transfer_stock' => true,
+        'out_transfer_stock' => true,
         'asn_stock' => true,
         'added_date' => true,
         'updated_date' => true,

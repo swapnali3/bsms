@@ -91,6 +91,14 @@ class StockUploadsTable extends Table
             ->notEmptyString('current_stock');
 
         $validator
+            ->decimal('in_transfer_stock')
+            ->notEmptyString('in_transfer_stock');
+
+        $validator
+            ->decimal('out_transfer_stock')
+            ->notEmptyString('out_transfer_stock');
+
+        $validator
             ->decimal('asn_stock')
             ->requirePresence('asn_stock', 'create')
             ->notEmptyString('asn_stock');

@@ -15,6 +15,9 @@
 <?php $intransit = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
 <?php $lineMaster = ($controller == 'LineMaters') ? 'active' : ''; ?>
 
+<?php $stockTrasfer = ($controller == 'StockUploads' && $action == 'transfer') ? 'active' : ''; ?>
+<?php $trasferLog = ($controller == 'StockUploads' && $action == 'transferLog') ? 'active' : ''; ?>
+
 <nav class="main-header navbar navbar-expand-md navbar-light navbar-white sticky-top">
     <div class="container-fluid">
         <a href="" class="navbar-brand ml-3">
@@ -101,15 +104,15 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        class="nav-link dropdown-toggle <?= h($dailymonitor) ?><?= h($planner) ?>">
+                        class="nav-link dropdown-toggle <?= h($stockTrasfer) ?><?= h($trasferLog) ?>">
                         Transfer
                     </a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li class="nav-item ">
-                            <?= $this->Html->link(__('Stock Transfer'), ['controller' => 'dailymonitor', 'action' => 'index'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
+                            <?= $this->Html->link(__('Stock Transfer'), ['controller' => '/stockuploads', 'action' => 'transfer'], ['class' => "nav-link $stockTrasfer", 'escape' => false]) ?>
                         </li>
                         <li class="nav-item ">
-                            <?= $this->Html->link(__('Log'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link $planner", 'escape' => false]) ?>
+                            <?= $this->Html->link(__('Log'), ['controller' => '/stockuploads', 'action' => 'transfer-log'], ['class' => "nav-link $trasferLog", 'escape' => false]) ?>
                         </li>
                     </ul>
                 </li>

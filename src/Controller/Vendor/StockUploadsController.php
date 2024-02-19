@@ -435,4 +435,67 @@ class StockUploadsController extends VendorAppController
         echo json_encode($response); exit;
     }
 
+    function transfer() {
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('vendor_id');
+        $sapVendor = $session->read('vendor_code');
+        $this->loadModel('VendorFactories');
+
+        $vendor_factory_code = $this->VendorFactories->find('list', ['keyField' => 'id', 'valueField' => 'factory_code'])->where(['vendor_temp_id' => $vendorId])->all();
+
+        $this->set(compact('vendor_factory_code'));
+        
+    }
+
+    function transferLog() {
+        
+    }
+
+
+    public function getFactoryMaterials($factoryId = null) {
+        $this->autoRender = false;
+        
+        $this->loadModel('AsnFooters');
+        $this->loadModel('StockUploads');
+
+        $session = $this->getRequest()->getSession();
+        $sapVendor = $session->read('vendor_code');
+        
+        $materialList = $this->StockUploads->find('all')
+        ->select($this->StockUploads)
+        ->select(['Materials.code', 'Materials.description'])
+        ->contain(['Materials'])
+        ->where(['vendor_factory_id' => $factoryId])->toArray();
+
+        $asnMaterials = $this->AsnFooters->find('all')
+        ->select(['vendor_factory_id' => 'VendorFactories.id', 'material' => 'PoFooters.material', 'qty' => 'sum(AsnFooters.qty)'])
+        ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
+        ->where(['AsnHeaders.status in ' => ['1','2', '3'], 'PoHeaders.sap_vendor_code' => $sapVendor , 'VendorFactories.id' => $factoryId])
+        ->group(['VendorFactories.id','PoFooters.material'])->toArray();
+
+        foreach($materialList as &$stock) {
+            foreach($asnMaterials as $asn) {
+                if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material['code'] == $asn->material) {
+                    $stock->asn_stock = $asn->qty;
+                    $stock->current_stock = ($stock->opening_stock + $stock->production_stock + $stock->in_transfer_stock) - ($stock->asn_stock - $stock->out_transfer_stock);
+                }
+                if($stock->current_stock < 0) {
+                    $stock->current_stock = 0;
+                }
+            }
+            
+        }
+
+        $materials = [];
+        foreach($materialList as $mat) {
+            $materials[] = ['code' => $mat->material->code, 'description' => $mat->material->description, 'current_stock' => $mat->current_stock];
+        }
+
+        $response['status'] = 1;
+        $response['data']['materials'] = $materials;
+
+        echo json_encode($response);
+    }
+
+
 }

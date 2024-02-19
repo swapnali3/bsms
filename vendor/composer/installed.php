@@ -3,7 +3,7 @@
         'name' => 'cakephp/app',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f9da15058c911349baa5bf2ab29dd1e05a8ea9f8',
+        'reference' => 'b68365e964904398ace705df3e9baf92f1c835f3',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -40,7 +40,7 @@
         'cakephp/app' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f9da15058c911349baa5bf2ab29dd1e05a8ea9f8',
+            'reference' => 'b68365e964904398ace705df3e9baf92f1c835f3',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
