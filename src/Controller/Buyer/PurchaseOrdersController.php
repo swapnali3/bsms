@@ -1355,13 +1355,14 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->where(['sap_vendor_code' => $poDetail->sap_vendor_code])
                                 ->first();
 
-                            $sum_of = $this->$PoItemSchedules->find();
-                            $sum_of->select(['actual_qty' => $sum_of->func()->sum('actual_qty')])
-                            ->where(['po_footer_id' => $tmp['po_footer_id']]);
+                            $conn = ConnectionManager::get('default');
+                            $query = $conn->execute("select po_footers.po_qty - sum(po_item_schedules.actual_qty) as avail_sched_qty
+                            from po_item_schedules left join po_footers on po_item_schedules.po_footer_id=po_footers.id
+                            where po_footers.id =".$tmp['po_footer_id']." group by po_footers.id");
+                            $avail_sched_qty = $query->fetchAll('assoc')[0]['avail_sched_qty'];
 
-                            $foter = $this->$PoFooters->find()->where(['id' => $tmp['po_footer_id']])->first();
-                            $avail_sched_qty = $foter['qty'] - $sum_of['actual_qty'];
-                            
+                            $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
+                            $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $tmp);                            
                             if ($tmp['actual_qty'] <= $avail_sched_qty && $this->PoItemSchedules->save($PoItemSchedule)) {
                                 $datas['error'] = "Schedule created";
                                 $visit_url = Router::url('/', true);
