@@ -12,13 +12,14 @@
                 <?php echo $this->Form->control('from_material', array('label' => 'From Material', 'class' => 'form-control rounded-0', 'options' => [],'maxlength'=>'20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
                     <span id="availableStockColumn1">Available Stock: </span>
                 </div>
-                <div class="col-2">
-                    <label for="">Stock Transfer</label>
-                    <input type="text" class="form-control" placeholder="Enter Stock" id="stockTransferInput">
-                </div>
+                
                 <div class="col-3">
                 <?php echo $this->Form->control('to_material', array('label' => 'To Material', 'class' => 'form-control rounded-0', 'options' => [],'maxlength'=>'20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
                     <span id="availableStockColumn2">Available Stock: </span>
+                </div>
+                <div class="col-2">
+                    <label for="">Stock Transfer</label>
+                    <input type="text" class="form-control" placeholder="Enter Stock" id="stockTransferInput">
                 </div>
 
                 <div class="col-1 mt-4 pt-2">
@@ -38,8 +39,8 @@
                 <h6>Are you sure you want to Update?</h6>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn" onclick="performStockTransfer()">Ok</button>
+                <button type="button" class="btn cancel_btn" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-sm" onclick="performStockTransfer()">Ok</button>
             </div>
         </div>
     </div>
@@ -52,6 +53,13 @@ stockData = {
         Material2: 150,
         Material3: 200
     };
+    $("#stockTransferInput").on("input", function() {
+        const inputValue = $(this).val();
+        if (!/^[1-9]\d*$/.test(inputValue)) {
+            $(this).val('');
+            // alert('Please enter a valid positive number for stock transfer.');
+        }
+    });
 
     $("#vendor-factory-code").change(function (){
         var factoryId = $(this).val();
@@ -91,48 +99,63 @@ stockData = {
 
 <script>
     
+    $("#from-material").change(function () {
+    const selectedMaterial = $(this).val();
+    $('#availableStockColumn1').html(`Available Stock: <strong>${stockData[selectedMaterial] || 0}</strong>`);
+    validateMaterialSelection();
+});
 
-    document.getElementById('from-material').addEventListener('change', function () {
-        const selectedMaterial = this.value;
-        document.getElementById('availableStockColumn1').textContent = `Available Stock: ${stockData[selectedMaterial] || 0}`;
-        validateMaterialSelection();
-    });
+$("#to-material").change(function () {
+    const selectedMaterial = $(this).val();
+    $('#availableStockColumn2').html(`Available Stock: <strong>${stockData[selectedMaterial] || 0}</strong>`);
+    validateMaterialSelection();
+});
 
-    document.getElementById('to-material').addEventListener('change', function () {
-        const selectedMaterial = this.value;
-        document.getElementById('availableStockColumn2').textContent = `Available Stock: ${stockData[selectedMaterial] || 0}`;
-        validateMaterialSelection();
-    });
+function validateMaterialSelection() {
+    const materialColumn1 = $("#from-material").val();
+    const materialColumn2 = $("#to-material").val();
 
-    function validateMaterialSelection() {
-        const materialColumn1 = document.getElementById('from-material').value;
-        const materialColumn2 = document.getElementById('to-material').value;
+    if (materialColumn1 === materialColumn2) {
+        Toast.fire({
+            icon: 'error',
+            title: 'Error: Cannot select the same material in both columns.'
+        });
 
-        if (materialColumn1 === materialColumn2) {
-            alert('Error: Cannot select the same material in both columns.');
-        }
+        // Clear both input values and span text
+        $("#from-material, #to-material").val("");
+        $('#availableStockColumn1, #availableStockColumn2').text("Available Stock:");
+
+        return false; // Returning false to indicate validation failure
     }
 
-    function performStockTransfer() {
-    const stockTransferInput = document.getElementById('stockTransferInput');
-    const transferAmount = parseInt(stockTransferInput.value);
+    return true; // Returning true to indicate validation success
+}
+
+
+function performStockTransfer() {
+    const stockTransferInput = $("#stockTransferInput");
+    const transferAmount = parseFloat(stockTransferInput.val());
 
     if (isNaN(transferAmount) || transferAmount <= 0) {
         alert('Please enter a valid positive number for stock transfer.');
         return;
     }
 
-    const materialColumn1 = document.getElementById('from-material').value;
-    const materialColumn2 = document.getElementById('to-material').value;
+    const materialColumn1 = $("#from-material").val();
+    const materialColumn2 = $("#to-material").val();
 
     if (materialColumn1 && materialColumn2) {
-        stockData[materialColumn1] -= transferAmount;
-        stockData[materialColumn2] += transferAmount;
+        // Convert stock values to numbers and add the transfer amount
+        stockData[materialColumn1] = (+stockData[materialColumn1] || 0) - transferAmount;
+        stockData[materialColumn2] = (+stockData[materialColumn2] || 0) + transferAmount;
 
-        document.getElementById('availableStockColumn1').textContent = `Available Stock: ${stockData[materialColumn1] || 0}`;
-        document.getElementById('availableStockColumn2').textContent = `Available Stock: ${stockData[materialColumn2] || 0}`;
+        $('#availableStockColumn1').text(`Available Stock: ${stockData[materialColumn1]}`);
+        $('#availableStockColumn2').text(`Available Stock: ${stockData[materialColumn2]}`);
 
-        showToast('Stock Transfer Successful');
+        Toast.fire({
+            icon: 'success',
+            title: 'Stock Transfer Successful'
+        });
 
         // Hide the Bootstrap modal
         $('#modal-sm').modal('hide');
@@ -143,7 +166,4 @@ stockData = {
 
 
 
-    function showToast(message) {
-        alert(message);
-    }
 </script>
