@@ -3,8 +3,8 @@
         <div class="card">
             <div class="card-header">STOCK TRANSFER</div>
             <div class="card-body">
-            <div class="row">
             <?= $this->Form->create(null, ['id' => 'transferStock']) ?>
+                <div class="row">
                 <div class="col-3">
                     <?php echo $this->Form->control('vendor_factory_code', array('label' => 'Factory', 'class' => 'form-control rounded-0', 'options' => $vendor_factory_code, 'maxlength'=>'20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
                 </div>
@@ -24,9 +24,8 @@
                 <div class="col-1 mt-4 pt-2">
                     <a href="#" id="transfer" class="btn mb-0 continue_btn float-right" data-toggle="modal" data-target="#modal-sm">Transfer</a>
                 </div>
-
+                </div>
                 <?= $this->Form->end() ?>
-            </div> 
             </div>
         </div>
     </div>
@@ -115,33 +114,34 @@ stockData = {
     }
 
     function performStockTransfer() {
-        const stockTransferInput = document.getElementById('stockTransferInput');
-        const transferAmount = parseInt(stockTransferInput.value);
+    const stockTransferInput = document.getElementById('stockTransferInput');
+    const transferAmount = parseInt(stockTransferInput.value);
 
-        if (isNaN(transferAmount) || transferAmount <= 0) {
-            alert('Please enter a valid positive number for stock transfer.');
-            return;
-        }
-
-        const materialColumn1 = document.getElementById('materialColumn1').value;
-        const materialColumn2 = document.getElementById('materialColumn2').value;
-
-        if (materialColumn1 && materialColumn2) {
-            stockData[materialColumn1] -= transferAmount;
-            stockData[materialColumn2] += transferAmount;
-
-            document.getElementById('availableStockColumn1').textContent = `Available Stock: ${stockData[materialColumn1] || 0}`;
-            document.getElementById('availableStockColumn2').textContent = `Available Stock: ${stockData[materialColumn2] || 0}`;
-
-            showToast('Stock Transfer Successful');
-
-            setTimeout(() => {
-                location.reload();
-            }, 2000);
-        } else {
-            alert('Please select materials in both columns before transferring stock.');
-        }
+    if (isNaN(transferAmount) || transferAmount <= 0) {
+        alert('Please enter a valid positive number for stock transfer.');
+        return;
     }
+
+    const materialColumn1 = document.getElementById('from-material').value;
+    const materialColumn2 = document.getElementById('to-material').value;
+
+    if (materialColumn1 && materialColumn2) {
+        stockData[materialColumn1] -= transferAmount;
+        stockData[materialColumn2] += transferAmount;
+
+        document.getElementById('availableStockColumn1').textContent = `Available Stock: ${stockData[materialColumn1] || 0}`;
+        document.getElementById('availableStockColumn2').textContent = `Available Stock: ${stockData[materialColumn2] || 0}`;
+
+        showToast('Stock Transfer Successful');
+
+        // Hide the Bootstrap modal
+        $('#modal-sm').modal('hide');
+    } else {
+        alert('Please select materials in both columns before transferring stock.');
+    }
+}
+
+
 
     function showToast(message) {
         alert(message);
