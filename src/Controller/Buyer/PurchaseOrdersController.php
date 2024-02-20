@@ -1044,7 +1044,7 @@ class PurchaseOrdersController extends BuyerAppController
         end as 'status'
         from po_item_schedules
         left join (select asn_headers.status, asn_headers.asn_no, asn_headers.po_header_id, asn_footers.id as asn_footer_id, asn_footers.po_schedule_id from asn_headers left join asn_footers on asn_footers.asn_header_id = asn_headers.id) as a on a.po_header_id = po_item_schedules.po_header_id and a.po_schedule_id = po_item_schedules.id
-        where po_item_schedules.status=1 AND po_item_schedules.po_footer_id =". $id);
+        where po_item_schedules.status=1 AND po_item_schedules.po_footer_id =". $id . " group by po_item_schedules.po_footer_id,po_item_schedules.delivery_date ");
         $data = $query->fetchAll('assoc');
 
         
