@@ -53,46 +53,76 @@ stockData = {
         Material2: 150,
         Material3: 200
     };
-    $("#stockTransferInput").on("input", function() {
-        const inputValue = $(this).val();
-        if (!/^[1-9]\d*$/.test(inputValue)) {
-            $(this).val('');
-            // alert('Please enter a valid positive number for stock transfer.');
-        }
-    });
+    $("#stockTransferInput").on("input", function () {
+    const inputValue = $(this).val();
+    const materialColumn1 = $("#from-material").val();
 
-    $("#vendor-factory-code").change(function (){
-        var factoryId = $(this).val();
-            if (factoryId != "") {
-                $.ajax({
-                    type: "get",
-                    url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'get-factory-materials')); ?>/" + factoryId,
-                    dataType: "json",
-                    beforeSend: function (xhr) {
-                        $("#gif_loader").show();
-                        xhr.setRequestHeader(
-                            "Content-type",
-                            "application/x-www-form-urlencoded"
-                        );
-                    },
-                    success: function (response) {
-                        if (response.status) {
-                        $.each(response.data.materials, function (key, val) { 
-                             $("#from-material").append("<option value='"+val.code+"'>"+val.description+"</option>");
-                             $("#to-material").append("<option value='"+val.code+"'>"+val.description+"</option>");
-                             stockData[val.code] = val.current_stock;
-                        });
-                        console.log(stockData);
-                    }
-                    },
-                    error: function (e) {
-                        alert("An error occurred: " + e.responseText.message);
-                        console.log(e);
-                    },
-                    complete: function () { $("#gif_loader").hide(); }
-                });
+    // Check if "From Material" is selected before allowing input
+    if (materialColumn1 === "") {
+        $(this).val(''); // Clear the input value
+    } else {
+        if (!/^[1-9]\d*$/.test(inputValue) || parseInt(inputValue) > stockData[materialColumn1]) {
+            $(this).val('');
+        }
+    }
+});
+
+
+    $("#vendor-factory-code").change(function () {
+    var factoryId = $(this).val();
+
+    // Store the selected values
+    var fromMaterialValue = $("#from-material").val();
+    var toMaterialValue = $("#to-material").val();
+
+    stockData = {};
+    $("#from-material, #to-material").empty();
+
+    if (factoryId === "") {
+        $("#from-material").append("<option value=''>Please Select</option>");
+        $("#to-material").append("<option value=''>Please Select</option>");
+    } else {
+        $.ajax({
+            type: "get",
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'get-factory-materials')); ?>/" + factoryId,
+            dataType: "json",
+            beforeSend: function (xhr) {
+                $("#gif_loader").show();
+                xhr.setRequestHeader(
+                    "Content-type",
+                    "application/x-www-form-urlencoded"
+                );
+            },
+            success: function (response) {
+                if (response.status) {
+                    // Add "Please Select" option first
+                    $("#from-material").append("<option value=''>Please Select</option>");
+                    $("#to-material").append("<option value=''>Please Select</option>");
+
+                    $.each(response.data.materials, function (key, val) {
+                        $("#from-material").append("<option value='" + val.code + "'>" + val.description + "</option>");
+                        $("#to-material").append("<option value='" + val.code + "'>" + val.description + "</option>");
+                        stockData[val.code] = val.current_stock;
+                    });
+                    console.log(stockData);
+
+                    // Reapply the stored selected values
+                    $("#from-material").val(fromMaterialValue);
+                    $("#to-material").val(toMaterialValue);
+                }
+            },
+            error: function (e) {
+                alert("An error occurred: " + e.responseText.message);
+                console.log(e);
+            },
+            complete: function () {
+                $("#gif_loader").hide();
             }
-    });
+        });
+    }
+});
+
+
 </script>
 
 
@@ -101,8 +131,16 @@ stockData = {
     
     $("#from-material").change(function () {
     const selectedMaterial = $(this).val();
-    $('#availableStockColumn1').html(`Available Stock: <strong>${stockData[selectedMaterial] || 0}</strong>`);
-    validateMaterialSelection();
+    const stockTransferInput = $("#stockTransferInput");
+
+    if (selectedMaterial === "") {
+        stockTransferInput.prop('disabled', true); // Disable the stock transfer input
+        stockTransferInput.val(''); // Clear the input value
+    } else {
+        stockTransferInput.prop('disabled', false); // Enable the stock transfer input
+        $('#availableStockColumn1').html(`Available Stock: <strong>${stockData[selectedMaterial] || 0}</strong>`);
+        validateMaterialSelection();
+    }
 });
 
 $("#to-material").change(function () {
@@ -115,10 +153,19 @@ function validateMaterialSelection() {
     const materialColumn1 = $("#from-material").val();
     const materialColumn2 = $("#to-material").val();
 
+    const stockTransferInput = $("#stockTransferInput");
+
+    if (materialColumn1 === "") {
+        stockTransferInput.prop('disabled', true); // Disable the stock transfer input
+        stockTransferInput.val(''); // Clear the input value
+    } else {
+        stockTransferInput.prop('disabled', false); // Enable the stock transfer input
+    }
+
     if (materialColumn1 === materialColumn2) {
         Toast.fire({
             icon: 'error',
-            title: 'Error: Cannot select the same material in both columns.'
+            title: 'Error: Cannot select the same Material for Stock Transfer.'
         });
 
         // Clear both input values and span text
