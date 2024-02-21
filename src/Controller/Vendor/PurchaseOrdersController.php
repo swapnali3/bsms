@@ -637,7 +637,7 @@ class PurchaseOrdersController extends VendorAppController
                 //echo '<pre>'; print_r($request); exit;
 
                 $conn = ConnectionManager::get('default');
-                $maxrfq = $conn->execute("SELECT MAX(asn_no) maxrfq FROM asn_headers where po_header_id=" . $request['po_header_id']);
+                $maxrfq = $conn->execute("SELECT MAX(asn_no) maxrfq FROM asn_headers");
 
                 foreach ($maxrfq as $maxid) {
                     $asnNo = $maxid['maxrfq'];

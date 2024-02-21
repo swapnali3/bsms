@@ -6,20 +6,25 @@
                 <?= $this->Form->create(null, ['id' => 'transferStock']) ?>
                 <div class="row">
                     <div class="col-3">
-                        <?php echo $this->Form->control('vendor_factory_code', array('label' => 'Factory', 'class' => 'form-control rounded-0', 'options' => $vendor_factory_code, 'maxlength' => '20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
+                        <?php echo $this->Form->control('vendor_factory_id', array('label' => 'Factory', 'class' => 'form-control rounded-0', 'options' => $vendor_factory_code, 'maxlength' => '20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
+                        <?php echo $this->Form->control('vendor_factory_code', array('type' => 'hidden')); ?>
                     </div>
                     <div class="col-3">
                         <?php echo $this->Form->control('from_material', array('label' => 'From Material', 'class' => 'form-control rounded-0', 'options' => [], 'maxlength' => '20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
+                        <?php echo $this->Form->control('from_material_id', array('type' => 'hidden')); ?>
+                        <?php echo $this->Form->control('out_transfer_stock', array('type' => 'hidden')); ?>
                         <span id="availableStockColumn1">Available Stock: </span>
                     </div>
 
                     <div class="col-3">
                         <?php echo $this->Form->control('to_material', array('label' => 'To Material', 'class' => 'form-control rounded-0', 'options' => [], 'maxlength' => '20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
+                        <?php echo $this->Form->control('to_material_id', array('type' => 'hidden')); ?>
+                        <?php echo $this->Form->control('in_transfer_stock', array('type' => 'hidden')); ?>
                         <span id="availableStockColumn2">Available Stock: </span>
                     </div>
                     <div class="col-2">
                         <label for="">Stock Transfer</label>
-                        <input type="text" class="form-control" placeholder="Enter Stock" id="stockTransferInput">
+                        <input type="text" name="stock_qty" class="form-control" placeholder="Enter Stock" id="stockTransferInput">
                     </div>
 
                     <div class="col-1 mt-4 pt-2">
@@ -78,7 +83,7 @@
 
 
 
-    $("#vendor-factory-code").change(function () {
+    $("#vendor-factory-id").change(function () {
         var factoryId = $(this).val();
 
         // Store the selected values
@@ -88,6 +93,7 @@
         stockData = {};
         $("#from-material, #to-material").empty();
 
+        $("#vendor-factory-code").val($(this).find('option:selected').text());
         if (factoryId === "") {
             $("#from-material").append("<option value=''>Please Select</option>");
             $("#to-material").append("<option value=''>Please Select</option>");
@@ -110,8 +116,8 @@
                         $("#to-material").append("<option value=''>Please Select</option>");
 
                         $.each(response.data.materials, function (key, val) {
-                            $("#from-material").append("<option value='" + val.code + "'>" + val.description + "</option>");
-                            $("#to-material").append("<option value='" + val.code + "'>" + val.description + "</option>");
+                            $("#from-material").append("<option value='" + val.code + "' data-id='"+val.id+"' data-out-stock='"+val.out_transfer_stock+"' >" + val.description + "</option>");
+                            $("#to-material").append("<option value='" + val.code + "' data-id='"+val.id+"' data-in-stock='"+val.in_transfer_stock+"'>" + val.description + "</option>");
                             stockData[val.code] = val.current_stock;
                         });
                         console.log(stockData);
@@ -146,6 +152,8 @@
         const selectedMaterial = $(this).val();
         const stockTransferInput = $("#stockTransferInput");
 
+        $("#from-material-id").val($(this).find('option:selected').attr('data-id'));
+        $("#out-transfer-stock").val($(this).find('option:selected').attr('data-out-stock'));
         if (selectedMaterial === "") {
             stockTransferInput.prop('disabled', true); // Disable the stock transfer input
             stockTransferInput.val(''); // Clear the input value
@@ -158,6 +166,8 @@
 
     $("#to-material").change(function () {
         const selectedMaterial = $(this).val();
+        $("#to-material-id").val($(this).find('option:selected').attr('data-id'));
+        $("#in-transfer-stock").val($(this).find('option:selected').attr('data-in-stock'));
         $('#availableStockColumn2').html(`Available Stock: <strong>${stockData[selectedMaterial] || 0}</strong>`);
         validateMaterialSelection();
     });
@@ -221,12 +231,37 @@
                 title: 'Stock Transfer Successful'
             });
 
+            var fd = new FormData($('#transferStock')[0]);
+
+            $.ajax({
+                type: "POST",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'save-transfer')); ?>",
+                dataType: 'json',
+                processData: false, // important
+                contentType: false, // important
+                data: fd,
+                beforeSend: function () { $("#gif_loader").show(); },
+                success: function (response) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Stock Transfer Successful'
+                    });
+                    if (response.status) {
+                        Toast.fire({ icon: 'success', title: response.message });
+                    } else { 
+                        Toast.fire({ icon: 'error', title: response.message });
+                    }
+                },
+                error: function () { Toast.fire({ icon: 'error', title: 'An error occured, please try again.' }); },
+                complete: function () { $("#gif_loader").hide(); }
+            }); 
+
             // Hide the Bootstrap modal
             $('#modal-sm').modal('hide');
         } else {
             Toast.fire({
                 icon: 'error',
-                title: 'Please select materials in both columns before transferring stock.'
+                title: 'Please select materials before transferring stock.'
             });
         }
     }

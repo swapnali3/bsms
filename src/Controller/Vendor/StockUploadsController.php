@@ -447,8 +447,84 @@ class StockUploadsController extends VendorAppController
         
     }
 
-    function transferLog() {
+    function saveTransfer() {
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = '';
+        $this->autoRender = false;
         
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('vendor_id');
+        $sapVendor = $session->read('vendor_code');
+
+        if ($this->request->is(['post'])) {
+            $this->loadModel('MaterialTransferLogs');
+
+            $data = $this->request->getData();
+
+            try {
+                $this->StockUploads->getConnection()->begin();
+                //$this->Users->saveOrFail($userEntity, ['atomic' => false]);
+                $fromMaterial = [];
+                $fromMaterial['sap_vendor_code'] = $sapVendor;
+                $fromMaterial['vendor_factory_id'] = $data['vendor_factory_id'];
+                $fromMaterial['material_id'] = $data['from_material_id'];
+                $fromMaterial['out_transfer_stock'] = $data['out_transfer_stock'] + $data['stock_qty'];
+
+                
+                $fMatInstance = $this->StockUploads->find()->where(['sap_vendor_code' => $sapVendor,
+                 'vendor_factory_id' => $fromMaterial['vendor_factory_id'] , 'material_id' => $fromMaterial['material_id']])->first();
+                $fMatInstance = $this->StockUploads->patchEntity($fMatInstance, $fromMaterial);
+                $this->StockUploads->save($fMatInstance);
+                
+
+                $toMaterial = [];
+                $toMaterial['sap_vendor_code'] = $sapVendor;
+                $toMaterial['vendor_factory_id'] = $data['vendor_factory_id'];
+                $toMaterial['material_id'] = $data['to_material_id'];
+                $toMaterial['in_transfer_stock'] = $data['in_transfer_stock'] + $data['stock_qty'];
+
+                $tMatInstance = $this->StockUploads->find()->where(['sap_vendor_code' => $sapVendor,
+                 'vendor_factory_id' => $toMaterial['vendor_factory_id'] , 'material_id' => $toMaterial['material_id']])->first();
+                $tMatInstance = $this->StockUploads->patchEntity($tMatInstance, $toMaterial);
+                $this->StockUploads->save($tMatInstance);
+
+
+                $logData = [];
+                $logData['sap_vendor_code'] = $sapVendor;
+                $logData['vendor_factory_code'] = $data['vendor_factory_code'];
+                $logData['from_material'] = $data['from_material'];
+                $logData['to_material'] = $data['to_material'];
+                $logData['transfer_qty'] = $data['stock_qty'];
+
+                $transLogInc = $this->MaterialTransferLogs->newEmptyEntity();
+                $transLogInc = $this->MaterialTransferLogs->patchEntity($transLogInc, $logData);
+                $this->MaterialTransferLogs->save($transLogInc);
+
+                $this->StockUploads->getConnection()->commit();
+            
+            } catch(\Cake\ORM\Exception\PersistenceFailedException $e) {
+                $this->Users->getConnection()->rollback();
+            }
+
+
+            $response['status'] = 1;
+            $response['message'] = 'Stock successfully transfered!';
+        } else {
+            $response['message'] = 'Issue in stock transfer';
+        }
+
+        echo json_encode($response);
+        
+    }
+
+    function transferLog() {
+        $session = $this->getRequest()->getSession();
+        $this->loadModel('MaterialTransferLogs');
+
+        $logs = $this->MaterialTransferLogs->find('all')->where(['sap_vendor_code' => $session->read('vendor_code')])->toArray();
+        
+        $this->set(compact('logs'));
     }
 
 
@@ -463,7 +539,7 @@ class StockUploadsController extends VendorAppController
         
         $materialList = $this->StockUploads->find('all')
         ->select($this->StockUploads)
-        ->select(['Materials.code', 'Materials.description'])
+        ->select(['mat_id' => 'Materials.id','Materials.code', 'Materials.description'])
         ->contain(['Materials'])
         ->where(['vendor_factory_id' => $factoryId])->toArray();
 
@@ -477,7 +553,7 @@ class StockUploadsController extends VendorAppController
             foreach($asnMaterials as $asn) {
                 if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material['code'] == $asn->material) {
                     $stock->asn_stock = $asn->qty;
-                    $stock->current_stock = ($stock->opening_stock + $stock->production_stock + $stock->in_transfer_stock) - ($stock->asn_stock - $stock->out_transfer_stock);
+                    $stock->current_stock = ($stock->opening_stock + $stock->production_stock + $stock->in_transfer_stock) - ($stock->asn_stock + $stock->out_transfer_stock);
                 }
                 if($stock->current_stock < 0) {
                     $stock->current_stock = 0;
@@ -488,7 +564,7 @@ class StockUploadsController extends VendorAppController
 
         $materials = [];
         foreach($materialList as $mat) {
-            $materials[] = ['code' => $mat->material->code, 'description' => $mat->material->description, 'current_stock' => $mat->current_stock];
+            $materials[] = ['id' => $mat->mat_id, 'code' => $mat->material->code, 'description' => $mat->material->description, 'current_stock' => $mat->current_stock, 'in_transfer_stock' => $mat->in_transfer_stock, 'out_transfer_stock' => $mat->out_transfer_stock];
         }
 
         $response['status'] = 1;
