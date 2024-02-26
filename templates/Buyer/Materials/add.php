@@ -61,10 +61,9 @@
                     </select>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3">
-                    <label for="id_code">Material</label>
-                    <select name="code" class="form-control" required id="id_code">
-
-                    </select>
+                    <label for="id_code">Material Code</label>
+                    <!-- <select name="code" class="form-control" required id="id_code"></select> -->
+                    <input type="text" class="form-control" name="code" id="id_code">
                 </div>
                 <div class="col-sm-12 col-md-2 col-lg-2">
                     <label for="id_minimum_stock">Minimum Stock</label>
@@ -129,29 +128,29 @@
         complete: function () { $("#gif_loader").hide(); }
     });
 
-    $(document).on("change", "#id_sap_vendor_code", function () {
-        $.ajax({
-            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/materials', 'action' => 'getvendormaterial')); ?>/" + $("#id_sap_vendor_code").val() + "/",
-            type: "get",
-            dataType: 'json',
-            processData: false, // important
-            contentType: false, // important
-            beforeSend: function () { $("#gif_loader").show(); },
-            success: function (r) {
-                $('#id_code').empty();
-                $.each(r.data, function (key, value) {
-                    $('#id_code')
-                        .append($("<option></option>")
-                            .attr("value", value['code'])
-                            .text(value['code'] + " - " + value['description']));
-                });
-            },
-            error: function () {
-                Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
-            },
-            complete: function () { $("#gif_loader").hide(); }
-        });
-    });
+    // $(document).on("change", "#id_sap_vendor_code", function () {
+    //     $.ajax({
+    //         url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/materials', 'action' => 'getvendormaterial')); ?>/" + $("#id_sap_vendor_code").val() + "/",
+    //         type: "get",
+    //         dataType: 'json',
+    //         processData: false, // important
+    //         contentType: false, // important
+    //         beforeSend: function () { $("#gif_loader").show(); },
+    //         success: function (r) {
+    //             $('#id_code').empty();
+    //             $.each(r.data, function (key, value) {
+    //                 $('#id_code')
+    //                     .append($("<option></option>")
+    //                         .attr("value", value['code'])
+    //                         .text(value['code'] + " - " + value['description']));
+    //             });
+    //         },
+    //         error: function () {
+    //             Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
+    //         },
+    //         complete: function () { $("#gif_loader").hide(); }
+    //     });
+    // });
 
     $(document).on("click", "#id_mslsubmit", function () {
         $.ajax({
