@@ -153,6 +153,24 @@
   <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>Intransit</p>'), ['controller' => 'delivery-details', 'action' => 'index'], ['class' => "nav-link $intransit", 'escape' => false]) ?>
 </li>
 
+<li class="nav-item">
+  <a href="#" class="nav-link">
+    <i class="nav-icon fas fa-forward"></i>
+    <p>
+      Transfer
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item ">
+      <?= $this->Html->link(__('<i class="fas fa-share nav-icon prod_icon"></i><p>Stock Transfer</p>'), ['controller' => '/stockuploads', 'action' => 'transfer'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
+    </li>
+    <li class="nav-item ">
+      <?= $this->Html->link(__('<i class="fas fa-clock nav-icon prod_icon"></i><p>Log</p>'), ['controller' => '/stockuploads', 'action' => 'transfer-log'], ['class' => "nav-link $planner", 'escape' => false]) ?>
+    </li>
+  </ul>
+</li>
+
 <!-- <li class="nav-item">
   <?= $this->Html->link(__('<i class="fas fa-truck nav-icon"></i><p>MSL Stock</p>'), ['controller' => 'materials', 'action' => 'index'], ['class' => "nav-link $intrasactive", 'escape' => false]) ?>
 </li> -->
