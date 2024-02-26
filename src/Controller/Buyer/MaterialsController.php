@@ -42,6 +42,46 @@ class MaterialsController extends BuyerAppController
         $this->set(compact('materials', 'vendor', 'vendortype', 'segment'));
     }
 
+    public function getvendor()
+    {
+        $this->autoRender = false;
+        $this->loadModel('VendorTemps');
+        $vendors = $this->VendorTemps->find('all')->toArray();
+        $response = ['status' => 1, 'data' => $vendors];
+        echo json_encode($response); exit();
+    }
+
+    public function getvendormaterial($code)
+    {
+        // echo '<pre>'; print_r($code);exit;
+        $this->autoRender = false;
+        $this->loadModel('Materials');
+        $materials = $this->Materials->find('all')->where(['sap_vendor_code' =>$code, 'minimum_stock' => 0])->toArray();
+        $response = ['status' => 1, 'data' => $materials];
+        echo json_encode($response); exit();
+    }
+
+    public function postmsl()
+    {
+        $this->autoRender = false;
+        $this->loadModel('Materials');
+        $response = ['status' => 0, 'data' => "MSL Updated Failed"];
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+            // echo '<pre>'; print_r($request);exit;
+            if(isset($request['sap_vendor_code']) && isset($request['minimum_stock']) && isset($request['code']))
+            {
+                $vendorMaterial = $this->Materials->find('all')->where(['sap_vendor_code' => $request['sap_vendor_code'], 'code' => $request['code']])->first();
+                $mslvalue = array();
+                $mslvalue['minimum_stock']  = $request['minimum_stock'];
+                $vendorMaterial = $this->Materials->patchEntity($vendorMaterial, $mslvalue);
+                if ($this->Materials->save($vendorMaterial)) { $response = ['status' => 1, 'data' => "MSL Updated"]; }
+                else { $response = ['status' => 0, 'data' => "MSL Update Failed"];}
+            }
+        }
+        echo json_encode($response); exit();
+    }
+
     public function materiallist(){
         $this->autoRender = false;
         $this->loadModel("VendorTemps");
