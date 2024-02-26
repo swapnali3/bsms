@@ -56,19 +56,19 @@
             <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <label for="id_sap_vendor_code">Vendor</label>
-                    <select name="sap_vendor_code" class="form-control" id="id_sap_vendor_code">
+                    <select name="sap_vendor_code" required class="form-control" id="id_sap_vendor_code">
 
                     </select>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <label for="id_code">Material</label>
-                    <select name="code" class="form-control" id="id_code">
+                    <select name="code" class="form-control" required id="id_code">
 
                     </select>
                 </div>
                 <div class="col-sm-12 col-md-2 col-lg-2">
                     <label for="id_minimum_stock">Minimum Stock</label>
-                    <input type="text" name="minimum_stock" class="form-control" id="id_minimum_stock">
+                    <input type="text" name="minimum_stock" required class="form-control" id="id_minimum_stock">
                 </div>
                 <div class="col-sm-12 col-md-2 col-lg-1 mt-3 pt-3">
                     <button type="button" class="btn bg-gradient-submit" id="id_mslsubmit">Submit</button>

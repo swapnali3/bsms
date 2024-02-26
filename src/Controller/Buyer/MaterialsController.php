@@ -61,6 +61,16 @@ class MaterialsController extends BuyerAppController
         echo json_encode($response); exit();
     }
 
+    public function getvendorsmaterial($code)
+    {
+        // echo '<pre>'; print_r($code);exit;
+        $this->autoRender = false;
+        $this->loadModel('Materials');
+        $materials = $this->Materials->find('all')->where(['sap_vendor_code' =>$code])->toArray();
+        $response = ['status' => 1, 'data' => $materials];
+        echo json_encode($response); exit();
+    }
+
     public function postmsl()
     {
         $this->autoRender = false;
