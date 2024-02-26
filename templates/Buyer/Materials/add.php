@@ -110,7 +110,8 @@
         success: function (r) {
             if (r.status == 1) {
                 // Toast.fire({ icon: 'success', title: r.message });
-                console.log(r.data);
+                // console.log(r.data);
+                $('#id_sap_vendor_code').empty();
                 $('#id_sap_vendor_code').append($("<option></option>").text('Select Vendor'));
                 $.each(r.data, function (key, value) {
                     $('#id_sap_vendor_code')
@@ -137,6 +138,7 @@
             contentType: false, // important
             beforeSend: function () { $("#gif_loader").show(); },
             success: function (r) {
+                $('#id_code').empty();
                 $.each(r.data, function (key, value) {
                     $('#id_code')
                         .append($("<option></option>")

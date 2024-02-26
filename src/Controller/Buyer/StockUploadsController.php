@@ -115,6 +115,18 @@ class StockUploadsController extends BuyerAppController
         echo json_encode($response); exit;
     }
 
+    public function getvendorfactory($code)
+    {
+        // echo '<pre>'; print_r($code);exit;
+        $this->autoRender = false;
+        $this->loadModel('VendorFactories');
+        $venfac = $this->VendorFactories->find('all')
+        ->innerJoin(['VendorTemps'=> 'vendor_temps'], ['VendorTemps.id = VendorFactories.vendor_temp_id'])
+        ->where(['VendorTemps.sap_vendor_code' =>$code])->toArray();
+        $response = ['status' => 1, 'data' => $venfac];
+        echo json_encode($response); exit();
+    }
+
     /**
      * View method
      *
@@ -129,6 +141,40 @@ class StockUploadsController extends BuyerAppController
         ]);
 
         $this->set(compact('stockupload'));
+    }
+
+    public function poststockupload()
+    {
+        $this->autoRender = false;
+        $this->loadModel('Materials');
+        $this->loadModel("StockUploads");
+        $response = ['status' => 0, 'data' => "Stock Upload Failed"];
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $res = $this->request->getData();
+            // echo '<pre>'; print_r($request);exit;
+            if ($res["sap_vendor_code"] && $res["vendor_factory_id"] && $res["material_id"] && $res["opening_stock"])
+            {
+                $existingStockUpload = $this->StockUploads->find('all')->where(['material_id' => $res['material_id'], 'sap_vendor_code' => $res['sap_vendor_code']])->first();
+
+                if (!$existingStockUpload) {
+                    $stockupload = $this->StockUploads->newEmptyEntity();
+                    $mslvalue = array();
+                    $mslvalue['sap_vendor_code']  = $res['sap_vendor_code'];
+                    $mslvalue['vendor_factory_id']  = $res['vendor_factory_id'];
+                    $mslvalue['material_id']  = $res['material_id'];
+                    $mslvalue['opening_stock']  = $res['opening_stock'];
+                    $mslvalue['production_stock']  = 0;
+                    $mslvalue['current_stock']  = 0;
+                    $mslvalue['asn_stock']  = 0;
+                    $stockupload = $this->StockUploads->patchEntity($stockupload, $mslvalue);
+                    if ($this->StockUploads->save($stockupload))
+                    { $response = ['status' => 1, 'data' => "Stock Upload Updated"]; }
+                    else { $response = ['status' => 0, 'data' => "Stock Upload Update Failed"]; }
+                }
+                else { $response = ['status' => 0, 'data' => "Stock Upload Exist"]; }
+            }
+        }
+        echo json_encode($response); exit();
     }
 
     /**
