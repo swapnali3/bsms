@@ -81,12 +81,18 @@ class MaterialsController extends BuyerAppController
             // echo '<pre>'; print_r($request);exit;
             if(isset($request['sap_vendor_code']) && isset($request['minimum_stock']) && isset($request['code']))
             {
-                $vendorMaterial = $this->Materials->find('all')->where(['sap_vendor_code' => $request['sap_vendor_code'], 'code' => $request['code']])->first();
-                $mslvalue = array();
-                $mslvalue['minimum_stock']  = $request['minimum_stock'];
-                $vendorMaterial = $this->Materials->patchEntity($vendorMaterial, $mslvalue);
-                if ($this->Materials->save($vendorMaterial)) { $response = ['status' => 1, 'data' => "MSL Updated"]; }
-                else { $response = ['status' => 0, 'data' => "MSL Update Failed"];}
+                $existingStockUpload = $this->Materials->find('all')->where(['sap_vendor_code' => $request['sap_vendor_code'], 'code' => $request['code']])->first();
+                if (!$existingStockUpload){
+                    $vendorMaterial = $this->Materials->newEmptyEntity();
+                    $mslvalue = array();
+                    $mslvalue['minimum_stock']  = $request['minimum_stock'];
+                    $mslvalue['code']  = $request['code'];
+                    $mslvalue['description']  = ' ';
+                    $mslvalue['sap_vendor_code']  = $request['sap_vendor_code'];
+                    $vendorMaterial = $this->Materials->patchEntity($vendorMaterial, $mslvalue);
+                    if ($this->Materials->save($vendorMaterial)) { $response = ['status' => 1, 'data' => "MSL Updated"]; }
+                    else { $response = ['status' => 0, 'data' => "MSL Update Failed"];}
+                } else { $response = ['status' => 0, 'data' => "MSL Exist"];}
             }
         }
         echo json_encode($response); exit();
