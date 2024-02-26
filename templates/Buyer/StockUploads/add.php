@@ -61,92 +61,119 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                         <h5 class="mb-0"><b>UPLOAD STOCKS</b></h5>
                     </div>
                     <div class="stock_fileupload col-sm-6 col-lg-6 pr-0">
-                <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
-                <div class="row justify-content-end align-items-center">
-                    <div class="d-flex justify-content-end">
-                        
-                            <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_buyer.xlsx"
-                                download class="material_stock_file" data-toggle="tooltip" data-original-title="Download Template" data-placement="left"><i class="fa fa-solid fa-file-download"></i></a>
-                        
-                    </div>
-                    <div class="pl-2 pr-0">
-                        <?= $this->Form->control('upload_file', [
+                        <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
+                        <div class="row justify-content-end align-items-center">
+                            <div class="d-flex justify-content-end">
+
+                                <a href="<?= $this->Url->build('/') ?>webroot/templates/material_stock_upload_buyer.xlsx"
+                                    download class="material_stock_file" data-toggle="tooltip"
+                                    data-original-title="Download Template" data-placement="left"><i
+                                        class="fa fa-solid fa-file-download"></i></a>
+
+                            </div>
+                            <div class="pl-2 pr-0">
+                                <?= $this->Form->control('upload_file', [
                                 'type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
-                        <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
-                        <!-- <span id="filessnames"></span> -->
+                                <?= $this->Form->button('Choose File', ['id' => 'OpenImgUpload','type' => 'button','class' => 'd-block btn bg-gradient-button btn-block mb-0 file-upld-btn' ]); ?>
+                                <!-- <span id="filessnames"></span> -->
+                            </div>
+                            <div class="pl-2 pr-1">
+                                <button class="btn bg-gradient-submit" id="id_import" type="button">
+                                    Submit
+                                </button>
+                            </div>
+
+                        </div>
+                        <?= $this->Form->end() ?>
                     </div>
-                    <div class="pl-2 pr-1">
-                        <button class="btn bg-gradient-submit" id="id_import" type="button">
-                            Submit
-                        </button>
-                    </div>
-                    
-                </div>
-                <?= $this->Form->end() ?>
-            </div>
                 </div>
             </div>
 
-            
+            <div class="card-body">
+                <form method="post">
+                    <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3 col-lg-2">
+                            <label for="">Vendor</label>
+                            <select class="form-control" name="sap_vendor_code" required id="id_sap_vendor_code"></select>
+                        </div>
+                        <div class="col-sm-12 col-md-3 col-lg-2">
+                            <label for="">Factory Code</label>
+                            <select class="form-control" name="vendor_factory_id" required id="id_vendor_factory_id"></select>
+                        </div>
+                        <div class="col-sm-12 col-md-3 col-lg-2">
+                            <label for="">Material</label>
+                            <select class="form-control" name="material_id" required id="id_material_id"></select>
+                        </div>
+                        <div class="col-sm-12 col-md-3 col-lg-2">
+                            <label for="">Opening Stock</label>
+                            <input class="form-control" type="text" required name="opening_stock" id="id_opening_stock">
+                        </div>
+                        <div class="col-sm-12 col-md-3 col-lg-2 mt-3 pt-2">
+                            <button type="button" class="btn bg-gradient-submit mt-2" id="id_mslsubmit">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
-                        
             <div class="card-footer" id="id_pohead">
                 <div class="table-responsive">
-                <table class="table table-hover" id="example1">
-                    <thead>
-                        <tr>
-                            <th>Sap Vendor Code</th>
-                            <th>Factories Code</th>
-                            <th>Po No</th>
-                            <th>Material Code</th>
-                            <th>Line Item</th>
-                            <th>Material Description</th>
-                            <th>Opening Stock</th>
-                            <th>Uom</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <table class="table table-hover" id="example1">
+                        <thead>
+                            <tr>
+                                <th>Sap Vendor Code</th>
+                                <th>Factories Code</th>
+                                <th>Po No</th>
+                                <th>Material Code</th>
+                                <th>Line Item</th>
+                                <th>Material Description</th>
+                                <th>Opening Stock</th>
+                                <th>Uom</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                        <?php foreach ($stockuploadData as $stockuploads) :  ?>
-                        <?php if ($stockuploads['status']) : ?>
+                            <?php foreach ($stockuploadData as $stockuploads) :  ?>
+                            <?php if ($stockuploads['status']) : ?>
 
-                        <tr>
-                            <td>
-                                <?= h($stockuploads['data']['desc']) ?>
-                            </td>
-                            <td>
-                                <?= h($stockuploads['data']['material_code']) ?>
-                            </td>
-                            <td>
-                                <?= h($stockuploads['data']['uoms']) ?>
-                            </td>
-                            <td>
-                                <?= h($stockuploads['data']["opening_stock"]) ?>
-                            </td>
-                            <td>
-                                <?= h($stockuploads["msg"]) ?>
-                            </td>
-                        </tr>
-                        <?php else : ?>
-                        <tr>
-                            <td>
-                                <?= h($stockuploads['data']['desc']) ?>
-                            </td>
-                            <td>
-                                <?= h($stockuploads['data']['material_code']) ?>
-                            </td>
-                            <td colspan="2"></td>
-                            <td class="text-danger text-left">
-                                <?= h($stockuploads["msg"]) ?>
-                            </td>
-                        </tr>
-                        <?php endif; ?>
-                        <?php endforeach; ?> 
-                    </tbody>
-                </table></div>
+                            <tr>
+                                <td>
+                                    <?= h($stockuploads['data']['desc']) ?>
+                                </td>
+                                <td>
+                                    <?= h($stockuploads['data']['material_code']) ?>
+                                </td>
+                                <td>
+                                    <?= h($stockuploads['data']['uoms']) ?>
+                                </td>
+                                <td>
+                                    <?= h($stockuploads['data']["opening_stock"]) ?>
+                                </td>
+                                <td>
+                                    <?= h($stockuploads["msg"]) ?>
+                                </td>
+                            </tr>
+                            <?php else : ?>
+                            <tr>
+                                <td>
+                                    <?= h($stockuploads['data']['desc']) ?>
+                                </td>
+                                <td>
+                                    <?= h($stockuploads['data']['material_code']) ?>
+                                </td>
+                                <td colspan="2"></td>
+                                <td class="text-danger text-left">
+                                    <?= h($stockuploads["msg"]) ?>
+                                </td>
+                            </tr>
+                            <?php endif; ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-           
+
         </div>
     </div>
 </div>
@@ -224,13 +251,13 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
         }
     });
 
-    $('#stockFileSubmit').click(function() {
+    $('#stockFileSubmit').click(function () {
         $('#modal-sm').modal('show');
         submitStatus = false
     });
 
 
-    $('.addSubmit').click(function() {
+    $('.addSubmit').click(function () {
         if (submitStatus && $('#stockuploadForm').valid()) {
             $('#stockuploadForm')[0].submit();
         } else {
@@ -240,10 +267,108 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
     });
 
+    $.ajax({
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/materials', 'action' => 'getvendor')); ?>",
+        type: "get",
+        dataType: 'json',
+        processData: false, // important
+        contentType: false, // important
+        // data: fd,
+        beforeSend: function () { $("#gif_loader").show(); },
+        success: function (r) {
+            if (r.status == 1) {
+                // Toast.fire({ icon: 'success', title: r.message });
+                console.log(r.data);
+                $('#id_sap_vendor_code').append($("<option></option>").text('Select Vendor'));
+                $.each(r.data, function (key, value) {
+                    $('#id_sap_vendor_code')
+                        .append($("<option></option>")
+                            .attr("value", value['sap_vendor_code'])
+                            .text(value['name']));
+                });
+            } else {
+                //  Toast.fire({ icon: 'error', title: r.message }); 
+            }
+        },
+        error: function () {
+            Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
+        },
+        complete: function () { $("#gif_loader").hide(); }
+    });
+
+    $(document).on("change", "#id_sap_vendor_code", function () {
+        $.ajax({
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'getvendorfactory')); ?>/"+$("#id_sap_vendor_code").val()+"/",
+            type: "get",
+            dataType: 'json',
+            processData: false, // important
+            contentType: false, // important
+            beforeSend: function () { $("#gif_loader").show(); },
+            success: function (r) {
+                $('#id_vendor_factory_id').empty();
+                $.each(r.data, function (key, value) {
+                    $('#id_vendor_factory_id')
+                            .append($("<option></option>")
+                                .attr("value", value['id'])
+                                .text(value['factory_code']));
+                });
+            },
+            error: function () {
+                Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
+            },
+            complete: function () { $("#gif_loader").hide(); }
+        });
+
+        $.ajax({
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/materials', 'action' => 'getvendorsmaterial')); ?>/"+$("#id_sap_vendor_code").val()+"/",
+            type: "get",
+            dataType: 'json',
+            processData: false, // important
+            contentType: false, // important
+            beforeSend: function () { $("#gif_loader").show(); },
+            success: function (r) {
+                $('#id_material_id').empty();
+                $.each(r.data, function (key, value) {
+                    $('#id_material_id')
+                            .append($("<option></option>")
+                                .attr("value", value['id'])
+                                .text(value['code']+" - "+value['description']));
+                });
+            },
+            error: function () {
+                Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
+            },
+            complete: function () { $("#gif_loader").hide(); }
+        });
+    });
+
+    $(document).on("click", "#id_mslsubmit", function () {
+        $.ajax({
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'poststockupload')); ?>",
+            type: "post",
+            data: {
+                sap_vendor_code: $("#id_sap_vendor_code").val(),
+                vendor_factory_id: $("#id_vendor_factory_id").val(),
+                material_id: $("#id_material_id").val(),
+                opening_stock: $("#id_opening_stock").val(),
+            },
+            dataType: 'json',
+            headers: { 'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content') },
+            success: function (r) {
+                if (r.status == 1) {
+                    Toast.fire({ icon: 'success', title: r.data });
+                    location.reload();
+                }
+                else { Toast.fire({ icon: 'error', title: r.data }); }
+            },
+            error: function () {
+                Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
+            },
+        });
+    });
 
 
-
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         var table = $("#example1").DataTable({
             "paging": true,
@@ -262,14 +387,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
         $('select').prop('selectedIndex', 0);
         $("input[name=_csrfToken]").val(csrf);
 
-        $('#OpenImgUpload').click(function() {
-        $('#bulk_file').trigger('click');
+        $('#OpenImgUpload').click(function () {
+            $('#bulk_file').trigger('click');
         });
         $('#bulk_file').change(function () {
             var file = $(this).prop('files')[0];
             var fileName = file ? file.name : '';
 
-            $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
+            $('#OpenImgUpload').text(fileName ? fileName : 'Choose File');
         });
 
         setTimeout(function () {
@@ -317,24 +442,24 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             contentType: false, // important
             data: fd,
             beforeSend: function () { $("#gif_loader").show(); },
-            success: function(response) {
-                if (response.status == 1) {   
+            success: function (response) {
+                if (response.status == 1) {
                     Toast.fire({
                         icon: 'success',
                         title: response.message
                     });
 
-    
+
                     $("#example1 tbody").empty();
 
                     // Loop through the response data and build the table rows dynamically
-                    $.each(response.data, function (key, val) { 
+                    $.each(response.data, function (key, val) {
                         var rowHtml = `<tr>
                         <td>` + val.sap_vendor_code + `</td>
                         <td> `+ val.factory_code + `</td>
-                        <td> `+ val.po_no +` </td>
-                        <td> `+ val.material +` </td>
-                        <td> `+ val.line_item +`</td>
+                        <td> `+ val.po_no + ` </td>
+                        <td> `+ val.material + ` </td>
+                        <td> `+ val.line_item + `</td>
                         <td> `+ val.description + `</td>
                         <td> `+ val.opening_stock + `</td>
                         <td> `+ val.uom + `</td>
@@ -347,7 +472,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                     Toast.fire({
                         icon: 'error',
                         title: response.message
-                    });    
+                    });
                 }
                 $("#formUpload")[0].reset();
             },

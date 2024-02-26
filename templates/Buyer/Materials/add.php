@@ -20,7 +20,8 @@
             <div class="row align-items-center">
                 <div class="col-auto pr-1" data-toggle="tooltip" data-original-title="Download Template"
                     data-placement="left">
-                    <a href="<?= $this->Url->build('/') ?>webroot/templates/material_master.xlsx" class="material_file" download target="_blank" rel="noopener noreferrer">
+                    <a href="<?= $this->Url->build('/') ?>webroot/templates/material_master.xlsx" class="material_file"
+                        download target="_blank" rel="noopener noreferrer">
                         <i class="fa fa-solid fa-file-download"></i></a>
                 </div>
                 <div class="col-auto pr-1">
@@ -50,33 +51,30 @@
 
 <div class="card">
     <div class="card-header">
-        <div class="row">
-            <div class="col-sm-12 col-md-4 col-lg-3">
-                <label for="id_sap_vendor_code">Vendor</label>
-                <select name="sap_vendor_code" class="form-control" id="id_sap_vendor_code">
+        <form action="" method="post">
+            <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
+            <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-3">
+                    <label for="id_sap_vendor_code">Vendor</label>
+                    <select name="sap_vendor_code" required class="form-control" id="id_sap_vendor_code">
 
-                </select>
-            </div>
-            <div class="col-sm-12 col-md-4 col-lg-3">
-                <label for="id_code">Material</label>
-                <select name="code" class="form-control" id="id_code">
+                    </select>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-3">
+                    <label for="id_code">Material</label>
+                    <select name="code" class="form-control" required id="id_code">
 
-                </select>
+                    </select>
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-2">
+                    <label for="id_minimum_stock">Minimum Stock</label>
+                    <input type="text" name="minimum_stock" required class="form-control" id="id_minimum_stock">
+                </div>
+                <div class="col-sm-12 col-md-2 col-lg-1 mt-3 pt-3">
+                    <button type="button" class="btn bg-gradient-submit" id="id_mslsubmit">Submit</button>
+                </div>
             </div>
-            <div class="col-sm-12 col-md-2 col-lg-2">
-                <label for="id_minimum_stock">Minimum Stock</label>
-                <input type="text" name="minimum_stock" class="form-control" id="id_minimum_stock">
-            </div>
-            <div class="col-sm-12 col-md-4 col-lg-3">
-                <label for="id_uom">UOM</label>
-                <select name="uom" class="form-control" id="id_uom">
-
-                </select>
-            </div>
-            <div class="col-sm-12 col-md-2 col-lg-1 mt-3 pt-3">
-                <button type="submit" class="btn bg-gradient-submit">Submit</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 
@@ -100,6 +98,84 @@
 </div>
 <script>
     function showConfirmationModal() { $('#modal-sm').modal('show'); }
+
+    $.ajax({
+        url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/materials', 'action' => 'getvendor')); ?>",
+        type: "get",
+        dataType: 'json',
+        processData: false, // important
+        contentType: false, // important
+        // data: fd,
+        beforeSend: function () { $("#gif_loader").show(); },
+        success: function (r) {
+            if (r.status == 1) {
+                // Toast.fire({ icon: 'success', title: r.message });
+                // console.log(r.data);
+                $('#id_sap_vendor_code').empty();
+                $('#id_sap_vendor_code').append($("<option></option>").text('Select Vendor'));
+                $.each(r.data, function (key, value) {
+                    $('#id_sap_vendor_code')
+                        .append($("<option></option>")
+                            .attr("value", value['sap_vendor_code'])
+                            .text(value['name']));
+                });
+            } else {
+                //  Toast.fire({ icon: 'error', title: r.message }); 
+            }
+        },
+        error: function () {
+            Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
+        },
+        complete: function () { $("#gif_loader").hide(); }
+    });
+
+    $(document).on("change", "#id_sap_vendor_code", function () {
+        $.ajax({
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/materials', 'action' => 'getvendormaterial')); ?>/" + $("#id_sap_vendor_code").val() + "/",
+            type: "get",
+            dataType: 'json',
+            processData: false, // important
+            contentType: false, // important
+            beforeSend: function () { $("#gif_loader").show(); },
+            success: function (r) {
+                $('#id_code').empty();
+                $.each(r.data, function (key, value) {
+                    $('#id_code')
+                        .append($("<option></option>")
+                            .attr("value", value['code'])
+                            .text(value['code'] + " - " + value['description']));
+                });
+            },
+            error: function () {
+                Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
+            },
+            complete: function () { $("#gif_loader").hide(); }
+        });
+    });
+
+    $(document).on("click", "#id_mslsubmit", function () {
+        $.ajax({
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/materials', 'action' => 'postmsl')); ?>",
+            type: "post",
+            data: {
+                sap_vendor_code: $("#id_sap_vendor_code").val(),
+                code: $("#id_code").val(),
+                minimum_stock: $("#id_minimum_stock").val()
+            },
+            dataType: 'json',
+            headers: { 'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content') },
+            success: function (r) {
+                if (r.status == 1) {
+                    Toast.fire({ icon: 'success', title: r.data });
+                    location.reload();
+                }
+                else { Toast.fire({ icon: 'error', title: r.data }); }
+            },
+            error: function () {
+                Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
+            },
+        });
+    });
 
     $(document).ready(function () {
         $('.addSubmit').click(function () {
