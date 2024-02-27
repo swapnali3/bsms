@@ -163,10 +163,10 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-share nav-icon prod_icon"></i><p>Stock Transfer</p>'), ['controller' => '/stockuploads', 'action' => 'transfer'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fas fa-share nav-icon prod_icon"></i><p>Stock Transfer</p>'), ['controller' => '/stock-uploads', 'action' => 'transfer'], ['class' => "nav-link $dailyStock", 'escape' => false]) ?>
     </li>
     <li class="nav-item ">
-      <?= $this->Html->link(__('<i class="fas fa-clock nav-icon prod_icon"></i><p>Log</p>'), ['controller' => '/stockuploads', 'action' => 'transfer-log'], ['class' => "nav-link $planner", 'escape' => false]) ?>
+      <?= $this->Html->link(__('<i class="fas fa-clock nav-icon prod_icon"></i><p>Log</p>'), ['controller' => '/stock-uploads', 'action' => 'transfer-log'], ['class' => "nav-link $planner", 'escape' => false]) ?>
     </li>
   </ul>
 </li>

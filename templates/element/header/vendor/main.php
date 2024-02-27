@@ -109,10 +109,10 @@
                     </a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                         <li class="nav-item ">
-                            <?= $this->Html->link(__('Stock Transfer'), ['controller' => '/stockuploads', 'action' => 'transfer'], ['class' => "nav-link $stockTrasfer", 'escape' => false]) ?>
+                            <?= $this->Html->link(__('Stock Transfer'), ['controller' => '/stock-uploads', 'action' => 'transfer'], ['class' => "nav-link $stockTrasfer", 'escape' => false]) ?>
                         </li>
                         <li class="nav-item ">
-                            <?= $this->Html->link(__('Log'), ['controller' => '/stockuploads', 'action' => 'transfer-log'], ['class' => "nav-link $trasferLog", 'escape' => false]) ?>
+                            <?= $this->Html->link(__('Log'), ['controller' => '/stock-uploads', 'action' => 'transfer-log'], ['class' => "nav-link $trasferLog", 'escape' => false]) ?>
                         </li>
                     </ul>
                 </li>
