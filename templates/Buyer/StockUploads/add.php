@@ -8,11 +8,12 @@
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
 ?>
-<?= $this->Html->css('bootstrap-multiselect') ?>
-<?= $this->Html->script('bootstrap-multiselect') ?>
-<?= $this->Html->css('dropdown-filter') ?>
 <?= $this->Html->css('select2.min.css') ?>
 <?= $this->Html->script('select2.js') ?>
+<?= $this->Html->css('bootstrap-multiselect') ?>
+<?= $this->Html->css('dropdown-filter') ?>
+<?= $this->Html->script('bootstrap-multiselect') ?>
+<?= $this->Html->script('FilterMultiSelect') ?>
 
 <div class="row">
     <div class="col-12 d-none">
