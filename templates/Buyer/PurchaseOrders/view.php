@@ -10,6 +10,12 @@
 <?= $this->Html->css('table.css') ?>
 <?= $this->Html->css('custom_table.css') ?>
 <?= $this->Html->css('b_purchase_order_view.css') ?>
+
+<?= $this->Html->css('bootstrap-multiselect') ?>
+<?= $this->Html->script('bootstrap-multiselect') ?>
+<?= $this->Html->css('dropdown-filter') ?>
+<?= $this->Html->css('select2.min.css') ?>
+<?= $this->Html->script('select2.js') ?>
 <link rel="stylesheet"
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
@@ -49,34 +55,52 @@
           <div class="d-flex" id="poItemss"></div>
         </div>
         <div class="card non-schdule-list p-2 mb-0">
-          <div class="d-flex justify-content-between align-items-center">
-            <h6><strong>Non-Schedule PO Items</strong></h6>
-            <button class="btn bg-gradient-submit" id="expandButton" style="width: 100px;">Expand</button>
+          <div class="align-items-center">
+          <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
+            <div class="row">
+              <div class="col-sm-12 col-md-2 col-lg-2" style="align-self: center;">
+                <h6><strong>Non-Schedule PO Items</strong></h6>
+              </div>
+              <div class="col-sm-12 col-md-3 col-lg-3">
+                <div class="searchy">
+                  <label for="id_sap_vendor_code" style="width: 100%;">Vendor Code</label>
+                  <select name="sap_vendor_code[]" style="width: 100%;" class="form-control chosen" multiple="multiple"  id="id_sap_vendor_code" ></select>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-3 col-lg-3">
+                <div class="searchy">
+                  <label for="id_material" style="width: 100%;">Material</label>
+                  <select name="material[]" style="width: 100%;" class="form-control chosen" multiple="multiple" id="id_material" ></select>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-3 col-lg-3">
+                <div class="searchy">
+                  <label for="id_po_no" style="width: 100%;">PO No</label>
+                  <select name="po_no[]" style="width: 100%;" class="form-control chosen" multiple="multiple" id="id_po_no" ></select>
+                </div>
+              </div>
+              <div class="col-sm-12 col-md-1 col-lg-1" style="align-self: center;">
+                <button class="btn bg-gradient-submit float-right" id="expandButton" style="width: 100px;">Expand</button>
+              </div>
+            </div>
           </div>
+          <!-- <hr> -->
           <div class="card-body table-responsive" id="expanded_tbl">
-          <table id="expandedTable" class="table table-bordered table-hover table-striped mt-5 pt-5">
-            <thead>
-              <tr>
-                <th>Vendor</th>
-                <th>PO No</th>
-                <th>Item</th>
-                <th>Material</th>
-                <th>Description</th>
-                <th>PO Qty</th>
-                <th>Net Value</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($no_schedule as $mat) : ?>
-              
-              <tr>
-                <?php foreach ($mat as $sat) : ?>
-                <td><?= h($sat) ?></td>
-                <?php endforeach; ?>
-              </tr>
-              <?php endforeach; ?>
-            </tbody>
-          </table></div>
+            <table id="expandedTable" class="table table-bordered table-hover table-striped mt-5 pt-5" style="width: 100%;">
+              <thead>
+                <tr>
+                  <th>Vendor</th>
+                  <th>PO No</th>
+                  <th>Item</th>
+                  <th>Material</th>
+                  <th>Description</th>
+                  <th>PO Qty</th>
+                  <th>Net Value</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -332,5 +356,6 @@
   var save_schedule_remarks = "<?php echo \Cake\Routing\Router::url(array('controller' => 'purchase-orders', 'action' => 'save-schedule-remarks')); ?>";
   var po_upload_url = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'upload')); ?>"
   var po_schedule_export = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'getScheduleexport')); ?>/"
+  var non_schedule_po_export = "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'nonschedulepoitems')); ?>/"
 </script>
 <?= $this->Html->script('a_vekpro/buyer/b_purchaseorder_view') ?>
