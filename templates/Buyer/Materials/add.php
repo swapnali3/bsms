@@ -63,7 +63,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <label for="id_code">Material Code</label>
                     <!-- <select name="code" class="form-control" required id="id_code"></select> -->
-                    <input type="text" class="form-control" name="code" id="id_code">
+                    <input type="text" class="form-control" required name="code" id="id_code">
                 </div>
                 <div class="col-sm-12 col-md-2 col-lg-2">
                     <label for="id_minimum_stock">Minimum Stock</label>
@@ -116,7 +116,7 @@
                     $('#id_sap_vendor_code')
                         .append($("<option></option>")
                             .attr("value", value['sap_vendor_code'])
-                            .text(value['name']));
+                            .text(value['sap_vendor_code']+" - "+value['name']));
                 });
             } else {
                 //  Toast.fire({ icon: 'error', title: r.message }); 

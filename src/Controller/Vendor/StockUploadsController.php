@@ -570,7 +570,7 @@ class StockUploadsController extends VendorAppController
         $response['status'] = 1;
         $response['data']['materials'] = $materials;
 
-        echo json_encode($response);
+        echo json_encode($response);exit();
     }
 
 
