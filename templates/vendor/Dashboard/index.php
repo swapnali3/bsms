@@ -135,6 +135,7 @@
                 <th>Description </th>
                 <th>Opening Stock</th>
                 <th>Production Stock</th>
+                <th>Transfer Stock</th>
                 <th>ASN / IN transit</th>
                 <th>Closing Stock</th>
                 <th>MSL</th>
@@ -153,6 +154,7 @@
                 <td><?= $stock->material['description']; ?></td>
                 <td><?= $stock->opening_stock . ' '. $stock->material['uom']; ?></td>
                 <td><?= $stock->production_stock . ' '. $stock->material['uom']; ?></td>
+                <td><?= $stock->in_transfer_stock - $stock->out_transfer_stock; ?></td>
                 <td><?= $stock->asn_stock . ' '. $stock->material['uom']; ?></td>
                 <td><?= $stock->current_stock . ' '. $stock->material['uom']; ?></td>
                 <td><?= $stock->material['minimum_stock'] . ' '. $stock->material['uom']; ?></td>
