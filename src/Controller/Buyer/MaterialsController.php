@@ -46,7 +46,7 @@ class MaterialsController extends BuyerAppController
     {
         $this->autoRender = false;
         $this->loadModel('VendorTemps');
-        $vendors = $this->VendorTemps->find('all')->toArray();
+        $vendors = $this->VendorTemps->find('all')->where(['sap_vendor_code IS NOT NULL' ])->toArray();
         $response = ['status' => 1, 'data' => $vendors];
         echo json_encode($response); exit();
     }
