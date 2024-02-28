@@ -434,7 +434,7 @@ class PurchaseOrdersController extends VendorAppController
             INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
             INNER JOIN po_item_schedules ON po_item_schedules.po_footer_id = po_footers.id
             LEFT JOIN materials ON materials.code = po_footers.material AND po_headers.sap_vendor_code = materials.sap_vendor_code
-            LEFT JOIN stock_uploads ON stock_uploads.material_id = materials.id AND po_headers.sap_vendor_code = stock_uploads.sap_vendor_code'.$conditions);
+            LEFT JOIN stock_uploads ON stock_uploads.material_id = materials.id AND po_headers.sap_vendor_code = stock_uploads.sap_vendor_code'.$conditions.' order by po_headers.id desc');
         }
 
         $data = $data->fetchAll('assoc');
@@ -573,7 +573,7 @@ class PurchaseOrdersController extends VendorAppController
             'PoItemSchedules.status' => 1,
             '(PoItemSchedules.actual_qty - PoItemSchedules.received_qty) > 0',
             ])
-        ->order(['delivery_date' => 'ASC'])->toArray();
+        ->order(['delivery_date' => 'DESC'])->toArray();
         
         $materials = [];
         $mattmp = [];
