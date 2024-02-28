@@ -1,4 +1,5 @@
-var global_poid, schexp_dtbl;
+var global_poid, schexp_dtbl, nonschexp_dtbl, dd_data;
+var unload_dd = true;
 $('#OpenImgUpload').click(function () { $('#bulk_file').trigger('click'); });
 
 $('#bulk_file').change(function () {
@@ -133,7 +134,7 @@ $(".btnSub").on("click", function (e) { e.preventDefault(); });
 
 $("#expme").hide();
 
-$("#expandedTable").DataTable({
+nonschexp_dtbl = $("#expandedTable").DataTable({
     searching: false,
     paging: true,
     dom: 'Bfrtip',
@@ -812,7 +813,7 @@ $("#btnClose").click(function () {
     $("#btnClose").removeClass("d-none");
 });
 
-document.getElementById("expandButton").addEventListener("click", function() {
+document.getElementById("expandButton").addEventListener("click", function () {
     var table = document.getElementById("expandedTable");
     if (table.style.display === "none") {
         table.style.display = "table";
@@ -824,7 +825,63 @@ document.getElementById("expandButton").addEventListener("click", function() {
 });
 
 $(document).on("click", "#expandButton", function () {
-    $("#expanded_tbl").toggle(); 
+    $("#expanded_tbl, .searchy").toggle();
+});
+
+$(document).on("change", "#id_sap_vendor_code, #id_material, #id_po_no", function () {
+    $.ajax({
+        type: "POST",
+        url: non_schedule_po_export,
+        data: {sap_vendor_code:$('#id_sap_vendor_code').val(),material:$('#id_material').val(),po_no:$('#id_po_no').val(),},
+        headers: { 'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content') },
+        dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
+        success: function (response) {
+            if (response.status) {
+                dd_data = response.data;
+                nonschexp_dtbl.clear().draw();
+                nonschexp_dtbl.rows.add(dd_data['records']).draw();
+                nonschexp_dtbl.columns.adjust().draw();
+            } else { nonschexp_dtbl.clear().draw(); }
+            if (unload_dd) {
+                $.each(dd_data['vendor'], function (key, value) {
+                    $('#id_sap_vendor_code')
+                        .append($("<option></option>")
+                            .attr("value", key)
+                            .text(key + " - " + value));
+                });
+                $.each(dd_data['material'], function (key, value) {
+                    $('#id_material')
+                        .append($("<option></option>")
+                            .attr("value", key)
+                            .text(key + " - " + value));
+                });
+                $.each(dd_data['po'], function (key, value) {
+                    $('#id_po_no')
+                        .append($("<option></option>")
+                            .attr("value", value)
+                            .text(value));
+                });
+                $('.chosen').select2({
+                    closeOnSelect : false,
+                    placeholder: 'Select',
+                    allowClear: true,
+                    tags: false,
+                    tokenSeparators: [','],
+                    templateSelection: function(selection) {
+                        if (selection.element && $(selection.element).attr('data-select') !== undefined) {
+                            return $(selection.element).attr('data-select');
+                        } else {
+                            return selection.text;
+                        }
+                    }
+                });
+                unload_dd = false;
+            }
+        },
+        complete: function () { $("#gif_loader").hide(); }
+    });
 });
 
 $("#expandButton").trigger('click');
+$("#id_sap_vendor_code").trigger('change');

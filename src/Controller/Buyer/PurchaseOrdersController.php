@@ -506,18 +506,79 @@ class PurchaseOrdersController extends BuyerAppController
         $this->loadModel('PoItemSchedules');
         $poHeaders = $this->PoHeaders->find()
             ->select(['id', 'po_no', 'sap_vendor_code'])->toArray();
-            $conn = ConnectionManager::get('default');
-            $material = $conn->execute("select po_headers.sap_vendor_code, po_headers.po_no, po_footers.item, po_footers.material, po_footers.short_text, po_footers.po_qty, po_footers.net_value from po_headers
-            inner join po_footers on po_headers.id = po_footers.po_header_id
-            where po_footers.id not in (select po_footer_id from po_item_schedules)
-            and po_headers.acknowledge = 1 and  po_footers.deleted_indication = ''");
-            $no_schedule = $material->fetchAll('assoc');
+        //     $conn = ConnectionManager::get('default');
+        //     $material = $conn->execute("select po_headers.sap_vendor_code, po_headers.po_no, po_footers.item, po_footers.material, po_footers.short_text, po_footers.po_qty, po_footers.net_value from po_headers
+        //     inner join po_footers on po_headers.id = po_footers.po_header_id
+        //     where po_footers.id not in (select po_footer_id from po_item_schedules)
+        //     and po_headers.acknowledge = 1 and  po_footers.deleted_indication = ''");
+        //     $no_schedule = $material->fetchAll('assoc');
         // echo '<pre>';print_r($query);exit;
 
-        $this->set(compact('poHeaders', 'no_schedule'));
+        // $this->set(compact('poHeaders', 'no_schedule'));
+        $this->set(compact('poHeaders'));
     }
 
-    
+    public function nonschedulepoitems()
+    {
+        $this->autoRender = false;
+        $response = array('status'=>0, 'message'=>null, 'data'=>null);
+        $session = $this->getRequest()->getSession();
+        $this->loadModel('PoHeaders');
+        $this->loadModel('PoFooters');
+        $this->loadModel('PoItemSchedules');
+        
+        $conditions = " WHERE po_footers.id not in (select po_footer_id from po_item_schedules)
+        AND po_headers.acknowledge = 1 AND  po_footers.deleted_indication = '' ";
+        if ($this->request->is(['post'])) {
+            $request = $this->request->getData();
+            if(isset($request['sap_vendor_code'])) {
+                $search = '';
+                foreach ($request['sap_vendor_code'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " AND vendor_temps.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " AND po_footers.material in (".$search.")";
+            }
+            if(isset($request['po_no'])) {
+                $search = '';
+                foreach ($request['po_no'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " AND po_headers.po_no in (".$search.")";
+            }
+            $conn = ConnectionManager::get('default');
+        }
+        // echo '<pre>';print_r($conditions);exit;
+        $material = $conn->execute("select po_headers.sap_vendor_code, vendor_temps.name, po_headers.po_no, po_footers.item, po_footers.material, po_footers.short_text, po_footers.po_qty, po_footers.net_value from po_headers
+        inner join po_footers on po_headers.id = po_footers.po_header_id
+        left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code".$conditions);
+        $no_schedule = $material->fetchAll('assoc');
+
+        $vendor_list = [];
+        $material_list = [];
+        $po_list = [];
+        $records = [];
+        foreach ($no_schedule as $row)
+        {
+            if (!in_array($row['sap_vendor_code'], array_keys($vendor_list)))
+            { $vendor_list[$row['sap_vendor_code']] = $row['name']; }
+
+            if (!in_array($row['material'], array_keys($material_list)))
+            { $material_list[$row['material']] = $row['short_text']; }            
+
+            if (!in_array($row['po_no'], $po_list))
+            { $po_list[] = $row['po_no']; }
+
+            $records[] = array($row['sap_vendor_code'], $row['po_no'],$row['item'],$row['material'], $row['short_text'], $row['po_qty'], $row['net_value']);
+        }
+        // echo '<pre>';print_r($query);exit;
+
+        $response = array('status'=>1, 'data'=>array('records'=>$records, 'vendor'=>$vendor_list, 'material'=>$material_list, 'po'=>$po_list));
+        echo json_encode($response);exit();
+    }
 
 
     public function poApi($search = null)

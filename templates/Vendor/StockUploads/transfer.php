@@ -1,3 +1,9 @@
+<?= $this->Html->css('select2.min.css') ?>
+<?= $this->Html->script('select2.js') ?>
+<?= $this->Html->css('bootstrap-multiselect') ?>
+<?= $this->Html->css('dropdown-filter') ?>
+<?= $this->Html->script('bootstrap-multiselect') ?>
+<?= $this->Html->script('FilterMultiSelect') ?>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -10,14 +16,14 @@
                         <?php echo $this->Form->control('vendor_factory_code', array('type' => 'hidden')); ?>
                     </div>
                     <div class="col-3">
-                        <?php echo $this->Form->control('from_material', array('label' => 'From Material', 'class' => 'form-control rounded-0', 'options' => [], 'maxlength' => '20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
+                        <?php echo $this->Form->control('from_material', array('label' => 'From Material', 'class' => 'form-control chosen rounded-0', 'options' => [], 'maxlength' => '20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
                         <?php echo $this->Form->control('from_material_id', array('type' => 'hidden')); ?>
                         <?php echo $this->Form->control('out_transfer_stock', array('type' => 'hidden')); ?>
                         <span id="availableStockColumn1">Available Stock: </span>
                     </div>
 
                     <div class="col-3">
-                        <?php echo $this->Form->control('to_material', array('label' => 'To Material', 'class' => 'form-control rounded-0', 'options' => [], 'maxlength' => '20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
+                        <?php echo $this->Form->control('to_material', array('label' => 'To Material', 'class' => 'form-control chosen rounded-0', 'options' => [], 'maxlength' => '20', 'div' => 'form-group', 'required', 'empty' => 'Please Select')); ?>
                         <?php echo $this->Form->control('to_material_id', array('type' => 'hidden')); ?>
                         <?php echo $this->Form->control('in_transfer_stock', array('type' => 'hidden')); ?>
                         <span id="availableStockColumn2">Available Stock: </span>
@@ -116,8 +122,8 @@
                         $("#to-material").append("<option value=''>Please Select</option>");
 
                         $.each(response.data.materials, function (key, val) {
-                            $("#from-material").append("<option value='" + val.code + "' data-id='"+val.id+"' data-out-stock='"+val.out_transfer_stock+"' >" + val.description + "</option>");
-                            $("#to-material").append("<option value='" + val.code + "' data-id='"+val.id+"' data-in-stock='"+val.in_transfer_stock+"'>" + val.description + "</option>");
+                            $("#from-material").append("<option value='" + val.code + "' data-id='"+val.id+"' data-out-stock='"+val.out_transfer_stock+"' >" + val.code +' - ' + val.description + "</option>");
+                            $("#to-material").append("<option value='" + val.code + "' data-id='"+val.id+"' data-in-stock='"+val.in_transfer_stock+"'>" + val.code +' - '  + val.description + "</option>");
                             stockData[val.code] = val.current_stock;
                         });
                         console.log(stockData);
@@ -147,6 +153,18 @@
 
 
 <script>
+    $('.chosen').select2({
+        closeOnSelect: false,
+        placeholder: 'Select',
+        allowClear: true,
+        tags: false,
+        tokenSeparators: [','],
+        templateSelection: function (selection) {
+            if (selection.element && $(selection.element).attr('data-select') !== undefined) {
+                return $(selection.element).attr('data-select');
+            } else { return selection.text; }
+        }
+    });
 
     $("#from-material").change(function () {
         const selectedMaterial = $(this).val();

@@ -10,6 +10,18 @@
     border: 1px solid #ddd !important;
 }
 
+.select2-container--default .select2-selection--single .select2-selection__choice__remove {
+    color: #121212 !important;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--single {
+    border: 1px solid #ddd !important;
+}
+
+.select2-container--default.select2-container .select2-selection--single {
+    border: 1px solid #ddd !important;
+}
+
 .select2-results__option {
     padding-right: 20px;
     vertical-align: middle;
@@ -48,13 +60,26 @@
   .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple {
       border-radius: 4px;
   }
+  .select2-container--default .select2-selection--single {
+    margin-bottom: 10px;
+}
+.select2-container--default.select2-container--open.select2-container--below .select2-selection--single {
+    border-radius: 4px;
+}
   .select2-container--default.select2-container--focus .select2-selection--multiple {
       border-color: #121212;
       border-width: 2px;
   }
+  .select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: #121212;
+    border-width: 2px;
+}
   .select2-container--default .select2-selection--multiple {
       border-width: 2px;
   }
+  .select2-container--default .select2-selection--single {
+    border-width: 2px;
+}
   .select2-container--open .select2-dropdown--below {
       
       border-radius: 6px;
@@ -64,6 +89,9 @@
   .select2-selection .select2-selection--multiple:after {
       content: 'hhghgh';
   }
+  .select2-selection .select2-selection--single:after {
+    content: 'hhghgh';
+}
   /* select with icons badges single*/
   .select-icon .select2-selection__placeholder .badge {
       display: none;
@@ -95,6 +123,33 @@
     border: none !important;
 }
 
+.select2-container--default .select2-selection--single .select2-selection__choice {
+    background-color: #F7941D !important;
+    border: none !important;
+}
+
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
     color: #121212 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__choice__remove:hover {
+    color: #121212 !important;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: white;
+    border-radius: 4px;
+    cursor: text;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    position: relative;
+}
+
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    min-height: 38px !important;
+    user-select: none;
+    -webkit-user-select: none;
 }

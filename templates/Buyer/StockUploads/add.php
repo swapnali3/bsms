@@ -8,6 +8,12 @@
 use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
 ?>
+<?= $this->Html->css('select2.min.css') ?>
+<?= $this->Html->script('select2.js') ?>
+<?= $this->Html->css('bootstrap-multiselect') ?>
+<?= $this->Html->css('dropdown-filter') ?>
+<?= $this->Html->script('bootstrap-multiselect') ?>
+<?= $this->Html->script('FilterMultiSelect') ?>
 
 <div class="row">
     <div class="col-12 d-none">
@@ -95,15 +101,17 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                     <div class="row">
                         <div class="col-sm-12 col-md-3 col-lg-2">
                             <label for="">Vendor</label>
-                            <select class="form-control" name="sap_vendor_code" required id="id_sap_vendor_code"></select>
+                            <select class="form-control" name="sap_vendor_code" required
+                                id="id_sap_vendor_code"></select>
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2">
                             <label for="">Factory Code</label>
-                            <select class="form-control" name="vendor_factory_id" required id="id_vendor_factory_id"></select>
+                            <select class="form-control" name="vendor_factory_id" required
+                                id="id_vendor_factory_id"></select>
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2">
                             <label for="">Material</label>
-                            <select class="form-control" name="material_id" required id="id_material_id"></select>
+                            <select class="form-control chosen" name="material_id" required id="id_material_id"></select>
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2">
                             <label for="">Opening Stock</label>
@@ -194,6 +202,18 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
 
 <script>
+    $('.chosen').select2({
+        closeOnSelect: false,
+        placeholder: 'Select',
+        allowClear: true,
+        tags: false,
+        tokenSeparators: [','],
+        templateSelection: function (selection) {
+            if (selection.element && $(selection.element).attr('data-select') !== undefined) {
+                return $(selection.element).attr('data-select');
+            } else { return selection.text; }
+        }
+    });
     $("#stockuploadForm").validate({
         rules: {
             code: {
@@ -284,7 +304,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                     $('#id_sap_vendor_code')
                         .append($("<option></option>")
                             .attr("value", value['sap_vendor_code'])
-                            .text(value['name']));
+                            .text(value['sap_vendor_code'] + " - " + value['name']));
                 });
             } else {
                 //  Toast.fire({ icon: 'error', title: r.message }); 
@@ -298,7 +318,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 
     $(document).on("change", "#id_sap_vendor_code", function () {
         $.ajax({
-            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'getvendorfactory')); ?>/"+$("#id_sap_vendor_code").val()+"/",
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'getvendorfactory')); ?>/" + $("#id_sap_vendor_code").val() + "/",
             type: "get",
             dataType: 'json',
             processData: false, // important
@@ -308,9 +328,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                 $('#id_vendor_factory_id').empty();
                 $.each(r.data, function (key, value) {
                     $('#id_vendor_factory_id')
-                            .append($("<option></option>")
-                                .attr("value", value['id'])
-                                .text(value['factory_code']));
+                        .append($("<option></option>")
+                            .attr("value", value['id'])
+                            .text(value['factory_code']));
                 });
             },
             error: function () {
@@ -320,7 +340,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
         });
 
         $.ajax({
-            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/materials', 'action' => 'getvendorsmaterial')); ?>/"+$("#id_sap_vendor_code").val()+"/",
+            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/materials', 'action' => 'getvendorsmaterial')); ?>/" + $("#id_sap_vendor_code").val() + "/",
             type: "get",
             dataType: 'json',
             processData: false, // important
@@ -330,9 +350,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                 $('#id_material_id').empty();
                 $.each(r.data, function (key, value) {
                     $('#id_material_id')
-                            .append($("<option></option>")
-                                .attr("value", value['id'])
-                                .text(value['code']+" - "+value['description']));
+                        .append($("<option></option>")
+                            .attr("value", value['id'])
+                            .text(value['code'] + " - " + value['description']));
                 });
             },
             error: function () {
