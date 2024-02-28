@@ -17,12 +17,12 @@
             <tbody>
                 <?php foreach ($logs as $log): ?>
                     <tr>
-                        <td><?= h($log->sap_vendor_code) ?></td>
-                        <td><?= h($log->vendor_factory_code) ?></td>
-                        <td><?= h($log->from_material) ?></td>
-                        <td><?= h($log->to_material) ?></td>
-                        <td><?= h($this->Number->format($log->transfer_qty)) ?></td>
-                        <td><?= h($log->added_date->i18nFormat('dd-MM-YYYY')) ?></td>
+                        <td><?= h($log['vendor']) ?></td>
+                        <td><?= h($log['vendor_factory_code']) ?></td>
+                        <td><?= h($log['from_material']) ?></td>
+                        <td><?= h($log['to_material']) ?></td>
+                        <td><?= h($log['transfer_qty']) ?></td>
+                        <td><?= h($log['added_date']) ?></td>
 
                     </tr>
                 <?php endforeach; ?>

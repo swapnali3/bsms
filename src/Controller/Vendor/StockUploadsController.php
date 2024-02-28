@@ -520,9 +520,17 @@ class StockUploadsController extends VendorAppController
 
     function transferLog() {
         $session = $this->getRequest()->getSession();
-        $this->loadModel('MaterialTransferLogs');
+        // $this->loadModel('MaterialTransferLogs', 'Materials');
+        // $logs = $this->MaterialTransferLogs->find('all')->contains('Materials')->where(['sap_vendor_code' => $session->read('vendor_code')])->toArray();
 
-        $logs = $this->MaterialTransferLogs->find('all')->where(['sap_vendor_code' => $session->read('vendor_code')])->toArray();
+        $conn = ConnectionManager::get('default');
+        $material = $conn->execute("SELECT concat(material_transfer_logs.sap_vendor_code, ' - ', vendor_temps.name) as vendor, material_transfer_logs.vendor_factory_code, CONCAT(material_transfer_logs.from_material, ' - ', m1.description) as from_material, CONCAT(material_transfer_logs.to_material, ' - ', m2.description) as to_material, material_transfer_logs.transfer_qty, DATE_FORMAT(material_transfer_logs.added_date, '%d-%m-%Y') as added_date
+        FROM material_transfer_logs
+        left join materials as m1 on m1.code = material_transfer_logs.from_material
+        left join materials as m2 on m2.code = material_transfer_logs.to_material
+        left join vendor_temps on vendor_temps.sap_vendor_code = material_transfer_logs.sap_vendor_code");
+        
+        $logs = $material->fetchAll('assoc');
         
         $this->set(compact('logs'));
     }
