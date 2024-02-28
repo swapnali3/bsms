@@ -449,10 +449,11 @@ class PurchaseOrdersController extends BuyerAppController
 
         $conn = ConnectionManager::get('default');
         $material = $conn->execute("SELECT
-        DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as plan_date, vendor_temps.sap_vendor_code, materials.type, materials.segment, line_masters.name,
-        materials.code, materials.description, dailymonitor.target_production, dailymonitor.confirm_production, DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as 'plan_date',
-        case when dailymonitor.status=1 then 'Active' else case when dailymonitor.status=3 then 'Planned Confirmed' else 'Cancelled' end end as 'status', stu.opening_stock + z.confirm_production - IFNULL(stu.live_asn, 0) as 'closing_stock', 
-        '-' as 'action', DATEDIFF(CURDATE(), dailymonitor.plan_date) as 'ageing'
+        DATE_FORMAT(dailymonitor.plan_date, '%d-%m-%Y') as plan_date, DATE_FORMAT(dailymonitor.updated_date, '%d-%m-%Y') as conf_date, CONCAT(vendor_temps.sap_vendor_code, '<br>', vendor_temps.name) as vendor, materials.type, materials.segment, line_masters.name,
+        CONCAT(materials.code, '<br>', materials.description) as material, dailymonitor.target_production, dailymonitor.confirm_production,
+        case when dailymonitor.status=1 then 'Active' else case when dailymonitor.status=3 then 'Planned Confirmed' else 'Cancelled' end end as 'status',
+        stu.opening_stock + stu.in_transfer_stock + z.confirm_production - IFNULL(stu.live_asn, 0) - IFNULL(stu.out_transfer_stock, 0) as 'closing_stock',
+        case when (stu.opening_stock + stu.in_transfer_stock + z.confirm_production - IFNULL(stu.live_asn, 0) - IFNULL(stu.out_transfer_stock, 0)) > 0 Then DATEDIFF(CURDATE(), dailymonitor.updated_date) else 0 end as 'ageing'
         FROM dailymonitor
         left join vendor_temps on dailymonitor.sap_vendor_code=vendor_temps.sap_vendor_code
         left join materials on materials.id=dailymonitor.material_id
@@ -462,7 +463,7 @@ class PurchaseOrdersController extends BuyerAppController
         left join line_masters on line_masters.id=production_lines.line_master_id
         left join (select stock_uploads.*, tmp.live_asn from stock_uploads inner join (
         SELECT po_headers.sap_vendor_code, asn_headers.vendor_factory_id as factory_id, materials.id as material_id, sum(qty) as live_asn
-        FROM db_bsms.asn_footers
+        FROM asn_footers
         left join asn_headers on asn_footers.asn_header_id = asn_headers.id
         left join po_footers on po_footers.id = asn_footers.po_footer_id
         left join po_headers on po_headers.id = po_footers.po_header_id
@@ -472,23 +473,20 @@ class PurchaseOrdersController extends BuyerAppController
         on stock_uploads.sap_vendor_code = tmp.sap_vendor_code and tmp.factory_id = stock_uploads.vendor_factory_id and stock_uploads.material_id = tmp.material_id) as stu
         on vendor_temps.sap_vendor_code = stu.sap_vendor_code and materials.id=stu.material_id and production_lines.vendor_factory_id=stu.vendor_factory_id ". $conditions);
         $materialist = $material->fetchAll('assoc');
-
         $results = [];
         foreach ($materialist as $mat) {
             $tmp = [];
             $tmp[] = $mat['plan_date'];
-            $tmp[] = $mat['plan_date'];
-            $tmp[] = $mat['sap_vendor_code'];
+            $tmp[] = $mat['conf_date'];
+            $tmp[] = $mat['vendor'];
             $tmp[] = $mat['type'];
             $tmp[] = $mat['segment'];
             $tmp[] = $mat['name'];
-            $tmp[] = $mat['code'];
-            $tmp[] = $mat['description'];
+            $tmp[] = $mat['material'];
             $tmp[] = $mat['target_production'];
             $tmp[] = $mat['confirm_production'];
             $tmp[] = $mat['status'];
             $tmp[] = $mat['closing_stock'];
-            $tmp[] = $mat['action'];
             $tmp[] = $mat['ageing'];
             $results[] = $tmp;
         }

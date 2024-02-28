@@ -30,7 +30,8 @@
                     </div>
                     <div class="col-2">
                         <label for="">Stock Transfer</label>
-                        <input type="text" name="stock_qty" class="form-control" placeholder="Enter Stock" id="stockTransferInput">
+                        <input type="text" name="stock_qty" class="form-control" placeholder="Enter Stock"
+                            id="stockTransferInput">
                     </div>
 
                     <div class="col-1 mt-4 pt-2">
@@ -66,7 +67,8 @@
         Material2: 150,
         Material3: 200
     };
-    $("#stockTransferInput").on("input", function () {
+
+    $(document).on("change", "#stockTransferInput", function () {
         const inputValue = $(this).val();
         const materialColumn1 = $("#from-material").val();
         const materialColumn2 = $("#to-material").val();
@@ -88,8 +90,7 @@
     });
 
 
-
-    $("#vendor-factory-id").change(function () {
+    $(document).on("change", "#vendor-factory-id", function () {
         var factoryId = $(this).val();
 
         // Store the selected values
@@ -122,11 +123,11 @@
                         $("#to-material").append("<option value=''>Please Select</option>");
 
                         $.each(response.data.materials, function (key, val) {
-                            $("#from-material").append("<option value='" + val.code + "' data-id='"+val.id+"' data-out-stock='"+val.out_transfer_stock+"' >" + val.code +' - ' + val.description + "</option>");
-                            $("#to-material").append("<option value='" + val.code + "' data-id='"+val.id+"' data-in-stock='"+val.in_transfer_stock+"'>" + val.code +' - '  + val.description + "</option>");
+                            $("#from-material").append("<option value='" + val.code + "' data-id='" + val.id + "' data-out-stock='" + val.out_transfer_stock + "' >" + val.code + ' - ' + val.description + "</option>");
+                            $("#to-material").append("<option value='" + val.code + "' data-id='" + val.id + "' data-in-stock='" + val.in_transfer_stock + "'>" + val.code + ' - ' + val.description + "</option>");
                             stockData[val.code] = val.current_stock;
                         });
-                        console.log(stockData);
+                        // console.log(stockData);
 
                         // Reapply the stored selected values
                         $("#from-material").val(fromMaterialValue);
@@ -147,12 +148,6 @@
         }
     });
 
-
-</script>
-
-
-
-<script>
     $('.chosen').select2({
         closeOnSelect: false,
         placeholder: 'Select',
@@ -166,7 +161,7 @@
         }
     });
 
-    $("#from-material").change(function () {
+    $(document).on("change", "#from-material", function () {
         const selectedMaterial = $(this).val();
         const stockTransferInput = $("#stockTransferInput");
 
@@ -182,7 +177,7 @@
         }
     });
 
-    $("#to-material").change(function () {
+    $(document).on("change", "#to-material", function () {
         const selectedMaterial = $(this).val();
         $("#to-material-id").val($(this).find('option:selected').attr('data-id'));
         $("#in-transfer-stock").val($(this).find('option:selected').attr('data-in-stock'));
@@ -266,13 +261,13 @@
                     });
                     if (response.status) {
                         Toast.fire({ icon: 'success', title: response.message });
-                    } else { 
+                    } else {
                         Toast.fire({ icon: 'error', title: response.message });
                     }
                 },
                 error: function () { Toast.fire({ icon: 'error', title: 'An error occured, please try again.' }); },
                 complete: function () { $("#gif_loader").hide(); }
-            }); 
+            });
 
             // Hide the Bootstrap modal
             $('#modal-sm').modal('hide');
@@ -283,7 +278,4 @@
             });
         }
     }
-
-
-
 </script>

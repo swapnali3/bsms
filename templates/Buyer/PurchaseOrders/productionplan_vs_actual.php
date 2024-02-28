@@ -94,17 +94,15 @@
                             <tr>
                                 <th style="width:70px;">Plan Date</th>
                                 <th>Confirmation Date</th>
-                                <th>Vendor Code</th>
+                                <th>Vendor</th>
                                 <th>Vendor Name Type</th>
                                 <th>Segment</th>
                                 <th>Production Line</th>
                                 <th>Material</th>
-                                <th>Material Desc.</th>
                                 <th>Production Plan</th>
                                 <th>Confirmed Production</th>
                                 <th>Status</th>
                                 <th>Closing Stock</th>
-                                <th>Action</th>
                                 <th>No. of Stock Aging Days</th>
                             </tr>
                         </thead>
