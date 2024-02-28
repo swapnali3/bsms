@@ -154,7 +154,7 @@ class StockUploadsController extends BuyerAppController
             // echo '<pre>'; print_r($request);exit;
             if ($res["sap_vendor_code"] && $res["vendor_factory_id"] && $res["material_id"] && $res["opening_stock"])
             {
-                $existingStockUpload = $this->StockUploads->find('all')->where(['material_id' => $res['material_id'], 'sap_vendor_code' => $res['sap_vendor_code']])->first();
+                $existingStockUpload = $this->StockUploads->find('all')->where(['material_id' => $res['material_id'], 'sap_vendor_code' => $res['sap_vendor_code'], 'vendor_factory_id' => $res["vendor_factory_id"]])->first();
 
                 if (!$existingStockUpload) {
                     $stockupload = $this->StockUploads->newEmptyEntity();
@@ -397,8 +397,10 @@ class StockUploadsController extends BuyerAppController
                     $highestRow = $worksheet->getHighestRow(); 
                     $highestColumn = $worksheet->getHighestColumn();
                     $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
+                    $this->loadModel("VendorTemps");
                     $this->loadModel("Materials");
                     $this->loadModel("VendorFactories");
+                    $this->loadModel("ProductionLines");
                     $this->loadModel("Dailymonitor");
 
                     
@@ -418,7 +420,8 @@ class StockUploadsController extends BuyerAppController
                             else if($col == 2) {
                                 $factory = $this->VendorFactories->find('list')
                                 ->select(['id'])
-                                ->where(['factory_code' => $value])
+                                ->innerJoin(['VendorTemps'=> 'vendor_temps'], ['VendorTemps.id = VendorFactories.vendor_temp_id'])
+                                ->where(['factory_code' => $value, 'VendorTemps.sap_vendor_code' => $tmp['sap_vendor_code']])
                                 ->first();
 
                                 //echo '<pre>';  print_r($factory); exit;
@@ -445,12 +448,20 @@ class StockUploadsController extends BuyerAppController
                                     $matError = true;
                                     $datas['error'] = 'Material not found';
                                 } else {
-                                    if ($this->StockUploads->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id']])) { 
+                                    if ($this->StockUploads->exists(['sap_vendor_code' => $tmp['sap_vendor_code'],'vendor_factory_id' => $tmp['vendor_factory_id'], 'material_id' => $tmp['material_id']])) { 
                                         $matError = true;
                                         $datas['error'] = 'Already stock exists';
-                                    } else if ($this->Dailymonitor->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'material_id' => $tmp['material_id'], 'status' => 3])) { 
-                                        $matError = true;
-                                        $datas['error'] = 'Production Detail Exists';
+                                    } else {
+                                        $productionLineIds = $this->ProductionLines->find()
+                                        ->select(['id'])
+                                        ->where(['material_id' => $tmp['material_id'], 'sap_vendor_code' => $tmp['sap_vendor_code'], 'vendor_factory_id' => $tmp['vendor_factory_id']])->first();
+
+                                        if($productionLineIds) {
+                                            if ($this->Dailymonitor->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'production_line_id' => $productionLineIds,'material_id' => $tmp['material_id'], 'status' => 3])) { 
+                                                $matError = true;
+                                                $datas['error'] = 'Production Detail Exists';
+                                            }
+                                        }
                                     }
                                 } 
                             }

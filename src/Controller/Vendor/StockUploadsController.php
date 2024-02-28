@@ -550,16 +550,16 @@ class StockUploadsController extends VendorAppController
         ->group(['VendorFactories.id','PoFooters.material'])->toArray();
 
         foreach($materialList as &$stock) {
+            $stock->current_stock = ($stock->opening_stock + $stock->production_stock +  $stock->in_transfer_stock) - ($stock->out_transfer_stock);
             foreach($asnMaterials as $asn) {
                 if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material['code'] == $asn->material) {
                     $stock->asn_stock = $asn->qty;
                     $stock->current_stock = ($stock->opening_stock + $stock->production_stock + $stock->in_transfer_stock) - ($stock->asn_stock + $stock->out_transfer_stock);
                 }
-                if($stock->current_stock < 0) {
-                    $stock->current_stock = 0;
-                }
             }
-            
+            if($stock->current_stock < 0) {
+                $stock->current_stock = 0;
+            }
         }
 
         $materials = [];
