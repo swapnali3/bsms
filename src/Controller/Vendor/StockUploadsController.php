@@ -523,16 +523,52 @@ class StockUploadsController extends VendorAppController
         // $this->loadModel('MaterialTransferLogs', 'Materials');
         // $logs = $this->MaterialTransferLogs->find('all')->contains('Materials')->where(['sap_vendor_code' => $session->read('vendor_code')])->toArray();
 
+        $conditions = " where 1=1 AND material_transfer_logs.sap_vendor_code='".$session->read('vendor_code')."' ";
+        if ($this->request->is(['post'])) {
+            $request = $this->request->getData();
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and material_transfer_logs.from_material in (".$search.") or material_transfer_logs.to_material in (".$search.")";
+            }
+            if(isset($request['from']) && !empty($request['from'])) {
+                $search = $request['from'];
+                $conditions .= " and material_transfer_logs.added_date>='".$search." 00:00:00'";
+            }
+            if(isset($request['to']) && !empty($request['to'])) {
+                $search = $request['to'];
+                $conditions .= " and material_transfer_logs.added_date<='".$search." 23:59:59'";
+            }
+        }
+
         $conn = ConnectionManager::get('default');
-        $material = $conn->execute("SELECT concat(material_transfer_logs.sap_vendor_code, ' - ', vendor_temps.name) as vendor, material_transfer_logs.vendor_factory_code, CONCAT(material_transfer_logs.from_material, ' - ', m1.description) as from_material, CONCAT(material_transfer_logs.to_material, ' - ', m2.description) as to_material, material_transfer_logs.transfer_qty, DATE_FORMAT(material_transfer_logs.added_date, '%d-%m-%Y') as added_date
+        $query = $conn->execute("SELECT material_transfer_logs.vendor_factory_code, material_transfer_logs.from_material as code, m1.description, CONCAT(material_transfer_logs.from_material, ' - ', m1.description) as from_material, CONCAT(material_transfer_logs.to_material, ' - ', m2.description) as to_material, material_transfer_logs.transfer_qty, DATE_FORMAT(material_transfer_logs.added_date, '%d-%m-%Y') as added_date
         FROM material_transfer_logs
         left join materials as m1 on m1.code = material_transfer_logs.from_material
         left join materials as m2 on m2.code = material_transfer_logs.to_material
-        left join vendor_temps on vendor_temps.sap_vendor_code = material_transfer_logs.sap_vendor_code");
+        left join vendor_temps on vendor_temps.sap_vendor_code = material_transfer_logs.sap_vendor_code ".$conditions);
+        $result = $query->fetchAll('assoc');
         
-        $logs = $material->fetchAll('assoc');
+        // Material List
+        $materials=[];
+        $logs=[];
+        foreach ($result as $row)
+        {
+            $logs[]=array($row['added_date'],$row['vendor_factory_code'],$row['from_material'],$row['to_material'],$row['transfer_qty']);
+            if (!in_array($row['code'], array_keys($materials)))
+            { $materials[] = array('code'=>$row['code'], 'description'=>$row['description']); }
+        }
+        // echo '<pre>'; print_r($logs, $materials);exit;
+
+        // Return Transfer Log
+        if ($this->request->is(['post'])) {
+            $this->autoRender = false;
+            $response = array('status'=>1, 'msg'=>'Success', 'data'=>$logs);
+            echo json_encode($response);exit();
+        }
         
-        $this->set(compact('logs'));
+        $this->set(compact('materials'));
     }
 
 
