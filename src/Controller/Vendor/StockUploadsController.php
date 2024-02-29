@@ -530,7 +530,11 @@ class StockUploadsController extends VendorAppController
                 $search = '';
                 foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                $conditions .= " and material_transfer_logs.from_material in (".$search.") or material_transfer_logs.to_material in (".$search.")";
+                $conditions .= " AND (
+                    (material_transfer_logs.from_material in (".$search.") AND material_transfer_logs.to_material IS NOT NULL)
+                    OR 
+                    (material_transfer_logs.to_material in (".$search.") AND material_transfer_logs.from_material IS NOT NULL)
+                )";
             }
             if(isset($request['from']) && !empty($request['from'])) {
                 $search = $request['from'];
