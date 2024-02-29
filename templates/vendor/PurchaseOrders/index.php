@@ -93,7 +93,8 @@
     var flagdata = $("#" + poHeaderID).data('flag');
 
     if (flagdata < 1) {
-      $('.flagButton').empty().append('<input class="form-control" placeholder="Reject Remark" type="text" id="id_remark" style="width: 50vw;"><button type="button" class="ml-2 btn bg-gradient-button notify mb-0"><i class="fa fa-envelope"></i> Acknowledge</button><button type="button" class="btn bg-gradient-danger ignoreme ml-2"><i class="fa fa-exclamation"></i> Reject</button>');
+      // $('.flagButton').empty().append('<input class="form-control" placeholder="Reject Remark" type="text" id="id_remark" style="width: 50vw;"><button type="button" class="ml-2 btn bg-gradient-button notify mb-0"><i class="fa fa-envelope"></i> Acknowledge</button><button type="button" class="btn bg-gradient-danger ignoreme ml-2"><i class="fa fa-exclamation"></i> Reject</button>');
+      $('.flagButton').empty().append('<button type="button" class="ml-2 btn bg-gradient-button notify mb-0"><i class="fa fa-envelope"></i> Acknowledge</button>');
       $('.notify').attr('data-id', poHeaderID);
       $('.ignoreme').attr('data-id', poHeaderID);
     } else { $('.flagButton').empty(); }
