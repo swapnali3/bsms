@@ -1415,7 +1415,7 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->where(['id' => $tmp['po_header_id']])->first();
                             
                             $poItem = $this->PoFooters->find()
-                                ->select(['item', 'material', 'short_text'])
+                                ->select(['item', 'material', 'short_text', 'po_qty'])
                                 ->where(['id' => $tmp['po_footer_id']])
                                 ->first();
 
