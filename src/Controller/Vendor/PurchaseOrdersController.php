@@ -398,6 +398,7 @@ class PurchaseOrdersController extends VendorAppController
         $this->loadModel('PoFooters');
         $this->loadModel("StockUploads");
         $this->loadModel("Materials");
+        $this->loadModel('Users');
         $this->loadModel('PoItemSchedules');
         $this->loadModel('VendorFactories');
         

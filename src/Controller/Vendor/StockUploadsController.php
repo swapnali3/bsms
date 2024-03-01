@@ -556,12 +556,16 @@ class StockUploadsController extends VendorAppController
         
         // Material List
         $materials=[];
+        $material_list=[];
         $logs=[];
         foreach ($result as $row)
         {
             $logs[]=array($row['added_date'],$row['vendor_factory_code'],$row['from_material'],$row['to_material'],$row['transfer_qty']);
-            if (!in_array($row['code'], array_keys($materials)))
-            { $materials[] = array('code'=>$row['code'], 'description'=>$row['description']); }
+            if (!in_array($row['code'], $material_list))
+            {
+                $materials[] = array('code'=>$row['code'], 'description'=>$row['description']);
+                $material_list[] = $row['code'];
+            }
         }
         // echo '<pre>'; print_r($logs, $materials);exit;
 

@@ -361,6 +361,7 @@ class VendorTempsController extends BuyerAppController
 
         $this->loadModel("Titles");
         $this->loadModel("Buyers");
+        $this->loadModel('Users');
         $this->loadModel("VendorTypes");
         $this->loadModel("VendorTemps");
         $this->loadModel("VendorStatus");
@@ -466,6 +467,7 @@ class VendorTempsController extends BuyerAppController
     {
         $session = $this->getRequest()->getSession();
         $flash = [];
+        $this->loadModel('Users');
         $this->loadModel("VendorTemps");
         $vendor = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','SchemaGroups','PurchasingOrganizations','AccountGroups', 'ReconciliationAccounts', 'States', 'Countries', 'PaymentTerms']]);
 
@@ -636,7 +638,7 @@ class VendorTempsController extends BuyerAppController
         $response['message'] = '';
         $this->autoRender = false;
         $this->loadModel("VendorTemps");
-        
+        $this->loadModel('Users');
         $this->loadModel("Notifications");
 
         $session = $this->getRequest()->getSession();

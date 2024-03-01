@@ -65,6 +65,7 @@ class ApiController extends ApiAppController
 
         $this->loadModel("PoHeaders");
         $this->loadModel("PoFooters");
+        $this->loadModel('Users');
         $this->loadModel("VendorTemps");
 
         if (!empty($request) && count($request['DATA'])) {

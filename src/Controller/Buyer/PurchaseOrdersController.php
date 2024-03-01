@@ -685,7 +685,7 @@ class PurchaseOrdersController extends BuyerAppController
 
         $this->loadModel('PoHeaders');
         $this->loadModel('PoFooters');
-        
+        $this->loadModel('Users');
         $this->loadModel("Notifications");
         $this->loadModel("PoItemSchedules");
         $this->loadModel("VendorTemps");
@@ -853,6 +853,7 @@ class PurchaseOrdersController extends BuyerAppController
         $this->autoRender = false;
         $this->loadModel('PoHeaders');
         $this->loadModel('PoFooters');
+        $this->loadModel('Users');
         $this->loadModel("Notifications");
         $this->loadModel("PoItemSchedules");
         $this->loadModel("VendorTemps");
@@ -945,6 +946,7 @@ class PurchaseOrdersController extends BuyerAppController
 
         $this->loadModel('PoHeaders');
         $this->loadModel('PoFooters');
+        $this->loadModel('Users');
         $this->loadModel("Notifications");
         $this->loadModel("PoItemSchedules");
         $this->loadModel("VendorTemps");
@@ -1335,6 +1337,7 @@ class PurchaseOrdersController extends BuyerAppController
                     $this->loadModel('VendorTemps');
                     $this->loadModel('PoHeaders');
                     $this->loadModel('PoFooters');
+                    $this->loadModel('Users');
                     $this->loadModel('PoItemSchedules');
                     
                     $tmp = [];

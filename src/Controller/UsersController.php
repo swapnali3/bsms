@@ -102,6 +102,7 @@ class UsersController extends AppController
 
     public function forgetPwd()
     { 
+        $this->loadModel('Users');
         if ($this->request->is(['patch', 'post', 'put'])) {
             //echo '<pre>'; print_r($this->request->getData('email')); exit;
             $user = $this->Users->findByUsername($this->request->getData('email'))->first();

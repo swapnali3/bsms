@@ -48,6 +48,7 @@ class OnboardingController extends VendorAppController
         }
 
         $this->loadModel("VendorTemps");
+        $this->loadModel('Users');
         $this->loadModel("VendorTempOtps");
         $requestQry = explode('||', base64_decode($request));
         $id = $requestQry[1];
@@ -123,6 +124,7 @@ class OnboardingController extends VendorAppController
     {
         $flash = [];
         $this->loadModel("VendorTemps");
+        $this->loadModel('Users');
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();

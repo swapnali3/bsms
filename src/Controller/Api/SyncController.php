@@ -340,6 +340,7 @@ class SyncController extends ApiAppController
         $this->loadModel("PoItemSchedules");
         $this->loadModel("PaymentTerms");
         $this->loadModel("Buyers");
+        $this->loadModel('Users');
         $this->loadModel('VendorTemps');
         
 
