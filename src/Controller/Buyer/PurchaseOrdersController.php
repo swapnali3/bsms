@@ -1427,29 +1427,31 @@ class PurchaseOrdersController extends BuyerAppController
                             $query = $conn->execute("select po_footers.po_qty - sum(po_item_schedules.actual_qty) as avail_sched_qty
                             from po_item_schedules left join po_footers on po_item_schedules.po_footer_id=po_footers.id
                             where po_footers.id =".$tmp['po_footer_id']." group by po_footers.id");
-                            $avail_sched_qty = $query->fetchAll('assoc')[0]['avail_sched_qty'];
+                            $avail_sched_qty = $query->fetchAll('assoc');
+                            if (!$avail_sched_qty){ $avail_sched_qty = $poItem->po_qty; }
+                            else { $avail_sched_qty = $avail_sched_qty[0]['avail_sched_qty']; }
 
                             $PoItemSchedule = $this->PoItemSchedules->newEmptyEntity();
-                            $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $tmp);                            
-                            if ($tmp['actual_qty'] <= $avail_sched_qty && $this->PoItemSchedules->save($PoItemSchedule)) {
-                                $datas['error'] = "Schedule created";
-                                $visit_url = Router::url('/', true);
-                                if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
-                                $mailer = new Mailer('default');
-                                $mailer
-                                    ->setTransport('smtp')
-                                    ->setViewVars(['vendor_name' => $vendorRecord->name, 'po' => $poDetail->po_no, 'po_item'=>$poItem, 'schedule'=>$PoItemSchedule ]) 
-                                    ->setFrom(Configure::read('MAIL_FROM'))
-                                    ->setTo($vendorRecord->email)
-                                    ->setEmailFormat('html')
-                                    ->setSubject('DELVERY SCHEDULE CREATED (PO '.$poDetail->po_no.')')
-                                    ->viewBuilder()
-                                        ->setTemplate('delivery_schedule');
-                                $mailer->deliver();
-                                }
-                            } else {
-                                $datas['error'] = "Fail to create schedule";
-                            }
+                            $PoItemSchedule = $this->PoItemSchedules->patchEntity($PoItemSchedule, $tmp);
+                            if ($tmp['actual_qty'] <= $avail_sched_qty){
+                                if ($this->PoItemSchedules->save($PoItemSchedule)) {
+                                    $datas['error'] = "Schedule created";
+                                    $visit_url = Router::url('/', true);
+                                    if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
+                                    $mailer = new Mailer('default');
+                                    $mailer
+                                        ->setTransport('smtp')
+                                        ->setViewVars(['vendor_name' => $vendorRecord->name, 'po' => $poDetail->po_no, 'po_item'=>$poItem, 'schedule'=>$PoItemSchedule ]) 
+                                        ->setFrom(Configure::read('MAIL_FROM'))
+                                        ->setTo($vendorRecord->email)
+                                        ->setEmailFormat('html')
+                                        ->setSubject('DELVERY SCHEDULE CREATED (PO '.$poDetail->po_no.')')
+                                        ->viewBuilder()
+                                            ->setTemplate('delivery_schedule');
+                                    $mailer->deliver();
+                                    }
+                                } else { $datas['error'] = "Fail to create schedule"; }
+                            } else { $datas['error'] = "Available Schedule Qty ".$avail_sched_qty; }
 
                             //echo '<pre>'; print_r($uploadData); exit;
                             /*if($this->PoItemSchedules->exists(['po_header_id' => $tmp['po_header_id'], 'po_footer_id' => $tmp['po_footer_id'], 'delivery_date' => $tmp['delivery_date'], 'status' => 1])) {
