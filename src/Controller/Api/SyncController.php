@@ -340,6 +340,7 @@ class SyncController extends ApiAppController
         $this->loadModel("PoItemSchedules");
         $this->loadModel("PaymentTerms");
         $this->loadModel("Buyers");
+        $this->loadModel('Users');
         $this->loadModel('VendorTemps');
         
 
@@ -424,7 +425,7 @@ class SyncController extends ApiAppController
                                                     left join po_headers on po_headers.created_user = buyers.sap_user
                                                     where po_headers.id=".$row->id);
                                                     $response = $query->fetchAll('assoc');
-
+                                                    if($this->Users->find()->select('status')->where(['username' => $vendorDetail->email])->first()['status'] == 1){
                                                     $mailer = new Mailer('default');
                                                     $mailer
                                                         ->setTransport('smtp')
@@ -440,6 +441,7 @@ class SyncController extends ApiAppController
                                                         ->viewBuilder()
                                                             ->setTemplate('m_purchase_order');
                                                     $mailer->deliver();
+                                                    }
                                                 } catch (\Exception $e) {
 
                                                 }
@@ -463,7 +465,10 @@ class SyncController extends ApiAppController
                                                 $buyer = $this->Buyers->find()->where(['sap_user'=>$row->ERNAM])->first();
                                                 $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
                                                 $buyersEmails = [];
-                                                foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
+                                                foreach($buyerList as $email) {
+                                                    if($this->Users->find()->select('status')->where(['username' => $email->email])->first()['status'] == 1){
+                                                    $buyersEmails[] = $email->email;}
+                                                }
                                                 
                                                 $valid = false;
 
@@ -529,6 +534,7 @@ class SyncController extends ApiAppController
                                         where po_headers.id=".$poInstance->id);
                                         $response = $query->fetchAll('assoc');
 
+                                        if($this->Users->find()->select('status')->where(['username' => $vendorTemps->email])->first()['status'] == 1){
                                         $mailer = new Mailer('default');
                                         $mailer
                                             ->setTransport('smtp')
@@ -549,6 +555,7 @@ class SyncController extends ApiAppController
                                             ->viewBuilder()
                                             ->setTemplate('purchase_order');
                                         $mailer->deliver();
+                                        }
                                     }
 
                                     $this->Ftp->removeFile($ftpConn, $fileKey);

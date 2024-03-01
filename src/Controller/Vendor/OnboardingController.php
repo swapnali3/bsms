@@ -48,6 +48,7 @@ class OnboardingController extends VendorAppController
         }
 
         $this->loadModel("VendorTemps");
+        $this->loadModel('Users');
         $this->loadModel("VendorTempOtps");
         $requestQry = explode('||', base64_decode($request));
         $id = $requestQry[1];
@@ -95,6 +96,7 @@ class OnboardingController extends VendorAppController
             if ($this->VendorTempOtps->save($vendorOtp)) {
                 
                 $visit_url = Router::url('/', true);
+                if($this->Users->find()->select('status')->where(['username' => $vendorTemp->email])->first()['status'] == 1){
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
@@ -106,6 +108,7 @@ class OnboardingController extends VendorAppController
                     ->viewBuilder()
                         ->setTemplate('vendor_otp');
                 $mailer->deliver();
+                }
             }
         }
 
@@ -121,6 +124,7 @@ class OnboardingController extends VendorAppController
     {
         $flash = [];
         $this->loadModel("VendorTemps");
+        $this->loadModel('Users');
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -134,8 +138,11 @@ class OnboardingController extends VendorAppController
                 $buyer = $this->Buyers->find()->where(['id'=>$data['buyer_id']]);
                 $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
                 $buyersEmails = [];
-                foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
-
+                foreach($buyerList as $email) {
+                    if($this->Users->find()->select('status')->where(['username' => $email->email])->first()['status'] == 1){
+                    $buyersEmails[] = $email->email;}
+                }
+                
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
@@ -269,7 +276,8 @@ class OnboardingController extends VendorAppController
             $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $vendorTemp->company_code_id, 'purchasing_organization_id' => $vendorTemp->purchasing_organization_id])->toArray();
             $buyersEmails = [];
             foreach($buyerList as $email) {
-                $buyersEmails[] = $email->email; 
+                if($this->Users->find()->select('status')->where(['username' => $email->email])->first()['status'] == 1){
+                $buyersEmails[] = $email->email; }
             }
             //$buyer = $this->Users->get($vendorTemp->buyer_id);
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);

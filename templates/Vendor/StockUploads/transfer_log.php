@@ -19,7 +19,7 @@
                         <input type="date" name="to" class="form-control cherry" id="id_to">
                     </div>
                     <div class="col-4">
-                        <label for="id_material">From Material</label><br>
+                        <label for="id_material">From & To Material</label><br>
                         <select name="material[]" id="id_material" multiple="multiple"
                             class="form-control chosen cherry">
                             <?php if (isset($materials)) : ?>

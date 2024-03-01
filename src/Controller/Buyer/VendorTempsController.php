@@ -361,6 +361,7 @@ class VendorTempsController extends BuyerAppController
 
         $this->loadModel("Titles");
         $this->loadModel("Buyers");
+        $this->loadModel('Users');
         $this->loadModel("VendorTypes");
         $this->loadModel("VendorTemps");
         $this->loadModel("VendorStatus");
@@ -389,6 +390,7 @@ class VendorTempsController extends BuyerAppController
                 foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
 
                 $visit_url = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
@@ -407,6 +409,7 @@ class VendorTempsController extends BuyerAppController
                     ->viewBuilder()
                         ->setTemplate('edit_vendor');
                 $mailer->deliver();
+                }
 
                 return $this->redirect(['action' => 'index']);
             }
@@ -464,6 +467,7 @@ class VendorTempsController extends BuyerAppController
     {
         $session = $this->getRequest()->getSession();
         $flash = [];
+        $this->loadModel('Users');
         $this->loadModel("VendorTemps");
         $vendor = $this->VendorTemps->get($id, ['contain' => ['CompanyCodes','SchemaGroups','PurchasingOrganizations','AccountGroups', 'ReconciliationAccounts', 'States', 'Countries', 'PaymentTerms']]);
 
@@ -476,6 +480,7 @@ class VendorTempsController extends BuyerAppController
                 $quryString = $vendor->email . '||' . $vendor->id;
                
                 $visit_url = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                if($this->Users->find()->select('status')->where(['username' => $vendor->email])->first()['status'] == 1){
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
@@ -487,6 +492,7 @@ class VendorTempsController extends BuyerAppController
                     ->viewBuilder()
                         ->setTemplate('rejected_onboarding');
                 $mailer->deliver();
+                }
 
                 $flash = ['type'=>'success', 'msg'=>'The Vendor successfully rejected'];
             } else {
@@ -632,7 +638,7 @@ class VendorTempsController extends BuyerAppController
         $response['message'] = '';
         $this->autoRender = false;
         $this->loadModel("VendorTemps");
-        
+        $this->loadModel('Users');
         $this->loadModel("Notifications");
 
         $session = $this->getRequest()->getSession();
@@ -674,6 +680,7 @@ class VendorTempsController extends BuyerAppController
                     $quryString = $data['email'] . '||' . $VendorTemp->id;
 
                     $visit_url = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
+                    if($this->Users->find()->select('status')->where(['username' => $data['email']])->first()['status'] == 1){
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
@@ -686,6 +693,7 @@ class VendorTempsController extends BuyerAppController
                         ->viewBuilder()
                             ->setTemplate('new_communication');
                     $mailer->deliver();
+                    }
                 }
                 //echo '<pre>'; print_r($VendorTemp); exit;
             } catch (\PDOException $e) {
@@ -791,6 +799,7 @@ class VendorTempsController extends BuyerAppController
                     $vendorTemp->status = 3;
                     if($this->VendorTemps->save($vendorTemp)) {
                         $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                        if($this->Users->find()->select('status')->where(['username' => $val->username])->first()['status'] == 1){
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
@@ -803,6 +812,7 @@ class VendorTempsController extends BuyerAppController
                             ->viewBuilder()
                                 ->setTemplate('onboarding');
                         $mailer->deliver();
+                        }
                         $response['status'] = 1;
                         $response['message'] = 'Credentials Mail Send successfully';
                     } else {
