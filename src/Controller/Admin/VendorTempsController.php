@@ -117,6 +117,7 @@ class VendorTempsController extends AdminAppController
     {
         $flash = [];
         $this->loadModel("VendorTemps");
+        $this->loadModel("Users");
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -130,7 +131,7 @@ class VendorTempsController extends AdminAppController
                 $buyer = $this->Buyers->find()->where(['id'=>$data['buyer_id']]);
                 $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
                 $buyersEmails = [];
-                foreach($buyerList as $email) { $buyersEmails[] = $email->email; }
+                foreach($buyerList as $byer) { if($this->Users->find()->select('status')->where(['username' => $byer->email])->first()['status'] == 1){$buyersEmails[] = $email->email;} }
                 
                 $visit_url = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
                 $mailer = new Mailer('default');

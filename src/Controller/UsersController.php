@@ -111,6 +111,7 @@ class UsersController extends AppController
                 if ($this->Users->save($user)) {
 
                     $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                    if($this->Users->find()->select('status')->where(['username' => $user->username])->first()['status'] == 1){
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
@@ -122,7 +123,8 @@ class UsersController extends AppController
                         ->setSubject('Vendor Portal - Password changed')
                         ->viewBuilder()
                         ->setTemplate('mail_template');
-                    $mailer->deliver(); 
+                    $mailer->deliver();
+                    }
                     
                     $flash = ['type'=>'success', 'msg'=>'Password mail sent'];
                     $this->set('flash', $flash);
@@ -334,6 +336,7 @@ class UsersController extends AppController
                 if ($this->Users->save($user)) {
                     
                     $visit_url = Router::url('/', true);
+                    if($this->Users->find()->select('status')->where(['username' => $result[0]->username])->first()['status'] == 1){
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
@@ -345,6 +348,7 @@ class UsersController extends AppController
                         ->viewBuilder()
                             ->setTemplate('mail_template');
                     $mailer->deliver();
+                    }
                 }
                 $response['status'] = 1;
                 $response['message'] = 'OTP sent to register Mobile';

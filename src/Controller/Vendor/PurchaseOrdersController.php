@@ -237,6 +237,7 @@ class PurchaseOrdersController extends VendorAppController
                     $this->Notifications->save($n);
 
                     if ($buyer->email !== "") {
+                        if($this->Users->find()->select('status')->where(['username' => $buyer->email])->first()['status'] == 1){
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
@@ -253,6 +254,7 @@ class PurchaseOrdersController extends VendorAppController
                             ->viewBuilder()
                                 ->setTemplate('acknowledge');
                         $mailer->deliver();
+                        }
                     }
 
                 }
@@ -310,7 +312,7 @@ class PurchaseOrdersController extends VendorAppController
                         left join po_headers on po_headers.created_user = buyers.sap_user
                         where po_headers.id=".$poHeader['id']);
                         $response = $query->fetchAll('assoc');
-
+                        if($this->Users->find()->select('status')->where(['username' => $buyer->email])->first()['status'] == 1){
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
@@ -329,6 +331,7 @@ class PurchaseOrdersController extends VendorAppController
                             ->viewBuilder()
                                 ->setTemplate('non_acknowledge');
                         $mailer->deliver();
+                        }
                     }
                 }
 
@@ -434,7 +437,7 @@ class PurchaseOrdersController extends VendorAppController
             INNER JOIN po_footers ON po_footers.po_header_id = po_headers.id
             INNER JOIN po_item_schedules ON po_item_schedules.po_footer_id = po_footers.id
             LEFT JOIN materials ON materials.code = po_footers.material AND po_headers.sap_vendor_code = materials.sap_vendor_code
-            LEFT JOIN stock_uploads ON stock_uploads.material_id = materials.id AND po_headers.sap_vendor_code = stock_uploads.sap_vendor_code'.$conditions.' order by po_headers.id desc');
+            LEFT JOIN stock_uploads ON stock_uploads.material_id = materials.id AND po_headers.sap_vendor_code = stock_uploads.sap_vendor_code'.$conditions.' order by po_item_schedules.id desc');
         }
 
         $data = $data->fetchAll('assoc');

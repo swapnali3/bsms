@@ -744,6 +744,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $response = $query->fetchAll('assoc');
 
                             $visit_url = Router::url('/', true);
+                            if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
@@ -760,6 +761,7 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->viewBuilder()
                                     ->setTemplate('m_delivery_schedule_can');
                             $mailer->deliver();
+                            }
 
                 $response['status'] = 'success';
                 $response['message'] = 'Schedule deleted successfully';
@@ -906,6 +908,7 @@ class PurchaseOrdersController extends BuyerAppController
 
 
                             $visit_url = Router::url('/', true);
+                            if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
@@ -917,6 +920,7 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->viewBuilder()
                                     ->setTemplate('delivery_schedule');
                             $mailer->deliver();
+                            }
                             $response['status'] = 1;
                             $response['message'] = "Schedule created successfully";
                         } 
@@ -997,6 +1001,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $response = $query->fetchAll('assoc');
 
                             $visit_url = Router::url('/', true);
+                            if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
                             $mailer = new Mailer('default');
                             $mailer
                                 ->setTransport('smtp')
@@ -1014,6 +1019,7 @@ class PurchaseOrdersController extends BuyerAppController
                                 ->viewBuilder()
                                     ->setTemplate('m_delivery_schedule');
                             $mailer->deliver();
+                            }
 
                 $response['status'] = 'success';
                 $response['message'] = 'Delivery Date Update.';
@@ -1425,6 +1431,7 @@ class PurchaseOrdersController extends BuyerAppController
                             if ($tmp['actual_qty'] <= $avail_sched_qty && $this->PoItemSchedules->save($PoItemSchedule)) {
                                 $datas['error'] = "Schedule created";
                                 $visit_url = Router::url('/', true);
+                                if($this->Users->find()->select('status')->where(['username' => $vendorRecord->email])->first()['status'] == 1){
                                 $mailer = new Mailer('default');
                                 $mailer
                                     ->setTransport('smtp')
@@ -1436,6 +1443,7 @@ class PurchaseOrdersController extends BuyerAppController
                                     ->viewBuilder()
                                         ->setTemplate('delivery_schedule');
                                 $mailer->deliver();
+                                }
                             } else {
                                 $datas['error'] = "Fail to create schedule";
                             }
