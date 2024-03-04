@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\VendorTemp[]|\Cake\Collection\CollectionInterface $vendorTemps
  */
 ?>
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('v_index.css') ?>
 <div class="vendorTemps index content">
     <?= $this->Html->link(__('New Vendor Temp'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Vendor Temps') ?></h3>

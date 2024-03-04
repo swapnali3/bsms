@@ -57,6 +57,13 @@ class SchemaGroupsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->scalar('code')
+            ->maxLength('code', 10)
+            ->requirePresence('code', 'create')
+            ->notEmptyString('code')
+            ->add('code', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        $validator
             ->scalar('name')
             ->maxLength('name', 50)
             ->requirePresence('name', 'create')
@@ -75,5 +82,19 @@ class SchemaGroupsTable extends Table
             ->notEmptyDateTime('updated_date');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['code']), ['errorField' => 'code']);
+
+        return $rules;
     }
 }

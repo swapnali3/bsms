@@ -1,7 +1,43 @@
 th {
     padding: .5rem !important;
 }
-p { margin-bottom: 0px; }
+p { margin-bottom: 0px;}
 .rem2{
     min-width: 5em;
+}
+
+.tab-content p{
+    color: #649bca; 
+}
+
+/* .tab-content th{
+    font-weight: 500;
+} */
+
+.tab-content td{
+    font-weight: 500;
+    color: #2e2e2e;
+       
+}
+
+
+
+ .tab-content .btn:hover{
+    box-shadow: unset;
+
+ }
+
+
+
+#custom-tabs-one-tab .nav-link.active {
+    background-color: #649bca !important;
+    color: #fff !important;
+}
+
+.card .nav-tabs .nav-link {
+    font-size: 0.9rem;
+}
+
+.active {
+    background-color:unset; 
 }

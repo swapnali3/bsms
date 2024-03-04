@@ -45,35 +45,34 @@ class ClassLoader
     /** @var \Closure(string):void */
     private static $includeFile;
 
-    /** @var ?string */
+    /** @var string|null */
     private $vendorDir;
 
     // PSR-4
     /**
-     * @var array[]
-     * @psalm-var array<string, array<string, int>>
+     * @var array<string, array<string, int>>
      */
     private $prefixLengthsPsr4 = array();
     /**
-     * @var array[]
-     * @psalm-var array<string, array<int, string>>
+     * @var array<string, list<string>>
      */
     private $prefixDirsPsr4 = array();
     /**
-     * @var array[]
-     * @psalm-var array<string, string>
+     * @var list<string>
      */
     private $fallbackDirsPsr4 = array();
 
     // PSR-0
     /**
-     * @var array[]
-     * @psalm-var array<string, array<string, string[]>>
+     * List of PSR-0 prefixes
+     *
+     * Structured as array('F (first letter)' => array('Foo\Bar (full prefix)' => array('path', 'path2')))
+     *
+     * @var array<string, array<string, list<string>>>
      */
     private $prefixesPsr0 = array();
     /**
-     * @var array[]
-     * @psalm-var array<string, string>
+     * @var list<string>
      */
     private $fallbackDirsPsr0 = array();
 
@@ -81,8 +80,7 @@ class ClassLoader
     private $useIncludePath = false;
 
     /**
-     * @var string[]
-     * @psalm-var array<string, string>
+     * @var array<string, string>
      */
     private $classMap = array();
 

@@ -1,0 +1,129 @@
+table{
+    font-size: small;
+}
+
+thead {
+    background-color: #F79E33 !important;
+    color: #000;
+
+}
+
+.table>tbody {
+    background-color: #fff !important;
+    vertical-align: inherit;
+}
+
+
+td {
+    padding: .5rem !important;
+}
+
+th {
+    font-weight: 500;
+}
+p.po-no {
+    color: #444;
+    font-weight: 600;
+}
+
+.create-asn .d-flex::-webkit-scrollbar,
+div#past_messages::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+.create-asn .d-flex::-webkit-scrollbar-thumb,
+div#past_messages::-webkit-scrollbar-thumb {
+    background: #BEBEFF;
+    border-radius: 20px;
+}
+
+.create-asn .d-flex::-webkit-scrollbar-track,
+div#past_messages::-webkit-scrollbar-track {
+    background: #ddd;
+    border-radius: 20px;
+}
+
+.create-asn td.details-control.ponum { padding: 20px;}
+
+.create-asn .po-box {
+    border-right: 1px solid #e2e2e2;
+    padding: 10px 20px;
+    width: 135px;
+    cursor: pointer;
+    color: #999;
+}
+
+.create-asn .po-box:hover { background-color: #fff;}
+.create-asn .active { background-color: #fff;}
+
+.create-asn .polist .d-flex {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.create-asn .polist {
+    border: 1px solid #e2e2e2;
+    background-color: #fafafa;
+}
+
+.search-bar {
+    border: 1px solid #e2e2e2;
+    /* border-radius: 30px; */
+    width: 260px;
+    padding: 5px 10px;
+    justify-content: space-between;
+}
+
+.search-bar input.search-box {
+    border: none;
+    font-size: 13px;
+    width: 100%;
+    height: 32px !important;
+    padding-left: 5px;
+}
+
+.search-bar .btn-go {
+    font-size: 12px;
+    padding: 7px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: #527195;
+    color: #fff;
+    border: 1px solid #527195;
+}
+
+.search-box .fas.fa-search {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+.search-bar input.search-box {
+    border: none;
+    font-size: 13px;
+    width: 100%;
+    height: 32px !important;
+    padding-left: 5px;
+}
+
+.bg-gradient-true {
+    color: white;
+    background-color: #8E9B2C;
+}
+
+.bg-gradient-true:hover {
+    color: white;
+    background-color: #b0c50e;
+}
+
+.bg-gradient-false {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.bg-gradient-false:hover {
+    color: white;
+    background-color: #757575e0;
+}

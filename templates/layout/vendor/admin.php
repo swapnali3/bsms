@@ -9,139 +9,105 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<style>
-.brand-link {
-    padding: 0.5rem 0.5rem;
-}
-
-.nav-link.active {
-    background-color: #8E9B2C !important;
-
-}
-
-aside.main-sidebar {
-    background-color: #08132F !important;
-}
-
-body {
-
-    font-family: 'Source Sans Pro', sans-serif;
-}
-
-.loader-container {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background-color: #fff;
-    opacity: 0.9;
-    background: linear-gradient(to right, rgb(255, 255, 255, .9), rgb(255, 255, 255, .9));
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    transition: 0.5s ease-in-out;
-}
-
-</style>
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->assign('title', $title); ?>
-    <title><?= $this->fetch('title') ?></title>
+    <title>
+        <?= $this->fetch('title') ?>
+    </title>
 
     <?= $this->Html->meta('icon') ?>
     <?= $this->fetch('meta') ?>
 
-    <?= $this->Html->css('listing.css') ?>
-    <?= $this->Html->css('cstyle.css') ?>
-    <?= $this->Html->css('table.css') ?>
     <!-- Google Font: Source Sans Pro -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
-    
+
     <!-- Font Awesome Icons -->
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>
 
-    <?= $this->Html->css('CakeLte./AdminLTE//plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>
-    <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>
-    <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>
-
-    <?= $this->Html->css('CakeLte./AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>
+    <!-- jQuery -->
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
 
     <!-- Ionicons -->
     <?= $this->Html->css('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css') ?>
 
     <!-- Theme style -->
     <?= $this->Html->css('CakeLte./AdminLTE/dist/css/adminlte.min.css') ?>
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/summernote/summernote.min.css') ?>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <?= $this->Html->css('CakeLte.style') ?>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
     <?= $this->Html->css('CakeLte./AdminLTE/plugins/toastr/toastr.min.css') ?>
+    <?= $this->Html->css('custom_table.css') ?>
     <?= $this->element('layout/css') ?>
     <?= $this->fetch('css') ?>
 
-    <!-- jQuery -->
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/jquery/jquery.min.js') ?>
+
     <!-- Bootstrap 4 -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js') ?>
     <!-- AdminLTE App -->
     <?= $this->Html->script('CakeLte./AdminLTE/dist/js/adminlte.min.js') ?>
 
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/jquery-validation/jquery.validate.min.js") ?>
+
+    <!-- sweetalert2 -->
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.css') ?>
     <?= $this->Html->script("CakeLte./AdminLTE/plugins/sweetalert2/sweetalert2.min.js") ?>
+
+    <!-- toastr -->
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/toastr/toastr.min.js') ?>
 
+    <!-- DataTables  & Plugins -->
+    <?= $this->Html->css('CakeLte./AdminLTE//plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.html5.min.js') ?>
+
+    
+    <?= $this->Html->css('CakeLte./AdminLTE/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') ?>
+
+    <?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js') ?>
+    
+
+
+    <script>var baseurl = "<?= $this->Url->build('/') ?>";</script>
 </head>
 
-
-
-<body class="hold-transition <?= $this->CakeLte->getBodyClass() ?>">
-    <div class="loader-container" id="loaderss">
+<body class="hold-transition sidebar-collapse layout-top-nav">
+    <div class="loader-container" id="gif_loader">
         <img src="<?= $this->Url->build('/') ?>img/loaders.gif" alt="Loader" class="loader">
     </div>
     <div class="wrapper">
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand <?= $this->CakeLte->getHeaderClass() ?>">
-            <?= $this->element('header/main') ?>
-        </nav>
-        <!-- /.navbar -->
+            <?= $this->element('header/vendor/main') ?>
 
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>" style="background-color:#482668;">
+        <aside class="main-sidebar <?= $this->CakeLte->getSidebarClass() ?>">
             <!-- Brand Logo -->
-            <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link"
-                style="background-color:#ffffff; text-align-last:center;">
-                <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'ft_rect_logo brand-image', 'data-image' => '2']) ?>
-                <span
-                    class="brand-text"><?= $this->Html->image('logo_s.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?></span>
-            </a>
-
+            <!-- <a href="<?= $this->Url->build('/buyer/dashboard') ?>" class="brand-link ml-2">
+                <?= $this->Html->image('ft-icon.png', ['width' => '110', 'class' => 'mt-1 ft_rect_logo brand-image', 'data-image' => '2']) ?>
+                <span class="brand-text">
+                    <?= $this->Html->image('apar_logo.png', ['width' => '110', 'class' => 'ft-text', 'data-image' => '1']) ?>
+                </span>
+            </a> -->
             <div class="sidebar" id="id_sidebar">
-                <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="text-light">
-                        Welcome,
-                        <?=$full_name?> (
-                        <?=$group_name?> )
-                    </div>
-                </div> -->
                 <?= $this->element('sidebar/vendor/main') ?>
-
             </div>
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <!-- <div class="content-header"> -->
-            <!-- <div class="container-fluid"> -->
             <?= $this->element('content/header') ?>
-            <!-- </div> -->
-            <!-- /.container-fluid -->
-            <!-- </div> -->
 
             <!-- Main content -->
             <div class="content">
@@ -167,27 +133,33 @@ body {
         </footer>
     </div>
     <!-- ./wrapper -->
-    <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?>
+    <!-- <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js') ?> -->
     <?= $this->Html->script('https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js') ?>
 
     <!-- DataTables  & Plugins -->
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/dataTables.buttons.min.js') ?>
-    <?= $this->Html->script('CakeLte./AdminLTE/plugins/datatables-buttons/js/buttons.bootstrap4.min.js') ?>
-
+    <?= $this->Html->script('CakeLte./AdminLTE/plugins/summernote/summernote.min.js') ?>
     <?= $this->Html->script('CakeLte./AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js') ?>
     <?= $this->Html->script('/js/common.js') ?>
     <?= $this->Html->script('/js/cscript.js') ?>
-    <?= $this->element('layout/script') ?>
-    <?= $this->fetch('script') ?>
     <script>
-    var baseurl = "<?= $this->Url->build('/') ?>";
-    // $(document).ready(function() {});
-    $(window).on('load', function() { $('#loaderss').hide(); });
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+        });
+        <?php if($flash) : ?>
+            Toast.fire({
+                icon: "<?= $flash['type'] ?>",
+                title: "<?= $flash['msg'] ?>",
+            });
+        <?php endif; ?>
+        // $(document).ready(function() {});
+        $(window).on('load', function () { $('#gif_loader').hide(); });
+        $(function () { $('[data-toggle="tooltip"]').tooltip(); $('#summernote').summernote({ width: 1000, }); });
     </script>
+<?= $this->element('layout/script') ?>
+<?= $this->fetch('script') ?>
 </body>
 
 </html>

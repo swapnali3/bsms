@@ -1,0 +1,82 @@
+.card-header .nav-link.active {
+    color: #F7941D !important;
+    border-top: unset;
+}
+
+label { font-size: 15px !important; color: #333;}
+
+.card-header .nav-link { color: #7F7F7F !important;}
+
+.card-primary.card-outline { 
+    border-top: 3px solid #F7941D !important;
+    background-color: #fff !important;
+}
+
+#custom-tabs-four-tab .nav-link { font-weight: 500 !important;}
+.nav-tabs { border: none !important;}
+#custom-tabs-four-tab .nav-link.active { background-color: #fff !important; border-top: 2px solid;}
+
+a.text-info:hover { color: #333 !important;}
+/* .btn-info:hover{
+    color: #F7941D;
+    border: 1px solid #F7941D !important;
+    background-color: #fff !important;
+} */
+.btn-info {
+    background-color: #F7941D !important;
+    border: none !important;
+}
+
+.text-info { color: #F7941D!important; }
+
+/* .dropdown-menu-lg .dropdown-item  { background-color: #fff !important; color: #F7941D !important;} */
+
+/* .card .nav-tabs .nav-link {
+    font-size: 0.9rem;
+} */
+
+#custom-tabs-four-branch td{
+    font-size: 0.8rem;
+}
+
+#custom-tabs-four-branch th{
+    font-size: 0.8rem;
+}
+
+.lgreenbadge {
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: green;
+ 
+} 
+
+#custom-tabs-four-branch .lgreenbadge {
+    position: absolute;
+    right: 16px;
+    top: 10%;
+}
+
+
+.redbadge {
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #f11e00;
+}
+
+#custom-tabs-four-branch tr{
+    font-size: 1rem;
+}
+
+#questionnaireAll .text-info { color: #333 !important; font-size: medium !important;}
+
+.hide {
+    display: none;
+}
+
+.User_head  { color: #000 !important;}
+
+.edit_btn { color: #000 !important;}
+
+/* .edit_btn:hover { color: #F7941D !important;} */

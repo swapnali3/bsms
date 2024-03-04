@@ -9,10 +9,13 @@ use Cake\ORM\Entity;
  * State Entity
  *
  * @property int $id
+ * @property string $country_code
+ * @property string $region_code
  * @property string $name
- * @property int $country_id
+ * @property \Cake\I18n\FrozenTime $added_date
+ * @property \Cake\I18n\FrozenTime $updated_date
  *
- * @property \App\Model\Entity\Country $country
+ * @property \App\Model\Entity\VendorTemp[] $vendor_temps
  */
 class State extends Entity
 {
@@ -26,8 +29,11 @@ class State extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
+        'country_code' => true,
+        'region_code' => true,
         'name' => true,
-        'country_id' => true,
-        'country' => true,
+        'added_date' => true,
+        'updated_date' => true,
+        'vendor_temps' => true,
     ];
 }

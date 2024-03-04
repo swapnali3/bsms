@@ -7,7 +7,7 @@ use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
-
+use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 
 /**
@@ -22,12 +22,14 @@ class OnboardingController extends VendorAppController
     public function initialize(): void
     {
         parent::initialize();
-
+        
         date_default_timezone_set('Asia/Kolkata'); 
         
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
+        $flash = [];  
+        $this->set('flash', $flash);
         $this->loadComponent('Flash');
         $this->set('title', 'Vendor Portal');
     }
@@ -39,12 +41,14 @@ class OnboardingController extends VendorAppController
 
     public function verify($request = null)
     {
+        $flash = [];
         if($request == null) {
             echo 'Bad request';
             exit;
         }
 
         $this->loadModel("VendorTemps");
+        $this->loadModel('Users');
         $this->loadModel("VendorTempOtps");
         $requestQry = explode('||', base64_decode($request));
         $id = $requestQry[1];
@@ -72,7 +76,8 @@ class OnboardingController extends VendorAppController
                 echo 'match';
                 return $this->redirect(['action' => 'create', $request]);
             } else {
-                $this->Flash->error(__('Invalid otp'));
+                $flash = ['type'=>'error', 'msg'=>'Invalid otp'];
+                $this->set('flash', $flash);
             }
             //print_r($vendorTempOtp);
             
@@ -89,14 +94,21 @@ class OnboardingController extends VendorAppController
             $VendorTempOtp = $this->VendorTempOtps->newEmptyEntity();
             $vendorOtp = $this->VendorTempOtps->patchEntity($VendorTempOtp, $data);
             if ($this->VendorTempOtps->save($vendorOtp)) {
+                
+                $visit_url = Router::url('/', true);
+                if($this->Users->find()->select('status')->where(['username' => $vendorTemp->email])->first()['status'] == 1){
                 $mailer = new Mailer('default');
-                    $mailer
-                        ->setTransport('smtp')
-                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                        ->setTo($vendorTemp->email)
-                        ->setEmailFormat('html')
-                        ->setSubject('Verify New Account otp')
-                        ->deliver('Hi '.$vendorTemp->name.'<br/>OTP : ' . $otp);
+                $mailer
+                    ->setTransport('smtp')
+                    ->setViewVars([ 'subject' => 'Hi '.$vendorTemp->name, 'mailbody' => 'OTP : ' . $otp, 'link' => $visit_url, 'spt_email' => 'support@apar.in' , 'spt_contact' => '7718801906'])
+                    ->setFrom(Configure::read('MAIL_FROM'))
+                    ->setTo($vendorTemp->email)
+                    ->setEmailFormat('html')
+                    ->setSubject('VENDOR REGISTRATION OTP GENERATION')
+                    ->viewBuilder()
+                        ->setTemplate('vendor_otp');
+                $mailer->deliver();
+                }
             }
         }
 
@@ -110,7 +122,9 @@ class OnboardingController extends VendorAppController
      */
     public function add()
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
+        $this->loadModel('Users');
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -119,27 +133,41 @@ class OnboardingController extends VendorAppController
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
             //echo '<pre>'; print_r($data); exit;
             if ($this->VendorTemps->save($vendorTemp)) {
+                $visit_url = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'create', base64_encode($data['email']), '_full' => true, 'escape' => true]);
 
-                $link = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'create', base64_encode($data['email']), '_full' => true, 'escape' => true]);
-
+                $buyer = $this->Buyers->find()->where(['id'=>$data['buyer_id']]);
+                $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
+                $buyersEmails = [];
+                foreach($buyerList as $email) {
+                    if($this->Users->find()->select('status')->where(['username' => $email->email])->first()['status'] == 1){
+                    $buyersEmails[] = $email->email;}
+                }
+                
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
-                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                    ->setTo($data['email'])
+                    ->setViewVars([
+                        'vendor_name' => $vendorTemp->name,
+                        'spt_email' => 'support@apar.in',
+                        ])
+                    ->setFrom(Configure::read('MAIL_FROM'))
+                    ->setTo($buyersEmails)
                     ->setEmailFormat('html')
-                    ->setSubject('Verify New Account')
-                    ->deliver('Hi '.$data['name'].'<br/>Welcome to Vekpro.' . $link);
-                    
+                    ->setSubject('VENDOR PORTAL - VERIFY NEW ACCOUNT')
+                    ->viewBuilder()
+                        ->setTemplate('new_vendor');
+                $mailer->deliver();
 
-                $this->Flash->success(__('The vendor temp has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The vendor temp has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
 
             //print_r($vendorTemp);
             //exit;
-            $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
@@ -156,18 +184,25 @@ class OnboardingController extends VendorAppController
      */
     public function create($request = null)
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
+        $this->loadModel("Buyers");
         $this->loadModel("Countries");
+        $this->loadModel('Currencies');
+        $this->loadModel('Notifications');
+        $this->loadModel('Users');
         $this->loadModel("States");
         $request = explode('||', base64_decode($request));
 
         //print_r($request); exit;
         $id = $request[1];
         $vendorTemp = $this->VendorTemps->get($id, [
-            'contain' => [],
+            'contain' => ['CompanyCodes', 'PurchasingOrganizations','PaymentTerms','SchemaGroups','AccountGroups','ReconciliationAccounts'],
         ]);
 
-        $validDate = $vendorTemp->valid_date->format('Y-m-d H:i:s');
+        //echo '<pre>';print_r($vendorTemp); exit;
+
+        /*$validDate = $vendorTemp->valid_date->format('Y-m-d H:i:s');
         $today = date('Y-m-d H:i:s');
 
         if($validDate < $today) {
@@ -176,13 +211,13 @@ class OnboardingController extends VendorAppController
 
         if($vendorTemp->status) {
             //echo 'filled';
-        }
+        } */
         
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
             $data['status'] = 1;
 
-            //echo '<pre>'; print_r($data); exit;
+            // echo '<pre>'; print_r($data); exit;
 
             if($data["gst_file"]) {
                 $gstUpload = $data["gst_file"];
@@ -198,9 +233,7 @@ class OnboardingController extends VendorAppController
                         $gstUpload->moveTo($imagePath);
                         $data["gst_file"]= "uploads/kyc/" . $fileName;
                     }
-                } else {
-                    $data["gst_file"] = "";
-                }
+                } else { unset($data["gst_file"]); }
             }
 
             if($data["pan_file"]) {
@@ -217,9 +250,7 @@ class OnboardingController extends VendorAppController
                         $panUpload->moveTo($imagePath);
                         $data["pan_file"] = "uploads/kyc/" . $fileName;
                     }
-                } else {
-                    $data["pan_file"] = "";
-                }
+                } else { unset($data["pan_file"]); }
             }
 
 
@@ -237,29 +268,78 @@ class OnboardingController extends VendorAppController
                     $bankUpload->moveTo($imagePath);
                     $data["bank_file"] = "uploads/kyc/" . $fileName;
                 }
-                } else {
-                    $data["bank_file"] = "";
-                }
+                } else { unset($data["bank_file"]); }
                 
             }
 
             //echo '<pre>'; print_r($data); exit;
+            $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $vendorTemp->company_code_id, 'purchasing_organization_id' => $vendorTemp->purchasing_organization_id])->toArray();
+            $buyersEmails = [];
+            foreach($buyerList as $email) {
+                if($this->Users->find()->select('status')->where(['username' => $email->email])->first()['status'] == 1){
+                $buyersEmails[] = $email->email; }
+            }
+            //$buyer = $this->Users->get($vendorTemp->buyer_id);
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $data);
             if ($this->VendorTemps->save($vendorTemp)) {
-                $this->Flash->success(__('The request sent for approval.'));
+                $flash = ['type'=>'success', 'msg'=>'The request sent for approval'];
+                $this->set('flash', $flash);
 
-                return $this->redirect(['prefix' => false, 'controller' => 'users','action' => 'login']);
+                $filteredBuyers = $this->Buyers->find()
+                ->select(['Buyers.id','user_id'=> 'Users.id'])
+                ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
+                ->where(['company_code_id' => $vendorTemp['company_code_id'], 'purchasing_organization_id' => $vendorTemp['purchasing_organization_id']]);
+
+                foreach ($filteredBuyers as $buyer) {
+                    $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New Onboarding'])->first();
+                    if ($n) {
+                        $n->notification_type = 'New Onboarding';
+                        $n->message_count = $n->message_count+1;
+                    } else {
+                        $n = $this->Notifications->newEntity([
+                            'user_id' => $buyer->user_id,
+                            'notification_type' => 'New Onboarding',
+                            'message_count' => '1',
+                        ]);
+                    }
+                    $this->Notifications->save($n);
+                }
+
+                $visit_url = Router::url('/', true);
+                $mailer = new Mailer('default');
+                $mailer
+                    ->setTransport('smtp')
+                    ->setViewVars([
+                        'vendor_name' => $vendorTemp->name,
+                        'spt_email' => 'support@apar.in',
+                    ])
+                    ->setFrom(Configure::read('MAIL_FROM'))
+                    ->setTo($buyersEmails)
+                    ->setEmailFormat('html')
+                    ->setSubject('VENDOR PORTAL - VERIFY NEW ACCOUNT')
+                    ->viewBuilder()
+                        ->setTemplate('new_vendor');
+                $mailer->deliver();
+
+                return $this->redirect(['prefix' => false, 'controller' => 'users','action' => 'welcome']);
             }
-            $this->Flash->error(__('The vendor temp could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
-        $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
-        $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
-        $schemaGroups = $this->VendorTemps->SchemaGroups->find('list', ['limit' => 200])->all();
+        
+        $countries = $this->Countries->find('list', ['keyField' => 'id', 'valueField' => 'country_name'])->toArray();
 
-        $countries = $this->Countries->find('list', ['keyField' => 'country_name', 'valueField' => 'country_name'])->all();
-        $states = $this->States->find('list', ['keyField' => 'name', 'valueField' => 'name'])->all();
+        $currencies = $this->Currencies->find('list', ['keyField' => 'code', 'valueField' => 'code'])->toArray();
 
-        $this->set(compact('vendorTemp', 'purchasingOrganizations', 'accountGroups', 'schemaGroups', 'countries', 'states'));
+        $hasIndia = array_key_exists('IN', $countries);
+        if ($hasIndia) {
+            unset($countries['IN']);
+            $countries = ['India' => 'India'] + $countries;
+        }
+        
+        $states = $this->States->find('list', ['keyField' => 'id', 'valueField' => 'name'])->all();
+
+        $this->set(compact('vendorTemp',  'countries', 'states', 'currencies'));
     }
 
     /**
@@ -271,13 +351,15 @@ class OnboardingController extends VendorAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $vendorTemp = $this->VendorTemps->get($id);
         if ($this->VendorTemps->delete($vendorTemp)) {
-            $this->Flash->success(__('The vendor temp has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The vendor temp has been deleted'];
         } else {
-            $this->Flash->error(__('The vendor temp could not be deleted. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The vendor temp could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

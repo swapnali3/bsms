@@ -6,7 +6,10 @@
     padding: 6px 8px !important;
     font-size: 0.6rem !important;
     border-radius: 3px !important;
+    cursor: pointer;
 }
+
+.table tbody tr td { white-space: nowrap;}
 
 .hr {
 	margin-top: 10rem;
@@ -15,9 +18,10 @@
 }
 
 .table thead th {
-    font-weight: 500;
-    color: #fff !important;
+    font-weight: 600 !important;
+    color: #121212 !important;
     font-size: 12px !important;
+    letter-spacing: .7px !important;
 }
 
 hr {
@@ -26,44 +30,77 @@ hr {
 }
 
 .table>thead{
-
-    background-color: #527195  !important;
+    background-color: #F79E33 !important;
 }
+.text-info { color: #F79E33 !important;}
 .table>tbody{
-	background-color: #f5f7fd !important;
+	background-color: #fff !important;
 }
 .table th{
 	font-size:12px;
+    font-weight: 600px !important;
+    word-spacing: .5px;
 }
 /* .table td, .table th{
 	font-size:14px;
 } */
 .badge.bg-warning {
-    background: #415586 !important;
+    background: #F7941D !important;
     color: #fff !important;
 }
-.page-item.active .page-link {
-   color: #fff !important;
-    background-color: #112a68 !important;
-    border-color: #112a68 !important;
-}
-.page-link{
+/* .page-item.active .page-link {
+   color: #F7941D !important;
+    background-color: #fff !important;
+    border-color: unset !important;
+} */
+/* .page-link{
 	color: #112a68 !important;
-}
+} */
 .table-hover tbody tr:hover {
-   
-    background-color:#E7EAF0!important;
+    background: color #f4f4f4 !important;
 }
-
+.vl { border-left: 6px solid #F7941D !important;}
 
 .btn-group-sm>.btn, .btn-sm{
 	font-size:10px
 }
 
-.card-header{
-	padding:0rem
-}
+
 .table tbody tr td {
     font-size: 14px;
 }
 
+.modal_cancel {
+    background-color: #fff !important;
+    color: #F7941D !important;
+    border: 1px solid #F7941D !important;
+}
+
+.modal_ok {
+    background-color: #F7941D !important;
+    color: #121212 !important;
+    border: 1px solid #F7941D !important;
+}
+
+#example1 a.schedule_item:hover {
+    background-color: #fff !important;
+    color: #F7941D !important;
+    border: 1px solid #F7941D !important;
+}
+
+.dismiss-btn,#btnClose {
+    background-color: #fff !important;
+    color: #F7941D !important;
+    border: 1px solid #F7941D !important;
+}
+
+/* .btnSub,.btn-sm { color: #121212 !important;} */
+/* .btnSub:hover,.btn-sm:hover { color: #fff !important;} */
+
+/* .mark_entry_cancel { color: #ED1C24 !important;}
+.mark_entry_ok { color: #F7941D !important;} */
+
+.card_box_shadow  { 
+    box-shadow: none !important;
+    border: 1px solid #e2e2e2ee;
+}

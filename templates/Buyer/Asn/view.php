@@ -11,14 +11,18 @@
         padding: 10px !important;
     }
 </style>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="row content card gate-entry">
     <div class="column-responsive column-80">
         <div class="card-header">
             <div class="d-flex justify-content-between">
 
                 <div class="head-t">
-                    <h5 class="text-info pt-2"><b>Details</b></h5>
+                    <h5 class="pt-2"><b>Details</b></h5>
                 </div>
                 <div class="actionbtn">
                     <?php
@@ -30,7 +34,7 @@
                     ?>
                     <?php if ($deliveryDetails->toArray()[0]->status == 2) { ?>
 
-                        <button  class="btn btn-custom mrk mb-1" data-toggle="modal" data-target="#modal-confirm">Mark Entry</button>
+                        <!-- <button  class="btn btn-custom mrk mb-1" data-toggle="modal" data-target="#modal-confirm">Mark Entry</button> -->
 
                         <!-- modal -->
                         <div class="modal fade" id="modal-confirm" style="display: none;" aria-hidden="true">
@@ -40,9 +44,8 @@
                                         <h6>Are you sure you want to mark entry ?</h6>
                                     </div>
                                     <div class="modal-footer p-1 justify-content-between">
-                                        <button type="button" class="btn btn-sm btn-link"
-                                            data-dismiss="modal">Cancel</button>
-                                        <button class="btn btn-success btnOk mark_entry btn-sm mb-0" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">OK</button>
+                                        <button type="button" class="mark_entry_cancel addCancel btn btn-sm btn-link" data-dismiss="modal">Cancel</button>
+                                        <button class="mark_entry_ok addSubmit btn btn-success btnOk mark_entry btn-sm mb-0" data-id="<?= h($deliveryDetails->toArray()[0]->id) ?>">OK</button>
                                     </div>
                                 </div>
                             </div>
@@ -55,26 +58,26 @@
             </div>
 
         </div>
-        <div class="deliveryDetails view content">
+        <div class="deliveryDetails view content pl-3 pr-3 mt-3">
 
             <div class="">
 
-                <div class="card-body gateentry-asn" style="background-color: #f5f7fd !important;">
+                <div class="card-body gateentry-asn" style="background-color: #f4f6f9 !important;">
                     <div class="row">
                         <div class="col-md-2">
-                            <label>ASN No.</label>
+                            <label>ASN No. :</label>
                             <p><b>
                                     <?= h($deliveryDetails->toArray()[0]->asn_no) ?>
                                 </b></p>
                         </div>
                         <div class="col-md-2">
-                            <label>PO No.</label>
+                            <label>PO No. :</label>
                             <p><b>
                                     <?= h($deliveryDetails->toArray()[0]->PoHeaders['po_no']) ?>
                                 </b></p>
                         </div>
                         <div class="col-md-2">
-                            <label>Invoice No</label>
+                            <label>Invoice No :</label>
                             <p><b>
                                     <?= h($deliveryDetails->toArray()[0]->invoice_no) ?>
                                 </b></p>
@@ -82,7 +85,7 @@
                         <div class="col-md-2">
                             <label> Invoice Date :</label>
                             <p><b>
-                                    <?= h($deliveryDetails->toArray()[0]->invoice_date) ?>
+                                    <?= h($deliveryDetails->toArray()[0]->invoice_date->i18nFormat('dd-MM-YYYY')) ?>
                                 </b></p>
                         </div>
                         <div class="col-md-2">
@@ -93,26 +96,28 @@
                         </div>
                         <div class="col-md-2">
                             <label> Status :</label>
-
                             </td>
-
-                            <p>
-                                <?= $deliveryDetails->toArray()[0]->status == 2 ? '<span class="badge bg-success asnstatus">In Transit</span>' : '<span class="badge bg-warning">Received</span>' ?>
-                            </p>
+                                <p>
+                                    <?= $deliveryDetails->toArray()[0]->status == 2 ? '<span class="badge bg-success asnstatus">In Transit</span>' : '<span class="badge bg-warning">Received</span>' ?>
+                                </p>
                             </td>
                         </div>
-
-
+                        <div class="col-md-2">
+                            <label> Gate Out :</label>
+                            <p>
+                                <b> <?= h($deliveryDetails->toArray()[0]->gateout_date->i18nFormat('dd-MM-YYYY')) ?> </b>
+                            </p>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-2">
                             <?php echo $this->Form->control('vehicle_no :', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->vehicle_no)); ?>
                         </div>
                         <div class="col-md-2">
-                            <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_name)); ?>
+                            <?php echo $this->Form->control('driver_name :', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_name)); ?>
                         </div>
                         <div class="col-md-2">
-                            <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
+                            <?php echo $this->Form->control('driver_contact :', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
                         </div>
 
                     </div>
@@ -120,7 +125,7 @@
                 </div>
             </div>
 
-            <div class="card-body mt-3">
+            <div class="card-body mt-3 asn_cardbody">
                 <table class="table table-bordered delivery-dt-tbl mb-2">
                     <thead>
                         <tr>
@@ -151,7 +156,7 @@
                                     <?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['actual_qty'] : '' ?>
                                 </td>
                                 <td>
-                                    <?= $deliveryDetail->has('PoItemSchedules') ? $deliveryDetail->PoItemSchedules['delivery_date'] : '' ?>
+                                    <?= $deliveryDetail->has('PoItemSchedules') ? date('d-m-Y', strtotime($deliveryDetail->PoItemSchedules['delivery_date'])) : '' ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -184,22 +189,15 @@
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             dataType: "json",
             // async: false,
-            beforeSend: function () {
-                $("#loaderss").show();
-            },
+            beforeSend: function () { $("#gif_loader").show(); },
             success: function (response) {
                 if (response.status == 'success') {
-
                     $("#modal-confirm").modal('hide');
                     $(".mrk").hide();
                     $(".asnstatus").html('Received');
-                } else {
-                    alert('Please try again...');
-                }
+                } else { alert('Please try again...'); }
             },
-            complete: function () {
-                $("#loaderss").hide();
-            }
+            complete: function () { $("#gif_loader").hide(); }
         });
     });
 </script>

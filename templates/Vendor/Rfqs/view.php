@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\Rfq $rfq
  */
 ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
 <style>
     .btn-save {
         padding: 6px 30px;
@@ -13,6 +15,10 @@
         margin-right: 15px;
     }
 </style>
+<!-- <?= $this->Html->css('listing.css') ?> -->
+<?= $this->Html->css('v_index.css') ?>
+<!-- <?= $this->Html->css('v_vendorCustom') ?> -->
+<?= $this->Html->css('v_rfq_view') ?>
 
 <?= $this->Html->css('CakeLte./AdminLTE//plugins/summernote/summernote-bs4.min.css') ?>
 <?= $this->Form->create(null, ['url' => ['controller' => 'rfq-inquiries', 'action' => 'inquiry', $rfqs->toArray()[0]->rfq_no]]); ?>
@@ -21,38 +27,37 @@
 <?= $this->Form->control('subtotal_value', array('label' => false, 'type' => 'hidden', 'id' => 'subtotal_value')) ?>
 <?= $this->Form->control('tax_value', array('label' => false, 'type' => 'hidden', 'id' => 'tax_value')) ?>
 <?= $this->Form->control('total_value', array('label' => false, 'type' => 'hidden', 'id' => 'total_value')) ?>
-<?= $this->Html->css('v_vendorCustom') ?>
 
-<div class="row ml-2">
-    <div class="card mb-3">
-        <div class="card-header p-0 pt-2">
-            <h5><b>RFQ NO :
-                    <?= $rfqs->toArray()[0]->rfq_no ?>
-                </b>
-            </h5>
-        </div>
-        <div class="card-body mb-3 rfq-head-d">
-            <table class="table info-tbl">
-                <thead>
-                    <tr>
-                        <th>Material</th>
-                        <th>Date</th>
-                        <th>Qty</th>
-                        <th>Unit Price</th>
-                        <th>Discount</th>
-                        <th>Sub Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $subTotal = 0;
-                    $discount = 0;
-                    foreach ($rfqs as $key => $rfq):
-                        $itemTotal = 0;
-                        if ($rfq->has('RfqInquiries')) {
-                            $itemTotal = ($rfq->RfqInquiries['qty'] * $rfq->RfqInquiries['rate']) - $rfq->RfqInquiries['discount'];
-                            $subTotal += $itemTotal;
-                        }
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><b>RFQ NO : <?= $rfqs->toArray()[0]->rfq_no ?></b></h5>
+            </div>
+            <div class="card-body mb-3 rfq-head-d">
+                <table class="table table-bordered table-hover info-tbl">
+                    <thead>
+                        <tr>
+                            <th>Material</th>
+                            <th>Date</th>
+                            <th>Qty</th>
+                            <th>UOM</th>
+                            <th>Unit Price</th>
+                            <th>Discount</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            $subTotal = 0;
+                            $discount = 0;
+                            foreach ($rfqs as $key => $rfq):
+                                $itemTotal = 0;
+                            if ($rfq->has('RfqInquiries')) {
+                                $itemTotal = ($rfq->RfqInquiries['qty'] * $rfq->RfqInquiries['rate']) - $rfq->RfqInquiries['discount'];
+                                $subTotal += $itemTotal;
+                            }
                         ?>
                         <tr>
                             <td>
@@ -60,16 +65,17 @@
                                 <?= $this->Form->control('rfq_item_id.' . $key, array('label' => false, 'type' => 'hidden', 'value' => $rfq->RfqItems['id'])) ?>
                             </td>
                             <td>
-                                <?= $this->Form->control('delivery_date.' . $key, array('value' => $rfq->has('RfqInquiries') && $rfq->RfqInquiries['delivery_date'] ? $rfq->RfqInquiries['delivery_date'] : '', 'label' => false, 'type' => 'date', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required' => 'required')); ?>
+                                <?= $this->Form->control('delivery_date.' . $key, array('value' => $rfq->has('RfqInquiries') && $rfq->RfqInquiries['delivery_date'] ? $rfq->RfqInquiries['delivery_date'] : '', 'label' => false, 'type' => 'date', 'class' => 'form-control form-control-sm rounded-0', 'div' => 'form-group', 'required' => 'required')); ?>
                             </td>
                             <td>
-                                <?= $this->Form->control('qty.' . $key, array('value' => $rfq->has('RfqInquiries') && $rfq->RfqInquiries['qty'] ? $rfq->RfqInquiries['qty'] : '', 'label' => false, 'type' => 'number', 'id' => "qty_$key", 'class' => 'check_qty form-control rounded-0', 'div' => 'form-group', 'required' => 'required', 'data-key' => $key)); ?>
+                                <?= $this->Form->control('qty.' . $key, array('value' => $rfq->has('RfqInquiries') && $rfq->RfqInquiries['qty'] ? $rfq->RfqInquiries['qty'] : '', 'label' => false, 'type' => 'number', 'id' => "qty_$key", 'class' => 'check_qty form-control form-control-sm rounded-0', 'div' => 'form-group', 'required' => 'required', 'data-key' => $key)); ?>
+                            </td>
+                            <td>Kg.</td>
+                            <td>
+                                <?= $this->Form->control('rate.' . $key, array('value' => $rfq->has('RfqInquiries') && $rfq->RfqInquiries['rate'] ? $rfq->RfqInquiries['rate'] : '', 'label' => false, 'id' => "rate_$key", 'maxlength' => '3', 'type' => 'number', 'class' => 'check_qty form-control form-control-sm rounded-0', 'div' => 'form-group', 'required' => 'required', 'data-key' => $key)); ?>
                             </td>
                             <td>
-                                <?= $this->Form->control('rate.' . $key, array('value' => $rfq->has('RfqInquiries') && $rfq->RfqInquiries['rate'] ? $rfq->RfqInquiries['rate'] : '', 'label' => false, 'id' => "rate_$key", 'maxlength' => '3', 'type' => 'number', 'class' => 'check_qty form-control rounded-0', 'div' => 'form-group', 'required' => 'required', 'data-key' => $key)); ?>
-                            </td>
-                            <td>
-                                <?= $this->Form->control('discount.' . $key, array('value' => $rfq->has('RfqInquiries') && $rfq->RfqInquiries['discount'] ? $rfq->RfqInquiries['discount'] : '', 'label' => false, 'id' => "discount_$key", 'maxlength' => '3', 'type' => 'number', 'class' => 'check_qty form-control rounded-0', 'div' => 'form-group', 'required' => 'required', 'data-key' => $key)); ?>
+                                <?= $this->Form->control('discount.' . $key, array('value' => $rfq->has('RfqInquiries') && $rfq->RfqInquiries['discount'] ? $rfq->RfqInquiries['discount'] : '', 'label' => false, 'id' => "discount_$key", 'maxlength' => '3', 'type' => 'number', 'class' => 'check_qty form-control form-control-sm rounded-0', 'div' => 'form-group', 'required' => 'required', 'data-key' => $key)); ?>
                             </td>
                             <td>
                                 <?= $itemTotal ?>
@@ -77,15 +83,15 @@
                             <?= $this->Form->control('item_subtotal_value.' . $key, array('label' => false, 'type' => 'hidden', 'id' => "item_subtotal_$key")) ?>
                         </tr>
 
-                    <?php endforeach;
+                        <?php endforeach;
                     $discountedAmount = $subTotal + $discount;
                     $tax = $discountedAmount * 18 / 100;
                     $totalAmount = $discountedAmount + $tax;
                     ?>
-                </tbody>
+                    </tbody>
 
-            </table>
-            <!-- <div class="row">
+                </table>
+                <!-- <div class="row">
                 <div class="col-sm-1 col-lg-2 mt-1"><b>Material</b></div>
                 <div class="col-sm-1 col-lg-2 mt-1"><b>Date</b></div>
                 <div class="col-sm-1 col-lg-2 mt-1"><b>Qty</b></div>
@@ -141,47 +147,49 @@
 
 
 
-            <div class="rfqs view content row paymnt-cal">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>Sub Total :</td>
-                            <th><span id="sub_total">
-                                    <?= $subTotal ?>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>Freight :</td>
-                            <th>
-                                <?= $this->Form->control('freight_value', array('value' => $rfq->freight_value, 'label' => false, 'id' => 'freight_calc', 'maxlength' => '3', 'type' => 'number', 'class' => 'check_qty form-control rounded-0', 'div' => 'form-group')); ?>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>Total :</td>
-                            <th><span id="discounted_total">
-                                    <?= $subTotal + $rfq->freight_value ?>
-                                </span></th>
-                        </tr>
-                        <tr>
-                            <td>GST(18%) :</td>
-                            <th><span id="total_gst"> <?= $rfq->tax_value ?> </span></th>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <hr class="mb-0 mt-0">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Total Amount :</td>
-                            <th><span id="total_amount">
-                                    <b>
-                                        <?= $rfq->total_value ?>
-                                    </b></th>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="rfqs view content row paymnt-cal">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Sub Total :</td>
+                                <th><span id="sub_total">
+                                        <?= $subTotal ?>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Freight :</td>
+                                <th>
+                                    <?= $this->Form->control('freight_value', array('value' => $rfq->freight_value, 'label' => false, 'id' => 'freight_calc', 'maxlength' => '3', 'type' => 'number', 'class' => 'check_qty form-control rounded-0', 'div' => 'form-group')); ?>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>Total :</td>
+                                <th><span id="discounted_total">
+                                        <?= $subTotal + $rfq->freight_value ?>
+                                    </span></th>
+                            </tr>
+                            <tr>
+                                <td>GST(18%) :</td>
+                                <th><span id="total_gst">
+                                        <?= $rfq->tax_value ?>
+                                    </span></th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <hr class="mb-0 mt-0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Total Amount :</td>
+                                <th><span id="total_amount">
+                                        <b>
+                                            <?= $rfq->total_value ?>
+                                        </b></th>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <!-- <div class="col-sm-4 col-lg-12 mt-2">
+                    <!-- <div class="col-sm-4 col-lg-12 mt-2">
                     Sub Total : <span id="sub_total">
                         <b><?= $subTotal ?></b>
                     </span>
@@ -213,6 +221,7 @@
                         <b><?= $rfq->total_value ?></b>
                     </span>
                 </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -223,23 +232,23 @@
     </div>
     <div class="card-body scroll-bar-body">
         <?php foreach ($chatHistory as $chat): ?>
-            <div class="d-flex justify-content-between">
-                <div class="c-nm">
-                    <?= $chat['name'] ?>
-                    <p class="mb-0"><b>Venu</b></p>
-                </div>
-                <div class="c-date">
-                    <span>
-                        <?= $chat['added_date'] ?>
-                    </span>
-                </div>
+        <div class="d-flex justify-content-between">
+            <div class="c-nm">
+                <?= $chat['name'] ?>
+                <p class="mb-0"><b>Venu</b></p>
             </div>
-            <div class="c-msg">
-                <?= $chat['message'] ?>
+            <div class="c-date">
+                <span>
+                    <?= $chat['added_date'] ?>
+                </span>
             </div>
+        </div>
+        <div class="c-msg">
+            <?= $chat['message'] ?>
+        </div>
 
 
-            <hr>
+        <hr>
         <?php endforeach ?>
     </div>
 

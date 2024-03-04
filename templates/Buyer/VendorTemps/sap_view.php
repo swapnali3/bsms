@@ -29,6 +29,8 @@ switch ($vendorTemp->status) {
 }
 
 ?>
+
+<?= $this->Html->css('cstyle.css') ?>
 <style>
     p {
         margin-bottom: 0px;
@@ -38,7 +40,11 @@ switch ($vendorTemp->status) {
     width: 30% !important;
 } */
 </style>
+<?= $this->Html->css('cstyle.css') ?>
 <?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 
 <div class="row">
     <div class="col-12">
@@ -58,10 +64,11 @@ switch ($vendorTemp->status) {
 
                             <?= $this->Html->link(__('Update'), '#', ['class' => 'btn btn-info update-button mb-0 btn-sm', 'style' => 'display:none', 'id' => $vendorTemp->id]) ?>
 
-
-                            <button type="button" class="btn btn-success btn-sm mb-0" data-toggle="modal" data-target="#modal-sm">
+                            <?php if ($vendorTemp->status == 5) : ?>
+                            <button type="button" class="btn btn-success btn-sm mb-0 sendCrendential" data-toggle="modal" data-target="#modal-sm">
                                 Send Credentials
                             </button>
+                            <?php endif; ?>
                             <!-- modal -->
                             <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
                                 <div class="modal-dialog modal-sm">
@@ -71,7 +78,7 @@ switch ($vendorTemp->status) {
                                         </div>
                                         <div class="modal-footer justify-content-between p-1">
                                             <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                                            <?= $this->Html->link(__('Ok'), ['action' => 'approve-vendor', $vendorTemp->id, 'app'], ['class' => 'btn btn-success btn-sm mb-0']) ?>
+                                            <button type="button" data-id="<?= h($vendorTemp->id) ?>" class="btn btn-link notify">Ok</button>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +201,7 @@ switch ($vendorTemp->status) {
                                     <th>
                                         <?= __('Status') ?>
                                     </th>
-                                    <td>
+                                    <td  class="statusVendor">
                                         <?= $status ?>
                                     </td>
                                 </tr>
@@ -427,12 +434,48 @@ switch ($vendorTemp->status) {
             }
         });
 
-        var Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
+        // var Toast = Swal.mixin({
+        //     toast: true,
+        //     position: "top-end",
+        //     showConfirmButton: false,
+        //     timer: 3000,
+        // });
+
+        $('.notify').click(function(e) {
+            e.preventDefault();
+
+            var $id = $(this).attr('data-id');
+
+            // alert($username);
+
+            $.ajax({
+                type: "GET",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/VendorTemps', 'action' => 'user-credentials')); ?>/" + $id,
+                dataType: 'json',
+                beforeSend: function () { $("#gif_loader").show(); },
+                success: function(response) {
+                    if (response.status == "1") {
+                        Toast.fire({
+                            icon: "success",
+                            title: response.message,
+                        });
+                        $('#modal-sm').modal('hide');
+                        $(".sendCrendential").hide();
+                        $(".statusVendor span").text("Approved");
+                    } else {
+                        Toast.fire({
+                            icon: "error",
+                            title: response.message,
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Handle error case if needed
+                },
+                complete: function () { $("#gif_loader").hide(); }
+            });
         });
+
 
         $('.update-button').click(function() {
             $vendorId = $('.update-button').attr('id');
@@ -442,6 +485,7 @@ switch ($vendorTemp->status) {
                 data: $("#userForm").serialize(),
 
                 dataType: "json",
+                beforeSend: function () { $("#gif_loader").show(); },
                 success: function(response) {
                     console.log(response);
                     if (response.status == "1") {
@@ -467,6 +511,7 @@ switch ($vendorTemp->status) {
                         });
                     }
                 },
+                complete: function () { $("#gif_loader").hide(); }
             });
 
 

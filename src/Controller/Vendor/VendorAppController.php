@@ -45,19 +45,24 @@ class VendorAppController extends Controller
      *
      * @return void
      */
+    
     public function initialize(): void
     {
         parent::initialize();
-
+        
         date_default_timezone_set('Asia/Kolkata');
-
+        
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
         $this->loadComponent('Sms');
-
-        $this->set('title', 'VeKPro');
+        $this->loadComponent('Ftp');
+        $this->loadComponent("Cookie"); 
+        
+        $flash = [];  
+        $this->set('flash', $flash);
+        $this->set('title', 'APAR');
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
@@ -69,6 +74,7 @@ class VendorAppController extends Controller
 
     public function beforeFilter(EventInterface $event)
     {
+        $flash = [];
         parent::beforeFilter($event);
         //$this->viewBuilder()->setLayout('vendor_default');  //admin is our new layout name
         $this->viewBuilder()->setLayout('vendor/admin');  //admin is our new layout name
@@ -78,6 +84,7 @@ class VendorAppController extends Controller
         $session = $this->getRequest()->getSession();
         $full_name = $session->read('full_name');
         $role = $session->read('role');
+        $userId = $session->read('id');
         $group_name = $session->read('group_name');
 
         //echo '<pre>'; print_r($session); exit;
@@ -85,11 +92,25 @@ class VendorAppController extends Controller
         if (($this->request->getParam('action') == 'verify' || $this->request->getParam('action') == 'create')) {
             // $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
         } else if ($session->check('id') && $session->read('role') != 3) {
-            $this->Flash->error("You are not authrized");
+            $flash = ['type'=>'error', 'msg'=>'You are not authrized'];
+            $this->set('flash', $flash);
             return $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
         } else if (!$session->check('id')) {
             return $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
         } else {
+
+            $this->loadModel('LoginToken');
+            $loginToken = $this->LoginToken->find('all', [
+            'conditions' => ['user_id' => $userId],
+            'orderby' => 'desc']);
+            $loginToken = $loginToken->first();
+            if($loginToken) {
+                $token = $loginToken->login_token;
+                if($token && $token != $this->Cookie->getLoginToken()) {
+                    return $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'logout-session'));
+                }
+            }
+
             $this->set('logged_in', $session->read('id'));
             $this->set('username', $session->read('username'));
         }

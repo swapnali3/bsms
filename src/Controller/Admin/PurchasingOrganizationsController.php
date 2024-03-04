@@ -11,6 +11,13 @@ namespace App\Controller\Admin;
  */
 class PurchasingOrganizationsController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -46,15 +53,17 @@ class PurchasingOrganizationsController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $purchasingOrganization = $this->PurchasingOrganizations->newEmptyEntity();
         if ($this->request->is('post')) {
             $purchasingOrganization = $this->PurchasingOrganizations->patchEntity($purchasingOrganization, $this->request->getData());
             if ($this->PurchasingOrganizations->save($purchasingOrganization)) {
-                $this->Flash->success(__('The purchasing organization has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The purchasing organization has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The purchasing organization could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The purchasing organization could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('purchasingOrganization'));
     }
@@ -68,17 +77,20 @@ class PurchasingOrganizationsController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $purchasingOrganization = $this->PurchasingOrganizations->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $purchasingOrganization = $this->PurchasingOrganizations->patchEntity($purchasingOrganization, $this->request->getData());
             if ($this->PurchasingOrganizations->save($purchasingOrganization)) {
-                $this->Flash->success(__('The purchasing organization has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The purchasing organization has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The purchasing organization could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The purchasing organization could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('purchasingOrganization'));
     }
@@ -92,13 +104,15 @@ class PurchasingOrganizationsController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $purchasingOrganization = $this->PurchasingOrganizations->get($id);
         if ($this->PurchasingOrganizations->delete($purchasingOrganization)) {
-            $this->Flash->success(__('The purchasing organization has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The purchasing organization has been deleted'];
         } else {
-            $this->Flash->error(__('The purchasing organization could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The purchasing organization could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

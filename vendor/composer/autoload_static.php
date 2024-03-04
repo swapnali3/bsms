@@ -41,10 +41,15 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'p' => 
+        array (
+            'phpseclib3\\' => 11,
+        ),
         'Z' => 
         array (
             'ZipStream\\' => 10,
@@ -90,6 +95,7 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
             'PhpParser\\' => 10,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
             'Phinx\\' => 6,
+            'ParagonIE\\ConstantTime\\' => 23,
             'PHPStan\\PhpDocParser\\' => 21,
             'PHPCSStandards\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\' => 57,
         ),
@@ -152,6 +158,10 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
     );
 
     public static $prefixDirsPsr4 = array (
+        'phpseclib3\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
+        ),
         'ZipStream\\' => 
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
@@ -277,6 +287,10 @@ class ComposerStaticInit0a473cc2079bbb2cb6fd5c2ee04bba23
         'Phinx\\' => 
         array (
             0 => __DIR__ . '/..' . '/robmorgan/phinx/src/Phinx',
+        ),
+        'ParagonIE\\ConstantTime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
         ),
         'PHPStan\\PhpDocParser\\' => 
         array (

@@ -4,64 +4,53 @@
  * @var iterable<\App\Model\Entity\Rfq> $rfqs
  */
 ?>
-<!-- <style>
-    .table td,
-    .table th {
-        padding: 0.2rem
-    }
-
-    .table thead th {
-        padding: 0.2rem
-    }
-</style> -->
-<?= $this->Html->css('v_vendorCustom') ?>
-<div class="poHeaders index content card" class="card-header">
-    <!-- <div class="card-header">
-        <h5>
-            <b>
-                RFQ
-            </b>
-        </h5>
-    </div> -->
-    <!-- <h3><?= __('Rfqs') ?></h3> -->
-    <div class="card-body p-1">
-        <div class="table-responsive">
-            <table class="table table-hover mb-0" id="example1">
-                <thead>
-                    <tr>
-                        <th>
-                            <?= h(_('RFQ No')) ?>
-                        </th>
-                        <th>
-                            <?= h(_('PR')) ?>
-                        </th>
-                        <th>
-                            <?= h(_('Added Date')) ?>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($rfqs as $rfq): ?>
-                    <tr redirect="<?= $this->Url->build('/') ?>vendor/rfqs/view/<?= $rfq->rfq_no ?>">
-                        <td>
-                            <?= $this->Number->format($rfq->rfq_no) ?>
-                        </td>
-                        <td>
-                            <?= $rfq->has('pr_header') ? $rfq->pr_header->pr_no : '' ?>
-                        </td>
-                        <td>
-                            <?= h($rfq->added_date) ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
+<!-- <?= $this->Html->css('listing.css') ?> -->
+<!-- <?= $this->Html->css('v_vendorCustom') ?> -->
+<div class="row">
+    <div class="col-12">
+        <div class="poHeaders index content card" class="card-header">
+            <div class="card-body p-1">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0" id="example1">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <?= h(_('RFQ No')) ?>
+                                </th>
+                                <th>
+                                    <?= h(_('PR')) ?>
+                                </th>
+                                <th>
+                                    <?= h(_('Added Date')) ?>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($rfqs as $rfq): ?>
+                            <tr redirect="<?= $this->Url->build('/') ?>vendor/rfqs/view/<?= $rfq->rfq_no ?>">
+                                <td>
+                                    <?= $this->Number->format($rfq->rfq_no) ?>
+                                </td>
+                                <td>
+                                    <?= $rfq->has('pr_header') ? $rfq->pr_header->pr_no : '' ?>
+                                </td>
+                                <td>
+                                    <?= h($rfq->added_date) ?>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
-<script>
 
+<script>
     $('#example1').on('click', 'tbody tr', function () {
         window.location = $(this).closest('tr').attr('redirect');
     });

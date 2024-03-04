@@ -2,7 +2,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 <style>
-    body,
+    /* body,
     h5,
     h6,
     p,
@@ -28,9 +28,9 @@
         width: 1.5rem
     }
 
-    /* aside.main-sidebar:hover {
+    aside.main-sidebar:hover {
     width: 210px !important;
-} */
+}
     .main-sidebar,
     .main-sidebar::before {
         width: 207px
@@ -55,7 +55,6 @@
     }
 
     .navbar.card-header h4 {
-        color: #004d87;
         text-transform: uppercase;
         font-size: 20px;
         letter-spacing: 0.04rem;
@@ -97,11 +96,12 @@
 
     .user-info h6 {
         white-space: initial;
-    }
+    } */
+    .admin_menu_icon { margin-left: 90px !important;}
 </style>
 
 <ul class="navbar-nav">
-    <li class="nav-item">
+    <li class="nav-item admin_menu_icon">
         <a class="nav-link ftimage" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
     </li>
     <?= $this->element('header/menu') ?>
@@ -127,10 +127,10 @@
             <i class="far fa-bell"></i>
             <span class="badge badge-warning navbar-badge custom-i">0</span>
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;">
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right notification-list" style="left: inherit; right: 0px;cursor: pointer;">
             <div class="d-flex justify-content-between">
                 <span class="dropdown-header notifyView"> Notifications</span>
-                <span class="dropdown-header clearNotifications" style="color:#004d87">Clear</span>
+                <span class="dropdown-header clearNotifications">Clear</span>
             </div>
 
             <div class="dropdown-divider"></div>
@@ -156,7 +156,7 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right user-setting" style="left: inherit; right: 10px;">
             <span class="dropdown-header">
-                <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="img-circle" alt=""></span>
+                <div class="user"><span class="thumb"><img src="<?= $this->Url->build('/') ?>img/profile.png" class="admin_profile_icon img-circle" alt=""></span>
                     <div class="user-info text-left">
                         <h6 class="mb-0 text-info">
                             <?php echo $this->getRequest()->getSession()->read('first_name'); ?></h6>
@@ -175,7 +175,7 @@
             <?php endif; ?>
             <?php if ($role == 3) : ?>
                 <a href="<?= $this->Url->build(['controller' => '/vendor-temps', 'action' => 'view']) ?>" class="dropdown-item">
-                    <i class="fas fa-user-cog text-info mr-2"></i>
+                    <i class="fas fa-user-cog text-info mr-2 profile_icon"></i>
                     <span>Profile</span>
                 </a>
             <?php endif; ?>
@@ -211,6 +211,7 @@
                 type: "GET",
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => 'dashboard', 'action' => 'clear-message-count')); ?>",
                 dataType: 'json',
+                beforeSend: function () { $("#gif_loader").show(); },
                 success: function(response) {
 
                     $('.navbar-badge.custom-i').text('0');
@@ -221,7 +222,8 @@
                 },
                 error: function(xhr, status, error) {
                     console.log(error);
-                }
+                },
+                complete: function () { $("#gif_loader").hide(); }
             });
         });
 

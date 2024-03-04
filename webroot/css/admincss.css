@@ -172,3 +172,87 @@ li.unmli:hover {
     content: unset;
     opacity: 0;
 }
+
+[class*=sidebar-dark-] { background-color: #fff !important;}
+
+[class*=sidebar-dark-] .sidebar a {
+    color: unset !important;
+}
+
+[class*=sidebar-dark] .brand-link {
+    border-bottom: 1px solid orange;
+}
+
+thead { background-color: #F7941D !important;}
+thead th,td { font-size: 14px !important; color: #121212 !important;}
+
+.submit_btn {
+    background-color: #F7941D !important;
+    color: #121212 !important;
+    border: 1px solid #F7941D !important;
+}
+
+.submit_btn:hover {
+    color: #F7941D !important;
+    background-color: #fff !important;
+}
+
+.page-item.active .page-link {
+    background-color: #F7941D !important;
+    border-color: #F7941D !important;
+}
+
+.table thead th {
+    border-bottom: none !important;
+    border-top: none !important;
+}
+
+tbody tr:hover {
+    background-color: #f4f4f4;
+}
+
+label:not(.form-check-label):not(.custom-file-label){
+    font-size: 14px !important;
+}
+
+/* 
+.main-sidebar {
+    height: 100%;
+    width: 140px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    transition: width 0.5s; 
+    box-shadow: 0 14px 28px rgba(0,0,0,.25),0 10px 10px rgba(0,0,0,.22)!important;
+    display: inline-block;
+}
+
+.main-sidebar:hover {
+    width: 230px; 
+    transition: all linear 0s;
+}
+
+.main-sidebar .nav-link p { display: none; font-size: 14px !important;}
+
+.main-sidebar:hover .nav-link p { display: unset; transition: all linear 0s;}
+
+.main-sidebar:hover .nav-item {
+    justify-content: start;
+    display: inline-block;
+    transition: all linear 0s;
+}
+
+.main-sidebar .nav-item  { 
+    display: flex;
+    justify-content: center;
+}
+
+.menu_icon {
+    position: absolute;
+    left: 10%;
+} */
+
+.admin_profile_icon { display: none !important;}
+
+.nav-link { cursor: pointer;}

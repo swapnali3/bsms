@@ -11,6 +11,13 @@ namespace App\Controller\Admin;
  */
 class ProductsController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -48,16 +55,18 @@ class ProductsController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $this->loadModel('Products');
         $product = $this->Products->newEmptyEntity();
         if ($this->request->is('post')) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
             if ($this->Products->save($product)) {
-                $this->Flash->success(__('The product has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The product has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The product could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The product could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('product'));
     }
@@ -71,6 +80,7 @@ class ProductsController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel('Products');
         $product = $this->Products->get($id, [
             'contain' => [],
@@ -78,11 +88,12 @@ class ProductsController extends AdminAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
             if ($this->Products->save($product)) {
-                $this->Flash->success(__('The product has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The product has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The product could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The product could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('product'));
     }
@@ -96,14 +107,16 @@ class ProductsController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->loadModel('Products');
         $this->request->allowMethod(['post', 'delete']);
         $product = $this->Products->get($id);
         if ($this->Products->delete($product)) {
-            $this->Flash->success(__('The product has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The product has been deleted'];
         } else {
-            $this->Flash->error(__('The product could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The product could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

@@ -4,7 +4,8 @@
  * @var \App\Model\Entity\AccountGroup $accountGroup
  */
 ?>
-<div class="row">
+<?= $this->Html->css('table.css') ?>
+<div class=" po_padding">
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
@@ -43,8 +44,8 @@
                 <h4><?= __('Related Vendor Temps') ?></h4>
                 <?php if (!empty($accountGroup->vendor_temps)) : ?>
                 <div class="table-responsive">
-                    <table>
-                        <tr>
+                    <table class="table table-responsive dataTable no-footer">
+                       <thead> <tr>
                             <th><?= __('Id') ?></th>
                             <th><?= __('Purchasing Organization Id') ?></th>
                             <th><?= __('Account Group Id') ?></th>
@@ -71,7 +72,7 @@
                             <th><?= __('Added Date') ?></th>
                             <th><?= __('Updated Date') ?></th>
                             <th class="actions"><?= __('Actions') ?></th>
-                        </tr>
+                        </tr></thead>
                         <?php foreach ($accountGroup->vendor_temps as $vendorTemps) : ?>
                         <tr>
                             <td><?= h($vendorTemps->id) ?></td>

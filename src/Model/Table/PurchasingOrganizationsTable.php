@@ -11,6 +11,7 @@ use Cake\Validation\Validator;
 /**
  * PurchasingOrganizations Model
  *
+ * @property \App\Model\Table\CompanyCodesTable&\Cake\ORM\Association\BelongsTo $CompanyCodes
  * @property \App\Model\Table\VendorTempsTable&\Cake\ORM\Association\HasMany $VendorTemps
  *
  * @method \App\Model\Entity\PurchasingOrganization newEmptyEntity()
@@ -43,6 +44,13 @@ class PurchasingOrganizationsTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
+        $this->belongsTo('CompanyCodes', [
+            'foreignKey' => 'company_code_id',
+            'joinType' => 'INNER',
+        ]);
+        $this->hasMany('Buyers', [
+            'foreignKey' => 'purchasing_organization_id',
+        ]);
         $this->hasMany('VendorTemps', [
             'foreignKey' => 'purchasing_organization_id',
         ]);
@@ -56,6 +64,16 @@ class PurchasingOrganizationsTable extends Table
      */
     public function validationDefault(Validator $validator): Validator
     {
+        $validator
+            ->integer('company_code_id')
+            ->notEmptyString('company_code_id');
+
+        $validator
+            ->scalar('code')
+            ->maxLength('code', 15)
+            ->requirePresence('code', 'create')
+            ->notEmptyString('code');
+
         $validator
             ->scalar('name')
             ->maxLength('name', 50)
@@ -71,9 +89,23 @@ class PurchasingOrganizationsTable extends Table
 
         $validator
             ->dateTime('updated_date')
-            ->requirePresence('updated_date', 'create')
             ->notEmptyDateTime('updated_date');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['code', 'company_code_id']), ['errorField' => 'code']);
+        $rules->add($rules->existsIn('company_code_id', 'CompanyCodes'), ['errorField' => 'company_code_id']);
+
+        return $rules;
     }
 }

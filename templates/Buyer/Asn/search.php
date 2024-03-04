@@ -7,7 +7,7 @@
  * @var \Cake\Collection\CollectionInterface|string[] $schemaGroups
  */
 ?>
-<?= $this->Html->css('custom') ?>
+  <?= $this->Html->css('custom') ?>
 <div class="row">
     
     <div class="col-12">

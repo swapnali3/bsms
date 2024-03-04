@@ -25,12 +25,33 @@ class VendorTempsTableTest extends TestCase
      */
     protected $fixtures = [
         'app.VendorTemps',
+        'app.CompanyCodes',
         'app.PurchasingOrganizations',
         'app.AccountGroups',
         'app.SchemaGroups',
+        'app.ReconciliationAccounts',
+        'app.States',
+        'app.Countries',
+        'app.PaymentTerms',
+        'app.Buyers',
+        'app.VendorOtherdetails',
+        'app.VendorRegisteredOffices',
         'app.RfqCommunications',
         'app.Rfqs',
+        'app.VendorBankDetails',
+        'app.VendorBranchOffices',
+        'app.VendorCertificates',
+        'app.VendorCommencements',
+        'app.VendorFacilities',
+        'app.VendorFactories',
+        'app.VendorIncometaxes',
+        'app.VendorPartnerAddress',
+        'app.VendorProductionHistories',
+        'app.VendorQuestionnaires',
+        'app.VendorReputedCustomers',
+        'app.VendorSmallScales',
         'app.VendorTempOtps',
+        'app.VendorTurnovers',
     ];
 
     /**

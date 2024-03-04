@@ -1,3 +1,7 @@
+.table tbody{
+    cursor: pointer;
+}
+
 .table-responsive::-webkit-scrollbar {
     height: 10px;
     width: 10px;
@@ -11,4 +15,59 @@
 .table-responsive::-webkit-scrollbar-track {
     background: #ddd;
     border-radius: 20px;
+}
+
+
+.btn[data-toggle="tooltip"] {
+    background-color: #f8f9fa;
+    color: #000;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 8px 12px;
+}
+
+.btn[data-toggle="tooltip"]:before {
+    border-top-color: #f8f9fa;
+}
+
+.lbluebadge{
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #ED1C24;
+}
+
+.dbluebadge{
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #004a9f;
+}
+
+.purplebadge{
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #6610f2;
+}
+
+.lgreenbadge{
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: green;
+}
+
+.dgreenbadge{
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #20c997;
+}
+
+.redbadge{
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #f11e00;
 }

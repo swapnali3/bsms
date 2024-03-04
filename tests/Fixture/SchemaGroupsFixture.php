@@ -20,10 +20,11 @@ class SchemaGroupsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
+                'code' => 'Lorem ip',
                 'name' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'added_date' => '2023-01-02 08:05:09',
-                'updated_date' => '2023-01-02 08:05:09',
+                'added_date' => '2023-08-11 20:00:04',
+                'updated_date' => '2023-08-11 20:00:04',
             ],
         ];
         parent::init();

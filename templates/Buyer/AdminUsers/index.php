@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\AdminUser[]|\Cake\Collection\CollectionInterface $adminUsers
  */
 ?>
+  <?= $this->Html->css('cstyle.css') ?>
+  <?= $this->Html->css('table.css') ?>
+  <?= $this->Html->css('listing.css') ?>
+  <?= $this->Html->css('b_index.css') ?>
 <div class="adminUsers index content">
     <?php if($user_type == 'sap') : ?>
     <a href="#" class="button float-right" data-toggle="modal" data-target="#exampleModal">Add New User</a>

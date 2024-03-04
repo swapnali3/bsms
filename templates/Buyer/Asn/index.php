@@ -5,7 +5,10 @@
  */
 ?>
 
-
+<?= $this->Html->css('cstyle.css') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
 <div class="deliveryDetails index content card">
     <div class="card-header">
         <h5>
@@ -17,7 +20,7 @@
     <div class="card-body">
         <table class="table table-hover" id="example1" style="border-left: .5px solid lightgray;border-right: .5px solid lightgray; border-bottom: .5px solid lightgray;">
             <thead>
-                <tr style="background-color: #d3d3d36e;">
+                <tr>
                     <th>ASN NO</th>
                     <th>Purchase Order</th>
                     <th>Added Date</th>

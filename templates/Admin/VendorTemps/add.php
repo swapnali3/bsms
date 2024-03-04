@@ -9,7 +9,7 @@
 ?>
 <div class="row">
     
-    <div class="column-responsive">
+    <div class="column-responsive padd_ing">
         <div class="vendorTemps form content">
             <?= $this->Form->create($vendorTemp) ?>
             <fieldset>

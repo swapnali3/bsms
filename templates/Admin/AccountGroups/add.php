@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\AccountGroup $accountGroup
  */
 ?>
-<div class="row">
+<div class="admin-edit padd_ing">
     <aside class="column">
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>

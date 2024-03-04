@@ -8,6 +8,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Http\Client;
+use Cake\Core\Configure;
 
 /**
  * VendorTemps Controller
@@ -17,6 +18,13 @@ use Cake\Http\Client;
  */
 class VendorTempsController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     /**
      * Index method
      *
@@ -42,12 +50,62 @@ class VendorTempsController extends AdminAppController
      */
     public function view($id = null)
     {
-        $this->loadModel("VendorTemps");
-        $vendorTemp = $this->VendorTemps->get($id, [
-            'contain' => ['PurchasingOrganizations', 'AccountGroups', 'SchemaGroups'],
-        ]);
+        $flash = [];
+        $this->set('headTitle', 'Vendor Details');
+        $this->loadModel('VendorTemps');
 
-        $this->set(compact('vendorTemp'));
+        if ($this->VendorTemps->exists(['update_flag' => $id])) {
+            $vendorTempView = $this->VendorTemps->find('all')->where(['update_flag' => $id])->toArray();
+            $this->set('vendorTempView', $vendorTempView);
+        }
+
+        $vendorTemp = $this->VendorTemps->get($id, [
+            'contain' => ['VendorStatus','CompanyCodes','PurchasingOrganizations','ReconciliationAccounts', 'AccountGroups', 'SchemaGroups', 'PaymentTerms', 'VendorFacilities', 'VendorIncometaxes', 'VendorOtherdetails', 'VendorQuestionnaires', 'VendorSmallScales', 'VendorTurnovers', 'States', 'Countries']]);
+        
+        $this->loadModel("VendorRegisteredOffices");
+        $vendorRegisterOffice = $this->VendorRegisteredOffices->find()
+        ->select($this->VendorRegisteredOffices)
+        ->select(['States.name', 'Countries.country_name'])
+        ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorRegisteredOffices.country'])
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorRegisteredOffices.state','States.country_code = VendorRegisteredOffices.country'])
+        ->where(['States.country_code = VendorRegisteredOffices.country', 'VendorRegisteredOffices.vendor_temp_id' => $id])->first();
+        
+        $this->loadModel("VendorPartnerAddress");
+        $vendorPartnerAddress = $this->VendorPartnerAddress->find()
+        ->select($this->VendorPartnerAddress)
+        ->select(['States.name', 'Countries.country_name'])
+        ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorPartnerAddress.country'])
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorPartnerAddress.state','States.country_code = VendorPartnerAddress.country'])
+        ->where([ 'VendorPartnerAddress.vendor_temp_id' => $id])->toArray();
+        
+        $this->loadModel("VendorFactories");
+        $vendorFactories = $this->VendorFactories->find()
+        ->select($this->VendorFactories)
+        ->select(['States.name', 'Countries.country_name'])
+        ->contain(['VendorCommencements'])
+        ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorFactories.country'])
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorFactories.state', 'States.country_code = VendorFactories.country'])     
+        ->where([  'VendorFactories.vendor_temp_id' => $id])->toArray();
+        
+        
+        $this->loadModel("VendorReputedCustomers");
+        $vendorReputedCustomers = $this->VendorReputedCustomers->find()
+        ->select($this->VendorReputedCustomers)
+        ->select(['States.name', 'Countries.country_name'])
+        ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorReputedCustomers.country'])
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorReputedCustomers.state', 'States.country_code = VendorReputedCustomers.country'])
+        ->where(['VendorReputedCustomers.vendor_temp_id' => $id])->toArray();
+        
+        
+        $this->loadModel("VendorBranchOffices");
+        $vendorBranchOffices = $this->VendorBranchOffices->find()
+        ->select($this->VendorBranchOffices)
+        ->select(['States.name', 'Countries.country_name'])
+        ->innerJoin(['Countries'=> 'countries'], ['Countries.country_code = VendorBranchOffices.country'])
+        ->innerJoin(['States'=> 'states'], ['States.region_code = VendorBranchOffices.state', 'States.country_code = VendorBranchOffices.country'])
+        ->where(['VendorBranchOffices.vendor_temp_id' => $id])->toArray();
+
+        $this->set(compact('vendorTemp', 'vendorPartnerAddress', 'vendorRegisterOffice', 'vendorReputedCustomers', 'vendorFactories', 'vendorBranchOffices'));
     }
 
     /**
@@ -57,7 +115,9 @@ class VendorTempsController extends AdminAppController
      */
     public function add()
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
+        $this->loadModel("Users");
         $vendorTemp = $this->VendorTemps->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -67,23 +127,36 @@ class VendorTempsController extends AdminAppController
             //echo '<pre>'; print_r($data); exit;
             if ($this->VendorTemps->save($vendorTemp)) {
                 $quryString = $data['email'].'||'.$vendorTemp->id;
-                $link = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
-
+                
+                $buyer = $this->Buyers->find()->where(['id'=>$data['buyer_id']]);
+                $buyerList = $this->Buyers->find()->select('email')->where(['company_code_id' => $buyer->company_code_id, 'purchasing_organization_id' => $buyer->purchasing_organization_id])->toArray();
+                $buyersEmails = [];
+                foreach($buyerList as $byer) { if($this->Users->find()->select('status')->where(['username' => $byer->email])->first()['status'] == 1){$buyersEmails[] = $email->email;} }
+                
+                $visit_url = Router::url(['prefix' => false, 'controller' => 'onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
-                    ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                    ->setTo($data['email'])
+                    ->setViewVars([
+                        'vendor_name' => $vendorTemp->name,
+                        'spt_email' => $buyer->email,
+                    ])
+                    ->setFrom(Configure::read('MAIL_FROM'))
+                    ->setTo($buyersEmails)
                     ->setEmailFormat('html')
-                    ->setSubject('Verify New Account')
-                    ->deliver('Hi '.$data['name'].'<br/>Welcome to Vendor portal. <br/>' . $link);
+                    ->setSubject('VENDOR PORTAL - VERIFY NEW ACCOUNT')
+                    ->viewBuilder()
+                        ->setTemplate('new_vendor');
+                $mailer->deliver();
 
-                $this->Flash->success(__('The vendor temp has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The vendor temp has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
 
-            $this->Flash->error(__('The vendor could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
@@ -100,6 +173,7 @@ class VendorTempsController extends AdminAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $this->loadModel("VendorTemps");
         $vendorTemp = $this->VendorTemps->get($id, [
             'contain' => [],
@@ -107,11 +181,13 @@ class VendorTempsController extends AdminAppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $vendorTemp = $this->VendorTemps->patchEntity($vendorTemp, $this->request->getData());
             if ($this->VendorTemps->save($vendorTemp)) {
-                $this->Flash->success(__('The vendor temp has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The vendor temp has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The vendor temp could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $purchasingOrganizations = $this->VendorTemps->PurchasingOrganizations->find('list', ['limit' => 200])->all();
         $accountGroups = $this->VendorTemps->AccountGroups->find('list', ['limit' => 200])->all();
@@ -128,19 +204,22 @@ class VendorTempsController extends AdminAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $vendorTemp = $this->VendorTemps->get($id);
         if ($this->VendorTemps->delete($vendorTemp)) {
-            $this->Flash->success(__('The vendor temp has been deleted.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor temp has been deleted'];
         } else {
-            $this->Flash->error(__('The vendor temp could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor temp could not be deleted. Please, try again'];
         }
-
+        $this->set('flash', $flash);
+        
         return $this->redirect(['action' => 'index']);
     }
 
     public function approveVendor($id = null, $action = null)
-    {   
+    {  
+        $flash = []; 
         $this->loadModel("VendorTemps");
         $vendor = $this->VendorTemps->get($id);
         if($action == 'app') {
@@ -184,12 +263,13 @@ class VendorTempsController extends AdminAppController
             );
 
             if($action == 'app') {
-                $this->Flash->success(__('The Vendor successfully approved and sent to SAP system'));
+                $flash = ['type'=>'success', 'msg'=>'The Vendor successfully approved and sent to SAP system'];
             }
         } else {
-            $this->Flash->error(__('The Vendor detail could not be updated. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The Vendor detail could not be updated. Please, try again'];
         }
-
+        
+        $this->set('flash', $flash);
         return $this->redirect(['action' => 'index']);
     }
 

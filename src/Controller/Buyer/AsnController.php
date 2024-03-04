@@ -13,14 +13,18 @@ use Cake\Datasource\ConnectionManager;
  */
 class AsnController extends BuyerAppController
 {
-
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     public function search()
     {
+        $flash = [];
         $session = $this->getRequest()->getSession();
-            
-
-
-        $this->set(compact('notificationCount','count'));
+        //$this->set(compact('notificationCount','count'));
 
         $this->set('headTitle', 'Gate Entry(GE)');
         $this->loadModel('AsnHeaders');
@@ -32,7 +36,8 @@ class AsnController extends BuyerAppController
             if ($exists) {
                 $this->redirect(['action' => 'view', $exists->id]);
             } else {
-                $this->Flash->error(__('ASN details not found'));
+                $flash = ['type'=>'success', 'msg'=>'ASN details not found'];
+                $this->set('flash', $flash);
             }
         }
     }
@@ -77,7 +82,7 @@ class AsnController extends BuyerAppController
         $this->loadModel('AsnHeaders');
 
         $deliveryDetails = $this->AsnHeaders->find('all')
-            ->select(['AsnHeaders.id', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_path', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value', 'AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact', 'AsnHeaders.status', 'AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material', 'PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])
+            ->select(['AsnHeaders.id', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_path', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'AsnHeaders.invoice_value', 'AsnHeaders.vehicle_no', 'AsnHeaders.driver_name', 'AsnHeaders.driver_contact', 'AsnHeaders.status', 'AsnHeaders.gateout_date', 'AsnHeaders.added_date', 'PoHeaders.po_no', 'PoFooters.item', 'PoFooters.material', 'PoFooters.order_unit', 'AsnFooters.qty', 'PoItemSchedules.actual_qty', 'PoItemSchedules.delivery_date'])
             ->innerJoin(['PoHeaders' => 'po_headers'], ['AsnHeaders.po_header_id = PoHeaders.id'])
             ->innerJoin(['PoFooters' => 'po_footers'], ['PoFooters.po_header_id = PoHeaders.id'])
             ->innerJoin(['PoItemSchedules' => 'po_item_schedules'], ['PoItemSchedules.po_header_id = PoHeaders.id', 'PoItemSchedules.po_footer_id = PoFooters.id'])
@@ -86,13 +91,11 @@ class AsnController extends BuyerAppController
 
             ->where(['AsnHeaders.id' => $id]);
 
-
-
         //$record = $deliveryDetails->first();
         //$this->set('deliveryDetailw', $record);
         $session = $this->getRequest()->getSession();
             
-        $this->set(compact('notificationCount','count'));
+        // $this->set(compact('notificationCount','count'));
 
         $this->set('deliveryDetails', $deliveryDetails->all());
         $this->set('headTitle', 'GATE ENTRY(GE)');
@@ -133,15 +136,18 @@ class AsnController extends BuyerAppController
      */
     public function add()
     {
+        $flash = [];
         $deliveryDetail = $this->DeliveryDetails->newEmptyEntity();
         if ($this->request->is('post')) {
             $deliveryDetail = $this->DeliveryDetails->patchEntity($deliveryDetail, $this->request->getData());
             if ($this->DeliveryDetails->save($deliveryDetail)) {
-                $this->Flash->success(__('The delivery detail has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The delivery detail has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The delivery detail could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The delivery detail could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $poHeaders = $this->DeliveryDetails->PoHeaders->find('list', ['limit' => 200])->all();
         $poFooters = $this->DeliveryDetails->PoFooters->find('list', ['limit' => 200])->all();
@@ -157,17 +163,20 @@ class AsnController extends BuyerAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $deliveryDetail = $this->DeliveryDetails->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $deliveryDetail = $this->DeliveryDetails->patchEntity($deliveryDetail, $this->request->getData());
             if ($this->DeliveryDetails->save($deliveryDetail)) {
-                $this->Flash->success(__('The delivery detail has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The delivery detail has been saved'];
+                $this->set('flash', $flash);
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The delivery detail could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The delivery detail could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $poHeaders = $this->DeliveryDetails->PoHeaders->find('list', ['limit' => 200])->all();
         $poFooters = $this->DeliveryDetails->PoFooters->find('list', ['limit' => 200])->all();
@@ -183,13 +192,15 @@ class AsnController extends BuyerAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $deliveryDetail = $this->DeliveryDetails->get($id);
         if ($this->DeliveryDetails->delete($deliveryDetail)) {
-            $this->Flash->success(__('The delivery detail has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The delivery detail has been deleted'];
         } else {
-            $this->Flash->error(__('The delivery detail could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The delivery detail could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

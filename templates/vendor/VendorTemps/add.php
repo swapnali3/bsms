@@ -7,10 +7,12 @@
  * @var \Cake\Collection\CollectionInterface|string[] $schemaGroups
  */
 ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
+<!-- <?= $this->Html->css('listing.css') ?> -->
 <div class="row">
-    
-    <div class="column-responsive">
-        <div class="vendorTemps form content">
+    <div class="col-12">
+    <div class="vendorTemps form content">
             <?= $this->Form->create($vendorTemp) ?>
             <fieldset>
                 <legend><?= __('Add Vendor') ?></legend>

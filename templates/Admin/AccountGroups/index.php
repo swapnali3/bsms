@@ -4,11 +4,11 @@
  * @var \App\Model\Entity\AccountGroup[]|\Cake\Collection\CollectionInterface $accountGroups
  */
 ?>
-<div class="accountGroups index content">
+<div class="admin-edit padd_ing accountGroups index content">
     <?= $this->Html->link(__('New Account Group'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Account Groups') ?></h3>
-    <div class="table-responsive">
-        <table>
+    <div class="col-lg-12">
+        <table class="table table-responsive dataTable no-footer" id="tb_pg">
             <thead>
                 <tr>
                     <th><?= $this->Paginator->sort('id') ?></th>
@@ -37,7 +37,7 @@
             </tbody>
         </table>
     </div>
-    <div class="paginator">
+    <!-- <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
             <?= $this->Paginator->prev('< ' . __('previous')) ?>
@@ -46,5 +46,16 @@
             <?= $this->Paginator->last(__('last') . ' >>') ?>
         </ul>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div>
+    </div> -->
 </div>
+
+
+<script>
+    $(document).ready(function () {
+    $("#tb_pg").DataTable({
+        pagination: true,
+        searching: false,
+        lengthChange: false
+    });
+});
+</script>

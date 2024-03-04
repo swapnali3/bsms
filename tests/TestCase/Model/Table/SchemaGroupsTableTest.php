@@ -25,6 +25,7 @@ class SchemaGroupsTableTest extends TestCase
      */
     protected $fixtures = [
         'app.SchemaGroups',
+        'app.CompanyCodes',
         'app.VendorTemps',
     ];
 
@@ -59,6 +60,17 @@ class SchemaGroupsTableTest extends TestCase
      * @uses \App\Model\Table\SchemaGroupsTable::validationDefault()
      */
     public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses \App\Model\Table\SchemaGroupsTable::buildRules()
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -14,9 +15,11 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller\Buyer;
 
 use Cake\Core\Configure;
+use Cake\Datasource\ConnectionManager;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
@@ -31,144 +34,253 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class DashboardController extends BuyerAppController
 {
-    public function index() {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
 
+    public function index()
+    {
         $this->set('headTitle', 'Dashboard');
-        $session = $this->getRequest()->getSession();
-
-        if(!$session->check('id')) {
-            $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
-        }
-        
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
         $this->loadModel('DeliveryDetails');
+        $this->loadModel('AsnHeaders');
+        $this->loadModel('VendorTypes');
+        $this->loadModel('Materials');
+        $session = $this->getRequest()->getSession();
+        $conn = ConnectionManager::get('default');
+        if (!$session->check('id'))
+        { $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login')); }
 
-        $this->loadModel('RfqDetails');
-        $this->loadModel('RfqInquiries');
-        $this->loadModel('Products');
-
-
-        $query = $this->RfqDetails->find()
-            ->select(['RfqDetails.id','RfqDetails.rfq_no','Products.name','RfqDetails.added_date', 'RfqInquiries.reach', 'RfqInquiries.respond'])
-            ->contain(['Products'])
-            ->leftJoin(
-                ['RfqInquiries' => '(select rfq_item_id, count(seller_id) reach, count(inquiry) respond FROM rfq_inquiries group by rfq_inquiries.rfq_item_id)'],
-                ['RfqInquiries.rfq_item_id = RfqDetails.id'])
-            ->where(['RfqDetails.buyer_seller_user_id' => $session->read('id')]);
-
-    $rfqDetails = $this->paginate($query);
-
-    //print_r($query); exit;
-        //$rfqsummary = $conn->execute("SELECT rfq_id, U.company_name, rate, created_date FROM rfq_inquiries RI join buyer_seller_users U on (U.id = RI.seller_id) WHERE rate = ( SELECT MIN( RI2.rate ) FROM rfq_inquiries RI2 WHERE RI.rfq_id = RI2.rfq_id ) ORDER BY rfq_id");
- 
- 
-
-    // Getting paginated result based on page #
-    
-    $this->set('rfqDetails', $rfqDetails);
-    //$this->set('rfqsummary', $rfqsummary);
-
-        $query = $this->PoHeaders->find();
-        $query->innerJoin(
-            ['VendorTemps' => 'vendor_temps'],
-            ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code', 'VendorTemps.buyer_id = '.$session->read('id')]);
-        $totalPos = $query->count();
-
-        //echo '<pre>'; print_r($query); exit;
-
-        $totalIntransit = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();
-        $totalVendorTemps = $this->VendorTemps->find('all', array('conditions'=>array('status'=>0)))->count();
-        $totalRfqDetails = $this->RfqDetails->find('all', array('conditions'=>array('status'=>1, 'buyer_seller_user_id' =>$session->read('id') )))->count();
-
-
-
-        $this->set(compact('totalPos','totalIntransit','totalVendorTemps', 'totalRfqDetails'));
-        
-    }
-
-    public function oldindex() {
-
-        $this->loadModel('RfqDetails');
-        $this->loadModel('RfqInquiries');
-        $this->loadModel('BuyerSellerUsers');
-
-        $query = $this->RfqDetails->find();
-        $query->select(['company_name' => 'BuyerSellerUsers.company_name', 'buyer_id' => 'BuyerSellerUsers.Id',
-            'rfq_count' => $query->func()->count('RfqDetails.Id'),
-            'reached' => $query->func()->count('RfqInquiries.Id'),
-            'new_rfq' => $query->func()->sum('case when RfqDetails.status = 0 then 1 else 0 end'),
-            'responded' => $query->func()->sum('case when RfqInquiries.inquiry = 1 then 1 else 0 end')
-            ])
-            ->contain(['BuyerSellerUsers', 'Products'])
-            ->leftJoin(
-                ['RfqInquiries' => 'rfq_inquiries'],
-                ['RfqInquiries.rfq_id = RfqDetails.id'])
-            ->group(['RfqDetails.buyer_seller_user_id'])
-            ->order(['responded asc']);
-
-        $countDashboard = $this->paginate($query);
-        $this->set('countDashboard', $countDashboard);
-
-        $rfqNonResponded = array();
-        $queryNonResponded = $this->RfqDetails->find()
-            ->select(['buyer_id' => 'RfqDetails.buyer_seller_user_id',
-            'rfq_non_responded' => $query->func()->count('RfqDetails.Id')
-            ])
-            ->where('RfqDetails.Id not in (select rfq_id from rfq_inquiries where inquiry = 1)')
-            ->group(['RfqDetails.buyer_seller_user_id'])->toList();
-
-            foreach($queryNonResponded as $key => $val) {
-                $rfqNonResponded[$val->buyer_id] = $val->rfq_non_responded;
+        // POST
+        $g1_filter = " where 1=1 ";
+        $g2_filter = " where 1=1 ";
+        $g3_filter = " where 1=1 ";
+        $g4_filter = " where 1=1 ";
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $request = $this->request->getData();
+            // FILTER : Vendor By Order Value
+            if(isset($request['vendor5'])) {
+                $search = '';
+                foreach ($request['vendor5'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g1_filter .= " and po_headers.sap_vendor_code in (".$search.")";
             }
-            
-        $this->set('rfqNonResponded', $rfqNonResponded);
-
-    }
-
-    public function rfqList($buyerId = null, $responded = null) {
-
-        $this->loadModel('RfqDetails');
-        $this->loadModel('BuyerSellerUsers');
-
-        $buyerSellerUser = $this->BuyerSellerUsers->get($buyerId, [
-            'contain' => [],
-        ]);
-
-
-        $query = $this->RfqDetails->find()
-            ->select(['RfqDetails.Id', 'RfqDetails.rfq_no', 'RfqDetails.part_name', 'RfqDetails.qty','Uoms.description','RfqDetails.status', 'RfqDetails.added_date','Products.name'])
-            ->contain(['Products', 'Uoms'])
-            ->where(['RfqDetails.buyer_seller_user_id' => $buyerId]);
-
-        if(isset($responded) && !$responded) {
-            $query = $this->RfqDetails->find()
-            ->select(['RfqDetails.Id', 'RfqDetails.rfq_no', 'RfqDetails.part_name', 'RfqDetails.qty','Uoms.description','RfqDetails.status','RfqDetails.added_date','Products.name'])
-            ->contain(['Products', 'Uoms'])
-            ->where(['RfqDetails.buyer_seller_user_id' => $buyerId, 'RfqDetails.Id not in (select rfq_id from rfq_inquiries where inquiry = 1)']);
+            if(isset($request['type5'])) {
+                $search = '';
+                foreach ($request['type5'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g1_filter .= " and materials.type in (".$search.")";
+            }
+            if(isset($request['segment5'])) {
+                $search = '';
+                foreach ($request['segment5'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g1_filter .= " and materials.segment in (".$search.")";
+            }
+            // FILTER : Top 5 Materials by quantity
+            if(isset($request['vendor6'])) {
+                $search = '';
+                foreach ($request['vendor6'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g2_filter .= " and materials.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['type6'])) {
+                $search = '';
+                foreach ($request['type6'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g2_filter .= " and materials.type in (".$search.")";
+            }
+            if(isset($request['segment6'])) {
+                $search = '';
+                foreach ($request['segment6'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g2_filter .= " and materials.segment in (".$search.")";
+            }
+            // FILTER : PO order value by period
+            if(isset($request['vendor7'])) {
+                $search = '';
+                foreach ($request['vendor7'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g3_filter .= " and materials.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['type7'])) {
+                $search = '';
+                foreach ($request['type7'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g3_filter .= " and materials.type in (".$search.")";
+            }
+            if(isset($request['segment7'])) {
+                $search = '';
+                foreach ($request['segment7'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g3_filter .= " and materials.segment in (".$search.")";
+            }
+            // FILTER : Top Material by order value
+            if(isset($request['vendor8'])) {
+                $search = '';
+                foreach ($request['vendor8'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g4_filter .= " and materials.sap_vendor_code in (".$search.")";
+            }
+            if(isset($request['type8'])) {
+                $search = '';
+                foreach ($request['type8'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g4_filter .= " and materials.type in (".$search.")";
+            }
+            if(isset($request['segment8'])) {
+                $search = '';
+                foreach ($request['segment8'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $g4_filter .= " and materials.segment in (".$search.")";
+            }
         }
 
-        $rfqDetailsList = $this->paginate($query);
+        // Vendors
+        $vendor_sts = $conn->execute("select vendor_status.description, ifnull(vendor_temps.count, 0) as cnt from vendor_status
+        left join (select vendor_temps.status, count(vendor_temps.status) as count from vendor_temps group by vendor_temps.status)
+        as vendor_temps on vendor_temps.status = vendor_status.status
+        where vendor_status.status not in (4,5)");
+        $vendor_status = $vendor_sts->fetchAll('assoc');
+        $vendor_status_cnt = array();
+        foreach($vendor_status as $per) { $vendor_status_cnt[$per['description']] = $per['cnt']; }
+        // echo '<pre>'; print_r($vendor_status_cnt); exit;
 
+        $purchase_odr = $conn->execute("select sum(complete) as complete, sum(pending) as pending, sum(complete)+sum(pending) as total from (select po_headers.id,
+        case when sum(po_footers.po_qty) - sum(po_footers.pending_qty) = 0 then 1 else 0 end as complete,
+        case when sum(po_footers.po_qty) - sum(po_footers.pending_qty) = 0 then 0 else 1 end as pending
+        from po_headers
+        left join po_footers on po_footers.po_header_id=po_headers.id
+        group by po_headers.id) as po_status");
+        $purchase_order_cnt = $purchase_odr->fetchAll('assoc')[0];
+        // $purchase_order_cnt = array();
+        // foreach($purchase_order as $per) { $purchase_order_cnt[$per['description']] = $per['cnt']; }
+        // echo '<pre>'; print_r($purchase_order_cnt); exit;
+
+        // $vendorStatus = $this->VendorTemps->find()
+        // ->select(['status' => 'VendorStatus.status','count' => 'count(VendorStatus.status)'])
+        // ->innerJoin(['VendorStatus' => 'vendor_status'], ['VendorStatus.status=VendorTemps.status'])
+        // ->where(['company_code_id' => $session->read('company_code_id'), 
+        // 'purchasing_organization_id' => $session->read('purchasing_organization_id')])
+        // ->group('VendorTemps.status')->toArray();
+
+        // $vendorDashboardCount = [];
+        // $vendorDashboardCount['total'] = array_sum(array_column($vendorStatus,'count'));
+        // foreach($vendorStatus as $status) { $vendorDashboardCount[$status->status] = $status->count; }
+
+        // Purchase orders
+        // $query = $this->PoHeaders->find();
+        // $query->innerJoin(
+        //     ['VendorTemps' => 'vendor_temps'],
+        //     ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code', 
+        //     'VendorTemps.company_code_id' => $session->read('company_code_id'),
+        //     'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')]
+        // );
+        // $totalPos = $query->count();
+        // $conn = ConnectionManager::get('default');
+        // $query = "select count(1) complete from (SELECT sum(pf.pending_qty)
+        // from po_headers PH	
+        // join po_footers pf on pf.po_header_id = PH.id
+        // group by PH.id
+        // having sum(pf.pending_qty) = 0) a";
+        // $result = $conn->execute($query)->fetch('assoc');
+        // $poCompleteCount = $result['complete'];
+
+        // ASN
+        $asnCounts = $this->AsnHeaders->find()
+        ->select(['status' => 'AsnHeaders.status','count' => 'count(AsnHeaders.status)'])
+        ->innerJoin( ['PoHeaders' => 'po_headers'], ['AsnHeaders.po_header_id = PoHeaders.id'] )
+        ->innerJoin(
+            ['VendorTemps' => 'vendor_temps'],
+            ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code', 
+            'VendorTemps.company_code_id' => $session->read('company_code_id'),
+            'VendorTemps.purchasing_organization_id' => $session->read('purchasing_organization_id')]
+        )->group('AsnHeaders.status')->toArray();
+
+        $asnDashboardCount = [];
+        $asnDashboardCount['total'] = array_sum(array_column($asnCounts,'count'));
+        foreach($asnCounts as $status) { $asnDashboardCount[$status->status] = $status->count; }
+
+        // Vendor By Order value
+        $topVendor = $conn->execute("select CAST(po_headers.sap_vendor_code as UNSIGNED) as category, sum(po_footers.net_value) as value
+        from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
+        left join materials on materials.code = po_footers.material".$g1_filter."
+        group by po_headers.sap_vendor_code, po_footers.net_value
+        order by po_footers.net_value desc
+        limit 5 ");
+        $topVendors = $topVendor->fetchAll('assoc');
+
+        // Material by Quantity
+        $topMaterial = $conn->execute("SELECT po_footers.material as category, sum(po_footers.po_qty) as value
+        from po_footers left join materials on materials.code = po_footers.material".$g2_filter."
+        group by po_footers.material, po_footers.net_value
+        order by po_footers.net_value desc limit 5 ");
+        $topMaterials = $topMaterial->fetchAll('assoc');
+        
+        $orderByPeriod = $conn->execute("SELECT sum(po_footers.net_value) as value, date_format(po_headers.created_on, '%b-%y') as network
+        from po_headers left join po_footers on po_footers.po_header_id = po_headers.id
+        left join materials on materials.code = po_footers.material".$g3_filter."
+        group by date_format(po_headers.created_on, '%b-%y')
+        order by po_headers.created_on asc limit 5 ");
+        $orderByPeriods = $orderByPeriod->fetchAll('assoc');
+
+        $topMaterialByValue = $conn->execute("SELECT po_footers.material as country, sum(po_footers.net_value) as value
+        from po_footers left join materials on materials.code = po_footers.material".$g4_filter."
+        group by po_footers.material, po_footers.net_value
+        order by po_footers.net_value desc limit 5 ");
+        $topMaterialByValues = $topMaterialByValue->fetchAll('assoc');
+        
+        // echo '<pre>'; print_r($vendor_status_cnt); exit;
+        
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $this->autoRender = false;
+            $results = array($topVendors, $topMaterials, $orderByPeriods, $topMaterialByValues);
+            $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+            echo json_encode($response); exit;
+        }
+
+        // Filter List
+        $segment = $this->Materials->find('all')->select(['segment'])->distinct(['segment'])->where(['segment IS NOT NULL' ])->toArray();
+        $vendor = $this->PoHeaders->find('all')->select(['sap_vendor_code', 'VendorTemps.name'])->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.sap_vendor_code = PoHeaders.sap_vendor_code'])->distinct(['PoHeaders.sap_vendor_code', 'VendorTemps.name'])->where(['PoHeaders.sap_vendor_code IS NOT NULL' ])->toArray();
+        $vendortype = $this->Materials->find('all')->select(['type'])->distinct(['type'])->where(['type IS NOT NULL' ])->toArray();
 
         
-        $this->set(compact('buyerSellerUser'));
-        $this->set('rfqList', $rfqDetailsList);
-
+        
+        $this->set(compact(
+            // Cards
+            'vendor_status_cnt', 'purchase_order_cnt', 'asnDashboardCount',
+            // Filters
+            'vendor', 'vendortype', 'segment',
+            // Graphs
+            'topVendors', 'topMaterials', 'topMaterialByValues', 'orderByPeriods'
+        ));
     }
 
     public function clearMessageCount()
     {
+        $session = $this->getRequest()->getSession();
+        // $vendorID = $session->read('id');
         $response = array();
         $response['status'] = 0;
         $response['message'] = '';
-    
-        $this->loadModel('Notifications');
-        $this->Notifications->updateAll(['message_count' => 0], ['notification_type' => 'asn_material']);
-    
+
+        $id = $this->request->getQuery('id'); 
+        if (!empty($id)) {
+            $this->loadModel('Notifications');
+            $this->Notifications->updateAll(['message_count' => 0], ['id IN' => $id]);
+        }
+        else{
+            $response['status'] = 0;
+            $response['message'] = 'Failed';
+        }
+
         $response['status'] = 1;
-        $response['message'] = 'clear Notification';
-    
+        $response['message'] = 'Clear Notification';
+
         echo json_encode($response);
         exit();
     }

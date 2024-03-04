@@ -41,6 +41,7 @@ class AdminAppController extends Controller
      */
     public function initialize(): void
     {
+        $flash = [];
         parent::initialize();
 
         date_default_timezone_set('Asia/Kolkata'); 
@@ -50,7 +51,10 @@ class AdminAppController extends Controller
         ]);
         $this->loadComponent('Flash');
         $this->loadComponent('Sms');
-        $this->set('title', 'VeKPro');
+        $this->loadComponent('Ftp');
+        $this->loadComponent("Cookie"); 
+        
+        $this->set('title', 'APAR');
         
 
         /*
@@ -78,7 +82,8 @@ class AdminAppController extends Controller
         $this->set('statusCode', Configure::read('StatusCode'));
 
         if($session->read('role') != 1) {
-                // $this->Flash->error("You are not authrized");
+                $flash = ['type'=>'error', 'msg'=>'You are not authrized'];
+                $this->set('flash', $flash);
             $this->redirect(array('prefix' => false, 'controller' => 'users', 'action' => 'login'));
         }
         

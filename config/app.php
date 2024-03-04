@@ -424,5 +424,10 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+        'ini' => [
+            // Invalidate the cookie after 30 minutes without visiting
+            // any page on the site.
+            'session.cookie_lifetime' => 3600
+        ]
     ],
 ];

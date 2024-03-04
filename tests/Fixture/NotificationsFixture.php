@@ -23,7 +23,7 @@ class NotificationsFixture extends TestFixture
                 'user_id' => 1,
                 'message_count' => 1,
                 'notification_type' => 'Lorem ipsum dolor sit amet',
-                'created_at' => '2023-06-02 12:17:24',
+                'added_date' => '2023-07-15 22:49:46',
             ],
         ];
         parent::init();

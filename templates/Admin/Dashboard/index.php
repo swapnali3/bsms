@@ -9,9 +9,176 @@
 ?>
 
 <?= $this->Html->css('admincss') ?>
+<?= $this->Html->css('custom_table') ?>
+<?= $this->Html->css('custom') ?>
 <div class="content admin-console">
-  <div class="row">
-    <div class="col-12 landing">
+  <div class="row buyer-dash">
+  <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="card card_box_shadow">
+      <div class="card-header">
+        <h1 class="card-title">Vendors</h1>
+      </div>
+      <div class="card-body py-0">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Total</a>
+              <span class="p-value">
+                <?= h($vendorDashboardCount['total']) ?>
+              </span>
+            </div>
+          </li>
+
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-user-plus text-danger onboarding_icon"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Onboarding
+              </a>
+              <span class="p-value">
+                <?= h(isset($vendorDashboardCount[0]) ? $vendorDashboardCount[0] : 0) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-hourglass-half text-danger"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Approval Pending
+              </a>
+              <span class="p-value">
+              <?= h(isset($vendorDashboardCount[1]) ? $vendorDashboardCount[1] : 0) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="far fa-check-square text-success"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Approved
+              </a>
+              <span class="p-value">
+              <?= h(isset($vendorDashboardCount[3]) ? $vendorDashboardCount[3] : 0) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-share-square text-warning"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Sent to SAP
+              </a>
+              <span class="p-value">
+              <?= h(isset($vendorDashboardCount[2]) ? $vendorDashboardCount[2] : 0) ?>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="card card_box_shadow">
+      <div class="card-header">
+        <h3 class="card-title">Buyers</h3>
+      </div>
+      <div class="card-body py-0" style="min-height: 100%;">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="<?php echo $this->Url->build([ 'controller' => '/users']) ?>" class="product-title">Total</a>
+              <span class="p-value">
+                <?= h($buyerCounts['total']) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="far fa-calendar-check text-success"></i>
+
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => '/users']) ?>" class="product-title">Active</a>
+              <span class="p-value">
+              <?= h($buyerCounts['1']) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="far fa-clock text-danger"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Inactive</a>
+              <span class="p-value">
+              <?= h(isset($buyerCounts['0']) ? $buyerCounts['0'] : 0) ?>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-12 col-md-3 col-lg-3">
+    <div class="card card_box_shadow">
+      <div class="card-header">
+        <h3 class="card-title">Managers</h3>
+      </div>
+      <div class="card-body py-0" style="min-height: 100%;">
+        <ul class="products-list product-list-in-card">
+          <li class="item">
+            <div class="product-img">
+              <i class="fas fa-th-large text-info"></i>
+            </div>
+            <div class="product-info">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Total</a>
+              <span class="p-value">
+                <?= h($managerCounts['total']) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="far fa-calendar-check text-success"></i>
+
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Active</a>
+              <span class="p-value">
+              <?= h(isset($managerCounts['1']) ? $managerCounts['1'] : 0) ?>
+              </span>
+            </div>
+          </li>
+          <li class="item">
+            <div class="product-img">
+              <i class="far fa-clock text-danger"></i>
+            </div>
+            <div class="product-info" style="font-size: smaller;">
+              <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Inactive</a>
+              <span class="p-value">
+              <?= h(isset($managerCounts['0']) ? $managerCounts['0'] : 0) ?>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+    <!-- <div class="col-12 landing">
       <div class="card">
         <div class="card-header">
           <h5><b> Administration Console</b></h5>
@@ -24,9 +191,7 @@
                 <i class="fas fa-search"></i>
               </div>
             </div>
-            <!-- <div class="col-3">
-              <button type="button" class="btn btn-info">Delete Trail Account</button>
-            </div> -->
+            
             <div class="col-12 mt-3">
               <h5 class="text-success pl-1 mb-0"><b>YOUR ACCOUNT</b></h5>
             </div>
@@ -218,8 +383,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-8 setting hide">
+    </div> -->
+    <div class="col-12 setting hide">
       <div class="card" style="height: 88vh;">
         <div class="card-header">
           <h5 class="mb-0"><b>SETTINGS</b></h5>
@@ -227,7 +392,7 @@
         <div class="card-body">
           <div class="col-md-12">
             <div class="settings form content">
-              <form method="post" accept-charset="utf-8" action="/bsms/admin/settings/update">
+              <form method="post" accept-charset="utf-8" action="admin/settings/update">
                 <div style="display:none;"><input type="hidden" name="_method" value="PUT"><input type="hidden" name="_csrfToken" autocomplete="off" value="QHPE9oRzqNipo31TSZCZCPAg7PGpdxR3cdNlNXQiOTbRpXnc805rp/penuPNILFZN47r0rDStDYLOg67aDmFiEPCQai+cMlFyRKNl5BPI0FJ4FRRQRABV+mWHL/GLQifzjuv2q8Qg2oGt9ziievRBw==">
                 </div>
                 <fieldset>
@@ -261,7 +426,7 @@
                       <div class="input text"><label for="sap-password">Sap Password</label><input type="text" name="sap_password" class="custom-select rounded-0" div="form-group" id="sap-password" value="aarti@123"></div>
                     </div>
                     <div class="col-md-12">
-                      <button class="btn btn-info" type="submit">Submit</button>
+                      <button class="submit_btn btn btn-info" type="submit">Submit</button>
                     </div>
                   </div>
 
@@ -271,9 +436,9 @@
         </div>
       </div>
     </div>
-    <div class="col-8 usermgm hide">
+    <div class="col-12 usermgm hide">
       <div class="card">
-        <div class="card-header" style="background-color:#f5f7fd;">
+        <div class="card-header">
           <h5 class="mb-0">USER ADMINISTRATION</h5>
         </div>
         <div class="card-body">
@@ -288,9 +453,6 @@
             <table class="table" id="adminuserview" style="width: 100%;">
               <thead>
                 <tr>
-                  <th>
-                    <input class="" type="checkbox" value="" id="all">
-                  </th>
                   <th>Full Name</th>
                   <th>Username</th>
                   <th>Mobile No</th>
@@ -303,9 +465,9 @@
         </div>
       </div>
     </div>
-    <div class="col-8 useradd hide">
+    <div class="col-12 useradd hide">
       <div class="card" style="height: 88vh;">
-        <div class="card-header" style="background-color:#f5f7fd;">
+        <div class="card-header">
           <h5 class="mb-0">USER ADMINISTRATION</h5>
         </div>
 
@@ -316,39 +478,61 @@
             <div class="col-4 mt-3">
               <label for="mobileno">Role</label>
               <select class="custom-select" id="myCustomSelect" name="group_id" required>
-                <option disabled selected>Please Select</option>
-                <option value="1">Admin</option>
-                <option value="2">Buyer</option>
+                <!-- <option disabled selected>Please Select</option>
+                <option value="1">Admin</option> -->
+                <option value="2" selected>Buyer</option>
               </select>
             </div>
             <div class="col-4 mt-3">
               <div class="form-group">
-                <label for="fname">First Name</label>
-                <input type="text" class="form-control" id="fname" name="first_name" placeholder="Enter First Name" required>
+                <?php
+                      echo $this->Form->control('first_name', [
+                          'class' => 'form-control',
+                          'placeholder' => 'Enter First Name'
+                      ]);
+                      ?>
               </div>
             </div>
             <div class="col-4 mt-3">
               <div class="form-group">
-                <label for="lname">Last Name</label>
-                <input type="text" class="form-control" id="lname" name="last_name" placeholder="Enter Last Name" required>
+                <?php
+                      echo $this->Form->control('last_name', [
+                          'class' => 'form-control',
+                          'placeholder' => 'Enter Last Name'
+                      ]);
+                      ?>
               </div>
             </div>
             <div class="col-4 mt-3">
               <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="username" placeholder="Enter email" required>
+                <?php echo $this->Form->control('email', array('class' => 'form-control rounded-0', 'placeholder' => 'please enter email id', 'required')); ?>
               </div>
             </div>
+            
+            
             <div class="col-4 mt-3">
               <div class="form-group">
-                <label for="mobileno">Mobile No</label>
-                <input type="number" class="form-control" id="mobileno" name="mobile" placeholder="Enter Mobile No" required>
+                <?php echo $this->Form->control('mobile', array('class' => 'form-control tel numberonly', 'minlength' => '10', 'maxlength' => '10', 'pattern' => '[9,8,7,6]{1}[0-9]{9}', 'type' => 'tel', 'placeholder' => 'please enter mobile number')); ?>
               </div>
             </div>
 
+
+            <div class="col-4 mt-3">
+              <div class="form-group">
+                <?php echo $this->Form->control('company_code_id', array('class' => 'form-control', 'options' => $company_codes, 'empty' => 'Please Select', 'required')); ?>
+              </div>
+            </div>
+
+            <div class="col-4 mt-3">
+              <div class="form-group">
+              <?php echo $this->Form->control('purchasing_organization_id', array('class' => 'form-control', 'empty' => 'Please Select', 'required')); ?>
+              </div>
+            </div>
+
+            
           </div>
           <div>
-            <button type="buuton" class="btn btn-primary">Submit</button>
+            <button type="button" class="submit_btn btn btn-primary">Submit</button>
           </div>
         </div>
         <?= $this->Form->end() ?>
@@ -356,7 +540,7 @@
 
       </div>
     </div>
-    <div class="col-4 sidecard hide">
+    <!-- <div class="col-4 sidecard hide">
       <div class="card" style="height: 88vh;">
         <div class="card-body">
           <div class="row">
@@ -538,7 +722,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -547,4 +731,20 @@
 <script>
   var userurl = '<?= $this->Url->build(['controller' => 'dashboard','action' => 'userView']); ?>';
   var useraddurl = '<?= $this->Url->build(['controller' => 'dashboard','action' => 'userAdd']); ?>';
+
+  function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
+  var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
+  if (convertapi) { return JSON.parse(resp); }
+  return resp;
+}
+
+  $(document).on("change", "#company-code-id", function () {
+  var companycode = $(this).val();
+  var resp = getRemote(baseurl + "api/api/master-by-company-code/" + companycode);
+  var opt = "<option selected='' value=''>Please Select</option>";
+  resp = resp["message"];
+  $.each(resp["PurchasingOrganizations"], function(i, v){opt += `<option value="`+v.id+`">`+v.name+`</option>`;})
+  $("#purchasing-organization-id").html(opt);
+});
+
 </script>

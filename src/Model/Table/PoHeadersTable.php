@@ -43,7 +43,16 @@ class PoHeadersTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
+        $this->hasMany('AsnHeaders', [
+            'foreignKey' => 'po_header_id',
+        ]);
+        $this->hasMany('DeliveryDetails', [
+            'foreignKey' => 'po_header_id',
+        ]);
         $this->hasMany('PoFooters', [
+            'foreignKey' => 'po_header_id',
+        ]);
+        $this->hasMany('PoItemSchedules', [
             'foreignKey' => 'po_header_id',
         ]);
     }
@@ -70,7 +79,7 @@ class PoHeadersTable extends Table
 
         $validator
             ->scalar('document_type')
-            ->maxLength('document_type', 4)
+            ->maxLength('document_type', 40)
             ->requirePresence('document_type', 'create')
             ->notEmptyString('document_type');
 
@@ -80,8 +89,14 @@ class PoHeadersTable extends Table
             ->notEmptyDateTime('created_on');
 
         $validator
+            ->scalar('created_user')
+            ->maxLength('created_user', 20)
+            ->requirePresence('created_user', 'create')
+            ->notEmptyString('created_user');
+
+        $validator
             ->scalar('created_by')
-            ->maxLength('created_by', 12)
+            ->maxLength('created_by', 40)
             ->requirePresence('created_by', 'create')
             ->notEmptyString('created_by');
 
@@ -98,11 +113,28 @@ class PoHeadersTable extends Table
             ->notEmptyString('currency');
 
         $validator
-            ->decimal('exchange_rate');
+            ->decimal('exchange_rate')
+            ->requirePresence('exchange_rate', 'create')
+            ->notEmptyString('exchange_rate');
 
         $validator
             ->scalar('release_status')
-            ->maxLength('release_status', 10);
+            ->maxLength('release_status', 10)
+            ->requirePresence('release_status', 'create')
+            ->notEmptyString('release_status');
+
+        $validator
+            ->integer('acknowledge')
+            ->notEmptyString('acknowledge');
+
+        $validator
+            ->scalar('acknowledge_no')
+            ->maxLength('acknowledge_no', 15)
+            ->allowEmptyString('acknowledge_no');
+
+        $validator
+            ->dateTime('acknowledge_date')
+            ->allowEmptyDateTime('acknowledge_date');
 
         $validator
             ->dateTime('added_date')
@@ -113,5 +145,19 @@ class PoHeadersTable extends Table
             ->notEmptyDateTime('updated_date');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['sap_vendor_code', 'po_no']), ['errorField' => 'sap_vendor_code']);
+
+        return $rules;
     }
 }

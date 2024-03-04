@@ -20,10 +20,11 @@ class AccountGroupsFixture extends TestFixture
         $this->records = [
             [
                 'id' => 1,
+                'code' => 'Lorem ipsum d',
                 'name' => 'Lorem ipsum dolor sit amet',
                 'status' => 1,
-                'added_date' => '2023-01-02 07:44:52',
-                'updated_date' => '2023-01-02 07:44:52',
+                'added_date' => '2023-08-11 19:11:20',
+                'updated_date' => '2023-08-11 19:11:20',
             ],
         ];
         parent::init();

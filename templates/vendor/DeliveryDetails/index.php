@@ -4,83 +4,87 @@
  * @var \App\Model\Entity\DeliveryDetail[]|\Cake\Collection\CollectionInterface $deliveryDetails
  */
 ?>
-<style>
-    /* .body{
-        font-size:0.9rem;
-    }
-    .card-body{
-        font-size:0.9rem
-    }
-    .table td, .table th{
-        padding:0rem
-    } */
-    </style>
-<?= $this->Html->css('v_vendorCustom') ?>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<!-- <?= $this->Html->css('table.css') ?> -->
+<!-- <?= $this->Html->css('listing.css') ?> -->
+<!-- <?= $this->Html->css('v_vendorCustom') ?> -->
 
-<div class="deliveryDetails index content card intransit">
-    <div class="card-header p-2">
-        <h5 class="mb-0">
-            <b>
-                <?= __('DELIVERY DETAILS') ?>
-            </b>
-        </h5>
-    </div>
-    <div class="card-body p-2">
-        <table class="table table-hover" id="example1">
-            <thead>
-                <tr>
-                  
-                    <th>Asn No</th>
-                    <th>Purchase Order</th>
-                    <th>invoice No</th>
-                    <th>invoice value</th>
-                    <th>Status</th>
-                   
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($deliveryDetails as $deliveryDetail): ?>
-                <tr>
-                   
-                    <td>
-                    <?=  $deliveryDetail->asn_no ?>
-                    </td>
-                    <td>
-                        <?= $deliveryDetail->has('po_header') ? $deliveryDetail->po_header->po_no : '' ?>
-                    </td>
+<div class="row">
+    <div class="col-12">
+        <div class="deliveryDetails index content card intransit">
+            <div class="card-header p-2">
+                <h5 class="mb-0 pl-2">
+                    <b>
+                        <?= __('Delivery Details') ?>
+                    </b>
+                </h5>
+            </div>
+            <div class="card-body p-2">
+                <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="example1">
+                    <thead>
+                        <tr>
 
-                    
-                    <td>
-                        <?= h($deliveryDetail->invoice_no) ?>
-                    </td>
-                    
+                            <th>Asn No</th>
+                            <th>Purchase Order</th>
+                            <th>Invoice No</th>
+                            <th>Invoice value</th>
+                            <th>Status</th>
 
-                    <td>
-                        <?= h($deliveryDetail->invoice_value).' '. h($deliveryDetail->po_header->currency)?>
-                    </td>
-                    <td>
-                    <?= $deliveryDetail->status == 2 ? '<span class="badge bg-success">Delivered</span>' : '<span class="badge bg-warning">INTRANSIT</span>' ?>
-</td>
-                
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($deliveryDetails as $deliveryDetail):
+                            switch ($deliveryDetail->status) {
+                                case 2:
+                                    $status = '<a class="btn btn-light text-primary pb-0 pt-0" style="border: 1px solid lightblue;"><i class="intransit_icon fas fa-truck" data-toggle="tooltip" title="In Transit" data-widget="chat-pane-toggle"></i></a>';
+                                    break;
+                                case 3:
+                                    $status = '<a class="btn btn-light text-success" style="border: 1px solid lightblue;"><i class="intransit_icon fas fa-truck-loading" data-toggle="tooltip" title="Received" data-widget="chat-pane-toggle"></i></a>';
+                                    break;
+
+                        } ?>
+                        <tr>
+
+                            <td>
+                                <?=  $deliveryDetail->asn_no ?>
+                            </td>
+                            <td>
+                                <?= $deliveryDetail->has('po_header') ? $deliveryDetail->po_header->po_no : '' ?>
+                            </td>
+                            <td>
+                                <?= h($deliveryDetail->invoice_no) ?>
+                            </td>
+                            <td>
+                                <?= h($deliveryDetail->invoice_value).' '. h($deliveryDetail->po_header->currency)?>
+                            </td>
+                            <td>
+                                <?= $status  ?>     
+                            </td>
+
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table></div>
+            </div>
+        </div>
     </div>
 </div>
 
-</div>
 
 <script>
     $(document).ready(function () {
         var table = $("#example1").DataTable({
             "paging": true,
-            "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
-            "ordering":true,
+            "responsive": false, 
+            "lengthChange": false, 
+            "autoWidth": false, 
+            "searching": true,
+            "ordering": true,
             language: {
-          search: "_INPUT_",
-        searchPlaceholder: "Search..."
-    },
+                search: "_INPUT_",
+                searchPlaceholder: "Search..."
+            },
         });
     });
 

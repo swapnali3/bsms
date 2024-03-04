@@ -9,10 +9,10 @@ use Cake\ORM\Entity;
  * Notification Entity
  *
  * @property int $id
- * @property int|null $user_id
+ * @property int $user_id
  * @property int $message_count
  * @property string $notification_type
- * @property \Cake\I18n\FrozenTime $created_at
+ * @property \Cake\I18n\FrozenTime $added_date
  *
  * @property \App\Model\Entity\User $user
  */
@@ -31,7 +31,7 @@ class Notification extends Entity
         'user_id' => true,
         'message_count' => true,
         'notification_type' => true,
-        'created_at' => true,
+        'added_date' => true,
         'user' => true,
     ];
 }

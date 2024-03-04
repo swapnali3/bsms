@@ -18,13 +18,20 @@ class VendorMaterialStocksController extends VendorAppController
      *
      * @return \Cake\Http\Response|null|void Renders view
      */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     public function index()
     {
+        $flash = [];
         $this->set('headTitle', 'Material Stocks');
         $session = $this->getRequest()->getSession();
         $vendorMaterialStocks = $this->paginate($this->VendorMaterialStocks->find()->where(['sap_vendor_code' => $session->read('vendor_code')]));
-
-
+        $this->set('flash', $flash);
         $this->set(compact('vendorMaterialStocks'));
     }
 
@@ -37,10 +44,7 @@ class VendorMaterialStocksController extends VendorAppController
      */
     public function view($id = null)
     {
-        $vendorMaterialStock = $this->VendorMaterialStocks->get($id, [
-            'contain' => [],
-        ]);
-
+        $vendorMaterialStock = $this->VendorMaterialStocks->get($id);
         $this->set(compact('vendorMaterialStock'));
     }
 
@@ -51,15 +55,17 @@ class VendorMaterialStocksController extends VendorAppController
      */
     public function add()
     {
+        $flash = [];
         $vendorMaterialStock = $this->VendorMaterialStocks->newEmptyEntity();
         if ($this->request->is('post')) {
             $vendorMaterialStock = $this->VendorMaterialStocks->patchEntity($vendorMaterialStock, $this->request->getData());
             if ($this->VendorMaterialStocks->save($vendorMaterialStock)) {
-                $this->Flash->success(__('The vendor material stock has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The vendor material stock has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The vendor material stock could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The vendor material stock could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('vendorMaterialStock'));
     }
@@ -73,14 +79,17 @@ class VendorMaterialStocksController extends VendorAppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $vendorMaterialStock = $this->VendorMaterialStocks->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $vendorMaterialStock = $this->VendorMaterialStocks->patchEntity($vendorMaterialStock, $this->request->getData());
             if ($this->VendorMaterialStocks->save($vendorMaterialStock)) {
-                $this->Flash->success(__('The vendor material stock has been saved.'));
+                $flash = ['type'=>'success', 'msg'=>'The vendor material stock has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The vendor material stock could not be saved. Please, try again.'));
+            $flash = ['type'=>'success', 'msg'=>'The vendor material stock could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('vendorMaterialStock'));
     }
@@ -94,13 +103,15 @@ class VendorMaterialStocksController extends VendorAppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $vendorMaterialStock = $this->VendorMaterialStocks->get($id);
         if ($this->VendorMaterialStocks->delete($vendorMaterialStock)) {
-            $this->Flash->success(__('The vendor material stock has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The vendor material stock has been deleted'];
         } else {
-            $this->Flash->error(__('The vendor material stock could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The vendor material stock could not be deleted. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }
@@ -150,18 +161,21 @@ class VendorMaterialStocksController extends VendorAppController
                     $vendorMaterialStock = $this->VendorMaterialStocks->newEntities($data);
 
                     if ($this->VendorMaterialStocks->saveMany($vendorMaterialStock)) {
-                        $this->Flash->success(__('The material stock has been saved.'));
+                        $flash = ['type'=>'success', 'msg'=>'The material stock has been saved'];
+                        $this->set('flash', $flash);
                         return $this->redirect(['action' => 'index']);
                     }
                 } else {
-                    $this->Flash->error(__('Please upload correct file.'));
+                    $flash = ['type'=>'success', 'msg'=>'Please upload correct file'];
+                    $this->set('flash', $flash);
                     return $this->redirect(['action' => 'index']);
                 }
             }
 
             //exit;
 
-            $this->Flash->error(__('The  material stock could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The  material stock could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
     }
 }

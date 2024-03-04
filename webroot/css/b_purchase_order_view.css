@@ -1,0 +1,59 @@
+.lbluebadge {
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #17a2b8;
+}
+
+.redbadge {
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #f11e00;
+}
+
+.lgreenbadge{
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: green;
+}
+
+.dbluebadge {
+    border-radius: 12px !important;
+    padding: 7px;
+    background-color: lavender;
+    color: #004a9f;
+}
+
+
+
+div#modal-cancel .btn {
+    padding: 6px 20px;
+    font-size: 12px !important;
+}
+
+
+/* .po-box:hover .po-code-block {
+    display: block !important;
+    transition: all ease 1s !important;
+}
+
+.po-box {
+    position: relative;
+    overflow: hidden; 
+    transition: all ease 1s !important;
+}
+
+.po-code-block {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(30px); 
+    top: 56%;
+    left: 0;
+} */
+
+
+ 

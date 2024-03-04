@@ -26,8 +26,10 @@ use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\Datasource\ConnectionManager;
-use Cake\Routing\Router;
+use Cake\Mailer\Email;
 use Cake\Mailer\Mailer;
+use Cake\Mailer\TransportFactory;
+use Cake\Routing\Router;
 
 /**
  * Static content controller
@@ -38,17 +40,54 @@ use Cake\Mailer\Mailer;
  */
 class DashboardController extends AdminAppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $flash = [];  
+        $this->set('flash', $flash);
+    }
+    
     public function index()
     {
+        $this->loadModel('VendorTemps');
+        $this->loadModel('Buyers');
+        $this->loadModel('Users');
 
-        // $this->loadModel('Users');
-        // $users = $this->paginate($this->Users);
+        $vendorStatus = $this->VendorTemps->find()
+        ->select(['status' => 'VendorStatus.status','count' => 'count(VendorStatus.status)'])
+        ->innerJoin(['VendorStatus' => 'vendor_status'], ['VendorStatus.status=VendorTemps.status'])
+        ->group('VendorTemps.status')->toArray();
 
-        // echo "Prv" .print_r($users);exit;
+        $buyers = $this->Buyers->find()
+        ->select(['status' => 'Buyers.status','count' => 'count(Buyers.status)'])
+        ->group('Buyers.status')->toArray();
+
+        $managers = $this->Users->find()
+        ->select(['status' => 'Users.status','count' => 'count(Users.status)'])
+        ->where(['Users.group_id' => 4])
+        ->group('Users.status')->toArray();
 
 
+        $vendorDashboardCount = [];
+        $vendorDashboardCount['total'] = array_sum(array_column($vendorStatus,'count'));
+        foreach($vendorStatus as $status) {
+            $vendorDashboardCount[$status->status] = $status->count;
+        }
 
-        // $this->set(compact('Users'));
+        $buyerCounts = [];
+        $buyerCounts['total'] = array_sum(array_column($buyers,'count'));
+        foreach($buyers as $status) {
+            $buyerCounts[$status->status] = $status->count;
+        }
+
+        $managerCounts = [];
+        $managerCounts['total'] = array_sum(array_column($managers,'count'));
+        foreach($managers as $status) {
+            $managerCounts[$status->status] = $status->count;
+        }
+
+
+        $this->set(compact('vendorDashboardCount', 'buyerCounts', 'managerCounts'));
 
     }
 
@@ -134,37 +173,50 @@ class DashboardController extends AdminAppController
         $this->autoRender = false;
 
         $this->loadModel('Users');
+        $this->loadModel('Buyers');
         if ($this->request->is(['patch', 'post', 'put'])) {
 
             try {
-                $User = $this->Users->newEmptyEntity();
+
                 $data = $this->request->getData();
-                $data['password'] = Security::randomString(10);
 
-                $groupName = "";
-                if ($data['group_id'] === '1') {
-                    $groupName = "Admin";
+                $buyer = $this->Buyers->newEmptyEntity();
+                $buyer = $this->Buyers->patchEntity($buyer, $data);
+                if($this->Buyers->save($buyer)) {
+
+                    $data['username'] = $data['email'];
+                    $data['password'] = $data['mobile'];//Security::randomString(10);
+
+                    $user = $this->Users->newEmptyEntity();
+                    $user = $this->Users->patchEntity($user, $data);
+                    if ($this->Users->save($user)) {
+                        
+                        $visit_url = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
+                        if($this->Users->find()->select('status')->where(['username' => $data['username']])->first()['status'] == 1){
+                        $mailer = new Mailer('default');
+                        $mailer
+                            ->setTransport('smtp')
+                            ->setViewVars([ 'subject' => 'Hi ' . $data['first_name'], 'mailbody' => 'Welcome to Vendor portal. <br/> <br/> Username: ' . $data['username'] . '<br/>Password:' . $data['password'], 'link' => $visit_url, 'linktext' => 'Click Here' ])
+                            ->setFrom(Configure::read('MAIL_FROM'))
+                            ->setTo($data['username'])
+                            ->setEmailFormat('html')
+                            ->setSubject('BUYER ONBOARDING')
+                            ->viewBuilder()
+                                ->setTemplate('onboarding');
+                        $mailer->deliver();
+                        }
+
+
+                        $response['status'] = '1';
+                        $response['message'] = 'User Added successfully';
+                    } else {
+                        //throw new \Exception('Failed to Add User'); // Throw exception if the 
+                        $response['status'] = '0';
+                        $response['message'] = 'Failed to Add User';
+                    }
                 } else {
-                    $groupName = "Buyer";
-                }
-
-                $User = $this->Users->patchEntity($User, $data);
-                if ($this->Users->save($User)) {
-                    $link = Router::url(['prefix' => false, 'controller' => 'users', 'action' => 'login', '_full' => true, 'escape' => true]);
-                    $mailer = new Mailer('default');
-                    $mailer
-                        ->setTransport('smtp')
-                        ->setFrom(['helpdesk@fts-pl.com' => 'FT Portal'])
-                        ->setTo($data['username'])
-                        ->setEmailFormat('html')
-                        ->setSubject('' . $groupName . ' Portal - Account created')
-                        ->deliver('Hi ' . $data['first_name'] . ' <br/>Welcome to ' . $groupName . ' portal. <br/> <br/> Username: ' . $data['username'] .
-                            '<br/>Password:' . $data['password'] . '<br/> <a href="' . $link . '">Click here</a>');
-                    $response['status'] = '1';
-                    $response['message'] = 'User Added successfully';
-                } else {
-                    throw new \Exception('Failed to Add User'); // Throw exception if the 
-
+                    $response['status'] = '0';
+                    $response['message'] = 'Failed to Add Buyer';
                 }
             } catch (\Exception $e) {
                 $response['status'] = '0';

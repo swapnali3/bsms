@@ -39,24 +39,24 @@ class DashboardController extends VendorAppController
     public function initialize(): void
     {
         parent::initialize();
+        $flash = [];
+        //     $session = $this->getRequest()->getSession();
 
-    //     $session = $this->getRequest()->getSession();
+        //     $permissionsTable = $this->getTableLocator()->get('Permissions');
+        //     $query = $permissionsTable->find()
+        //         ->select(['permission'])
+        //         ->where([
+        //             'controller' => ':controller', 
+        //             'action' => 'index',
+        //             'users' => $session->read('id') 
+        //         ])->toArray();
 
-    //     $permissionsTable = $this->getTableLocator()->get('Permissions');
-    //     $query = $permissionsTable->find()
-    //         ->select(['permission'])
-    //         ->where([
-    //             'controller' => ':controller', 
-    //             'action' => 'index',
-    //             'users' => $session->read('id') 
-    //         ])->toArray();
-            
-    //    print_r($query);exit;    
-     
+        //    print_r($query);exit;    
+        $this->set('flash', $flash);
     }
+
     public function index()
     {
-
         $this->set('headTitle', 'Dashboard');
         $session = $this->getRequest()->getSession();
         $conn = ConnectionManager::get('default');
@@ -64,89 +64,68 @@ class DashboardController extends VendorAppController
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
 
-        $this->loadModel('RfqDetails');
-        $this->loadModel('RfqInquiries');
-        $this->loadModel('Products');
-
-        $this->loadModel('PoHeaders');
         $this->loadModel('PoItemSchedules');
-
         $this->loadModel('DeliveryDetails');
+        $this->loadModel('StockUploads');
+        $this->loadModel('AsnFooters');
 
+        $totalPos = $this->PoHeaders->find('all')
+        ->where(['sap_vendor_code' => $session->read('vendor_code')]);
 
-        $rfqnewDetails = $conn->execute("SELECT RfqDetails.*,Products.name product, Uoms.description uom FROM `rfq_details` RfqDetails
-        join products Products on Products.id = RfqDetails.product_id
-        join uoms Uoms on Uoms.id = RfqDetails.uom_code
-        join vendor_temps VendorTemps on RfqDetails.buyer_seller_user_id = VendorTemps.buyer_id
-        where RfqDetails.status = 1 and VendorTemps.sap_vendor_code = '" . $session->read('vendor_code') . "' and RfqDetails.id not in (select rfq_item_id from rfq_inquiries where seller_id = " . $session->read('id') . ")");
-
-        $rfqRequested = $conn->execute("SELECT RfqDetails.*, Products.name product, Uoms.description uom FROM `rfq_details` RfqDetails
-        join products Products on Products.id = RfqDetails.product_id
-        join uoms Uoms on Uoms.id = RfqDetails.uom_code
-        join vendor_temps VendorTemps on RfqDetails.buyer_seller_user_id = VendorTemps.buyer_id
-        where RfqDetails.status = 1 and VendorTemps.sap_vendor_code = '" . $session->read('vendor_code') . "' and RfqDetails.id in (select rfq_item_id from rfq_inquiries where seller_id = " . $session->read('id') . ")");
-
-        $query = $conn->execute("SELECT po_header_id FROM db_bsms.po_item_schedules GROUP BY po_header_id");
-        $totalPos = $query->count();
-
-        $this->loadModel('AsnHeaders');
+        //echo '<pre>'; print_r($totalPos); exit;
+        $totalPos = $totalPos->count();
         
-        $intraQry = $this->AsnHeaders->find()
-            ->select(['AsnHeaders.id', 'AsnHeaders.invoice_no', 'AsnHeaders.status', 'AsnHeaders.asn_no', 'AsnHeaders.invoice_value', 'PoHeaders.po_no', 'AsnHeaders.added_date', 'AsnHeaders.updated_date'])
-            ->contain(['PoHeaders'])
-            ->where(['PoHeaders.sap_vendor_code' => $session->read('vendor_code'), 'AsnHeaders.status' => '2']);
-        $totalIntransit = $intraQry->count();
+        $stocks = $this->StockUploads->find('all')->contain(['VendorFactories'])
+        ->select($this->StockUploads)
+        ->select(['VendorFactories.factory_code'])
+        ->select(['material.code', 'material.description', 'material.uom', 'material.minimum_stock'])
+        ->select(['PoFooters.po_qty', 'PoFooters.grn_qty', 'PoFooters.pending_qty'])
+        ->innerJoin(['material' => 'materials'], ['material.id=StockUploads.material_id'])
+        ->leftJoin(['PoFooters' => "(select PoFooters.material, sum(PoFooters.po_qty) as po_qty, sum(PoFooters.grn_qty) as grn_qty, sum(PoFooters.pending_qty), pending_qty from po_footers as PoFooters where PoFooters.po_header_id in (select id from po_headers where sap_vendor_code = '".$session->read('vendor_code')."') group by PoFooters.material)"],
+        ['PoFooters.material = material.code']
+        )
+        ->where(['StockUploads.sap_vendor_code' => $session->read('vendor_code')])->order("StockUploads.updated_date desc")
+        ->toArray();
 
-        //echo '<pre>';print_r($intraQry); exit;
+        //echo '<pre>'; print_r($stocks); exit;
 
-        //$totalIntransit = $this->DeliveryDetails->find('all', array('conditions'=>array('status'=>0)))->count();
+        //echo '<pre>'; prin
+        $asnMaterials = $this->AsnFooters->find('all')
+        ->select(['vendor_factory_id' => 'VendorFactories.id', 'material' => 'PoFooters.material', 'qty' => 'sum(AsnFooters.qty)'])
+        ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
+        ->where(['AsnHeaders.status in ' => ['1','2', '3'], 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')])
+        ->group(['VendorFactories.id','PoFooters.material'])->toArray();
 
-        $totalRfqDetails = $this->RfqDetails->find('all', array('conditions' => array('status' => 1)))->count();
-
-
-        
-       $this->set(compact('totalPos', 'totalIntransit', 'totalRfqDetails', 'rfqnewDetails', 'rfqRequested'));
-
-    }
-
-    public function rfqView($id = null)
-    {
-        $session = $this->getRequest()->getSession();
-        $this->loadModel('RfqDetails');
-        $this->loadModel('RfqInquiries');
-
-        $rfqDetails = $this->RfqDetails->get($id, [
-            'contain' => ['Products', 'Uoms'],
-        ]);
-
-        $inquired = $this->RfqInquiries->exists(['rfq_id' => $id, 'seller_id' => $session->read('id')]);
-
-        $isResponded = 'no';
-        if ($inquired) {
-            $isResponded = 'yes';
+        //echo '<pre>'; print_r($asnMaterials); exit;
+        foreach($stocks as &$stock) {
+            $stock->current_stock = ($stock->opening_stock + $stock->production_stock +  $stock->in_transfer_stock) - ($stock->out_transfer_stock);
+            foreach($asnMaterials as $asn) {
+                if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material['code'] == $asn->material) {
+                    $stock->asn_stock = $asn->qty;
+                    $stock->current_stock = ($stock->opening_stock + $stock->production_stock +  $stock->in_transfer_stock) - ($stock->asn_stock +  $stock->out_transfer_stock);
+                }
+            }
+            if($stock->current_stock < 0) {
+                $stock->current_stock = 0;
+            }
+            
         }
 
-        $userType = 'seller';
-        if ($userType == 'seller') {
-            $RfqInquiry = $this->RfqInquiries->newEmptyEntity();
-            $data = array();
-            $data['rfq_id'] = $id;
-            $data['seller_id'] = $session->read('id');
-            $RfqInquiry = $this->RfqInquiries->patchEntity($RfqInquiry, $data);
-            $results = $this->RfqInquiries->save($RfqInquiry);
-        }
 
-        $this->set(compact('rfqDetails', 'userType', 'results', 'isResponded'));
+        $intransitMaterials = $this->AsnFooters->find('all')
+        ->select(['VendorFactories.factory_code','AsnHeaders.asn_no', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'PoHeaders.po_no', 'PoFooters.material', 'AsnFooters.qty', 'AsnHeaders.status'])
+        ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
+        ->where(['AsnHeaders.status' => '2', 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')]);
+        $totalIntransit = $intransitMaterials->count();
+        
+        $this->set(compact('totalPos', 'totalIntransit', 'stocks', 'intransitMaterials'));
     }
 
     public function getlist()
     {
-
-
         $this->autoRender = false;
         $this->loadModel('PoHeaders');
         $this->loadModel('VendorTemps');
-
 
         $query = $this->PoHeaders->find();
         $query->join(['PoFooters' => 'po_footers'])
@@ -162,16 +141,25 @@ class DashboardController extends VendorAppController
 
     public function clearMessageCount()
     {
+        $session = $this->getRequest()->getSession();
+        $vendorID = $session->read('id');
         $response = array();
         $response['status'] = 0;
         $response['message'] = '';
-    
-        $this->loadModel('Notifications');
-        $this->Notifications->updateAll(['message_count' => 0], ['notification_type' => 'create_schedule']);
-    
+
+        $id = $this->request->getQuery('id'); 
+        if (!empty($id)) {
+            $this->loadModel('Notifications');
+            $this->Notifications->updateAll(['message_count' => 0], ['id IN' => $id]);
+        }
+        else{
+            $response['status'] = 0;
+            $response['message'] = 'Failed';
+        }
+
         $response['status'] = 1;
-        $response['message'] = 'clear Notification';
-    
+        $response['message'] = 'Clear Notification';
+
         echo json_encode($response);
         exit();
     }

@@ -8,7 +8,7 @@
 
   <style type="text/css">
     input[type='radio'] {
-      accent-color: #5ba10a;
+      accent-color: #F7941D !important;
     border: 0px;
     width: 1.3em;
     height: 1.3em;
@@ -83,12 +83,23 @@
 
     .v2container {
       color: white;
-      background-color: #b61924 !important;
-      background: #2980b9 !important;
+      background-color: #F7941D !important;
+      background: #F7941D !important;
       background: -webkit-linear-gradient(to right, #2c3e50, #2980b9) !important;
-      background: linear-gradient(to right, #2c3e50, #2980b9) !important;
+      background: linear-gradient(to bottom, #F7941D, #ED1C24) !important;
       height: auto !important;
       min-height: calc(100vh - 0px) !important;
+    }
+
+    .v2container::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.2); 
+      pointer-events: none;
     }
 
     div#mobile_login {
@@ -137,6 +148,8 @@
       height: 100%;
       z-index: 999;
     }
+
+    .form-control[type="file"] { font-size: 16px !important;}
 
     .s-logo {
       width: 50%;
@@ -229,6 +242,23 @@
     body {
       font-family: 'Heebo', sans-serif;
     }
+
+    /* Responsive Styling start here */
+
+    @media only screen and (max-width: 1024px) {
+        .custom-radio label { font-size: .8rem ;}
+        .custom-radio { display: flex; align-items: center; gap: 5px;}
+    }
+
+    @media only screen and (max-width: 768px) {
+      .left-content { padding: 20px 40px 20px !important;}
+      .left-content h1 { font-size: 36px;}
+    }
+    @media only screen and (max-width: 425px) {
+      .left-content h1 { font-size: 32px;}
+      .left-content p { font-size: 16px;}
+    }
+
   </style>
   <meta charset="utf-8">
   <link rel="icon" href="./favicon.ico">
@@ -262,7 +292,7 @@
           <div
             class="ant-col otherdetails-container ant-col-xs-24 ant-col-sm-24 ant-col-md-24 ant-col-lg-12 ant-col-xl-12">
             <div class="left-content animate__animated animate__backInLeft">
-              <h1>Welcome to FTSPL Supplier Portal</h1>
+              <h1>Welcome to APAR Vendor Portal</h1>
               <p>A single window digital interface and communication platform for supplier assessment and onboarding-
                 Towards Co-creating Governance.</p>
               <img class="flow-img" src="<?= $this->Url->build('/') ?>img/login-img.png">
@@ -274,7 +304,7 @@
 
                 <div class="signupform signupform__signin">
                   <p class="signupform__signin--signinText">
-                    <img src="<?= $this->Url->build('/') ?>img/logo_s.png" class="s-logo">
+                    <img src="<?= $this->Url->build('/') ?>img/apar_logo.png" class="s-logo">
                   </p>
 
                   <div class="select-button login-page .form">
@@ -324,7 +354,7 @@
                         <p class="material-rightLabel"><i class="fa fa-eye-slash" id="eye" aria-hidden="true"
                             style="cursor: pointer;"></i></p>
 
-                        <p class="material-rightBottomLabel" style="text-decoration:none !important;"><a href="#"
+                        <p class="material-rightBottomLabel" style="text-decoration:none !important;"><a href="users/forget_pwd"
                             class="forget-pwd">Forgot
                             Password ?</a></p>
                       </div>
@@ -406,7 +436,7 @@
     particlesJS("particles-js", {
       "particles": {
         "number": {
-          "value": 290,
+          "value": 50,
           "density": {
             "enable": true,
             "value_area": 800
@@ -422,7 +452,7 @@
             "color": "#000000"
           },
           "polygon": {
-            "nb_sides": 10
+            "nb_sides": 4
           },
           "image": {
             "src": "img/github.svg",
@@ -435,7 +465,7 @@
           "random": false,
           "anim": {
             "enable": false,
-            "speed": 1,
+            "speed": 2,
             "opacity_min": 0.1,
             "sync": false
           }
@@ -452,7 +482,7 @@
         },
         "line_linked": {
           "enable": true,
-          "distance": 150,
+          "distance": 100,
           "color": "#ffffff",
           "opacity": 0.4,
           "width": 1
@@ -501,7 +531,7 @@
           },
           "repulse": {
             "distance": 100,
-            "duration": 0.4
+            "duration": 0.8
           },
           "push": {
             "particles_nb": 4
@@ -524,34 +554,37 @@
         url: "<?php echo \Cake\Routing\Router::url(array('/controller' => 'users-controller', 'action' => 'api-login')); ?>",
         data: $("#loginForm").serialize(),
         dataType: 'json',
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
           if (response.status == '1') {
             window.location.href = response.redirect.controller;
           } else {
             $('span.userpassError').empty().append(response.message);
           }
-
-        }
+        },
+        complete: function () { $("#gif_loader").hide(); }
       });
     });
 
 
 
     $('#otploginclick').click(function (e) {
+      $('#otp_error').empty();
       e.preventDefault(); // Prevent the form from submitting normally
       $.ajax({
         type: "POST",
         url: "<?php echo \Cake\Routing\Router::url(array('/controller' => 'users-controller', 'action' => 'api-login')); ?>",
         data: $("#otpForm").serialize(),
         dataType: 'json',
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
           if (response.status == '1') {
             window.location.href = response.redirect.controller;
           } else {
             $('#otp_error').empty().append(response.message);
           }
-
-        }
+        },
+        complete: function () { $("#gif_loader").hide(); }
       });
     });
 
@@ -586,24 +619,22 @@
       });
 
       $("#getotp").click(function () {
+        $('span.userpassError').empty();
         var request = $.ajax({
           url: "users/get-otp",
           method: "POST",
-          headers: {
-            'X-CSRF-Token': $('[name="_csrfToken"]').val()
-          },
-          data: {
-            mobile: $("#mobile").val()
-          },
+          headers: { 'X-CSRF-Token': $('[name="_csrfToken"]').val() },
+          data: { mobile: $("#mobile").val() },
           dataType: "json",
+          beforeSend: function () { $("#gif_loader").show(); },
           success: function (response) {
             if (response.status == '1') {
               // window.location.href = response.redirect.controller;
             } else {
               $('span.userpassError').empty().append(response.message);
             }
-
-          }
+          },
+          complete: function () { $("#gif_loader").hide(); }
         });
 
         request.done(function (response) {
@@ -611,9 +642,7 @@
             $("#mobile_login_otp").show();
             $("#mobile_login").hide();
             $("#user_mobile").val($("#mobile").val());
-          } else {
-            $("#otp_error").html(response.message);
-          }
+          } 
         });
 
         request.fail(function (jqXHR, textStatus) {

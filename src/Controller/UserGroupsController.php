@@ -46,15 +46,17 @@ class UserGroupsController extends AppController
      */
     public function add()
     {
+        $flash = [];
         $userGroup = $this->UserGroups->newEmptyEntity();
         if ($this->request->is('post')) {
             $userGroup = $this->UserGroups->patchEntity($userGroup, $this->request->getData());
             if ($this->UserGroups->save($userGroup)) {
-                $this->Flash->success(__('The user group has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The user group has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user group could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The user group could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('userGroup'));
     }
@@ -68,17 +70,19 @@ class UserGroupsController extends AppController
      */
     public function edit($id = null)
     {
+        $flash = [];
         $userGroup = $this->UserGroups->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $userGroup = $this->UserGroups->patchEntity($userGroup, $this->request->getData());
             if ($this->UserGroups->save($userGroup)) {
-                $this->Flash->success(__('The user group has been saved.'));
-
+                $flash = ['type'=>'success', 'msg'=>'The user group has been saved'];
+                $this->set('flash', $flash);
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user group could not be saved. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The user group could not be saved. Please, try again'];
+            $this->set('flash', $flash);
         }
         $this->set(compact('userGroup'));
     }
@@ -92,13 +96,15 @@ class UserGroupsController extends AppController
      */
     public function delete($id = null)
     {
+        $flash = [];
         $this->request->allowMethod(['post', 'delete']);
         $userGroup = $this->UserGroups->get($id);
         if ($this->UserGroups->delete($userGroup)) {
-            $this->Flash->success(__('The user group has been deleted.'));
+            $flash = ['type'=>'success', 'msg'=>'The user group has been deleted'];
         } else {
-            $this->Flash->error(__('The user group could not be deleted. Please, try again.'));
+            $flash = ['type'=>'error', 'msg'=>'The user group could not be saved. Please, try again'];
         }
+        $this->set('flash', $flash);
 
         return $this->redirect(['action' => 'index']);
     }

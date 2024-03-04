@@ -25,6 +25,7 @@ class AccountGroupsTableTest extends TestCase
      */
     protected $fixtures = [
         'app.AccountGroups',
+        'app.CompanyCodes',
         'app.VendorTemps',
     ];
 
@@ -59,6 +60,17 @@ class AccountGroupsTableTest extends TestCase
      * @uses \App\Model\Table\AccountGroupsTable::validationDefault()
      */
     public function testValidationDefault(): void
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     * @uses \App\Model\Table\AccountGroupsTable::buildRules()
+     */
+    public function testBuildRules(): void
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

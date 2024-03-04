@@ -58,9 +58,20 @@ class UomsTable extends Table
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 100)
+            ->maxLength('description', 40)
             ->requirePresence('description', 'create')
             ->notEmptyString('description');
+
+        $validator
+            ->notEmptyString('status');
+
+        $validator
+            ->dateTime('created_date')
+            ->notEmptyDateTime('created_date');
+
+        $validator
+            ->dateTime('updated_date')
+            ->notEmptyDateTime('updated_date');
 
         return $validator;
     }

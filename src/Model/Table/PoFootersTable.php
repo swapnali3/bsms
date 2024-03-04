@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  * PoFooters Model
  *
  * @property \App\Model\Table\PoHeadersTable&\Cake\ORM\Association\BelongsTo $PoHeaders
+ * @property \App\Model\Table\DeliveryDetailsTable&\Cake\ORM\Association\HasMany $DeliveryDetails
  *
  * @method \App\Model\Entity\PoFooter newEmptyEntity()
  * @method \App\Model\Entity\PoFooter newEntity(array $data, array $options = [])
@@ -47,8 +48,13 @@ class PoFootersTable extends Table
             'foreignKey' => 'po_header_id',
             'joinType' => 'INNER',
         ]);
-
+        $this->hasMany('AsnFooters', [
+            'foreignKey' => 'po_footer_id',
+        ]);
         $this->hasMany('DeliveryDetails', [
+            'foreignKey' => 'po_footer_id',
+        ]);
+        $this->hasMany('PoItemSchedules', [
             'foreignKey' => 'po_footer_id',
         ]);
     }
@@ -63,7 +69,6 @@ class PoFootersTable extends Table
     {
         $validator
             ->integer('po_header_id')
-            ->requirePresence('po_header_id', 'create')
             ->notEmptyString('po_header_id');
 
         $validator
@@ -71,6 +76,11 @@ class PoFootersTable extends Table
             ->maxLength('item', 5)
             ->requirePresence('item', 'create')
             ->notEmptyString('item');
+
+        $validator
+            ->scalar('deleted_indication')
+            ->maxLength('deleted_indication', 1)
+            ->allowEmptyString('deleted_indication');
 
         $validator
             ->scalar('material')
@@ -125,6 +135,15 @@ class PoFootersTable extends Table
             ->decimal('gross_value')
             ->requirePresence('gross_value', 'create')
             ->notEmptyString('gross_value');
+
+        $validator
+            ->scalar('part_code')
+            ->maxLength('part_code', 20)
+            ->allowEmptyString('part_code');
+
+        $validator
+            ->decimal('stock')
+            ->allowEmptyString('stock');
 
         $validator
             ->dateTime('added_date')

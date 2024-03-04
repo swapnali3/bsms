@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\BuyerSellerUser[]|\Cake\Collection\CollectionInterface $buyerSellerUsers
  */
 ?>
+  <?= $this->Html->css('cstyle.css') ?>
+  <?= $this->Html->css('table.css') ?>
+  <?= $this->Html->css('listing.css') ?>
+  <?= $this->Html->css('b_index.css') ?>
 <div class="buyerSellerUsers index content">
     <h3><?= $buyerSellerUser->company_name ?></h3>
     <div class="table-responsive">

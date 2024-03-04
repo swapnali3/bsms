@@ -4,128 +4,229 @@
  * @var \App\Model\Entity\PoHeader[]|\Cake\Collection\CollectionInterface $poHeaders
  */
 ?>
- <?= $this->Html->css('custom') ?>
-
-<div class="poHeaders index content card po">
-    <!-- <div class="card-header">
-        <h5>
-            <b>
-                <?= __('PURCHASE ORDER LISTS') ?>
-            </b>
-        </h5>
-    </div> -->
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover" id="example1">
-                <thead>
-                    <tr>
-                        <th>
-                            <?= h('Vendor Code') ?>
-                        </th>
-                        <th>
-                            <?= h('PO No.') ?>
-                        </th>
-                        <th>
-                            <?= h('Document Type') ?>
-                        </th>
-                        <th>
-                            <?= h('Created On') ?>
-                        </th>
-                        <th>
-                            <?= h('Created By') ?>
-                        </th>
-                        <th>
-                            <?= h('Pay Terms') ?>
-                        </th>
-                        <th>
-                            <?= h('Currency') ?>
-                        </th>
-                        <th>
-                            <?= h('Exchange Rate') ?>
-                        </th>
-                        <th>
-                            <?= h('Release Status') ?>
-                        </th>
-                        <th>
-                            <?= h('Added Date') ?>
-                        </th>
-                        <th>
-                            <?= h('Updated Date') ?>
-                        </th>
-                        <!-- <th class="actions">
-                            <?= __('Actions') ?>
-                        </th> -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($poHeaders as $poHeader): ?>
-                    <tr class="redirect"  data-href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= $poHeader->id ?>">
-                        <td>
-                            <?= h($poHeader->sap_vendor_code) ?>
-                        </td>
-                        <td>
-                            <?= h($poHeader->po_no) ?>
-                        </td>
-                        <td>
-                            <?= h($poHeader->document_type) ?>
-                        </td>
-                        <td>
-                            <?= h($poHeader->created_on) ?>
-                        </td>
-                        <td>
-                            <?= h($poHeader->created_by) ?>
-                        </td>
-                        <td>
-                            <?= h($poHeader->pay_terms) ?>
-                        </td>
-                        <td>
-                            <?= h($poHeader->currency) ?>
-                        </td>
-                        <td>
-                            <?= $this->Number->format($poHeader->exchange_rate) ?>
-                        </td>
-                        <td>
-                            <?= h($poHeader->release_status) ?>
-                        </td>
-                        <td>
-                            <?= h($poHeader->added_date) ?>
-                        </td>
-                        <td>
-                            <?= h($poHeader->updated_date) ?>
-                        </td>
-                        <!-- <td class="actions">
-                            <a type="button" class="btn btn-sm btn-default mb-0" href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view/<?= h($poHeader->id) ?>">View</a>
-                        </td> -->
-                    </tr>
+<!-- <?= $this->Html->css('cstyle.css') ?> -->
+<?= $this->Html->css('custom') ?>
+<?= $this->Html->css('table.css') ?>
+<?= $this->Html->css('listing.css') ?>
+<?= $this->Html->css('b_index.css') ?>
+<style>
+    .hide {
+        display: none;
+    }
+</style>
+<!-- <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap4-theme/1.5.4/select2-bootstrap4.min.css') ?> -->
+<!-- <?= $this->Html->css('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css') ?>
+<?= $this->Html->script('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js') ?> -->
+<?= $this->Html->css('select2.min.css') ?>
+<?= $this->Html->script('select2.js') ?>
+<?= $this->Html->css('bootstrap-multiselect') ?>
+<?= $this->Html->css('dropdown-filter') ?>
+<?= $this->Html->script('bootstrap-multiselect') ?>
+<?= $this->Html->script('FilterMultiSelect') ?>
+<div class="card">
+    <div class="card-header text-center">PURCHASE ORDER TRACKING REPORT</div>
+    <div class="card-body search-filter">
+        <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
+        <div class="row">
+            <div class="col-4">
+                <label for="id_po_no">PO No</label><br>
+                <select name="po_no[]" id="id_po_no" multiple="multiple" class="form-control chosen">
+                    <?php if (isset($poList)) : ?>
+                    <?php foreach ($poList as $mat) : ?>
+                    <option value="<?= h($mat->po_no) ?>" data-select="<?= h($mat->po_no) ?>">
+                        <?= h($mat->po_no) ?>
+                    </option>
                     <?php endforeach; ?>
-                </tbody>
-            </table>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <div class="col-4">
+                <label for="id_vendor">Vendor</label><br>
+                <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
+                    <?php if (isset($vendorList)) : ?>
+                    <?php foreach ($vendorList as $mat) : ?>
+                    <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
+                        <?= h($mat->sap_vendor_code) ?> - 
+                        <?= h($mat->name) ?>
+                    </option>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <div class="col-4">
+                <label for="id_material">Material</label><br>
+                <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
+                    <?php if (isset($materialList)) : ?>
+                    <?php foreach ($materialList as $mat) : ?>
+                    <option value="<?= h($mat->code) ?>" data-select="<?= h($mat->code) ?>">
+                        <?= h($mat->code) ?>
+                        <?= h($mat->description) ?>
+                    </option>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <div class="col-2 mt-2">
+                <label for="id_po_no">PO Date</label><br>
+                <input class="form-control" type="date" name="po_no_date" id="id_po_no_date">
+            </div>
+            <div class="col-2 mt-2">
+                <label for="id_dd">Delivery Date</label><br>
+                <input class="form-control" type="date" name="delivery_date" id="id_dd">
+            </div>
+            <div class="col-2 mt-2">
+                <label for="id_vendortype">Type</label><br>
+                <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
+                    <?php if (isset($vendortype)) : ?>
+                    <?php foreach ($vendortype as $mat) : ?>
+                    <option value="<?= h($mat->type) ?>" data-select="<?= h($mat->type) ?>"> <?= h($mat->type) ?> </option>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <div class="col-2 mt-2">
+                <label for="id_segment">Segment</label><br>
+                <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
+                    <?php if (isset($segment)) : ?>
+                    <?php foreach ($segment as $mat) : ?>
+                    <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
+                        <?= h($mat->segment) ?>
+                    </option>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+                </select>
+            </div>
+            <div class="col-2 mt-2">
+                <label for="id_status">Status</label><br>
+                <select name="status[]" id="id_status" multiple="multiple" class="form-control chosen">
+                    <option value="Scheduled">Scheduled</option>
+                    <option value="ASN created">ASN created</option>
+                    <option value="Partial ASN created">Partial ASN created</option>
+                    <option value="In-Transit">In-Transit</option>
+                    <option value="Received">Received</option>
+                </select>
+            </div>
+            <div class="col-1">
+                <div class="form-group mt-4 pt-3">
+                    <?= $this->Form->button(__('Search'), ['class' => 'btn bg-gradient-submit', 'id' => 'id_sub', 'type' => 'submit']) ?>
+                </div>
+            </div>
         </div>
+        <?= $this->Form->end() ?>
+    </div>
+
+    <div class="card-body buyer_material">
+        <table class="table table-hover table-responsive" id="example1">
+            <thead>
+                <tr>
+                    <th>Vendor Code</th>
+                    <th>PO</th>
+                    <th>Item</th>
+                    <th>Type</th>
+                    <th>Segment</th>
+                    <th>Material</th>
+                    <th style="min-width: 400px;">Description</th>
+                    <th>PO Qty</th>
+                    <th>Grn Qty</th>
+                    <th>Pending Qty</th>
+                    <th>Order Unit</th>
+                    <th>Net Price</th>
+                    <th>Price Unit</th>
+                    <th>Net Value</th>
+                    <th>Gross Value</th>
+                    <th>Schedule Qty</th>
+                    <th>ASN Qty</th>
+                    <th>ASN No</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
     </div>
 </div>
-<!-- <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
-    </div> -->
-</div>
-
 
 <script>
-     $(document).on("click", ".redirect", function () {
-        window.location.href = $(this).data("href");
+    // $(".chosen").multiselect({
+    //     enableClickableOptGroups: false,
+    //     enableCollapsibleOptGroups: false,
+    //     enableFiltering: true,
+    //     includeSelectAllOption: false,
+    //     buttonText: function (options, select) {
+    //         if (options.length === 0) { return 'Select'; }
+    //         // else if (options.length > 1) { return options.length + 'Filter'; }
+    //         else {
+    //             var labels = [];
+    //             options.each(function () {
+    //                 if ($(this).attr('data-select') !== undefined) { labels.push($(this).attr('data-select')); }
+    //                 else { labels.push($(this).html()); }
+    //             });
+    //             return labels.join(',');
+    //         }
+    //     }
+    // });
+    $('.chosen').select2({
+        closeOnSelect : false,
+        placeholder: 'Select',
+        allowClear: true,
+        tags: false,
+        tokenSeparators: [','],
+        templateSelection: function(selection) {
+            if (selection.element && $(selection.element).attr('data-select') !== undefined) {
+                return $(selection.element).attr('data-select');
+            } else {
+                return selection.text;
+            }
+        }
     });
-    $(document).ready(function () {
-        $("#example1").DataTable({
-            "responsive": {"details": {"type": none}},
-            "paging": true,
-            "responsive": false, "lengthChange": false, "autoWidth": false, "searching": true,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+    var datatable = $("#example1").DataTable({
+        "paging": true,
+        "responsive": false,
+        "lengthChange": false,
+        "autoWidth": false,
+        "searching": true,
+        "ordering": true,
+        "destroy": true,
+        dom: 'Blfrtip',
+        buttons: [{ extend: 'copy' }, { extend: 'excelHtml5', text: 'Export', title:'' }]
     });
+
+    $("#addvendorform").validate({
+        rules: { vendor_code: { required: false } },
+        messages: { vendor_code: { required: "Please enter a first name" } },
+        errorElement: "span",
+        errorPlacement: function (error, element) {
+            error.addClass("invalid-feedback");
+            element.closest(".form-group").append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass("is-invalid");
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass("is-invalid");
+        },
+        submitHandler: function (form) {
+            $.ajax({
+                type: "POST",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'purchaseorderlist')); ?>",
+                data: $("#addvendorform").serialize(),
+                dataType: "json",
+                beforeSend: function () { $("#gif_loader").show(); },
+                success: function (response) {
+                    console.log(response);
+                    if (response.status) {
+                        datatable.clear().draw();
+                        datatable.rows.add(response.data).draw(); // Add new data
+                        datatable.columns.adjust().draw();
+                    } else {
+                        datatable.clear().draw();
+                    }
+                },
+                complete: function () { $("#gif_loader").hide(); }
+            });
+        },
+    });
+
+    $("#id_sub").trigger("click");
 </script>

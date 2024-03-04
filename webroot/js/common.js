@@ -7,6 +7,7 @@ $(function () {
                 url: baseUrl + "productsubcategories/getlist/" + productId,
                 dataType: "json",
                 beforeSend: function (xhr) {
+                    $("#gif_loader").show();
                     xhr.setRequestHeader(
                         "Content-type",
                         "application/x-www-form-urlencoded"
@@ -34,17 +35,18 @@ $(function () {
                     alert("An error occurred: " + e.responseText.message);
                     console.log(e);
                 },
+                complete: function () { $("#gif_loader").hide(); }
             });
         }
     });
 
 
     $.ajax({
-        url: "http://localhost/bsms/api/notification",
+        url: baseurl + "api/notification",
         method: "GET",
         dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
         success: function (response) {
-           
             if (response.notifications.length > 0) {
                 $('.navbar-badge').text(response.notifications.length);
 
@@ -53,22 +55,21 @@ $(function () {
                 $('.notification-lists').empty();
     
                 $.each(response.notifications, function (index, notification) {
-                    var notificationItem = $('<a href="#" class="dropdown-item"></a>');
+                    var notificationItem = $('<span class="dropdown-item notificationId"></span>');
     
                     var icon = $('<i class="fas fa-envelope text-info mr-2"></i>');
+
+                    notificationItem.attr('data-id', notification.id);
                     notificationItem.append(icon);
-
-                    if(notification.notification_type == "asn_material"){
-
-                        var message = $('<span></span>').text(notification.message_count + ' Asn Material');
-                     
-                    }else if(notification.notification_type == "create_schedule"){
-                        var message = $('<span></span>').text(notification.message_count + ' Create Schedule');
-                    }
+                    var message = $('<span class="notificationTittle"></span>').text(notification.message_count + ' '+notification.notification_type);
+                     message.attr('data-class', notification.notification_type);
+                
+                    var clearButton = $('<span class="clearNotifications float-right" style="color:#004d87">Clear</span>');
+                    clearButton.attr('id', notification.id);
                     notificationItem.append(message);
-    
-                    var divider = $('<div class="dropdown-divider"></div>');
-    
+                    notificationItem.append(clearButton);
+        
+                    var divider = $('<div class="dropdown-divider"></div>');  
                     $('.notification-lists').append(notificationItem, divider);
                 });
             } else {      
@@ -77,10 +78,48 @@ $(function () {
                 
             }
         },
+        complete: function () { $("#gif_loader").hide(); },
         error: function (error) {
-          
-            console.error(error);
+            console.log(error);
         }
     });
     
 });
+
+
+function preventEnterKey(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+    }
+}
+  
+document.addEventListener('keydown', preventEnterKey);
+  
+
+// Always Active sidebar functionality start here
+
+// document.addEventListener("DOMContentLoaded", function() {
+//     // Check local storage for sidebar state and apply it
+//     var sidebarState = localStorage.getItem("sidebarState");
+//     var sidebar = document.querySelector(".main-sidebar");
+    
+//     if (sidebarState === "active") {
+//         sidebar.classList.add("active");
+//     } else {
+//         sidebar.classList.remove("active");
+//     }
+// });
+
+
+// const fileInput = document.getElementById("bulk_file");
+// const uploadButton = document.getElementById("OpenImgUpload");
+
+// fileInput.addEventListener("change", function () {
+//     if (this.files.length > 0) {
+//         const fileName = this.files[0].name;
+//         uploadButton.innerText = `${fileName}`;
+//     } else {
+//         uploadButton.innerText = "Upload File";
+//         fileNameDisplay.innerText = "";
+//     }
+// });
