@@ -10,7 +10,7 @@
 <?= $this->Html->css('listing.css') ?>
 <?= $this->Html->css('v_index.css') ?>
 <style>
-    .error{
+    label.error {
         color: red !important;
     }
 </style>
