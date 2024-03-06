@@ -111,13 +111,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2">
-                            <?php echo $this->Form->control('vehicle_no :', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->vehicle_no)); ?>
+                            <?php echo $this->Form->control('vehicle_no :', array('class' => 'form-control rounded-0', 'maxlength'=>'12', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->vehicle_no)); ?>
                         </div>
                         <div class="col-md-2">
-                            <?php echo $this->Form->control('driver_name :', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_name)); ?>
+                            <?php echo $this->Form->control('driver_name :', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'maxlength'=>'15', 'value' => $deliveryDetails->toArray()[0]->driver_name)); ?>
                         </div>
                         <div class="col-md-2">
-                            <?php echo $this->Form->control('driver_contact :', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
+                            <?php echo $this->Form->control('driver_contact :', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'maxlength'=>'15', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
                         </div>
 
                     </div>

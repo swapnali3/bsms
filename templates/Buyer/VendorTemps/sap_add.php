@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-lg-6 d-flex">
                                 <?php echo $this->Form->control('sap_vendor_code', array('class' =>
-                                'form-control rounded-0', 'div' => 'form-group', 'autocomplete' => "off", 'required' =>'required'));
+                                'form-control rounded-0', 'maxlength'=>'10','div' => 'form-group', 'autocomplete' => "off", 'required' =>'required'));
                                 ?>
                                 <div class="col-sm-2 col-md-2 d-flex align-items-end">
                                 <button class="btn bg-gradient-submit" id="sapvendorcode" type="button">

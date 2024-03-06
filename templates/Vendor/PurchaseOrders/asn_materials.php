@@ -70,7 +70,7 @@
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
             <?= $this->form->control('vendor_factory_id', ['id' => 'vendor_factory_id', 'label' => false, 'type' => 'hidden']) ?>
-              <?php echo $this->Form->control('vendor_factory_id', array( 'name' => '', 'class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required', 'disabled', 'empty' => 'Please Select')); ?>
+              <?php echo $this->Form->control('vendor_factory_id', array( 'name' => '', 'class' => 'form-control rounded-0', 'maxlength'=>'15', 'div' => 'form-group', 'required', 'disabled', 'empty' => 'Please Select')); ?>
             </div>
           </div>
 
@@ -88,24 +88,24 @@
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_value', array('id' => 'invoice_value', 'type' => 'number', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'readonly')); ?>
+              <?php echo $this->Form->control('invoice_value', array('id' => 'invoice_value', 'type' => 'number', 'maxlength'=>'12', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'readonly')); ?>
             </div>
           </div>
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0', 'maxlength'=>'12', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0','type' => 'text','div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0', 'maxlength'=>'15','type' => 'text','div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'class' => 'form-control numberonly rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'maxlength'=>'15', 'class' => 'form-control numberonly rounded-0', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -451,8 +451,6 @@
     //   return this.optional(element) || pattern.test(value);
     // }, "Please enter a valid vehicle number (e.g., MH02vd2626)");
 
-
-
     $("#asnForm").validate({
       rules: {
         invoice_no: {
@@ -468,6 +466,14 @@
         driver_name: {
           required: true,
           maxlength: 15,
+        },
+        transporter_name: {
+          maxlength: 30,
+        },
+        invoice_date: {
+          required: true,
+          date: true,
+          minDateToday: true
         },
         driver_contact: {
           required: true,

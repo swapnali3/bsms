@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-3">
                         <label for="id_vendor">Vendor</label><br>
-                        <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
+                        <select name="vendor[]" id="id_vendor" maxlength="10" class="chosen" multiple="multiple" style="width: 100%;">
                             <?php if (isset($vendor)) : ?>
                             <?php foreach ($vendor as $mat) : ?>
                             <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
@@ -42,7 +42,7 @@
                         <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                             <?php if (isset($materials)) : ?>
                             <?php foreach ($materials as $mat) : ?>
-                            <option value="<?= h($mat->id) ?>" data-select="<?= h($mat->code) ?>">
+                            <option value="<?= h($mat->code) ?>" data-select="<?= h($mat->code) ?>">
                                 <?= h($mat->code) ?> -
                                 <?= h($mat->description) ?>
                             </option>
