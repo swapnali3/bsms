@@ -78,7 +78,7 @@
         <div class="row dgf">
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'15', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -446,18 +446,29 @@
 
     $("#asnForm").validate({
       rules: {
+        invoice_no: {
+          required: true,
+          maxlength: 15,
+          //pattern: /^\d{10}$/,
+        },
         vehicle_no: {
           required: true,
+          maxlength: 12,
           //validateVehicleNo: true
         },
         driver_name: {
           required: true,
+          maxlength: 15,
         },
         driver_contact: {
           required: true,
           number: true,
           maxlength: 10,
           minlength: 10
+          //pattern: /^\d{10}$/,
+        },
+        transporter_name : {
+          maxlength: 30,
         },
         invoices: {
           required: true
