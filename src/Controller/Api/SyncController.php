@@ -317,7 +317,7 @@ class SyncController extends ApiAppController
                 $upsertQuery->values(array('code' => $v->MSEHI, 'description' => $v->MSEHL));
             }
 
-            if($upsertQuery->epilog('ON DUPLICATE KEY UPDATE `description`=VALUES(`description`)')->execute()) {
+            if($upsertQuery->epilog('ON DUPLICATE KEY UPDATE `code`=VALUES(`code`)')->execute()) {
                 return 'UOM sync successfully!';
             } else {
                 return 'UOM sync fail!';
