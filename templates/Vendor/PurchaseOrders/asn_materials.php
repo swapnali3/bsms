@@ -76,7 +76,7 @@
 
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0',  'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -455,12 +455,19 @@
 
     $("#asnForm").validate({
       rules: {
+        invoice_no: {
+          required: true,
+          maxlength: 15,
+          //pattern: /^\d{10}$/,
+        },
         vehicle_no: {
           required: true,
+          maxlength: 12,
           //validateVehicleNo: true
         },
         driver_name: {
           required: true,
+          maxlength: 15,
         },
         driver_contact: {
           required: true,
@@ -468,6 +475,9 @@
           maxlength: 10,
           minlength: 10
           //pattern: /^\d{10}$/,
+        },
+        transporter_name : {
+          maxlength: 30,
         },
         invoices: {
           required: true
@@ -545,7 +555,29 @@
     $('#modal-confirm').on('click', '.btn-success', function () {
       if ($("#asnForm").valid()) { // Check form validation again before submitting
         $('#modal-confirm').modal('hide'); // Hide the modal
-        $('#asnForm')[0].submit(); // Submit the form
+        //$('#asnForm')[0].submit(); // Submit the form
+
+        var fd = new FormData($('#asnForm')[0]);
+
+        $.ajax({
+                type: "post",
+                dataType: 'json',
+                processData: false, // important
+                contentType: false, // important
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/purchase-orders', 'action' => 'save-asn', $poHeader[0]->id)); ?>",
+                data: fd,
+                beforeSend: function () { $("#gif_loader").show(); },
+                success: function (response) {
+                    console.log(response);
+                    if (response.status) {
+                      Toast.fire({ icon: "success", title: response.message, allowHtml: true});
+                      location.href = '<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'index')); ?>';
+                    } else {
+                         Toast.fire({ icon: "error", title: response.message,allowHtml: true});
+                    }
+                },
+                complete: function () { $("#gif_loader").hide(); }
+            });
       }
     });
     $.validator.addMethod('checkQty', function (value, element) {
