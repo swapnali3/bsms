@@ -78,7 +78,7 @@
         <div class="row dgf">
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'15', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -90,24 +90,24 @@
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_value', array('type' => 'number', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'readonly')); ?>
+              <?php echo $this->Form->control('invoice_value', array('type' => 'number', 'maxlength'=>'12', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'readonly')); ?>
             </div>
           </div>
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0', 'maxlength'=>'12', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0','type' => 'text','div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0', 'maxlength'=>'15','type' => 'text','div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'maxlength'=>'15', 'required')); ?>
             </div>
           </div>
 

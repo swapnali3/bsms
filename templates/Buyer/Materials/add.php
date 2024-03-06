@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <label for="id_sap_vendor_code">Vendor</label>
-                    <select name="sap_vendor_code" required class="form-control" id="id_sap_vendor_code">
+                    <select name="sap_vendor_code" required maxlength="10" class="form-control" id="id_sap_vendor_code">
 
                     </select>
                 </div>
