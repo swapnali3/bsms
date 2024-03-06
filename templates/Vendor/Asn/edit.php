@@ -446,18 +446,29 @@
 
     $("#asnForm").validate({
       rules: {
+        invoice_no: {
+          required: true,
+          maxlength: 15,
+          //pattern: /^\d{10}$/,
+        },
         vehicle_no: {
           required: true,
+          maxlength: 12,
           //validateVehicleNo: true
         },
         driver_name: {
           required: true,
+          maxlength: 15,
         },
         driver_contact: {
           required: true,
           number: true,
           maxlength: 10,
           minlength: 10
+          //pattern: /^\d{10}$/,
+        },
+        transporter_name : {
+          maxlength: 30,
         },
         invoices: {
           required: true
