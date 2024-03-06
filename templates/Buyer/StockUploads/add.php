@@ -300,7 +300,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             if (r.status == 1) {
                 // Toast.fire({ icon: 'success', title: r.message });
                 console.log(r.data);
-                $('#id_sap_vendor_code').append($("<option></option>").text('Select Vendor'));
+                $('#id_sap_vendor_code').append($('<option value=""></option>').text('Select Vendor'));
                 $.each(r.data, function (key, value) {
                     $('#id_sap_vendor_code')
                         .append($("<option></option>")
@@ -366,17 +366,12 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
     $(document).on("click", "#id_mslsubmit", function () {
         if (!$("#id_sap_vendor_code").val()) {
             Toast.fire({ icon: 'error', title: 'Vendor Mandatory' });
-        }
-
-        if (!$("#id_vendor_factory_id").val() ) {
+        } else if (!$("#id_vendor_factory_id").val() ) {
             Toast.fire({ icon: 'error', title: 'Factory Mandatory' });
-        }
-
-        if (!$("#id_material_id").val() ) {
+        } else if (!$("#id_material_id").val() ) {
             Toast.fire({ icon: 'error', title: 'Material Mandatory' });
-        }
-
-        if ($("#id_opening_stock").val() > 0) {
+            Toast.fire({ icon: 'error', title: 'Opening Stock Mandatory' });
+        } else if ($("#id_opening_stock").val() > 0) {
             $.ajax({
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'poststockupload')); ?>",
                 type: "post",
