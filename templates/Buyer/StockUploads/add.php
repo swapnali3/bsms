@@ -85,7 +85,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                             </div>
                             <div class="pl-2 pr-1">
                                 <button class="btn bg-gradient-submit" id="id_import" type="button">
-                                    Submit
+                                    Upload
                                 </button>
                             </div>
 
@@ -111,14 +111,15 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2">
                             <label for="">Material</label>
-                            <select class="form-control chosen" name="material_id" required id="id_material_id"></select>
+                            <select class="form-control chosen" name="material_id" required
+                                id="id_material_id"></select>
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2">
                             <label for="">Opening Stock</label>
                             <input class="form-control" type="text" required name="opening_stock" id="id_opening_stock">
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2 mt-3 pt-2">
-                            <button type="button" class="btn bg-gradient-submit mt-2" id="id_mslsubmit">Submit</button>
+                            <button type="button" class="btn bg-gradient-submit mt-2" id="id_mslsubmit">Add</button>
                         </div>
                     </div>
                 </form>
@@ -363,28 +364,44 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
     });
 
     $(document).on("click", "#id_mslsubmit", function () {
-        $.ajax({
-            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'poststockupload')); ?>",
-            type: "post",
-            data: {
-                sap_vendor_code: $("#id_sap_vendor_code").val(),
-                vendor_factory_id: $("#id_vendor_factory_id").val(),
-                material_id: $("#id_material_id").val(),
-                opening_stock: $("#id_opening_stock").val(),
-            },
-            dataType: 'json',
-            headers: { 'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content') },
-            success: function (r) {
-                if (r.status == 1) {
-                    Toast.fire({ icon: 'success', title: r.data });
-                    location.reload();
-                }
-                else { Toast.fire({ icon: 'error', title: r.data }); }
-            },
-            error: function () {
-                Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
-            },
-        });
+        if (!$("#id_sap_vendor_code").val()) {
+            Toast.fire({ icon: 'error', title: 'Vendor Mandatory' });
+        }
+
+        if (!$("#id_vendor_factory_id").val() ) {
+            Toast.fire({ icon: 'error', title: 'Factory Mandatory' });
+        }
+
+        if (!$("#id_material_id").val() ) {
+            Toast.fire({ icon: 'error', title: 'Material Mandatory' });
+        }
+
+        if ($("#id_opening_stock").val() > 0) {
+            $.ajax({
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'poststockupload')); ?>",
+                type: "post",
+                data: {
+                    sap_vendor_code: $("#id_sap_vendor_code").val(),
+                    vendor_factory_id: $("#id_vendor_factory_id").val(),
+                    material_id: $("#id_material_id").val(),
+                    opening_stock: $("#id_opening_stock").val(),
+                },
+                dataType: 'json',
+                headers: { 'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content') },
+                success: function (r) {
+                    if (r.status == 1) {
+                        Toast.fire({ icon: 'success', title: r.msg });
+                        location.reload();
+                    }
+                    else { Toast.fire({ icon: 'error', title: r.msg }); }
+                },
+                error: function () {
+                    Toast.fire({ icon: 'error', title: 'An error occured, please try again.' });
+                },
+            });
+        } else {
+            Toast.fire({ icon: 'error', title: 'Opening Stock Mandatory' });
+        }
     });
 
 
