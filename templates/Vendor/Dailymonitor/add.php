@@ -49,14 +49,14 @@
                     </div>
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('target_production', array('type' => 'number', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
+                            <?php echo $this->Form->control('target_production', array('type' => 'number', 'class' => 'form-control rounded-0 w-100 form-field', 'min'=>'0', 'max'=>'999999999999', 'div' => 'form-group', 'required')); ?>
                             <?php echo $this->Form->control('prod_line', array('type' => 'hidden', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
                             <span class="text-danger"></span>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-2" style="display:none;">
                         <div class="form-group">
-                            <?php echo $this->Form->control('confirm_production', array('type' => 'number', 'value' => '0', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
+                            <?php echo $this->Form->control('confirm_production', array('type' => 'number', 'value' => '0', 'class' => 'form-control rounded-0 w-100 form-field', 'min'=>'0', 'max'=>'999999999999', 'div' => 'form-group', 'required')); ?>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-1">

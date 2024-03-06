@@ -473,7 +473,6 @@
         invoice_date: {
           required: true,
           date: true,
-          minDateToday: true
         },
         driver_contact: {
           required: true,
