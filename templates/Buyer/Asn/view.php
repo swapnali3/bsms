@@ -22,7 +22,7 @@
             <div class="d-flex justify-content-between">
 
                 <div class="head-t">
-                    <h5 class="pt-2"><b>Details</b></h5>
+                    DETAILS
                 </div>
                 <div class="actionbtn">
                     <?php

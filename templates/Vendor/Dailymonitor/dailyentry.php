@@ -17,11 +17,11 @@
 
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">
                 <div class="row">
                     <div class="col-sm-6 col-lg-6 d-flex justify-content-start align-items-center">
-                        <h5 class="mb-0"><b>Production Confirmation</b></h5>
+                       PRODUCTION CONFIRMATION
                     </div>
                     <div class="col-sm-6 col-lg-6 d-flex justify-content-end prod_confrm">
                         <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload']]) ?>
@@ -110,27 +110,8 @@
                 </div>
                 <?= $this->Form->end() ?>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped material-list" id="example1">
-                        <thead>
-                            <tr>
-                                <th>Factory</th>
-                                <th>Production Line</th>
-                                <th>Material</th>
-                                <th>Material Desc.</th>
-                                <th>Target Production</th>
-                                <th>UOM</th>
-                                <th>Plan Date</th>
-                                <th class="table_width">Confirm Production</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="card-footer">
+            
+            <div class="card-footerr ">
                 <!-- <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload']]) ?>
                 <div class="row">
                     <div class="col-sm-6 col-md-4 col-lg-2">
@@ -154,6 +135,28 @@
             </div>
         </div>
     </div>
+</div>
+<div class="card">
+<div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped material-list" id="example1">
+                        <thead>
+                            <tr>
+                                <th>Factory</th>
+                                <th>Production Line</th>
+                                <th>Material</th>
+                                <th>Material Desc.</th>
+                                <th>Target Production</th>
+                                <th>UOM</th>
+                                <th>Plan Date</th>
+                                <th class="table_width">Confirm Production</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
 </div>
 <div class="modal fade confirmationModal" id="modal-sm" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-sm">
