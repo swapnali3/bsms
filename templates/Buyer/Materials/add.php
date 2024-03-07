@@ -66,11 +66,11 @@
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <label for="id_code">Material Code</label>
                     <!-- <select name="code" class="form-control" required id="id_code"></select> -->
-                    <input type="text" class="form-control" required name="code" id="id_code">
+                    <input type="text" class="form-control" required name="code" maxlength="20" id="id_code">
                 </div>
                 <div class="col-sm-12 col-md-2 col-lg-2">
                     <label for="id_minimum_stock">Minimum Stock</label>
-                    <input type="text" name="minimum_stock" required class="form-control" id="id_minimum_stock">
+                    <input type="number" name="minimum_stock" min="0" max="999999999999" required class="form-control" id="id_minimum_stock">
                 </div>
                 <div class="col-sm-12 col-md-2 col-lg-1 mt-3 pt-3">
                     <button type="submit" class="btn bg-gradient-submit" id="id_mslsubmit">Submit</button>

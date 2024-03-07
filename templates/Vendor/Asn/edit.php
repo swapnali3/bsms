@@ -42,7 +42,8 @@
           </div>
           <!-- <div class="col-6"></div> -->
           <div class="col-1">
-            <a style="display:none;" href="vendor/purchase-orders/create-asn" id="id_backmodal" class="btn bg-gradient-cancel float-right">
+            <a style="display:none;" href="vendor/purchase-orders/create-asn" id="id_backmodal"
+              class="btn bg-gradient-cancel float-right">
               <i class="fas fa-angle-double-left"></i> BACK</a>
           </div>
           <div class="col-1 text-center">
@@ -78,7 +79,7 @@
         <div class="row dgf">
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'15', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -107,13 +108,13 @@
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'maxlength'=>'15', 'required')); ?>
+              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'class' => 'form-control rounded-0', 'maxlength'=>'15', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('transporter_name', array('type' => 'text', 'class' => 'form-control rounded-0', 'div' => 'form-group')); ?>
+              <?php echo $this->Form->control('transporter_name', array('type' => 'text', 'class' => 'form-control rounded-0', 'maxlength'=>'30', 'div' => 'form-group')); ?>
             </div>
           </div>
 
@@ -122,7 +123,7 @@
             <div class="form-group">
               <label for="invoices">Upload Invoice</label>
               <input type="file" name="invoice" accept=".pdf" class="pt-1 rounded-0"
-                style="visibility: hidden;position:absolute;" div="form-group"  id="invoices">
+                style="visibility: hidden;position:absolute;" div="form-group" id="invoices">
               <button id="OpenImgUpload" type="button"
                 class="upload_invoice d-block btn bg-gradient-button mb-0 file-upld-btn">
                 Choose File
@@ -163,8 +164,8 @@
           </div>
         </div>
         <div class="col-sm-12 col-lg-6">
-                <div class="d-flex justify-content-start mt-4 align-items-center">
-                    <?php $files = json_decode($asnDetail->invoice_path, true);
+          <div class="d-flex justify-content-start mt-4 align-items-center">
+            <?php $files = json_decode($asnDetail->invoice_path, true);
                         if (!empty($files)) {
                             foreach ($files as $key => $file) {
                                 if(is_array($file)) {
@@ -179,8 +180,8 @@
                             }
                         }
                     ?>
-                </div>
-            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -467,7 +468,7 @@
           minlength: 10
           //pattern: /^\d{10}$/,
         },
-        transporter_name : {
+        transporter_name: {
           maxlength: 30,
         },
         invoices: {
@@ -567,18 +568,18 @@
   });
 
   // for page leave popup
-  $(document).ready(function () { 
-    var previousUrl = null;
-    $('.nav-link').click(function () {
-      previousUrl = $(this).attr('href');
-      $("#modal-default").modal('show');
-      $("#leaveButton").click(function () {
-        if (previousUrl) {
-          window.location.href = previousUrl;
-        }
-      });
-      return false; // cancel the event
-    });
+  $(document).ready(function () {
+    // var previousUrl = null;
+    // $('.nav-link').click(function () {
+    //   previousUrl = $(this).attr('href');
+    //   // $("#modal-default").modal('show');
+    //   $("#leaveButton").click(function () {
+    //     if (previousUrl) {
+    //       window.location.href = previousUrl;
+    //     }
+    //   });
+    //   return false; // cancel the event
+    // });
 
     var currStock = parseFloat($("#current_stock").text());
     var minStock = parseFloat($("#minimum_stock").text());
