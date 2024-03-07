@@ -194,23 +194,21 @@
     $("#id_msl").validate({
         // Specify validation rules
         rules: {
-            vendor_factory_id: "required",
-            name: "required",
-            capacity: "required",
-            uom: "required",
+            vehicle_no: "required",
+            driver_name: "required",
+            driver_contact: "required",
         },
         // Specify validation error messages
         messages: {
-            vendor_factory_id: "Please select factories",
-            name: "Please enter line Items",
-            capacity: "Please enter capacity",
-            uom: "Please select UOM"
+            vehicle_no: "required",
+            driver_name: "required",
+            driver_contact: "required",
         },
         submitHandler: function (form) {
             var dataId = $('.btnOk').data('id');
             $.ajax({
-                type: "GET",
-                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'update')); ?>/" + dataId,
+                type: "POST",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'update')); ?>/" + $deliveryDetails->toArray()[0]->id,
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 dataType: "json",
                 // async: false,
