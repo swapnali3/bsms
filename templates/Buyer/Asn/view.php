@@ -10,6 +10,10 @@
     td {
         padding: 10px !important;
     }
+
+    label.error {
+        color: red !important;
+    }
 </style>
 <!-- <?= $this->Html->css('cstyle.css') ?> -->
 <?= $this->Html->css('custom') ?>
@@ -113,7 +117,7 @@
                             </p>
                         </div>
                     </div>
-                    <?= $this->Form->create() ?>
+                    <?= $this->Form->create(null, ['id' => 'id_msl']) ?>
                     <div class="row">
                         <div class="col-md-2">
                             <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0', 'maxlength'=>'12', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->vehicle_no)); ?>
@@ -125,7 +129,7 @@
                             <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'maxlength'=>'15', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
                         </div>
                         <div class="col-md-2 mt-3 pt-3">
-                            <button type="submit" class="btn bg-gradient-submit">Sumbit</button>
+                            <button type="submit" class="btn bg-gradient-submit">Update</button>
                         </div>
                     </div>
                     <?= $this->Form->end() ?>
@@ -187,24 +191,45 @@
         });
     });
 
-    $('.mark_entry').click(function () {
-        var dataId = $('.btnOk').data('id');
+    $("#id_msl").validate({
+        // Specify validation rules
+        rules: {
+            vendor_factory_id: "required",
+            name: "required",
+            capacity: "required",
+            uom: "required",
+        },
+        // Specify validation error messages
+        messages: {
+            vendor_factory_id: "Please select factories",
+            name: "Please enter line Items",
+            capacity: "Please enter capacity",
+            uom: "Please select UOM"
+        },
+        submitHandler: function (form) {
+            var dataId = $('.btnOk').data('id');
+            $.ajax({
+                type: "GET",
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'update')); ?>/" + dataId,
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                dataType: "json",
+                // async: false,
+                beforeSend: function () { $("#gif_loader").show(); },
+                success: function (response) {
+                    if (response.status == 'success') {
+                        $("#modal-confirm").modal('hide');
+                        $(".mrk").hide();
+                        $(".asnstatus").html('Received');
+                    } else { alert('Please try again...'); }
+                },
+                complete: function () { $("#gif_loader").hide(); }
+            });
+        }
+    });
 
-        $.ajax({
-            type: "GET",
-            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'update')); ?>/" + dataId,
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            dataType: "json",
-            // async: false,
-            beforeSend: function () { $("#gif_loader").show(); },
-            success: function (response) {
-                if (response.status == 'success') {
-                    $("#modal-confirm").modal('hide');
-                    $(".mrk").hide();
-                    $(".asnstatus").html('Received');
-                } else { alert('Please try again...'); }
-            },
-            complete: function () { $("#gif_loader").hide(); }
-        });
+    $('.mark_entry').click(function () {
+
+
+
     });
 </script>

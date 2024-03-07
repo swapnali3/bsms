@@ -9,7 +9,7 @@
 <?= $this->Html->css('custom_table') ?>
 <?= $this->Html->css('v_linemasters_add') ?>
 <style>
-    label.error{
+    label.error {
         color: red !important;
     }
 </style>
