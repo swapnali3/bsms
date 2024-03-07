@@ -17,7 +17,7 @@
 <div class="card">
     <div class="upld-material-head card-header d-flex justify-content-between align-items-center">
         <div class=" col-sm-6 col-lg-6 pl-0">
-            <h5 class="m-0"><b>Upload Material Master</b></h5>
+            UPLOAD MATERIAL MASTER
         </div>
         <div class="material_fileupld col-sm-6 col-lg-6 form-content d-flex justify-content-end pr-0 pl-0">
             <?= $this->Form->create($materials, ['id' => 'formUpload', 'url' => ['controller' => '/materials', 'action' => 'upload']]) ?>
