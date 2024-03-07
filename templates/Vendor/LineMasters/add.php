@@ -106,7 +106,7 @@
         $('#OpenImgUpload').text(fileName ? fileName : 'Choose File');
     });
 
-    $("#id_msl").validate({
+    $("#formUpload").validate({
         // Specify validation rules
         rules: {
             vendor_factory_id: "required",
@@ -121,6 +121,16 @@
             capacity: "Please enter capacity",
             uom: "Please select UOM"
         },
+        submitHandler: function (form) {
+            form.submit()
+        }
+    });
+
+    $("#formUpload").validate({
+        // Specify validation rules
+        rules: {},
+        // Specify validation error messages
+        messages: {},
         submitHandler: function (form) {
             var fd = new FormData($('#formUpload')[0]);
 
