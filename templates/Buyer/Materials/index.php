@@ -20,8 +20,8 @@
 <?= $this->Html->script('select2.js') ?>
 <div class="row">
     <div class="col-12">
-        <div class="card">
-            <div class="card-header"><div class="row"><div class="col-sm-12 col-md-12 text-center">VENDOR MATERIALS</div></div></div>
+        <div class="card mb-2">
+            <div class="card-header"><div class="row"><div class="col-sm-12 col-md-12">VENDOR MATERIALS</div></div></div>
             <div class="card-body">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
@@ -81,7 +81,12 @@
                 <?= $this->Form->end() ?>
             </div>
             <hr class="m-0">
-            <div class="card-body buyer_material">
+            
+        </div>
+    </div>
+</div>
+<div class="card">
+<div class="card-body buyer_material">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-bordered" id="example1">
                         <thead>
@@ -101,8 +106,6 @@
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 
 <script>
