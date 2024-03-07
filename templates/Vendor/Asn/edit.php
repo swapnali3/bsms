@@ -97,7 +97,7 @@
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0', 'maxlength'=>'12', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control  rounded-0', 'maxlength'=>'12', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
           <div class="col-sm-8 col-md-2">
@@ -108,7 +108,7 @@
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'class' => 'form-control rounded-0', 'maxlength'=>'15', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_contact', array('type' => 'text', 'class' => 'form-control numberonly rounded-0', 'maxlength'=>'10', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -523,6 +523,8 @@
 
 
     $("#vehicle-no").on("keyup", function () {
+      var splpattern = /[^a-zA-Z0-9]/g;
+      $(this).val(($(this).val()).replace(splpattern, ''));
       const currentValue = $(this).val();
       const capitalizedValue = currentValue.slice(0, 2).toUpperCase() + currentValue.slice(2);
       $(this).val(capitalizedValue);
