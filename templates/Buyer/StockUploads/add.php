@@ -116,7 +116,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2">
                             <label for="">Opening Stock</label>
-                            <input class="form-control" type="number" min="0" max="999999999999" required name="opening_stock" id="id_opening_stock">
+                            <input class="form-control numberonly" maxlength="10" type="text" required name="opening_stock" id="id_opening_stock">
                         </div>
                         <div class="col-sm-12 col-md-3 col-lg-2 mt-3 pt-2">
                             <button type="button" class="btn bg-gradient-submit mt-2" id="id_mslsubmit">Add</button>
