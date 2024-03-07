@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-sm-12 col-md-2 col-lg-2">
                     <label for="id_minimum_stock">Minimum Stock</label>
-                    <input type="number" name="minimum_stock" min="0" max="999999999999" required class="form-control" id="id_minimum_stock">
+                    <input type="text" name="minimum_stock" maxlength="10" required class="form-control numberonly" id="id_minimum_stock">
                 </div>
                 <div class="col-sm-12 col-md-2 col-lg-1 mt-3 pt-3">
                     <button type="submit" class="btn bg-gradient-submit" id="id_mslsubmit">Submit</button>
