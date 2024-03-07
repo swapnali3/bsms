@@ -13,10 +13,10 @@
 <?= $this->Html->script('select2.js') ?>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 text-center">
+                    <div class="col-sm-12 col-md-12">
                         SECONDARY AGEING REPORT
                     </div>
                 </div>
@@ -107,7 +107,13 @@
                 <?= $this->Form->end() ?>
             </div>
             <hr class="m-0">
-            <div class="card-body buyer_material">
+            
+        </div>
+    </div>
+</div>
+
+<div class="card">
+<div class="card-body buyer_material">
                 <div class="card card-primary card-outline card-tabs">
                     <div class="card-header p-0 pt-1 border-bottom-0">
                         <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
@@ -174,8 +180,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 
 

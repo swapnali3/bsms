@@ -13,10 +13,10 @@
 <?= $this->Html->script('select2.js') ?>
 <div class="row">
     <div class="col-12">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 text-center">
+                    <div class="col-sm-12 col-md-12">
                         PRODUCTION PLAN vs ACTUAL PLAN
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         <label for="id_to">Date To</label>
                         <input type="date" name="till" class="form-control" id="id_to">
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="id_vendor">Vendor</label><br>
                         <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
                             <?php if (isset($vendor)) : ?>
@@ -45,7 +45,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-4">
+                    <div class="col-3">
                         <label for="id_material">Material</label><br>
                         <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
                             <?php if (isset($materials)) : ?>
@@ -58,7 +58,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-2 mt-2">
+                    <div class="col-2 ">
                         <label for="id_vendortype">Type</label><br>
                         <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
                             <?php if (isset($vendortype)) : ?>
@@ -68,7 +68,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-2 mt-2">
+                    <div class="col-2 mt-1">
                         <label for="id_segment">Segment</label><br>
                         <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
                             <?php if (isset($segment)) : ?>
@@ -87,7 +87,13 @@
                 <?= $this->Form->end() ?>
             </div>
             <hr class="m-0">
-            <div class="card-body buyer_material">
+            
+        </div>
+    </div>
+</div>
+
+<div class="card">
+<div class="card-body buyer_material">
                 <div class="table-responsive">
                     <table class="table table-hover table-striped table-bordered" id="example1">
                         <thead>
@@ -110,8 +116,6 @@
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
 </div>
 
 <script>

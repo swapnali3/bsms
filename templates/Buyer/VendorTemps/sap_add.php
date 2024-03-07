@@ -26,8 +26,8 @@
             <div class="card-body ">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                        <div class="row">
-                            <div class="col-lg-6 d-flex">
+                        <div class="rows">
+                            <div class="col-lg-6 d-flex pl-0">
                                 <?php echo $this->Form->control('sap_vendor_code', array('class' =>
                                 'form-control rounded-0', 'maxlength'=>'10','div' => 'form-group', 'autocomplete' => "off", 'required' =>'required'));
                                 ?>
@@ -37,6 +37,9 @@
                                 </button>
                             </div>
                             </div>
+                            <div class="errorSubmit mt-2" style="color: red; display: none">
+                        Please enter a vendor code.
+                    </div>
                             
                         </div>
                     </div>
@@ -57,9 +60,7 @@
                         <span id="filessnames"></span>
                         </div>
                     </div> -->
-                    <div class="errorSubmit mt-2" style="color: red; display: none">
-                        Please enter a vendor code.
-                    </div>
+                    
                 </div>
 
                 <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">

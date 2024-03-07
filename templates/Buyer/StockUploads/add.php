@@ -60,11 +60,11 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
         <?= $this->Form->end() ?>
     </div>
     <div class="col-12">
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header">
                 <div class="row col-lg-12 pr-0 d-flex justify-content-between align-items-center">
                     <div class="col-sm-6 col-lg-6 pl-0">
-                        <h5 class="mb-0"><b>UPLOAD STOCKS</b></h5>
+                        UPLOAD STOCKS
                     </div>
                     <div class="stock_fileupload col-sm-6 col-lg-6 pr-0">
                         <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/stock-uploads', 'action' => 'upload']]) ?>
@@ -125,7 +125,14 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                 </form>
             </div>
 
-            <div class="card-footer" id="id_pohead">
+            
+
+        </div>
+    </div>
+</div>
+
+<div class="card">
+<div class="card-body" id="id_pohead">
                 <div class="table-responsive">
                     <table class="table table-hover" id="example1">
                         <thead>
@@ -182,9 +189,6 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                     </table>
                 </div>
             </div>
-
-        </div>
-    </div>
 </div>
 
 <div class="modal fade" id="modal-sm" style="display: none;" aria-hidden="true">
