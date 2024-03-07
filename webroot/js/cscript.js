@@ -22,3 +22,8 @@ $(".numberonly").on("keypress", function (event) {
 		return false;
 	}
 });
+
+$(document).on("input", ".caps", function () {
+	$(this).val($(this).val().toUpperCase());
+});
+
