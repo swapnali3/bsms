@@ -8,9 +8,14 @@
 <?= $this->Html->css('v_index.css') ?>
 <?= $this->Html->css('custom_table') ?>
 <?= $this->Html->css('v_linemasters_add') ?>
+<style>
+    label.error{
+        color: red !important;
+    }
+</style>
 <div class="row">
     <div class="col-12">
-        <?= $this->Form->create($lineMaster) ?>
+        <?= $this->Form->create(null, ['id' => 'id_msl']) ?>
         <div class="card">
             <div class="card-header">
                 <h5><b>Line Master</b></h5>
@@ -31,7 +36,7 @@
                         <?php echo $this->Form->control('status', ['value' => 1, 'style' => 'visibility: hidden; position: absolute;', 'label' => false]); ?>
                     </div>
                     <div class="pl-1 pr-1 mt-4 pt-2">
-                        <?= $this->Form->button(__('Submit'), ['class' => 'btn bg-gradient-submit']) ?>
+                        <?= $this->Form->button(__('Submit'), ['type'=> 'submit', 'class' => 'btn bg-gradient-submit']) ?>
                     </div>
                     <div class="mt-4 pt-2">
                         <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'btn bg-gradient-cancel ml-1']) ?>
@@ -51,8 +56,9 @@
     </div>
     <div class="card-body">
         <div class="row pl-3">
-            <div class="template_file_vendorline mt-2" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
-            <a href="<?= $this->Url->build('/') ?>webroot/templates/line_master_upload.xlsx" target="_blank"
+            <div class="template_file_vendorline mt-2" data-toggle="tooltip" data-original-title="Download Template"
+                data-placement="bottom">
+                <a href="<?= $this->Url->build('/') ?>webroot/templates/line_master_upload.xlsx" target="_blank"
                     rel="noopener noreferrer" class="bulk_upload"><i class="fa fa-solid fa-file-download"></i>
                 </a>
             </div>
@@ -65,7 +71,7 @@
             <div class="col-sm-6 col-md-4 col-lg-2 mt-2">
                 <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
             </div>
-            
+
         </div>
     </div>
 
@@ -76,7 +82,6 @@
     <table class="table table-hover" id="example1">
         <thead>
             <tr>
-                
                 <th>Factory Code</th>
                 <th>Line Name</th>
                 <th>Opening Stock</th>
@@ -91,62 +96,79 @@
 </div>
 
 <script>
-    $('#OpenImgUpload').click(function() {
+    $('#OpenImgUpload').click(function () {
         $('#bulk_file').trigger('click');
     });
     $('#bulk_file').change(function () {
         var file = $(this).prop('files')[0];
         var fileName = file ? file.name : '';
 
-        $('#OpenImgUpload').text(fileName ?  fileName : 'Choose File');
+        $('#OpenImgUpload').text(fileName ? fileName : 'Choose File');
     });
 
-    $("#id_exportme").click(function() {
-        var fd = new FormData($('#formUpload')[0]);
+    $("#id_msl").validate({
+        // Specify validation rules
+        rules: {
+            vendor_factory_id: "required",
+            name: "required",
+            capacity: "required",
+            uom: "required",
+        },
+        // Specify validation error messages
+        messages: {
+            vendor_factory_id: "Please select factories",
+            name: "Please enter line Items",
+            capacity: "Please enter capacity",
+            uom: "Please select UOM"
+        },
+        submitHandler: function (form) {
+            var fd = new FormData($('#formUpload')[0]);
 
-        $.ajax({
-            url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/line-masters', 'action' => 'upload')); ?>",
-            type: "post",
-            dataType: 'json',
-            processData: false, // important
-            contentType: false, // important
-            data: fd,
-            beforeSend: function () { $("#gif_loader").show(); },
-            success: function(response) {
-                if (response.status) {
-                    Toast.fire({
-                        icon: 'success',
-                        title: response.message
-                    });
+            $.ajax({
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/line-masters', 'action' => 'upload')); ?>",
+                type: "post",
+                dataType: 'json',
+                processData: false, // important
+                contentType: false, // important
+                data: fd,
+                beforeSend: function () { $("#gif_loader").show(); },
+                success: function (response) {
+                    if (response.status) {
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.message
+                        });
 
-                    $("#example1 tbody").empty();
+                        $("#example1 tbody").empty();
 
-                    // Loop through the response data and build the table rows dynamically
-                    $.each(response.data, function (key, val) { 
-                        var rowHtml = `<tr>
+                        // Loop through the response data and build the table rows dynamically
+                        $.each(response.data, function (key, val) {
+                            var rowHtml = `<tr>
                         <td> `+ val.factory_code + `</td>
-                        <td> `+ val.name +`</td>
+                        <td> `+ val.name + `</td>
                         <td> `+ val.capacity + `</td>
                         <td> `+ val.uom + `</td>
                         <td> `+ val.error + `</td>
                         </tr>`;
-                        $("#example1 tbody").append(rowHtml);
-                    });
+                            $("#example1 tbody").append(rowHtml);
+                        });
 
-                } else {
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.message
+                        });
+                    }
+                },
+                error: function () {
                     Toast.fire({
                         icon: 'error',
-                        title: response.message
+                        title: 'An error occured, please try again.'
                     });
-                }
-            },
-            error: function() {
-                Toast.fire({
-                    icon: 'error',
-                    title: 'An error occured, please try again.'
-                });
-            },
-            complete: function () { $("#gif_loader").hide(); }
-        });
+                },
+                complete: function () { $("#gif_loader").hide(); }
+            });
+        }
     });
+
 </script>

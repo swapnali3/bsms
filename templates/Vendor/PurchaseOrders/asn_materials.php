@@ -105,7 +105,7 @@
 
           <div class="col-sm-8 col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('driver_contact', array('type' => 'tel', 'maxlength'=>'15', 'class' => 'form-control numberonly rounded-0', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('driver_contact', array('type' => 'number', 'maxlength'=>'10', 'class' => 'form-control numberonly rounded-0', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
