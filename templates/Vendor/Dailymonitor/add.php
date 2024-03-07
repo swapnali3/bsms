@@ -16,11 +16,11 @@
 <div class="row">
     <div class="col-12">
         <?= $this->Form->create($dailymonitor) ?>
-        <div class="card card_box_shadow">
+        <div class="card mb-2 card_box_shadow">
             <div class="card-header pb-1 pt-2">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start">
-                        <h5><b>Add Production Planner</b></h5>
+                        ADD PRODUCTION PLANNER
                     </div>
                 </div>
             </div>
@@ -86,31 +86,35 @@
     <div class="col-12">
         <?= $this->Form->create(null, ['id' => 'formUpload', 'url' => ['controller' => '/dailymonitor', 'action' => 'upload-plan']]) ?>
         <div class="card">
-            <div class="card-header">
-                <h5><b>Bulk Production Planner</b></h5>
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <div class="col-6">BULK PRODUCTION PLANNER</div>
+                <div class="d-flex justify-content-end col-6 pr-0 ">
+                    <div class="template_file pl-2 ml-3 mr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
+                        <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_planner_template.xlsx"
+                            target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download"></i></a>
+                    </div>
+                    <div class="pl-1">
+    
+                        <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
+                        <?= $this->Form->button('Upload File', [
+                            'id' => 'OpenImgUpload',
+                            'type' =>
+                                'button',
+                            'label' => 'Upload File',
+                            'class' => 'd-block btn btn-block bg-gradient-button mb-0 file-upld-btn'
+                        ]); ?>
+                        <!-- <span id="filessnames"></span> -->
+                    </div>
+                    <div class="pl-2">
+                        <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
+                    </div>
+    
+                </div>
             </div>
 
-            <div class="card-body">
-            <div class="row">
-                <div class="template_file pl-2 ml-3 mr-1" data-toggle="tooltip" data-original-title="Download Template" data-placement="bottom">
-                    <a class="template_format" href="<?= $this->Url->build('/') ?>webroot/templates/production_planner_template.xlsx"
-                                    target="_blank" rel="noopener noreferrer"><i class="fa fa-solid fa-file-download"></i></a>
-                </div>
-                <div class="pl-1">
+            
 
-                    <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
-                    <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
-                    'button', 'label' => 'Upload File', 'class' => 'd-block btn btn-block bg-gradient-button mb-0 file-upld-btn']); ?>
-                    <!-- <span id="filessnames"></span> -->
-                </div>
-                <div class="col-sm-6 col-md-4 col-lg-2">
-                    <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
-                </div>
-                
-            </div>
-    </div>
-
-            <div class="card-footer table-responsive">
+            <div class="card-body table-responsive">
                 <table class="table table-bordered table-hover table-striped" id="example1">
                     <thead>
                         <tr>

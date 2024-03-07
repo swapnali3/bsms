@@ -33,7 +33,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="col-sm-12 col-md-4 col-lg-4">
+                    <div class="col-sm-12 col-md-4 col-lg-2">
                         <label for="id_schqty">Schedule Qty</label><br>
                         <select name="schqty[]" id="id_schqty" multiple="multiple" class="badla form-control chosen">
                             <?php if (isset($scheduleqty)) : ?>
@@ -56,7 +56,7 @@
                 </div>
                 <?= $this->form->end() ?>
             </div>
-            <div class="col-sm-12 col-md-1 mt-3 pt-3">
+            <div class="mt-3 pt-3">
                 <button type="button" id="continueSub" class="btn bg-gradient-cancel continue_btn" disabled>Create ASN</button>
             </div>
         </div>
