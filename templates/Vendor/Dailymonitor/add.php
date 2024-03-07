@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-sm-8 col-md-1">
                         <div class="form-group mgt">
-                            <button type="button" class="btn bg-gradient-submit" onclick="showConfirmationModal()">Submit</button>
+                            <button type="button" class="btn bg-gradient-submit" onclick="showConfirmationModal()">Add</button>
                         </div>
                     </div>
                 </div>
@@ -96,17 +96,17 @@
                     <div class="pl-1">
     
                         <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
-                        <?= $this->Form->button('Upload File', [
+                        <?= $this->Form->button('Select File', [
                             'id' => 'OpenImgUpload',
                             'type' =>
                                 'button',
-                            'label' => 'Upload File',
+                            'label' => 'Select File',
                             'class' => 'd-block btn btn-block bg-gradient-button mb-0 file-upld-btn'
                         ]); ?>
                         <!-- <span id="filessnames"></span> -->
                     </div>
                     <div class="pl-2">
-                        <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
+                        <button type="button" class="btn bg-gradient-submit" id="id_exportme">Upload</button>
                     </div>
     
                 </div>

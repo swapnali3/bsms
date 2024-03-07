@@ -66,7 +66,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-3">
                     <label for="id_code">Material Code</label>
                     <!-- <select name="code" class="form-control" required id="id_code"></select> -->
-                    <input type="text" class="form-control" required name="code" maxlength="20" id="id_code">
+                    <input type="text" class="form-control caps" required name="code" maxlength="20" id="id_code">
                 </div>
                 <div class="col-sm-12 col-md-2 col-lg-2">
                     <label for="id_minimum_stock">Minimum Stock</label>

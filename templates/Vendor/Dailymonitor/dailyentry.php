@@ -38,17 +38,17 @@
                             <div class="pl-2 pr-2">
                                 <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
                                 <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
-                                <?= $this->Form->button('Upload File', [
+                                <?= $this->Form->button('Select File', [
                                     'id' => 'OpenImgUpload',
                                     'type' =>
                                         'button',
-                                    'label' => 'Upload File',
+                                    'label' => 'Select File',
                                     'class' => 'd-block btn btn-block bg-gradient-button upld_btn mb-0 file-upld-btn'
                                 ]); ?>
                                 <!-- <span id="filessnames"></span> -->
                             </div>
                             <div>
-                                <button type="button" class="import_btn btn bg-gradient-submit" id="id_exportme">Import File</button>
+                                <button type="button" class="import_btn btn bg-gradient-submit" id="id_exportme">Upload</button>
                             </div>
                     
                         </div>

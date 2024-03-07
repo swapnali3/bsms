@@ -374,7 +374,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
             Toast.fire({ icon: 'error', title: 'Factory Mandatory' });
         } else if (!$("#id_material_id").val() ) {
             Toast.fire({ icon: 'error', title: 'Material Mandatory' });
-        } else if ($("#id_opening_stock").val() >= 0) {
+        } else if (parseFloat($("#id_opening_stock").val()) >= parseFloat(0)) {
             $.ajax({
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/stock-uploads', 'action' => 'poststockupload')); ?>",
                 type: "post",
