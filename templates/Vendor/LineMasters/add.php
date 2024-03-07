@@ -26,10 +26,10 @@
                         <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factories')); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-3">
-                        <?php echo $this->Form->control('name', ['class' => 'form-control', 'maxlength'=>'10', 'label' => 'Line Name']); ?>
+                        <?php echo $this->Form->control('name', ['class' => 'form-control', 'maxlength'=>'20', 'label' => 'Line Name']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2">
-                        <?php echo $this->Form->control('capacity', ['class' => 'form-control']); ?>
+                        <?php echo $this->Form->control('capacity', ['class' => 'form-control', 'maxlength'=>'10']); ?>
                     </div>
                     <div class="col-sm-12 col-md-3 col-lg-2">
                         <?php echo $this->Form->control('uom', array('class' => 'form-control w-100', 'options' => $uom, 'empty' => 'Please Select', 'maxlength'=>'3', 'label' => 'Unit Of Measurement')); ?>
