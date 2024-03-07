@@ -36,9 +36,9 @@
                         <?php echo $this->Form->control('status', ['value' => 1, 'style' => 'visibility: hidden; position: absolute;', 'label' => false]); ?>
                     </div>
                     <div class="pl-1 pr-1 mt-4 pt-2">
-                        <?= $this->Form->button(__('Submit'), ['type'=> 'submit', 'class' => 'btn bg-gradient-submit']) ?>
+                        <?= $this->Form->button(__('Add'), ['type'=> 'submit', 'class' => 'btn bg-gradient-submit']) ?>
                     </div>
-                    <div class="mt-4 pt-2">
+                    <div class="mt-4 pt-2" style="display: none;">
                         <?= $this->Html->link(__('Cancel'), ['action' => 'index'], ['class' => 'btn bg-gradient-cancel ml-1']) ?>
                     </div>
                 </div>
@@ -64,12 +64,12 @@
             </div>
             <div class="pl-2 mt-2">
                 <?= $this->Form->control('upload_file', ['type' => 'file', 'label' => false, 'class' => 'pt-1 rounded-0', 'style' => 'visibility: hidden; position: absolute;', 'div' => 'form-group', 'id' => 'bulk_file']); ?>
-                <?= $this->Form->button('Upload File', ['id' => 'OpenImgUpload', 'type' =>
-                'button', 'label' => 'Upload File', 'class' => 'd-block btn btn-block bg-gradient-button mb-0 file-upld-btn']); ?>
+                <?= $this->Form->button('Select File', ['id' => 'OpenImgUpload', 'type' =>
+                'button', 'label' => 'Select File', 'class' => 'd-block btn btn-block bg-gradient-button mb-0 file-upld-btn']); ?>
                 <!-- <span id="filessnames"></span> -->
             </div>
             <div class="col-sm-6 col-md-4 col-lg-2 mt-2">
-                <button type="button" class="btn bg-gradient-submit" id="id_exportme">IMPORT FILE</button>
+                <button type="button" class="btn bg-gradient-submit" id="id_exportme">UPLOAD FILE</button>
             </div>
 
         </div>
