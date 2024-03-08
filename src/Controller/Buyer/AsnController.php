@@ -80,13 +80,20 @@ class AsnController extends BuyerAppController
     public function view($id = null)
     {
         $this->loadModel('AsnHeaders');
-        if ($this->request->is(['post'])) {
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $this->autoRender = false;
+            $response['status'] = 0;
+            $response['message'] = 'Fail to update record';
             // echo '<pre>'; print_r($this->request->getData()); exit; 
             $asntoupdate = $this->AsnHeaders->get($id);
             $asntoupdate = $this->AsnHeaders->patchEntity($asntoupdate, $this->request->getData());
             if ($this->AsnHeaders->save($asntoupdate)) {
-                $flash = ['type'=>'success', 'msg'=>'Successfully Updated'];
-                $this->set('flash', $flash);
+                $response['status'] = 1;
+                $response['message'] = 'Successfully Updated';
+                //$flash = ['type'=>'success', 'msg'=>'Successfully Updated'];
+                //$this->set('flash', $flash);
+
+                echo json_encode($response); exit;
             }
         }
 

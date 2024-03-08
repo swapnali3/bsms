@@ -29,29 +29,34 @@
                 <div class="row dgf m-0">
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('plan_date', array('type' => 'date', 'class' => 'form-control w-100 form-field','min' => date('Y-m-d'))); ?>
+                            <?php echo $this->Form->control('plan_date', array('type' => 'date', 'class' => 'form-control custom-required w-100 form-field','min' => date('Y-m-d'))); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-2 col-lg-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control w-100 form-field', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factory', 'required')); ?>
+                            <?php echo $this->Form->control('vendor_factory_id', array('class' => 'form-control custom-required  w-100 form-field', 'options' => $factory, 'empty' => 'Please Select', 'label' => 'Factory', 'required')); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('production_line_id', array('name' => 'production_line_id', 'class' => 'form-control w-100 form-field', 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('production_line_id', array('name' => 'production_line_id', 'class' => 'form-control custom-required  w-100 form-field', 'empty' => 'Please Select')); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-3">
                         <div class="form-group">
-                            <?php echo $this->Form->control('material_id', array('class' => 'form-control w-100 form-field chosen', 'empty' => 'Please Select')); ?>
+                            <?php echo $this->Form->control('material_id', array('class' => 'form-control custom-required  w-100 form-field chosen', 'empty' => 'Please Select')); ?>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
+                        
                     </div>
                     <div class="col-sm-8 col-md-2">
                         <div class="form-group">
-                            <?php echo $this->Form->control('target_production', array('type' => 'number', 'class' => 'form-control rounded-0 w-100 form-field', 'min'=>'0', 'max'=>'999999999999', 'div' => 'form-group', 'required')); ?>
+                            <?php echo $this->Form->control('target_production', array('type' => 'text', 'class' => 'form-control numberonly custom-required  rounded-0 w-100 form-field', 'maxlength' => '10', 'div' => 'form-group', 'required')); ?>
                             <?php echo $this->Form->control('prod_line', array('type' => 'hidden', 'class' => 'form-control rounded-0 w-100 form-field', 'div' => 'form-group', 'required')); ?>
-                            <span class="text-danger"></span>
+                            <small class="text-danger error-message" style="display:none;">This field is required.</small>
                         </div>
                     </div>
                     <div class="col-sm-8 col-md-2" style="display:none;">
@@ -61,7 +66,7 @@
                     </div>
                     <div class="col-sm-8 col-md-1">
                         <div class="form-group mgt">
-                            <button type="button" class="btn bg-gradient-submit" onclick="showConfirmationModal()">Add</button>
+                            <button type="button" class="btn bg-gradient-submit" id="submit-btn" onclick="showConfirmationModal()">Add</button>
                         </div>
                     </div>
                 </div>

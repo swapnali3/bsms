@@ -13,7 +13,9 @@
 <?= $this->Html->css('select2.min.css') ?>
 <?= $this->Html->script('select2.js') ?>
 
-<div class="card">
+
+<div class="card mb-2">
+    <div class="card-header">CREATE ASN</div>
     <div class="card-header">
         <div class="row">
             <div class="col-sm-12 col-md-11">
@@ -61,6 +63,10 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="card">
+    
     <div class="card-body">
         <?= $this->Form->create(null, ['action' => 'asn-materials', 'id' => 'asnForm']) ?>
         <?= $this->form->control('po_header_id', ['id' => 'po_header_id', 'label' => false, 'type' => 'hidden', 'value' => '']) ?>
@@ -112,6 +118,7 @@
         <?= $this->form->end() ?>
     </div>
 </div>
+
 
 <button type="button" id="id_select_factory" style="display: none;" data-toggle="modal" data-target="#select_factory"></button>
 
