@@ -215,6 +215,7 @@
                 url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'view')); ?>/<?php echo $deliveryDetails->toArray()[0]->id ?>",
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 dataType: "json",
+                data: $("#id_msl").serialize(),
                 headers: { 'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content') },
                 beforeSend: function () { $("#gif_loader").show(); },
                 success: function (response) {
