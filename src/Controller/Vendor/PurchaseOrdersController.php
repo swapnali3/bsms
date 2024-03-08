@@ -218,7 +218,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->select(['Buyers.id','user_id'=> 'Users.id', 'email', 'first_name', 'last_name'])
                 ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
                 ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
-                ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
+                ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code'], 'Users.status' => 1]);
                 
                 $vendor = $this->VendorTemps->find()->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']])->first();
                 
@@ -298,7 +298,7 @@ class PurchaseOrdersController extends VendorAppController
                 ->select(['Buyers.id','user_id'=> 'Users.id', 'email', 'first_name', 'last_name'])
                 ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
                 ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
-                ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']]);
+                ->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code'], 'Users.status' => 1]);
                 
                 $vendor = $this->VendorTemps->find()->where(['VendorTemps.sap_vendor_code' => $poHeader['sap_vendor_code']])->first();
                 $po_footer = $this->PoFooters->find('all')->where(['PoFooters.po_header_id' => $poHeader['id'], 'deleted_indication' => ''])->toArray();
@@ -713,7 +713,7 @@ class PurchaseOrdersController extends VendorAppController
                     ->select(['Buyers.id','user_id'=> 'Users.id'])
                     ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
                     ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
-                    ->where(['VendorTemps.sap_vendor_code' => $poHeader[0]['sap_vendor_code']]);
+                    ->where(['VendorTemps.sap_vendor_code' => $poHeader[0]['sap_vendor_code'], 'Users.status' => 1]);
 
                     foreach ($filteredBuyers as $buyer) {
                         $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New ASN'])->first();
@@ -1438,7 +1438,7 @@ class PurchaseOrdersController extends VendorAppController
                         ->select(['Buyers.id','user_id'=> 'Users.id'])
                         ->innerJoin(['Users' => 'users'], ['Users.username = Buyers.email'])
                         ->innerJoin(['VendorTemps' => 'vendor_temps'], ['VendorTemps.purchasing_organization_id = Buyers.purchasing_organization_id', 'VendorTemps.company_code_id = Buyers.company_code_id'])
-                        ->where(['VendorTemps.sap_vendor_code' => $poHeader[0]['sap_vendor_code']]);
+                        ->where(['VendorTemps.sap_vendor_code' => $poHeader[0]['sap_vendor_code'], 'Users.status' => 1]);
 
                         foreach ($filteredBuyers as $buyer) {
                             $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New ASN'])->first();

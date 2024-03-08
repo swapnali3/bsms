@@ -720,7 +720,7 @@ class PurchaseOrdersController extends BuyerAppController
                 $filteredBuyers = $this->VendorTemps->find()
                             ->select(['VendorTemps.id','user_id'=> 'Users.id'])
                             ->innerJoin(['Users' => 'users'], ['Users.username = VendorTemps.email'])
-                            ->where(['VendorTemps.id' => $vendorRecord['id']]);
+                            ->where(['VendorTemps.id' => $vendorRecord['id'], 'Users.status' => 1]);
 
                             foreach ($filteredBuyers as $buyer) {
                                 $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'Schedule Cancelled'])->first();
@@ -888,7 +888,7 @@ class PurchaseOrdersController extends BuyerAppController
                             $filteredBuyers = $this->VendorTemps->find()
                             ->select(['VendorTemps.id','user_id'=> 'Users.id'])
                             ->innerJoin(['Users' => 'users'], ['Users.username = VendorTemps.email'])
-                            ->where(['VendorTemps.id' => $vendorRecord['id']]);
+                            ->where(['VendorTemps.id' => $vendorRecord['id'], 'Users.status' => 1]);
 
                             foreach ($filteredBuyers as $buyer) {
                                 $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'New Schedule'])->first();
@@ -975,7 +975,7 @@ class PurchaseOrdersController extends BuyerAppController
                 $filteredBuyers = $this->VendorTemps->find()
                             ->select(['VendorTemps.id','user_id'=> 'Users.id'])
                             ->innerJoin(['Users' => 'users'], ['Users.username = VendorTemps.email'])
-                            ->where(['VendorTemps.id' => $vendorRecord['id']]);
+                            ->where(['VendorTemps.id' => $vendorRecord['id'], 'Users.status' => 1]);
 
                             foreach ($filteredBuyers as $buyer) {
                                 $n = $this->Notifications->find()->where(['user_id' => $buyer->user_id, 'notification_type'=>'Schedule Updated'])->first();
