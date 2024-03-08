@@ -118,6 +118,7 @@
                         </div>
                     </div>
                     <?= $this->Form->create(null, ['id' => 'id_msl']) ?>
+                    <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
                     <div class="row">
                         <div class="col-md-2">
                             <?php echo $this->Form->control('vehicle_no', array('class' => 'form-control rounded-0', 'maxlength'=>'12', 'div' => 'form-group', 'required', 'value' => $deliveryDetails->toArray()[0]->vehicle_no)); ?>
@@ -126,7 +127,7 @@
                             <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'maxlength'=>'15', 'value' => $deliveryDetails->toArray()[0]->driver_name)); ?>
                         </div>
                         <div class="col-md-2">
-                            <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control rounded-0', 'div' => 'form-group', 'maxlength'=>'15', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
+                            <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control numberonly rounded-0', 'div' => 'form-group', 'maxlength'=>'15', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
                         </div>
                         <div class="col-md-2 mt-3 pt-3">
                             <button type="submit" class="btn bg-gradient-submit">Update</button>
@@ -209,20 +210,27 @@
             driver_contact: "required",
         },
         submitHandler: function (form) {
-            var dataId = $('.btnOk').data('id');
             $.ajax({
                 type: "POST",
-                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'update')); ?>/" + $deliveryDetails->toArray()[0]->id,
+                url: "<?php echo \Cake\Routing\Router::url(array('controller' => '/asn', 'action' => 'view')); ?>/<?php echo $deliveryDetails->toArray()[0]->id ?>",
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 dataType: "json",
-                // async: false,
+                headers: { 'X-CSRF-Token': $('meta[name="csrfToken"]').attr('content') },
                 beforeSend: function () { $("#gif_loader").show(); },
                 success: function (response) {
-                    if (response.status == 'success') {
+                    if (response.status) {
                         $("#modal-confirm").modal('hide');
                         $(".mrk").hide();
-                        $(".asnstatus").html('Received');
-                    } else { alert('Please try again...'); }
+                        Toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    });
+                    } else { 
+                        Toast.fire({
+                        icon: 'error',
+                        title: response.message
+                    });
+                     }
                 },
                 complete: function () { $("#gif_loader").hide(); }
             });
