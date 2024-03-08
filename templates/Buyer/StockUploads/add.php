@@ -18,7 +18,7 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
 <div class="row">
     <div class="col-12 d-none">
         <?= $this->Form->create($stockupload, ['id' => 'stockuploadForm']) ?>
-        <div class="card">
+        <div class="card mb-2">
             <div class="card-header pb-1 pt-2">
                 <div class="row">
                     <div class="col-lg-6 d-flex justify-content-start">
@@ -95,7 +95,17 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                 </div>
             </div>
 
-            <div class="card-body">
+            
+
+            
+
+        </div>
+    </div>
+</div>
+
+<div class="card mb-2">
+    <div class="card-header">SEARCH</div>
+    <div class="card-body">
                 <form method="post">
                     <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
                     <div class="row">
@@ -124,14 +134,9 @@ use PhpOffice\PhpSpreadsheet\Calculation\Information\Value;
                     </div>
                 </form>
             </div>
-
-            
-
-        </div>
-    </div>
 </div>
 
-<div class="card">
+<div class="card mb-2">
 <div class="card-body" id="id_pohead">
                 <div class="table-responsive">
                     <table class="table table-hover" id="example1">

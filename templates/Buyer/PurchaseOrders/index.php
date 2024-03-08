@@ -25,6 +25,15 @@
 <?= $this->Html->script('FilterMultiSelect') ?>
 <div class="card mb-2">
     <div class="card-header">PURCHASE ORDER TRACKING REPORT</div>
+    
+
+    
+</div>
+
+<div class="card mb-2">
+    <div class="card-header">
+        SEARCH
+    </div>
     <div class="card-body search-filter">
         <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
         <div class="row">
@@ -114,8 +123,6 @@
         </div>
         <?= $this->Form->end() ?>
     </div>
-
-    
 </div>
 <div class="card">
 <div class="card-body buyer_material">
