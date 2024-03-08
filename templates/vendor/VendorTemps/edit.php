@@ -225,8 +225,8 @@
                                     </div>
                                     <div class="col-sm-12 col-md-3 mb-3">
                                         <label for="id_vendor_registered_offices_telephone">Telephone</label>
-                                        <input type="number"
-                                            class="form-control maxlength_validation"
+                                        <input type="text"
+                                            class="form-control numberonly maxlength_validation"
                                             name="registered_offices[telephone]"
                                             id="id_vendor_registered_offices_telephone" minlength="10" maxlength="14">
                                     </div>
@@ -303,8 +303,8 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3 required">
                                                 <label for="id_vendor_branch_offices_telephone">Telephone</label>
-                                                <input required="required" type="number" 
-                                                    class="form-control maxlength_validation"
+                                                <input required="required" type="text" 
+                                                    class="form-control numberonly maxlength_validation"
                                                     name="branch_offices[0][telephone]"
                                                     id="id_vendor_branch_offices_0_telephone" maxlength="10">
                                             </div>
@@ -515,7 +515,7 @@
                                         <label for="id_vendor_turnovers_first_year" class="first_year"></label>
                                         <input required="required" type="hidden" name="turnovers[first_year]"
                                             id="id_vendor_turnovers_first_year">
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control numberonly"
                                             name="turnovers[first_year_turnover]"
                                             id="id_vendor_turnovers_first_year_turnover">
                                     </div>
@@ -523,7 +523,7 @@
                                         <label for="id_vendor_turnovers_second_year" class="second_year"></label>
                                         <input required="required" type="hidden" name="turnovers[second_year]"
                                             id="id_vendor_turnovers_second_year">
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control numberonly"
                                             name="turnovers[second_year_turnover]"
                                             id="id_vendor_turnovers_second_year_turnover">
                                     </div>
@@ -531,7 +531,7 @@
                                         <label for="id_vendor_turnovers_third_year" class="third_year"></label>
                                         <input required="required" type="hidden" name="turnovers[third_year]"
                                             id="id_vendor_turnovers_third_year">
-                                        <input required="required" type="text" class="form-control"
+                                        <input required="required" type="text" class="form-control numberonly"
                                             name="turnovers[third_year_turnover]"
                                             id="id_vendor_turnovers_third_year_turnover">
                                     </div>
@@ -984,7 +984,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-3 mb-3">
                                                 <label for="id_vendor_partner_address_0_telephone">Telephone</label>
-                                                <input type="number" class="form-control maxlength_validation"
+                                                <input type="text" class="form-control numberonly maxlength_validation"
                                                     name="partner_address[0][telephone]"
                                                     id="id_vendor_partner_address_0_telephone"  minlength="10" maxlength="14">
                                             </div>
@@ -1427,10 +1427,10 @@
                                     <div class="col-lg-3 mb-3 col-md-3">
                                         <div class="form-group">
                                             <label for="id_telephone">Telephone</label>
-                                            <input type="number"
+                                            <input type="text"
                                                 id="id_vendor_reputed_customers_0_telephone"
                                                 name="reputed_customers[0][telephone]" maxlength="15"
-                                                class="form-control maxlength_validation"
+                                                class="form-control numberonly maxlength_validation"
                                                 minlength="10" maxlength="14">
                                         </div>
                                     </div>
