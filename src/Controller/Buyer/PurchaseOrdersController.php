@@ -1333,11 +1333,14 @@ class PurchaseOrdersController extends BuyerAppController
                     $this->loadModel('PoFooters');
                     $this->loadModel('Users');
                     $this->loadModel('PoItemSchedules');
+                    $this->loadModel('Materials');
                     
                     $tmp = [];
                     
                     for ($row = 2; $row <= $highestRow; ++$row) {
                         $vendorError = false;
+                        $materialError = false;
+                        $dateError = false;
                         $poError = false;
                         $poItemError = false;
                         $datas = [];
@@ -1380,12 +1383,19 @@ class PurchaseOrdersController extends BuyerAppController
                                     
                                 } else if($col == 4){
                                     $datas['material'] = $value;
+                                    if(!$this->Materials->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'code'=>$datas['material']])) {
+                                        $materialError = true;
+                                    }
                                 } else if($col == 5){
                                     $tmp['actual_qty'] = $value;
                                     $datas['schedule_qty'] = $value;
                                 } else if($col == 6){
                                     $tmp['delivery_date'] = date('Y-m-d', strtotime(trim($value)));
                                     $datas['delivery_date'] = $value;
+                                    $current_date = date('Y-m-d');
+                                    if (strtotime(trim($value)) < strtotime($current_date)) {
+                                        $dateError = true;
+                                    }
                                 }
                             }
                         }
@@ -1399,7 +1409,13 @@ class PurchaseOrdersController extends BuyerAppController
                         } 
                         if($poItemError) {
                             $datas['error'] = 'Item Detail not found';
-                        } 
+                        }
+                        if($materialError) {
+                            $datas['error'] = 'Material not found';
+                        }
+                        if($dateError) {
+                            $datas['error'] = 'Past Date not allowed';
+                        }
 
                         if(empty($datas['error'])) {
                             $uploadData[] = $tmp; 
