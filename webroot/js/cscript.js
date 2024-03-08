@@ -14,7 +14,7 @@ $(".ftimage").trigger("click");
 //     $(".ftimage").trigger("click");
 // }
 
-$(".numberonly").on("keypress", function (event) {
+$(document).on("keypress", ".numberonly", function () {
 	var regex = new RegExp("^[0-9]+$");
 	var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
 	if (!regex.test(key)) {
