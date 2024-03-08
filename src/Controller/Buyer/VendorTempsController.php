@@ -680,7 +680,6 @@ class VendorTempsController extends BuyerAppController
                     $quryString = $data['email'] . '||' . $VendorTemp->id;
 
                     $visit_url = Router::url(['prefix'=>false, 'controller' => 'vendor/onboarding', 'action' => 'verify', base64_encode($quryString), '_full' => true, 'escape' => true]);
-                    if($this->Users->find()->select('status')->where(['username' => $data['email']])->first()['status'] == 1){
                     $mailer = new Mailer('default');
                     $mailer
                         ->setTransport('smtp')
@@ -693,7 +692,6 @@ class VendorTempsController extends BuyerAppController
                         ->viewBuilder()
                             ->setTemplate('new_communication');
                     $mailer->deliver();
-                    }
                 }
                 //echo '<pre>'; print_r($VendorTemp); exit;
             } catch (\PDOException $e) {
