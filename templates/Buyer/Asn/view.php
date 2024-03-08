@@ -127,7 +127,7 @@
                             <?php echo $this->Form->control('driver_name', array('class' => 'form-control rounded-0', 'div' => 'form-group', 'required', 'maxlength'=>'15', 'value' => $deliveryDetails->toArray()[0]->driver_name)); ?>
                         </div>
                         <div class="col-md-2">
-                            <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control numberonly rounded-0', 'div' => 'form-group', 'maxlength'=>'15', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
+                            <?php echo $this->Form->control('driver_contact', array('type' => 'mobile', 'class' => 'form-control numberonly rounded-0', 'div' => 'form-group', 'maxlength'=>'10', 'required', 'value' => $deliveryDetails->toArray()[0]->driver_contact)); ?>
                         </div>
                         <div class="col-md-2 mt-3 pt-3">
                             <button type="submit" class="btn bg-gradient-submit">Update</button>
@@ -201,7 +201,13 @@
         rules: {
             vehicle_no: "required",
             driver_name: "required",
-            driver_contact: "required",
+            driver_contact: {
+                required: true,
+                number: true,
+                maxlength: 10,
+                minlength: 10
+                //pattern: /^\d{10}$/,
+                },
         },
         // Specify validation error messages
         messages: {
