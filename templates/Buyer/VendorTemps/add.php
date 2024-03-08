@@ -22,6 +22,7 @@
 <div class="row">
     <div class="col-12 add-vendor">
         <div class="card mb-2 card_box_shadow">
+            <div class="card-header">ADD VENDOR</div>
             <div class="card-body fm">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">

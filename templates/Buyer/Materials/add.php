@@ -14,7 +14,7 @@
         color: red !important;
     }
 </style>
-<div class="card">
+<div class="card mb-2">
     <div class="upld-material-head card-header d-flex justify-content-between align-items-center">
         <div class=" col-sm-6 col-lg-6 pl-0">
             UPLOAD MATERIAL MASTER
@@ -53,8 +53,9 @@
     </div>
 </div>
 
-<div class="card">
-    <div class="card-header">
+<div class="card mb-2">
+    <div class="card-header">SEARCH</div>
+        <div class="card-body">
         <form id="id_msl" method="post">
             <?= $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken')); ?>
             <div class="row">
@@ -77,10 +78,11 @@
                 </div>
             </div>
         </form>
-    </div>
+        </div>
+    
 </div>
 
-<div class="card">
+<div class="card mb-2">
     <div class="card-header p-0 mb-0 mt-3 ml-3 mr-3" id="id_pohead">
         <div class="table-responsive">
             <table class="table table-hover" id="example1">

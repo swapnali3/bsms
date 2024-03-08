@@ -136,7 +136,13 @@
                 </div>
             </div>
 
-            <div class="card-body mt-3 asn_cardbody">
+            
+        </div>
+    </div>
+</div>
+
+<div class="card">
+<div class="card-body">
                 <table class="table table-bordered delivery-dt-tbl mb-2">
                     <thead>
                         <tr>
@@ -174,8 +180,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
 </div>
 
 <script>

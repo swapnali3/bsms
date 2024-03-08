@@ -21,7 +21,16 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            
+            <hr class="m-0">
+            
+        </div>
+    </div>
+</div>
+
+<div class="card mb-2">
+    <div class="card-header">SEARCH</div>
+    <div class="card-body">
                 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
                 <div class="row">
                     <div class="col-2">
@@ -86,10 +95,6 @@
                 </div>
                 <?= $this->Form->end() ?>
             </div>
-            <hr class="m-0">
-            
-        </div>
-    </div>
 </div>
 
 <div class="card">
