@@ -96,7 +96,8 @@ class OnboardingController extends VendorAppController
             if ($this->VendorTempOtps->save($vendorOtp)) {
                 
                 $visit_url = Router::url('/', true);
-                if($this->Users->find()->select('status')->where(['username' => $vendorTemp->email])->first()['status'] == 1){
+                print_r($vendorTemp->email);
+
                 $mailer = new Mailer('default');
                 $mailer
                     ->setTransport('smtp')
@@ -108,7 +109,6 @@ class OnboardingController extends VendorAppController
                     ->viewBuilder()
                         ->setTemplate('vendor_otp');
                 $mailer->deliver();
-                }
             }
         }
 
