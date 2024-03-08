@@ -237,7 +237,6 @@ class PurchaseOrdersController extends VendorAppController
                     $this->Notifications->save($n);
 
                     if ($buyer->email !== "") {
-                        if($this->Users->find()->select('status')->where(['username' => $buyer->email])->first()['status'] == 1){
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
@@ -254,7 +253,6 @@ class PurchaseOrdersController extends VendorAppController
                             ->viewBuilder()
                                 ->setTemplate('acknowledge');
                         $mailer->deliver();
-                        }
                     }
 
                 }
@@ -312,7 +310,6 @@ class PurchaseOrdersController extends VendorAppController
                         left join po_headers on po_headers.created_user = buyers.sap_user
                         where po_headers.id=".$poHeader['id']);
                         $response = $query->fetchAll('assoc');
-                        if($this->Users->find()->select('status')->where(['username' => $buyer->email])->first()['status'] == 1){
                         $mailer = new Mailer('default');
                         $mailer
                             ->setTransport('smtp')
@@ -331,7 +328,6 @@ class PurchaseOrdersController extends VendorAppController
                             ->viewBuilder()
                                 ->setTemplate('non_acknowledge');
                         $mailer->deliver();
-                        }
                     }
                 }
 
