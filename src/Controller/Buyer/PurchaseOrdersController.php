@@ -1348,10 +1348,10 @@ class PurchaseOrdersController extends BuyerAppController
                             $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                             if($value){
                                 if($col == 1) {
-                                    $tmp['sap_vendor_code'] = $value;
+                                    $tmp['sap_vendor_code'] = str_pad((string)$value, 10, "0", STR_PAD_LEFT);
                                     $datas['sap_vendor_code'] = $value;
 
-                                    if(!$this->VendorTemps->exists(['sap_vendor_code' => str_pad((string)$value, 10, "0", STR_PAD_LEFT)])) {
+                                    if(!$this->VendorTemps->exists(['sap_vendor_code' => $tmp['sap_vendor_code']])) {
                                         $vendorError = true;
                                     }
 
@@ -1383,7 +1383,7 @@ class PurchaseOrdersController extends BuyerAppController
                                     
                                 } else if($col == 4){
                                     $datas['material'] = $value;
-                                    if(!$this->Materials->exists(['sap_vendor_code' => str_pad((string)$tmp['sap_vendor_code'], 10, "0", STR_PAD_LEFT), 'code'=>$datas['material']])) {
+                                    if(!$this->Materials->exists(['sap_vendor_code' => $tmp['sap_vendor_code'], 'code'=>$datas['material']])) {
                                         $materialError = true;
                                     }
                                 } else if($col == 5){
