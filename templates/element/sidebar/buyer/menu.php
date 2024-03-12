@@ -52,7 +52,7 @@
 
 <li class="nav-item">
   <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-user-alt"></i>
+    <i class="nav-icon fas fa-file-invoice-dollar"></i>
     <p>
       Purchase Orders
       <i class="right fas fa-angle-left"></i>
@@ -61,13 +61,13 @@
   <ul class="nav nav-treeview">
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/purchase-orders" class="nav-link vendor_material">
-        <i class="nav-icon fas fa-users"></i>
+        <i class="nav-icon fas fa-file-code"></i>
         <p>Report</p>
       </a>
     </li>
     <li class="nav-item ">
       <a href="<?= $this->Url->build('/') ?>buyer/purchase-orders/view" class="nav-link">
-        <i class="fa fa-solid fa-plus nav-icon"></i>
+        <i class="fa fa-solid fa-calendar nav-icon"></i>
         <p>Create Schedule</p>
       </a>
     </li>
@@ -81,7 +81,7 @@
 
 <li class="nav-item">
   <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-user-alt"></i>
+    <i class="nav-icon fas fa-clone"></i>
     <p>
     Masters
       <i class="right fas fa-angle-left"></i>
@@ -105,7 +105,7 @@
 
 <li class="nav-item">
   <a href="#" class="nav-link">
-    <i class="nav-icon fas fa-user-alt"></i>
+    <i class="nav-icon fas fa-paste"></i>
     <p>
       Reports
       <i class="right fas fa-angle-left"></i>
