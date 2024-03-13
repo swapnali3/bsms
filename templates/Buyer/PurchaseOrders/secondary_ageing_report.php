@@ -127,6 +127,11 @@
                                     aria-selected="true">SECONDARY AGEING REPORT</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="custom-tabs-three-home-tab" data-toggle="pill"
+                                    href="#custom-another-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home"
+                                    aria-selected="true">ANOTHER AGEING REPORT</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill"
                                     href="#custom-tabs-three-profile" role="tab"
                                     aria-controls="custom-tabs-three-profile" aria-selected="false">SUMMARY</a>
@@ -139,6 +144,34 @@
                                 aria-labelledby="custom-tabs-three-home-tab">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped table-bordered" id="example1"
+                                        style="font-size: smaller;">
+                                        <thead>
+                                            <tr>
+                                                <th>Actual Indent Date</th>
+                                                <th>Actual delivery date</th>
+                                                <th>PM TYPE</th>
+                                                <th>Segment</th>
+                                                <th>Material</th>
+                                                <th>Material Description</th>
+                                                <th>Pack Size</th>
+                                                <th>UOM</th>
+                                                <th>Indent Qty</th>
+                                                <th>Receipt</th>
+                                                <th>Pending</th>
+                                                <th>Vendor Name</th>
+                                                <th>No of Days</th>
+                                                <th>Aging Bucket</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="custom-another-tabs-three-home" role="tabpanel"
+                                aria-labelledby="custom-another-tabs-three-home-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped table-bordered" id="example3"
                                         style="font-size: smaller;">
                                         <thead>
                                             <tr>
