@@ -262,14 +262,22 @@ class PurchaseOrdersController extends BuyerAppController
         }
 
         $conn = ConnectionManager::get('default');
-        $material = $conn->execute("select
-        DATE_FORMAT(po_item_schedules.added_date, '%d-%m-%Y') as 'added_date', materials.type, materials.segment, materials.code, materials.description,
-        materials.pack_size, materials.pack_uom, po_footers.po_qty, po_item_schedules.received_qty, po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty', vendor_temps.name, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) as 'no_of_days',
+        $query = $conn->execute("select
+        DATE_FORMAT(po_footers.added_date, '%d-%m-%Y') as 'itm_added_date', DATE_FORMAT(po_item_schedules.added_date, '%d-%m-%Y') as 'sch_added_date',
+        materials.type, materials.segment, materials.code, materials.description,
+        materials.pack_size, materials.pack_uom, po_footers.po_qty, po_item_schedules.received_qty, po_footers.po_qty - po_item_schedules.received_qty as 'pending_qty',
+        vendor_temps.name, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date',
+        TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) as 'sch_no_of_days',
         case
-            when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) <= 0 then 'Within 7 days' else
+            when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then 'Within 7 days' else
             case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16 then '7 to 15 days' else 'Greater than 15 days'
             end
-        end as 'ageing',
+        end as 'sch_ageing',  TIMESTAMPDIFF( DAY, po_footers.added_date, po_item_schedules.delivery_date ) as 'itm_no_of_days',
+        case
+            when TIMESTAMPDIFF( DAY, po_footers.added_date, po_item_schedules.delivery_date ) < 8 then 'Within 7 days' else
+            case when TIMESTAMPDIFF( DAY, po_footers.added_date, po_item_schedules.delivery_date ) < 16 then '7 to 15 days' else 'Greater than 15 days'
+            end
+        end as 'itm_ageing',
         case
             when asn_headers.status = 3 then 'Received' else
             case when asn_headers.status = 2 then 'In-Transit' else
@@ -288,12 +296,12 @@ class PurchaseOrdersController extends BuyerAppController
         left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
         left join asn_footers on asn_footers.po_schedule_id = po_item_schedules.id
         left join asn_headers on asn_footers.asn_header_id = asn_headers.id". $conditions);
-        $materialist = $material->fetchAll('assoc');
+        $sch_ageing_res = $query->fetchAll('assoc');
 
-        $results = [];
-        foreach ($materialist as $mat) {
+        $sch_ageing = []; $itm_ageing = [];
+        foreach ($sch_ageing_res as $mat) {
             $tmp = [];
-            $tmp[] = $mat['added_date'];
+            $tmp[] = $mat['sch_added_date'];
             $tmp[] = $mat['delivery_date'];
             $tmp[] = $mat['type'];
             $tmp[] = $mat['segment'];
@@ -305,10 +313,28 @@ class PurchaseOrdersController extends BuyerAppController
             $tmp[] = $mat['received_qty'];
             $tmp[] = $mat['pending_qty'];
             $tmp[] = $mat['name'];
-            $tmp[] = $mat['no_of_days'];
-            $tmp[] = $mat['ageing'];
+            $tmp[] = $mat['sch_no_of_days'];
+            $tmp[] = $mat['sch_ageing'];
             $tmp[] = $mat['status'];
-            $results[] = $tmp;
+            $sch_ageing[] = $tmp;
+
+            $tmp2 = [];
+            $tmp2[] = $mat['itm_added_date'];
+            $tmp2[] = $mat['delivery_date'];
+            $tmp2[] = $mat['type'];
+            $tmp2[] = $mat['segment'];
+            $tmp2[] = $mat['code'];
+            $tmp2[] = $mat['description'];
+            $tmp2[] = $mat['pack_size'];
+            $tmp2[] = $mat['pack_uom'];
+            $tmp2[] = $mat['po_qty'];
+            $tmp2[] = $mat['received_qty'];
+            $tmp2[] = $mat['pending_qty'];
+            $tmp2[] = $mat['name'];
+            $tmp2[] = $mat['itm_no_of_days'];
+            $tmp2[] = $mat['itm_ageing'];
+            $tmp2[] = $mat['status'];
+            $itm_ageing[] = $tmp2;
         }
 
         $summary = $conn->execute("select case
@@ -342,7 +368,7 @@ class PurchaseOrdersController extends BuyerAppController
         group by status, type order by status, type");
         $summaryist = $summary->fetchAll('assoc');
 
-        $s_result = []; $tmparr = []; $x=0; $y=0; $z=0;
+        $summary_type = []; $tmparr = []; $x=0; $y=0; $z=0;
         foreach ($summaryist as $mat) {
             if(!isset($tmparr[$mat['status']])){
                 $tmp = [];
@@ -351,7 +377,7 @@ class PurchaseOrdersController extends BuyerAppController
                 $tmp[] = "";
                 $tmp[] = "";
                 $tmp[] = "";
-                $s_result[] = $tmp;                
+                $summary_type[] = $tmp;                
                 $tmparr[$mat['status']] = 5;
             }
             $tmp = [];
@@ -366,7 +392,7 @@ class PurchaseOrdersController extends BuyerAppController
             $c = !empty($mat['Greater than 15 days']) ? intval($mat['Greater than 15 days']) : 0;
             $z = $z + $c;
             $tmp[] = $a + $b + $c;
-            $s_result[] = $tmp;
+            $summary_type[] = $tmp;
         }
         $tmp = [];
         $tmp[] = "Grand Total";
@@ -374,9 +400,9 @@ class PurchaseOrdersController extends BuyerAppController
         $tmp[] = $y;
         $tmp[] = $z;
         $tmp[] = $x + $y + $z;
-        $s_result[] = $tmp;
+        $summary_type[] = $tmp;
 
-        $response = array('status'=>1, 'message'=>'success', 'data'=>array($results, $s_result));
+        $response = array('status'=>1, 'message'=>'success', 'data'=>array($sch_ageing, $summary_type, $itm_ageing));
         echo json_encode($response); exit;
     }
 
