@@ -135,12 +135,17 @@
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill"
                             href="#custom-tabs-three-profile" role="tab" aria-controls="custom-tabs-three-profile"
-                            aria-selected="false">SUMMARY TYPE</a>
+                            aria-selected="false">SCHEDULE SUMMARY</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="custom-tabs-three-home-tab" data-toggle="pill"
                             href="#custom-another-tabs-three-home" role="tab" aria-controls="custom-tabs-three-home"
                             aria-selected="true">PO ITEM AGEING REPORT</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill"
+                            href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
+                            aria-selected="false">PO ITEM SUMMARY</a>
                     </li>
                 </ul>
             </div>
@@ -176,20 +181,57 @@
                     </div>
                     <div class="tab-pane fade" id="custom-tabs-three-profile" role="tabpanel"
                         aria-labelledby="custom-tabs-three-profile-tab">
-                        <div class="table-responsive">
-                            <table class="table table-hover table-striped table-bordered" id="example2">
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Within 7 days</th>
-                                        <th>7 to 15 days</th>
-                                        <th>Greater than 15 days</th>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Within 7 days</th>
+                                                <th>7 to 15 days</th>
+                                                <th>Greater than 15 days</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sch_type"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Within 7 days</th>
+                                                <th>7 to 15 days</th>
+                                                <th>Greater than 15 days</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sch_segment"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Within 7 days</th>
+                                                <th>7 to 15 days</th>
+                                                <th>Greater than 15 days</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="sch_packsize"></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                     <div class="tab-pane fade" id="custom-another-tabs-three-home" role="tabpanel"
                         aria-labelledby="custom-another-tabs-three-home-tab">
@@ -218,6 +260,60 @@
                                 <tbody></tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel"
+                        aria-labelledby="custom-tabs-four-profile-tab">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Within 7 days</th>
+                                                <th>7 to 15 days</th>
+                                                <th>Greater than 15 days</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="itm_type"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Within 7 days</th>
+                                                <th>7 to 15 days</th>
+                                                <th>Greater than 15 days</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="itm_segment"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Within 7 days</th>
+                                                <th>7 to 15 days</th>
+                                                <th>Greater than 15 days</th>
+                                                <th>Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="itm_packsize"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

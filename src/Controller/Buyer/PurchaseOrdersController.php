@@ -299,7 +299,10 @@ class PurchaseOrdersController extends BuyerAppController
         $sch_ageing_res = $query->fetchAll('assoc');
 
         $sch_ageing = []; $itm_ageing = [];
+        $sch_type = []; $sch_segment = []; $sch_packsize = [];
+        $itm_type = []; $itm_segment = []; $itm_packsize = [];
         foreach ($sch_ageing_res as $mat) {
+            // Schedule Agening Report
             $tmp = [];
             $tmp[] = $mat['sch_added_date'];
             $tmp[] = $mat['delivery_date'];
@@ -318,6 +321,7 @@ class PurchaseOrdersController extends BuyerAppController
             $tmp[] = $mat['status'];
             $sch_ageing[] = $tmp;
 
+            // PoItem Agening Report
             $tmp2 = [];
             $tmp2[] = $mat['itm_added_date'];
             $tmp2[] = $mat['delivery_date'];
@@ -335,74 +339,203 @@ class PurchaseOrdersController extends BuyerAppController
             $tmp2[] = $mat['itm_ageing'];
             $tmp2[] = $mat['status'];
             $itm_ageing[] = $tmp2;
-        }
 
-        $summary = $conn->execute("select case
-        when asn_headers.status = 3 then 'Received' else
-        case when asn_headers.status = 2 then 'In-Transit' else
-            case when po_item_schedules.delivery_date is null then '-' else
-                case when po_item_schedules.received_qty = 0 then 'Scheduled' else
-                    case when po_item_schedules.received_qty < po_item_schedules.actual_qty then 'Partial ASN created' else 'ASN created'
-                    end
-                end
-            end
-        end
-        end as 'status',
-        materials.type, 
-        case
-        when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then po_footers.po_qty - po_item_schedules.received_qty else ''
-        end as 'Within 7 days',
-        case
-        when 7 < TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16 then po_footers.po_qty - po_item_schedules.received_qty else ''
-        end as '7 to 15 days',
-        case
-        when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15 then po_footers.po_qty - po_item_schedules.received_qty else ''
-        end as 'Greater than 15 days'
-        from po_item_schedules
-        left join po_footers on po_footers.id = po_item_schedules.po_footer_id
-        left join materials on materials.code = po_footers.material
-        left join po_headers on po_footers.po_header_id = po_headers.id
-        left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
-        left join asn_footers on asn_footers.po_schedule_id = po_item_schedules.id
-        left join asn_headers on asn_footers.asn_header_id = asn_headers.id". $conditions."
-        group by status, type order by status, type");
-        $summaryist = $summary->fetchAll('assoc');
+            if ($mat['type'] != ""){
+                // Prepearing array
+                if (!array_key_exists($mat['status'], $sch_type)) {
+                    $sch_type[$mat['status']] = array($mat['type']=> array(0=>0, 1=>0, 2=>0));
+                    $itm_type[$mat['status']] = array($mat['type']=> array(0=>0, 1=>0, 2=>0));
+                }
+                if (!array_key_exists($mat['type'], $sch_type[$mat['status']])) {
+                    $sch_type[$mat['status']][$mat['type']] = array(0=>0, 1=>0, 2=>0);
+                    $itm_type[$mat['status']][$mat['type']] = array(0=>0, 1=>0, 2=>0);
+                }
 
-        $summary_type = []; $tmparr = []; $x=0; $y=0; $z=0;
-        foreach ($summaryist as $mat) {
-            if(!isset($tmparr[$mat['status']])){
-                $tmp = [];
-                $tmp[] = $mat['status'];
-                $tmp[] = "";
-                $tmp[] = "";
-                $tmp[] = "";
-                $tmp[] = "";
-                $summary_type[] = $tmp;                
-                $tmparr[$mat['status']] = 5;
+                // Schedule Ageing
+                if ($mat['sch_ageing'] == 'Within 7 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $sch_type[$mat['status']][$mat['type']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $sch_type[$mat['status']][$mat['type']][0] += $mat['pending_qty'];
+                    }
+                }
+                elseif ($mat['sch_ageing'] == '7 to 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $sch_type[$mat['status']][$mat['type']][1] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $sch_type[$mat['status']][$mat['type']][1] += $mat['pending_qty'];
+                    }                    
+                }
+                elseif ($mat['sch_ageing'] == 'Greater than 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $sch_type[$mat['status']][$mat['type']][2] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $sch_type[$mat['status']][$mat['type']][2] += $mat['pending_qty'];
+                    }
+                }
+
+                // Item Ageing
+                if ($mat['itm_ageing'] == 'Within 7 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $itm_type[$mat['status']][$mat['type']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $itm_type[$mat['status']][$mat['type']][0] += $mat['pending_qty'];
+                    }
+                }
+                elseif ($mat['itm_ageing'] == '7 to 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $itm_type[$mat['status']][$mat['type']][1] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $itm_type[$mat['status']][$mat['type']][1] += $mat['pending_qty'];
+                    }                    
+                }
+                elseif ($mat['itm_ageing'] == 'Greater than 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $itm_type[$mat['status']][$mat['type']][2] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $itm_type[$mat['status']][$mat['type']][2] += $mat['pending_qty'];
+                    }
+                }
             }
-            $tmp = [];
-            $tmp[] = $mat['type'];
-            $tmp[] = $mat['Within 7 days'];
-            $tmp[] = $mat['7 to 15 days'];
-            $tmp[] = $mat['Greater than 15 days'];
-            $a = !empty($mat['Within 7 days']) ? intval($mat['Within 7 days']) : 0;
-            $x = $x + $a;
-            $b = !empty($mat['7 to 15 days']) ? intval($mat['7 to 15 days']) : 0;
-            $y = $y + $b;
-            $c = !empty($mat['Greater than 15 days']) ? intval($mat['Greater than 15 days']) : 0;
-            $z = $z + $c;
-            $tmp[] = $a + $b + $c;
-            $summary_type[] = $tmp;
-        }
-        $tmp = [];
-        $tmp[] = "Grand Total";
-        $tmp[] = $x;
-        $tmp[] = $y;
-        $tmp[] = $z;
-        $tmp[] = $x + $y + $z;
-        $summary_type[] = $tmp;
 
-        $response = array('status'=>1, 'message'=>'success', 'data'=>array($sch_ageing, $summary_type, $itm_ageing));
+            if ($mat['segment'] != ""){
+                // Preparing array
+                if (!array_key_exists($mat['status'], $sch_segment)) {
+                    $sch_segment[$mat['status']] = array($mat['segment']=> array(0=>0, 1=>0, 2=>0));
+                    $itm_segment[$mat['status']] = array($mat['segment']=> array(0=>0, 1=>0, 2=>0));
+                }
+                if (!array_key_exists($mat['segment'], $sch_segment[$mat['status']])) {
+                    $sch_segment[$mat['status']][$mat['segment']] = array(0=>0, 1=>0, 2=>0);
+                    $itm_segment[$mat['status']][$mat['segment']] = array(0=>0, 1=>0, 2=>0);
+                }
+
+                // Schedule Ageing
+                if ($mat['sch_ageing'] == 'Within 7 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $sch_segment[$mat['status']][$mat['segment']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $sch_segment[$mat['status']][$mat['segment']][0] += $mat['pending_qty'];
+                    }
+                }
+                elseif ($mat['sch_ageing'] == '7 to 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $sch_segment[$mat['status']][$mat['segment']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $sch_segment[$mat['status']][$mat['segment']][0] += $mat['pending_qty'];
+                    }                    
+                }
+                elseif ($mat['sch_ageing'] == 'Greater than 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $sch_segment[$mat['status']][$mat['segment']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $sch_segment[$mat['status']][$mat['segment']][0] += $mat['pending_qty'];
+                    }
+                }
+
+                // Item Ageing 
+                if ($mat['itm_ageing'] == 'Within 7 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $itm_segment[$mat['status']][$mat['segment']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $itm_segment[$mat['status']][$mat['segment']][0] += $mat['pending_qty'];
+                    }
+                }
+                elseif ($mat['itm_ageing'] == '7 to 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $itm_segment[$mat['status']][$mat['segment']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $itm_segment[$mat['status']][$mat['segment']][0] += $mat['pending_qty'];
+                    }                    
+                }
+                elseif ($mat['itm_ageing'] == 'Greater than 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $itm_segment[$mat['status']][$mat['segment']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $itm_segment[$mat['status']][$mat['segment']][0] += $mat['pending_qty'];
+                    }
+                }
+            }
+
+            if ($mat['pack_size'] != ""){
+                // Preparing array
+                if (!array_key_exists($mat['status'], $sch_packsize)) {
+                    $sch_packsize[$mat['status']] = array($mat['pack_size']=> array(0=>0, 1=>0, 2=>0));
+                    $itm_packsize[$mat['status']] = array($mat['pack_size']=> array(0=>0, 1=>0, 2=>0));
+                }
+                if (!array_key_exists($mat['pack_size'], $sch_packsize[$mat['status']])) {
+                    $sch_packsize[$mat['status']][$mat['pack_size']] = array(0=>0, 1=>0, 2=>0);
+                    $itm_packsize[$mat['status']][$mat['pack_size']] = array(0=>0, 1=>0, 2=>0);
+                }
+
+                if ($mat['sch_ageing'] == 'Within 7 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $sch_packsize[$mat['status']][$mat['pack_size']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $sch_packsize[$mat['status']][$mat['pack_size']][0] += $mat['pending_qty'];
+                    }
+                }
+                elseif ($mat['sch_ageing'] == '7 to 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $sch_packsize[$mat['status']][$mat['pack_size']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $sch_packsize[$mat['status']][$mat['pack_size']][0] += $mat['pending_qty'];
+                    }                    
+                }
+                elseif ($mat['sch_ageing'] == 'Greater than 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $sch_packsize[$mat['status']][$mat['pack_size']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $sch_packsize[$mat['status']][$mat['pack_size']][0] += $mat['pending_qty'];
+                    }
+                }
+
+                if ($mat['itm_ageing'] == 'Within 7 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $itm_packsize[$mat['status']][$mat['pack_size']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $itm_packsize[$mat['status']][$mat['pack_size']][0] += $mat['pending_qty'];
+                    }
+                }
+                elseif ($mat['itm_ageing'] == '7 to 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $itm_packsize[$mat['status']][$mat['pack_size']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $itm_packsize[$mat['status']][$mat['pack_size']][0] += $mat['pending_qty'];
+                    }                    
+                }
+                elseif ($mat['itm_ageing'] == 'Greater than 15 days') {
+                    if(in_array($mat['status'], array('Received', 'In-Transit', 'Partial ASN created'))){
+                        $itm_packsize[$mat['status']][$mat['pack_size']][0] += $mat['received_qty'];
+                    }
+                    else if (in_array($mat['status'], array('Scheduled', 'ASN created'))){
+                        $itm_packsize[$mat['status']][$mat['pack_size']][0] += $mat['pending_qty'];
+                    }
+                }
+            }
+
+        }        
+
+        $response = array('status'=>1, 'message'=>'success', 'data'=>array(
+            $sch_ageing, array($sch_type, $sch_segment, $sch_packsize),
+            $itm_ageing, array($itm_type, $itm_segment, $itm_packsize)
+        ));
         echo json_encode($response); exit;
     }
 
