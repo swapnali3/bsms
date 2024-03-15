@@ -186,6 +186,9 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped table-bordered">
                                         <thead>
+                                            <tr class="text-center" style="background-color: aquamarine;">
+                                                <th colspan="5">TYPE</th>
+                                            </tr>
                                             <tr>
                                                 <th>Status</th>
                                                 <th>Within 7 days</th>
@@ -202,6 +205,9 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped table-bordered">
                                         <thead>
+                                            <tr class="text-center" style="background-color: aquamarine;">
+                                                <th colspan="5">SEGMENT</th>
+                                            </tr>
                                             <tr>
                                                 <th>Status</th>
                                                 <th>Within 7 days</th>
@@ -218,6 +224,9 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped table-bordered">
                                         <thead>
+                                            <tr class="text-center" style="background-color: aquamarine;">
+                                                <th colspan="5">PACK SIZE</th>
+                                            </tr>
                                             <tr>
                                                 <th>Status</th>
                                                 <th>Within 7 days</th>
@@ -268,6 +277,9 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped table-bordered">
                                         <thead>
+                                            <tr class="text-center" style="background-color: aquamarine;">
+                                                <th colspan="5">TYPE</th>
+                                            </tr>
                                             <tr>
                                                 <th>Status</th>
                                                 <th>Within 7 days</th>
@@ -284,6 +296,9 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped table-bordered">
                                         <thead>
+                                            <tr class="text-center" style="background-color: aquamarine;">
+                                                <th colspan="5">SEGMENT</th>
+                                            </tr>
                                             <tr>
                                                 <th>Status</th>
                                                 <th>Within 7 days</th>
@@ -300,6 +315,9 @@
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped table-bordered">
                                         <thead>
+                                            <tr class="text-center" style="background-color: aquamarine;">
+                                                <th colspan="5">PACK SIZE</th>
+                                            </tr>
                                             <tr>
                                                 <th>Status</th>
                                                 <th>Within 7 days</th>
