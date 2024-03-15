@@ -72,9 +72,9 @@ $(function () {
     //     "destroy": true,
     //     "createdRow": function(row, data, dataIndex) {
     //         if(data[0] == 'Grand Total'){
-    //             $(row).attr("style","background-color: #F7941D !important; color: black;");
+    //             $(row).attr("style","background-color: bisque !important; color: black;");
     //         } else if (data[1] == "" && data[2] == "" && data[3] == "" && data[4] == "") {
-    //             $(row).attr("style","background-color:#F7941D !important;color:white;");
+    //             $(row).attr("style","background-color:bisque !important;color:white;");
     //         }
     //     }
     // });
@@ -109,7 +109,7 @@ $(function () {
                         // Schedule Summary Type
                         $('#sch_type').empty();
                         $.each(response.data[1][0], function(index, value) {
-                            $('#sch_type').append(`<tr style="background-color:#F7941D !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $('#sch_type').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
                             $.each(value, function(index, value) {
                                 $('#sch_type').append(`<tr>
                                 <th>`+index+`</th>
@@ -124,7 +124,7 @@ $(function () {
                         // Schedule Summary Segment
                         $('#sch_segment').empty();
                         $.each(response.data[1][1], function(index, value) {
-                            $('#sch_segment').append(`<tr style="background-color:#F7941D !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $('#sch_segment').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
                             $.each(value, function(index, value) {
                                 $('#sch_segment').append(`<tr>
                                 <th>`+index+`</th>
@@ -139,7 +139,7 @@ $(function () {
                         // Schedule Summary Pack Size
                         $('#sch_packsize').empty();
                         $.each(response.data[1][2], function(index, value) {
-                            $('#sch_packsize').append(`<tr style="background-color:#F7941D !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $('#sch_packsize').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
                             $.each(value, function(index, value) {
                                 $('#sch_packsize').append(`<tr>
                                 <th>`+index+`</th>
@@ -154,7 +154,7 @@ $(function () {
                         // Item Summary Pack Size
                         $('#itm_type').empty();
                         $.each(response.data[3][0], function(index, value) {
-                            $('#itm_type').append(`<tr style="background-color:#F7941D !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $('#itm_type').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
                             $.each(value, function(index, value) {
                                 $('#itm_type').append(`<tr>
                                 <th>`+index+`</th>
@@ -169,7 +169,7 @@ $(function () {
                         // Item Summary Pack Size
                         $('#itm_segment').empty();
                         $.each(response.data[3][1], function(index, value) {
-                            $('#itm_segment').append(`<tr style="background-color:#F7941D !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $('#itm_segment').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
                             $.each(value, function(index, value) {
                                 $('#itm_segment').append(`<tr>
                                 <th>`+index+`</th>
@@ -184,7 +184,7 @@ $(function () {
                         // Item Summary Pack Size
                         $('#itm_packsize').empty();
                         $.each(response.data[3][2], function(index, value) {
-                            $('#itm_packsize').append(`<tr style="background-color:#F7941D !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $('#itm_packsize').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
                             $.each(value, function(index, value) {
                                 $('#itm_packsize').append(`<tr>
                                 <th>`+index+`</th>
