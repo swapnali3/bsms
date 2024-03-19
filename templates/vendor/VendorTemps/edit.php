@@ -879,7 +879,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="id_contact_name">Mobile</label>
-                                        <input required="required" type="text" class="form-control" maxlength="12"
+                                        <input required="required" type="text" class="form-control numberonly" maxlength="12"
                                             name="temps[contact_mobile]" id="id_vendor_temps_contact_mobile">
                                     </div>
                                     <div class="col-lg-4">
