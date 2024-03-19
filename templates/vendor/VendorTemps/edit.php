@@ -552,7 +552,7 @@
                                 <div class="row">
                                     <div class="col-lg-3 required">
                                         <label>Certificate No</label>
-                                        <input required="required" type="number" required="true"
+                                        <input required="required" type="text" required="true" maxlength="45"
                                             name="incometaxes[certificate_no]" class="form-control"
                                             id="id_vendor_incometaxes_certificate_no">
                                     </div>
@@ -1170,7 +1170,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label>Registration No.</label>
-                                        <input type="number" id="id_vendor_otherdetails_iso" maxlength="45"
+                                        <input type="text" id="id_vendor_otherdetails_iso" maxlength="45"
                                             class="form-control other_details_iso" name="otherdetails[iso]">
                                     </div>
 
