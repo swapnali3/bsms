@@ -1071,14 +1071,14 @@
                                     <div class="col-3 ">
                                         <label for="id_vendor_temps_tan_no">TAN No</label>
                                         <input  type="text" name="temps[tan_no]"
-                                            class="form-control UpperCase" maxlength="45" 
+                                            class="form-control UpperCase" 
                                             id="id_vendor_temps_tan_no"  maxlength="25">
                                     </div>
 
                                     <div class="col-3 ">
                                         <label for="id_vendor_temps_cin_no">CIN No</label>
                                         <input  type="text" name="temps[cin_no]"
-                                            class="form-control UpperCase" maxlength="45" 
+                                            class="form-control UpperCase" 
                                             id="id_vendor_temps_cin_no"  maxlength="25">
                                     </div>
                                 </div>

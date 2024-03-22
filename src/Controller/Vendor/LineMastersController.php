@@ -145,10 +145,10 @@ class LineMastersController extends VendorAppController
                                 }
 
                             } else if($col == 3) {
-                                $tmp['capacity'] = $value;
+                                $tmp['capacity'] = trim($value);
                                 $datas['capacity'] = $value;
                             } else {
-                                $tmp['uom'] = $value;
+                                $tmp['uom'] = trim($value);
                                 $datas['uom'] = $value;
                             }
                             

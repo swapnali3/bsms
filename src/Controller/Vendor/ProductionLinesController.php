@@ -365,7 +365,7 @@ class ProductionLinesController extends VendorAppController
                                     $datas['error'] = 'Invalid material';
                                 }
                             }else if($col == 4) {
-                                $tmp['capacity'] = $value;
+                                $tmp['capacity'] = trim($value);
                                 $datas['capacity'] = $value;
                             }
                             

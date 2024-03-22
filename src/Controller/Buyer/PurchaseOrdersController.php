@@ -1546,7 +1546,7 @@ class PurchaseOrdersController extends BuyerAppController
                                         $materialError = true;
                                     }
                                 } else if($col == 5){
-                                    $tmp['actual_qty'] = $value;
+                                    $tmp['actual_qty'] = trim($value);
                                     $datas['schedule_qty'] = $value;
                                 } else if($col == 6){
                                     $tmp['delivery_date'] = date('Y-m-d', strtotime(trim($value)));
