@@ -879,7 +879,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="id_contact_name">Mobile</label>
-                                        <input required="required" type="text" class="form-control" maxlength="12"
+                                        <input required="required" type="text" class="form-control numberonly" maxlength="12"
                                             name="temps[contact_mobile]" id="id_vendor_temps_contact_mobile">
                                     </div>
                                     <div class="col-lg-4">
@@ -1071,14 +1071,14 @@
                                     <div class="col-3 ">
                                         <label for="id_vendor_temps_tan_no">TAN No</label>
                                         <input  type="text" name="temps[tan_no]"
-                                            class="form-control UpperCase" maxlength="45" 
+                                            class="form-control UpperCase" 
                                             id="id_vendor_temps_tan_no"  maxlength="25">
                                     </div>
 
                                     <div class="col-3 ">
                                         <label for="id_vendor_temps_cin_no">CIN No</label>
                                         <input  type="text" name="temps[cin_no]"
-                                            class="form-control UpperCase" maxlength="45" 
+                                            class="form-control UpperCase" 
                                             id="id_vendor_temps_cin_no"  maxlength="25">
                                     </div>
                                 </div>

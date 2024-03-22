@@ -291,8 +291,8 @@ class PurchaseOrdersController extends BuyerAppController
         end as 'status'
         from po_item_schedules
         left join po_footers on po_footers.id = po_item_schedules.po_footer_id
-        left join materials on materials.code = po_footers.material
         left join po_headers on po_footers.po_header_id = po_headers.id
+        left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
         left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
         left join asn_footers on asn_footers.po_schedule_id = po_item_schedules.id
         left join asn_headers on asn_footers.asn_header_id = asn_headers.id". $conditions);
@@ -626,7 +626,7 @@ class PurchaseOrdersController extends BuyerAppController
         left join asn_headers on asn_footers.asn_header_id = asn_headers.id
         left join po_footers on po_footers.id = asn_footers.po_footer_id
         left join po_headers on po_headers.id = po_footers.po_header_id
-        left join materials on materials.code = po_footers.material
+        left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
         where asn_footers.status in (1,2,3)
         group by po_headers.sap_vendor_code, materials.id) as tmp 
         on stock_uploads.sap_vendor_code = tmp.sap_vendor_code and tmp.factory_id = stock_uploads.vendor_factory_id and stock_uploads.material_id = tmp.material_id) as stu
@@ -1546,7 +1546,7 @@ class PurchaseOrdersController extends BuyerAppController
                                         $materialError = true;
                                     }
                                 } else if($col == 5){
-                                    $tmp['actual_qty'] = $value;
+                                    $tmp['actual_qty'] = trim($value);
                                     $datas['schedule_qty'] = $value;
                                 } else if($col == 6){
                                     $tmp['delivery_date'] = date('Y-m-d', strtotime(trim($value)));

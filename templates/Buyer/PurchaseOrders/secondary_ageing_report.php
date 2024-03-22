@@ -158,8 +158,8 @@
                                 style="font-size: smaller;">
                                 <thead>
                                     <tr>
-                                        <th>Actual Indent Date</th>
-                                        <th>Actual delivery date</th>
+                                        <th>Actual Indent Date<br>(Scheduled Date)</th>
+                                        <th>Actual delivery date<br>(Scheduled Delivery Date)</th>
                                         <th>PM TYPE</th>
                                         <th>Segment</th>
                                         <th>Material</th>
