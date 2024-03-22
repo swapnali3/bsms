@@ -291,8 +291,8 @@ class PurchaseOrdersController extends BuyerAppController
         end as 'status'
         from po_item_schedules
         left join po_footers on po_footers.id = po_item_schedules.po_footer_id
-        left join materials on materials.code = po_footers.material
         left join po_headers on po_footers.po_header_id = po_headers.id
+        left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
         left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
         left join asn_footers on asn_footers.po_schedule_id = po_item_schedules.id
         left join asn_headers on asn_footers.asn_header_id = asn_headers.id". $conditions);
