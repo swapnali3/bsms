@@ -1,4 +1,4 @@
-var dtable, stable;
+var dtable, d3table;
 
 // $(".chosen").multiselect({
 //     enableClickableOptGroups: false,
@@ -62,23 +62,22 @@ $(function () {
     });
 
 
-    stable = $("#example2").DataTable({
-        "paging": false,
-        "responsive": false,
-        "lengthChange": false,
-        "autoWidth": false,
-        "searching": false,
-        "ordering": false,
-        "destroy": true,
-        "createdRow": function(row, data, dataIndex) {
-            if(data[0] == 'Grand Total'){
-                $(row).attr("style","background-color: #F7941D !important; color: black;");
-            } else if (data[1] == "" && data[2] == "" && data[3] == "" && data[4] == "") {
-                $(row).attr("style","background-color:#F7941D !important;color:white;");
-            }
-            console.log(data);
-        }
-    });
+    // stable = $("#example2").DataTable({
+    //     "paging": false,
+    //     "responsive": false,
+    //     "lengthChange": false,
+    //     "autoWidth": false,
+    //     "searching": false,
+    //     "ordering": false,
+    //     "destroy": true,
+    //     "createdRow": function(row, data, dataIndex) {
+    //         if(data[0] == 'Grand Total'){
+    //             $(row).attr("style","background-color: bisque !important; color: black;");
+    //         } else if (data[1] == "" && data[2] == "" && data[3] == "" && data[4] == "") {
+    //             $(row).attr("style","background-color:bisque !important;color:white;");
+    //         }
+    //     }
+    // });
 
     $("#addvendorform").validate({
         rules: { vendor_code: { required: false, }, },
@@ -102,15 +101,101 @@ $(function () {
                         dtable.clear().draw();
                         dtable.rows.add(response.data[0]).draw();
                         dtable.columns.adjust().draw();
-
+                        
                         d3table.clear().draw();
-                        d3table.rows.add(response.data[0]).draw();
+                        d3table.rows.add(response.data[2]).draw();
                         d3table.columns.adjust().draw();
 
-                        stable.clear().draw();
-                        stable.rows.add(response.data[1]).draw();
-                        stable.columns.adjust().draw();
-                    } else { dtable.clear().draw(); stable.clear().draw(); }
+                        // Schedule Summary Type
+                        $('#sch_type').empty();
+                        $.each(response.data[1][0], function(index, value) {
+                            $('#sch_type').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $.each(value, function(index, value) {
+                                $('#sch_type').append(`<tr>
+                                <th>`+index+`</th>
+                                <td>`+value[0]+`</td>
+                                <td>`+value[1]+`</td>
+                                <td>`+value[2]+`</td>
+                                <th>`+(value[0]+value[1]+value[2])+`</th>
+                                </tr>`);
+                            });
+                        });
+
+                        // Schedule Summary Segment
+                        $('#sch_segment').empty();
+                        $.each(response.data[1][1], function(index, value) {
+                            $('#sch_segment').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $.each(value, function(index, value) {
+                                $('#sch_segment').append(`<tr>
+                                <th>`+index+`</th>
+                                <td>`+value[0]+`</td>
+                                <td>`+value[1]+`</td>
+                                <td>`+value[2]+`</td>
+                                <th>`+(value[0]+value[1]+value[2])+`</th>
+                                </tr>`);
+                            });
+                        });
+
+                        // Schedule Summary Pack Size
+                        $('#sch_packsize').empty();
+                        $.each(response.data[1][2], function(index, value) {
+                            $('#sch_packsize').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $.each(value, function(index, value) {
+                                $('#sch_packsize').append(`<tr>
+                                <th>`+index+`</th>
+                                <td>`+value[0]+`</td>
+                                <td>`+value[1]+`</td>
+                                <td>`+value[2]+`</td>
+                                <th>`+(value[0]+value[1]+value[2])+`</th>
+                                </tr>`);
+                            });
+                        });
+
+                        // Item Summary Pack Size
+                        $('#itm_type').empty();
+                        $.each(response.data[3][0], function(index, value) {
+                            $('#itm_type').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $.each(value, function(index, value) {
+                                $('#itm_type').append(`<tr>
+                                <th>`+index+`</th>
+                                <td>`+value[0]+`</td>
+                                <td>`+value[1]+`</td>
+                                <td>`+value[2]+`</td>
+                                <th>`+(value[0]+value[1]+value[2])+`</th>
+                                </tr>`);
+                            });
+                        });
+
+                        // Item Summary Pack Size
+                        $('#itm_segment').empty();
+                        $.each(response.data[3][1], function(index, value) {
+                            $('#itm_segment').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $.each(value, function(index, value) {
+                                $('#itm_segment').append(`<tr>
+                                <th>`+index+`</th>
+                                <td>`+value[0]+`</td>
+                                <td>`+value[1]+`</td>
+                                <td>`+value[2]+`</td>
+                                <th>`+(value[0]+value[1]+value[2])+`</th>
+                                </tr>`);
+                            });
+                        });
+
+                        // Item Summary Pack Size
+                        $('#itm_packsize').empty();
+                        $.each(response.data[3][2], function(index, value) {
+                            $('#itm_packsize').append(`<tr style="background-color:bisque !important;color:white;"><th>`+index+`</th><td></td><td></td><td></td><th></th></tr>`);
+                            $.each(value, function(index, value) {
+                                $('#itm_packsize').append(`<tr>
+                                <th>`+index+`</th>
+                                <td>`+value[0]+`</td>
+                                <td>`+value[1]+`</td>
+                                <td>`+value[2]+`</td>
+                                <th>`+(value[0]+value[1]+value[2])+`</th>
+                                </tr>`);
+                            });
+                        });
+                    } else { dtable.clear().draw(); d3table.clear().draw(); }
                 },
                 complete: function () { $("#gif_loader").hide(); }
             });

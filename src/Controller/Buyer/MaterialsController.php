@@ -274,7 +274,6 @@ class MaterialsController extends BuyerAppController
                         
                         $value = $worksheet->getCellByColumnAndRow($col, $row)->getValue();
                         if($col == 1) {
-                            
                             $tmp['sap_vendor_code'] = str_pad((string)$value, 10, "0", STR_PAD_LEFT);
                             $datas['sap_vendor_code'] = str_pad((string)$value, 10, "0", STR_PAD_LEFT);
                             if(empty($value)) {
@@ -282,18 +281,19 @@ class MaterialsController extends BuyerAppController
                             }
                         }
                         else if($col == 2) {
-                            $tmp['code'] = $value;
+                            $tmp['code'] = trim($value);
                             $datas['material_code'] = $value;
-                        } else if($col == 3) {
-                            $tmp['description'] = $value;
+                        }
+                        else if($col == 3) {
+                            $tmp['description'] = trim($value);
                             $datas['description'] = $value;
                         }
                         else if($col == 4) {
-                            $tmp['minimum_stock'] = $value;
+                            $tmp['minimum_stock'] = trim($value);
                             $datas['minimum_stock'] = $value;
                         }
-                         else if ($col == 5) {
-                            $tmp['uom'] = $value; 
+                        else if ($col == 5) {
+                            $tmp['uom'] = trim($value); 
                             $datas['uom'] = $value;
                         }
                     }

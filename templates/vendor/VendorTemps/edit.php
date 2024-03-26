@@ -552,7 +552,7 @@
                                 <div class="row">
                                     <div class="col-lg-3 required">
                                         <label>Certificate No</label>
-                                        <input required="required" type="number" required="true"
+                                        <input required="required" type="text" required="true" maxlength="45"
                                             name="incometaxes[certificate_no]" class="form-control"
                                             id="id_vendor_incometaxes_certificate_no">
                                     </div>
@@ -879,7 +879,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <label for="id_contact_name">Mobile</label>
-                                        <input required="required" type="text" class="form-control" maxlength="12"
+                                        <input required="required" type="text" class="form-control numberonly" maxlength="12"
                                             name="temps[contact_mobile]" id="id_vendor_temps_contact_mobile">
                                     </div>
                                     <div class="col-lg-4">
@@ -1071,14 +1071,14 @@
                                     <div class="col-3 ">
                                         <label for="id_vendor_temps_tan_no">TAN No</label>
                                         <input  type="text" name="temps[tan_no]"
-                                            class="form-control UpperCase" maxlength="45" 
+                                            class="form-control UpperCase" 
                                             id="id_vendor_temps_tan_no"  maxlength="25">
                                     </div>
 
                                     <div class="col-3 ">
                                         <label for="id_vendor_temps_cin_no">CIN No</label>
                                         <input  type="text" name="temps[cin_no]"
-                                            class="form-control UpperCase" maxlength="45" 
+                                            class="form-control UpperCase" 
                                             id="id_vendor_temps_cin_no"  maxlength="25">
                                     </div>
                                 </div>
@@ -1170,7 +1170,7 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6 col-lg-3">
                                         <label>Registration No.</label>
-                                        <input type="number" id="id_vendor_otherdetails_iso" maxlength="45"
+                                        <input type="text" id="id_vendor_otherdetails_iso" maxlength="45"
                                             class="form-control other_details_iso" name="otherdetails[iso]">
                                     </div>
 
