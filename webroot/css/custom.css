@@ -686,10 +686,10 @@ input.form-control.search {
     /* background-color: #f5f7fd; */
 }
 
-.buyer-dash .mt-4,
+/* .buyer-dash .mt-4,
 .buyer-dash .my-4 {
     margin-top: 0.5rem !important
-}
+} */
 
 .buyer-dash .card-body {
     padding: 0.25rem;
