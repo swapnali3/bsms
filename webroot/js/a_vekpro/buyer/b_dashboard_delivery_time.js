@@ -101,7 +101,7 @@ var chart = AmCharts.makeChart("chartdiv2", {
         "position": "left"
     },
     "export": {
-    	"enabled": true
+    	"enabled": false
      }
 
 });

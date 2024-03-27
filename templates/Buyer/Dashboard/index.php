@@ -98,8 +98,10 @@
   .card-height {
     height: 100px !important;
   }
-  .export-main { display: none !important;}
-</style>
+
+  .supplier-wise-table td{ padding-bottom: 1.4rem !important;}
+  .supplier-wise-table { margin-top: 20px;}
+  </style>
 
 <?= $this->Html->script('amcharts/index.js') ?>
 <?= $this->Html->script('xy.js') ?>
@@ -122,8 +124,8 @@
 
 
 
-  <div class="col-lg-12 mb-2">
-    <div class="card">
+  <div class="col-lg-12">
+    <div class="card mb-2">
       <div class="card-body">
         <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
         <div class="row">
@@ -221,7 +223,7 @@
   <div class="col-lg-12">
     <div class="row">
       <div class="col-sm-12 col-lg-4">
-        <div class="card card_box_shadow">
+        <div class="card card_box_shadow mb-2">
           <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
             <div><img width="50px" src="/bsms/img/total-vendor-icon" alt="img"></i></div>
             <div class="row flex-column">
@@ -233,7 +235,7 @@
       </div>
 
       <div class="col-sm-12 col-lg-4">
-        <div class="card card_box_shadow">
+        <div class="card card_box_shadow mb-2">
           <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
             <div><img width="50px" src="/bsms/img/categories-icon" alt="img"></i></div>
             <div class="row flex-column">
@@ -245,7 +247,7 @@
       </div>
 
       <div class="col-sm-12 col-lg-4">
-        <div class="card card_box_shadow">
+        <div class="card card_box_shadow mb-2">
           <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
             <div><img width="50px" src="/bsms/img/products-icon" alt="img"></i></div>
             <div class="row flex-column">
@@ -360,8 +362,40 @@
       <div class="card-header">Suplier Wise Business Share Analysis</div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12">
-            <div id="chartdiv4"></div>
+          <div class="col-12 d-flex justify-content-between">
+            <div class="col-4">
+              <table class="supplier-wise-table table table-borderless">
+                <!-- <thead>
+                  <tr>
+                    <th>CATEGORY</th>
+                    <th>SUPPLIER</th>
+                  </tr>
+                </thead> -->
+                <tbody>
+                  <tr>
+                    <td>Category 1</td>
+                    <td>720</td>
+                  </tr>
+                  <tr>
+                    <td>Category 2</td>
+                    <td>25</td>
+                  </tr>
+                  <tr>
+                    <td>Category 3</td>
+                    <td>135</td>
+                  </tr>
+                  <tr>
+                    <td>Category 4</td>
+                    <td>30</td>
+                  </tr>
+                  <tr>
+                    <td>Category 5</td>
+                    <td>24</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-8"><div id="chartdiv4"></div></div>
           </div>
         </div>
       </div>

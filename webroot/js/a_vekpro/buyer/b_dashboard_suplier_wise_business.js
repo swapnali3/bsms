@@ -79,9 +79,9 @@ am5.ready(function() {
     var columnTemplate = series.columns.template;
     
     columnTemplate.setAll({
-      draggable: true,
+      draggable: false,
       cursorOverStyle: "pointer",
-      tooltipText: "drag to rearrange",
+      tooltipText: "",
       cornerRadiusBR: 10,
       cornerRadiusTR: 10,
       strokeOpacity: 0
