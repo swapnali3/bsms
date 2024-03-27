@@ -87,7 +87,7 @@ class AsnHeadersTable extends Table
 
         $validator
             ->scalar('invoice_no')
-            ->maxLength('invoice_no', 15, 'Invoice No need to be max 15 characters long')
+            ->maxLength('invoice_no', 20, 'Invoice No need to be max 15 characters long')
             ->requirePresence('invoice_no', 'create')
             ->notEmptyString('invoice_no');
 
