@@ -76,7 +76,7 @@
 
           <div class="col-sm-8  col-md-2">
             <div class="form-group">
-              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'15', 'div' => 'form-group', 'required')); ?>
+              <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'20', 'div' => 'form-group', 'required')); ?>
             </div>
           </div>
 
@@ -455,7 +455,7 @@
       rules: {
         invoice_no: {
           required: true,
-          maxlength: 15,
+          maxlength: 20,
           //pattern: /^\d{10}$/,
         },
         vehicle_no: {
