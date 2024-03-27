@@ -421,7 +421,7 @@ class StockUploadsController extends BuyerAppController
                                 $factory = $this->VendorFactories->find('list')
                                 ->select(['id'])
                                 ->innerJoin(['VendorTemps'=> 'vendor_temps'], ['VendorTemps.id = VendorFactories.vendor_temp_id'])
-                                ->where(['factory_code' => $value, 'VendorTemps.sap_vendor_code' => $tmp['sap_vendor_code']])
+                                ->where(['factory_code' => trim($value), 'VendorTemps.sap_vendor_code' => $tmp['sap_vendor_code']])
                                 ->first();
 
                                 //echo '<pre>';  print_r($factory); exit;
