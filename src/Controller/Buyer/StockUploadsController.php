@@ -470,9 +470,9 @@ class StockUploadsController extends BuyerAppController
                                 $datas['description'] = $value;
                             }
                             else if($col == 7) {
-                                $tmp['opening_stock'] = trim($value);
+                                $tmp['opening_stock'] = $value;
                                 $datas['opening_stock'] = $value;
-                                $tmp['current_stock'] = trim($value);
+                                $tmp['current_stock'] = $value;
                             }
                             else if($col == 8) {
                                 $datas['uom'] = $value;

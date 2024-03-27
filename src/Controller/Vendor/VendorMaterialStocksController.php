@@ -148,8 +148,8 @@ class VendorMaterialStocksController extends VendorAppController
                         $tmp['sap_vendor_code'] = $session->read('vendor_code');
                         $tmp['part_code'] = trim($row[0]);
                         $tmp['material_desc'] = trim($row[1]);
-                        $tmp['current_stock'] = trim($row[2]);
-                        $tmp['production_stock'] = trim($row[3]);
+                        $tmp['current_stock'] = $row[2];
+                        $tmp['production_stock'] = $row[3];
 
                         $data[] = $tmp;
                     }
