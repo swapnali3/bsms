@@ -373,9 +373,9 @@ class StockUploadsController extends VendorAppController
                                 $datas['description'] = $value;
                             }
                             else if($col == 4) {
-                                $tmp['opening_stock'] = trim($value);
+                                $tmp['opening_stock'] = $value;
                                 $datas['opening_stock'] = $value;
-                                $tmp['current_stock'] = trim($value);
+                                $tmp['current_stock'] = $value;
                             }
                             else if($col == 5) {
                                 $datas['uom'] = $value;

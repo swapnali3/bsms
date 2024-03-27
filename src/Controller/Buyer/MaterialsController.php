@@ -289,7 +289,7 @@ class MaterialsController extends BuyerAppController
                             $datas['description'] = $value;
                         }
                         else if($col == 4) {
-                            $tmp['minimum_stock'] = trim($value);
+                            $tmp['minimum_stock'] = $value;
                             $datas['minimum_stock'] = $value;
                         }
                         else if ($col == 5) {

@@ -322,7 +322,7 @@ class DailymonitorController extends VendorAppController
 
                             if ($col == 4) {
                                 $value = intval($value);
-                                $tmp['target_production'] = trim($value);
+                                $tmp['target_production'] = $value;
                                 $datas['target_production'] = $value;
                                 if ($value < 1 || $value == "" || $value == null) {
                                     $target = false;
@@ -336,7 +336,7 @@ class DailymonitorController extends VendorAppController
 
                             if($highestColumnIndex >= 6 && $col == 6) {
                                 $value = intval($value);
-                                $tmp['confirm_production'] = trim($value);
+                                $tmp['confirm_production'] = $value;
                                 $datas['confirm_production'] = $value;
                                 if ($value === "" || $value === null) {
                                     $confirm = false;
