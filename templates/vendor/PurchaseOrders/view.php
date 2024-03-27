@@ -114,7 +114,7 @@
                 
             </div>
             <div class="col-sm-8  col-md-2">
-                <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'15','div' => 'form-group', 'required'));?>
+                <?php echo $this->Form->control('invoice_no', array('class' => 'form-control rounded-0', 'maxlength'=>'20','div' => 'form-group', 'required'));?>
             </div>
             <div class="col-sm-8 col-md-2">
                 <?php echo $this->Form->control('invoice_date', array('type' => 'date', 'class' => 'form-control rounded-0','div' => 'form-group', 'required'));?>
