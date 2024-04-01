@@ -3,3 +3,4 @@
 - Transporter Name                
 ===============================================
 ALTER TABLE `asn_headers`  ADD COLUMN `transporter_name` VARCHAR(30) NULL;
+ALTER TABLE `asn_headers` CHANGE COLUMN `invoice_no` `invoice_no` VARCHAR(20) NOT NULL ;

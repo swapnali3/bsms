@@ -139,61 +139,73 @@
 <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
 <div class="row ">
 
-
-
-
-
-
-
-
-
-
   <div class="col-lg-12">
     <div class="card mb-2">
       <div class="card-body">
         <?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
         <div class="row">
           <div class="col-1">
-            <label for="id_from">Date From</label>
-            <input type="date" name="from" placeholder="dmy" class="form-control" id="id_from">
+            <label for="id_year">Year</label>
+            <select class="form-control" name="year" id="id_year">
+              <?php if (isset($years)) : ?>
+                <?php foreach ($years as $year) : ?>
+                  <option value="<?= h($year['year']) ?>" data-select="<?= h($year['year']) ?>">
+                  <?= h($year['year']) ?>
+                  </option>
+                <?php endforeach; ?>
+              <?php endif; ?>
+            </select>
           </div>
           <div class="col-1">
-            <label for="id_to">Date To</label>
-            <input type="date" name="till" class="form-control" id="id_to">
+            <label for="id_month">Month</label>
+            <select name="month" class="form-control" id="id_month">
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
           </div>
           <div class="col-2">
-            <label for="id_vendor">Vendor</label><br>
-            <select name="vendor[]" id="id_vendor" class="chosen" multiple="multiple" style="width: 100%;">
-              <?php if (isset($vendor)) : ?>
-              <?php foreach ($vendor as $mat) : ?>
-              <option value="<?= h($mat->sap_vendor_code) ?>" data-select="<?= h($mat->sap_vendor_code) ?>">
-                <?= h($mat->sap_vendor_code) ?> -
-                <?= h($mat->name) ?>
+            <label for="id_sap_vendor_code">Vendor</label><br>
+            <select name="sap_vendor_code[]" id="id_sap_vendor_code" class="chosen" multiple="multiple" style="width: 100%;">
+              <?php if (isset($vendors)) : ?>
+              <?php foreach ($vendors as $mat) : ?>
+              <option value="<?= h($mat['sap_vendor_code']) ?>" data-select="<?= h($mat['sap_vendor_code']) ?>">
+                <?= h($mat['sap_vendor_code']) ?> -
+                <?= h($mat['name']) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
             </select>
           </div>
           <div class="col-2">
-            <label for="id_material">Material</label><br>
-            <select name="material[]" id="id_material" multiple="multiple" class="form-control chosen">
+            <label for="id_code">Material</label><br>
+            <select name="code[]" id="id_code" multiple="multiple" class="form-control chosen">
               <?php if (isset($materials)) : ?>
               <?php foreach ($materials as $mat) : ?>
-              <option value="<?= h($mat->code) ?>" data-select="<?= h($mat->code) ?>">
-                <?= h($mat->code) ?> -
-                <?= h($mat->description) ?>
+              <option value="<?= h($mat['code']) ?>" data-select="<?= h($mat['code']) ?>">
+                <?= h($mat['code']) ?> -
+                <?= h($mat['description']) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
             </select>
           </div>
           <div class="col-2">
-            <label for="id_vendortype">Type</label><br>
-            <select name="vendortype[]" id="id_vendortype" multiple="multiple" class="form-control chosen">
-              <?php if (isset($vendortype)) : ?>
-              <?php foreach ($vendortype as $mat) : ?>
-              <option value="<?= h($mat->type) ?>">
-                <?= h($mat->type) ?>
+            <label for="id_type">Type</label><br>
+            <select name="type[]" id="id_type" multiple="multiple" class="form-control chosen">
+              <?php if (isset($types)) : ?>
+              <?php foreach ($types as $mat) : ?>
+              <option value="<?= h($mat['type']) ?>">
+                <?= h($mat['type']) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -202,10 +214,10 @@
           <div class="col-1">
             <label for="id_segment">Segment</label><br>
             <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
-              <?php if (isset($segment)) : ?>
-              <?php foreach ($segment as $mat) : ?>
-              <option value="<?= h($mat->segment) ?>" data-select="<?= h($mat->segment) ?>">
-                <?= h($mat->segment) ?>
+              <?php if (isset($segments)) : ?>
+              <?php foreach ($segments as $mat) : ?>
+              <option value="<?= h($mat['segment']) ?>" data-select="<?= h($mat['segment']) ?>">
+              <?= h($mat['segment_code']) ?> - <?= h($mat['segment']) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -214,22 +226,22 @@
           <div class="col-1">
             <label for="id_pack_size">Pack Size</label><br>
             <select name="pack_size[]" id="id_pack_size" multiple="multiple" class="form-control chosen">
-              <?php if (isset($pack_size)) : ?>
-              <?php foreach ($pack_size as $mat) : ?>
-              <option value="<?= h($mat->pack_size) ?>">
-                <?= h($mat->pack_size) ?>
+              <?php if (isset($packsizes)) : ?>
+              <?php foreach ($packsizes as $mat) : ?>
+              <option value="<?= h($mat['pack_size']) ?>">
+                <?= h($mat['pack_size']) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
             </select>
           </div>
           <div class="col-1">
-            <label for="id_pack_uom">Pack UOM</label><br>
-            <select name="pack_uom[]" id="id_pack_uom" multiple="multiple" class="form-control chosen">
-              <?php if (isset($pack_uom)) : ?>
-              <?php foreach ($pack_uom as $mat) : ?>
-              <option value="<?= h($mat->pack_uom) ?>">
-                <?= h($mat->pack_uom) ?>
+            <label for="id_uom">Pack UOM</label><br>
+            <select name="uom[]" id="id_uom" multiple="multiple" class="form-control chosen">
+              <?php if (isset($uoms)) : ?>
+              <?php foreach ($uoms as $mat) : ?>
+              <option value="<?= h($mat['uom']) ?>">
+                <?= h($mat['uom']) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -252,7 +264,7 @@
             <div><img width="50px" src="/bsms/img/total-vendor-icon" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Vendors</label>
-              <span>66</span>
+              <span><?= h($card_total_vendor['vendor']) ?></span>
             </div>
           </div>
         </div>
@@ -264,7 +276,7 @@
             <div><img width="50px" src="/bsms/img/categories-icon" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Categories</label>
-              <span>47</span>
+              <span><?= h($card_total_category['segment']) ?></span>
             </div>
           </div>
         </div>
@@ -276,7 +288,7 @@
             <div><img width="50px" src="/bsms/img/products-icon" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Product</label>
-              <span>245</span>
+              <span><?= h($card_total_product['code']) ?></span>
             </div>
           </div>
         </div>
@@ -290,7 +302,7 @@
         <div><img width="60px" src="/bsms/img/spend-icon" alt="img"></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Spend</label>
-          <span>$18507</span>
+          <span><?= h($card_spend['spend']) ?></span>
         </div>
       </div>
     </div>
@@ -300,8 +312,8 @@
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
         <div><img width="40px" src="/bsms/img/suplier-icon" alt="img"></div>
         <div class="row flex-column">
-          <label class="mb-0" style="color:#F7941D !important">Suplier</label>
-          <span>3625</span>
+          <label class="mb-0" style="color:#F7941D !important">Supplier</label>
+          <span><?= h($card_supplier['spend']) ?></span>
         </div>
       </div>
     </div>
@@ -312,7 +324,7 @@
         <div><img width="40px" src="/bsms/img/transaction-icon" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Transaction</label>
-          <span>17860</span>
+          <span><?= h($card_transactions['spend']) ?></span>
         </div>
       </div>
     </div>
@@ -323,7 +335,7 @@
         <div><img width="40px" src="/bsms/img/po-icon" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">PO Count</label>
-          <span>5720</span>
+          <span><?= h($card_po_count['spend']) ?></span>
         </div>
       </div>
     </div>
@@ -334,7 +346,7 @@
         <div><img width="40px" src="/bsms/img/invoice-icon" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Invoice Count</label>
-          <span>124887</span>
+          <span><?= h($card_invoice_count['spend']) ?></span>
         </div>
       </div>
     </div>
