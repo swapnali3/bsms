@@ -99,8 +99,32 @@
     height: 100px !important;
   }
 
-  .supplier-wise-table td{ padding-bottom: 1.4rem !important;}
-  .supplier-wise-table { margin-top: 20px;}
+  .slider-container {
+    background-color: #eee;
+  width: 100%;
+  position: relative;
+  height: 20px;
+  border-radius: 1px; /* Round corners */
+  overflow: hidden; /* Hide the overflow */
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black; /* Text color */
+}
+
+  .supplier-wise-table td{ padding-bottom: .1rem !important;}
+  /* .supplier-wise-table { margin-top: 20px;} */
   </style>
 
 <?= $this->Html->script('amcharts/index.js') ?>
@@ -363,39 +387,75 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12 d-flex justify-content-between">
-            <div class="col-4">
+            <div class="col-12">
               <table class="supplier-wise-table table table-borderless">
-                <!-- <thead>
+                <thead>
                   <tr>
                     <th>CATEGORY</th>
                     <th>SUPPLIER</th>
+                    <th>SUPPLIER SHARE</th>
                   </tr>
-                </thead> -->
+                </thead>
                 <tbody>
                   <tr>
-                    <td>Category 1</td>
+                    <td class="d-flex flex-column"><div>Category 1</div><div>Supplier xxx</div></td>
                     <td>720</td>
+                    <td>
+                      <div class="slider-container">
+                        <div class="slider bg-danger" style="width: 50%;"></div>
+                        <span class="percentage">50%</span>
+                      </div>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Category 2</td>
-                    <td>25</td>
+                    <td class="d-flex flex-column"><div>Category 2</div><div>Supplier xxx</div></td>
+                    <td>720</td>
+                    <td>
+                      <div class="slider-container">
+                        <div class="slider bg-success" style="width: 75%;"></div>
+                        <span class="percentage">75%</span>
+                      </div>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Category 3</td>
-                    <td>135</td>
+                    <td class="d-flex flex-column"><div>Category 3</div><div>Supplier xxx</div></td>
+                    <td>720</td>
+                    <td>
+                      <div class="slider-container">
+                        <div class="slider bg-warning" style="width: 30%;"></div>
+                        <span class="percentage">30%</span>
+                      </div>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Category 4</td>
-                    <td>30</td>
+                    <td class="d-flex flex-column"><div>Category 4</div><div>Supplier xxx</div></td>
+                    <td>720</td>
+                    <td>
+                      <div class="slider-container">
+                        <div class="slider bg-primary" style="width: 25%;"></div>
+                        <span class="percentage">25%</span>
+                      </div>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Category 5</td>
-                    <td>24</td>
+                    <td class="d-flex flex-column"><div>Category 5</div><div>Supplier xxx</div></td>
+                    <td>720</td>
+                    <td>
+                      <div class="slider-container">
+                        <div class="slider bg-info" style="width: 80%;"></div>
+                        <span class="percentage">80%</span>
+                      </div>
+                      </div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div class="col-8"><div id="chartdiv4"></div></div>
+            <!-- <div class="col-8"><div id="chartdiv4"></div></div> -->
           </div>
         </div>
       </div>
