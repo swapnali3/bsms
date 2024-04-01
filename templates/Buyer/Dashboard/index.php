@@ -73,8 +73,7 @@
   thead tr th:first-child {
     position: sticky;
     left: 0;
-    z-index: 2;
-    background-color: white;
+    /* background-color: white; */
   }
 
   thead tr {
@@ -82,8 +81,13 @@
     top: 0;
   }
 
-  td:first-child {
-    background-color: white;
+  thead tr th:first-child {
+    z-index: 12;
+    background-color: #F7941D;
+  }
+
+  .table-graph td:first-child {
+    background-color: #F7941D;
   }
 
   /* This hides the first row when scrolling vertically */
@@ -94,6 +98,8 @@
   .table-graph {
     max-height: 200px !important;
   }
+
+  .table-graph thead tr{ background-color: #F7941D !important;}
 
   .card-height {
     height: 100px !important;
