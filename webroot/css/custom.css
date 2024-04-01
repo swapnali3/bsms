@@ -695,6 +695,11 @@ input.form-control.search {
     padding: 0.25rem;
 }
 
+::selection {
+    background-color: #F7941D !important;
+    color: #fff !important;
+  }
+
 .buyer-dash .products-list .product-title {
     font-weight: 500;
     font-size: 14px;
