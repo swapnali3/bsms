@@ -1,5 +1,3 @@
-
-
 // Create root element
 // https://www.amcharts.com/docs/v5/getting-started/#Root_element
 var root = am5.Root.new("chartdiv2");
@@ -18,33 +16,18 @@ var chart = root.container.children.push(am5xy.XYChart.new(root, {
     panX: false,
     panY: false,
     wheelX: "panX",
-    wheelY: "zoomX",
+    // wheelY: "zoomX",
     paddingLeft: 0,
     layout: root.verticalLayout
 }));
 
 // Add scrollbar
 // https://www.amcharts.com/docs/v5/charts/xy-chart/scrollbars/
-chart.set("scrollbarX", am5.Scrollbar.new(root, {
-    orientation: "horizontal"
-}));
+// chart.set("scrollbarX", am5.Scrollbar.new(root, {
+//     orientation: "horizontal"
+// }));
 
-var data = [{
-    "year": "Supplier 1",
-    "early": 2.5,
-    "on_time": 2.5,
-    "late": 2.1
-}, {
-    "year": "Supplier 2",
-    "early": 2.6,
-    "on_time": 2.7,
-    "late": 2.2
-}, {
-    "year": "Supplier 3",
-    "early": 2.8,
-    "on_time": 2.9,
-    "late": 2.4
-}]
+var data = delivery_time;
 
 
 // Create axes

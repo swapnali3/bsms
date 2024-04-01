@@ -540,6 +540,14 @@
     <?php endif; ?>
   ];
 
+  var delivery_time = [
+    <?php if (isset($delivery_time)) : ?>
+    <?php foreach ($delivery_time as $mat) : ?>
+    {"year": "<?= h($mat['year']) ?>","early": <?= h($mat['early']) ?>,"on_time": <?= h($mat['on_time']) ?>,"late": <?= h($mat['late']) ?>},
+    <?php endforeach; ?>
+    <?php endif; ?>
+  ];
+
 </script>
 <script src="<?= $this->Url->build('/') ?>js/chart.js"></script>
 <script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_purchase_volume.js"></script>

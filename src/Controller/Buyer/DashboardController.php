@@ -164,15 +164,19 @@ class DashboardController extends BuyerAppController
             ) as a group by segment order by spend desc limit 5")->fetchAll('assoc');
         
         // echo '<pre>'; print_r($purchase_volume_segment_wise); exit;
-        $delivery_time = $conn->execute("select distinct vendor_temps.sap_vendor_code, 
-        case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'early',
-        case when (TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 7 and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16)  then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'on_time',
-        case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'late'
-        from po_item_schedules
-        left join po_footers on po_footers.id = po_item_schedules.po_footer_id
-        left join po_headers on po_footers.po_header_id = po_headers.id
-        left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
-        left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code")->fetchAll('assoc');
+        $delivery_time = $conn->execute("select distinct year, sum(e) early, sum(o) on_time, sum(l) late from (
+            select vendor_temps.sap_vendor_code as year, 
+            case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'e',
+            case when (TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 7 and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16)  then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'o',
+            case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'l'
+            from po_item_schedules
+            left join po_footers on po_footers.id = po_item_schedules.po_footer_id
+            left join po_headers on po_footers.po_header_id = po_headers.id
+            left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
+            left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code) as a
+            group by year
+            order by late, on_time, early desc limit 5")->fetchAll('assoc');
+        // echo '<pre>'; print_r($years); exit;
         
         $spend_by_category = $conn->execute("select segment, sum(net_value) as spend from (
             select distinct materials.segment, po_footers.net_value from po_headers 
@@ -198,13 +202,13 @@ class DashboardController extends BuyerAppController
         }
         
         // Generate HTML for pivot table
-        $years = array_unique(array_column($cwi, 'type'));
-        foreach ($years as $year) { $category_wise_indent .= "<th>$year</th>"; }
+        $typess = array_unique(array_column($cwi, 'type'));
+        foreach ($typess as $year) { $category_wise_indent .= "<th>$year</th>"; }
         $category_wise_indent .= "</tr></thead>";
         
         foreach ($pivot_data as $category => $sales_by_year) {
             $category_wise_indent .= "<tr><td>$category</td>";
-            foreach ($years as $year) {
+            foreach ($typess as $year) {
                 $sales = isset($sales_by_year[$year]) ? $sales_by_year[$year] : 0;
                 $category_wise_indent .= "<td>$sales</td>";
             }
@@ -217,7 +221,7 @@ class DashboardController extends BuyerAppController
             'card_total_vendor', 'card_total_category', 'card_total_product',
             'card_spend', 'card_supplier', 'card_transactions', 'card_po_count', 'card_invoice_count',
             'purchase_volume_segment_wise',
-            // 'delivery_time',
+            'delivery_time',
             'spend_by_category',
             // 'supplier_wise_business_share_analysis',
             'category_wise_indent',
