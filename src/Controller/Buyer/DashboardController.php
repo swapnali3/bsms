@@ -52,7 +52,7 @@ class DashboardController extends BuyerAppController
         $conn = ConnectionManager::get('default');
         
         // Search Filter
-        $conditions = " where 1=1 ";
+        $conditions = " where materials.segment <> '' and materials.type <> '-' ";
         if ($this->request->is(['post'])) {
             $request = $this->request->getData();
             if(isset($request['year']) && !empty($request['year'])) {
@@ -155,20 +155,62 @@ class DashboardController extends BuyerAppController
         ".$conditions."
         group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size, asn_headers.invoice_no) as a")->fetchAll('assoc')[0];
         
-        $purchase_volume_segment_wise = $conn->execute("SELECT materials.segment_code, materials.segment, count(materials.segment) as count FROM po_headers
-        left join po_footers on po_headers.id= po_footers.po_header_id
-        left join materials on po_headers.sap_vendor_code= materials.sap_vendor_code and po_footers.material= materials.code
-        left join vendor_temps on vendor_temps.sap_vendor_code = materials.sap_vendor_code and vendor_temps.sap_vendor_code = po_headers.sap_vendor_code
-        where materials.segment != ''
-        group by materials.segment order by count desc limit 5")->fetchAll('assoc');
+        $purchase_volume_segment_wise = $conn->execute("select segment, sum(po_qty) as spend from (
+            select distinct materials.segment, po_footers.po_qty from po_headers 
+            left join po_footers on po_headers.id=po_footers.po_header_id
+            left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
+            ".$conditions."
+            group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size
+            ) as a group by segment order by spend desc limit 5")->fetchAll('assoc');
         
-        // $delivery_time = $conn->execute("")->fetchAll('assoc');
+        // echo '<pre>'; print_r($purchase_volume_segment_wise); exit;
+        $delivery_time = $conn->execute("select distinct vendor_temps.sap_vendor_code, 
+        case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'early',
+        case when (TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 7 and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16)  then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'on_time',
+        case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'late'
+        from po_item_schedules
+        left join po_footers on po_footers.id = po_item_schedules.po_footer_id
+        left join po_headers on po_footers.po_header_id = po_headers.id
+        left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
+        left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code")->fetchAll('assoc');
         
-        // $spend_by_category = $conn->execute("")->fetchAll('assoc');
+        $spend_by_category = $conn->execute("select segment, sum(net_value) as spend from (
+            select distinct materials.segment, po_footers.net_value from po_headers 
+            left join po_footers on po_headers.id=po_footers.po_header_id
+            left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
+            ".$conditions."
+            group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size
+            ) as a group by segment order by spend desc limit 5")->fetchAll('assoc');
         
         // $supplier_wise_business_share_analysis = $conn->execute("")->fetchAll('assoc');
         
-        // $category_wise_indent = $conn->execute("")->fetchAll('assoc');
+        $cwi = $conn->execute("select distinct materials.segment, materials.type, po_footers.po_qty from po_headers 
+        left join po_footers on po_headers.id=po_footers.po_header_id
+        left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
+        ".$conditions."
+        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size")->fetchAll('assoc');
+
+
+        $pivot_data = array();
+        $category_wise_indent = "<table><thead><tr><th>Category</th>";
+        foreach ($cwi as $row) {
+            $pivot_data[$row['segment']][$row['type']] = $row['po_qty'];
+        }
+        
+        // Generate HTML for pivot table
+        $years = array_unique(array_column($cwi, 'type'));
+        foreach ($years as $year) { $category_wise_indent .= "<th>$year</th>"; }
+        $category_wise_indent .= "</tr></thead>";
+        
+        foreach ($pivot_data as $category => $sales_by_year) {
+            $category_wise_indent .= "<tr><td>$category</td>";
+            foreach ($years as $year) {
+                $sales = isset($sales_by_year[$year]) ? $sales_by_year[$year] : 0;
+                $category_wise_indent .= "<td>$sales</td>";
+            }
+            $category_wise_indent .= "</tr>";
+        }
+        $category_wise_indent .= "</table>";
 
         $this->set(compact(
             'years', 'vendors', 'materials', 'types', 'uoms', 'segments', 'packsizes',
@@ -176,9 +218,9 @@ class DashboardController extends BuyerAppController
             'card_spend', 'card_supplier', 'card_transactions', 'card_po_count', 'card_invoice_count',
             'purchase_volume_segment_wise',
             // 'delivery_time',
-            // 'spend_by_category',
+            'spend_by_category',
             // 'supplier_wise_business_share_analysis',
-            // 'category_wise_indent',
+            'category_wise_indent',
         ));
     }
 

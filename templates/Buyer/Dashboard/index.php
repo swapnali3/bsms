@@ -270,7 +270,7 @@
             <div><img width="50px" src="/bsms/img/total-vendor-icon" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Vendors</label>
-              <span><?= h($card_total_vendor['vendor']) ?></span>
+              <span id="id_card_total_vendor"><?= h($card_total_vendor['vendor']) ?></span>
             </div>
           </div>
         </div>
@@ -282,7 +282,7 @@
             <div><img width="50px" src="/bsms/img/categories-icon" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Categories</label>
-              <span><?= h($card_total_category['segment']) ?></span>
+              <span id="card_total_category"><?= h($card_total_category['segment']) ?></span>
             </div>
           </div>
         </div>
@@ -294,7 +294,7 @@
             <div><img width="50px" src="/bsms/img/products-icon" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Product</label>
-              <span><?= h($card_total_product['code']) ?></span>
+              <span id="card_total_product"><?= h($card_total_product['code']) ?></span>
             </div>
           </div>
         </div>
@@ -308,7 +308,7 @@
         <div><img width="60px" src="/bsms/img/spend-icon" alt="img"></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Spend</label>
-          <span><?= h($card_spend['spend']) ?></span>
+          <span id="card_spend"><?= h($card_spend['spend']) ?></span>
         </div>
       </div>
     </div>
@@ -319,7 +319,7 @@
         <div><img width="40px" src="/bsms/img/suplier-icon" alt="img"></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Supplier</label>
-          <span><?= h($card_supplier['spend']) ?></span>
+          <span id="card_supplier"><?= h($card_supplier['spend']) ?></span>
         </div>
       </div>
     </div>
@@ -330,7 +330,7 @@
         <div><img width="40px" src="/bsms/img/transaction-icon" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Transaction</label>
-          <span><?= h($card_transactions['spend']) ?></span>
+          <span id="card_transactions"><?= h($card_transactions['spend']) ?></span>
         </div>
       </div>
     </div>
@@ -341,7 +341,7 @@
         <div><img width="40px" src="/bsms/img/po-icon" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">PO Count</label>
-          <span><?= h($card_po_count['spend']) ?></span>
+          <span id="card_po_count"><?= h($card_po_count['spend']) ?></span>
         </div>
       </div>
     </div>
@@ -352,7 +352,7 @@
         <div><img width="40px" src="/bsms/img/invoice-icon" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Invoice Count</label>
-          <span><?= h($card_invoice_count['spend']) ?></span>
+          <span id="card_invoice_count"><?= h($card_invoice_count['spend']) ?></span>
         </div>
       </div>
     </div>
@@ -365,9 +365,7 @@
       <div class="card-header">Purchase Volume Segment Wise</div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12">
-            <div id="chartdiv"></div>
-          </div>
+          <div class="col-12"><div id="chartdiv"></div></div>
         </div>
       </div>
     </div>
@@ -378,9 +376,7 @@
       <div class="card-header">Delivery Time</div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12">
-            <div id="chartdiv2"></div>
-          </div>
+          <div class="col-12"><div id="chartdiv2"></div></div>
         </div>
       </div>
     </div>
@@ -391,9 +387,7 @@
       <div class="card-header">Spend by Category</div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12">
-            <div id="chartdiv3"></div>
-          </div>
+          <div class="col-12"><div id="chartdiv3"></div></div>
         </div>
       </div>
     </div>
@@ -401,7 +395,7 @@
 
   <div class="col-sm-12 col-lg-6">
     <div class="card card-default card_box_shadow">
-      <div class="card-header">Suplier Wise Business Share Analysis</div>
+      <div class="card-header">Supplier Wise Business Share Analysis</div>
       <div class="card-body">
         <div class="row">
           <div class="col-12 d-flex justify-content-between">
@@ -416,7 +410,10 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td class="d-flex flex-column"><div>Category 1</div><div>Supplier xxx</div></td>
+                    <td class="d-flex flex-column">
+                      <div>Category 1</div>
+                      <div>Supplier xxx</div>
+                    </td>
                     <td>720</td>
                     <td>
                       <div class="slider-container">
@@ -427,7 +424,10 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="d-flex flex-column"><div>Category 2</div><div>Supplier xxx</div></td>
+                    <td class="d-flex flex-column">
+                      <div>Category 2</div>
+                      <div>Supplier xxx</div>
+                    </td>
                     <td>720</td>
                     <td>
                       <div class="slider-container">
@@ -438,7 +438,10 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="d-flex flex-column"><div>Category 3</div><div>Supplier xxx</div></td>
+                    <td class="d-flex flex-column">
+                      <div>Category 3</div>
+                      <div>Supplier xxx</div>
+                    </td>
                     <td>720</td>
                     <td>
                       <div class="slider-container">
@@ -449,7 +452,10 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="d-flex flex-column"><div>Category 4</div><div>Supplier xxx</div></td>
+                    <td class="d-flex flex-column">
+                      <div>Category 4</div>
+                      <div>Supplier xxx</div>
+                    </td>
                     <td>720</td>
                     <td>
                       <div class="slider-container">
@@ -460,7 +466,10 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="d-flex flex-column"><div>Category 5</div><div>Supplier xxx</div></td>
+                    <td class="d-flex flex-column">
+                      <div>Category 5</div>
+                      <div>Supplier xxx</div>
+                    </td>
                     <td>720</td>
                     <td>
                       <div class="slider-container">
@@ -473,7 +482,6 @@
                 </tbody>
               </table>
             </div>
-            <!-- <div class="col-8"><div id="chartdiv4"></div></div> -->
           </div>
         </div>
       </div>
@@ -485,170 +493,7 @@
       <div class="card-header">Category Wise Indent</div>
       <div class="card-body">
         <div class="table-container table-graph">
-          <table>
-            <thead>
-              <tr>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-
-                <!-- Add more headers as needed -->
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Row 1</td>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-                <td>Data 5</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-                <td>Data 11</td>
-                <td>Data 12</td>
-                <td>Data 13</td>
-                <td>Data 14</td>
-                <td>Data 15</td>
-                <td>Data 16</td>
-                <td>Data 17</td>
-                <td>Data 18</td>
-                <td>Data 19</td>
-                <!-- Add more cells as needed -->
-              </tr>
-              <tr>
-                <td>Row 2</td>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-                <td>Data 5</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-                <td>Data 11</td>
-                <td>Data 12</td>
-                <td>Data 13</td>
-                <td>Data 14</td>
-                <td>Data 15</td>
-                <td>Data 16</td>
-                <td>Data 17</td>
-                <td>Data 18</td>
-                <td>Data 19</td>
-              </tr>
-              <tr>
-                <td>Row 3</td>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-                <td>Data 5</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-                <td>Data 11</td>
-                <td>Data 12</td>
-                <td>Data 13</td>
-                <td>Data 14</td>
-                <td>Data 15</td>
-                <td>Data 16</td>
-                <td>Data 17</td>
-                <td>Data 18</td>
-                <td>Data 19</td>
-              </tr>
-              <tr>
-                <td>Row 4</td>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-                <td>Data 5</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-                <td>Data 11</td>
-                <td>Data 12</td>
-                <td>Data 13</td>
-                <td>Data 14</td>
-                <td>Data 15</td>
-                <td>Data 16</td>
-                <td>Data 17</td>
-                <td>Data 18</td>
-                <td>Data 19</td>
-              </tr>
-              <tr>
-                <td>Row 5</td>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-                <td>Data 5</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-                <td>Data 11</td>
-                <td>Data 12</td>
-                <td>Data 13</td>
-                <td>Data 14</td>
-                <td>Data 15</td>
-                <td>Data 16</td>
-                <td>Data 17</td>
-                <td>Data 18</td>
-                <td>Data 19</td>
-              </tr>
-              <tr>
-                <td>Row 6</td>
-                <td>Data 1</td>
-                <td>Data 2</td>
-                <td>Data 3</td>
-                <td>Data 4</td>
-                <td>Data 5</td>
-                <td>Data 6</td>
-                <td>Data 7</td>
-                <td>Data 8</td>
-                <td>Data 9</td>
-                <td>Data 10</td>
-                <td>Data 11</td>
-                <td>Data 12</td>
-                <td>Data 13</td>
-                <td>Data 14</td>
-                <td>Data 15</td>
-                <td>Data 16</td>
-                <td>Data 17</td>
-                <td>Data 18</td>
-                <td>Data 19</td>
-              </tr>
-              <!-- Add more rows as needed -->
-            </tbody>
-          </table>
+        <?= $category_wise_indent ?>
         </div>
       </div>
     </div>
@@ -679,6 +524,21 @@
       }
     }
   });
+  var purchase_volume_segment_wise = [
+    <?php if (isset($purchase_volume_segment_wise)) : ?>
+    <?php foreach ($purchase_volume_segment_wise as $mat) : ?>
+      { value: <?= h($mat['spend']) ?>, category: "<?= h($mat['segment']) ?>" },
+    <?php endforeach; ?>
+    <?php endif; ?>
+  ];
+
+  var spend_by_category = [
+    <?php if (isset($spend_by_category)) : ?>
+    <?php foreach ($spend_by_category as $mat) : ?>
+      { value: <?= h($mat['spend']) ?>, category: "<?= h($mat['segment']) ?>" },
+    <?php endforeach; ?>
+    <?php endif; ?>
+  ];
 
 </script>
 <script src="<?= $this->Url->build('/') ?>js/chart.js"></script>
