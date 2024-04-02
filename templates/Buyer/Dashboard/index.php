@@ -4,11 +4,6 @@
  * @var \App\Model\Entity\AdminUser[]|\ ake\Collection\CollectionInterface $adminUsers
  */
 ?>
-<style>
-  .hide {
-    display: none;
-  }
-</style>
 <?= $this->Html->css('select2.min.css') ?>
 <?= $this->Html->script('select2.js') ?>
 <?= $this->Html->css('bootstrap-multiselect') ?>
@@ -17,6 +12,10 @@
 <?= $this->Html->css('custom') ?>
 
 <style>
+  .hide {
+    display: none;
+  }
+
   #chartdiv {
     width: 100%;
     height: 300px;
@@ -99,7 +98,9 @@
     max-height: 200px !important;
   }
 
-  .table-graph thead tr{ background-color: #F7941D !important;}
+  .table-graph thead tr {
+    background-color: #F7941D !important;
+  }
 
   .card-height {
     height: 100px !important;
@@ -107,31 +108,37 @@
 
   .slider-container {
     background-color: #eee;
-  width: 100%;
-  position: relative;
-  height: 20px;
-  border-radius: 1px; /* Round corners */
-  overflow: hidden; /* Hide the overflow */
-}
+    width: 100%;
+    position: relative;
+    height: 20px;
+    border-radius: 1px;
+    /* Round corners */
+    overflow: hidden;
+    /* Hide the overflow */
+  }
 
-.slider {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-}
+  .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
 
-.percentage {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: black; /* Text color */
-}
+  .percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    /* Text color */
+  }
 
-  .supplier-wise-table td{ padding-bottom: .1rem !important;}
+  .supplier-wise-table td {
+    padding-bottom: .1rem !important;
+  }
+
   /* .supplier-wise-table { margin-top: 20px;} */
-  </style>
+</style>
 
 <?= $this->Html->script('amcharts/index.js') ?>
 <?= $this->Html->script('xy.js') ?>
@@ -154,11 +161,11 @@
             <label for="id_year">Year</label>
             <select class="form-control" name="year" id="id_year">
               <?php if (isset($years)) : ?>
-                <?php foreach ($years as $year) : ?>
-                  <option value="<?= h($year['year']) ?>" data-select="<?= h($year['year']) ?>">
-                  <?= h($year['year']) ?>
-                  </option>
-                <?php endforeach; ?>
+              <?php foreach ($years as $year) : ?>
+              <option value="<?= h($year['year']) ?>" data-select="<?= h($year['year']) ?>">
+                <?= h($year['year']) ?>
+              </option>
+              <?php endforeach; ?>
               <?php endif; ?>
             </select>
           </div>
@@ -181,7 +188,8 @@
           </div>
           <div class="col-2">
             <label for="id_sap_vendor_code">Vendor</label><br>
-            <select name="sap_vendor_code[]" id="id_sap_vendor_code" class="chosen" multiple="multiple" style="width: 100%;">
+            <select name="sap_vendor_code[]" id="id_sap_vendor_code" class="chosen" multiple="multiple"
+              style="width: 100%;">
               <?php if (isset($vendors)) : ?>
               <?php foreach ($vendors as $mat) : ?>
               <option value="<?= h($mat['sap_vendor_code']) ?>" data-select="<?= h($mat['sap_vendor_code']) ?>">
@@ -223,7 +231,8 @@
               <?php if (isset($segments)) : ?>
               <?php foreach ($segments as $mat) : ?>
               <option value="<?= h($mat['segment']) ?>" data-select="<?= h($mat['segment']) ?>">
-              <?= h($mat['segment_code']) ?> - <?= h($mat['segment']) ?>
+                <?= h($mat['segment_code']) ?> -
+                <?= h($mat['segment']) ?>
               </option>
               <?php endforeach; ?>
               <?php endif; ?>
@@ -264,13 +273,16 @@
 
   <div class="col-lg-12">
     <div class="row">
+
       <div class="col-sm-12 col-lg-4">
         <div class="card card_box_shadow mb-2">
           <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
             <div><img width="50px" src="/bsms/img/total-vendor-icon" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Vendors</label>
-              <span id="id_card_total_vendor"><?= h($card_total_vendor['vendor']) ?></span>
+              <span id="id_card_total_vendor">
+                <?= h($card_total_vendor['vendor']) ?>
+              </span>
             </div>
           </div>
         </div>
@@ -282,7 +294,9 @@
             <div><img width="50px" src="/bsms/img/categories-icon" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Categories</label>
-              <span id="card_total_category"><?= h($card_total_category['segment']) ?></span>
+              <span id="card_total_category">
+                <?= h($card_total_category['segment']) ?>
+              </span>
             </div>
           </div>
         </div>
@@ -294,11 +308,14 @@
             <div><img width="50px" src="/bsms/img/products-icon" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Product</label>
-              <span id="card_total_product"><?= h($card_total_product['code']) ?></span>
+              <span id="card_total_product">
+                <?= h($card_total_product['code']) ?>
+              </span>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -308,64 +325,78 @@
         <div><img width="60px" src="/bsms/img/spend-icon" alt="img"></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Spend</label>
-          <span id="card_spend"><?= h($card_spend['spend']) ?></span>
+          <span id="card_spend">
+            <?= h($card_spend) ?>
+          </span>
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
         <div><img width="40px" src="/bsms/img/suplier-icon" alt="img"></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Supplier</label>
-          <span id="card_supplier"><?= h($card_supplier['spend']) ?></span>
+          <span id="card_supplier">
+            <?= h($card_supplier) ?>
+          </span>
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
         <div><img width="40px" src="/bsms/img/transaction-icon" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Transaction</label>
-          <span id="card_transactions"><?= h($card_transactions['spend']) ?></span>
+          <span id="card_transactions">
+            <?= h($card_transactions) ?>
+          </span>
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
         <div><img width="40px" src="/bsms/img/po-icon" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">PO Count</label>
-          <span id="card_po_count"><?= h($card_po_count['spend']) ?></span>
+          <span id="card_po_count">
+            <?= h($card_po_count) ?>
+          </span>
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
         <div><img width="40px" src="/bsms/img/invoice-icon" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Invoice Count</label>
-          <span id="card_invoice_count"><?= h($card_invoice_count['spend']) ?></span>
+          <span id="card_invoice_count">
+            <?= h($card_invoice_count) ?>
+          </span>
         </div>
       </div>
     </div>
   </div>
-
-
 
   <div class="col-sm-12 col-lg-6">
     <div class="card card-default card_box_shadow">
       <div class="card-header">Purchase Volume Segment Wise</div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12"><div id="chartdiv"></div></div>
+          <div class="col-12">
+            <div id="chartdiv"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -376,7 +407,9 @@
       <div class="card-header">Delivery Time</div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12"><div id="chartdiv2"></div></div>
+          <div class="col-12">
+            <div id="chartdiv2"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -387,7 +420,9 @@
       <div class="card-header">Spend by Category</div>
       <div class="card-body">
         <div class="row">
-          <div class="col-12"><div id="chartdiv3"></div></div>
+          <div class="col-12">
+            <div id="chartdiv3"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -409,23 +444,32 @@
                   </tr>
                 </thead>
                 <tbody>
-                <?php if (isset($swbsa)) : ?>
+                  <?php if (isset($swbsa)) : ?>
                   <?php foreach ($swbsa as $mat) : ?>
-                    <tr>
-                      <td class="d-flex flex-column">
-                        <div><b><?= h($mat['segment']) ?></b></div><div><?= h($mat['name']) ?></div>
-                      </td>
-                      <td><?= h($mat['sap_vendor_code']) ?></td>
-                      <td>
-                        <div class="slider-container">
-                          <div class="slider bg-<?= h($mat['color']) ?>" style="width: <?= h($mat['net_value']) ?>%;"></div>
-                          <span class="percentage"><?= h($mat['net_value']) ?>%</span>
+                  <tr>
+                    <td class="d-flex flex-column">
+                      <div><b>
+                          <?= h($mat['segment']) ?>
+                        </b></div>
+                      <div>
+                        <?= h($mat['name']) ?>
+                      </div>
+                    </td>
+                    <td>
+                      <?= h($mat['sap_vendor_code']) ?>
+                    </td>
+                    <td>
+                      <div class="slider-container">
+                        <div class="slider bg-<?= h($mat['color']) ?>" style="width: <?= h($mat['net_value']) ?>%;">
                         </div>
-                        </div>
-                      </td>
-                    </tr>
+                        <span class="percentage">
+                          <?= h($mat['net_value']) ?>%
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
                   <?php endforeach; ?>
-                <?php endif; ?>
+                  <?php endif; ?>
                 </tbody>
               </table>
             </div>
@@ -440,19 +484,14 @@
       <div class="card-header">Category Wise Indent</div>
       <div class="card-body">
         <div class="table-container table-graph">
-        <?= $category_wise_indent ?>
+          <?= $category_wise_indent ?>
         </div>
       </div>
     </div>
   </div>
 
-
-
 </div>
 <?= $this->Form->end() ?>
-
-
-
 
 <script>
   var dashboard_url = `<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'buyer/dashboard', 'action' => 'index')); ?>`;
@@ -471,31 +510,58 @@
       }
     }
   });
+
   var purchase_volume_segment_wise = [
     <?php if (isset($purchase_volume_segment_wise)) : ?>
-    <?php foreach ($purchase_volume_segment_wise as $mat) : ?>
-      { value: <?= h($mat['spend']) ?>, category: "<?= h($mat['segment']) ?>" },
+    <?php foreach($purchase_volume_segment_wise as $mat) : ?>
+    { value: <?= h($mat['spend']) ?>, category: "<?= h($mat['segment']) ?>" },
     <?php endforeach; ?>
     <?php endif; ?>
   ];
 
   var spend_by_category = [
     <?php if (isset($spend_by_category)) : ?>
-    <?php foreach ($spend_by_category as $mat) : ?>
-      { value: <?= h($mat['spend']) ?>, category: "<?= h($mat['segment']) ?>" },
+    <?php foreach($spend_by_category as $mat) : ?>
+    { value: <?= h($mat['spend']) ?>, category: "<?= h($mat['segment']) ?>" },
     <?php endforeach; ?>
     <?php endif; ?>
   ];
 
   var delivery_time = [
     <?php if (isset($delivery_time)) : ?>
-    <?php foreach ($delivery_time as $mat) : ?>
-    {"year": "<?= h($mat['year']) ?>","early": <?= h($mat['early']) ?>,"on_time": <?= h($mat['on_time']) ?>,"late": <?= h($mat['late']) ?>},
+    <?php foreach($delivery_time as $mat) : ?>
+    { "year": "<?= h($mat['year']) ?>", "early": <?= h($mat['early']) ?>, "on_time": <?= h($mat['on_time']) ?>, "late": <?= h($mat['late']) ?>},
     <?php endforeach; ?>
     <?php endif; ?>
   ];
 
+
+  $("#addvendorform").validate({
+    rules: { vendor_code: { required: false, }, },
+    messages: { vendor_code: { required: "Please enter a first name", }, },
+    errorElement: "span",
+    errorPlacement: function (error, element) {
+      error.addClass("invalid-feedback");
+      element.closest(".form-group").append(error);
+    },
+    highlight: function (element, errorClass, validClass) { $(element).addClass("is-invalid"); },
+    unhighlight: function (element, errorClass, validClass) { $(element).removeClass("is-invalid"); },
+    submitHandler: function (form) {
+      $.ajax({
+        type: "POST",
+        url: materiallist_url,
+        data: $("#addvendorform").serialize(),
+        dataType: "json",
+        beforeSend: function () { $("#gif_loader").show(); },
+        success: function (response) {
+                      
+        },
+        complete: function () { $("#gif_loader").hide(); }
+      });
+    },
+  });
 </script>
+
 <script src="<?= $this->Url->build('/') ?>js/chart.js"></script>
 <script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_purchase_volume.js"></script>
 <script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_delivery_time.js"></script>

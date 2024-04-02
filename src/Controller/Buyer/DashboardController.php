@@ -128,32 +128,32 @@ class DashboardController extends BuyerAppController
         left join po_footers on po_headers.id=po_footers.po_header_id
         left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
         ".$conditions."
-        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0];
+        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0]['spend'];
 
         $card_supplier = $conn->execute("select count(distinct sap_vendor_code) as spend from ( select po_headers.sap_vendor_code from po_headers 
         left join po_footers on po_headers.id=po_footers.po_header_id
         left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
         ".$conditions."
-        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0];
+        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0]['spend'];
 
         $card_transactions = $conn->execute("select count(id) as spend from ( select po_footers.id from po_headers 
         left join po_footers on po_headers.id=po_footers.po_header_id
         left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
         ".$conditions."
-        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0];
+        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0]['spend'];
 
         $card_po_count = $conn->execute("select count(distinct id) as spend from ( select po_headers.id from po_headers 
         left join po_footers on po_headers.id=po_footers.po_header_id
         left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
         ".$conditions."
-        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0];
+        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0]['spend'];
         
         $card_invoice_count = $conn->execute("select count(invoice_no) as spend from ( select distinct asn_headers.invoice_no from asn_headers 
         left join po_headers on po_headers.id=asn_headers.po_header_id
         left join po_footers on po_headers.id=po_footers.po_header_id
         left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
         ".$conditions."
-        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size, asn_headers.invoice_no) as a")->fetchAll('assoc')[0];
+        group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size, asn_headers.invoice_no) as a")->fetchAll('assoc')[0]['spend'];
         
         $purchase_volume_segment_wise = $conn->execute("select segment, sum(po_qty) as spend from (
             select distinct materials.segment, po_footers.po_qty from po_headers 
@@ -232,6 +232,22 @@ class DashboardController extends BuyerAppController
         }
         $category_wise_indent .= "</table>";
 
+        if ($this->request->is(['post'])) {
+            $response = array(
+                'card_spend'=>$card_spend,
+                'card_supplier'=>$card_supplier,
+                'card_transactions'=>$card_transactions,
+                'card_po_count'=>$card_po_count,
+                'card_invoice_count'=>$card_invoice_count,
+                'purchase_volume_segment_wise'=>$purchase_volume_segment_wise,
+                'delivery_time'=>$delivery_time,
+                'spend_by_category'=>$spend_by_category,
+                'swbsa'=>$swbsa,
+                'category_wise_indent'=>$cwi
+            );
+            echo json_encode($response); exit();
+        }
+
         $this->set(compact(
             'years', 'vendors', 'materials', 'types', 'uoms', 'segments', 'packsizes',
             'card_total_vendor', 'card_total_category', 'card_total_product',
@@ -240,7 +256,7 @@ class DashboardController extends BuyerAppController
             'delivery_time',
             'spend_by_category',
             'swbsa',
-            'category_wise_indent',
+            'category_wise_indent'
         ));
     }
 
