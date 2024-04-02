@@ -155,13 +155,13 @@ class DashboardController extends BuyerAppController
         ".$conditions."
         group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size, asn_headers.invoice_no) as a")->fetchAll('assoc')[0]['spend'];
         
-        $purchase_volume_segment_wise = $conn->execute("select segment, sum(po_qty) as spend from (
+        $purchase_volume_segment_wise = $conn->execute("select segment as category, sum(po_qty) as value from (
             select distinct materials.segment, po_footers.po_qty from po_headers 
             left join po_footers on po_headers.id=po_footers.po_header_id
             left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
             ".$conditions."
             group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size
-            ) as a group by segment order by spend desc limit 5")->fetchAll('assoc');
+            ) as a group by segment order by value desc limit 5")->fetchAll('assoc');
         
         // echo '<pre>'; print_r($purchase_volume_segment_wise); exit;
         $delivery_time = $conn->execute("select distinct year, sum(e) early, sum(o) on_time, sum(l) late from (
@@ -177,13 +177,13 @@ class DashboardController extends BuyerAppController
             group by year
             order by late, on_time, early desc limit 5")->fetchAll('assoc');
         
-        $spend_by_category = $conn->execute("select segment, sum(net_value) as spend from (
+        $spend_by_category = $conn->execute("select segment as category, sum(net_value) as value from (
             select distinct materials.segment, po_footers.net_value from po_headers 
             left join po_footers on po_headers.id=po_footers.po_header_id
             left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
             ".$conditions."
             group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size
-            ) as a group by segment order by spend desc limit 5")->fetchAll('assoc');
+            ) as a group by segment order by value desc limit 5")->fetchAll('assoc');
         
         $swbsa = $conn->execute("select segment, name, sap_vendor_code, max(net_value) as net_value  from (
             select distinct materials.segment, vendor_temps.name, po_headers.sap_vendor_code, sum(po_footers.net_value) as net_value

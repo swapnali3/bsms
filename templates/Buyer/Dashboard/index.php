@@ -149,7 +149,6 @@
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 
-<?= $this->Form->create(null, ['id' => 'addvendorform']) ?>
 <div class="row ">
 
   <div class="col-lg-12">
@@ -263,7 +262,7 @@
             </select>
           </div>
           <div class="col-1 mt-4 pt-2">
-            <button class="btn bg-gradient-button" type="submit" id="id_sub">Search</button>
+            <button class="btn bg-gradient-button" type="button" id="id_sub">Search</button>
           </div>
         </div>
         <?= $this->Form->end() ?>
@@ -277,10 +276,10 @@
       <div class="col-sm-12 col-lg-4">
         <div class="card card_box_shadow mb-2">
           <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-            <div><img width="50px" src="/bsms/img/total-vendor-icon" alt="img"></i></div>
+            <div><img width="50px" src="/img/total-vendor-icon.png" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Vendors</label>
-              <span id="id_card_total_vendor">
+              <span>
                 <?= h($card_total_vendor['vendor']) ?>
               </span>
             </div>
@@ -291,7 +290,7 @@
       <div class="col-sm-12 col-lg-4">
         <div class="card card_box_shadow mb-2">
           <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-            <div><img width="50px" src="/bsms/img/categories-icon" alt="img"></i></div>
+            <div><img width="50px" src="/img/categories-icon.jpg" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Categories</label>
               <span id="card_total_category">
@@ -305,7 +304,7 @@
       <div class="col-sm-12 col-lg-4">
         <div class="card card_box_shadow mb-2">
           <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-            <div><img width="50px" src="/bsms/img/products-icon" alt="img"></i></div>
+            <div><img width="50px" src="/img/products-icon.png" alt="img"></i></div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Product</label>
               <span id="card_total_product">
@@ -322,7 +321,7 @@
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-        <div><img width="60px" src="/bsms/img/spend-icon" alt="img"></div>
+        <div><img width="60px" src="/img/spend-icon.jpg" alt="img"></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Spend</label>
           <span id="card_spend">
@@ -336,7 +335,7 @@
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-        <div><img width="40px" src="/bsms/img/suplier-icon" alt="img"></div>
+        <div><img width="40px" src="/img/suplier-icon.png" alt="img"></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Supplier</label>
           <span id="card_supplier">
@@ -350,7 +349,7 @@
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-        <div><img width="40px" src="/bsms/img/transaction-icon" alt="img"></i></div>
+        <div><img width="40px" src="/img/transaction-icon.jpg" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Transaction</label>
           <span id="card_transactions">
@@ -364,7 +363,7 @@
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-        <div><img width="40px" src="/bsms/img/po-icon" alt="img"></i></div>
+        <div><img width="40px" src="/img/po-icon.png" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">PO Count</label>
           <span id="card_po_count">
@@ -378,7 +377,7 @@
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-        <div><img width="40px" src="/bsms/img/invoice-icon" alt="img"></i></div>
+        <div><img width="40px" src="/img/invoice-icon.jpg" alt="img"></i></div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Invoice Count</label>
           <span id="card_invoice_count">
@@ -443,7 +442,7 @@
                     <th>SUPPLIER SHARE</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="swbsa">
                   <?php if (isset($swbsa)) : ?>
                   <?php foreach ($swbsa as $mat) : ?>
                   <tr>
@@ -483,7 +482,7 @@
     <div class="card card-default card_box_shadow">
       <div class="card-header">Category Wise Indent</div>
       <div class="card-body">
-        <div class="table-container table-graph">
+        <div class="table-container table-graph" id="category_wise_indent">
           <?= $category_wise_indent ?>
         </div>
       </div>
@@ -491,11 +490,9 @@
   </div>
 
 </div>
-<?= $this->Form->end() ?>
 
 <script>
-  var dashboard_url = `<?php echo \Cake\Routing\Router::url(array('prefix' => false, 'controller' => 'buyer/dashboard', 'action' => 'index')); ?>`;
-
+  var str_data;
   $('.chosen').select2({
     closeOnSelect: false,
     placeholder: 'Select',
@@ -514,7 +511,7 @@
   var purchase_volume_segment_wise = [
     <?php if (isset($purchase_volume_segment_wise)) : ?>
     <?php foreach($purchase_volume_segment_wise as $mat) : ?>
-    { value: <?= h($mat['spend']) ?>, category: "<?= h($mat['segment']) ?>" },
+    { value: <?= h($mat['value']) ?>, category: "<?= h($mat['category']) ?>" },
     <?php endforeach; ?>
     <?php endif; ?>
   ];
@@ -522,7 +519,7 @@
   var spend_by_category = [
     <?php if (isset($spend_by_category)) : ?>
     <?php foreach($spend_by_category as $mat) : ?>
-    { value: <?= h($mat['spend']) ?>, category: "<?= h($mat['segment']) ?>" },
+    { value: <?= h($mat['value']) ?>, category: "<?= h($mat['category']) ?>" },
     <?php endforeach; ?>
     <?php endif; ?>
   ];
@@ -536,34 +533,73 @@
   ];
 
 
-  $("#addvendorform").validate({
-    rules: { vendor_code: { required: false, }, },
-    messages: { vendor_code: { required: "Please enter a first name", }, },
-    errorElement: "span",
-    errorPlacement: function (error, element) {
-      error.addClass("invalid-feedback");
-      element.closest(".form-group").append(error);
-    },
-    highlight: function (element, errorClass, validClass) { $(element).addClass("is-invalid"); },
-    unhighlight: function (element, errorClass, validClass) { $(element).removeClass("is-invalid"); },
-    submitHandler: function (form) {
-      $.ajax({
-        type: "POST",
-        url: materiallist_url,
-        data: $("#addvendorform").serialize(),
-        dataType: "json",
-        beforeSend: function () { $("#gif_loader").show(); },
-        success: function (response) {
-                      
-        },
-        complete: function () { $("#gif_loader").hide(); }
-      });
-    },
+  $(document).on("click", "#id_sub", function () {
+    $.ajax({
+      type: "POST",
+      url: window.location.href,
+      data: $("#addvendorform").serialize(),
+      dataType: "json",
+      beforeSend: function () { $("#gif_loader").show(); },
+      success: function (r) {
+        str_data = r;
+        console.log(r);
+        $("#card_spend").text(r.card_spend);
+        $("#card_supplier").text(r.card_supplier);
+        $("#card_transactions").text(r.card_transactions);
+        $("#card_po_count").text(r.card_po_count);
+        $("#card_invoice_count").text(r.card_invoice_count);
+
+        pivot_data = {};
+        type_list = [];
+        the_table = '<table><thead><tr><th>Category</th>';
+        $.each(r.category_wise_indent, function (index, row) {
+          if (!pivot_data.hasOwnProperty(row['segment'])) {
+            pivot_data[row['segment']] = {};
+            if (!pivot_data[row['segment']].hasOwnProperty(row['type'])) {
+              pivot_data[row['segment']][row['type']] = {};
+            }
+          }
+          pivot_data[row['segment']][row['type']] = row['po_qty'];
+          if (type_list.indexOf(row['type']) === -1) {
+            type_list.push(row['type']);
+          }
+        });
+
+        $.each(type_list, function (index, row) {
+          the_table += '<th>' + row + '</th>';
+        });
+
+        the_table += '</tr></thead>';
+        $.each(pivot_data, function (index, row) {
+          the_table += '<tr><td>' + index + '</td>';
+          $.each(type_list, function (index, roww) {
+            if (row[roww]) { the_table += '<td>' + row[roww] + '</td>'; }
+            else { the_table += '<td>0</td>'; }
+          });
+          the_table += "</tr>";
+        });
+
+        the_table += '</table>';
+        $.each(r.swbsa, function (index, row) {
+          $("#swbsa").html(`<tr><td class="d-flex flex-column"><div><b>` + row['segment'] + `</b></div><div>` + row['name'] + `</div></td><td>` + row['sap_vendor_code'] + `</td><td><div class="slider-container"><div class="slider bg-` + row['color'] + `" style="width: ` + row['net_value'] + `%;"></div><span class="percentage">` + row['net_value'] + `%</span></div></td></tr>`);
+        });
+
+        $("#category_wise_indent").html(the_table);
+        refresh_spendbycategory(r.spend_by_category);
+        refresh_purchasevolume(r.purchase_volume_segment_wise);
+        refresh_deliverytime(r.delivery_time);
+        refresh_deliverytime(r.)
+      },
+      complete: function () { $("#gif_loader").hide(); }
+    });
   });
+  // var currentDate = new Date();
+  // var currentMonth = currentDate.getMonth() + 1;
+  // $('#id_month').val(currentMonth);
+  // $("#id_sub").click();
 </script>
 
 <script src="<?= $this->Url->build('/') ?>js/chart.js"></script>
 <script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_purchase_volume.js"></script>
 <script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_delivery_time.js"></script>
 <script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_spend_by_category.js"></script>
-<script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_suplier_wise_business.js"></script>
