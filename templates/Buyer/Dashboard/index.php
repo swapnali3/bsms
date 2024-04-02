@@ -409,76 +409,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td class="d-flex flex-column">
-                      <div>Category 1</div>
-                      <div>Supplier xxx</div>
-                    </td>
-                    <td>720</td>
-                    <td>
-                      <div class="slider-container">
-                        <div class="slider bg-danger" style="width: 50%;"></div>
-                        <span class="percentage">50%</span>
-                      </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="d-flex flex-column">
-                      <div>Category 2</div>
-                      <div>Supplier xxx</div>
-                    </td>
-                    <td>720</td>
-                    <td>
-                      <div class="slider-container">
-                        <div class="slider bg-success" style="width: 75%;"></div>
-                        <span class="percentage">75%</span>
-                      </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="d-flex flex-column">
-                      <div>Category 3</div>
-                      <div>Supplier xxx</div>
-                    </td>
-                    <td>720</td>
-                    <td>
-                      <div class="slider-container">
-                        <div class="slider bg-warning" style="width: 30%;"></div>
-                        <span class="percentage">30%</span>
-                      </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="d-flex flex-column">
-                      <div>Category 4</div>
-                      <div>Supplier xxx</div>
-                    </td>
-                    <td>720</td>
-                    <td>
-                      <div class="slider-container">
-                        <div class="slider bg-primary" style="width: 25%;"></div>
-                        <span class="percentage">25%</span>
-                      </div>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="d-flex flex-column">
-                      <div>Category 5</div>
-                      <div>Supplier xxx</div>
-                    </td>
-                    <td>720</td>
-                    <td>
-                      <div class="slider-container">
-                        <div class="slider bg-info" style="width: 80%;"></div>
-                        <span class="percentage">80%</span>
-                      </div>
-                      </div>
-                    </td>
-                  </tr>
+                <?php if (isset($swbsa)) : ?>
+                  <?php foreach ($swbsa as $mat) : ?>
+                    <tr>
+                      <td class="d-flex flex-column">
+                        <div><b><?= h($mat['segment']) ?></b></div><div><?= h($mat['name']) ?></div>
+                      </td>
+                      <td><?= h($mat['sap_vendor_code']) ?></td>
+                      <td>
+                        <div class="slider-container">
+                          <div class="slider bg-<?= h($mat['color']) ?>" style="width: <?= h($mat['net_value']) ?>%;"></div>
+                          <span class="percentage"><?= h($mat['net_value']) ?>%</span>
+                        </div>
+                        </div>
+                      </td>
+                    </tr>
+                  <?php endforeach; ?>
+                <?php endif; ?>
                 </tbody>
               </table>
             </div>

@@ -173,10 +173,9 @@ class DashboardController extends BuyerAppController
             left join po_footers on po_footers.id = po_item_schedules.po_footer_id
             left join po_headers on po_footers.po_header_id = po_headers.id
             left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
-            left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code) as a
+            left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code".$conditions.") as a
             group by year
             order by late, on_time, early desc limit 5")->fetchAll('assoc');
-        // echo '<pre>'; print_r($years); exit;
         
         $spend_by_category = $conn->execute("select segment, sum(net_value) as spend from (
             select distinct materials.segment, po_footers.net_value from po_headers 
@@ -186,14 +185,30 @@ class DashboardController extends BuyerAppController
             group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size
             ) as a group by segment order by spend desc limit 5")->fetchAll('assoc');
         
-        // $supplier_wise_business_share_analysis = $conn->execute("")->fetchAll('assoc');
-        
+        $swbsa = $conn->execute("select segment, name, sap_vendor_code, max(net_value) as net_value  from (
+            select distinct materials.segment, vendor_temps.name, po_headers.sap_vendor_code, sum(po_footers.net_value) as net_value
+            from po_headers 
+            left join po_footers on po_headers.id=po_footers.po_header_id
+            left join vendor_temps on vendor_temps.sap_vendor_code=po_headers.sap_vendor_code
+            left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
+            ".$conditions."
+            group by materials.segment, po_headers.sap_vendor_code
+            order by materials.segment, net_value desc) as a
+            group by segment limit 5")->fetchAll('assoc');
+
+        $ttl = array_sum(array_column($swbsa, 'net_value'));
+
+        foreach ($swbsa as $key => &$crow) {
+            $crow['net_value'] = number_format(($crow['net_value'] / $ttl) * 100, 2);
+            $color_index = $key % 5;
+            $crow['color'] = array(0=> 'danger', 1=>'success',2=>'warning', 3=>'primary', 4=>'info')[$color_index];
+        }
+
         $cwi = $conn->execute("select distinct materials.segment, materials.type, po_footers.po_qty from po_headers 
         left join po_footers on po_headers.id=po_footers.po_header_id
         left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
         ".$conditions."
         group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size")->fetchAll('assoc');
-
 
         $pivot_data = array();
         $category_wise_indent = "<table><thead><tr><th>Category</th>";
@@ -201,6 +216,7 @@ class DashboardController extends BuyerAppController
             $pivot_data[$row['segment']][$row['type']] = $row['po_qty'];
         }
         
+        // echo '<pre>'; print_r($swbsa); exit;
         // Generate HTML for pivot table
         $typess = array_unique(array_column($cwi, 'type'));
         foreach ($typess as $year) { $category_wise_indent .= "<th>$year</th>"; }
@@ -223,7 +239,7 @@ class DashboardController extends BuyerAppController
             'purchase_volume_segment_wise',
             'delivery_time',
             'spend_by_category',
-            // 'supplier_wise_business_share_analysis',
+            'swbsa',
             'category_wise_indent',
         ));
     }
