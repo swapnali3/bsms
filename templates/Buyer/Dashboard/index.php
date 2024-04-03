@@ -276,7 +276,9 @@
       <div class="col-sm-12 col-lg-4">
         <div class="card card_box_shadow mb-2">
           <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-            <div><img width="50px" src="/img/total-vendor-icon.png" alt="img"></i></div>
+            <div>
+              <?= $this->Html->image('total-vendor-icon.png', ['width' => '50']) ?>
+            </div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Vendors</label>
               <span>
@@ -290,7 +292,9 @@
       <div class="col-sm-12 col-lg-4">
         <div class="card card_box_shadow mb-2">
           <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-            <div><img width="50px" src="/img/categories-icon.jpg" alt="img"></i></div>
+            <div>
+            <?= $this->Html->image('categories-icon.jpg', ['width' => '50']) ?>
+            </div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Categories</label>
               <span id="card_total_category">
@@ -304,7 +308,9 @@
       <div class="col-sm-12 col-lg-4">
         <div class="card card_box_shadow mb-2">
           <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-            <div><img width="50px" src="/img/products-icon.png" alt="img"></i></div>
+            <div>
+              <?= $this->Html->image('products-icon.png', ['width' => '50']) ?>
+            </div>
             <div class="row flex-column">
               <label class="mb-0" style="color:#F7941D !important">Total Product</label>
               <span id="card_total_product">
@@ -321,7 +327,9 @@
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-        <div><img width="60px" src="/img/spend-icon.jpg" alt="img"></div>
+        <div>
+        <?= $this->Html->image('spend-icon.jpg', ['width' => '50']) ?>
+        </div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Spend</label>
           <span id="card_spend">
@@ -335,7 +343,9 @@
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-        <div><img width="40px" src="/img/suplier-icon.png" alt="img"></div>
+        <div>
+        <?= $this->Html->image('suplier-icon.png', ['width' => '50']) ?>
+        </div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Supplier</label>
           <span id="card_supplier">
@@ -349,7 +359,9 @@
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-        <div><img width="40px" src="/img/transaction-icon.jpg" alt="img"></i></div>
+        <div>
+        <?= $this->Html->image('transaction-icon.jpg', ['width' => '50']) ?>
+        </div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Transaction</label>
           <span id="card_transactions">
@@ -363,7 +375,9 @@
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-        <div><img width="40px" src="/img/po-icon.png" alt="img"></i></div>
+        <div>
+        <?= $this->Html->image('po-icon.png', ['width' => '50']) ?>
+        </div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">PO Count</label>
           <span id="card_po_count">
@@ -377,7 +391,9 @@
   <div class="col-sm-12 col-lg-2">
     <div class="card card_box_shadow">
       <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-        <div><img width="40px" src="/img/invoice-icon.jpg" alt="img"></i></div>
+        <div>
+        <?= $this->Html->image('invoice-icon.jpg', ['width' => '50']) ?> 
+        </div>
         <div class="row flex-column">
           <label class="mb-0" style="color:#F7941D !important">Invoice Count</label>
           <span id="card_invoice_count">
@@ -588,7 +604,6 @@
         refresh_spendbycategory(r.spend_by_category);
         refresh_purchasevolume(r.purchase_volume_segment_wise);
         refresh_deliverytime(r.delivery_time);
-        refresh_deliverytime(r.)
       },
       complete: function () { $("#gif_loader").hide(); }
     });
