@@ -1,26 +1,5 @@
 var dtable, d3table;
 
-// $(".chosen").multiselect({
-//     enableClickableOptGroups: false,
-//     enableCollapsibleOptGroups: false,
-//     enableFiltering: true,
-//     includeSelectAllOption: false,
-//     buttonText: function (options, select) {
-//         if (options.length === 0) {
-//             return 'Select';
-//         }
-//         // else if (options.length > 1) { return options.length + 'Filter'; }
-//         else {
-//             var labels = [];
-//             options.each(function () {
-//                 if ($(this).attr('data-select') !== undefined) { labels.push($(this).attr('data-select')); }
-//                 else { labels.push($(this).html()); }
-//             });
-//             return labels.join(', ');
-//         }
-//     }
-// });
-
 $('.chosen').select2({
     closeOnSelect : false,
     placeholder: 'Select',
@@ -60,24 +39,6 @@ $(function () {
         dom: 'Blfrtip',
         buttons: [{ extend: 'copy' }, { extend: 'excelHtml5', text: 'Export', title:'' }]
     });
-
-
-    // stable = $("#example2").DataTable({
-    //     "paging": false,
-    //     "responsive": false,
-    //     "lengthChange": false,
-    //     "autoWidth": false,
-    //     "searching": false,
-    //     "ordering": false,
-    //     "destroy": true,
-    //     "createdRow": function(row, data, dataIndex) {
-    //         if(data[0] == 'Grand Total'){
-    //             $(row).attr("style","background-color: bisque !important; color: black;");
-    //         } else if (data[1] == "" && data[2] == "" && data[3] == "" && data[4] == "") {
-    //             $(row).attr("style","background-color:bisque !important;color:white;");
-    //         }
-    //     }
-    // });
 
     $("#addvendorform").validate({
         rules: { vendor_code: { required: false, }, },
