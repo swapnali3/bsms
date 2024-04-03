@@ -180,6 +180,7 @@ class DashboardController extends BuyerAppController
             left join po_headers on po_footers.po_header_id = po_headers.id
             left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
             left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code".$conditions.") as a
+            where e+o+l <> 0
             group by year
             order by late, on_time, early desc limit 5")->fetchAll('assoc');
         // echo '<pre>'; print_r($delivery_time); exit;
