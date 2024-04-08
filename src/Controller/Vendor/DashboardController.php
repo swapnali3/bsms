@@ -74,43 +74,30 @@ class DashboardController extends VendorAppController
 
         //echo '<pre>'; print_r($totalPos); exit;
         $totalPos = $totalPos->count();
-        
-        $stocks = $this->StockUploads->find('all')->contain(['VendorFactories'])
-        ->select($this->StockUploads)
-        ->select(['VendorFactories.factory_code'])
-        ->select(['material.code', 'material.description', 'material.uom', 'material.minimum_stock'])
-        ->select(['PoFooters.po_qty', 'PoFooters.grn_qty', 'PoFooters.pending_qty'])
-        ->innerJoin(['material' => 'materials'], ['material.id=StockUploads.material_id'])
-        ->leftJoin(['PoFooters' => "(select PoFooters.material, sum(PoFooters.po_qty) as po_qty, sum(PoFooters.grn_qty) as grn_qty, sum(PoFooters.pending_qty), pending_qty from po_footers as PoFooters where PoFooters.po_header_id in (select id from po_headers where sap_vendor_code = '".$session->read('vendor_code')."') group by PoFooters.material)"],
-        ['PoFooters.material = material.code']
-        )
-        ->where(['StockUploads.sap_vendor_code' => $session->read('vendor_code')])->order("StockUploads.updated_date desc")
-        ->toArray();
 
-        //echo '<pre>'; print_r($stocks); exit;
-
-        //echo '<pre>'; prin
-        $asnMaterials = $this->AsnFooters->find('all')
-        ->select(['vendor_factory_id' => 'VendorFactories.id', 'material' => 'PoFooters.material', 'qty' => 'sum(AsnFooters.qty)'])
-        ->contain(['AsnHeaders', 'AsnHeaders.VendorFactories','PoFooters', 'PoFooters.PoHeaders'])
-        ->where(['AsnHeaders.status in ' => ['1','2', '3'], 'PoHeaders.sap_vendor_code' => $session->read('vendor_code')])
-        ->group(['VendorFactories.id','PoFooters.material'])->toArray();
-
-        //echo '<pre>'; print_r($asnMaterials); exit;
-        foreach($stocks as &$stock) {
-            $stock->current_stock = ($stock->opening_stock + $stock->production_stock +  $stock->in_transfer_stock) - ($stock->out_transfer_stock);
-            foreach($asnMaterials as $asn) {
-                if($stock->vendor_factory_id == $asn->vendor_factory_id && $stock->material['code'] == $asn->material) {
-                    $stock->asn_stock = $asn->qty;
-                    $stock->current_stock = ($stock->opening_stock + $stock->production_stock +  $stock->in_transfer_stock) - ($stock->asn_stock +  $stock->out_transfer_stock);
-                }
-            }
-            if($stock->current_stock < 0) {
-                $stock->current_stock = 0;
-            }
-            
-        }
-
+        $stocks = $conn->execute("select vendor_factories.factory_code, materials.code,  materials.description, CONCAT(stock_uploads.opening_stock, ' ', materials.uom) as opening_stock,
+        CONCAT(stock_uploads.production_stock, ' ', materials.uom) as production_stock, CONCAT(stock_uploads.in_transfer_stock, ' ', materials.uom) as in_transfer_stock,
+        CONCAT(COALESCE(asn.qty,0), ' ', materials.uom) as asn_stock,  CONCAT(stock_uploads.opening_stock + stock_uploads.production_stock + stock_uploads.in_transfer_stock - stock_uploads.out_transfer_stock - COALESCE(asn.qty,0), ' ', materials.uom) as current_stock,
+        CONCAT(materials.minimum_stock, ' ', materials.uom) as minimum_stock, sum(po_footers.po_qty) as po_qty, sum(po_footers.grn_qty) as grn_qty,
+        sum(po_footers.po_qty) - sum(po_footers.grn_qty) as pending_qty
+        from stock_uploads
+        left join vendor_factories on stock_uploads.vendor_factory_id=vendor_factories.id
+        left join materials on materials.id = stock_uploads.material_id
+        left join po_headers on po_headers.sap_vendor_code = materials.sap_vendor_code
+        left join po_footers on po_footers.material = materials.code and po_footers.po_header_id = po_headers.id
+        left join (
+            select vendor_factories.factory_code, po_footers.material, sum(asn_footers.qty) as qty
+            from asn_footers
+            left join asn_headers on asn_headers.id=asn_footers.asn_header_id
+            left join po_footers on po_footers.id = asn_footers.po_footer_id
+            left join po_headers on po_headers.id = po_footers.po_header_id
+            left join vendor_factories on asn_headers.vendor_factory_id= vendor_factories.id
+            where asn_headers.status in (1,2,3) and po_headers.sap_vendor_code = '".$session->read('vendor_code')."'
+            group by vendor_factories.id, po_footers.material
+        ) as asn on asn.factory_code = vendor_factories.factory_code and asn.material = materials.code
+        where materials.sap_vendor_code='".$session->read('vendor_code')."' and po_qty > 0
+        group by vendor_factories.factory_code, materials.code
+        order by stock_uploads.updated_date desc")->fetchAll('assoc');
 
         $intransitMaterials = $this->AsnFooters->find('all')
         ->select(['VendorFactories.factory_code','AsnHeaders.asn_no', 'AsnHeaders.invoice_no', 'AsnHeaders.invoice_date', 'PoHeaders.po_no', 'PoFooters.material', 'AsnFooters.qty', 'AsnHeaders.status'])
