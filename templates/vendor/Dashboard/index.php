@@ -148,19 +148,19 @@
             <tbody>
               <?php if(count($stocks)) :  ?>
                 <?php foreach($stocks as $stock) :  ?>
-                <tr>
-                <td><?= ($stock->vendor_factory) ? $stock->vendor_factory->factory_code : '-'; ?></td>
-                <td><?= $stock->material['code']; ?></td>
-                <td><?= $stock->material['description']; ?></td>
-                <td><?= $stock->opening_stock . ' '. $stock->material['uom']; ?></td>
-                <td><?= $stock->production_stock . ' '. $stock->material['uom']; ?></td>
-                <td><?= $stock->in_transfer_stock - $stock->out_transfer_stock; ?></td>
-                <td><?= $stock->asn_stock . ' '. $stock->material['uom']; ?></td>
-                <td><?= $stock->current_stock . ' '. $stock->material['uom']; ?></td>
-                <td><?= $stock->material['minimum_stock'] . ' '. $stock->material['uom']; ?></td>
-                <td><?= $stock->PoFooters['po_qty']; ?></td>
-                <td><?= $stock->PoFooters['grn_qty']; ?></td>
-                <td><?= ($stock->PoFooters['po_qty'] - $stock->PoFooters['grn_qty']); ?></td>
+              <tr>
+                <td><?= $stock['factory_code'] ?></td>
+                <td><?= $stock['code'] ?></td>
+                <td><?= $stock['description'] ?></td>
+                <td><?= $stock['opening_stock'] ?></td>
+                <td><?= $stock['production_stock'] ?></td>
+                <td><?= $stock['in_transfer_stock'] ?></td>
+                <td><?= $stock['asn_stock'] ?></td>
+                <td><?= $stock['current_stock'] ?></td>
+                <td><?= $stock['minimum_stock'] ?></td>
+                <td><?= $stock['po_qty'] ?></td>
+                <td><?= $stock['grn_qty'] ?></td>
+                <td><?= $stock['pending_qty'] ?></td>
               </tr>
               <?php endforeach; ?>
               <?php else :?>
