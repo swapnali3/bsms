@@ -16,6 +16,7 @@
 <?php $planner = ($controller == 'Dailymonitor' && $action == 'dailyentry') ? 'active' : ''; ?>
 <?php $intransit = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
 <?php $lineMaster = ($controller == 'LineMaters') ? 'active' : ''; ?>
+<?php $plannerEdit = ($controller == 'Dailymonitor' && $action == 'updateConfirmation') ? 'active' : ''; ?>
 
 
 
@@ -145,6 +146,9 @@
     </li>
     <li class="nav-item ">
       <?= $this->Html->link(__('<i class="fas fa-clipboard-check nav-icon prod_icon"></i><p>Confirmation</p>'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link $planner", 'escape' => false]) ?>
+    </li>
+    <li class="nav-item ">
+      <?= $this->Html->link(__('<i class="fas fa-clipboard-check nav-icon prod_icon"></i><p>Update Confirmation</p>'), ['controller' => '/dailymonitor', 'action' => 'update-confirmation'], ['class' => "nav-link $plannerEdit", 'escape' => false]) ?>
     </li>
   </ul>
 </li>

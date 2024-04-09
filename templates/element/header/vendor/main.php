@@ -12,6 +12,8 @@
 <?php $dailymonitor = ($controller == 'Dailymonitor') ? 'active' : ''; ?>
 <?php $dailyStock = ($controller == 'Dailymonitor' && $action == 'index') ? 'active' : ''; ?>
 <?php $planner = ($controller == 'Dailymonitor' && $action == 'dailyentry') ? 'active' : ''; ?>
+<?php $plannerEdit = ($controller == 'Dailymonitor' && $action == 'updateConfirmation') ? 'active' : ''; ?>
+
 <?php $intransit = ($controller == 'DeliveryDetails') ? 'active' : ''; ?>
 <?php $lineMaster = ($controller == 'LineMaters') ? 'active' : ''; ?>
 
@@ -87,7 +89,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a id="dropdownSubMenu2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                        class="nav-link dropdown-toggle <?= h($dailymonitor) ?><?= h($planner) ?>">
+                        class="nav-link dropdown-toggle <?= h($dailymonitor) ?><?= h($planner) ?><?= h($plannerEdit) ?>">
                         Production
                     </a>
                     <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -96,6 +98,9 @@
                         </li>
                         <li class="nav-item ">
                             <?= $this->Html->link(__('Confirmation'), ['controller' => '/dailymonitor', 'action' => 'dailyentry'], ['class' => "nav-link $planner", 'escape' => false]) ?>
+                        </li>
+                        <li class="nav-item ">
+                            <?= $this->Html->link(__('Update Confirmation'), ['controller' => '/dailymonitor', 'action' => 'update-confirmation'], ['class' => "nav-link $plannerEdit", 'escape' => false]) ?>
                         </li>
                     </ul>
                 </li>

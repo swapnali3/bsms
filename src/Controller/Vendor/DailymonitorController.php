@@ -714,4 +714,174 @@ class DailymonitorController extends VendorAppController
 
         echo json_encode($response);
     }
+
+
+    public function updateConfirmation()
+    {
+        $session = $this->getRequest()->getSession();
+        $vendorId = $session->read('id');
+        $this->loadModel('Materials');
+        $this->loadModel("ProductionLines");
+        $this->loadModel("VendorTemps");
+        $this->loadModel("LineMasters");
+        $this->loadModel("VendorFactories");
+
+        $conditions = ' where dailymonitor.sap_vendor_code="'.$session->read('vendor_code').'" and dailymonitor.status=3 and dailymonitor.id in(select max(id) from dailymonitor group by sap_vendor_code, production_line_id, material_id) ';
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            $request = $this->request->getData();
+            if(isset($request['material'])) {
+                $search = '';
+                foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and materials.id in (".$search.") ";
+            }
+            if(isset($request['line'])) {
+                $search = '';
+                foreach ($request['line'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and line_masters.id in (".$search.") ";
+            }
+            if(isset($request['factory'])) {
+                $search = '';
+                foreach ($request['factory'] as $mat) { $search .= "'" . $mat . "',"; }
+                $search = rtrim($search, ',');
+                $conditions .= " and vendor_factories.factory_code in (".$search.") ";
+            }
+        }
+
+        $prd_lines = $this->LineMasters->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+        $vendor = $this->VendorTemps->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+        $vendor_fty = $this->VendorFactories->find('all')->where(['vendor_temp_id="'.$vendor[0]->id.'"' ])->toArray();
+
+        $conn = ConnectionManager::get('default');
+        $query = $conn->execute('select distinct materials.id, materials.code, materials.description from dailymonitor
+        left join materials on materials.id = dailymonitor.material_id
+        where materials.sap_vendor_code = "'.$session->read('vendor_code').'"');
+        $materials = $query->fetchAll('assoc');
+
+        // $materials = $this->Materials->find('all')->where(['sap_vendor_code="'.$session->read('vendor_code').'"' ])->toArray();
+
+        $queryStr = 'select dailymonitor.id, vendor_factories.factory_code, line_masters.name, materials.code, materials.description, materials.uom, dailymonitor.plan_date, dailymonitor.target_production, dailymonitor.status, dailymonitor.confirm_production
+        from dailymonitor
+        left join production_lines on production_lines.id = dailymonitor.production_line_id
+        left join vendor_factories on vendor_factories.id = production_lines.vendor_factory_id
+        left join line_masters on line_masters.id = production_lines.line_master_id
+        left join materials on materials.id = dailymonitor.material_id'. $conditions.'
+        order by dailymonitor.plan_date desc';
+
+        
+        $query = $conn->execute($queryStr);
+        $dailymonitor = $query->fetchAll('assoc');
+
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            $results = [];
+            foreach ($dailymonitor as $mat) {
+                $tmp = [];
+                $tmp[] = $mat["factory_code"];
+                $tmp[] = $mat["name"];
+                $tmp[] = $mat["code"];
+                $tmp[] = $mat["description"];
+                $tmp[] = $mat["target_production"].'<input type="hidden" value="'.$mat["target_production"].'" id="plan_qty_'.$mat["id"].'" data-id="'.$mat["id"].'">';
+                $tmp[] = $mat["uom"];
+                $tmp[] = date("d-m-Y", strtotime($mat["plan_date"]));
+                $tmp[] = '<input type="number" value="'.$mat["confirm_production"].'" maxlength="20" class="form-control form-control-sm confirm-input" id="confirmprd'.$mat["id"].'" data-old-value="'.$mat["confirm_production"].'" data-id="'.$mat["id"].'"><span id="validationMessage'.$mat["id"].'" class="text-danger" style="display: none;"></span>';
+                $tmp[] = '<button class="btn btn-success save btn-sm mb-0" id="confirmsave'.$mat["id"].'" data-id="'.$mat["id"].'">Save</button>';
+                $results[] = $tmp;
+            }
+            $this->autoRender = false;
+            $response = array('status'=>1, 'message'=>'success', 'data'=>$results);
+            echo json_encode($response); exit;
+        }
+        
+        $this->set(compact('dailymonitor', 'materials', 'prd_lines', 'vendor_fty'));
+    }
+
+
+    public function updateconfirmedproduction($id=null, $old_production=null, $confirm_production=null)
+    {
+        $this->loadModel("StockUploads");
+        $this->loadModel("DailymonitorLogs");
+        $session = $this->getRequest()->getSession();
+        $conn = ConnectionManager::get('default');
+
+        $response = ['status'=>0,'message'=>''];
+        $dailymonitor = $this->Dailymonitor->get($id);
+        $dailymonitor->confirm_production = $confirm_production;
+        $dailymonitor->status= 3;
+        
+        //Array ( [0] => Array ( [factory_code] => 1_IN_13_khopoli_Unit1 [code] => TP12415425 [description] => CARTON GREAVES 20N x 0.9L NEW [opening_stock] => 0.00 NO [production_stock] => 500.00 NO [in_transfer_stock] => 0.00 NO [asn_stock] => 727.00 NO [current_stock] => -227.00 NO [minimum_stock] => 0.00 NO [po_qty] => 727.000 [grn_qty] => 727.000 [pending_qty] => 0.000 ) )
+
+        $hasStock = $this->StockUploads->find()
+                            ->where([
+                                'sap_vendor_code' => $session->read('vendor_code'),
+                                'material_id' => $dailymonitor->material_id
+                            ])->count();
+
+        if($hasStock) {
+
+            $stocks = $conn->execute("select vendor_factories.factory_code, materials.code,  materials.description, CONCAT(stock_uploads.opening_stock, ' ', materials.uom) as opening_stock,
+        CONCAT(stock_uploads.production_stock, ' ', materials.uom) as production_stock, CONCAT(stock_uploads.in_transfer_stock, ' ', materials.uom) as in_transfer_stock,
+        CONCAT(COALESCE(asn.qty,0), ' ', materials.uom) as asn_stock,  CONCAT(stock_uploads.opening_stock + stock_uploads.production_stock + stock_uploads.in_transfer_stock - stock_uploads.out_transfer_stock - COALESCE(asn.qty,0), ' ', materials.uom) as current_stock,
+        CONCAT(materials.minimum_stock, ' ', materials.uom) as minimum_stock, sum(po_footers.po_qty) as po_qty, sum(po_footers.grn_qty) as grn_qty,
+        sum(po_footers.po_qty) - sum(po_footers.grn_qty) as pending_qty
+        from stock_uploads
+        left join vendor_factories on stock_uploads.vendor_factory_id=vendor_factories.id
+        left join materials on materials.id = stock_uploads.material_id
+        left join po_headers on po_headers.sap_vendor_code = materials.sap_vendor_code
+        left join po_footers on po_footers.material = materials.code and po_footers.po_header_id = po_headers.id
+        left join (
+            select vendor_factories.factory_code, po_footers.material, sum(asn_footers.qty) as qty
+            from asn_footers
+            left join asn_headers on asn_headers.id=asn_footers.asn_header_id
+            left join po_footers on po_footers.id = asn_footers.po_footer_id
+            left join po_headers on po_headers.id = po_footers.po_header_id
+            left join vendor_factories on asn_headers.vendor_factory_id= vendor_factories.id
+            where asn_headers.status in (1,2,3) and po_headers.sap_vendor_code = '".$session->read('vendor_code')."'
+            group by vendor_factories.id, po_footers.material
+        ) as asn on asn.factory_code = vendor_factories.factory_code and asn.material = materials.code
+        where materials.sap_vendor_code='".$session->read('vendor_code')."' and materials.id = $dailymonitor->material_id and po_qty > 0
+        group by vendor_factories.factory_code, materials.code
+        order by stock_uploads.updated_date desc")->fetchAll('assoc');
+
+
+        $stockStatus = $stocks['0']['current_stock'] - $old_production + $confirm_production;
+
+            if($stockStatus < 0) {
+                $response = ['status' => 0, 'message' => 'Current stock will get negative'];
+            } else {
+
+                if ($this->Dailymonitor->save($dailymonitor)) { 
+                
+                    $stockUpload = $this->StockUploads->find()
+                        ->where([
+                            'sap_vendor_code' => $session->read('vendor_code'),
+                            'material_id' => $dailymonitor->material_id
+                        ])
+                        ->first();
+        
+                    $stockUpload->current_stock = $stockUpload->current_stock - $old_production  +  $confirm_production;
+                    $stockUpload->production_stock = $stockUpload->production_stock - $old_production + $confirm_production;
+                    $this->StockUploads->save($stockUpload);
+        
+                    $logData = $dailymonitor->toArray();
+                    $logData['old_confirm_production'] = $old_production;
+                    $logData['new_confirm_production'] = $confirm_production;
+
+                    $transLogInc = $this->DailymonitorLogs->newEmptyEntity();
+                    $transLogInc = $this->DailymonitorLogs->patchEntity($transLogInc, $logData);
+                    $this->DailymonitorLogs->save($transLogInc);
+
+
+                    $response = ['status' => 1, 'message' => "Production confirmed successfully"];
+                } else {
+                    $response = ['status' => 0, 'message' => 'Failed'];
+                }
+            }
+        } else {
+            $response = ['status' => 0, 'message' => 'Stock not found'];
+        }
+        
+        echo json_encode($response);
+        exit;
+    }
 }
