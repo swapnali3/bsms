@@ -137,6 +137,7 @@
                     <th>Material</th>
                     <th style="min-width: 400px;">Description</th>
                     <th>PO Qty</th>
+                    <th>Total Grn Qty</th>
                     <th>Grn Qty</th>
                     <th>Pending Qty</th>
                     <th>Order Unit</th>
