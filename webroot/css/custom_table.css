@@ -761,7 +761,7 @@ body:not(.layout-fixed) .main-sidebar {
 
 .navbar-nav .nav-item .nav-link:hover { color: #F7941D !important;}
 
-.navbar-nav .nav-item .nav-link.active { color: #F7941D !important;}
+.navbar-nav .nav-item .nav-link.active { color: #F7941D !important; white-space: nowrap;}
 
 table.dataTable>thead .sorting_asc:before, table.dataTable>thead .sorting_desc:after {
     opacity: 0 !important;
