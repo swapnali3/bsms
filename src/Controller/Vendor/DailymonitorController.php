@@ -160,7 +160,7 @@ class DailymonitorController extends VendorAppController
                 $search = '';
                 foreach ($request['material'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                $conditions .= " and materials.id in (".$search.")";
+                $conditions .= " and materials.code in (".$search.")";
             }
             if(isset($request['line'])) {
                 $search = '';
@@ -172,7 +172,7 @@ class DailymonitorController extends VendorAppController
                 $search = '';
                 foreach ($request['factory'] as $mat) { $search .= "'" . $mat . "',"; }
                 $search = rtrim($search, ',');
-                $conditions .= " and factory.id in (".$search.")";
+                $conditions .= " and vendor_factories.factory_code in (".$search.")";
             }
             if(isset($request['plan_date']) && !empty($request['plan_date'])) {
                 $search = $request['plan_date'];
