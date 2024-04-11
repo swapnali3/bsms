@@ -757,9 +757,9 @@ body:not(.layout-fixed) .main-sidebar {
   }
 /* Sidebar styling ends here */
 
-.navbar-nav .nav-item .nav-link { color: #121212 !important;}
+.navbar-nav .nav-item .nav-link { color: #121212 !important; white-space: nowrap;}
 
-.navbar-nav .nav-item .nav-link:hover { color: #F7941D !important;}
+.navbar-nav .nav-item .nav-link:hover { color: #F7941D !important;  white-space: nowrap; }
 
 .navbar-nav .nav-item .nav-link.active { color: #F7941D !important; white-space: nowrap;}
 
