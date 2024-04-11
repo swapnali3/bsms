@@ -138,7 +138,6 @@
                     <th style="min-width: 400px;">Description</th>
                     <th>PO Qty</th>
                     <th>Total Grn Qty</th>
-                    <th>Grn Qty</th>
                     <th>Pending Qty</th>
                     <th>Order Unit</th>
                     <th>Net Price</th>
@@ -147,6 +146,7 @@
                     <th>Gross Value</th>
                     <th>Schedule Qty</th>
                     <th>ASN Qty</th>
+                    <th>GRN QTY</th>
                     <th>ASN No</th>
                     <th>Delivery Date</th>
                     <th>Status</th>
