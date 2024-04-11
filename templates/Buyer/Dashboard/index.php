@@ -347,7 +347,7 @@
         <?= $this->Html->image('suplier-icon.png', ['width' => '50']) ?>
         </div>
         <div class="row flex-column">
-          <label class="mb-0" style="color:#F7941D !important">Supplier</label>
+          <label class="mb-0" style="color:#F7941D !important">Vendor</label>
           <span id="card_supplier">
             <?= h($card_supplier) ?>
           </span>
@@ -432,7 +432,7 @@
 
   <div class="col-sm-12 col-lg-6">
     <div class="card card-default card_box_shadow">
-      <div class="card-header">Spend by Category</div>
+      <div class="card-header">Spend by Segment ( Value )</div>
       <div class="card-body">
         <div class="row">
           <div class="col-12">
@@ -453,7 +453,7 @@
               <table class="supplier-wise-table table table-borderless">
                 <thead>
                   <tr>
-                    <th>CATEGORY</th>
+                    <th>SEGMENT</th>
                     <th>SUPPLIER</th>
                     <th>SUPPLIER SHARE</th>
                   </tr>
@@ -496,7 +496,7 @@
 
   <div class="col-sm-12 col-lg-12 ">
     <div class="card card-default card_box_shadow">
-      <div class="card-header">Category Wise Indent</div>
+      <div class="card-header">SEGMENT WISE INDENT</div>
       <div class="card-body">
         <div class="table-container table-graph" id="category_wise_indent">
           <?= $category_wise_indent ?>
@@ -524,29 +524,11 @@
     }
   });
 
-  var purchase_volume_segment_wise = [
-    <?php if (isset($purchase_volume_segment_wise)) : ?>
-    <?php foreach($purchase_volume_segment_wise as $mat) : ?>
-    { value: <?= h($mat['value']) ?>, category: "<?= h($mat['category']) ?>" },
-    <?php endforeach; ?>
-    <?php endif; ?>
-  ];
+  var purchase_volume_segment_wise = [];
 
-  var spend_by_category = [
-    <?php if (isset($spend_by_category)) : ?>
-    <?php foreach($spend_by_category as $mat) : ?>
-    { value: <?= h($mat['value']) ?>, category: "<?= h($mat['category']) ?>" },
-    <?php endforeach; ?>
-    <?php endif; ?>
-  ];
+  var spend_by_category = [];
 
-  var delivery_time = [
-    <?php if (isset($delivery_time)) : ?>
-    <?php foreach($delivery_time as $mat) : ?>
-    { "year": "<?= h($mat['year']) ?>", "early": <?= h($mat['early']) ?>, "on_time": <?= h($mat['on_time']) ?>, "late": <?= h($mat['late']) ?>},
-    <?php endforeach; ?>
-    <?php endif; ?>
-  ];
+  var delivery_time = [];
 
 
   $(document).on("click", "#id_sub", function () {
@@ -559,7 +541,7 @@
       success: function (r) {
         str_data = r;
         console.log(r);
-        $("#card_spend").text(r.card_spend);
+        $("#card_spend").text(r.card_spend+" Lacs.");
         $("#card_supplier").text(r.card_supplier);
         $("#card_transactions").text(r.card_transactions);
         $("#card_po_count").text(r.card_po_count);
@@ -567,7 +549,7 @@
 
         pivot_data = {};
         type_list = [];
-        the_table = '<table><thead><tr><th>Category</th>';
+        the_table = '<table><thead><tr><th>SEGMENT</th>';
         $.each(r.category_wise_indent, function (index, row) {
           if (!pivot_data.hasOwnProperty(row['segment'])) {
             pivot_data[row['segment']] = {};
@@ -595,6 +577,7 @@
           the_table += "</tr>";
         });
 
+        $("#swbsa").html(`<tr><td colspan="3">No Records</td></tr>`);
         the_table += '</table>';
         $.each(r.swbsa, function (index, row) {
           $("#swbsa").html(`<tr><td class="d-flex flex-column"><div><b>` + row['segment'] + `</b></div><div>` + row['name'] + `</div></td><td>` + row['sap_vendor_code'] + `</td><td><div class="slider-container"><div class="slider bg-` + row['color'] + `" style="width: ` + row['net_value'] + `%;"></div><span class="percentage">` + row['net_value'] + `%</span></div></td></tr>`);
