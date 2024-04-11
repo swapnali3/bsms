@@ -127,7 +127,8 @@ class PurchaseOrdersController extends BuyerAppController
         }
         // echo '<pre>';print_r($conditions);exit;
         $conn = ConnectionManager::get('default');
-        $material = $conn->execute("select distinct * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, asn_footers.qty as grn, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, asn_footers.qty as received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', a.asn_no,
+        $material = $conn->execute("select distinct * from (select po_headers.id, po_headers.sap_vendor_code, po_headers.po_no, item, materials.type, materials.segment, po_footers.material, po_footers.short_text, po_qty, grn_qty, case
+        when a.status = 3 then asn_footers.qty else '' end as grn, pending_qty, po_footers.order_unit, po_footers.net_price, po_footers.net_value, po_footers.gross_value,po_footers.price_unit, po_item_schedules.actual_qty, asn_footers.qty as received_qty, DATE_FORMAT(po_item_schedules.delivery_date, '%d-%m-%Y') as 'delivery_date', a.asn_no,
         case
             when a.status = 3 then 'Received' else
             case when a.status = 2 then 'In-Transit' else
@@ -160,7 +161,6 @@ class PurchaseOrdersController extends BuyerAppController
             $tmp[] = $mat['short_text'];
             $tmp[] = $mat['po_qty'];
             $tmp[] = $mat['grn_qty'];
-            $tmp[] = $mat['grn'];
             $tmp[] = $mat['pending_qty'];
             $tmp[] = $mat['order_unit'];
             $tmp[] = $mat['net_price'];
@@ -169,6 +169,7 @@ class PurchaseOrdersController extends BuyerAppController
             $tmp[] = $mat['price_unit'];
             $tmp[] = $mat['actual_qty'];
             $tmp[] = $mat['received_qty'];
+            $tmp[] = $mat['grn'];
             $tmp[] = $mat['asn_no'];
             $tmp[] = $mat['delivery_date'];
             $tmp[] = $mat['status'];
