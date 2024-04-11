@@ -755,9 +755,11 @@ body:not(.layout-fixed) .main-sidebar {
   .nav-sidebar .nav-item .nav-link i {
     margin-right: 15px;
   }
+
+  .nav-item a { white-space: nowrap !important;}
 /* Sidebar styling ends here */
 
-.navbar-nav .nav-item .nav-link { color: #121212 !important;}
+.navbar-nav .nav-item .nav-link { color: #121212 !important;white-space: nowrap;}
 
 .navbar-nav .nav-item .nav-link:hover { color: #F7941D !important;}
 
