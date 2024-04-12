@@ -138,6 +138,129 @@
   }
 
   /* .supplier-wise-table { margin-top: 20px;} */
+
+  .graph-container {
+      width: 500px;
+      margin-left: 20px;
+    }
+
+    .containers {
+      display: flex;
+      justify-content: space-between;
+      width: 500px;
+    }
+
+    .one,
+    .two,
+    .three,
+    .four,
+    .five {
+      height: 230px;
+      width: 40px;
+      background-color: #eee;
+      border-radius: 2px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      position: relative;
+    }
+
+    ul li {
+      list-style: none;
+    }
+
+    .color-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .color-two,
+    .color-three {
+      margin-left: 40px;
+    }
+
+    .color-one,
+    .color-two,
+    .color-three {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .c-one,
+    .c-two,
+    .c-three {
+      width: 50px;
+      height: 20px;
+    }
+
+    .c-one {
+      background-color: #F4B678;
+    }
+
+    .c-two {
+      background-color: #EF9234;
+    }
+
+    .c-three {
+      background-color: #FFBF00;
+    }
+
+    .one span,
+    .two span,
+    .three span,
+    .four span,
+    .five span {
+      position: absolute;
+      bottom: -13%;
+      left: 0;
+    }
+
+    .one-one,
+    .two-one,
+    .three-one,
+    .four-one,
+    .five-one {
+      background-color: #F4B678;
+    }
+
+    .one-two,
+    .two-two,
+    .three-two,
+    .four-two,
+    .five-two {
+      background-color: #EF9234;
+    }
+
+    .one-three,
+    .two-three,
+    .three-three,
+    .four-three,
+    .five-three {
+      background-color: #FFBF00;
+    }
+
+    .one-one,
+    .two-one,
+    .three-one,
+    .four-one,
+    .five-one,
+    .one-two,
+    .two-two,
+    .three-two,
+    .four-two,
+    .five-two,
+    .one-three,
+    .two-three,
+    .three-three,
+    .four-three,
+    .five-three {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
 </style>
 
 <?= $this->Html->script('amcharts/index.js') ?>
@@ -147,6 +270,7 @@
 <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
 <script src="https://www.amcharts.com/lib/3/serial.js"></script>
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 
 <div class="row ">
@@ -423,7 +547,51 @@
       <div class="card-body">
         <div class="row">
           <div class="col-12">
-            <div id="chartdiv2"></div>
+            <div id="chartdiv2">
+            <div class="graph-container">
+    <ul class="color-container">
+      <li class="color-one">
+        <div class="c-one"></div>
+        <span>Early</span>
+      </li>
+      <li class="color-two">
+        <div class="c-two"></div>
+        <span>On-Time</span>
+      </li>
+      <li class="color-three">
+        <div class="c-three"></div>
+        <span>Late</span>
+      </li>
+    </ul>
+    <div class="containers">
+      <div class="one">
+        <div class="one-one"></div>
+        <div class="one-two"></div>
+        <div class="one-three"></div><span></span>
+      </div>
+      <div class="two">
+        <div class="two-one"></div>
+        <div class="two-two"></div>
+        <div class="two-three"></div><span></span>
+      </div>
+      <div class="three">
+        <div class="three-one"></div>
+        <div class="three-two"></div>
+        <div class="three-three"></div><span></span>
+      </div>
+      <div class="four">
+        <div class="four-one"></div>
+        <div class="four-two"></div>
+        <div class="four-three"></div><span></span>
+      </div>
+      <div class="five">
+        <div class="five-one"></div>
+        <div class="five-two"></div>
+        <div class="five-three"></div><span></span>
+      </div>
+    </div>
+  </div>
+            </div>
           </div>
         </div>
       </div>
