@@ -576,12 +576,15 @@
           });
           the_table += "</tr>";
         });
-
-        $("#swbsa").html(`<tr><td colspan="3">No Records</td></tr>`);
         the_table += '</table>';
-        $.each(r.swbsa, function (index, row) {
-          $("#swbsa").html(`<tr><td class="d-flex flex-column"><div><b>` + row['segment'] + `</b></div><div>` + row['name'] + `</div></td><td>` + row['sap_vendor_code'] + `</td><td><div class="slider-container"><div class="slider bg-` + row['color'] + `" style="width: ` + row['net_value'] + `%;"></div><span class="percentage">` + row['net_value'] + `%</span></div></td></tr>`);
-        });
+        
+        if ((r.swbsa).length < 1){ $("#swbsa").html(`<tr><td colspan="3">No Records</td></tr>`);}
+        else{
+          $("#swbsa").empty();
+          $.each(r.swbsa, function (index, row) {
+            $("#swbsa").append(`<tr><td class="d-flex flex-column"><div><b>` + row['segment'] + `</b></div><div>` + row['name'] + `</div></td><td>` + row['sap_vendor_code'] + `</td><td><div class="slider-container"><div class="slider bg-` + row['color'] + `" style="width: ` + row['net_value'] + `%;"></div><span class="percentage">` + row['net_value'] + `%</span></div></td></tr>`);
+          });
+        }
 
         $("#category_wise_indent").html(the_table);
         refresh_spendbycategory(r.spend_by_category);
