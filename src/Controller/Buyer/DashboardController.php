@@ -170,7 +170,7 @@ class DashboardController extends BuyerAppController
             ) as a group by segment order by value desc limit 5")->fetchAll('assoc');
         // echo '<pre>'; print_r($purchase_volume_segment_wise); exit;
 
-        $delivery_time = $conn->execute("select distinct CONCAT(name, '<br>',TRIM(LEADING '0' FROM sap_vendor_code)) as vendor, sum(e) early, sum(o) on_time, sum(l) late from (
+        $delivery_time = $conn->execute("select distinct CONCAT(name, '<br>',TRIM(LEADING '0' FROM sap_vendor_code)) as vendor, sum(e) as early, sum(o) as on_time, sum(l) as late from (
             select CASE 
                 WHEN LENGTH(vendor_temps.name) > 10 THEN CONCAT(SUBSTRING(vendor_temps.name, 1, 10), '...')
                 ELSE vendor_temps.name 
@@ -185,7 +185,7 @@ class DashboardController extends BuyerAppController
             left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code".$conditions.") as a
             where e+o+l <> 0
             group by vendor
-            order by late, on_time, early desc limit 5")->fetchAll('assoc');
+            order by late desc limit 5")->fetchAll('assoc');
         // echo '<pre>'; print_r($delivery_time); exit;
             
         $spend_by_category = $conn->execute("select segment as category, sum(net_value) as value from (
