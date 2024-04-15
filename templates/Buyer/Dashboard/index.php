@@ -757,6 +757,7 @@
         $("#category_wise_indent").html(the_table);
         refresh_spendbycategory(r.spend_by_category);
         refresh_purchasevolume(r.purchase_volume_segment_wise);
+        console.log(r.delivery_time);
         refresh_deliverytime(r.delivery_time);
       },
       complete: function () { $("#gif_loader").hide(); }

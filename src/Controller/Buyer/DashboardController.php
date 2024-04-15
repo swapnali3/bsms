@@ -170,8 +170,8 @@ class DashboardController extends BuyerAppController
             ) as a group by segment order by value desc limit 5")->fetchAll('assoc');
         // echo '<pre>'; print_r($purchase_volume_segment_wise); exit;
 
-        $delivery_time = $conn->execute("select distinct year, sum(e) early, sum(o) on_time, sum(l) late from (
-            select vendor_temps.sap_vendor_code as year, 
+        $delivery_time = $conn->execute("select distinct vendor, sum(e) early, sum(o) on_time, sum(l) late from (
+            select vendor_temps.sap_vendor_code as vendor, 
             case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'e',
             case when (TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 7 and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16)  then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'o',
             case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'l'
@@ -181,7 +181,7 @@ class DashboardController extends BuyerAppController
             left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
             left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code".$conditions.") as a
             where e+o+l <> 0
-            group by year
+            group by vendor
             order by late, on_time, early desc limit 5")->fetchAll('assoc');
         // echo '<pre>'; print_r($delivery_time); exit;
             
