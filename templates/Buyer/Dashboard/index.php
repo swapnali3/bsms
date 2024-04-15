@@ -213,7 +213,7 @@
     .four span,
     .five span {
       position: absolute;
-      bottom: -13%;
+      bottom: -17%;
       left: 0;
     }
 
@@ -261,6 +261,8 @@
       align-items: center;
       width: 100%;
     }
+
+    .v-name { white-space: nowrap; font-size: .8rem;}
 </style>
 
 <?= $this->Html->script('amcharts/index.js') ?>
@@ -567,27 +569,27 @@
       <div class="one">
         <div class="one-one"></div>
         <div class="one-two"></div>
-        <div class="one-three"></div><span></span>
+        <div class="one-three"></div><span class="v-name"></span>
       </div>
       <div class="two">
         <div class="two-one"></div>
         <div class="two-two"></div>
-        <div class="two-three"></div><span></span>
+        <div class="two-three"></div><span class="v-name"></span>
       </div>
       <div class="three">
         <div class="three-one"></div>
         <div class="three-two"></div>
-        <div class="three-three"></div><span></span>
+        <div class="three-three"></div><span class="v-name"></span>
       </div>
       <div class="four">
         <div class="four-one"></div>
         <div class="four-two"></div>
-        <div class="four-three"></div><span></span>
+        <div class="four-three"></div><span class="v-name"></span>
       </div>
       <div class="five">
         <div class="five-one"></div>
         <div class="five-two"></div>
-        <div class="five-three"></div><span></span>
+        <div class="five-three"></div><span class="v-name"></span>
       </div>
     </div>
   </div>

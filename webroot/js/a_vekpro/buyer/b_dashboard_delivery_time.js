@@ -157,17 +157,43 @@ var graph_data1 = [
   }
 ];
 
-function refresh_graph(data) {
-  for (var i = 0; i < data.length; i++) {
-    var barSelector = '.' + getClass(i);
+var graph_data2 = [
+  {
+    "vendor": "0000016751 - Viajy Print",
+    "early": "183",
+    "on_time": "45",
+    "late": "23"
+  },
+  {
+    "vendor": "0000013644 - Crown",
+    "early": "172",
+    "on_time": "21",
+    "late": "32"
+  },
+  
+];
+
+function refresh_deliverytime(data) {
+  for (var j = 0; j < data.length; j++) {
+    var barSelector = '.' + getClass(j);
     var heights = [
-      parseInt(data[i].early),
-      parseInt(data[i].on_time),
-      parseInt(data[i].late)
+      parseInt(data[j].early),
+      parseInt(data[j].on_time),
+      parseInt(data[j].late)
     ];
     var total = heights.reduce((acc, val) => acc + val, 0);
-    var percentages = heights.map(val => (val / total) * 100);
-    setHeightsAndContent(barSelector, percentages, data[i].vendor);
+    var percentages = heights.map(val => total === 0 ? 0 : (val / total) * 100);
+    setHeightsAndContent(barSelector, percentages, data[j].vendor);
+  }
+
+  for (var k = data.length; k < 5; k++) {
+    var excessBarSelector = '.' + getClass(k);
+    document.querySelector(excessBarSelector).style.display = 'none';
+  }
+
+  for (var l = 0; l < data.length; l++) {
+    var visibleBarSelector = '.' + getClass(l);
+    document.querySelector(visibleBarSelector).style.display = 'flex';
   }
 }
 
@@ -190,7 +216,7 @@ function setHeightsAndContent(selector, heights, vendor) {
     }
   });
   var spanElement = document.querySelector(selector + ' > span');
-  spanElement.textContent = vendor;
+  spanElement.innerHTML = vendor;
 }
 
 
