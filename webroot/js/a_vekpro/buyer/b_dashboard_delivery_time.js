@@ -98,75 +98,102 @@
 
 
 var graph_data = [
-    {
-      "vendor": "0000016751",
-      "early": "192",
-      "on_time": "0",
-      "late": "0"
-    },
-    {
-      "vendor": "0000013644",
-      "early": "166",
-      "on_time": "0",
-      "late": "0"
-    },
-    {
-      "vendor": "0000028641",
-      "early": "48",
-      "on_time": "0",
-      "late": "0"
-    },
-    {
-      "vendor": "0000023954",
-      "early": "0",
-      "on_time": "14",
-      "late": "0"
-    },
-    {
-      "vendor": "0000023985",
-      "early": "35",
-      "on_time": "0",
-      "late": "18"
-    }
-  ];
-
-  function refresh_graph(data) {
-    for (var i = 0; i < data.length; i++) {
-      var barSelector = '.' + getClass(i);
-      var heights = [
-        parseInt(data[i].early),
-        parseInt(data[i].on_time),
-        parseInt(data[i].late)
-      ];
-      var total = heights.reduce((acc, val) => acc + val, 0);
-      var percentages = heights.map(val => (val / total) * 100);
-      setHeightsAndContent(barSelector, percentages, data[i].vendor);
-    }
+  {
+    "vendor": "0000016751",
+    "early": "192",
+    "on_time": "0",
+    "late": "0"
+  },
+  {
+    "vendor": "0000013644",
+    "early": "166",
+    "on_time": "0",
+    "late": "0"
+  },
+  {
+    "vendor": "0000028641",
+    "early": "48",
+    "on_time": "0",
+    "late": "0"
+  },
+  {
+    "vendor": "0000023954",
+    "early": "0",
+    "on_time": "14",
+    "late": "0"
+  },
+  {
+    "vendor": "0000023985",
+    "early": "35",
+    "on_time": "0",
+    "late": "18"
   }
+];
 
-  refresh_graph(graph_data);
+var graph_data1 = [
+  {
+    "vendor": "0000016751 - Viajy Print",
+    "early": "183",
+    "on_time": "45",
+    "late": "23"
+  },
+  {
+    "vendor": "0000013644 - Crown",
+    "early": "172",
+    "on_time": "21",
+    "late": "32"
+  },
+  {
+    "vendor": "0000028641 - Ganna",
+    "early": "48",
+    "on_time": "23",
+    "late": "233"
+  },
+  {
+    "vendor": "0000023954 - Phillipi",
+    "early": "23",
+    "on_time": "14",
+    "late": "32"
+  }
+];
 
-  function setHeightsAndContent(selector, heights, vendor) {
-var total = heights.reduce((acc, val) => acc + val, 0);
-if (total === 0) {
-  document.querySelector(selector).style.display = 'none';
-  return;
+function refresh_graph(data) {
+  for (var i = 0; i < data.length; i++) {
+    var barSelector = '.' + getClass(i);
+    var heights = [
+      parseInt(data[i].early),
+      parseInt(data[i].on_time),
+      parseInt(data[i].late)
+    ];
+    var total = heights.reduce((acc, val) => acc + val, 0);
+    var percentages = heights.map(val => (val / total) * 100);
+    setHeightsAndContent(barSelector, percentages, data[i].vendor);
+  }
 }
-var elements = document.querySelectorAll(selector + ' > div');
-elements.forEach(function (element, index) {
-  if (heights[index] === 0) {
-    element.style.display = 'none';
-  } else {
-    element.style.display = 'block';
-    element.style.height = heights[index] + '%';
-    element.textContent = heights[index].toFixed(0) + '%';
+
+refresh_graph(graph_data);
+
+function setHeightsAndContent(selector, heights, vendor) {
+  var total = heights.reduce((acc, val) => acc + val, 0);
+  if (total === 0) {
+    document.querySelector(selector).style.display = 'none';
+    return;
   }
-});
-var spanElement = document.querySelector(selector + ' > span');
-spanElement.textContent = vendor;
+  var elements = document.querySelectorAll(selector + ' > div');
+  elements.forEach(function (element, index) {
+    if (heights[index] === 0) {
+      element.style.display = 'none';
+    } else {
+      element.style.display = 'block';
+      element.style.height = heights[index] + '%';
+      element.textContent = heights[index].toFixed(0) + '%';
+    }
+  });
+  var spanElement = document.querySelector(selector + ' > span');
+  spanElement.textContent = vendor;
 }
 
 
-  function getClass(index) {
-    return ['one', 'two', 'three', 'four', 'five'][index];
-  }
+function getClass(index) {
+  return ['one', 'two', 'three', 'four', 'five'][index];
+}
