@@ -96,83 +96,6 @@
 //     });
 // }
 
-
-var graph_data = [
-  {
-    "vendor": "0000016751",
-    "early": "192",
-    "on_time": "0",
-    "late": "0"
-  },
-  {
-    "vendor": "0000013644",
-    "early": "166",
-    "on_time": "0",
-    "late": "0"
-  },
-  {
-    "vendor": "0000028641",
-    "early": "48",
-    "on_time": "0",
-    "late": "0"
-  },
-  {
-    "vendor": "0000023954",
-    "early": "0",
-    "on_time": "14",
-    "late": "0"
-  },
-  {
-    "vendor": "0000023985",
-    "early": "35",
-    "on_time": "0",
-    "late": "18"
-  }
-];
-
-var graph_data1 = [
-  {
-    "vendor": "0000016751 - Viajy Print",
-    "early": "183",
-    "on_time": "45",
-    "late": "23"
-  },
-  {
-    "vendor": "0000013644 - Crown",
-    "early": "172",
-    "on_time": "21",
-    "late": "32"
-  },
-  {
-    "vendor": "0000028641 - Ganna",
-    "early": "48",
-    "on_time": "23",
-    "late": "233"
-  },
-  {
-    "vendor": "0000023954 - Phillipi",
-    "early": "23",
-    "on_time": "14",
-    "late": "32"
-  }
-];
-
-var graph_data2 = [
-  {
-    "vendor": "0000016751 - Viajy Print",
-    "early": "183",
-    "on_time": "45",
-    "late": "23"
-  },
-  {
-    "vendor": "0000013644 - Crown",
-    "early": "172",
-    "on_time": "21",
-    "late": "32"
-  },
-  
-];
-
 function refresh_deliverytime(data) {
   for (var j = 0; j < data.length; j++) {
     var barSelector = '.' + getClass(j);
@@ -197,7 +120,7 @@ function refresh_deliverytime(data) {
   }
 }
 
-refresh_graph(graph_data);
+// refresh_graph(graph_data);
 
 function setHeightsAndContent(selector, heights, vendor) {
   var total = heights.reduce((acc, val) => acc + val, 0);
