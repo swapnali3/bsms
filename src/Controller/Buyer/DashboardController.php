@@ -52,7 +52,7 @@ class DashboardController extends BuyerAppController
         $conn = ConnectionManager::get('default');
         
         // Search Filter
-        $conditions = " where materials.segment <> '' and materials.type <> '-' ";
+        $conditions = " where 1=1 ";
         if ($this->request->is(['post'])) {
             $request = $this->request->getData();
             if(isset($request['year']) && !empty($request['year'])) {
@@ -170,8 +170,11 @@ class DashboardController extends BuyerAppController
             ) as a group by segment order by value desc limit 5")->fetchAll('assoc');
         // echo '<pre>'; print_r($purchase_volume_segment_wise); exit;
 
-        $delivery_time = $conn->execute("select distinct year, sum(e) early, sum(o) on_time, sum(l) late from (
-            select vendor_temps.sap_vendor_code as year, 
+        $delivery_time = $conn->execute("select distinct CONCAT(name, '<br>',TRIM(LEADING '0' FROM sap_vendor_code)) as vendor, sum(e) as early, sum(o) as on_time, sum(l) as late from (
+            select CASE 
+                WHEN LENGTH(vendor_temps.name) > 10 THEN CONCAT(SUBSTRING(vendor_temps.name, 1, 10), '...')
+                ELSE vendor_temps.name 
+            END as name, vendor_temps.sap_vendor_code, 
             case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'e',
             case when (TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 7 and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16)  then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'o',
             case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'l'
@@ -181,8 +184,8 @@ class DashboardController extends BuyerAppController
             left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
             left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code".$conditions.") as a
             where e+o+l <> 0
-            group by year
-            order by late, on_time, early desc limit 5")->fetchAll('assoc');
+            group by vendor
+            order by late desc limit 5")->fetchAll('assoc');
         // echo '<pre>'; print_r($delivery_time); exit;
             
         $spend_by_category = $conn->execute("select segment as category, sum(net_value) as value from (
@@ -194,16 +197,25 @@ class DashboardController extends BuyerAppController
             ) as a group by segment order by value desc limit 5")->fetchAll('assoc');
         // echo '<pre>'; print_r($spend_by_category); exit;
             
-        $swbsa = $conn->execute("select segment, name, sap_vendor_code, max(net_value) as net_value  from (
-            select distinct materials.segment, vendor_temps.name, po_headers.sap_vendor_code, sum(po_footers.net_value) as net_value
-            from po_headers 
-            left join po_footers on po_headers.id=po_footers.po_header_id
-            left join vendor_temps on vendor_temps.sap_vendor_code=po_headers.sap_vendor_code
-            left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
-            ".$conditions."
-            group by materials.segment, po_headers.sap_vendor_code
-            order by materials.segment, net_value desc) as a
-            group by segment limit 5")->fetchAll('assoc');
+        // $swbsa = $conn->execute("select segment, name, sap_vendor_code, max(net_value) as net_value  from (
+        //     select distinct materials.segment, vendor_temps.name, po_headers.sap_vendor_code, sum(po_footers.net_value) as net_value
+        //     from po_headers 
+        //     left join po_footers on po_headers.id=po_footers.po_header_id
+        //     left join vendor_temps on vendor_temps.sap_vendor_code=po_headers.sap_vendor_code
+        //     left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
+        //     ".$conditions."
+        //     group by materials.segment, po_headers.sap_vendor_code
+        //     order by materials.segment, net_value desc) as a
+        //     group by segment limit 5")->fetchAll('assoc');
+
+        $swbsa = $conn->execute("select distinct materials.segment, vendor_temps.name, po_headers.sap_vendor_code, sum(po_footers.net_value) as net_value
+        from po_headers 
+        left join po_footers on po_headers.id=po_footers.po_header_id
+        left join vendor_temps on vendor_temps.sap_vendor_code=po_headers.sap_vendor_code
+        left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
+        ".$conditions."
+        group by materials.segment, po_headers.sap_vendor_code
+        order by net_value desc limit 5")->fetchAll('assoc');
         // echo '<pre>'; print_r("select segment, name, sap_vendor_code, max(net_value) as net_value  from (
         //     select distinct materials.segment, vendor_temps.name, po_headers.sap_vendor_code, sum(po_footers.net_value) as net_value
         //     from po_headers 
