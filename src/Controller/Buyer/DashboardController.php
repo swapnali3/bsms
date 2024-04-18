@@ -125,12 +125,16 @@ class DashboardController extends BuyerAppController
         $card_total_product = $conn->execute("select COUNT(DISTINCT code) as code from materials")->fetchAll('assoc')[0];
         
         // Filtered Cards
-        $card_spend = $conn->execute("select ROUND(COALESCE(sum(net_value)/100000, 0)) as spend from ( select sum(po_footers.net_value) as net_value from po_headers 
+        $card_spend = $conn->execute("select CAST(COALESCE(sum(net_value)/100000, 2) as DECIMAL(10, 2)) as spend from ( select sum(po_footers.net_value) as net_value from po_headers 
         left join po_footers on po_headers.id=po_footers.po_header_id
         left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
         ".$conditions."
         group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0]['spend'];
-        // echo '<pre>'; print_r($card_spend); exit;
+        // echo '<pre>'; print_r("select ROUND(COALESCE(sum(net_value)/100000, 2)) as spend from ( select sum(po_footers.net_value) as net_value from po_headers 
+        // left join po_footers on po_headers.id=po_footers.po_header_id
+        // left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
+        // ".$conditions."
+        // group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a"); exit;
 
         $card_supplier = $conn->execute("select count(distinct sap_vendor_code) as spend from ( select po_headers.sap_vendor_code from po_headers 
         left join po_footers on po_headers.id=po_footers.po_header_id
