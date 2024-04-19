@@ -547,7 +547,7 @@ class StockUploadsController extends VendorAppController
         }
 
         $conn = ConnectionManager::get('default');
-        $query = $conn->execute("SELECT material_transfer_logs.vendor_factory_code, material_transfer_logs.from_material as code, m1.description, CONCAT(material_transfer_logs.from_material, ' - ', m1.description) as from_material, CONCAT(material_transfer_logs.to_material, ' - ', m2.description) as to_material, material_transfer_logs.transfer_qty, DATE_FORMAT(material_transfer_logs.added_date, '%d-%m-%Y') as added_date
+        $query = $conn->execute("SELECT distinct material_transfer_logs.vendor_factory_code, material_transfer_logs.from_material as code, m1.description, CONCAT(material_transfer_logs.from_material, ' - ', m1.description) as from_material, CONCAT(material_transfer_logs.to_material, ' - ', m2.description) as to_material, material_transfer_logs.transfer_qty, DATE_FORMAT(material_transfer_logs.added_date, '%d-%m-%Y') as added_date
         FROM material_transfer_logs
         left join materials as m1 on m1.code = material_transfer_logs.from_material
         left join materials as m2 on m2.code = material_transfer_logs.to_material

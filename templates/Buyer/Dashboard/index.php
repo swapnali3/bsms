@@ -9,7 +9,6 @@
 <?= $this->Html->css('bootstrap-multiselect') ?>
 <?= $this->Html->script('bootstrap-multiselect') ?>
 <?= $this->Html->css('custom') ?>
-<?= $this->Html->css('custom') ?>
 
 <style>
   .hide {
@@ -422,7 +421,7 @@
             <?= $this->Html->image('categories-icon.jpg', ['width' => '50']) ?>
             </div>
             <div class="row flex-column">
-              <label class="mb-0" style="color:#F7941D !important">Total Categories</label>
+              <label class="mb-0" style="color:#F7941D !important">Total Segments</label>
               <span id="card_total_category">
                 <?= h($card_total_category['segment']) ?>
               </span>
