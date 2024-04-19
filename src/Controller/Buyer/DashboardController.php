@@ -175,22 +175,31 @@ class DashboardController extends BuyerAppController
         // echo '<pre>'; print_r($purchase_volume_segment_wise); exit;
 
         $delivery_time = $conn->execute("select distinct CONCAT(name, '<br>',TRIM(LEADING '0' FROM sap_vendor_code)) as vendor, sum(e) as early, sum(o) as on_time, sum(l) as late from (
-            select CASE 
+            select po_item_schedules.added_date, po_item_schedules.delivery_date,
+            CASE 
                 WHEN LENGTH(vendor_temps.name) > 10 THEN CONCAT(SUBSTRING(vendor_temps.name, 1, 10), '...')
                 ELSE vendor_temps.name 
             END as name, vendor_temps.sap_vendor_code, 
-            case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'e',
-            case when (TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 7 and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 16)  then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'o',
-            case when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15 then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'l'
+            case
+                when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) < 8
+                then case
+                    when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) = 0 
+                    then 1 else TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) end else 0 end as 'e' ,
+            case
+                when (TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 7 and TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) <16)
+                    then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'o' ,
+            case
+                when TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) > 15
+                then TIMESTAMPDIFF( DAY, po_item_schedules.added_date, po_item_schedules.delivery_date ) else 0 end as 'l'
             from po_item_schedules
             left join po_footers on po_footers.id = po_item_schedules.po_footer_id
             left join po_headers on po_footers.po_header_id = po_headers.id
             left join materials on materials.code = po_footers.material and materials.sap_vendor_code = po_headers.sap_vendor_code
-            left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code".$conditions.") as a
-            where e+o+l <> 0
+            left join vendor_temps on vendor_temps.sap_vendor_code = po_headers.sap_vendor_code ".$conditions." ) as a
+            where e+o+l <>0
             group by vendor
             order by late desc limit 5")->fetchAll('assoc');
-        // echo '<pre>'; print_r($delivery_time); exit;
+
             
         $spend_by_category = $conn->execute("select segment as category, sum(net_value) as value from (
             select distinct materials.segment, po_footers.net_value from po_headers 
