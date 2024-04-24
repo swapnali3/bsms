@@ -1274,7 +1274,7 @@ class PurchaseOrdersController extends BuyerAppController
         if (count($data) > 0) {
             $totalQty = 0;
             foreach ($data as $row) {
-                $totalQty += $row['actual_qty'];
+                $totalQty += $row['received_qty'];
                 // $row->delivery_date = $row->delivery_date->i18nFormat('dd-MM-YYYY');
             }
             $response['status'] = 1;
