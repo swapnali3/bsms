@@ -277,6 +277,9 @@ class DashboardController extends BuyerAppController
 
         if ($this->request->is(['post'])) {
             $response = array(
+                'card_total_vendor'=>$card_total_vendor,
+                'card_total_category'=>$card_total_category,
+                'card_total_product'=>$card_total_product,
                 'card_spend'=>$card_spend,
                 'card_supplier'=>$card_supplier,
                 'card_transactions'=>$card_transactions,
