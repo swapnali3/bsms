@@ -271,6 +271,21 @@
     white-space: nowrap;
     font-size: .8rem;
   }
+
+  .tab-card {
+    padding-right: 0 !important;
+  }
+
+  .tab-card .active {
+    background-color: #F7941D !important;
+  }
+
+  .tablinks {
+    border: none !important;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-transform: uppercase;
+  }
 </style>
 
 <?= $this->Html->script('amcharts/index.js') ?>
@@ -297,7 +312,7 @@
                 <i class="fas fa-th-large text-info"></i>
               </div>
               <div class="product-info">
-                <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>"
+                <a href="<?php echo $this->Url->build(['controller' => 'vendor-temps']) ?>"
                   class="product-title">Total</a>
                 <span class="p-value">
                   <?= h($vendorDashboardCount['total']) ?>
@@ -310,7 +325,7 @@
                 <i class="fas fa-user-plus text-danger onboarding_icon"></i>
               </div>
               <div class="product-info" style="font-size: smaller;">
-                <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>"
+                <a href="<?php echo $this->Url->build(['controller' => 'vendor-temps']) ?>"
                   class="product-title">Onboarding
                 </a>
                 <span class="p-value">
@@ -323,7 +338,7 @@
                 <i class="fas fa-hourglass-half text-danger"></i>
               </div>
               <div class="product-info" style="font-size: smaller;">
-                <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>"
+                <a href="<?php echo $this->Url->build(['controller' => 'vendor-temps']) ?>"
                   class="product-title">Approval Pending
                 </a>
                 <span class="p-value">
@@ -336,7 +351,7 @@
                 <i class="far fa-check-square text-success"></i>
               </div>
               <div class="product-info" style="font-size: smaller;">
-                <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>"
+                <a href="<?php echo $this->Url->build(['controller' => 'vendor-temps']) ?>"
                   class="product-title">Approved
                 </a>
                 <span class="p-value">
@@ -349,7 +364,7 @@
                 <i class="fas fa-share-square text-warning"></i>
               </div>
               <div class="product-info" style="font-size: smaller;">
-                <a href="<?php echo $this->Url->build([ 'controller' => 'vendor-temps']) ?>" class="product-title">Sent
+                <a href="<?php echo $this->Url->build(['controller' => 'vendor-temps']) ?>" class="product-title">Sent
                   to SAP
                 </a>
                 <span class="p-value">
@@ -374,7 +389,7 @@
                 <i class="fas fa-th-large text-info"></i>
               </div>
               <div class="product-info">
-                <a href="<?php echo $this->Url->build([ 'controller' => '/users']) ?>" class="product-title">Total</a>
+                <a href="<?php echo $this->Url->build(['controller' => '/users']) ?>" class="product-title">Total</a>
                 <span class="p-value">
                   <?= h($buyerCounts['total']) ?>
                 </span>
@@ -386,7 +401,7 @@
 
               </div>
               <div class="product-info" style="font-size: smaller;">
-                <a href="<?php echo $this->Url->build([ 'controller' => '/users']) ?>" class="product-title">Active</a>
+                <a href="<?php echo $this->Url->build(['controller' => '/users']) ?>" class="product-title">Active</a>
                 <span class="p-value">
                   <?= h($buyerCounts['1']) ?>
                 </span>
@@ -397,7 +412,7 @@
                 <i class="far fa-clock text-danger"></i>
               </div>
               <div class="product-info" style="font-size: smaller;">
-                <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Inactive</a>
+                <a href="<?php echo $this->Url->build(['controller' => 'users']) ?>" class="product-title">Inactive</a>
                 <span class="p-value">
                   <?= h(isset($buyerCounts['0']) ? $buyerCounts['0'] : 0) ?>
                 </span>
@@ -420,7 +435,7 @@
                 <i class="fas fa-th-large text-info"></i>
               </div>
               <div class="product-info">
-                <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Total</a>
+                <a href="<?php echo $this->Url->build(['controller' => 'users']) ?>" class="product-title">Total</a>
                 <span class="p-value">
                   <?= h($managerCounts['total']) ?>
                 </span>
@@ -432,7 +447,7 @@
 
               </div>
               <div class="product-info" style="font-size: smaller;">
-                <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Active</a>
+                <a href="<?php echo $this->Url->build(['controller' => 'users']) ?>" class="product-title">Active</a>
                 <span class="p-value">
                   <?= h(isset($managerCounts['1']) ? $managerCounts['1'] : 0) ?>
                 </span>
@@ -443,7 +458,7 @@
                 <i class="far fa-clock text-danger"></i>
               </div>
               <div class="product-info" style="font-size: smaller;">
-                <a href="<?php echo $this->Url->build([ 'controller' => 'users']) ?>" class="product-title">Inactive</a>
+                <a href="<?php echo $this->Url->build(['controller' => 'users']) ?>" class="product-title">Inactive</a>
                 <span class="p-value">
                   <?= h(isset($managerCounts['0']) ? $managerCounts['0'] : 0) ?>
                 </span>
@@ -552,7 +567,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="col-12 useradd hide">
       <div class="card" style="height: 88vh;">
         <div class="card-header">
@@ -574,21 +589,21 @@
             <div class="col-4 mt-3">
               <div class="form-group">
                 <?php
-                      echo $this->Form->control('first_name', [
-                          'class' => 'form-control',
-                          'placeholder' => 'Enter First Name'
-                      ]);
-                      ?>
+                echo $this->Form->control('first_name', [
+                  'class' => 'form-control',
+                  'placeholder' => 'Enter First Name'
+                ]);
+                ?>
               </div>
             </div>
             <div class="col-4 mt-3">
               <div class="form-group">
                 <?php
-                      echo $this->Form->control('last_name', [
-                          'class' => 'form-control',
-                          'placeholder' => 'Enter Last Name'
-                      ]);
-                      ?>
+                echo $this->Form->control('last_name', [
+                  'class' => 'form-control',
+                  'placeholder' => 'Enter Last Name'
+                ]);
+                ?>
               </div>
             </div>
             <div class="col-4 mt-3">
@@ -629,6 +644,14 @@
       </div>
     </div>
 
+    <!--  -->
+    <div class="col-lg-12 p-3 m-2 card tab-card">
+      <div class="col-lg-12 row tab">
+        <button class="col-lg-6 tablinks" onclick="openTab(event, 'Buyer')" id="defaultOpen">Buyer</button>
+        <button class="col-lg-6 tablinks" onclick="openTab(event, 'Vendor')">Vendor</button>
+      </div>
+    </div>
+
     <div class="col-lg-12">
       <div class="card mb-2">
         <div class="card-body">
@@ -637,12 +660,12 @@
             <div class="col-1">
               <label for="id_year">Year</label>
               <select class="form-control" name="year" id="id_year">
-                <?php if (isset($years)) : ?>
-                <?php foreach ($years as $year) : ?>
-                <option value="<?= h($year['year']) ?>" data-select="<?= h($year['year']) ?>">
-                  <?= h($year['year']) ?>
-                </option>
-                <?php endforeach; ?>
+                <?php if (isset($years)): ?>
+                  <?php foreach ($years as $year): ?>
+                    <option value="<?= h($year['year']) ?>" data-select="<?= h($year['year']) ?>">
+                      <?= h($year['year']) ?>
+                    </option>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </select>
             </div>
@@ -667,75 +690,75 @@
               <label for="id_sap_vendor_code">Vendor</label><br>
               <select name="sap_vendor_code[]" id="id_sap_vendor_code" class="chosen" multiple="multiple"
                 style="width: 100%;">
-                <?php if (isset($vendors)) : ?>
-                <?php foreach ($vendors as $mat) : ?>
-                <option value="<?= h($mat['sap_vendor_code']) ?>" data-select="<?= h($mat['sap_vendor_code']) ?>">
-                  <?= h($mat['sap_vendor_code']) ?> -
-                  <?= h($mat['name']) ?>
-                </option>
-                <?php endforeach; ?>
+                <?php if (isset($vendors)): ?>
+                  <?php foreach ($vendors as $mat): ?>
+                    <option value="<?= h($mat['sap_vendor_code']) ?>" data-select="<?= h($mat['sap_vendor_code']) ?>">
+                      <?= h($mat['sap_vendor_code']) ?> -
+                      <?= h($mat['name']) ?>
+                    </option>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </select>
             </div>
             <div class="col-2">
               <label for="id_code">Material</label><br>
               <select name="code[]" id="id_code" multiple="multiple" class="form-control chosen">
-                <?php if (isset($materials)) : ?>
-                <?php foreach ($materials as $mat) : ?>
-                <option value="<?= h($mat['code']) ?>" data-select="<?= h($mat['code']) ?>">
-                  <?= h($mat['code']) ?> -
-                  <?= h($mat['description']) ?>
-                </option>
-                <?php endforeach; ?>
+                <?php if (isset($materials)): ?>
+                  <?php foreach ($materials as $mat): ?>
+                    <option value="<?= h($mat['code']) ?>" data-select="<?= h($mat['code']) ?>">
+                      <?= h($mat['code']) ?> -
+                      <?= h($mat['description']) ?>
+                    </option>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </select>
             </div>
             <div class="col-2">
               <label for="id_type">Type</label><br>
               <select name="type[]" id="id_type" multiple="multiple" class="form-control chosen">
-                <?php if (isset($types)) : ?>
-                <?php foreach ($types as $mat) : ?>
-                <option value="<?= h($mat['type']) ?>">
-                  <?= h($mat['type']) ?>
-                </option>
-                <?php endforeach; ?>
+                <?php if (isset($types)): ?>
+                  <?php foreach ($types as $mat): ?>
+                    <option value="<?= h($mat['type']) ?>">
+                      <?= h($mat['type']) ?>
+                    </option>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </select>
             </div>
             <div class="col-1">
               <label for="id_segment">Segment</label><br>
               <select name="segment[]" id="id_segment" multiple="multiple" class="form-control chosen">
-                <?php if (isset($segments)) : ?>
-                <?php foreach ($segments as $mat) : ?>
-                <option value="<?= h($mat['segment']) ?>" data-select="<?= h($mat['segment']) ?>">
-                  <?= h($mat['segment_code']) ?> -
-                  <?= h($mat['segment']) ?>
-                </option>
-                <?php endforeach; ?>
+                <?php if (isset($segments)): ?>
+                  <?php foreach ($segments as $mat): ?>
+                    <option value="<?= h($mat['segment']) ?>" data-select="<?= h($mat['segment']) ?>">
+                      <?= h($mat['segment_code']) ?> -
+                      <?= h($mat['segment']) ?>
+                    </option>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </select>
             </div>
             <div class="col-1">
               <label for="id_pack_size">Pack Size</label><br>
               <select name="pack_size[]" id="id_pack_size" multiple="multiple" class="form-control chosen">
-                <?php if (isset($packsizes)) : ?>
-                <?php foreach ($packsizes as $mat) : ?>
-                <option value="<?= h($mat['pack_size']) ?>">
-                  <?= h($mat['pack_size']) ?>
-                </option>
-                <?php endforeach; ?>
+                <?php if (isset($packsizes)): ?>
+                  <?php foreach ($packsizes as $mat): ?>
+                    <option value="<?= h($mat['pack_size']) ?>">
+                      <?= h($mat['pack_size']) ?>
+                    </option>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </select>
             </div>
             <div class="col-1">
               <label for="id_uom">Pack UOM</label><br>
               <select name="uom[]" id="id_uom" multiple="multiple" class="form-control chosen">
-                <?php if (isset($uoms)) : ?>
-                <?php foreach ($uoms as $mat) : ?>
-                <option value="<?= h($mat['uom']) ?>">
-                  <?= h($mat['uom']) ?>
-                </option>
-                <?php endforeach; ?>
+                <?php if (isset($uoms)): ?>
+                  <?php foreach ($uoms as $mat): ?>
+                    <option value="<?= h($mat['uom']) ?>">
+                      <?= h($mat['uom']) ?>
+                    </option>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </select>
             </div>
@@ -748,197 +771,209 @@
       </div>
     </div>
 
-    <div class="col-lg-12">
-      <div class="row">
+    <div id="Buyer" class="col-lg-12 p-0 tabcontent">
 
-        <div class="col-sm-12 col-lg-4">
-          <div class="card card_box_shadow mb-2">
-            <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-              <div>
-                <?= $this->Html->image('total-vendor-icon.png', ['width' => '50']) ?>
+
+      <div class="col-lg-12">
+        <div class="row">
+
+          <div class="col-sm-12 col-lg-4">
+            <div class="card card_box_shadow mb-2">
+              <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('total-vendor-icon.png', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Total Vendors</label>
+                  <span id="card_total_vendor">
+                  </span>
+                </div>
               </div>
-              <div class="row flex-column">
-                <label class="mb-0" style="color:#F7941D !important">Total Vendors</label>
-                <span id="card_total_vendor">
-                </span>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-4">
+            <div class="card card_box_shadow mb-2">
+              <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('categories-icon.jpg', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Total Segments</label>
+                  <span id="card_total_category">
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-4">
+            <div class="card card_box_shadow mb-2">
+              <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('products-icon.png', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Total Product</label>
+                  <span id="card_total_product">
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-sm-12 col-lg-2">
+            <div class="card card_box_shadow">
+              <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('spend-icon.jpg', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Spend</label>
+                  <span id="card_spend">
+                    <?= h($card_spend) ?>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-2">
+            <div class="card card_box_shadow">
+              <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('suplier-icon.png', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Vendor</label>
+                  <span id="card_supplier">
+                    <?= h($card_supplier) ?>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-2">
+            <div class="card card_box_shadow">
+              <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('transaction-icon.jpg', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Transaction</label>
+                  <span id="card_transactions">
+                    <?= h($card_transactions) ?>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-2">
+            <div class="card card_box_shadow">
+              <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('po-icon.png', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">PO Count</label>
+                  <span id="card_po_count">
+                    <?= h($card_po_count) ?>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-2">
+            <div class="card card_box_shadow">
+              <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('invoice-icon.jpg', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Invoice Count</label>
+                  <span id="card_invoice_count">
+                    <?= h($card_invoice_count) ?>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="col-sm-12 col-lg-4">
-          <div class="card card_box_shadow mb-2">
-            <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-              <div>
-                <?= $this->Html->image('categories-icon.jpg', ['width' => '50']) ?>
-              </div>
-              <div class="row flex-column">
-                <label class="mb-0" style="color:#F7941D !important">Total Segments</label>
-                <span id="card_total_category">
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12 col-lg-4">
-          <div class="card card_box_shadow mb-2">
-            <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-              <div>
-                <?= $this->Html->image('products-icon.png', ['width' => '50']) ?>
-              </div>
-              <div class="row flex-column">
-                <label class="mb-0" style="color:#F7941D !important">Total Product</label>
-                <span id="card_total_product">
-                </span>
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-sm-12 col-lg-6">
+            <div class="card card-default card_box_shadow">
+              <div class="card-header">Purchase Volume Segment Wise</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div id="chartdiv"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-      </div>
-    </div>
-
-    <div class="col-sm-12 col-lg-2">
-      <div class="card card_box_shadow">
-        <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-          <div>
-            <?= $this->Html->image('spend-icon.jpg', ['width' => '50']) ?>
-          </div>
-          <div class="row flex-column">
-            <label class="mb-0" style="color:#F7941D !important">Spend</label>
-            <span id="card_spend">
-              <?= h($card_spend) ?>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12 col-lg-2">
-      <div class="card card_box_shadow">
-        <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-          <div>
-            <?= $this->Html->image('suplier-icon.png', ['width' => '50']) ?>
-          </div>
-          <div class="row flex-column">
-            <label class="mb-0" style="color:#F7941D !important">Vendor</label>
-            <span id="card_supplier">
-              <?= h($card_supplier) ?>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12 col-lg-2">
-      <div class="card card_box_shadow">
-        <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-          <div>
-            <?= $this->Html->image('transaction-icon.jpg', ['width' => '50']) ?>
-          </div>
-          <div class="row flex-column">
-            <label class="mb-0" style="color:#F7941D !important">Transaction</label>
-            <span id="card_transactions">
-              <?= h($card_transactions) ?>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12 col-lg-2">
-      <div class="card card_box_shadow">
-        <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-          <div>
-            <?= $this->Html->image('po-icon.png', ['width' => '50']) ?>
-          </div>
-          <div class="row flex-column">
-            <label class="mb-0" style="color:#F7941D !important">PO Count</label>
-            <span id="card_po_count">
-              <?= h($card_po_count) ?>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12 col-lg-2">
-      <div class="card card_box_shadow">
-        <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
-          <div>
-            <?= $this->Html->image('invoice-icon.jpg', ['width' => '50']) ?>
-          </div>
-          <div class="row flex-column">
-            <label class="mb-0" style="color:#F7941D !important">Invoice Count</label>
-            <span id="card_invoice_count">
-              <?= h($card_invoice_count) ?>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12 col-lg-6">
-      <div class="card card-default card_box_shadow">
-        <div class="card-header">Purchase Volume Segment Wise</div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12">
-              <div id="chartdiv"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-12 col-lg-6">
-      <div class="card card-default card_box_shadow">
-        <div class="card-header">Delivery Time</div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12">
-              <div id="chartdiv2">
-                <div class="graph-container">
-                  <ul class="color-container">
-                    <li class="color-one">
-                      <div class="c-one"></div>
-                      <span>Early</span>
-                    </li>
-                    <li class="color-two">
-                      <div class="c-two"></div>
-                      <span>On-Time</span>
-                    </li>
-                    <li class="color-three">
-                      <div class="c-three"></div>
-                      <span>Late</span>
-                    </li>
-                  </ul>
-                  <div class="containers">
-                    <div class="one">
-                      <div class="one-one"></div>
-                      <div class="one-two"></div>
-                      <div class="one-three"></div><span class="v-name"></span>
-                    </div>
-                    <div class="two">
-                      <div class="two-one"></div>
-                      <div class="two-two"></div>
-                      <div class="two-three"></div><span class="v-name"></span>
-                    </div>
-                    <div class="three">
-                      <div class="three-one"></div>
-                      <div class="three-two"></div>
-                      <div class="three-three"></div><span class="v-name"></span>
-                    </div>
-                    <div class="four">
-                      <div class="four-one"></div>
-                      <div class="four-two"></div>
-                      <div class="four-three"></div><span class="v-name"></span>
-                    </div>
-                    <div class="five">
-                      <div class="five-one"></div>
-                      <div class="five-two"></div>
-                      <div class="five-three"></div><span class="v-name"></span>
+          <div class="col-sm-12 col-lg-6">
+            <div class="card card-default card_box_shadow">
+              <div class="card-header">Delivery Time</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div id="chartdiv2">
+                      <div class="graph-container">
+                        <ul class="color-container">
+                          <li class="color-one">
+                            <div class="c-one"></div>
+                            <span>Early</span>
+                          </li>
+                          <li class="color-two">
+                            <div class="c-two"></div>
+                            <span>On-Time</span>
+                          </li>
+                          <li class="color-three">
+                            <div class="c-three"></div>
+                            <span>Late</span>
+                          </li>
+                        </ul>
+                        <div class="containers">
+                          <div class="one">
+                            <div class="one-one"></div>
+                            <div class="one-two"></div>
+                            <div class="one-three"></div><span class="v-name"></span>
+                          </div>
+                          <div class="two">
+                            <div class="two-one"></div>
+                            <div class="two-two"></div>
+                            <div class="two-three"></div><span class="v-name"></span>
+                          </div>
+                          <div class="three">
+                            <div class="three-one"></div>
+                            <div class="three-two"></div>
+                            <div class="three-three"></div><span class="v-name"></span>
+                          </div>
+                          <div class="four">
+                            <div class="four-one"></div>
+                            <div class="four-two"></div>
+                            <div class="four-three"></div><span class="v-name"></span>
+                          </div>
+                          <div class="five">
+                            <div class="five-one"></div>
+                            <div class="five-two"></div>
+                            <div class="five-three"></div><span class="v-name"></span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -947,91 +982,407 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-sm-12 col-lg-6">
-      <div class="card card-default card_box_shadow">
-        <div class="card-header">Spend by Segment ( Value )</div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12">
-              <div id="chartdiv3"></div>
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-sm-12 col-lg-6">
+            <div class="card card-default card_box_shadow">
+              <div class="card-header">Spend by Segment ( Value )</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div id="chartdiv3"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="col-sm-12 col-lg-6">
-      <div class="card card-default card_box_shadow">
-        <div class="card-header">Supplier Wise Business Share Analysis</div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-12 d-flex justify-content-between">
-              <div class="col-12">
-                <table class="supplier-wise-table table table-borderless">
-                  <thead>
-                    <tr>
-                      <th>SEGMENT</th>
-                      <th>SUPPLIER</th>
-                      <th>SUPPLIER SHARE</th>
-                    </tr>
-                  </thead>
-                  <tbody id="swbsa">
-                    <?php if (isset($swbsa)) : ?>
-                    <?php foreach ($swbsa as $mat) : ?>
-                    <tr>
-                      <td class="d-flex flex-column">
-                        <div><b>
-                            <?= h($mat['segment']) ?>
-                          </b></div>
-                        <div>
-                          <?= h($mat['name']) ?>
-                        </div>
-                      </td>
-                      <td>
-                        <?= h($mat['sap_vendor_code']) ?>
-                      </td>
-                      <td>
-                        <div class="slider-container">
-                          <div class="slider bg-<?= h($mat['color']) ?>" style="width: <?= h($mat['net_value']) ?>%;">
-                          </div>
-                          <span class="percentage">
-                            <?= h($mat['net_value']) ?>%
-                          </span>
-                        </div>
-                      </td>
-                    </tr>
-                    <?php endforeach; ?>
-                    <?php endif; ?>
-                  </tbody>
-                </table>
+          <div class="col-sm-12 col-lg-6">
+            <div class="card card-default card_box_shadow">
+              <div class="card-header">Supplier Wise Business Share Analysis</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-between">
+                    <div class="col-12">
+                      <table class="supplier-wise-table table table-borderless">
+                        <thead>
+                          <tr>
+                            <th>SEGMENT</th>
+                            <th>SUPPLIER</th>
+                            <th>SUPPLIER SHARE</th>
+                          </tr>
+                        </thead>
+                        <tbody id="swbsa">
+                          <?php if (isset($swbsa)): ?>
+                            <?php foreach ($swbsa as $mat): ?>
+                              <tr>
+                                <td class="d-flex flex-column">
+                                  <div><b>
+                                      <?= h($mat['segment']) ?>
+                                    </b></div>
+                                  <div>
+                                    <?= h($mat['name']) ?>
+                                  </div>
+                                </td>
+                                <td>
+                                  <?= h($mat['sap_vendor_code']) ?>
+                                </td>
+                                <td>
+                                  <div class="slider-container">
+                                    <div class="slider bg-<?= h($mat['color']) ?>"
+                                      style="width: <?= h($mat['net_value']) ?>%;">
+                                    </div>
+                                    <span class="percentage">
+                                      <?= h($mat['net_value']) ?>%
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr>
+                            <?php endforeach; ?>
+                          <?php endif; ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-sm-12 col-lg-12 ">
-      <div class="card card-default card_box_shadow">
-        <div class="card-header">SEGMENT WISE INDENT</div>
-        <div class="card-body">
-          <div class="table-container table-graph" id="category_wise_indent">
-            <?= $category_wise_indent ?>
+      <div class="col-sm-12 col-lg-12 ">
+        <div class="card card-default card_box_shadow">
+          <div class="card-header">SEGMENT WISE INDENT</div>
+          <div class="card-body">
+            <div class="table-container table-graph" id="category_wise_indent">
+              <?= $category_wise_indent ?>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
+    <div id="Vendor" class="col-lg-12 p-0 tabcontent">
+
+
+      <div class="col-lg-12">
+        <div class="row">
+
+          <div class="col-sm-12 col-lg-4">
+            <div class="card card_box_shadow mb-2">
+              <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('total-vendor-icon.png', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Total Vendors</label>
+                  <span id="card_total_vendor">
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-4">
+            <div class="card card_box_shadow mb-2">
+              <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('categories-icon.jpg', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Total Segments</label>
+                  <span id="card_total_category">
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-4">
+            <div class="card card_box_shadow mb-2">
+              <div class="card-body py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('products-icon.png', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Total Product</label>
+                  <span id="card_total_product">
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-sm-12 col-lg-2">
+            <div class="card card_box_shadow">
+              <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('spend-icon.jpg', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Spend</label>
+                  <span id="card_spend">
+                    <?= h($card_spend) ?>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-2">
+            <div class="card card_box_shadow">
+              <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('suplier-icon.png', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Vendor</label>
+                  <span id="card_supplier">
+                    <?= h($card_supplier) ?>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-2">
+            <div class="card card_box_shadow">
+              <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('transaction-icon.jpg', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Transaction</label>
+                  <span id="card_transactions">
+                    <?= h($card_transactions) ?>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-2">
+            <div class="card card_box_shadow">
+              <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('po-icon.png', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">PO Count</label>
+                  <span id="card_po_count">
+                    <?= h($card_po_count) ?>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-2">
+            <div class="card card_box_shadow">
+              <div class="card-body card-height py-0 d-flex align-items-center pt-3 pb-3 justify-content-around box">
+                <div>
+                  <?= $this->Html->image('invoice-icon.jpg', ['width' => '50']) ?>
+                </div>
+                <div class="row flex-column">
+                  <label class="mb-0" style="color:#F7941D !important">Invoice Count</label>
+                  <span id="card_invoice_count">
+                    <?= h($card_invoice_count) ?>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-sm-12 col-lg-6">
+            <div class="card card-default card_box_shadow">
+              <div class="card-header">Purchase Volume Segment Wise</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div id="chartdiv"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="card card-default card_box_shadow">
+              <div class="card-header">Delivery Time</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div id="chartdiv2">
+                      <div class="graph-container">
+                        <ul class="color-container">
+                          <li class="color-one">
+                            <div class="c-one"></div>
+                            <span>Early</span>
+                          </li>
+                          <li class="color-two">
+                            <div class="c-two"></div>
+                            <span>On-Time</span>
+                          </li>
+                          <li class="color-three">
+                            <div class="c-three"></div>
+                            <span>Late</span>
+                          </li>
+                        </ul>
+                        <div class="containers">
+                          <div class="one">
+                            <div class="one-one"></div>
+                            <div class="one-two"></div>
+                            <div class="one-three"></div><span class="v-name"></span>
+                          </div>
+                          <div class="two">
+                            <div class="two-one"></div>
+                            <div class="two-two"></div>
+                            <div class="two-three"></div><span class="v-name"></span>
+                          </div>
+                          <div class="three">
+                            <div class="three-one"></div>
+                            <div class="three-two"></div>
+                            <div class="three-three"></div><span class="v-name"></span>
+                          </div>
+                          <div class="four">
+                            <div class="four-one"></div>
+                            <div class="four-two"></div>
+                            <div class="four-three"></div><span class="v-name"></span>
+                          </div>
+                          <div class="five">
+                            <div class="five-one"></div>
+                            <div class="five-two"></div>
+                            <div class="five-three"></div><span class="v-name"></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-sm-12 col-lg-6">
+            <div class="card card-default card_box_shadow">
+              <div class="card-header">Spend by Segment ( Value )</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div id="chartdiv3"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <div class="card card-default card_box_shadow">
+              <div class="card-header">Supplier Wise Business Share Analysis</div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 d-flex justify-content-between">
+                    <div class="col-12">
+                      <table class="supplier-wise-table table table-borderless">
+                        <thead>
+                          <tr>
+                            <th>SEGMENT</th>
+                            <th>SUPPLIER</th>
+                            <th>SUPPLIER SHARE</th>
+                          </tr>
+                        </thead>
+                        <tbody id="swbsa">
+                          <?php if (isset($swbsa)): ?>
+                            <?php foreach ($swbsa as $mat): ?>
+                              <tr>
+                                <td class="d-flex flex-column">
+                                  <div><b>
+                                      <?= h($mat['segment']) ?>
+                                    </b></div>
+                                  <div>
+                                    <?= h($mat['name']) ?>
+                                  </div>
+                                </td>
+                                <td>
+                                  <?= h($mat['sap_vendor_code']) ?>
+                                </td>
+                                <td>
+                                  <div class="slider-container">
+                                    <div class="slider bg-<?= h($mat['color']) ?>"
+                                      style="width: <?= h($mat['net_value']) ?>%;">
+                                    </div>
+                                    <span class="percentage">
+                                      <?= h($mat['net_value']) ?>%
+                                    </span>
+                                  </div>
+                                </td>
+                              </tr>
+                            <?php endforeach; ?>
+                          <?php endif; ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-12 col-lg-12 ">
+        <div class="card card-default card_box_shadow">
+          <div class="card-header">SEGMENT WISE INDENT</div>
+          <div class="card-body">
+            <div class="table-container table-graph" id="category_wise_indent">
+              <?= $category_wise_indent ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--  -->
+
   </div>
 </div>
+
+<script>
+  document.getElementById("defaultOpen").click();
+  function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+</script>
 
 
 
 <script>
-  var userurl = '<?= $this->Url->build(['controller' => 'dashboard','action' => 'userView']); ?>';
-  var useraddurl = '<?= $this->Url->build(['controller' => 'dashboard','action' => 'userAdd']); ?>';
+  var userurl = '<?= $this->Url->build(['controller' => 'dashboard', 'action' => 'userView']); ?>';
+  var useraddurl = '<?= $this->Url->build(['controller' => 'dashboard', 'action' => 'userAdd']); ?>';
 
   function getRemote(remote_url, method = "GET", type = "json", convertapi = true) {
     var resp = $.ajax({ type: method, dataType: type, url: remote_url, async: false }).responseText;
@@ -1149,6 +1500,9 @@
 
 </script>
 <script src="<?= $this->Url->build('/') ?>js/chart.js"></script>
-<script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_purchase_volume.js"></script>
-<script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_delivery_time.js"></script>
-<script src="<?= $this->Url->build('/') ?>js/a_vekpro/buyer/b_dashboard_spend_by_category.js"></script>
+<script src="<?= $this->Url->build('/') ?>js/a_vekpro/admin/buyer_dashboard_purchase_volume.js"></script>
+<script src="<?= $this->Url->build('/') ?>js/a_vekpro/admin/buyer_dashboard_delivery_time.js"></script>
+<script src="<?= $this->Url->build('/') ?>js/a_vekpro/admin/buyer_dashboard_spend_by_category.js"></script>
+<script src="<?= $this->Url->build('/') ?>js/a_vekpro/admin/vendor_dashboard_purchase_volume.js"></script>
+<script src="<?= $this->Url->build('/') ?>js/a_vekpro/admin/vendor_dashboard_delivery_time.js"></script>
+<script src="<?= $this->Url->build('/') ?>js/a_vekpro/admin/vendor_dashboard_spend_by_category.js"></script>
