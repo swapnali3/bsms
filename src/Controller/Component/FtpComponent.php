@@ -44,6 +44,16 @@ class FtpComponent extends Component
         fclose($temp); 
     }
 
+    function uploadcsvFile($conn, $header, $result, $fileName) {
+        ftp_chdir($conn,'/Portal/stock_visibility/DEV'); 
+        $fp = fopen($fileName, 'w');
+        fputcsv($fp, $header);
+        while ($result) { fputcsv($fp, $row); }
+        $path = stream_get_meta_data($fp)['uri'];
+        return ftp_put($conn, $fileName, $path);
+        fclose($fp);
+    }
+
     function removeFile($conn, $fileName) {
         ftp_chdir($conn,'/DEV/TO_PORTAL'); 
         return ftp_delete($conn, $fileName);
