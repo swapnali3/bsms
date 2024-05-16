@@ -45,21 +45,26 @@ class StockController extends ApiAppController
         ini_set('default_socket_timeout', '120');
     }
 
-    public function genStockVisibility() {
-        // set_time_limit(300);
-
+    public function genStockVisibility() {     
         try {
             $conn = ConnectionManager::get('default');
-            $header = array('Vend_Mat', 'Vendor_Code', 'Vendor_Name', 'Material_Code', 'Material_Desc', 'Material_Type', 'Material_Segment', 'Material_Packsize', 'Opening_Stk_VE', 'Prod_Stk_VE', 'Dispatch_Stk_VE', 'Opening_InTrans_Stk_VE', 'Dispacted_Stk_VE', 'MIGO_STK_Plant');
+            $header = array('Company_Code', 'Vend_Mat', 'Vendor_Code', 'Vendor_Name', 'Material_Code', 'Material_Desc', 'Material_Type', 'Material_Segment', 'Material_Packsize', 'Opening_Stk_VE', 'Prod_Stk_VE', 'Dispatch_Stk_VE', 'Opening_InTrans_Stk_VE', 'Dispacted_Stk_VE', 'MIGO_STK_Plant');
             
             $query = $conn->execute("SELECT * FROM stock_visibility");
-            $result = $query->fetchAll('assoc');            
+            $result = $query->fetchAll('assoc');
             
             $ftpConn = $this->Ftp->connection();
-            $fp = fopen($fileName, 'w');
-
-            // $this->Ftp->uploadcsvFile($ftpConn, $header, $result, 'Data.csv');
-
+        
+            $content = implode(',', $header);
+            foreach($result as $row) {
+                $content .= "\n";
+                $content .= implode(',', $row);
+                $content .= "\n";
+            }
+        
+            $this->Ftp->uploadcsvFile($ftpConn, $content, 'Data.csv');
+            echo 'Successful'; exit;
+       
         } catch (\Exception $e) {
             $response['message'] = $e->getMessage();
         }
