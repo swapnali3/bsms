@@ -48,7 +48,7 @@ class StockController extends ApiAppController
     public function genStockVisibility() {     
         try {
             $conn = ConnectionManager::get('default');
-            $header = array('Company_Code', 'Vend_Mat', 'Vendor_Code', 'Vendor_Name', 'Material_Code', 'Material_Desc', 'Material_Type', 'Material_Segment', 'Material_Packsize', 'Opening_Stk_VE', 'Prod_Stk_VE', 'Dispatch_Stk_VE', 'Opening_InTrans_Stk_VE', 'Dispacted_Stk_VE', 'MIGO_STK_Plant');
+            $header = array('Company_Code', 'Vend_Mat', 'Vendor_Code', 'Vendor_Name', 'Material_Code', 'Material_Desc', 'Material_Type', 'Material_Segment', 'Material_Packsize', 'Opening_Stk_VE', 'Prod_Stk_VE', 'Dispatch_Stk_VE', 'Closing_Stk_VE', 'Opening_InTrans_Stk_VE', 'Dispacted_Stk_VE', 'MIGO_STK_Plant', 'Closing_Stk_Int');
             
             $query = $conn->execute("SELECT * FROM stock_visibility");
             $result = $query->fetchAll('assoc');
@@ -56,13 +56,12 @@ class StockController extends ApiAppController
             $ftpConn = $this->Ftp->connection();
         
             $content = implode(',', $header);
+            $content .= "\n";
             foreach($result as $row) {
-                $content .= "\n";
                 $content .= implode(',', $row);
                 $content .= "\n";
             }
-        
-            $this->Ftp->uploadcsvFile($ftpConn, $content, 'Data.csv');
+            $this->Ftp->uploadcsvFile($ftpConn, $content, 'Template_for_Portal_Data.csv');
             echo 'Successful'; exit;
        
         } catch (\Exception $e) {
