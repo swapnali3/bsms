@@ -101,6 +101,10 @@
                         <li>
                             <?= $this->Html->link(__('PRD Plan / Actual'), ['controller' => '/purchase-orders', 'action' => 'productionplanVsActual'], ['class' => "nav-link", 'escape' => false]) ?>
                         </li>
+
+                        <li>
+                            <?= $this->Html->link(__('Stock Visibility'), ['controller' => '/purchase-orders', 'action' => 'stockVisibility'], ['class' => "nav-link", 'escape' => false]) ?>
+                        </li>
                     </ul>
                 </li>
                 <!-- <li class="nav-item ">

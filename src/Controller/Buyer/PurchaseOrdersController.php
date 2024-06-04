@@ -541,6 +541,8 @@ class PurchaseOrdersController extends BuyerAppController
         echo json_encode($response); exit;
     }
 
+    public function stockVisibility(){ }
+
     public function productionplanVsActual(){
         $this->loadModel("VendorTemps");
         $this->loadModel('VendorTypes');

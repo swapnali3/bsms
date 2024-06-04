@@ -86,8 +86,10 @@ class DashboardController extends AdminAppController
             $managerCounts[$status->status] = $status->count;
         }
 
+        $conn = ConnectionManager::get('default');
+        $years = $conn->execute("select distinct year(added_date) as year from po_headers order by year desc")->fetchAll('assoc');
 
-        $this->set(compact('vendorDashboardCount', 'buyerCounts', 'managerCounts'));
+        $this->set(compact('years', 'vendorDashboardCount', 'buyerCounts', 'managerCounts'));
 
     }
 
