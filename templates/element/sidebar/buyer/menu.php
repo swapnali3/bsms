@@ -124,5 +124,11 @@
         <p>PRD Plan / Actual</p>
       </a>
     </li>
+    <li class="nav-item ">
+      <a href="<?= $this->Url->build('/') ?>buyer/purchase-orders/stock-visiblity" class="nav-link">
+        <i class="fa fa-solid fa-plus nav-icon"></i>
+        <p>Stock Visibility Report</p>
+      </a>
+    </li>
   </ul>
 </li>
