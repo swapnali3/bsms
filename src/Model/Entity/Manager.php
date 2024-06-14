@@ -13,14 +13,11 @@ use Cake\ORM\Entity;
  * @property string $last_name
  * @property string $email
  * @property string $mobile
- * @property bool $status
+ * @property int $status
  * @property \Cake\I18n\FrozenTime $added_date
  * @property \Cake\I18n\FrozenTime $updated_date
-<<<<<<< Updated upstream
  *
  * @property \App\Model\Entity\Buyer[] $buyers
-=======
->>>>>>> Stashed changes
  */
 class Manager extends Entity
 {
@@ -41,9 +38,6 @@ class Manager extends Entity
         'status' => true,
         'added_date' => true,
         'updated_date' => true,
-<<<<<<< Updated upstream
         'buyers' => true,
-=======
->>>>>>> Stashed changes
     ];
 }

@@ -25,10 +25,7 @@ class ManagersTableTest extends TestCase
      */
     protected $fixtures = [
         'app.Managers',
-<<<<<<< Updated upstream
         'app.Buyers',
-=======
->>>>>>> Stashed changes
     ];
 
     /**

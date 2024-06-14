@@ -48,11 +48,7 @@
                   <td><?=h($buyer->sap_user)?></td>
                   <td><?=h($buyer->email)?></td>
                   <td><?=h($buyer->mobile)?></td>
-<<<<<<< Updated upstream
                   <!-- <td><?=h($buyer->manager ? $buyer->manager->first_name .' '.$buyer->manager->last_name : '-')?></td> -->
-=======
-                  <td><?=h($buyer->manager? $buyer->manager->first_name : '-')?></td>
->>>>>>> Stashed changes
                   <td><?=h(($buyer->status) ? 'Active' : 'Inactive')?></td>
                   <td>
                       <?php echo $this->Form->control('manager_id', array('label' => false, 'id' => null,'class' => 'form-control change-manager', 'options' => $managerList, 'empty' => ' ', 'value' => $buyer->manager_id, "data-id" => $buyer->id, "data-code" => $buyer->sap_user)); ?>

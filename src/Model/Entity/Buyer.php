@@ -24,6 +24,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\CompanyCode $company_code
  * @property \App\Model\Entity\PurchasingOrganization $purchasing_organization
+ * @property \App\Model\Entity\Manager $manager
  * @property \App\Model\Entity\BuyerCodeFile[] $buyer_code_files
  * @property \App\Model\Entity\RfqCommunication[] $rfq_communications
  * @property \App\Model\Entity\Rfq[] $rfqs
@@ -54,6 +55,7 @@ class Buyer extends Entity
         'updated_date' => true,
         'company_code' => true,
         'purchasing_organization' => true,
+        'manager' => true,
         'buyer_code_files' => true,
         'rfq_communications' => true,
         'rfqs' => true,

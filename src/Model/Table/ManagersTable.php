@@ -11,11 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Managers Model
  *
-<<<<<<< Updated upstream
  * @property \App\Model\Table\BuyersTable&\Cake\ORM\Association\HasMany $Buyers
  *
-=======
->>>>>>> Stashed changes
  * @method \App\Model\Entity\Manager newEmptyEntity()
  * @method \App\Model\Entity\Manager newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Manager[] newEntities(array $data, array $options = [])
@@ -45,13 +42,10 @@ class ManagersTable extends Table
         $this->setTable('managers');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
-<<<<<<< Updated upstream
 
         $this->hasMany('Buyers', [
             'foreignKey' => 'manager_id',
         ]);
-=======
->>>>>>> Stashed changes
     }
 
     /**
@@ -86,7 +80,7 @@ class ManagersTable extends Table
             ->notEmptyString('mobile');
 
         $validator
-            ->boolean('status')
+            ->integer('status')
             ->notEmptyString('status');
 
         $validator

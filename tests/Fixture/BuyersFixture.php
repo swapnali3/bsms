@@ -30,13 +30,8 @@ class BuyersFixture extends TestFixture
                 'manager_id' => 1,
                 'remark' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'status' => 1,
-<<<<<<< Updated upstream
-                'added_date' => '2024-06-14 12:29:32',
-                'updated_date' => '2024-06-14 12:29:32',
-=======
-                'added_date' => '2024-05-28 17:39:44',
-                'updated_date' => '2024-05-28 17:39:44',
->>>>>>> Stashed changes
+                'added_date' => '2024-06-14 14:52:30',
+                'updated_date' => '2024-06-14 14:52:30',
             ],
         ];
         parent::init();

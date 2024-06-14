@@ -25,13 +25,8 @@ class ManagersFixture extends TestFixture
                 'email' => 'Lorem ipsum dolor sit amet',
                 'mobile' => 'Lorem ipsu',
                 'status' => 1,
-<<<<<<< Updated upstream
-                'added_date' => '2024-06-14 11:42:47',
-                'updated_date' => '2024-06-14 11:42:47',
-=======
-                'added_date' => '2024-05-28 17:31:18',
-                'updated_date' => '2024-05-28 17:31:18',
->>>>>>> Stashed changes
+                'added_date' => '2024-06-14 14:52:44',
+                'updated_date' => '2024-06-14 14:52:44',
             ],
         ];
         parent::init();
