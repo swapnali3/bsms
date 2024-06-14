@@ -29,13 +29,48 @@ class UsersController extends AdminAppController
     public function index()
     {
 
+        $this->loadModel('Users');
+        $this->loadModel('Managers');
+        $this->loadModel('Buyers');
+
+        
+        
+        $managerUsers = $this->Managers
+        ->find('all')
+        ->select($this->Managers)
+        ->select(['Users.id'])
+        ->innerJoin(['Users' => 'users'],['Managers.email=Users.username'])
+        ->where(['Users.group_id' => 4])
+        ->toArray();
+
+        //echo '<pre>'; print_r($managers); exit;
+
+        $buyerUsers = $this->Buyers
+        ->find('all')
+        ->select($this->Buyers)
+        ->select(['Users.id'])
+        ->select(['Managers.first_name', 'Managers.last_name'])
+        ->contain(['Managers'])
+        ->innerJoin(['Users' => 'users'],['Buyers.email=Users.username'])
+        ->where(['Users.group_id' => 2])
+        ->toArray();
+
+
+        $managerList = $this->Managers->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
+            return $row->first_name.' '.$row->last_name;
+        }])->all();
+
+        //echo '<pre>'; print_r($buyerUsers); exit;
+
+        /*
         $vendorTemps = $this->Users
         ->find('all')
         ->select($this->Users)
         ->select(['UserGroups.name'])
-        ->select(['Buyers.sap_user'])
+        ->select(['Buyers.sap_user', 'Managers.first_name'])
         ->contain(['UserGroups'])
         ->leftJoin(['Buyers' => 'buyers'],['Buyers.email=Users.username'])
+        ->leftJoin(['Managers' => 'managers'],['Buyers.manager_id=Managers.id'])
         ->where(['Users.group_id in' => [2, 4]])
         ->toArray();
         
@@ -48,9 +83,9 @@ class UsersController extends AdminAppController
                 $managerUsers[] = $vendor;
             }
             
-        }
+        }*/
         
-        $this->set(compact('buyerUsers', 'managerUsers'));
+        $this->set(compact('buyerUsers', 'managerUsers', 'managerList'));
         
     }
 
@@ -126,6 +161,7 @@ class UsersController extends AdminAppController
     {
         $this->autoRender = false;
         $this->loadModel('Users');
+        $this->loadModel('Managers');
         
         if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
             $this->loadModel('Buyers');
@@ -144,19 +180,41 @@ class UsersController extends AdminAppController
                 $data = $this->request->getData();
                 if (!$this->Users->exists(['username' => $data['email']])) { 
                     $userDetails = $this->Users->newEmptyEntity();
+                    $manager = $this->Managers->newEmptyEntity();
                     $data['username'] = $data['email'];
                     $data['password'] = $data['mobile'];
                     $data['group_id'] = 4;
                     $userDetails = $this->Users->patchEntity($userDetails, $data);
+                    $manager = $this->Managers->patchEntity($manager, $data);
 
+<<<<<<< Updated upstream
                     if($this->Users->save($userDetails)){
+                        $manager = $this->Managers->newEmptyEntity();
+                        $manager = $this->Managers->patchEntity($manager, $data);
+                        $this->Managers->save($manager);
+                        
                         $response['status'] = 1;
                         $response['message'] = 'Manager created successfully';
                     } else {
                         print_r($userDetails);
                         $response['status'] = 0;
                         $response['message'] = 'Manager creation failed';
+=======
+                    $this->Managers->getConnection()->begin();
+                    if($this->Managers->save($manager)){
+                        if($this->Users->save($userDetails)){
+                            $response['status'] = 1;
+                            $response['message'] = 'Manager created successfully';
+                            $this->Managers->getConnection()->commit();
+                        } else {
+                            print_r($userDetails);
+                            $response['status'] = 0;
+                            $response['message'] = 'Manager creation failed';
+                            $this->Managers->getConnection()->rollback();
+                        }
+>>>>>>> Stashed changes
                     }
+                    
                 } else {
                     $response['status'] = 0;
                     $response['message'] = 'User Already Exists';
@@ -174,6 +232,7 @@ class UsersController extends AdminAppController
         $this->autoRender = false;
         $this->loadModel('Users');
         $this->loadModel('Buyers');
+        $this->loadModel('Managers');
 
         $response = array();
         $response['status'] = 0;
@@ -182,20 +241,57 @@ class UsersController extends AdminAppController
         if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
             $data = $this->request->getData();
             $user = $this->Users->get($data['id']);
+            $updateData = [];
+            $updateData['status'] = $data['status'];
 
             unset($user->password);
-            //print_r($data);
-            //print_r($user); exit;
-
-            $user = $this->Users->patchEntity($user, $data);
+            $user = $this->Users->patchEntity($user, $updateData);
 
             if ($this->Users->save($user)) {
                 $response['status'] = 1;
+                if($data['group'] == 2) {
+                    $buyer = $this->Buyers->get($data['table_id']);
+                    $buyer = $this->Buyers->patchEntity($buyer, $updateData);
+                    $this->Buyers->save($buyer);
+                }
+                if($data['group'] == 4) {
+                    $manager = $this->Managers->get($data['table_id']);
+                    $manager = $this->Managers->patchEntity($manager, $updateData);
+                    $this->Managers->save($manager);
+                }
                 if($data['status']) {
                     $response['message'] = 'User successfully activated';
                 } else {
                     $response['message'] = 'User successfully deactivated';
                 }
+            } else {
+                $response['status'] = 0;
+                $response['message'] = 'Fail to updated data';
+            }
+
+        }
+
+        echo json_encode($response); exit;
+
+    }
+
+    function changeBuyerManager () {
+        $this->autoRender = false;
+        $this->loadModel('Buyers');
+
+        $response = array();
+        $response['status'] = 0;
+        $response['message'] = '';
+
+        if ($this->request->is(['patch', 'post', 'put', 'ajax'])) {
+            $data = $this->request->getData();
+            $buyer = $this->Buyers->get($data['id']);
+            $buyer = $this->Buyers->patchEntity($buyer, $data);
+                    
+
+            if ($this->Buyers->save($buyer)) {
+                $response['status'] = 1;
+                $response['message'] = 'Manager updated successfully';
             } else {
                 $response['status'] = 0;
                 $response['message'] = 'Fail to updated data';

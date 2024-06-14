@@ -541,7 +541,71 @@ class PurchaseOrdersController extends BuyerAppController
         echo json_encode($response); exit;
     }
 
-    public function stockVisibility(){ }
+    public function stockVisibility(){ 
+        $clientId = '6bcae912-2b33-40ea-ba9a-ea379f1d6fbf';
+        $clientSecret = 'DCJ8Q~XCv_uLgBNPSddMgNzg.O54IQUWgxj2bc~T';
+        $tenantId = '3dbd3fe9-67fc-4d84-abbf-80c6421b6b90';
+        $urlAccessToken = "https://login.microsoftonline.com/$tenantId/oauth2/token";
+        $resource = 'https://analysis.windows.net/powerbi/api';
+        $group = 'bc1fa1ac-e859-4a02-a41a-ef2e927d00c9';
+        //$report ='a9bf1f89-f827-4fcf-b848-2052324416ba';
+        $report = '80266acd-c205-4b9a-b4f5-01a43b81a2e2';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $urlAccessToken);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+        'resource' => $resource,
+        'client_id' => $clientId,
+        'client_secret' => $clientSecret,
+        'grant_type' => 'client_credentials'
+        ));
+
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+         //print_r($data);
+
+        //echo '<br><br><pre>';
+        $data_obj = json_decode($data);
+        $accessToken = $data_obj->{"access_token"};
+        //echo $accessToken;
+        $embeddedToken = "Bearer $accessToken";
+
+        $getEmbedUrl = "https://api.powerbi.com/v1.0/myorg/groups/$group/reports/$report";
+
+        $curlGetUrl = curl_init();
+        
+        curl_setopt($curlGetUrl, CURLOPT_URL, $getEmbedUrl);
+        curl_setopt($curlGetUrl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curlGetUrl, CURLOPT_HEADER, false);
+        //curl_setopt($curlGetUrl, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curlGetUrl, CURLOPT_HTTPHEADER, array(
+            "Authorization:".$embeddedToken,
+            "Cache-Control: no-cache"
+        ));
+
+        $embedResponse = curl_exec($curlGetUrl);  
+
+        //echo '<pre>'; print_r(json_decode($embedResponse, true)); exit;
+        $embedError = curl_error($curlGetUrl);
+        
+        //$header_size = curl_getinfo($curlGetUrl, CURLINFO_HEADER_SIZE);
+        //$header = substr($embedResponse, 0, $header_size);
+        //$embedResponse = substr($embedResponse, $header_size);
+
+        curl_close($curlGetUrl);  
+        if ($embedError) {   
+            echo "cURL Error #:" . $embedError; 
+        } else {  
+            $embedResponse = json_decode($embedResponse, true);   
+            $embedUrl = $embedResponse['embedUrl'];
+            $reportName = $embedResponse['name'];
+        } 
+        $this->set(compact('embedUrl', 'accessToken', 'report', 'reportName', 'group'));
+    }
 
     public function productionplanVsActual(){
         $this->loadModel("VendorTemps");

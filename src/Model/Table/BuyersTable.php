@@ -55,6 +55,9 @@ class BuyersTable extends Table
             'foreignKey' => 'purchasing_organization_id',
             'joinType' => 'INNER',
         ]);
+        $this->belongsTo('Managers', [
+            'foreignKey' => 'manager_id',
+        ]);
         $this->hasMany('BuyerCodeFiles', [
             'foreignKey' => 'buyer_id',
         ]);
@@ -114,6 +117,10 @@ class BuyersTable extends Table
             ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
+            ->integer('manager_id')
+            ->allowEmptyString('manager_id');
+
+        $validator
             ->scalar('remark')
             ->allowEmptyString('remark');
 
@@ -145,6 +152,7 @@ class BuyersTable extends Table
         $rules->add($rules->isUnique(['sap_user']), ['errorField' => 'sap_user']);
         $rules->add($rules->existsIn('company_code_id', 'CompanyCodes'), ['errorField' => 'company_code_id']);
         $rules->add($rules->existsIn('purchasing_organization_id', 'PurchasingOrganizations'), ['errorField' => 'purchasing_organization_id']);
+        $rules->add($rules->existsIn('manager_id', 'Managers'), ['errorField' => 'manager_id']);
 
         return $rules;
     }

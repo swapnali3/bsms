@@ -16,6 +16,7 @@ use Cake\ORM\Entity;
  * @property string $last_name
  * @property string $mobile
  * @property string $email
+ * @property int|null $manager_id
  * @property string|null $remark
  * @property int $status
  * @property \Cake\I18n\FrozenTime $added_date
@@ -46,6 +47,7 @@ class Buyer extends Entity
         'last_name' => true,
         'mobile' => true,
         'email' => true,
+        'manager_id' => true,
         'remark' => true,
         'status' => true,
         'added_date' => true,
