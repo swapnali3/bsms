@@ -59,31 +59,6 @@ class UsersController extends AdminAppController
         $managerList = $this->Managers->find('list', ['keyField' => 'id', 'valueField' => function ($row) {
             return $row->first_name.' '.$row->last_name;
         }])->all();
-
-        //echo '<pre>'; print_r($buyerUsers); exit;
-
-        /*
-        $vendorTemps = $this->Users
-        ->find('all')
-        ->select($this->Users)
-        ->select(['UserGroups.name'])
-        ->select(['Buyers.sap_user', 'Managers.first_name'])
-        ->contain(['UserGroups'])
-        ->leftJoin(['Buyers' => 'buyers'],['Buyers.email=Users.username'])
-        ->leftJoin(['Managers' => 'managers'],['Buyers.manager_id=Managers.id'])
-        ->where(['Users.group_id in' => [2, 4]])
-        ->toArray();
-        
-        $buyerUsers = [];
-        $managerUsers = [];
-        foreach($vendorTemps as $vendor) {
-            if($vendor->group_id==2) {
-                $buyerUsers[] = $vendor;
-            } else {
-                $managerUsers[] = $vendor;
-            }
-            
-        }*/
         
         $this->set(compact('buyerUsers', 'managerUsers', 'managerList'));
         
@@ -187,7 +162,6 @@ class UsersController extends AdminAppController
                     $userDetails = $this->Users->patchEntity($userDetails, $data);
                     $manager = $this->Managers->patchEntity($manager, $data);
 
-<<<<<<< Updated upstream
                     if($this->Users->save($userDetails)){
                         $manager = $this->Managers->newEmptyEntity();
                         $manager = $this->Managers->patchEntity($manager, $data);
@@ -199,20 +173,6 @@ class UsersController extends AdminAppController
                         print_r($userDetails);
                         $response['status'] = 0;
                         $response['message'] = 'Manager creation failed';
-=======
-                    $this->Managers->getConnection()->begin();
-                    if($this->Managers->save($manager)){
-                        if($this->Users->save($userDetails)){
-                            $response['status'] = 1;
-                            $response['message'] = 'Manager created successfully';
-                            $this->Managers->getConnection()->commit();
-                        } else {
-                            print_r($userDetails);
-                            $response['status'] = 0;
-                            $response['message'] = 'Manager creation failed';
-                            $this->Managers->getConnection()->rollback();
-                        }
->>>>>>> Stashed changes
                     }
                     
                 } else {
