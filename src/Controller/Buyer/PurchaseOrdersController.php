@@ -548,9 +548,9 @@ class PurchaseOrdersController extends BuyerAppController
         $urlAccessToken = "https://login.microsoftonline.com/$tenantId/oauth2/token";
         $resource = 'https://analysis.windows.net/powerbi/api';
         $group = 'bc1fa1ac-e859-4a02-a41a-ef2e927d00c9';
-        //$report ='a9bf1f89-f827-4fcf-b848-2052324416ba';
         $report = '80266acd-c205-4b9a-b4f5-01a43b81a2e2';
 
+        
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $urlAccessToken);
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -563,48 +563,68 @@ class PurchaseOrdersController extends BuyerAppController
         'grant_type' => 'client_credentials'
         ));
 
-        $data = curl_exec($ch);
+        $tokenResponse = curl_exec($ch);
+        $tokenError = curl_error($ch);
         curl_close($ch);
 
-         //print_r($data);
-
-        //echo '<br><br><pre>';
-        $data_obj = json_decode($data);
-        $accessToken = $data_obj->{"access_token"};
-        //echo $accessToken;
-        $embeddedToken = "Bearer $accessToken";
-
-        $getEmbedUrl = "https://api.powerbi.com/v1.0/myorg/groups/$group/reports/$report";
+        $tokenResult = json_decode($tokenResponse, true);
+        $token = $tokenResult["access_token"];
+        $embeddedToken = "Bearer "  . ' ' .  $token;
 
         $curlGetUrl = curl_init();
-        
-        curl_setopt($curlGetUrl, CURLOPT_URL, $getEmbedUrl);
-        curl_setopt($curlGetUrl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curlGetUrl, CURLOPT_HEADER, false);
-        //curl_setopt($curlGetUrl, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($curlGetUrl, CURLOPT_HTTPHEADER, array(
-            "Authorization:".$embeddedToken,
-            "Cache-Control: no-cache"
+        curl_setopt_array($curlGetUrl, array(
+        CURLOPT_URL => "https://api.powerbi.com/v1.0/myorg/groups/$group/reports/",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_CUSTOMREQUEST => "GET",
+        CURLOPT_HTTPHEADER => array(
+            "Authorization: $embeddedToken",
+            "Cache-Control: no-cache",
+            )
         ));
 
-        $embedResponse = curl_exec($curlGetUrl);  
-
-        //echo '<pre>'; print_r(json_decode($embedResponse, true)); exit;
+        $embedResponse = curl_exec($curlGetUrl);
         $embedError = curl_error($curlGetUrl);
-        
-        //$header_size = curl_getinfo($curlGetUrl, CURLINFO_HEADER_SIZE);
-        //$header = substr($embedResponse, 0, $header_size);
-        //$embedResponse = substr($embedResponse, $header_size);
 
-        curl_close($curlGetUrl);  
-        if ($embedError) {   
-            echo "cURL Error #:" . $embedError; 
-        } else {  
-            $embedResponse = json_decode($embedResponse, true);   
-            $embedUrl = $embedResponse['embedUrl'];
-            $reportName = $embedResponse['name'];
-        } 
-        $this->set(compact('embedUrl', 'accessToken', 'report', 'reportName', 'group'));
+        curl_close($curlGetUrl);
+
+        if ($embedError) {
+            echo "cURL Error #:" . $embedError;
+        } else {
+            $embedResponse = json_decode($embedResponse, true);
+            //print_r($embedResponse); exit;
+            $reportName = $embedResponse['value'][1]['name'];
+            $datasetId = $embedResponse['value'][1]['datasetId'];
+            $embedUrl = $embedResponse['value'][1]['embedUrl']; // this is just taking the first value. you need logic to find the report you actually want to embed. This EmbedUrl needs to match the corresponding ReportId you later use in the JavaScript.
+
+            
+            $url = "https://api.powerbi.com/v1.0/myorg/groups/$group/reports/$report/GenerateToken";
+            $tokenRequest = "{\"accessLevel\": \"View\",\"identities\": [{\"username\": \"CRM Apar\",\"reports\": [\"$report\"]}]}";
+            $tmp = json_encode($tokenRequest);
+
+            $curlGetToken = curl_init();
+            curl_setopt($curlGetToken, CURLOPT_URL, $url);
+            curl_setopt($curlGetToken, CURLOPT_POST, true);
+            curl_setopt($curlGetToken, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curlGetToken, CURLOPT_HEADER, false);
+            curl_setopt($curlGetToken, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curlGetToken, CURLOPT_HTTPHEADER, array(
+                "Authorization: $embeddedToken",
+                "Cache-Control: no-cache",
+            ));
+            curl_setopt($curlGetToken, CURLOPT_POSTFIELDS, json_decode($tmp, true));
+
+            $embedTokenResponse = curl_exec($curlGetToken);
+            $embedTokenError = curl_error($curlGetToken);
+            $embedTokenResponse = json_decode($embedTokenResponse, true);
+
+            //print_r($embedTokenResponse); 
+
+            $embedToken = $embedTokenResponse['token'];
+            }
+            
+            curl_close($curlGetToken);
+
+        $this->set(compact('embedUrl', 'embedToken', 'datasetId', 'report', 'reportName', 'group'));
     }
 
     public function productionplanVsActual(){
