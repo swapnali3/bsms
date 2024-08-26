@@ -117,6 +117,20 @@ class DashboardController extends BuyerAppController
 
         $uoms = $conn->execute("select distinct uom from materials where uom is not null")->fetchAll('assoc');
         
+        $card_total_vendor['vendor'] = 0;
+        $card_total_category['segment'] = 0;
+        $card_total_product['code'] = 0;
+        $card_spend = 0;
+        $card_supplier = 0;
+        $card_transactions = 0;
+        $card_po_count = 0;
+        $card_invoice_count = 0;
+        $purchase_volume_segment_wise  = [];
+        $delivery_time = [];
+        $spend_by_category = [];
+        $swbsa = [];
+        $category_wise_indent = [];
+
         // Untouched cards
         $card_total_vendor = $conn->execute("select count(vendor_temps.id) as vendor from vendor_temps left join users on vendor_temps.email=users.username where users.status = 1")->fetchAll('assoc')[0];
         
@@ -124,18 +138,15 @@ class DashboardController extends BuyerAppController
         
         $card_total_product = $conn->execute("select COUNT(DISTINCT code) as code from materials")->fetchAll('assoc')[0];
         
+        if ($this->request->is(['post'])) {
         // Filtered Cards
         $card_spend = $conn->execute("select CAST(COALESCE(sum(net_value)/100000, 2) as DECIMAL(10, 2)) as spend from ( select sum(po_footers.net_value) as net_value from po_headers 
         left join po_footers on po_headers.id=po_footers.po_header_id
         left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
         ".$conditions."
         group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0]['spend'];
-        // echo '<pre>'; print_r("select ROUND(COALESCE(sum(net_value)/100000, 2)) as spend from ( select sum(po_footers.net_value) as net_value from po_headers 
-        // left join po_footers on po_headers.id=po_footers.po_header_id
-        // left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
-        // ".$conditions."
-        // group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a"); exit;
-
+        
+        
         $card_supplier = $conn->execute("select count(distinct sap_vendor_code) as spend from ( select po_headers.sap_vendor_code from po_headers 
         left join po_footers on po_headers.id=po_footers.po_header_id
         left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
@@ -157,6 +168,7 @@ class DashboardController extends BuyerAppController
         group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size) as a")->fetchAll('assoc')[0]['spend'];
         // echo '<pre>'; print_r($card_po_count); exit;
 
+        
         $card_invoice_count = $conn->execute("select count(invoice_no) as spend from ( select distinct asn_headers.invoice_no from asn_headers 
         left join po_headers on po_headers.id=asn_headers.po_header_id
         left join po_footers on po_headers.id=po_footers.po_header_id
@@ -200,7 +212,7 @@ class DashboardController extends BuyerAppController
             group by vendor
             order by late desc limit 5")->fetchAll('assoc');
 
-            
+        
         $spend_by_category = $conn->execute("select segment as category, sum(net_value) as value from (
             select distinct materials.segment, po_footers.net_value from po_headers 
             left join po_footers on po_headers.id=po_footers.po_header_id
@@ -209,17 +221,6 @@ class DashboardController extends BuyerAppController
             group by year(po_footers.added_date), month(po_footers.added_date), po_headers.sap_vendor_code, materials.uom, materials.code, materials.type, materials.segment, materials.pack_size
             ) as a group by segment order by value desc limit 5")->fetchAll('assoc');
         // echo '<pre>'; print_r($spend_by_category); exit;
-            
-        // $swbsa = $conn->execute("select segment, name, sap_vendor_code, max(net_value) as net_value  from (
-        //     select distinct materials.segment, vendor_temps.name, po_headers.sap_vendor_code, sum(po_footers.net_value) as net_value
-        //     from po_headers 
-        //     left join po_footers on po_headers.id=po_footers.po_header_id
-        //     left join vendor_temps on vendor_temps.sap_vendor_code=po_headers.sap_vendor_code
-        //     left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
-        //     ".$conditions."
-        //     group by materials.segment, po_headers.sap_vendor_code
-        //     order by materials.segment, net_value desc) as a
-        //     group by segment limit 5")->fetchAll('assoc');
 
         $swbsa = $conn->execute("select distinct materials.segment, vendor_temps.name, po_headers.sap_vendor_code, sum(po_footers.net_value) as net_value
         from po_headers 
@@ -229,16 +230,7 @@ class DashboardController extends BuyerAppController
         ".$conditions."
         group by materials.segment, po_headers.sap_vendor_code
         order by net_value desc limit 5")->fetchAll('assoc');
-        // echo '<pre>'; print_r("select segment, name, sap_vendor_code, max(net_value) as net_value  from (
-        //     select distinct materials.segment, vendor_temps.name, po_headers.sap_vendor_code, sum(po_footers.net_value) as net_value
-        //     from po_headers 
-        //     left join po_footers on po_headers.id=po_footers.po_header_id
-        //     left join vendor_temps on vendor_temps.sap_vendor_code=po_headers.sap_vendor_code
-        //     left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
-        //     ".$conditions."
-        //     group by materials.segment, po_headers.sap_vendor_code
-        //     order by materials.segment, net_value desc) as a
-        //     group by segment limit 5"); exit;
+        
 
         $ttl = array_sum(array_column($swbsa, 'net_value'));
         foreach ($swbsa as $key => &$crow) {
@@ -247,6 +239,7 @@ class DashboardController extends BuyerAppController
             $crow['color'] = array(0=> 'danger', 1=>'success',2=>'warning', 3=>'primary', 4=>'info')[$color_index];
         }
 
+        
         $cwi = $conn->execute("select distinct materials.segment, materials.type, po_footers.po_qty from po_headers 
         left join po_footers on po_headers.id=po_footers.po_header_id
         left join materials on materials.sap_vendor_code=po_headers.sap_vendor_code and materials.code = po_footers.material
@@ -274,8 +267,8 @@ class DashboardController extends BuyerAppController
             $category_wise_indent .= "</tr>";
         }
         $category_wise_indent .= "</table>";
-
-        if ($this->request->is(['post'])) {
+        
+        
             $response = array(
                 'card_total_vendor'=>$card_total_vendor,
                 'card_total_category'=>$card_total_category,
